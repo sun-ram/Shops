@@ -3,38 +3,34 @@
 <div class="md-toolbar-tools">My Messages</div>
 </md-toolbar> 
 
-<ul ng-repeat="c in categoryList"
-	class="list-group gutter list-group-lg list-group-sp">
-	<li class="list-group-item" ng-click="showDetails = ! showDetails"><md-chips>
-		<md-chip>{{c.categoryName}}<md-icon
+<script type="text/ng-template" id="productTypeList"> 
+	<h4 style="color:red">{{pt.productTypeName}}</h4>
+</script> 
+	
+<script type="text/ng-template" id="productCategoryList">
+	<md-chips ng-if="c.category.length > 0" >
+		<md-chip >{{c.categoryName}}<md-icon
 			md-svg-src="assets/images/ic_arrow_drop_down_black_24px.svg"></md-icon>
-		</md-chip> </md-chips></li>
+		</md-chip> </md-chips>
 
-	<ul ng-if="c.category.length>0" ng-repeat="childcategory in c.category">
-		<li class="list-group-item" ng-click="showType = ! showType"
-			ng-show="showDetails"><md-chips>
-			<md-chip> {{childcategory.categoryName}}<md-icon
-				md-svg-src="assets/images/ic_arrow_drop_down_black_24px.svg"></md-icon></md-chip>
-			</md-chips></li>
+	<md-chips ng-if="c.category.length == 0" ng-click="subcat = ! subcat">
+		<md-chip>{{c.categoryName}}
+		</md-chip> </md-chips>
 
-		<ul ng-if="childcategory.category.length>0" ng-repeat="categorys in childcategory.category">
-			<li class="list-group-item" ng-show="showDetails">
-				<h4>{{categorys.categoryName}}</h4>
-			</li>
-			<ul ng-if="childcategory.productType.length>0" ng-model="checked" ng-click="checked=true" ng-repeat="type in childcategory.productType">
-				<li class="list-group-item" ng-show="showDetails && showType">
-					<h3>{{type.productTypeName}}</h3>
-				</li>
-			</ul>
-		</ul>
+	 		<ul ng-if="c.category.length == 0" ng-show="showDetails || subcat">
+ 			<li ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'"></li>
+ 		</ul>
 
-		<ul ng-if="childcategory.productType.length>0 && checked!='true' " ng-repeat="type in childcategory.productType">
-			<li class="list-group-item" ng-show="showDetails && showType">
-				<h4>{{type.productTypeName}}</h4>
-			</li>
-		</ul>
-		
-	</ul>
-</ul>
+		<ul ng-if="c.category.length > 0" ng-show="showDetails">
+       		<li class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'"></li>
+     	</ul>
+</script>
+	
+<div id='cssmenu' style="color: #fff;">
+	<ul ng-repeat="c in categoryList" >
+ 		<li class='has-sub ' ng-include="'productCategoryList'" ng-click="showDetails = ! showDetails"></li>
+ 		
+ 	</ul>
+</div>
 
 </md-sidenav>
