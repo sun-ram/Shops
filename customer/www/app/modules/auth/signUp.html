@@ -1,0 +1,40 @@
+<md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:450px;border-radius:0px;">
+  <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
+    <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
+      <h2 class="text-center wid_100">SIGN UP</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content style="max-width:800px;max-height:810px;">
+	  <form name="userForm">			
+        <md-input-container flex class="padd_btm10">
+          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
+          <input ng-model="user.emailId" type="email" ng-required="true">
+        </md-input-container >
+         <md-input-container ng-show="isSignUp" flex class="padd_btm10">
+          <label><md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>Mobile No</label>
+          <input ng-model="user.phoneNo"valid-number ng-required="true">
+        </md-input-container >
+	      <md-input-container flex class="padd_btm10 ">
+	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
+	        <input ng-model="user.password" type="password" ng-required="true">
+	      </md-input-container>
+	      <md-input-container flex class="padd_btm10 ">
+	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Confirm Password</label>
+	        <input ng-model="confirmPassword" type="password" ng-required="true">
+	      </md-input-container>
+	       <div class="md-actions padd_btm20" layout="row">
+		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user);">
+		      SIGN UP
+		    </md-button>
+		    <md-button class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
+		      CANCEL
+		    </md-button>
+		  </div>
+	  </form>
+  </md-dialog-content>
+</md-dialog>

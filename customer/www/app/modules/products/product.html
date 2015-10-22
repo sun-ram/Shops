@@ -1,0 +1,57 @@
+<style>
+.mincardwidth:hover,
+.mincardwidth:focus,
+.mincardwidth:active {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    cursor: pointer;
+}
+
+</style>
+
+<md-toolbar style="background-color: rgba(63, 81, 181, 0.01);">
+
+</md-toolbar>
+
+<div layout="row" layout-padding  layout-fill>
+    <md-card flex="15" class="mincardwidth md-whiteframe-9dp">
+      <md-content layout-padding class="test">     
+         <div layout="column">
+                <div>
+                    <img src="assets/images/fruit.jpg" class="imgsize">
+                </div>
+                <div flex>
+                </div>      
+                <div flex>
+                    <p class="text-align-center font-size " style="text-align: center; color:#6eab10">Grapes</p>
+                </div>
+                  <div flex>
+                    <p class="text-align-center font-size "  style="text-align: center; color:#000">$250</p>
+                </div>
+                  <div flex>
+                    <div layout="row" layout-align="center" layout-padding >
+					   <div layout="column" layout-align="start" class="btn-count">
+				         <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
+				            <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 20px;"></md-icon>
+				           </md-button>
+				          <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
+				            <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 20px;"></md-icon>
+				          </md-button> 
+					    </div>     
+	    			<span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
+				     <div layout="column" layout-align="end">
+				     <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 42px; margin:0;">
+			           <span layout-padding hide show-gt-sm>add to
+			           
+			           </span>
+				     </md-button>
+				     </div>
+					</div>
+                </div>
+            </div>
+      </md-content>
+       </md-card>
+      
+       </div>

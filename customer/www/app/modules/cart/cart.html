@@ -1,0 +1,21 @@
+
+<div layout="column" ng-init="getCartListFromDB()">
+	<div layout="row">
+		<div flex="80"><h2>My cart</h2></div>
+		<div flex="20"><h4> < Back to shopping</h4></div>
+	</div>
+	<div layout="row">
+
+
+		<div flex="80" layout="row" ng-repeat="product in cartItem">
+			<div flex="30">{{product.images}}</div>
+			<div flex="30">{{product.productName}}</div>
+			<div flex="15">{{product.quantity}}</div>
+			<div flex="15">{{product.price}}</div>
+			<div flex="10">delete</div>
+		</div>
+		<div flex="20">CHeck out process</div>
+
+	</div>
+</div>
+

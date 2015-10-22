@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html ng-app="app">
+  <head>
+      <meta name="format-detection" content="telephone=no">
+      <meta name="msapplication-tap-highlight" content="no">
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+      <link rel="stylesheet" type="text/css" href="libs/angular-material/angular-material.min.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/angular-toastr.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/md-data-table.css">
+	    <link rel="stylesheet" type="text/css" href="assets/css/higgidy_carousel.css"> 
+
+      <title>Aviate</title>
+
+  </head>
+  <body style="background-color:#E6E8F5;">
+
+      <div ui-view> </div>
+
+      <script src="libs/jquery/jquery-1.11.3.min.js"></script>
+      <script src="libs/jquery/jquery-ui.js"></script>
+      <script src="libs/angular/angular.min.js"></script>
+      <script src="libs/hammerjs/hammer.min.js"></script>
+      <script src="libs/angular-toastr.tpls.js"></script>
+      <script src="libs/angular-animate/angular-animate.js"></script>
+      <script src="libs/angular-aria/angular-aria.js"></script>
+      <script src="libs/angular-material/angular-material.min.js"></script>
+      <script src="libs/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="libs/angular-cookie/angular-cookie.js"></script>
+      <script src="libs/angular-material-icons/angular-material-icons.min.js"></script>
+      <script src="assets/js/md-data-table.js"></script>
+
+      <!-- Main config -->
+      <script src="app/app.js"></script>
+      <script src="app/routes.js"></script>
+      <script src="app/app.run.js"></script>
+
+      <!-- Providers -->
+      <script src="app/providers/apiProvider.js"></script>
+
+      <!-- Constants -->
+      <script src="app/constants/env.js"></script>
+      <script src="app/constants/constants.js"></script>
+
+      <!-- Services -->
+      <script src="app/services/productServices.js"></script>
+      <script src="app/services/authServices.js"></script>
+	  <script src="app/services/locationservice.js"></script>
+	  <script src="app/services/homePageServices.js"></script>
+	  <script src="app/services/categoryService.js"></script>
+	        
+      <!-- Directives -->
+      <script src="app/modules/main/mainNav.js"></script>
+      <script src="app/modules/main/sideNav.js"></script>
+      <script src="app/directives/validNumber.js"></script>
+      <script src="app/modules/main/footerNav.js"></script>
+	  <script src="app/directives/imageZoom.js"></script>
+	  <script src="app/directives/higgidyCarousel.js"></script>
+	  <script src="app/directives/higgidyCarouselImages.js"></script>
+
+      <!-- Controllers -->
+      <script src="app/modules/app/appCtrl.js"></script>
+      <script src="app/modules/home/homeCtrl.js"></script>
+      <script src="app/modules/auth/signInCtrl.js"></script>
+      <script src="app/modules/auth/signUpCtrl.js"></script>
+      <script src="app/modules/cart/cartCtrl.js"></script>
+      <script src="app/modules/checkout/checkOutCtrl.js"></script>
+      <script src="app/modules/mylist/myListCtrl.js"></script>
+      <script src="app/modules/products/productCtrl.js"></script>
+      <script src="app/modules/products/productDetails/productDetailsCtrl.js"></script>
+  	  <script src="app/modules/location/storeCtrl.js"></script>	
+      
+
+</body>
+</html>

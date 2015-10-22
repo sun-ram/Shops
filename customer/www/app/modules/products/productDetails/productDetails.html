@@ -1,0 +1,133 @@
+<div>
+<div layout="row" ng-controller="productDetailsCtrl as zoom" layout-wrap>
+	<div flex="40" style="border: 1px solid grey; height: 250px;" layout-padding ng-init="productDetail()">
+	<zoom mark-height="50" mark-width="50"  src="{{zoom.showImageindescription}}" zoom-lvl="{{zoomLvl}}"></zoom>  
+	</div>
+	<div flex="60" layout-padding>
+	<h3 style="color:green">{{product.productName}}</h3>
+	
+	<span>Kilo Gram</span>
+	
+	<p> {{product.productUnitOfMeasure.description}} </p>
+	
+	<p>Product Price  ₹ {{product.productPrice.price}}</p>
+	  <aside>
+         </aside>
+	</div>
+	<div flex="40" style="border: 1px solid grey; margin-top: 10px; " layout="row" layout-padding>
+	<div flex="25" style="border: 1px solid grey; width:100px; height:100px;" layout-padding ng-repeat="images in product.productImages">
+	<img src={{images.imageUrl}} style="max-width: 100%; "  ng-click="changeimage(images.imageUrl)"/>
+	</div>	
+	</div> 
+	<div flex="60" layout-padding>
+	<md-button class="" aria-label="" class="cart-btn" style="color: #fff ! important; border: 2px solid #72A308; background: #72A308; height: 48px; font-size: 16px;">
+            <md-icon class="icon-white" md-svg-src="./assets/img/icon/shopping-cart3.svg" style="fill: #fff;"></md-icon>
+            <span layout-padding>add to cart</span>
+    </md-button>
+    
+    <div layout="row" layout-align="start" class="btn-count" >
+   	<div layout="column" layout-align="start">
+       <md-button class="count" aria-label="" style="line-height: inherit; min-height: inherit; margin: 0; padding:0; width: 25px; min-width: inherit;">
+             <md-icon md-svg-src="./assets/img/icon/navigate6.svg" style="color: black; height: 20px;"></md-icon>
+            </md-button>
+       <md-button class="count" aria-label="" style="line-height: inherit; min-height: inherit; margin: 0; padding:0; width: 25px; min-width: inherit;" >
+             <md-icon md-svg-src="./assets/img/icon/down14.svg" style="color: black;height: 20px;"></md-icon>
+            </md-button> 
+            </div>     
+            <span layout="column" layout-align="center" style="font-size: 20px; padding:0px 20px;">1</span>      
+     </div>
+     
+     <md-button class="" aria-label="" class="cart-btn" style="color: #fff ! important; border: 2px solid #0ffff7  ; background:#0ffff7; font-size: 16px;">
+            <md-icon class="icon-white" md-svg-src="./assets/img/icon/favorite21.svg" style="fill: #fff;"></md-icon></br>
+            <span layout-padding>add to my list</span>
+    </md-button>
+     	
+    </div>
+    
+	</div>
+</div>
+
+<div layout="row">
+Related products
+</div>
+</div>
+<!-- <div class="container-fluid" ng-controller="productDetailsCtrl as zoom">
+  <zoom mark-height="100" mark-width="100" src="{{zoom.src}}" zoom-lvl="{{zoomLvl}}"></zoom>
+  <aside>
+    <div>   
+        <fieldset class="control-group">
+          <label for="selectImage" class="control-label">Select Image</label>
+          <div class="controls" ng-mouseleave="$scope.zoom =0">
+          {{zoomLvl}}
+            <select ng-model="zoom.src" id="selectImage" ng-options="image.url as image.name for image in zoom.images">
+              <option value="">Select Image</option>
+            </select>
+            <md-select ng-model="zoom.src" id="selectImage">
+          <md-option ng-repeat="test in images" value="{{test.url}}">
+            {{test.name}}
+          </md-option>
+        </md-select>
+            
+            
+          </div>
+        </fieldset>
+
+    </div>
+  </aside>
+</div>-->
+	  <script src="app/directives/imageZoom.js"></script>
+	  <script src="app/modules/products//productDetails/productDetailsCtrl.js"></script>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.zoomed{
+    margin-left: 4em;
+}
+
+.original, .zoomed{
+    float: left;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.original img{
+    /* max-height: 300px; */
+        height: 232px;
+    max-width: 100%;
+}
+
+.zoomed img{
+    height: 600px;
+    position: relative;
+}
+
+.mark {
+    opacity: .3;
+    border: 6px dotted #fff;
+    background: #eee;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+aside {
+    position: absolute;
+    right: 0;
+    max-width: 30%;
+}
+
+.container-fluid{
+    margin: 0 .5em;    
+    padding: 0;
+}
+.cart-btn{
+	color: #fff ! important; border: 2px solid #72A308 ! important; background: #72A308 ! important; height: 45px;
+}
+.btn-count{
+ 	width: 110px; border: 2px solid #72A308; color: #fff; padding-left: 20px;  background: #72A308; border-radius: 3px;
+}
+</style> 
