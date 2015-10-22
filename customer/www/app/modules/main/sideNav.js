@@ -22,6 +22,17 @@ angular.module('aviate.directives').directive('sideNav', [
                       }
                 	$scope.categoryList();
                 	
+                	
+                	$scope.getProductsByCategoryId = function(categoryId){
+                		$stste.go('app.products',{'categoryId': categoryId})
+                	}
+                	
+                	$scope.getProductsByProductTypeId = function(productTypeId){
+                		$stste.go('app.productType',{'productTypeId': productTypeId})
+                	}
+                	
+                	
+                	
                 	$scope.toggleSubList = function(id){
                 		if(id == $scope.headerNavId){
                 			$scope.show = false;
