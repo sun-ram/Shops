@@ -1,37 +1,40 @@
 <md-sidenav flex class="md-sidenav-left md-whiteframe-z2"
 	md-component-id="left"> <md-toolbar md-scroll-shrink>
 <div class="md-toolbar-tools">My Messages</div>
-</md-toolbar> <md-content class="md-padding" ng-repeat="c in categoryList">
-<div class="md-item-text md-whiteframe-z1" flex
-	ng-click="toggleSubList(c.categoryId);">
-	<h3>{{c.categoryName}}</h3>
-</div>
+</md-toolbar> 
 
-<md-list
-	ng-if="c.category.length>0 && headerNavId == c.categoryId && show"
-	layout-padding> <md-list-item class="md-3-line"
-	ng-repeat="childcategory in c.category">
-<div class="md-list-item-text">
-	<h3>{{childcategory.categoryName}}</h3>
-	<div>
+<ul ng-repeat="c in categoryList"
+	class="list-group gutter list-group-lg list-group-sp">
+	<li class="list-group-item" ng-click="showDetails = ! showDetails"><md-chips>
+		<md-chip>{{c.categoryName}}<md-icon
+			md-svg-src="assets/images/ic_arrow_drop_down_black_24px.svg"></md-icon>
+		</md-chip> </md-chips></li>
 
-		<md-list ng-if="childcategory.category.length>0" layout-padding>
-		<md-list-item class="md-3-line"
-			ng-repeat="categorys in childcategory.category">
-		<div class="md-list-item-text">
-			<h3>{{categorys.categoryName}}</h3>
-		</div>
+	<ul ng-if="c.category.length>0" ng-repeat="childcategory in c.category">
+		<li class="list-group-item" ng-click="showType = ! showType"
+			ng-show="showDetails"><md-chips>
+			<md-chip> {{childcategory.categoryName}}<md-icon
+				md-svg-src="assets/images/ic_arrow_drop_down_black_24px.svg"></md-icon></md-chip>
+			</md-chips></li>
 
-		</md-list-item> </md-list>
+		<ul ng-if="childcategory.category.length>0" ng-repeat="categorys in childcategory.category">
+			<li class="list-group-item" ng-show="showDetails">
+				<h4>{{categorys.categoryName}}</h4>
+			</li>
+			<ul ng-if="childcategory.productType.length>0" ng-model="checked" ng-click="checked=true" ng-repeat="type in childcategory.productType">
+				<li class="list-group-item" ng-show="showDetails && showType">
+					<h3>{{type.productTypeName}}</h3>
+				</li>
+			</ul>
+		</ul>
 
-		<md-list ng-if="childcategory.productType.length>0" layout-padding>
-		<md-list-item class="md-3-line"
-			ng-repeat="type in childcategory.productType">
-		<div class="md-list-item-text">
-			<h3>{{type.productTypeName}}</h3>
-		</div>
-		</md-list-item> </md-list>
+		<ul ng-if="childcategory.productType.length>0 && checked!='true' " ng-repeat="type in childcategory.productType">
+			<li class="list-group-item" ng-show="showDetails && showType">
+				<h4>{{type.productTypeName}}</h4>
+			</li>
+		</ul>
+		
+	</ul>
+</ul>
 
-	</div>
-</div>
-</md-list-item> </md-list> </md-content> </md-sidenav>
+</md-sidenav>
