@@ -38,10 +38,9 @@ angular.module('app')
 		templateUrl: 'app/modules/products/product.html',
 		controller : 'productCtrl',
         resolve:   {
-        	products:  function(ProductService,$http, $stateParams, $scope){
+        	products:  function(ProductService,$http, $stateParams){
             console.log('resolve');
-                 $scope.category.categoryId = $stateParams.categoryId;
-                 return ProductService.getProductsFromCategory($scope.category).then(function(data){
+                 return ProductService.getProductsFromCategory({'categoryId':$stateParams.categoryId}).then(function(data){
         			return data;
         		});
 
@@ -55,10 +54,8 @@ angular.module('app')
 		templateUrl: 'app/modules/products/product.html',
 		controller : 'productCtrl',
         resolve:   {
-        	products1:  function(ProductService,$http,$scope){
-
-                 $scope.category.productTypeId = $stateParams.productTypeId;
-                 return ProductService.getProductsByProductTypeId($scope.category).then(function(data){
+        	products1:  function(ProductService,$http){
+                 return ProductService.getProductsByProductTypeId({'productTypeId':$stateParams.productTypeId}).then(function(data){
         			return data;
         		});
 

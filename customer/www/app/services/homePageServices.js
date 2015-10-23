@@ -3,7 +3,7 @@ angular.module('aviate.services')
                              function($q, api, toastr, CONSTANT) {
 	this.futureProducts = function(storeId){
 		var d = $q.defer();
-        var product.storeId = storeId;
+        var product = {'storeId' : storeId};
 		api.Product.futureProducts(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
@@ -23,7 +23,7 @@ angular.module('aviate.services')
 
 	this.topCategories = function(storeId){
 		var d = $q.defer();
-        var product.storeId = storeId;
+		var product = {'storeId' : storeId};
 		api.Product.getTopCategory(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {

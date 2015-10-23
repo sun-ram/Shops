@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("homeCtrl",
-		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService',
-		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService) {
+		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope',
+		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope) {
 
 			$scope.images = [
 			                 {
@@ -70,6 +70,27 @@ angular.module('aviate.controllers')
 			$scope.$watch('carousel.timeout', $scope.initTimeout);
 			$scope.$watch('images', $scope.setMax);
 
+             
+       /*      
+             homePageServices.futureProducts($rootScope.store.storeId).then(function(data){
+                 $scope.futureProducts = data;
+             });
+             
+            homePageServices.topCategories($rootScope.store.storeId).then(function(data){
+                 $scope.futureProducts = data;
+             })
+             */
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
 
 		}]);
 

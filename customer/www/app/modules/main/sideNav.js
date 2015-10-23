@@ -24,14 +24,24 @@ angular.module('aviate.directives').directive('sideNav', [
                 	
                 	
                 	$scope.getProductsByCategoryId = function(categoryId){
-                		$stste.go('app.products',{'categoryId': categoryId})
+                		$state.go('app.products',{'categoryId': categoryId})
                 	}
                 	
                 	$scope.getProductsByProductTypeId = function(productTypeId){
-                		$stste.go('app.productType',{'productTypeId': productTypeId})
+                		$state.go('app.productType',{'productTypeId': productTypeId})
                 	}
                 	
-                	
+                	$scope.checkParent = function(parent,c,subDetailsShow){
+                		if(parent){
+                			return true;
+                		} else {
+                			if(c.parentCategoryId == subDetailsShow){
+                				return true;
+                			} else {
+                				return false;
+                			}
+                		}
+                	}
                 	
                 	$scope.toggleSubList = function(id){
                 		if(id == $scope.headerNavId){

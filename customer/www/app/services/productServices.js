@@ -5,7 +5,7 @@ angular.module('aviate.services')
 
 	this.getProductsFromCategory = function(category){
 		var d = $q.defer();
-		api.Product.getProductsFromCategory(product, function(err, result){		
+		api.Product.getProductsFromCategory(category, function(err, result){		
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
