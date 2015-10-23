@@ -16,12 +16,15 @@ angular.module('aviate.controllers')
 					if(result.status == 'SUCCESS'){
 						$scope.cartItem = [];
 						for(var i = 0; i<result.myCartList.length;i++){
+							if(result.myCartList[i].product.productImages.length != 0){
+							$scope.image = result.myCartList[i].product.productImages[1].imageUrl;
+							}
 							$scope.cartItem.push({
-								"productName":result.myCartList[i].productName,
+								"productName":result.myCartList[i].product.productName,
 								"productDetails":result.myCartList[i].product,
 								"quantity":result.myCartList[i].quantity,
 								"price":result.myCartList[i].price,
-								"image":result.myCartList[i].productImages[1].imageUrl 	
+								"image":$scope.image
 								});
 						}
 					}
