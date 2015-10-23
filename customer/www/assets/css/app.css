@@ -26,9 +26,12 @@
 }
 .svgstyle svg{margin-top: 2px;height: 16px;width: 16px;}
 
+.nopadd{padding:0px !important;}
+.padd_righ8{padding-right:8px !important;}
 .padd_btm10{padding-bottom:10px;}
 .padd_btm20{padding-bottom:20px;}
-.padd_righ0{padding-right:0px !important;}
+.padd_tb30{padding:30px 0px;}
+/*.padd_righ0{padding-right:0px !important;}*/
 .nopad-left .md-subheader-inner{padding-left:0px !important;}
 .nomargin{margin:0px !important;}
 
@@ -36,8 +39,9 @@
 .text-orange{color:orange;}
 
 md-checkbox.md-checked .md-icon{background:#72a308 !important;}
-.bg-yellow{background:#FFC234;color:#fff;}
-.bg-green{background:#72a308;color:#fff;}
+.bg-yellow,.bg-yellow:hover{background:#FFC234 !important;color:#fff;}
+
+.bg-green,.bg-green:hover{background:#72a308 !important;color:#fff;}
 .bg-wh-tran, .md-subheader-inner{background: rgba(255,255,255, 0.5);}
 
 .tright{text-align: right;}
@@ -46,6 +50,7 @@ md-checkbox.md-checked .md-icon{background:#72a308 !important;}
 
 .wid_100{width: 100%;}
 .wid_60{width: 60px !important;}
+.wid_140{width: 140px !important;}
 .header_color{background: #3A3A3A !important;}
 .tran{background:transparent !important;}
 
@@ -148,3 +153,39 @@ md-toolbar:not (.md-menu-toolbar ).md-accent {
 }
 
 
+.nav-bar-subheader{ padding:10px 0px; background-color:rgba(255,255,255,0.3)}
+ul.nav-menu{ width:400px; padding:10px; margin-left:120px; display:inline; list-style-type:none;}
+ul.nav-menu li{ width:auto; display:inline; list-style-type: none; padding:10px; list-style-type:none;}
+
+.triangle ::after {
+	width: 0;
+	height: 0;
+	border-bottom: 100px solid black;
+	border-right: 100px solid transparent;
+}
+
+.triangle ::before {
+	width: 0;
+	height: 0;
+	border-bottom: 100px solid black;
+	border-right: 100px solid transparent;
+}
+
+.triangle-bottomleft {
+  width: 0;
+height: 0;
+border-bottom: 8px solid red;
+border-right: 8px solid transparent;
+position: absolute;
+top: 1px;
+right: -8px;
+}
+.triangle-bottomright {
+	width: 0;
+	height: 0;
+	border-bottom: 8px solid red;
+	border-left: 8px solid transparent;
+  position: absolute;
+  top: 1px;
+  left: -8px;
+}

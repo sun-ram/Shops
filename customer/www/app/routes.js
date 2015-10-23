@@ -17,7 +17,7 @@ angular.module('app')
 		templateUrl: 'app/modules/cart/cart.html',
 		controller : 'signInCtrl'
 	})
-	
+
     // Home Screen module
 	.state('app.home', {
 		url: '/home',
@@ -38,31 +38,33 @@ angular.module('app')
 		templateUrl: 'app/modules/products/product.html',
 		controller : 'productCtrl',
         resolve:   {
-        	products:  function(ProductService,$http, $stateParams){
+        	products:  function(ProductService,$http, $stateParams, $scope){
+            console.log('resolve');
                  $scope.category.categoryId = $stateParams.categoryId;
                  return ProductService.getProductsFromCategory($scope.category).then(function(data){
         			return data;
         		});
-                
+
             }
         }
-		
+
 	})
-	
+
 		.state('app.productType', {
-		url: '/products/:productTypeId',
+		url: '/product/:productTypeId',
 		templateUrl: 'app/modules/products/product.html',
 		controller : 'productCtrl',
         resolve:   {
-        	products:  function(ProductService,$http, $stateParams){
+        	products1:  function(ProductService,$http,$scope){
+
                  $scope.category.productTypeId = $stateParams.productTypeId;
                  return ProductService.getProductsByProductTypeId($scope.category).then(function(data){
         			return data;
         		});
-                
+
             }
         }
-		
+
 	})
 
 	// Product Details module
@@ -92,14 +94,14 @@ angular.module('app')
 		templateUrl: 'app/modules/cart/cart.html',
 		controller : 'cartCtrl'
 	})
-	
+
 	  //Location Module
       .state('app.location', {
         url: '/location',
         templateUrl: 'app/modules/location/location.html',
         controller : 'locationcontroller'
       })
-      
+
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common = 'Content-Type: application/json';
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
