@@ -1,9 +1,10 @@
 angular.module('aviate.services')
 .service('homePageServices',['$q','api','toastr','CONSTANT',
                              function($q, api, toastr, CONSTANT) {
-	this.featureProducts = function(product){
+	this.futureProducts = function(storeId){
 		var d = $q.defer();
-		api.Products.featureProducts(product, function(err, result){
+        var product.storeId = storeId;
+		api.Product.futureProducts(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 
@@ -20,15 +21,16 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 
-	this.topCategories = function(product){
+	this.topCategories = function(storeId){
 		var d = $q.defer();
-		api.Products.getTopCategoryProducts(product, function(err, result){
+        var product.storeId = storeId;
+		api.Product.getTopCategory(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 
 
 					//If You Want, Need to write logics
-					d.resolve(userDetails);
+					d.resolve(result);
 				} else {
 					toastr.error(result.errorString);
 				}

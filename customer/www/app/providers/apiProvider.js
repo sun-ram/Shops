@@ -112,6 +112,35 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
                 }
             });
         };
+        
+        apiClass.Product.getFutureProducts = function (product, callback) {
+            httpRequest("POST", "product/getfutureproducts", product, function (err, data) {
+                if (err) {
+
+                    callback(err, null);
+
+                } else {
+
+                    callback(null, data);
+
+                }
+            });
+        };
+        
+        apiClass.Product.getTopCategory = function (product, callback) {
+            httpRequest("POST", "product/gettopproducts", product, function (err, data) {
+                if (err) {
+
+                    callback(err, null);
+
+                } else {
+
+                    callback(null, data);
+
+                }
+            });
+        };
+        
  /*Location Api*/
         
         apiClass.Location = {
