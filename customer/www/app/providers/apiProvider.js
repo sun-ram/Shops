@@ -160,6 +160,20 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
                     }
                 });
             };
+            
+            apiClass.Location.getCity = function (location, callback) {
+                httpRequest("POST", "product/getcity", location, function (err, data) {
+                    if (err) {
+
+                        callback(err, null);
+
+                    } else {
+
+                        callback(null, data);
+
+                    }
+                });
+            };
  /*Product Category*/
             
             apiClass.Category = {

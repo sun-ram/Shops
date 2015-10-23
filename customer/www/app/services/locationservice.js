@@ -36,4 +36,16 @@ angular.module('aviate.services')
 		})
 		return d.promise;
 	};
+	
+	this.getCity = function(location){
+		var d = $q.defer();
+		api.Location.getCity(location, function(err, result){
+			if(result){
+					d.resolve(result);
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
 }]);

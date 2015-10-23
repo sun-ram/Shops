@@ -16,7 +16,7 @@ md-ink-bar{top:115px;}
 <md-dialog aria-label="CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET"  ng-cloak>
   <md-toolbar>
     <div class="md-toolbar-tools chg-tool">
-      <h5>CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET</h5>
+      <h5>{{checked}} CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET </h5>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel()">
         <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
@@ -33,8 +33,8 @@ md-ink-bar{top:115px;}
     <md-input-container ng-if="checked">
        <label>Select City<span style="color:red">*</span></label>
          <md-select ng-model="selectedcity" ng-required="true" ng-change="searchByCity(selectedcity)">
-            <md-option ng-repeat="shop in allStoreList" value="{{shop.city}}">
-              {{shop.city}}
+            <md-option ng-repeat="shop in allStoreList" value="{{shop}}">
+              {{shop}}
             </md-option>
           </md-select>
     </md-input-container>
