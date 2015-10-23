@@ -1,1 +1,16 @@
-My List
+<div layout="column" ng-init="myList()">
+	<div layout="row">
+		<div flex="80"><h2>My List</h2></div>
+		<div  flex="20"><h4> < Back to shopping</h4></div>
+	</div>
+	<div  ng-repeat="product in myListItem" layout="row">
+		<div flex="80" layout="row">
+			<div flex="30"><img src={{product.image}}/></div>
+			<div flex="30">{{product.productName}}<span>{{product.price}}</span></div>
+			<div flex="10" ng-click="deletefromList(product.product.productId)">delete</div>
+			<div flex="30"> add to cart</div>
+		</div>
+		<div flex="20">CHeck out process</div>
+
+	</div>
+</div>

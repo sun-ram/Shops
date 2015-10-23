@@ -30,6 +30,22 @@ angular.module('aviate.controllers')
 					}
 				})
 			}
+			
+			$scope.removeFromCartDB = function(productId){
+				var menuJson = angular.toJson({"customerId" : $localStorage.userId, "storeId" : $rootScope.superMarketId, "productId" : productId});		 
+				$http({
+					url: serviceUrl + 'aviate/json/product/deletefromcart',
+					method: 'POST',
+					data: menuJson,
+					headers: {
+						'Content-Type': 'application/json'
+					} 
+				}).success(function(result, status, headers) {
+					if(result.status == 'SUCCESS'){
+						$scope.getCartListFromDB();
+					}
+				})
+			}
 
 
 }]);
