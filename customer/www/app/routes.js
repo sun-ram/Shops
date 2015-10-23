@@ -18,7 +18,7 @@ angular.module('app')
 		controller : 'signInCtrl'
 	})
 
-    // Home Screen module
+	// Home Screen module
 	.state('app.home', {
 		url: '/home',
 		templateUrl: 'app/modules/home/home.html',
@@ -37,30 +37,28 @@ angular.module('app')
 		url: '/products/:categoryId',
 		templateUrl: 'app/modules/products/product.html',
 		controller : 'productCtrl',
-        resolve:   {
-        	products:  function(ProductService,$http, $stateParams){
-            console.log('resolve');
-                 return ProductService.getProductsFromCategory({'categoryId':$stateParams.categoryId}).then(function(data){
-        			return data;
-        		});
+		resolve:   {
+			products:  function(ProductService,$http, $stateParams){
+				return ProductService.getProductsFromCategory({'categoryId':$stateParams.categoryId}).then(function(data){
+					return data;
+				});
 
-            }
-        }
+			}
+		}
 
 	})
 
-		.state('app.productType', {
+	.state('app.productType', {
 		url: '/product/:productTypeId',
 		templateUrl: 'app/modules/products/product.html',
 		controller : 'productCtrl',
-        resolve:   {
-        	products1:  function(ProductService,$http){
-                 return ProductService.getProductsByProductTypeId({'productTypeId':$stateParams.productTypeId}).then(function(data){
-        			return data;
-        		});
-
-            }
-        }
+		resolve:   {
+			products:  function(ProductService,$http,$stateParams){
+				return ProductService.getProductsByProductTypeId({'productTypeId':$stateParams.productTypeId}).then(function(data){
+					return data;
+				});
+			}
+		}
 
 	})
 
@@ -92,12 +90,12 @@ angular.module('app')
 		controller : 'cartCtrl'
 	})
 
-	  //Location Module
-      .state('app.location', {
-        url: '/location',
-        templateUrl: 'app/modules/location/location.html',
-        controller : 'locationcontroller'
-      })
+	//Location Module
+	.state('app.location', {
+		url: '/location',
+		templateUrl: 'app/modules/location/location.html',
+		controller : 'locationcontroller'
+	})
 
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common = 'Content-Type: application/json';
