@@ -86,7 +86,7 @@ angular.module('aviate.controllers')
 
 			var showLocationDialog = function(ev) {
 				$mdDialog.show({
-					templateUrl: 'app/modules/location/locationdialog.tmpl.html',
+					templateUrl: 'app/modules/home/locationdialog.tmpl.html',
 					parent: angular.element(document.body),
 					clickOutsideToClose:true,
 					controller: function($scope, $mdDialog,LocationService,$rootScope,$log,toastr,$state,ipCookie){
