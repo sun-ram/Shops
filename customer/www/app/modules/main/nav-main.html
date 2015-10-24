@@ -3,9 +3,67 @@
 	<span flex></span>
 	<md-button class="wid_60 md-icon-button" aria-label="Favorite">
 	<md-icon md-svg-icon="assets/img/icon/magnifying47.svg" md-ink-ripple="" style="color: white;"></md-icon> </md-button>
-	<md-button class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
+	<!-- <md-button class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
 		<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
-	</md-button>
+	</md-button> -->
+	
+<md-menu style="margin-top: -8px" md-position-mode="target-right target">
+    <md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
+        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
+    </md-button>
+    <md-menu-content width="6" style="margin-top: 42px;margin-left: 0px;max-height:520px !important; ">
+        <md-content>
+            <md-toolbar layout="row" style="background-color:black !important">
+                <div class="md-toolbar-tools">
+                    <h1 style="color:white">2 Items, 
+                        <span style="color:yellow">Rs 800 </span>
+                    </h1>
+                </div>
+            </md-toolbar>
+          	 <md-list>
+      
+      <md-list-item class="md-3-line" ng-repeat="item in todos">
+        <img ng-src="{{item.productImage}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+        <div class="md-list-item-text" layout="column">
+          <h3>{{ item.quantity }} <span style="float:right;margin-right:50px">{{ item.weight }}</span></h3>
+
+          <h4>{{ item.productName }}</h4>
+         
+         
+        </div>
+         <md-icon aria-label="Menu" md-svg-icon="assets/images/cross.svg" ng-click=""></md-icon>
+         <md-divider ></md-divider>
+      </md-list-item>
+      
+      <md-list>
+          
+                    <div style="padding:10px">
+                        <p>Sub total 
+					                        
+                            <span style="float:right"> Rs 800</span>
+                        </p>
+                        <p>Vat 12.5% 
+					                        
+                            <span style="float:right"> Rs 800</span>
+                        </p>
+                        <p>Service Tax 2.5% 
+					                        
+                            <span style="float:right"> Rs 800</span>
+                        </p>
+                        <p>Shipping Charges 
+					                        
+                            <span style="float:right"> Rs 800</span>
+                        </p>
+                        <h3>Total 
+					                        
+                            <span style="float:right"> Rs 800</span>
+                        </h3>
+                    </div>
+                    <md-button class="md-raised" style="width:95%;background-color:#8BC34A;color:white;">CHECKOUT</md-button>
+                </md-content>
+            </md-menu-content>
+        </md-menu>
+
 
 	<md-menu style="margin-top: -8px" md-position-mode="target-right target">
 		<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="height50 wid_60 nomargin bg-green md-icon-button" aria-label="User">

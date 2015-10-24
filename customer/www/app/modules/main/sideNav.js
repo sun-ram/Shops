@@ -22,6 +22,22 @@ angular.module('aviate.directives').directive('sideNav', [
                       }
                 	$scope.categoryList();
                 	
+                  $scope.todos = [
+      {
+        productImage : 'assets/images/fruit.jpg',
+        quantity: '1 x Rs.250',
+        productName: 'South Indian Banana',
+        weight : '2Kg'
+        
+      },
+      {
+        productImage : 'assets/images/fruit.jpg',
+        quantity: '1 x Rs.550',
+        productName: 'Strawberry',
+        weight : '2Kg'
+        
+      }
+    ];
                 	
                 	$scope.getProductsByCategoryId = function(categoryId){
                 		$state.go('app.products',{'categoryId': categoryId})
