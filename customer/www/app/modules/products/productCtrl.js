@@ -6,11 +6,39 @@ angular.module('aviate.controllers')
 
 			$scope.productList = products;
 			console.info($scope.productList);
-
+			
+			
+			
+			$scope.removeFromCart = function(productId){
+				$scope.user.userId = $rootScope.user.userId;
+				$scope.user.superMarketId = $rootScope.store.storeId;				
+				$scope.user.productId = productId;
+				MyCartServices.removeCartProduct($scope.user).then(function(data) {
+					$scope.getCartList();
+					
+				});				
+				
+			};
+			
+			$scope.addTocartDB =function(productId, quantity, subTotal){
+				
+				$scope.user.userId = $rootScope.user.userId;
+				$scope.user.superMarketId = $rootScope.store.storeId;				
+				$scope.user.productId = productId;
+				$scope.user.quantity = quantity;
+				$scope.user.price = subTotal;
+				
+				MyCartServices.addToCart($scope.user).then(function(data) {
+					$scope.getCartList();
+					
+				});		
+			}
+			
+			
 			$rootScope.addToCartFun = function(product){
 				var isExistInCart = false;
 				if(product.noOfQuantityInCart > 0){
-					if($localStorage.userId){
+					if($rootScope.user.userId){
 						$rootScope.addToCartDB(product.productId, product.noOfQuantityInCart, product.productDetails.productPrice.price);
 						$rootScope.productListUpdate(product, product.noOfQuantityInCart);
 					}else{

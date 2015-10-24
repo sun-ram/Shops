@@ -71,7 +71,7 @@
 							</div>
 						</div>
 						<div flex="20" ng-show="product.noOfQuantityInCart > 0" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span>{{product.noOfQuantityInCart}}</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product)" flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
 					</div>
 				</div>
 			</div>
