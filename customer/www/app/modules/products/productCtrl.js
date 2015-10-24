@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("productCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products','$rootScope','ipCookie',
-		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie) {
+		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products','$rootScope','ipCookie','MyCartFactory',
+		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory) {
 				
 
 			$scope.productList = products;
@@ -39,6 +39,13 @@ angular.module('aviate.controllers')
 			
 			
 			$rootScope.addToCartFun = function(product){
+				MyCartFactory.addToCart(product,$scope.productList,  function(data){
+					$scope.productList = data;
+				})
+				
+				
+				
+				/*
 				var isExistInCart = false;
 				if(product.noOfQuantityInCart > 0){
 					if($rootScope.user && $rootScope.user.userId){
@@ -68,7 +75,7 @@ angular.module('aviate.controllers')
 					ipCookie("myCart",$rootScope.myCart);
 				}
 			//	$rootScope.myCartTotalPriceCalculation();
-			}
+			*/}
 			
 			$rootScope.deletefromCart = function(product, index){
 				if($localStorage.userId){

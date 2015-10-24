@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory) {
 
 	return {
 		// scope: false,
@@ -53,7 +53,9 @@ angular.module('aviate.directives')
 				});
 			}
 
-
+			$scope.removeFromMyCart = function(product, index) {
+				MyCartFactory.removeFromCart(product, index);
+			};
 			$scope.signInPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',

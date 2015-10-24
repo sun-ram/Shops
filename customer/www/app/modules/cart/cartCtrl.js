@@ -38,6 +38,17 @@ angular.module('aviate.controllers')
 				});		
 			}
 			
+			
+			
+			
+			$scope.addToCart = function(product){
+				
+				
+				
+			}
+			
+			
+			
 			$rootScope.addToCartFun = function(product){
 				var isExistInCart = false;
 				if(product.noOfQuantityInCart > 0){

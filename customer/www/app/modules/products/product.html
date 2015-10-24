@@ -22,32 +22,29 @@
 			
 			<md-input-container flex>
 			  <label>Sort By</label>
-			  <md-select ng-model="user.state">
-				<md-option ng-repeat="state in states" value="{{state.abbrev}}">
-				  {{state.abbrev}}
-				</md-option>
+			  <md-select ng-model="orderList">
+				<md-option value="productName"> Product A-Z </md-option>
+				<md-option value="-productName"> Product Z-A </md-option>
+				<md-option value="productPrice.price"> Price - Low to High </md-option>
+				<md-option value="-productPrice.price"> Price - High to Low </md-option>
 			  </md-select>
 			</md-input-container>
 			
 			
 			<md-input-container flex>
-			  <md-icon md-svg-src="assets/img/icon/ic_email_24px.svg" class="email"></md-icon>
-			  <input ng-model="user.email" type="email" placeholder="Search" ng-required="true">
+			  <input ng-model="searchProduct" placeholder="Search" >
 			</md-input-container>
 		</div>
 	</div>
 	
-	
-	
 	<div layout="row" layout-wrap flex >
-	
 	
 	<!-- iterator starts here -->
 	
-		<div ng-repeat="product in productList" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+		<div ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
 				<div flex style="height:150px;">
-					<img src="assets/images/Acai.jpg" style="width:100%"/>
+					<img src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
 					<span class="md-title text-primary">{{product.productName}}</span>
