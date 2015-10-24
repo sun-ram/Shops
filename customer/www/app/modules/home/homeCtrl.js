@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("homeCtrl",
-		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope',
-		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope) {
+		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService',
+		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService) {
 
 			$scope.images = [
 			                 {
@@ -81,16 +81,125 @@ angular.module('aviate.controllers')
              })
              */
              
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
+             /* Location Service*/
+			$rootScope.geoLocation ={}
 
+			var showLocationDialog = function(ev) {
+				$mdDialog.show({
+					templateUrl: 'app/modules/location/locationdialog.tmpl.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose:true,
+					controller: function($scope, $mdDialog,LocationService,$rootScope,$log,toastr,$state,ipCookie){
+						$scope.checked=ev;
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+						
+						$scope.cancel = function() {
+							$mdDialog.cancel();
+						};
+						
+						$scope.answer = function(answer) {
+							$mdDialog.hide(answer);
+						};
+
+						$scope.selectedcity=null;
+						
+						$scope.selectedIndex = 2;
+
+						var location ={
+								latitude:$rootScope.geoLocation.latitude,
+								longitude:$rootScope.geoLocation.longitude
+						}
+						
+						if(location.latitude!=undefined && location.longitude!=undefined){
+						LocationService.getStoreByLocation(location).then(function(data) {
+							$scope.storeList = data;
+						});
+						}
+
+						var optionLocation={}
+
+						LocationService.getCity(optionLocation).then(function(data) {
+							$scope.allStoreList=data;
+						});
+
+						$scope.searchByCity = function(selectedcity){
+							$scope.selectedcity=selectedcity;
+							var request ={
+									city:selectedcity
+							}
+							LocationService.getStoreByLocation(request).then(function(data) {
+								$scope.addressList = data;
+							});
+						}
+
+						$scope.searchByAddress = function(selectedaddress){
+							var request ={area:selectedaddress,city:$scope.selectedcity}
+							LocationService.getStoreByLocation(request).then(function(data) {
+								$scope.filterStoreList = data;
+								$log.debug(data);
+							});
+						}
+
+						$scope.changeStore = function(storedetails){
+							$rootScope.store = storedetails;
+							ipCookie("store", storedetails);
+							$log.debug(storedetails);
+							$state.go('app.products');
+							$mdDialog.cancel();
+						}
+
+					}
+				})	
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+			};
+
+			var settings = {
+					enableHighAccuracy:true
+			}
+			
+			var geoLocation = function(){
+				if($rootScope.findlocation){
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(showPosition, showError,settings);
+					} else { 
+						$log.debug("Geolocation is not supported by this browser");
+					}
+					}
+			};
+
+			var showPosition = function(position) {
+				$rootScope.geoLocation.latitude = position.coords.latitude;
+				$rootScope.geoLocation.longitude = position.coords.longitude;
+				showLocationDialog();
+			}
+			
+			var showError = function(error) {
+				switch(error.code) {
+				case error.PERMISSION_DENIED:
+					$log.debug("User denied the request for Geolocation.");
+					var checked=true;
+					showLocationDialog(checked);
+					break;
+				case error.POSITION_UNAVAILABLE:
+					$log.debug("Location information is unavailable.");
+					var checked=true;
+					showLocationDialog(checked);
+					break;
+				case error.TIMEOUT:
+					$log.debug("The request to get user location timed out.");
+					break;
+				case error.UNKNOWN_ERROR:
+					$log.debug("An unknown error occurred.")
+					break;
+				}
+			}
+			geoLocation();
+             
 		}]);
 
