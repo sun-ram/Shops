@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel='stylesheet prefetch' href='https://gitcdn.xyz/repo/angular/bower-material/v1.0.0-rc1/angular-material.css'>
+<link rel='stylesheet prefetch' href='http://localhost:8080/docs.css'>
+
+<style>
+	body,html{background-color:#eeeeee; width:100%; height:100%; padding:0px; margin:0px;}
+	.pro-box{ background-color:#FFFFFF; box-shadow:0px 0px 2px rgba(0,0,0,0.5); min-height:300px; padding:10px 15px !important;}
+	.text-primary{ color:#72a308}
+	.text-left{ text-align:left;}
+	.text-right{ text-align:right;}
+	.addtocart-btn{ border:2px solid #72a308; height:50px;}
+	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
+	.bg-white{ background-color:#ffffff;}
+	.text-primary{color:#72a308;}
+</style>
+</head>
+<body ng-app="app" >
+<div layout="column" ng-controller="MyController" style="width:90%; margin:0px auto; ">
+	<!--<div flex layout="row" style="padding:20px 8px;">
+		<div flex >
+			
+		</div>
+		<div flex layout="row" layout-align="end center">
+			<md-button>Back To Shopping</md-button>
+		</div>
+	</div>
+	<div layout="row" layout-wrap flex >
+		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+			<div class="pro-box" flex layout="column">
+				<div flex style="height:150px;">
+					<img src="images/Acai.jpg" style="width:100%"/>
+				</div>
+				<div flex layout-align="center center" layout="row">
+					<span class="md-title text-primary">Product Name</span>
+				</div>
+				<div flex  layout="row">
+					<span flex class="md-body-2 text-left">500g</span>
+					<span flex class="md-body-2 text-right">
+						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="images/svg/currency.svg"></md-icon>
+						140
+					</span>
+				</div>
+				<div layout="row" flex>
+					<div flex layout="row" class="addtocart-btn">
+						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
+							<div>
+								<md-icon style="width:20px;  " md-svg-src="images/svg/up-arrow.svg"></md-icon>
+							</div>
+							<div>
+								<md-icon style="width:20px;  " md-svg-src="images/svg/down-arrow.svg"></md-icon>	
+							</div>
+						</div>
+						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
+						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="images/svg/basket-btn-icon.svg"></md-icon></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	
+		
+		
+	</div>
+	-->
+
+ 
+ 
+ 
+ 
+	<md-card>
+		
+		<md-card-content>
+			<div flex layout="row" style="border-bottom:2px solid #eeeeee;">
+				<div flex >
+					<h2 class="md-headline">My Cart</h2>
+				</div>
+				
+			</div>
+			
+			<!-- iterator starts -->
+			
+			
+			
+			<div flex layout="row" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
+				<div flex="15">
+					<img src="images/Acai.jpg" style="width:120px; padding:5px;"/>
+				</div>
+				<div flex="30" layout="column">
+					<div  class="md-title">Product Name</div>
+					<div  class="md-caption">500g</div>
+					<div  class="md-subhead" style="margin-top:10px;">Rs.150</div>
+				</div>
+				<div flex="20" layout="row" layout-align="center center">
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="images/svg/up-arrow.svg"></md-icon>
+					</md-button>
+					<span>2</span>
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="images/svg/down-arrow.svg"></md-icon>
+					</md-button>
+				</div>
+				<div flex="15" layout="row" layout-align="center center">
+					<md-button>Remove</md-button>
+				</div>
+				<div flex="20" layout="row" layout-align="center center">
+					<span>Rs.230</span>
+				</div>
+				
+			</div>
+				<div flex layout="row" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
+				<div flex="15">
+					<img src="images/Acai.jpg" style="width:120px; padding:5px;"/>
+				</div>
+				<div flex="30" layout="column">
+					<div  class="md-title">Product Name</div>
+					<div  class="md-caption">500g</div>
+					<div  class="md-subhead" style="margin-top:10px;">Rs.150</div>
+				</div>
+				<div flex="20" layout="row" layout-align="center center">
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="images/svg/up-arrow.svg"></md-icon>
+					</md-button>
+					<span>2</span>
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="images/svg/down-arrow.svg"></md-icon>
+					</md-button>
+				</div>
+				<div flex="15" layout="row" layout-align="center center">
+					<md-button>Remove</md-button>
+				</div>
+				<div flex="20" layout="row" layout-align="center center">
+					<span>Rs.230</span>
+				</div>
+				
+			</div>
+				<div flex layout="row" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
+				<div flex="15">
+					<img src="images/Acai.jpg" style="width:120px; padding:5px;"/>
+				</div>
+				<div flex="30" layout="column">
+					<div  class="md-title">Product Name</div>
+					<div  class="md-caption">500g</div>
+					<div  class="md-subhead" style="margin-top:10px;">Rs.150</div>
+				</div>
+				<div flex="20" layout="row" layout-align="center center">
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="images/svg/up-arrow.svg"></md-icon>
+					</md-button>
+					<span>2</span>
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="images/svg/down-arrow.svg"></md-icon>
+					</md-button>
+				</div>
+				<div flex="15" layout="row" layout-align="center center">
+					<md-button>Remove</md-button>
+				</div>
+				<div flex="20" layout="row" layout-align="center center">
+					<span>Rs.230</span>
+				</div>
+				
+			</div>
+			
+			
+			<!-- iterator ends -->
+			
+			
+			
+		</md-card-content>
+		<div class="md-actions">
+			<div flex layout="row" style=" padding:16px  ">
+				
+				<div flex layout="row"  >
+					<div flex="30" layout="column" >
+						<span flex class="md-caption">Shipping Charges - Rs.80</span>
+						<span flex class="md-caption">Vat(12%) - Rs.80</span>
+						<span flex class="md-caption">Service Tax(6%) - Rs.80</span>
+					</div>
+					<div flex="50" layout="row" layout-align="end center">
+						Sub Total
+					</div>
+					<div flex="20" layout="row" layout-align="center center">
+						<span>Rs.230</span>
+					</div>
+				</div>
+			</div>
+			<div flex layout="row"  style=" padding:16px  ">
+				
+				<div flex layout="row" layout-align="start start">
+					<md-button class="md-raised">Continue Shopping</md-button>
+					
+				</div>
+				<div flex layout="row" layout-align="end start">
+					
+					<md-button class="md-raised md-primary">Proceed To Checkout</md-button>
+				</div>
+			</div>
+		</div>
+	</md-card>
+ 
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js'></script>
+<script src='https://gitcdn.xyz/repo/angular/bower-material/v1.0.0-rc1/angular-material.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
