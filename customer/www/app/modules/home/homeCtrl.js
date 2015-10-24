@@ -37,7 +37,7 @@ angular.module('aviate.controllers')
 
 
 			/*------------------------------------------------*/
-
+			
 			var timeout;
 			$scope.carousel = {
 					current: 0,
@@ -71,15 +71,9 @@ angular.module('aviate.controllers')
 			$scope.$watch('images', $scope.setMax);
 
              
-       /*      
-             homePageServices.futureProducts($rootScope.store.storeId).then(function(data){
-                 $scope.futureProducts = data;
-             });
              
-            homePageServices.topCategories($rootScope.store.storeId).then(function(data){
-                 $scope.futureProducts = data;
-             })
-             */
+             
+             
              
              /* Location Service*/
 			$rootScope.geoLocation ={}
@@ -200,6 +194,13 @@ angular.module('aviate.controllers')
 				}
 			}
 			geoLocation();
+			homePageServices.futureProducts($rootScope.store.storeId).then(function(data){
+                $scope.futureProducts = data;
+            });
+            
+           homePageServices.topCategories($rootScope.store.storeId).then(function(data){
+                $scope.topcategories = data;
+            })
              
 		}]);
 
