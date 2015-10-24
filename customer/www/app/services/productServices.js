@@ -8,7 +8,7 @@ angular.module('aviate.services')
 		api.Product.getProductsFromCategory(category, function(err, result){		
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result);
+					d.resolve(result.products);
 				} else {
 					toastr.error(result.errorString);
 				}
@@ -24,7 +24,7 @@ angular.module('aviate.services')
 		api.Product.getProductsByProductTypeId(productType, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result);
+					d.resolve(result.products);
 				} else {
 					toastr.error(result.errorString);
 				}

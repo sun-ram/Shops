@@ -45,20 +45,19 @@
 	<!-- iterator starts here -->
 	
 	
-	
-		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+		<div ng-repeat="product in productList" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
 				<div flex style="height:150px;">
 					<img src="assets/images/Acai.jpg" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
-					<span class="md-title text-primary">Product Name</span>
+					<span class="md-title text-primary">{{product.productName}}</span>
 				</div>
 				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">500g</span>
+					<span flex class="md-body-2 text-left">{{product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</span>
 					<span flex class="md-body-2 text-right">
 						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						140
+						{{product.productPrice.price}}
 					</span>
 				</div>
 				<div layout="row" flex>
@@ -79,172 +78,6 @@
 		</div>
 		
 	<!--  iterator end -->	
-		
-		
-		
-		
-		
-		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
-			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px;">
-					<img src="assets/images/Acai.jpg" style="width:100%"/>
-				</div>
-				<div flex layout-align="center center" layout="row">
-					<span class="md-title text-primary">Product Name</span>
-				</div>
-				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">500g</span>
-					<span flex class="md-body-2 text-right">
-						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						140
-					</span>
-				</div>
-				<div layout="row" flex>
-					<div flex layout="row" class="addtocart-btn">
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"></md-icon>
-							</div>
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"></md-icon>	
-							</div>
-						</div>
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
-			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px;">
-					<img src="assets/images/Acai.jpg" style="width:100%"/>
-				</div>
-				<div flex layout-align="center center" layout="row">
-					<span class="md-title text-primary">Product Name</span>
-				</div>
-				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">500g</span>
-					<span flex class="md-body-2 text-right">
-						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						140
-					</span>
-				</div>
-				<div layout="row" flex>
-					<div flex layout="row" class="addtocart-btn">
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"></md-icon>
-							</div>
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"></md-icon>	
-							</div>
-						</div>
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
-			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px;">
-					<img src="assets/images/Acai.jpg" style="width:100%"/>
-				</div>
-				<div flex layout-align="center center" layout="row">
-					<span class="md-title text-primary">Product Name</span>
-				</div>
-				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">500g</span>
-					<span flex class="md-body-2 text-right">
-						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						140
-					</span>
-				</div>
-				<div layout="row" flex>
-					<div flex layout="row" class="addtocart-btn">
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"></md-icon>
-							</div>
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"></md-icon>	
-							</div>
-						</div>
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
-			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px;">
-					<img src="assets/images/Acai.jpg" style="width:100%"/>
-				</div>
-				<div flex layout-align="center center" layout="row">
-					<span class="md-title text-primary">Product Name</span>
-				</div>
-				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">500g</span>
-					<span flex class="md-body-2 text-right">
-						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						140
-					</span>
-				</div>
-				<div layout="row" flex>
-					<div flex layout="row" class="addtocart-btn">
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"></md-icon>
-							</div>
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"></md-icon>	
-							</div>
-						</div>
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
-			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px;">
-					<img src="assets/images/Acai.jpg" style="width:100%"/>
-				</div>
-				<div flex layout-align="center center" layout="row">
-					<span class="md-title text-primary">Product Name</span>
-				</div>
-				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">500g</span>
-					<span flex class="md-body-2 text-right">
-						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						140
-					</span>
-				</div>
-				<div layout="row" flex>
-					<div flex layout="row" class="addtocart-btn">
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"></md-icon>
-							</div>
-							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"></md-icon>	
-							</div>
-						</div>
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-		
-		
-		
 		
 	</div>
 	
