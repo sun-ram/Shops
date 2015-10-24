@@ -44,7 +44,6 @@
 	
 	<!-- iterator starts here -->
 	
-	
 		<div ng-repeat="product in productList" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
 				<div flex style="height:150px;">
@@ -63,15 +62,16 @@
 				<div layout="row" flex>
 					<div flex layout="row" class="addtocart-btn">
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
+						<md-icon ng-hide="product.noOfQuantityInCart > 0" style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product)"></md-icon>
 							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"></md-icon>
+								<md-icon  ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product)"></md-icon>
 							</div>
 							<div>
-								<md-icon style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"></md-icon>	
+								<md-icon ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;deletefromCart(product,$index)"></md-icon>	
 							</div>
 						</div>
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary"><span>1</span></div>
-						<div flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
+						<div flex="20" ng-show="product.noOfQuantityInCart > 0" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span>{{product.noOfQuantityInCart}}</span></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product)" flex="60" style="padding:10px;" class="bg-white text-primary">Add To <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
 					</div>
 				</div>
 			</div>
