@@ -32,5 +32,21 @@ angular.module('app')
 	
 	//var myCart = ipCookie('myCart');
 	//var myCart = ipCookie('myList');
+	$rootScope.store = ipCookie('myCart');
+	
+	/*{
+		'store':{},
+		'serviceTax':{
+			'vta':54;
+		}
+		
+	}*/
+	
+	/*{
+		'cartIems':[{},{}],
+		'total':''
+
+	}*/
+	
 	
 });
