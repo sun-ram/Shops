@@ -13,7 +13,7 @@ angular.module('aviate.directives').directive('sideNav', [
                 		$mdSidenav(menuId).toggle();
                 	};*/
                 	var request={
-                			storeId:"6"
+                			storeId:$rootScope.store.storeId
                 	}
                 	$scope.categoryList = function(){
                 		CategoryService.getCategoryList(request).then(function(data){
