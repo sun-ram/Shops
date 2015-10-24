@@ -8,27 +8,27 @@
 </script> 
 	
 <script type="text/ng-template" id="productCategoryList">
-	<md-chips ng-if="c.category.length > 0" ng-click="getProductsByCategoryId(c.categoryId);">
+	<md-chips ng-hide="c.hide" ng-if="c.category.length > 0" ng-click="getProductsByCategoryId(c.categoryId);">
 		<md-chip >{{c.categoryName}}<md-icon
 			md-svg-src="assets/images/ic_arrow_drop_down_black_24px.svg"></md-icon>
 		</md-chip> </md-chips>
 
-	<md-chips ng-if="c.category.length == 0" ng-click="subcat = ! subcat;getProductsByCategoryId(c.categoryId);">
+	<md-chips ng-hide="c.hide" ng-if="c.category.length == 0" ng-click="subcat = ! subcat;getProductsByCategoryId(c.categoryId);">
 		<md-chip>{{c.categoryName}}
 		</md-chip> </md-chips>
 
-	 		<ul ng-if="c.category.length == 0" ng-show="showDetails || subcat">
+	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0">
  			<li ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
  		</ul>
 
-		<ul ng-if="c.category.length > 0" ng-show="showDetails">
+		<ul ng-hide="c.hide" ng-if="c.category.length > 0">
        		<li class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
      	</ul>
 </script>
 	
 <div id='cssmenu' style="color: #fff;">
 	<ul ng-repeat="c in categoryList" >
- 		<li class='has-sub ' ng-include="'productCategoryList'" ng-click="showDetails = ! showDetails"></li>
+ 		<li class='has-sub ' ng-include="'productCategoryList'"></li>
  		
  	</ul>
 </div>
