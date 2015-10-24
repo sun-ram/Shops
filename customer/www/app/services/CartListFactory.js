@@ -1,27 +1,27 @@
 angular.module('aviate.services')
-.factory('CartPriceCalculationService',['$q','api','toastr','CONSTANT','ipCookie','$rootScope',
-                                 function($q, api, toastr, CONSTANT, ipCookie, $rootScope) {
+.factory('CartPriceCalculationService',['$q','api','toastr','CONSTANT','ipCookie','$scope',
+                                 function($q, api, toastr, CONSTANT, ipCookie, $scope) {
 
 	this.myCartTotalPriceCalculation = function(){
 		
-		$rootScope.taxAmount = 0;
-		$rootScope.grossAmount = 0;
-		$rootScope.cartTotalAmount = 0;
+		$scope.taxAmount = 0;
+		$scope.grossAmount = 0;
+		$scope.cartTotalAmount = 0;
 		var totalAmount = 0;
-		for(var i=0; i<$rootScope.cartItem.length; i++){
+		for(var i=0; i<$scope.cartItem.length; i++){
 			var subTotal = 0;
-			subTotal = $rootScope.cartItem[i].noOfQuantityInCart * $rootScope.cartItem[i].productDetails.productPrice.price;
-			$rootScope.cartItem[i].subTotal = subTotal;
+			subTotal = $scope.cartItem[i].noOfQuantityInCart * $scope.cartItem[i].productDetails.productPrice.price;
+			$scope.cartItem[i].subTotal = subTotal;
 			totalAmount += subTotal;
 		}
 
-		$localStorage.localStoreCartlist = $rootScope.cartItem;
-		$rootScope.cartTotalAmount = totalAmount;
-		$localStorage.myCart.cartTotalAmount = $rootScope.cartTotalAmount;
-		$rootScope.taxAmount = $rootScope.cartTotalAmount*($rootScope.tax/100);
-		$localStorage.myCart.taxAmount = $rootScope.taxAmount;
-		$rootScope.grossAmount = $rootScope.taxAmount+$rootScope.cartTotalAmount+$rootScope.shippingCharges;
-		$localStorage.myCart.grossAmount =$rootScope.grossAmount;
+		$localStorage.localStoreCartlist = $scope.cartItem;
+		$scope.cartTotalAmount = totalAmount;
+		$localStorage.myCart.cartTotalAmount = $scope.cartTotalAmount;
+		$scope.taxAmount = $scope.cartTotalAmount*($scope.tax/100);
+		$localStorage.myCart.taxAmount = $scope.taxAmount;
+		$scope.grossAmount = $scope.taxAmount+$scope.cartTotalAmount+$scope.shippingCharges;
+		$localStorage.myCart.grossAmount =$scope.grossAmount;
 		d.resolve();
 		return d.promise;
 	};

@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("cartCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT','$http',
-		 function($scope, $state, toastr, CONSTANT,$http) {
+		['$scope', '$state', 'toastr', 'CONSTANT','$http','$rootScope',
+		 function($scope, $state, toastr, CONSTANT,$http,$rootScope) {
 			
 			
 			$scope.getCartList= function() {
@@ -32,28 +32,52 @@ angular.module('aviate.controllers')
 				$scope.user.quantity = quantity;
 				$scope.user.price = subTotal;
 				
-				MyCartServices.removeCartProduct($scope.user).then(function(data) {
+				MyCartServices.addToCart($scope.user).then(function(data) {
 					$scope.getCartList();
 					
 				});		
 			}
 			
-			$rootScope.addToCartDB = function(productId, quantity, subTotal){
-				var menuJson = angular.toJson({"customerId" : $localStorage.userId, "storeId" : $rootScope.superMarketId, "productId" : productId, 
-					"price" : subTotal, "quantity" : quantity});		 
-				$http({
-					url: serviceUrl + 'aviate/json/product/addtocart',
-					method: 'POST',
-					data: menuJson,
-					headers: {
-						'Content-Type': 'application/json'
-					} 
-				}).success(function(result, status, headers) {
-					if(result.status == 'SUCCESS'){
-						$rootScope.cartItem = [];
-						$rootScope.getCartListFromDB();
+			$rootScope.addToCartFun = function(product){
+				var isExistInCart = false;
+				if(product.noOfQuantityInCart > 0){
+					if($localStorage.userId){
+						$rootScope.addToCartDB(product.productDetails.productId, product.noOfQuantityInCart, product.productDetails.productPrice.price);
+						$rootScope.productListUpdate(product, product.noOfQuantityInCart);
+					}else{
+						for(var i = 0; i<$rootScope.cartItem.length; i++){
+							if($rootScope.cartItem[i].productDetails.productId == product.productDetails.productId){
+								$rootScope.cartItem[i] = product;
+								isExistInCart = true;
+							}
+						}
+						if(!isExistInCart){
+							$rootScope.cartItem.push({
+								"noOfQuantityInCart":product.noOfQuantityInCart,
+								"productDetails":product.productDetails});
+						}
+						$rootScope.productListUpdate(product, product.noOfQuantityInCart);
 					}
-				})
+				}else if(product.noOfQuantityInCart == 0){
+					for(var i = 0; i<$rootScope.cartItem.length; i++){
+						if($rootScope.cartItem[i].productDetails.productId == product.productDetails.productId){
+							$rootScope.deletefromCart(product, i);
+						}
+					}
+				}
+				$rootScope.myCartTotalPriceCalculation();
+			}
+			
+			$rootScope.deletefromCart = function(product, index){
+				if($localStorage.userId){
+					$rootScope.removeFromCartDB(product.productDetails.productId);
+					$rootScope.productListUpdate(product, 0);
+					$rootScope.getCartListFromDB();
+				}else{
+					$scope.cartItem.splice(index, 1);
+					$rootScope.myCartTotalPriceCalculation();
+					$rootScope.productListUpdate(product, 0);
+				}
 			}
 
 /*			$scope.removeFromCartDB = function(productId){
