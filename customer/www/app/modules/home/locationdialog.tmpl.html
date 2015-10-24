@@ -36,8 +36,8 @@ md-ink-bar{top:115px;}
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select City<span style="color:red">*</span></label>
              <md-select ng-model="selectedcity" ng-required="true" ng-change="searchByCity(selectedcity)">
-                <md-option ng-repeat="shop in allStoreList" value="{{shop.city}}">
-                  {{shop.city}}
+                <md-option ng-repeat="shop in allStoreList" value="{{shop}}">
+                  {{shop}}
                 </md-option>
               </md-select>
         </md-input-container>
@@ -68,6 +68,6 @@ md-ink-bar{top:115px;}
     
     <h4 ng-if="!checked" style="color:black;text-align: center;font-family:sans-serif; margin: 5px 0px; ">or</h4>
     <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 5%;">
-    <md-button class="md-raised md-primary btn-success" ng-model="checked" ng-click="checked=true">SEARCH  SUPER MARKETsssss</md-button>
+    <md-button class="md-raised md-primary btn-success" ng-model="checked" ng-click="checked=true">SEARCH  SUPER MARKET</md-button>
   	</section>
 </md-dialog>

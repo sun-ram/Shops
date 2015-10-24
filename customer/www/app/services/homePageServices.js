@@ -4,13 +4,13 @@ angular.module('aviate.services')
 	this.futureProducts = function(storeId){
 		var d = $q.defer();
         var product = {'storeId' : storeId};
-		api.Product.futureProducts(product, function(err, result){
+		api.Product.getFutureProducts(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 
 
 					//If You Want, Need to write logics
-					d.resolve(userDetails);
+					d.resolve(result.products);
 				} else {
 					toastr.error(result.errorString);
 				}
@@ -30,7 +30,7 @@ angular.module('aviate.services')
 
 
 					//If You Want, Need to write logics
-					d.resolve(result);
+					d.resolve(result.products);
 				} else {
 					toastr.error(result.errorString);
 				}

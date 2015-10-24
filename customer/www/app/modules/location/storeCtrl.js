@@ -113,8 +113,8 @@ function DialogController($scope, $mdDialog,LocationService,$rootScope,$log,toas
 
 	$scope.changeStore = function(store){
 		$log.debug(store.storeId);
-	//	$state.go('app.products');
-	//	$mdDialog.cancel();
+		$state.go('app.products');
+		$mdDialog.cancel();
 	}
 
 }

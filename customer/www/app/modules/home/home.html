@@ -93,14 +93,14 @@
                 <div layout="" flex ></div>
           </md-toolbar>
           <md-tabs md-stretch-tabs="auto" class="padd_tb30 category">
-            <md-tab >
+            <md-tab ng-repeat="topproducts in topcategories">
              <div class="item wid_120">
-             <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img">
+             <img ng-src="{{topproducts.productImages[1].imageUrl}}" class="md-avatar chs-img">
              </div>
              <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-             <label class="ttc">dfhdfd</label></div>
+             <label class="ttc">{{topproducts.productName}}</label></div>
            </md-tab>
-            <md-tab>
+            <!--<md-tab>
             <div class="item wid_120" >
              <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
             </div>
@@ -176,7 +176,7 @@
             </div>
             <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
             <label>dfhdfd</label></div>
-          </md-tab>
+          </md-tab>-->
         </md-tabs>
 
         </md-content>
@@ -197,16 +197,16 @@
                 <div layout="column" flex ></div>
           </md-toolbar>
           <md-tabs md-stretch-tabs="auto" class="padd_tb30 feature">
-            <md-tab layout layout-align="column">
+            <md-tab layout layout-align="column" ng-repeat="product in futureProducts">
              <div class="item wid_150 viewlarge" >
-             <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
+             <img  ng-src="{{product.productImages[1].imageUrl}}" class="md-avatar">
              </div>
-             <h4 class="nomarg_btm ft_black">Strawberry</h4>
+             <h4 class="nomarg_btm ft_black">{{product.productName}}</h4>
 
              <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
+        <span class="ft_gray"> {{product.measurement}} {{product.productUnitOfMeasure.abbreviation}} / </span>
           <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-          <div class="ft_gray">210</div>
+           <div class="ft_gray">{{product.productPrice.price}} </div>
         </div>
 
            <div layout="row" layout-align="center">
@@ -229,7 +229,8 @@
         </div>
         </div>
            </md-tab>
-           <md-tab layout layout-align="column">
+           </md-tabs>
+           <!-- <md-tab layout layout-align="column">
             <div class="item wid_150 viewlarge" >
             <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
             </div>
@@ -254,7 +255,7 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm class="ttc">add to
-         <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+         <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
          <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
@@ -286,7 +287,7 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
@@ -318,7 +319,7 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
@@ -350,7 +351,7 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
@@ -382,7 +383,7 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
@@ -414,7 +415,7 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
@@ -446,14 +447,14 @@
         <div layout="column" layout-align="start" >
         <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
         <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
         </span>
         </md-button>
         </div>
         </div>
         </md-tab>
-        </md-tabs>
+        </md-tabs>-->
 
         </md-content>
 
