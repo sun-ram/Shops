@@ -1,10 +1,13 @@
 angular.module('aviate.controllers')
 .controller("productCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products','$rootScope',
-		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope) {
+		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products','$rootScope','ipCookie',
+		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie) {
 				
 
 			$scope.productList = products;
+			if($rootScope.myCart){
+				
+			}
 			console.info($scope.productList);
 			
 			
@@ -38,29 +41,31 @@ angular.module('aviate.controllers')
 			$rootScope.addToCartFun = function(product){
 				var isExistInCart = false;
 				if(product.noOfQuantityInCart > 0){
-					if($rootScope.user.userId){
-						$rootScope.addToCartDB(product.productId, product.noOfQuantityInCart, product.productDetails.productPrice.price);
-						$rootScope.productListUpdate(product, product.noOfQuantityInCart);
+					if($rootScope.user && $rootScope.user.userId){
+						$rootScope.addToCartDB(product.productId, product.noOfQuantityInCart, product.productPrice.price);
+						$scope.productListUpdate(product, product.noOfQuantityInCart);
 					}else{
-						for(var i = 0; i<$rootScope.cartItem.length; i++){
-							if($rootScope.cartItem[i].productDetails.productId == product.productDetails.productId){
-								$rootScope.cartItem[i] = product;
+						for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
+							if($rootScope.myCart.cartItem[i].productId == product.productId){
+								$rootScope.myCart.cartItem[i] = product;
 								isExistInCart = true;
 							}
 						}
 						if(!isExistInCart){
-							$rootScope.cartItem.push({
+							$rootScope.myCart.cartItem.push({
 								"noOfQuantityInCart":product.noOfQuantityInCart,
-								"productDetails":product.productDetails});
+								"product":product});
+							ipCookie("myCart",$rootScope.myCart);
 						}
-						$rootScope.productListUpdate(product, product.noOfQuantityInCart);
+						$scope.productListUpdate(product, product.noOfQuantityInCart);
 					}
 				}else if(product.noOfQuantityInCart == 0){
-					for(var i = 0; i<$rootScope.cartItem.length; i++){
-						if($rootScope.cartItem[i].productDetails.productId == product.productDetails.productId){
+					for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
+						if($rootScope.myCart.cartItem[i].productId == product.productId){
 							$rootScope.deletefromCart(product, i);
 						}
 					}
+					ipCookie("myCart",$rootScope.myCart);
 				}
 			//	$rootScope.myCartTotalPriceCalculation();
 			}
@@ -68,15 +73,22 @@ angular.module('aviate.controllers')
 			$rootScope.deletefromCart = function(product, index){
 				if($localStorage.userId){
 					$rootScope.removeFromCartDB(product.productDetails.productId);
-					$rootScope.productListUpdate(product, 0);
+					$scope.productListUpdate(product, 0);
 					$rootScope.getCartListFromDB();
 				}else{
 					$scope.cartItem.splice(index, 1);
 					$rootScope.myCartTotalPriceCalculation();
-					$rootScope.productListUpdate(product, 0);
+					$scope.productListUpdate(product, 0);
+				}
+				
+				
+			}
+			$scope.productListUpdate = function(product, quantity){
+				for(var i = 0; i < $scope.productList.length;i++){
+					if($scope.productList[i].productId == product.productId)
+						$scope.productList[i].noOfQuantityInCart = quantity;
 				}
 			}
-
 
 		}]);
 

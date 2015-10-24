@@ -67,7 +67,7 @@
 								<md-icon  ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product)"></md-icon>
 							</div>
 							<div>
-								<md-icon ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;deletefromCart(product,$index)"></md-icon>	
+								<md-icon ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCartFun(product)"></md-icon>	
 							</div>
 						</div>
 						<div flex="20" ng-show="product.noOfQuantityInCart > 0" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span>{{product.noOfQuantityInCart}}</span></div>

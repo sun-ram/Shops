@@ -19,6 +19,16 @@ angular.module('app')
 		$rootScope.user = user;
 	};
 	
+	var myCart = ipCookie('myCart');
+	
+	if (myCart != undefined || myCart != null) {
+		$rootScope.myCart = null;
+		$rootScope.myCart = myCart;
+	}else{
+		$rootScope.myCart = {};
+		$rootScope.myCart.cartItem = [];
+	}
+	
 	if ((user != undefined || user != null) && (store == undefined || store == null)) {
 		
 		MyCartServices.getCartList(user).then(function(data){

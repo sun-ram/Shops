@@ -72,7 +72,7 @@ angular.module('app')
 	// MyList module
 	.state('app.mylist', {
 		url: '/mylist',
-		templateUrl: 'app/modules/mylist/myList.html',
+		templateUrl: 'app/modules/mylist/my-list.html',
 		controller : 'myListCtrl'
 	})
 
@@ -86,7 +86,7 @@ angular.module('app')
 	// Cart module
 	.state('app.cart', {
 		url: '/cart',
-		templateUrl: 'app/modules/cart/cart.html',
+		templateUrl: 'app/modules/cart/my-cart.html',
 		controller : 'cartCtrl'
 	})
 
