@@ -13,7 +13,7 @@ angular.module('aviate.controllers')
 
 			$scope.getMyList = function(){
 				MyListServices.getMyList().then(function(data){
-					
+					$scope.product = data;
 				});
 			};
 

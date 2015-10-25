@@ -72,7 +72,7 @@ angular.module('app')
 	// MyList module
 	.state('app.mylist', {
 		url: '/mylist',
-		templateUrl: 'app/modules/mylist/my-list.html',
+		templateUrl: 'app/modules/mylist/myList.html',
 		controller : 'myListCtrl'
 	})
 
