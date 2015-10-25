@@ -1,0 +1,65 @@
+<md-dialog style="width:600px">
+    <md-button class="md-icon-button" ng-click="cancel()" style="position:absolute;top:3px;right:4px;height:25px;width:25px">
+        <md-icon md-svg-src="img/close.svg" style="height:20px;width:20px"></md-icon>
+    </md-button>
+    <div layout="column" layout-align="center center">
+        <div layout="row" style="width:50%">
+            <div flex></div>
+            <img src="../img/add.svg" height="25px" width="25px" style="margin:auto"> &nbsp;&nbsp;&nbsp;
+            <h3>Add a Delivery address</h3>
+            <div flex></div>
+        </div>
+        <p>We need your name to be able to find you for the delivery</p>
+    </div>
+    <div layout="column" layout-padding>
+        <form name="addressForm" ng-submit="addAddress(address)">
+            <div layout="row">
+                <md-input-container flex>
+                    <label>First name</label>
+                    <input type="text" ng-model="address.firstName" required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Last Name</label>
+                    <input type="text" ng-model="address.lastName" required>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Address</label>
+                    <input type="text" ng-model="address.address.line1" required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Address Line 2</label>
+                    <input type="text" ng-model="address.address.line2">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>City</label>
+                    <input type="text" ng-model="address.city" required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>State</label>
+                    <input type="text" ng-model="address.state" required>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Postal Code</label>
+                    <input type="text" ng-model="address.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="6" required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Country</label>
+                    <input type="text" ng-model="address.country" required>
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <label>Address specific information(Optional)</label>
+                <textarea ng-model="address.specificInfo" columns="1" md-maxlength="150"></textarea>
+            </md-input-container>
+            <div layout="row" layout-align="end center">
+                <md-button class="md-primary md-raised" ng-disable="addressForm.$dirty">Add</md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

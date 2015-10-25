@@ -1,0 +1,123 @@
+.checkout-container {
+    width: 1000px;
+}
+
+.timeline {
+    height: 150px;
+    width: 100%;
+}
+
+.timeline-container {
+    height: 150px;
+    width: 90%;
+}
+
+.timeline-container .timeline-circle {
+    height: 60px;
+    width: 60px;
+    border-radius: 60px;
+    background-color: #ebebeb;
+}
+
+.timeline-container .timeline-circle.completed {
+    background-color: #90CAF9;
+}
+
+.timeline-container .timeline-circle button {
+    margin-top: 4px;
+}
+
+.timeline-container .timeline-line {
+    height: 20px;
+    background-color: #ebebeb;
+}
+
+.timeline-container .timeline-line.completed {
+    background-color: #90CAF9;
+}
+
+.address-section .address-title,
+.verification-section .verification-section-title {
+    text-align: center;
+}
+
+.address-section .address-container {
+    width: 100%;
+}
+
+.address-section .address-container .address-header {
+    border-bottom: solid 1px darkgray;
+}
+
+.address-section .address-container .address-header .address-edit {
+    border-left: solid 1px darkgray;
+}
+
+.address-section .address-container .address:hover {
+    box-shadow: 0 8px 9px -5px rgba(0, 0, 0, .2), 0 15px 22px 2px rgba(0, 0, 0, .14), 0 6px 28px 5px rgba(0, 0, 0, .12);
+    cursor: pointer;
+}
+
+.address-section .address-container .address.selected {
+    box-shadow: 0 8px 9px -5px #E3F2FD, 0 15px 22px 2px #E3F2FD, 0 6px 28px 5px #E3F2FD;
+    background-color: #90CAF9;
+}
+
+.verification-section .address-datetime {
+    height: 350px;
+}
+
+.verification-section .address-verify {
+    border-left: solid 4px #8bb617;
+    height: 150px;
+    border-bottom: solid 2px #ebebeb
+}
+
+.verification-section .delivery-verify {
+    border-left: solid 3px #FB8C00;
+    height: 100px;
+    border-bottom: solid 2px #ebebeb
+}
+
+.verification-section .address-verify .circle,
+.verification-section .delivery-verify .circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #ebebeb;
+    margin: 15px;
+}
+
+.verification-section .address-verify .circle img,
+.verification-section .delivery-verify .circle img {
+    margin-top: 7px;
+    margin-left: 11px
+}
+
+.verification-section .address-verify .edit,
+.verification-section .delivery-verify .edit {
+    margin: auto;
+}
+
+.verification-section .consolidated-rate-holder .consolidate-rates {
+    border: solid 1px #ebebeb;
+}
+
+.verification-section .purchased-items-section .purchased-item-title {
+    font-size: 30px;
+    color: #8bb617;
+    font-weight: bold;
+}
+
+.verification-section .purchased-items-section .item-divider {
+    border-bottom: solid 2px #ebebeb;
+}
+
+.verification-section .purchased-items-section img {
+    margin-top: 11px;
+    margin-left: 7px;
+}
+
+.verification-section .purchased-items-section .price {
+    margin: auto;
+}

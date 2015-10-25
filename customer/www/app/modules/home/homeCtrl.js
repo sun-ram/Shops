@@ -107,9 +107,15 @@ angular.module('aviate.controllers')
 						}
 						
 						if(location.latitude!=undefined && location.longitude!=undefined){
-						LocationService.getStoreByLocation(location).then(function(data) {
-							$scope.storeList = data;
-						});
+							if($rootScope.nearByStoreList == undefined || $rootScope.nearByStoreList == null){
+								LocationService.getStoreByLocation(location).then(function(data) {
+									$scope.storeList = data;
+									$rootScope.nearByStoreList = data;
+								});
+							}else{
+								$scope.storeList = $rootScope.nearByStoreList;
+							}
+						
 						}
 
 						var optionLocation=null;
@@ -141,6 +147,7 @@ angular.module('aviate.controllers')
 							ipCookie("store", storedetails);
 							$rootScope.getFutureProducts();
 							$rootScope.getTopCategories(); 
+							$rootScope.categoryList();
 							$log.debug(storedetails);
 							$state.go('app.products');
 							$mdDialog.cancel();

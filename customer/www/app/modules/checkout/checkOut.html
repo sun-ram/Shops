@@ -1,1 +1,47 @@
-Check Out
+<md-card layout="column" class="checkout-container">
+        <md-card-content>
+            <section class="timeline" layout="row" layout-align="center center">
+                <div layout="row" class="timeline-container" layout-align="center center">
+                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.addressEntry}">
+                        <md-button class="md-icon-button" aria-label="More">
+                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                        </md-button>
+                        <md-tooltip md-direction="top">
+                            Select address
+                        </md-tooltip>
+                    </div>
+                    <div flex class="timeline-line" ng-class="{completed:timeLineStatus.addressEntry}">
+                    </div>
+                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.deliveryDate}">
+                        <md-button class="md-icon-button" aria-label="More">
+                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                        </md-button>
+                        <md-tooltip md-direction="top">
+                            Select delivery
+                        </md-tooltip>
+                    </div>
+                    <div flex class="timeline-line" ng-class="{completed:timeLineStatus.deliveryDate}">
+                    </div>
+                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.verification}">
+                        <md-button class="md-icon-button" aria-label="More">
+                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                        </md-button>
+                        <md-tooltip md-direction="top">
+                            Review and confirmed
+                        </md-tooltip>
+                    </div>
+                    <div flex class="timeline-line" ng-class="{completed:timeLineStatus.verification}">
+                    </div>
+                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.payment}">
+                        <md-button class="md-icon-button" aria-label="More">
+                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                        </md-button>
+                        <md-tooltip md-direction="top">
+                            Select payment
+                        </md-tooltip>
+                    </div>
+                </div>
+            </section>
+            <ng-include src="merchangetTemplate"></ng-include>
+        </md-card-content>
+    </md-card>
