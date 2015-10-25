@@ -76,8 +76,6 @@ angular.module('aviate.controllers')
              
              
              /* Location Service*/
-			$rootScope.geoLocation ={}
-
 			$rootScope.showLocationDialog = function(ev) {
 				$mdDialog.show({
 					templateUrl: 'app/modules/home/locationdialog.tmpl.html',
@@ -167,10 +165,11 @@ angular.module('aviate.controllers')
 			}
 			
 			var geoLocation = function(){
-				if($rootScope.findlocation){
+				if($rootScope.geoLocation.findlocation){
 					if (navigator.geolocation) {
 						navigator.geolocation.getCurrentPosition(showPosition, showError,settings);
 					} else { 
+						$rootScope.geoLocation.support=false;
 						toastr.error("Geolocation is not supported by this browser");
 					}
 					}
@@ -179,6 +178,7 @@ angular.module('aviate.controllers')
 			var showPosition = function(position) {
 				$rootScope.geoLocation.latitude = position.coords.latitude;
 				$rootScope.geoLocation.longitude = position.coords.longitude;
+				$rootScope.geoLocation.support=true;
 				$rootScope.showLocationDialog();
 			}
 			
@@ -186,13 +186,13 @@ angular.module('aviate.controllers')
 				switch(error.code) {
 				case error.PERMISSION_DENIED:
 					toastr.error("User denied the request for Geolocation.");
-					var checked=true;
-					$rootScope.showLocationDialog(checked);
+					$rootScope.geoLocation.support=false;
+					$rootScope.showLocationDialog(true);
 					break;
 				case error.POSITION_UNAVAILABLE:
 					toastr.error("Location information is unavailable.");
-					var checked=true;
-					$rootScope.showLocationDialog(checked);
+					$rootScope.geoLocation.support=false;
+					$rootScope.showLocationDialog(true);
 					break;
 				case error.TIMEOUT:
 					toastr.error("The request to get user location timed out.");
