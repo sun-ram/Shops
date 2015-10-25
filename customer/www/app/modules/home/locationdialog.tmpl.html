@@ -36,7 +36,7 @@ md-ink-bar{top:115px;}
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select City<span style="color:red">*</span></label>
              <md-select ng-model="selectedcity" ng-required="true" ng-change="searchByCity(selectedcity)">
-                <md-option ng-repeat="shop in allStoreList" value="{{shop}}">
+                <md-option ng-repeat="shop in allStoreList track by $index" value="{{shop}}">
                   {{shop}}
                 </md-option>
               </md-select>
@@ -45,8 +45,8 @@ md-ink-bar{top:115px;}
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select Area<span style="color:red">*</span></label>
              <md-select ng-model="selectedaddress" ng-required="true" ng-change="searchByAddress(selectedaddress)">
-                <md-option ng-repeat="shop in addressList" value="{{shop.address}}">
-                  {{shop.address}}
+                <md-option ng-repeat="address in addressList track by $index" value="{{address.address}}">
+                  {{address.address}}
                 </md-option>
               </md-select>
         </md-input-container>
