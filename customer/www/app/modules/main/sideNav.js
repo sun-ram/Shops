@@ -12,9 +12,7 @@ angular.module('aviate.directives').directive('sideNav', [
                 	/*$scope.toggleSidenav = function(menuId) {
                 		$mdSidenav(menuId).toggle();
                 	};*/
-                	var request={
-                			storeId:$rootScope.store.storeId
-                	}
+                	
                     $scope.optimizeData = function (data){
                         
                         for(var i=0;data[i];i++){
@@ -25,13 +23,16 @@ angular.module('aviate.directives').directive('sideNav', [
                         }
                         
                     }
-                	$scope.categoryList = function(){
+                    
+                	$rootScope.categoryList = function(){
+                		var request={
+                    			storeId:$rootScope.store.storeId
+                    	}
                 		CategoryService.getCategoryList(request).then(function(data){
                             $scope.optimizeData(data);
                 			$scope.categoryList=data;
                            });
                       }
-                	$scope.categoryList();
                 	
                   $scope.todos = [
       {
