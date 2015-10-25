@@ -183,7 +183,7 @@ height: 40px;
 .ft_black{color:#000;}
 .ft_gray{color:gray;}
 
-.nav-bar-subheader{ padding:10px 0px; background-color:rgba(255,255,255,0.3)}
+.nav-bar-subheader{ padding:10px 0px; background-color:#6EAB10 !important}
 ul.nav-menu{ width:400px; padding:10px; margin-left:120px; display:inline; list-style-type:none;}
 ul.nav-menu li{ width:auto; display:inline; list-style-type: none; padding:10px; list-style-type:none;}
 
