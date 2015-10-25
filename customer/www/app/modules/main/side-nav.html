@@ -18,11 +18,11 @@
 		</md-chip> </md-chips>
 
 	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0">
- 			<li ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
+ 			<li ng-hide="pt.hide" ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
  		</ul>
 
 		<ul ng-hide="c.hide" ng-if="c.category.length > 0">
-       		<li class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
+       		<li ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
      	</ul>
 </script>
 	

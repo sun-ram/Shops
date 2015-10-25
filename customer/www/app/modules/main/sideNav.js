@@ -15,12 +15,23 @@ angular.module('aviate.directives').directive('sideNav', [
                 	
                     $scope.optimizeData = function (data){
                         
-                        for(var i=0;data[i];i++){
-                            data[i].hide = false;
-                            for(var j=0;data[i].category && data[i].category[j];j++){
-                                $scope.optimizeData(data[i].category[j]);
+                        if(data && data.length>0){
+                            for(var i=0;data[i];i++){
+                                if(data[i].parentCategory){
+                                    data[i].hide = true;
+                                }
+                                for(var j=0;data[i].category && data[i].category[j];j++){
+                                    $scope.optimizeData(data[i].category[j]);
+                                }
                             }
-                        }
+                        }else{
+                            if(data.parentCategory){
+                                    data.hide = true;
+                                }
+                                for(var j=0;data.category && data.category[j];j++){
+                                    $scope.optimizeData(data.category[j]);
+                                }
+                        }   
                         
                     }
                     
@@ -33,6 +44,7 @@ angular.module('aviate.directives').directive('sideNav', [
                 			$scope.categoryList=data;
                            });
                       }
+                    $rootScope.categoryList();
                 	
                   $scope.todos = [
       {
@@ -51,11 +63,16 @@ angular.module('aviate.directives').directive('sideNav', [
       }
     ];
                     $scope.findSubtree = function (newData, parentId,parentchanged){
-                        if(newData && newData.length){
+                        if(newData && newData.length>0){
                             for(var i=0;newData[i];i++){
                                 if(newData[i].parentCategoryId && newData[i].parentCategoryId == parentId && !parentchanged){
                                     newData[i].hide = !newData[i].hide;
                                     parentchanged=true;
+                                }
+                                if(newData[i].productType && newData[i].productType.length>0 && newData[i].categoryId ==  parentId){
+                                    for(var j=0;newData[i].productType[j];j++){
+                                        newData[i].productType[j].hide = !newData[i].productType[j].hide;
+                                    }
                                 }
                                 for(var j=0;newData[i].category && newData[i].category[j];j++){
                                     if(parentchanged){
@@ -66,8 +83,13 @@ angular.module('aviate.directives').directive('sideNav', [
                             }
                         }else{
                             if(newData.parentCategoryId && newData.parentCategoryId == parentId  && !parentchanged){
-                                    newData.hide = !newData.hide;
+                                  newData.hide = !newData.hide;
                                   parentchanged=true;
+                            }
+                            if(newData.productType && newData.productType.length>0 && newData.categoryId ==  parentId){
+                                for(var j=0;newData.productType[j];j++){
+                                    newData.productType[j].hide = !newData.productType[j].hide;
+                                }
                             }
                             for(var j=0;newData.category && newData.category[j];j++){
                                 if(parentchanged){
