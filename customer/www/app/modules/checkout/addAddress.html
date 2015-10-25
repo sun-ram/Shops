@@ -26,12 +26,14 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>Address</label>
-                    <input type="text" ng-model="address.address.line1" required>
+                    <input type="text" ng-model="address.address" required>
                 </md-input-container>
+<!--
                 <md-input-container flex>
                     <label>Address Line 2</label>
                     <input type="text" ng-model="address.address.line2">
                 </md-input-container>
+-->
             </div>
             <div layout layout-sm="column">
                 <md-input-container flex>
@@ -46,7 +48,7 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>Postal Code</label>
-                    <input type="text" ng-model="address.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="6" required>
+                    <input type="text" ng-model="address.postalCode" >
                 </md-input-container>
                 <md-input-container flex>
                     <label>Country</label>
@@ -55,11 +57,15 @@
             </div>
             <md-input-container>
                 <label>Address specific information(Optional)</label>
-                <textarea ng-model="address.specificInfo" columns="1" md-maxlength="150"></textarea>
+                <textarea ng-model="address.addressSpecificInstruction" columns="1" md-maxlength="150"></textarea>
             </md-input-container>
             <div layout="row" layout-align="end center">
-                <md-button class="md-primary md-raised" ng-disable="addressForm.$dirty">Add</md-button>
+                <md-button class="md-primary md-raised" ng-disable="addressForm.$dirty">{{AddUpdate}}</md-button>
+            </div>
+            <div layout="row" layout-align="end center" ng-show="delete">
+                <md-button class="md-primary md-raised" ng-click="">delete</md-button>
             </div>
         </form>
+        
     </div>
 </md-dialog>

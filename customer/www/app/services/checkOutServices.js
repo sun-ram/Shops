@@ -4,7 +4,7 @@ angular.module('aviate.services')
 	
 	this.addAddress = function(user){
 		var d = $q.defer();
-		api.CheckOut.addAddress=(user, function(err, result){
+		api.CheckOut.addAddress(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve($rootScope.myList);

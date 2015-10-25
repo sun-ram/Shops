@@ -2,7 +2,7 @@
     <p class="address-title md-headline">What is your delivery address</p>
     <div class="address-container" layout="row" layout-wrap>
         <div flex="50">
-            <md-card ng-repeat="address in addresses track by $index" class="address" ng-click="selectAddress(address.id)" ng-class="{selected:address.selected}">
+            <md-card ng-repeat="address in addresses track by $index" class="address" ng-click="selectAddress(address.addressId)" ng-class="{selected:address.selected}">
                 <md-card-content>
                     <div layout="row" class="address-header">
                         <img src="assets/img/checkout/address.svg" height="40px" width="40px">
@@ -31,7 +31,7 @@
 
         </div>
         <div flex="20">
-            <md-card layout-align="center center" ng-click="openAddressDialog($event)" style="cursor:pointer;position: relative;margin-top: 16%;">
+            <md-card layout-align="center center" ng-click="openAddressDialog($event,'add')" style="cursor:pointer;position: relative;margin-top: 16%;">
                 <div layout="column">
                     <div flex></div>
                     <img src="assets/img/checkout/add-address.svg" height="50px" width="50px">
@@ -44,8 +44,8 @@
 <section class="contact-details md-action" layout="row">
     <div>
         <md-input-container flex>
-            <label>Contact Number</label>
-            <input ng-model="contactNumber" required ng-pattern="/^[0-9]{11}$/" md-maxlength="10">
+            <label>Contact Number </label>   
+            <input ng-model="currentOrder.contactNumber" >
         </md-input-container>
     </div>
     <div flex></div>
