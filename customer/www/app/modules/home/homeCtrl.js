@@ -149,8 +149,8 @@ angular.module('aviate.controllers')
 							$rootScope.getTopCategories(); 
 							$rootScope.categoryList();
 							$log.debug(storedetails);
-							$state.go('app.products');
 							$mdDialog.cancel();
+							$state.go('app.home');
 						}
 
 					}
@@ -171,7 +171,7 @@ angular.module('aviate.controllers')
 					if (navigator.geolocation) {
 						navigator.geolocation.getCurrentPosition(showPosition, showError,settings);
 					} else { 
-						$log.debug("Geolocation is not supported by this browser");
+						toastr.error("Geolocation is not supported by this browser");
 					}
 					}
 			};
@@ -185,20 +185,20 @@ angular.module('aviate.controllers')
 			var showError = function(error) {
 				switch(error.code) {
 				case error.PERMISSION_DENIED:
-					$log.debug("User denied the request for Geolocation.");
+					toastr.error("User denied the request for Geolocation.");
 					var checked=true;
 					$rootScope.showLocationDialog(checked);
 					break;
 				case error.POSITION_UNAVAILABLE:
-					$log.debug("Location information is unavailable.");
+					toastr.error("Location information is unavailable.");
 					var checked=true;
 					$rootScope.showLocationDialog(checked);
 					break;
 				case error.TIMEOUT:
-					$log.debug("The request to get user location timed out.");
+					toastr.error("The request to get user location timed out.");
 					break;
 				case error.UNKNOWN_ERROR:
-					$log.debug("An unknown error occurred.")
+					toastr.error("An unknown error occurred.")
 					break;
 				}
 			}
