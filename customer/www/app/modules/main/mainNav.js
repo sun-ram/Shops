@@ -1,13 +1,13 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr) {
 
 	return {
 		// scope: false,
 		restrict: 'E',
 		templateUrl: './app/modules/main/nav-main.html',
 		replace: true,
-		link: function($scope, iElm, iAttrs, controller, AuthServices, CONSTANT){
+		link: function($scope, iElm, iAttrs, controller, AuthServices, CONSTANT,toastr){
 
 			$scope.toggleSidenav = buildToggler('left');
 
@@ -134,7 +134,11 @@ angular.module('aviate.directives')
 			};
 			
 			$scope.changeStore = function() {
-				$rootScope.showLocationDialog();
+				if($rootScope.geoLocation.support==true){
+					$rootScope.showLocationDialog();
+				}else{
+					$rootScope.showLocationDialog(true);
+				}
 			};
 		}
 
