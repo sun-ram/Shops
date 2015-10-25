@@ -11,6 +11,10 @@ angular.module('aviate.controllers')
 					$scope.productList = data;
 				});
 			}
+			
+			$scope.productDetails = function(products){
+				$state.go('app.productsdetails',{productId:products.productId});
+			}
 
 
 		}]);

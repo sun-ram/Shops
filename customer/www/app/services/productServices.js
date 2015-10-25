@@ -34,5 +34,22 @@ angular.module('aviate.services')
 		})
 		return d.promise;
 	};
+	
+	this.getProductsByProductId = function(productId){
+		var d = $q.defer();
+		api.Product.getProductsByProductId(productId, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+
 
 }]);

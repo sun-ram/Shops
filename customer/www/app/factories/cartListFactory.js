@@ -9,14 +9,14 @@ angular.module('aviate.factories')
 		_isExistInCart = false;
 		if(_product.noOfQuantityInCart > 0){
 			if($rootScope.user && $rootScope.user.userId){
-				$scope.cartDetails = {
+				var cartDetails = {
 						customerId : $rootScope.user.userId, 
 						storeId : $rootScope.store.storeId, 
-						productId : $scope.myCart.cartItem[i].productId, 
-						price : $scope.myCart.cartItem[i].productPrice.price, 
-						quantity : $scope.myCart.cartItem[i].noOfQuantityInCart
+						productId : _product.productId, 
+						price : _product.productPrice.price, 
+						quantity : _product.noOfQuantityInCart
 				}
-				MyCartServices.addToCart($scope.cartDetails).then(function(data){
+				MyCartServices.addToCart(cartDetails).then(function(data){
 					console.log('Add To My Cart in factory');
 				})
 			}else{

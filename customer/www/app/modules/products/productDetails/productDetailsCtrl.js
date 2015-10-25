@@ -1,8 +1,15 @@
 angular.module('aviate.controllers')
-.controller("productDetailsCtrl", ['$scope','$http','$sce',
-                                   function($scope,$http,$sce) {
+.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService',
+                                   function($scope,$http,$sce,$stateParams,ProductService) {
 
-
+	$scope.getProducts = function(){
+		ProductService.getProductsByProductId({'productId':$stateParams.productId}).then(function(data){
+			$scope.productDetails = data;
+			console.info($scope.productDetails);
+		});
+	}
+	$scope.getProducts();
+	
 	/*	image zooom*/
 	$scope.zoomLvl = 4;
 	$scope.zoom ;
@@ -10,7 +17,7 @@ angular.module('aviate.controllers')
 
 	/*product desscription*/
 
-	$scope.productDetail = function() {
+	/*$scope.productDetail = function() {
 
 		var menuJson = angular.toJson({
 			"productId":"347"
@@ -35,7 +42,7 @@ angular.module('aviate.controllers')
 				}
 			}
 		});
-	}
+	}*/
 
 	$scope.changeimage = function(imageurl){
 

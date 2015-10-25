@@ -43,7 +43,7 @@
 	
 		<div ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px;">
+				<div flex style="height:150px;" ng-click="productDetails(product);">
 					<img src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
