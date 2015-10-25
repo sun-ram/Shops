@@ -164,7 +164,7 @@ angular.module('aviate.controllers')
             $scope.openAddressDialog = function(event) {
                 $mdDialog.show({
                     controller: addressDialogController,
-                    templateUrl: "addAddress.html",
+                    templateUrl: "app/modules/checkout/addAddress.html",
                     clickOutsideToClose: true,
                     targetEvent: event,
                     locals: {
@@ -176,7 +176,7 @@ angular.module('aviate.controllers')
             $scope.editAddress = function(address, event) {
                 $mdDialog.show({
                     controller: addressDialogController,
-                    templateUrl: "addAddress.html",
+                    templateUrl: "app/modules/checkout/addAddress.html",
                     clickOutsideToClose: true,
                     targetEvent: event,
                     locals: {
@@ -211,9 +211,8 @@ angular.module('aviate.controllers')
                 };
             };
 
-            $scope.merchangetTemplate = "/address.html";
-            console.log("$scope.merchangetTemplate", $scope.merchangetTemplate);
-alert("sdkjhfgsdjhgfhksd");
+            $scope.merchangetTemplate = "app/modules/checkout/address.html";
+          
             $scope.goNext = function(id) {
                 switch (id) {
                     case "address":
@@ -221,7 +220,7 @@ alert("sdkjhfgsdjhgfhksd");
                             return add.selected == true
                         }).length > 0) {
                             $scope.timeLineStatus.addressEntry = true;
-                            $scope.merchangetTemplate = "deliverySchedule.html";
+                            $scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
                         } else {
                             alert("please choose delivery address");
                         }
@@ -229,7 +228,7 @@ alert("sdkjhfgsdjhgfhksd");
                     case "deliverySchedule":
                         if ($scope.delivery.time && $scope.delivery.date) {
                             $scope.timeLineStatus.deliveryDate = true;
-                            $scope.merchangetTemplate = "verifyOrderDetails.html";
+                            $scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
                         } else {
                             alert("please choose delivery date");
                         }
