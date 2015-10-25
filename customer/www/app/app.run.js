@@ -41,15 +41,15 @@ angular.module('app')
 		$rootScope.myList = [];
 	}
 	
-	if ((user != undefined || user != null) && (store == undefined || store == null)) {
+	if ((user != undefined && user != null) && (store != undefined && store != null)) {
 		
 		MyCartServices.getCartList(user).then(function(data){
 			console.log('get cartlist success in run');
 		});
-
+/*
 		MyCartServices.getCartList(user).then(function(data){
 			console.log('get Mylist success in run');
-		});
+		});*/
 	}
 	
 	//var myCart = ipCookie('myCart');

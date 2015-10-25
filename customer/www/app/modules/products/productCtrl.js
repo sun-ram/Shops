@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("productCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products','$rootScope','ipCookie','MyCartFactory',
-		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory) {
+		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products', '$rootScope', 'ipCookie', 'MyCartFactory', 'MyCartServices',
+		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory, MyCartServices) {
 
 
 			$scope.productList = products;
@@ -9,6 +9,13 @@ angular.module('aviate.controllers')
 			$rootScope.addToCart = function(product){
 				MyCartFactory.addToCart(product,$scope.productList,  function(data){
 					$scope.productList = data;
+					$scope.getCartList();
+				});
+			}
+			
+			$scope.getCartList = function(){
+				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+					
 				});
 			}
 			

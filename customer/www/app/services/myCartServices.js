@@ -7,9 +7,9 @@ angular.module('aviate.services')
 		api.MyCart.addToCart(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					ipCookie("myCart",result);
-					$rootScope.myCart = ipCookie("myCart");
-					d.resolve($rootScope.myCart );
+					/*ipCookie("myCart",result);
+					$rootScope.myCart = ipCookie("myCart");*/
+					d.resolve(result);
 				} else {
 					toastr.error(result.errorString);
 				}
@@ -26,8 +26,8 @@ angular.module('aviate.services')
 		api.MyCart.getCartList(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					ipCookie("myCart",result);
-					$rootScope.myCart = ipCookie("myCart");
+					$rootScope.myCart.cartItem = result.myCartList;
+					ipCookie("myCart", $rootScope.myCart);
 					d.resolve($rootScope.myCart );
 				} else {
 					toastr.error(result.errorString);

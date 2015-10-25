@@ -76,31 +76,23 @@ angular.module('aviate.directives')
 										$scope.cartDetails = {
 												"customerId" : $rootScope.user.userId, 
 												"storeId" : $rootScope.store.storeId, 
-												"productId" : $scope.myCart.cartItem[i].productDetails.productId, 
-												"price" : $scope.myCart.cartItem[i].productDetails.productPrice.price, 
-												"quantity" : $scope.myCart.cartItem[i].noOfQuantityInCart
+												"productId" : $scope.myCart.cartItem[i].product.productId, 
+												"price" : $scope.myCart.cartItem[i].product.productPrice.price, 
+												"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
 										}
 										MyCartServices.addToCart($scope.cartDetails).then(function(data){
 											console.log('get Mylist success in Main Nav');
 										});
 
 
-										$rootScope.addToCartDB($rootScope.cartItem[i].productDetails.productId,$rootScope.cartItem[i].noOfQuantityInCart
-												,$rootScope.cartItem[i].productDetails.productPrice.price);
 									}
-									/*$rootScope.cartItem = [];
-									$rootScope.cartTotalAmount = 0;*/
-
-
+	
 								}
 
-								MyCartServices.getCartList(userDetails).then(function(data){
+								MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
 									console.log('get Mylist success in Main Nav');
 								});
 
-								MyCartServices.getCartList(userDetails).then(function(data){
-									console.log('get cartlist success in Main Nav');
-								});
 
 							});
 						};
@@ -131,6 +123,8 @@ angular.module('aviate.directives')
 			$scope.logout = function() {
 				$rootScope.user = null;
 				ipCookie('user', null);
+				$rootScope.myCart = null;
+				ipCookie('myCart', null);
 			};
 			
 			$scope.changeStore = function() {
