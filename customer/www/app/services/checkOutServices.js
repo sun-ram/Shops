@@ -52,5 +52,37 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 	
+	this.confirmOrder = function(order){
+		var d = $q.defer();
+		api.CheckOut.confirmOrder(order, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result.orderId);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+	
+	this.payment = function(payment){
+		var d = $q.defer();
+		api.CheckOut.payment(payment, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result.orderId);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+	
 
 }]);

@@ -337,6 +337,34 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.CheckOut.confirmOrder = function (order, callback) {
+			httpRequest("POST", "checkout/deleteaddress", order, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.CheckOut.payment = function (payment, callback) {
+			httpRequest("POST", "checkout/deleteaddress", payment, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 		return apiClass;
 	}]

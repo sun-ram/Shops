@@ -19,7 +19,7 @@ angular.module('aviate.directives')
 				},200);
 				return debounceFn;
 			};
-
+//console.info('cart-------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signUp.html',

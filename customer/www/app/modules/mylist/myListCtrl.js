@@ -1,7 +1,33 @@
 angular.module('aviate.controllers')
 .controller("myListCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT','$http',
-		 function($scope, $state, toastr, CONSTANT,$http) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$http', 'MyListServices', 'ipCookie',
+		 function($scope, $state, toastr, CONSTANT, $http, MyListServices, ipCookie) {
+
+
+			$scope.addToMyList = function(){
+				MyListServices.addToMyList().then(function(data){
+					$scope.getMyList();
+					$scope.productDetail.isProductMyList=! $scope.productDetail.isProductMyList;
+				});	
+			};
+
+			$scope.getMyList = function(){
+				MyListServices.getMyList().then(function(data){
+					
+				});
+			};
+
+			$scope.removeFromMyList = function(){
+				MyListServices.removeMyList().then(function(data){
+					$scope.getMyList();
+				});	
+			};
+
+
+
+
+
+			/*
 
 			$scope.myList = function(){
 				var menuJson = angular.toJson({"customerId":"1","storeId":"1"});		 
@@ -26,12 +52,12 @@ angular.module('aviate.controllers')
 								"productPrice":result.customerMyList[i].products.productPrice.price,
 								"image":$scope.image								
 							});
-							
+
 						}
 					}
 				})
 			}
-			
+
 			$scope.deletefromList = function(productId){
 				var menuJson = angular.toJson({
 					"customerId":$localStorage.userId,
@@ -50,4 +76,4 @@ angular.module('aviate.controllers')
 				})
 			}
 
-}]);
+			 */}]);

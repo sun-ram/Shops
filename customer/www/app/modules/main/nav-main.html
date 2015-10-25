@@ -16,7 +16,7 @@
             <md-toolbar layout="row" style="background-color:black !important">
                 <div class="md-toolbar-tools">
                     <h1 style="color:white">{{myCart.cartItem.length}}, 
-                        <span style="color:yellow">Rs {{myCart.totalAmount}}</span>
+                        <span style="color:yellow">Rs {{myCart.cartTotalAmount }}</span>
                     </h1>
                 </div>
             </md-toolbar>
@@ -56,7 +56,7 @@
                         </p>
                         <h3>Total 
 					                        
-                            <span style="float:right"> ₹ {{myCart.grossAmount | number:2}}</span>
+                            <span style="float:right"> ₹ {{myCart.cartTotalAmount | number:2}}</span>
                         </h3>
                     </div>
                     <md-button class="md-raised" style="width:95%;background-color:#8BC34A;color:white;">CHECKOUT</md-button>
@@ -108,9 +108,9 @@
 	<ul class="nav-menu">
 
 		<li style="color:#FFC234 !important">Home</li>
-		<li>About Us</li>
-			<li>Contact Us</li>
-				<li>Change store</li>
+<!-- 		<li>About Us</li>
+		<li>Contact Us</li> -->
+		<li>Change store</li>
 	</ul>
 
 </md-subheader> </md-toolbar>
