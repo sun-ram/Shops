@@ -132,6 +132,10 @@ angular.module('aviate.directives')
 				$rootScope.user = null;
 				ipCookie('user', null);
 			};
+			
+			$scope.changeStore = function() {
+				$rootScope.showLocationDialog();
+			};
 		}
 
 	};
