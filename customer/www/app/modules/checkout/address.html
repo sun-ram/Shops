@@ -1,0 +1,48 @@
+<section class="address-section" layout="column">
+    <p class="address-title md-headline">What is your delivery address</p>
+    <div class="address-container" layout="row" layout-wrap>
+        <md-card ng-repeat="address in addresses track by $index" flex="45" class="address" ng-click="selectAddress(address.id)" ng-class="{selected:address.selected}">
+            <md-card-content>
+                <div layout="row" class="address-header">
+                    <img src="img/address.svg" height="40px" width="40px">
+                    <div flex></div>
+                    <p>{{address.firstName }}&nbsp;{{ address.lastName}}</p>
+                    <div flex></div>
+                    <div class="address-edit">
+                        <md-button class="md-icon-button" aria-label="More" ng-click="editAddress(address,$event)">
+                            <md-icon md-svg-icon="img/edit.svg"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li>{{address.address.line1}}</li>
+                        <li>{{address.city}}</li>
+                        <li>{{address.state}}</li>
+                        <li>{{address.country}}</li>
+                        <li>{{address.postalCode}}</li>
+                    </ul>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card flex="45" layout="row" layout-align="center center" ng-click="openAddressDialog($event)" style="cursor:pointer">
+            <div layout="column">
+                <img src="img/add-address.svg" height="50px" width="50px">
+                <p style="text-align:center" class=".md-title">ADD NEW ADDRESS</p>
+            </div>
+        </md-card>
+    </div>
+</section>
+<section class="contact-details md-action" layout="row">
+    <div>
+        <md-input-container flex>
+            <label>Contact Number</label>
+            <input ng-model="contactNumber" required ng-pattern="/^[0-9]{11}$/" md-maxlength="10">
+        </md-input-container>
+    </div>
+    <div flex></div>
+    <div layout="row" layout-align="end center">
+        <md-button class="md-raised">Back</md-button>
+        <md-button class="md-primary md-raised" ng-click="goNext('address')">Next</md-button>
+    </div>
+</section>
