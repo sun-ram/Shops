@@ -37,12 +37,14 @@
 
 .text-white{color:#fff;}
 .text-orange{color:orange;}
+.text-black{color:black;}
 
 md-checkbox.md-checked .md-icon{background:#72a308 !important;}
 .bg-yellow,.bg-yellow:hover{background:#FFC234 !important;color:#fff;}
 
 .bg-green,.bg-green:hover{background:#72a308 !important;color:#fff;}
 .bg-wh-tran, .md-subheader-inner{background: rgba(255,255,255, 0.5);}
+.bg-white{background:white !important;}
 
 .tright{text-align: right;}
 .text-center{text-align: center;}
@@ -160,12 +162,14 @@ md-toolbar:not (.md-menu-toolbar ).md-accent {
 }
 
 .text-green {
-	color: #72A308;
+	color: #72A308 !important;
 }
 
 .card {
 	border: 1px solid lightgrey;
 }
+.ft_size18{font-size: 18px;}
+.ft_size14{font-size: 14px;}
 
 .cart-btn {
 	color: #fff ! important;
@@ -245,3 +249,5 @@ right: -8px;
 .ttc{
   text-transform: capitalize !important;
 }
+
+.bg_gray{background: #ddd !important;}

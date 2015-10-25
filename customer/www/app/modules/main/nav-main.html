@@ -1,21 +1,22 @@
 <md-toolbar style="background-color:transparent">
 <div class="md-toolbar-tools header_color height50 padd_righ8 nomargin ">
 	<span flex></span>
-	<md-button class="wid_60 md-icon-button" aria-label="Favorite">
-	<md-icon md-svg-icon="assets/img/icon/magnifying47.svg" md-ink-ripple="" style="color: white;"></md-icon> </md-button>
+	<md-button class="wid_60 md-icon-button" aria-label="Favorite" >
+	<md-icon md-svg-icon="assets/img/icon/magnifying47.svg" md-ink-ripple="" md-menu-align-target style="color: white;"></md-icon> </md-button>
 	<!-- <md-button class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
 		<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
 	</md-button> -->
 	
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
     <md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
+    <div style="background-color: #000;padding: 5px;height: 20px;position: absolute; top: 4px;border-radius: 90%;right: 3px;">5</div>
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
     </md-button>
-    <md-menu-content ng-show="myCart.cartItem.length > 0" width="6" style="margin-top: 42px;margin-left: 0px;max-height:520px !important; ">
+    <md-menu-content ng-show="myCart.cartItem.length > 0" width="6" style="padding: 0px;position: absolute;top: 42px;min-height:520px !important;">
         <md-content>
-            <md-toolbar layout="row" style="background-color:black !important">
-                <div class="md-toolbar-tools">
-                    <h1 style="color:white">{{myCart.cartItem.length}}, 
+            <md-toolbar layout="row" style="background-color:black !important;min-height: 55px !important;">
+                <div  class="md-toolbar-tools" style="height: 55px;">
+                    <h1 style="color:white">{{myCart.cartItem.length}} Items, 
                         <span style="color:yellow">Rs {{myCart.cartTotalAmount }}</span>
                     </h1>
                 </div>
@@ -31,7 +32,7 @@
          
          
         </div>
-         <md-icon aria-label="Menu" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();"></md-icon>
+         <md-icon aria-label="Menu" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;"></md-icon>
          <md-divider ></md-divider>
       </md-list-item>
       
@@ -59,7 +60,7 @@
                             <span style="float:right"> ₹ {{myCart.cartTotalAmount | number:2}}</span>
                         </h3>
                     </div>
-                    <md-button class="md-raised" style="width:95%;background-color:#8BC34A;color:white;">CHECKOUT</md-button>
+                    <md-button class="md-raised ft_size18" style="width:95%;background-color:#8BC34A;color:white;">CHECKOUT</md-button>
                 </md-content>
             </md-menu-content>
         </md-menu>
@@ -69,7 +70,7 @@
 		<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="height50 wid_60 nomargin bg-green md-icon-button" aria-label="User">
 			<md-icon md-svg-icon="assets/img/icon/hd-user.svg" style="color: white;"></md-icon>
 		</md-button>
-		<md-menu-content width="3" style="margin-top: 42px;margin-left: 0px; padding: 0px !important;">
+		<md-menu-content width="3" style="margin-top: 42px;margin-left: 0px;">
 
 			<md-menu-item ng-hide="user">
 			<md-button ng-click="signUpPopup($event)">
@@ -102,8 +103,8 @@
 	<md-button ng-click="toggleSidenav('left')" class="md-icon-button" aria-label="Menu">
 		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
 	</md-button>
-	<div style="position: absolute; top: -50px; left: 60px;">
-		<img src="assets/img/useravat.png" width="98" class="md-card-image" alt="Washed Out">
+	<div style="position: absolute;top: -50px;left:60px;width:100px;height:98px;" class="bg-yellow">
+		<img src="assets/img/useravat.png"  width="100" height="92" class="md-card-image" alt="Washed Out">
 	</div>
 	<ul class="nav-menu">
 
