@@ -2,14 +2,15 @@ angular.module('app')
 .run(function($rootScope, $state, $http, ipCookie, MyCartServices, MyCartFactory) {
 
 	var store = ipCookie('store');
+	$rootScope.geoLocation ={}
 	
 	if (store == undefined || store == null) {
 		$rootScope.store = null;
-		$rootScope.findlocation=true;
+		$rootScope.geoLocation.findlocation=true;
 		$state.go('app.home');
 	}else {
 		$rootScope.store = ipCookie('store');
-		$rootScope.findlocation=false;
+		$rootScope.geoLocation.findlocation=false;
 	};
 
 	var user = ipCookie('user');
