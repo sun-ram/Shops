@@ -24,16 +24,17 @@
 			
 			<!-- iterator starts -->
 			
-			<div flex layout="row" ng-repeat="product in myListItem" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
+			<div flex layout="row" ng-repeat="product in product" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
+			
 				<div flex="15">
-					<img src={{product.image}} style="width:120px; padding:5px;"/>
+					<img src="{{product.products.productImages[1].imageUrl}}" style="width:120px; padding:5px;"/>
 				</div>
 				<div flex="30" layout="column">
-					<div  class="md-title">{{product.productName}}</div>
-					<div  class="md-caption">500g</div>
-					<div  class="md-subhead" style="margin-top:10px;">Rs {{product.price}}</div>
+					<div  class="md-title">{{product.products.productName}}</div>
+					<div  class="md-caption">{{product.products.measurement}} {{product.products.productUnitOfMeasure.abbreviation}}</div>
+					<div  class="md-subhead" style="margin-top:10px;">Rs {{product.products.productPrice.price}}</div>
 				</div>
-				<div flex="15" layout="row" layout-align="center center">
+				<div flex="15" layout="row" layout-align="center center" ng-click="removeFromMyList(product.productId)">
 					<md-button>Remove</md-button>
 				</div>
 				<div  flex layout="row" layout-align="end center">

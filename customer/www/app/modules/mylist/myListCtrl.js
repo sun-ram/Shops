@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("myListCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', '$http', 'MyListServices', 'ipCookie',
-		 function($scope, $state, toastr, CONSTANT, $http, MyListServices, ipCookie) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$http', 'MyListServices', 'ipCookie','$rootScope',
+		 function($scope, $state, toastr, CONSTANT, $http, MyListServices, ipCookie,$rootScope) {
 
 
 			$scope.addToMyList = function(){
@@ -12,13 +12,20 @@ angular.module('aviate.controllers')
 			};
 
 			$scope.getMyList = function(){
-				MyListServices.getMyList().then(function(data){
+				$scope.user = {};
+				$scope.user.customerId = $rootScope.user.userId;
+				$scope.user.storeId = $rootScope.store.storeId;
+				MyListServices.getMyList($scope.user).then(function(data){
 					$scope.product = data;
 				});
 			};
 
-			$scope.removeFromMyList = function(){
-				MyListServices.removeMyList().then(function(data){
+			$scope.removeFromMyList = function(productId){
+				$scope.user = {};
+				$scope.user.customerId = $rootScope.user.userId;
+				$scope.user.storeId = $rootScope.store.storeId;
+				$scope.user.productId = productId;
+				MyListServices.removeMyList($scope.user).then(function(data){
 					$scope.getMyList();
 				});	
 			};
