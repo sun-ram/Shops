@@ -78,7 +78,7 @@ angular.module('aviate.controllers')
              /* Location Service*/
 			$rootScope.geoLocation ={}
 
-			var showLocationDialog = function(ev) {
+			$rootScope.showLocationDialog = function(ev) {
 				$mdDialog.show({
 					templateUrl: 'app/modules/home/locationdialog.tmpl.html',
 					parent: angular.element(document.body),
@@ -97,7 +97,7 @@ angular.module('aviate.controllers')
 							$mdDialog.hide(answer);
 						};
 
-						$scope.selectedcity=null;
+						$scope.selectedcity={};
 						
 						$scope.selectedIndex = 2;
 
@@ -112,7 +112,7 @@ angular.module('aviate.controllers')
 						});
 						}
 
-						var optionLocation={}
+						var optionLocation=null;
 
 						LocationService.getCity(optionLocation).then(function(data) {
 							$scope.allStoreList=data;
@@ -139,6 +139,8 @@ angular.module('aviate.controllers')
 						$scope.changeStore = function(storedetails){
 							$rootScope.store = storedetails;
 							ipCookie("store", storedetails);
+							$rootScope.getFutureProducts();
+							$rootScope.getTopCategories(); 
 							$log.debug(storedetails);
 							$state.go('app.products');
 							$mdDialog.cancel();
@@ -170,7 +172,7 @@ angular.module('aviate.controllers')
 			var showPosition = function(position) {
 				$rootScope.geoLocation.latitude = position.coords.latitude;
 				$rootScope.geoLocation.longitude = position.coords.longitude;
-				showLocationDialog();
+				$rootScope.showLocationDialog();
 			}
 			
 			var showError = function(error) {
@@ -178,12 +180,12 @@ angular.module('aviate.controllers')
 				case error.PERMISSION_DENIED:
 					$log.debug("User denied the request for Geolocation.");
 					var checked=true;
-					showLocationDialog(checked);
+					$rootScope.showLocationDialog(checked);
 					break;
 				case error.POSITION_UNAVAILABLE:
 					$log.debug("Location information is unavailable.");
 					var checked=true;
-					showLocationDialog(checked);
+					$rootScope.showLocationDialog(checked);
 					break;
 				case error.TIMEOUT:
 					$log.debug("The request to get user location timed out.");
@@ -194,13 +196,17 @@ angular.module('aviate.controllers')
 				}
 			}
 			geoLocation();
+			
+			$rootScope.getFutureProducts = function(){
 			homePageServices.futureProducts($rootScope.store.storeId).then(function(data){
                 $scope.futureProducts = data;
             });
+			}
             
-           homePageServices.topCategories($rootScope.store.storeId).then(function(data){
+			$rootScope.getTopCategories = function(){
+            homePageServices.topCategories($rootScope.store.storeId).then(function(data){
                 $scope.topcategories = data;
             })
-             
+			}
 		}]);
 
