@@ -80,7 +80,7 @@ angular.module('app')
 	.state('app.checkout', {
 		url: '/checkout',
 		templateUrl: 'app/modules/checkout/checkOut.html',
-		controller : 'myListCtrl'
+		controller : 'checkOutCtrl'
 	})
 
 	// Cart module

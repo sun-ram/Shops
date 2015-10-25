@@ -1,0 +1,92 @@
+<section class="verification-section">
+    <p class="verification-section-title md-headline">Review your order</p>
+    <div layout="row" class="address-datetime">
+        <div layout="column" flex="65" style="height:250px">
+            <div class="address-verify" layout="row" flex>
+                <div class="circle">
+                    <img src="img/address.svg" height="30px" width="30px">
+                </div>
+                <div class="address-holder">
+                    <h3 style="color:#8bb617">ADDRESS</h3>
+                    <p>{{currentOrder.address.addressLine1}}</p>
+                    <p></p>
+                    <p>
+                        {{currentOrder.address.addressLine2}}&nbsp;&nbsp;{{currentOrder.address.city}} &nbsp;&nbsp;{{currentOrder.address.state}}&nbsp;&nbsp;{{currentOrder.address.country}} &nbsp;&nbsp;{{currentOrder.address.postalCode}}
+                    </p>
+                </div>
+                <div flex></div>
+                <div class="edit">
+                    <md-button class="md-icon-button">
+                        <md-icon md-svg-src="img/edit.svg"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+            <p></p>
+            <div class="delivery-verify" layout="row" flex>
+                <div class="circle">
+                    <img src="img/address.svg" height="30px" width="30px">
+                </div>
+                <div class="address-holder">
+                    <h3 style="color:#FB8C00">DELIVERY</h3>
+                    <p>{{currentOrder.delivery.time}}&nbsp;&nbsp;{{currentOrder.delivery.date}}</p>
+                    <p></p>
+                </div>
+                <div flex></div>
+                <div class="edit">
+                    <md-button class="md-icon-button">
+                        <md-icon md-svg-src="img/edit.svg"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+        <p flex="5"></p>
+        <div layout="column" class="consolidated-rate-holder" flex="30" layout-padding>
+            <div class="consolidate-rates" flex>
+                <div layout="row">
+                    <h4>Subtotal</h4><span flex></span>
+                    <p>700.00</p>
+                </div>
+                <div layout="row">
+                    <p>vat 12%</p><span flex></span>
+                    <p>87.50</p>
+                </div>
+                <div layout="row">
+                    <p>service Tax 2.5%</p><span flex></span>
+                    <p>17.50</p>
+                </div>
+                <div layout="row">
+                    <p>Shipping Charges</p><span flex></span>
+                    <p>100.00</p>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row">
+                    <p>Total</p><span flex></span>
+                    <p>100.00</p>
+                </div>
+            </div>
+            <md-button class="md-raised md-primary" style="with:100%;!important">CONFIRM MY ORDER</md-button>
+        </div>
+    </div>
+    <div class="purchased-items-section">
+        <p class="purchased-item-title">Items to be delivered</p>
+        <div layout="row">
+            <div flex="65" layout="column">
+                <div layout="row" ng-repeat="item in currentOrder.items" class="item-divider">
+                    <img src="{{item.image}}" height="100px" width="100px">
+                    <div flex="10"></div>
+                    <div class="item-details">
+                        <h4>{{item.name}}</h4>
+                        <p>{{item.weight}}</p>
+                        <p></p>
+                        <p>{{item.count}}&nbsp;x {{item.prize}}</p>
+                    </div>
+                    <div flex></div>
+                    <div class="price">
+                        {{item.count * item.prize}}
+                    </div>
+                </div>
+            </div>
+            <div flex="35"></div>
+        </div>
+    </div>
+</section>

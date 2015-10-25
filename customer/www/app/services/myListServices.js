@@ -24,15 +24,15 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					$rootScope.myList = [];
-					for(var i = 0; i<data.customerMyList.length; i++){
+					for(var i = 0; i<result.customerMyList.length; i++){
 						var noOfQuantityInCart = 0;
 						for(var j = 0; j<$rootScope.myCart.cartItem.length; j++){
-							if($rootScope.myCart.cartItem[j].productId == data.customerMyList[i].productId){
+							if($rootScope.myCart.cartItem[j].productId == result.customerMyList[i].productId){
 								noOfQuantityInCart = $rootScope.myCart.cartItem[j].noOfQuantityInCart;
 							}
 						}
-						data.customerMyList[i].noOfQuantityInCart = noOfQuantityInCart;
-						$rootScope.myList.push(data.customerMyList[i]);
+						result.customerMyList[i].noOfQuantityInCart = noOfQuantityInCart;
+						$rootScope.myList.push(result.customerMyList[i]);
 					}
 					ipCookie('myList', $rootScope.myList);
 					d.resolve($rootScope.myList);
