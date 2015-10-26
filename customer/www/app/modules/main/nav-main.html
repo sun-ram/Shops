@@ -9,13 +9,13 @@
 	
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
     <md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
-    <div style="background-color: #000;padding: 5px;height: 20px;position: absolute; top: 4px;border-radius: 90%;right: 3px;">{{myCart.cartItem.length}}</div>
+    <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;">{{myCart.cartItem.length}}</div>
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
     </md-button>
-    <md-menu-content ng-show="myCart.cartItem.length > 0" width="6" style="padding: 0px;position: absolute;top: 42px;min-height:520px !important;">
+    <md-menu-content ng-show="myCart.cartItem.length > 0" width="6" style="padding: 0px;position: absolute;top: 42px;min-height:480px !important;">
         <md-content>
-            <md-toolbar layout="row" style="background-color:black !important;min-height: 55px !important;">
-                <div  class="md-toolbar-tools" style="height: 55px;">
+            <md-toolbar layout="row" style="background-color:black !important;min-height: 45px !important;">
+                <div  class="md-toolbar-tools" style="height: 45px;">
                     <h1 style="color:white">{{myCart.cartItem.length}} Items, 
                         <span style="color:yellow">Rs {{myCart.cartTotalAmount }}</span>
                     </h1>
@@ -76,29 +76,40 @@
 			<md-icon md-svg-icon="assets/img/icon/hd-user.svg" style="color: white;"></md-icon>
 		</md-button>
 		<md-menu-content width="3" style="margin-top: 42px;margin-left: 0px;">
-
 			<md-menu-item ng-hide="user">
-			<md-button ng-click="signUpPopup($event)">
-			<div layout="row">
-				<p flex="">Sign Up</p>
-			</div>
-			</md-button>
+				<md-button ng-click="signUpPopup($event)">
+					<div layout="row">
+						<p flex="">Sign Up</p>
+					</div>
+				</md-button>
 			</md-menu-item>
 			<md-menu-item ng-hide="user">
-			<md-button ng-click="signInPopup($event)">
-			<div layout="row">
-				<p flex="">Sign In</p>
-			</div>
-			</md-button> </md-menu-item> <md-menu-item ng-show="user"> <md-button>
-			<div layout="row">
-				<p flex="">{{user.userName}}</p>
-			</div>
-			</md-button> </md-menu-item> <md-menu-item ng-show="user"> <md-button
-				ng-click="logout()">
-			<div layout="row">
-				<p flex="">log out</p>
-			</div>
-			</md-button>
+				<md-button ng-click="signInPopup($event)">
+					<div layout="row">
+						<p flex="">Sign In</p>
+					</div>
+				</md-button> 
+			</md-menu-item> 
+			<md-menu-item ng-show="user"> 
+				<md-button>
+					<div layout="row">
+						<p flex="">{{user.userName}}</p>
+					</div>
+				</md-button> 
+			</md-menu-item> 
+			<md-menu-item ng-show="user"> 
+				<md-button ui-sref="app.mylist">
+					<div layout="row">
+						<p flex="">My List</p>
+					</div>
+				</md-button> 
+			</md-menu-item> 
+			<md-menu-item ng-show="user"> 
+				<md-button ng-click="logout()">
+					<div layout="row">
+						<p flex="">log out</p>
+					</div>
+				</md-button>
 			</md-menu-item>
 		</md-menu-content>
 	</md-menu>
