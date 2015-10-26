@@ -1,33 +1,35 @@
 <md-sidenav flex class="md-sidenav-left md-whiteframe-z2"
 	md-component-id="left"> <md-toolbar md-scroll-shrink>
-<div class="md-toolbar-tools">My Messages</div>
+<!-- <div class="md-toolbar-tools">My Messages</div> -->
+<div layout="row" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #303030;">
+       <svg style="border-radius: 99%;opacity: 1;" class="user-avatar" viewBox="0 0 128 128" pointer-events="none" display="block" >  </svg>
+      </div>
 </md-toolbar> 
 
 <script type="text/ng-template" id="productTypeList"> 
-	<h4 style="color:red">{{pt.productTypeName}}</h4>
+	<md-button class="btn-sub"><div layout="row">{{pt.productTypeName}}</div></md-button>
 </script> 
 	
 <script type="text/ng-template" id="productCategoryList">
-	<md-chips ng-hide="c.hide" ng-if="c.category.length > 0" ng-click="getProductsByCategoryId(c.categoryId);">
-		<md-chip >{{c.categoryName}}<md-icon
-			md-svg-src="assets/images/ic_arrow_drop_down_black_24px.svg"></md-icon>
-		</md-chip> </md-chips>
+	<md-menu-item ng-hide="c.hide" ng-if="c.category.length > 0" ng-click="getProductsByCategoryId(c.categoryId);">
+		<md-button class="btn-menu" ><div layout="row">{{c.categoryName}}</div>
+		</md-button> </md-menu-item>
 
-	<md-chips ng-hide="c.hide" ng-if="c.category.length == 0" ng-click="subcat = ! subcat;getProductsByCategoryId(c.categoryId);">
-		<md-chip>{{c.categoryName}}
-		</md-chip> </md-chips>
+	<md-menu-item ng-hide="c.hide" ng-if="c.category.length == 0" ng-click="subcat = ! subcat;getProductsByCategoryId(c.categoryId);">
+		<md-button class="btn-sub">{{c.categoryName}}
+		</md-button> </md-menu-item>
 
-	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0">
+	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0" style="padding-left: 20px;">
  			<li ng-hide="pt.hide" ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
  		</ul>
 
-		<ul ng-hide="c.hide" ng-if="c.category.length > 0">
+		<ul ng-hide="c.hide" ng-if="c.category.length > 0" style="padding-left: 20px;">
        		<li ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
      	</ul>
 </script>
 	
-<div id='cssmenu' style="color: #fff;">
-	<ul ng-repeat="c in categoryList" >
+<div id='cssmenu' style="color: #707070;">
+	<ul ng-repeat="c in categoryList" class="menu-list" style="background: #292A2B;">
  		<li class='has-sub ' ng-include="'productCategoryList'"></li>
  		
  	</ul>
