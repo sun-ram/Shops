@@ -23,16 +23,17 @@ angular.module('aviate.services')
 		api.MyList.getMyList(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					$rootScope.myList = [];
+					$rootScope.myList = {};
+					$rootScope.myList.listItem = [];
 					for(var i = 0; i<result.customerMyList.length; i++){
 						var noOfQuantityInCart = 0;
 						for(var j = 0; j<$rootScope.myCart.cartItem.length; j++){
-							if($rootScope.myCart.cartItem[j].productId == result.customerMyList[i].productId){
-								noOfQuantityInCart = $rootScope.myCart.cartItem[j].noOfQuantityInCart;
+							if($rootScope.myCart.cartItem[j].productId == result.customerMyList[i].products.productId){
+								noOfQuantityInCart = $rootScope.myCart.cartItem[j].quantity;
 							}
 						}
 						result.customerMyList[i].products.noOfQuantityInCart = noOfQuantityInCart;
-						$rootScope.myList.push(result.customerMyList[i]);
+						$rootScope.myList.listItem.push(result.customerMyList[i]);
 					}
 					ipCookie('myList', $rootScope.myList);
 					d.resolve($rootScope.myList);

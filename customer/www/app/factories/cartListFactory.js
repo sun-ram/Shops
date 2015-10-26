@@ -116,13 +116,15 @@ angular.module('aviate.factories')
 	}
 	
 	factory.checkProductInMyList = function (_product , callback) {
+		var _isProductMyList = false;
 		if($rootScope.myList.listItem.length > 0){
 			for(var i = 0; $rootScope.myList.listItem.length > i; i++){
 				if(_product.productId == $rootScope.myList.listItem[i].products.productId){
-					_product.isProductMyList = true;
+					_isProductMyList = true;
 				}
 			}
 		}
+		_product.isProductMyList = _isProductMyList
 		callback(_product);
 	}
 

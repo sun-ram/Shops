@@ -45,11 +45,11 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					MyCartFactory.checkSingleProductsinCart(result,function(data){
-						d.resolve(data);
+						MyCartFactory.checkProductInMyList(data,function(dataInList){
+							d.resolve(dataInList);
+						});
 					});
-					MyCartFactory.checkProductInMyList(result,function(data){
-						d.resolve(data);
-					});
+					
 				} else {
 					toastr.error(result.errorString);
 				}

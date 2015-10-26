@@ -119,11 +119,12 @@ angular.module('aviate.directives')
 								}
 
 								MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
-									console.log('get Mylist success in Main Nav');
+									console.log('get MyCartlist success in Main Nav');
 								});
 
 
 								MyListServices.getMyList({ customerId :$rootScope.user.userId, storeId: $rootScope.store.storeId }).then(function(data){
+									console.log('get Mylist success in Main Nav');
 									$scope.myListProducts = data;
 								});
 
