@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span ng-show="product.noOfQuantityInCart > 0">{{product.noOfQuantityInCart}}</span></div>
-						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="40" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
 					</div>
 				</div>
 
@@ -52,9 +52,44 @@
 		</div>
 	
 
+
+         
 	<!-- <md-content> </md-content> -->
 </div>
-
+<div layout="row" layout-padding>
+<div  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+			<div class="pro-box" flex layout="column">
+				<div flex style="height:150px; text-align: center;" ng-click="productDetails(product);">
+					<img style="height:150px;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+				</div>
+				<div flex layout-align="center center" layout="row">
+					<span class="sub-head text-primary">{{product.productName}}</span>
+				</div>
+				<div flex  layout="row">
+					<span flex class="md-body-2 text-left">{{product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</span>
+					<span flex class="md-body-2 text-right">
+						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+						{{product.productPrice.price}}
+					</span>
+				</div>
+				<div layout="row" flex>
+					<div flex layout="row" class="addtocart-btn">
+						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
+						<md-icon ng-hide="product.noOfQuantityInCart > 0" style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)"></md-icon>
+							<div>
+								<md-icon  ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)"></md-icon>
+							</div>
+							<div>
+								<md-icon ng-show="product.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)"></md-icon>	
+							</div>
+						</div>
+						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span ng-show="product.noOfQuantityInCart > 0">{{product.noOfQuantityInCart}}</span></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
 	  <script src="app/directives/imageZoom.js"></script>
 	  <script src="app/modules/products//productDetails/productDetailsCtrl.js"></script>
 <style>
