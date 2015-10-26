@@ -1,62 +1,100 @@
 
 <div layout="row" layout-wrap>
-	<md-card> 
-	<div layout="row" layout-wrap style="padding:25px">
-            <div flex="30" style="">
-                <div style="text-align:center">
-                    <img src="assets/images/fruit.jpg" height="250px"  border="1">
-                    </div>
-                    <div layout="row">
-                        <div flx="20" style="padding:5px">
-                            <img src="assets/img/useravat.png" height="100px" width="100px">
-                            </div>
-                            <div flx="20" style="padding:5px">
-                                <img src="assets/img/useravat.png" height="100px" width="100px">
-                                </div>
-                                <div flx="20" style="padding:5px">
-                                    <img src="assets/img/useravat.png" height="100px" width="100px">
-                                    </div>
-                                    <div flx="20" style="padding:5px">
-                                        <img src="assets/img/useravat.png" height="100px" width="100px">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div flex="70" >
-                                    <div style="padding-left:15px">
-                                        <h1 style="color:green"> Grapes</h1>
-                                        <span> 250 g</span>
-                                        <p>gdagduyagduyagduyagsd auyisdgauygduiyags duyagduiyagiudyga sga uogyd ayugduyag sidyutaf iyud gfiatf ditaf da
-      asdgauyd gaiuygduiyagduiyagduiyag duiyga yuigd iuayg duya gduyagsuidyg asidya]dajdgaguasygfuysadgfsyd
-      asdfuhasiudfguasygfuyasgfiuyagsdufygasduiyf gaisuydgfuiyasdf
-      asdfguaysdgfusygfusaygiauydiauyd9a8yda
-      dfsuyfgiwufgwiugwieuhweiuhewgjuyasgdfuiyasgfuyasguyfgs
-      fahfgasfaiuysdgfuyasdgf
-      sadfgasudyf
-      as\dfasdyfasDfas                                    <p>
-                                                <p> Effective Price Rs 60</p>
-                                            </div>
-                                            <div>
-                                                <div flex="60" layout-padding>
-                                                    <md-button class="md-raised md-warn" style="width: 200px;height: 65px;">Buy</md-button>
-                                                    <md-button class="md-raised md-warn" style="width: 200px;height: 65px;background-color:green">Add to Cart</md-button>
-                                                    <md-button class="md-raised " style="width: 200px;height: 65px;background-color:#00B8D4">
-                                <md-icon md-svg-src="assets/img/icon/favorite21.svg" style="color:white"></md-icon>
-                               Add to My List
-                    </md-button>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-	
+	<md-card>
+	<div layout="row" layout-wrap style="padding: 25px">
+		<div flex="30" style="">
+			<div style="text-align: center">
+			{{showImageindescription}}
+			<zoom mark-height="50" mark-width="50"  src="" zoom-lvl="{{zoomLvl}}"></zoom>
+			<!-- 	<img src="assets/images/fruit.jpg" height="250px" border="1"> -->
+			</div>
+			<div layout="row" ng-repeat="image in productDetails.productImages">
+				<div flx="20" style="padding: 5px" >
+					<img src="{{image.imageUrl}}" height="100px" width="100px" ng-click="changeimage(image.imageUrl)">
+				</div>
+			</div>
+		</div>
+		<div flex="70">
+			<div style="padding-left: 15px">
+				<h1 style="color: green">{{productDetails.productName}}</h1>
+				<span>{{productDetails.measurement}} {{productDetails.productUnitOfMeasure.abbreviation}}</span>
+				<p>{{productDetails.productUnitOfMeasure.description}}</p>
+				<p>Effective Price Rs {{productDetails.productPrice.price}}</p>
+			</div>
+			<div>
+				<div flex="60" layout-padding>
+
+					<md-button class="md-raised "
+						style="width: 200px;height: 65px;background-color:#00B8D4">
+					<md-icon md-svg-src="assets/img/icon/favorite21.svg"
+						style="color:white"></md-icon> Add to My List </md-button>
+
+					<div layout="row" layout-align="center">
+						<div layout="column" layout-align="start" class="btn-count">
+							<md-button class="count" aria-label=""
+								style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
+							<md-icon md-svg-src="assets/img/icon/navigate6.svg"
+								style="color: #fff; height: 15px;"></md-icon> </md-button>
+							<md-button class="count" aria-label=""
+								style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
+							<md-icon md-svg-src="assets/img/icon/down14.svg"
+								style="color: #fff; height: 15px;"></md-icon> </md-button>
+						</div>
+						<span layout="column" layout-align="center"
+							style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
+						<div layout="column" layout-align="start">
+							<md-button class="" aria-label=""
+								style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
+							<span hide show-gt-sm class="ttc">add to <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
+								<md-icon md-svg-icon="assets/img/icon/hd-basket.svg"
+									style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
+							</span> </md-button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 	</md-card>
 
 	<!-- <md-content> </md-content> -->
 </div>
 
+	  <script src="app/directives/imageZoom.js"></script>
+	  <script src="app/modules/products//productDetails/productDetailsCtrl.js"></script>
+<style>
+
+.zoomed{
+    margin-left: 4em;
+}
+
+.original, .zoomed{
+    float: left;
+    position: relative;
+    overflow: hidden;
+}
 
 
 
+
+.zoomed img{
+    height: 600px;
+    position: relative;
+}
+
+/* .mark {
+    opacity: .3;
+    border: 6px dotted #fff;
+    background: #eee;
+} */
+
+.hide {
+    visibility: hidden;
+}
+
+</style>
 <!-- <div>
 <div layout="row" ng-controller="productDetailsCtrl as zoom" layout-wrap>
 	<div flex="40" style="border: 1px solid grey; height: 250px;" layout-padding ng-init="productDetail()">

@@ -57,7 +57,7 @@ angular.module('aviate.directives')
             .css('height', zoomLvl*originalDy+'px')
             .css('width', zoomLvl*originalDx+'px');
           zoomedImg
-            .attr('src', scope.src)
+            .attr('src', attrs.src)
             .css('height', zoomLvl*originalHeight+'px')
             .css('width', zoomLvl*originalWidth+'px')
             .css('left',-zoomLvl*originalX +'px')

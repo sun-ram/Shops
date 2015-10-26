@@ -13,7 +13,7 @@ angular.module('aviate.controllers')
 	/*	image zooom*/
 	$scope.zoomLvl = 4;
 	$scope.zoom ;
-
+	$scope.showImageindescription = "http://54.68.134.166:8080/aviate/ImageServlet?imageName=e0603a8d69ca4b488e2ce866e07002fe";
 
 	/*product desscription*/
 
@@ -45,8 +45,15 @@ angular.module('aviate.controllers')
 	}*/
 
 	$scope.changeimage = function(imageurl){
-
-		$scope.zoom.showImageindescription = imageurl;
+		var someimage = document.getElementsByTagName('zoom')[0];
+		var myimg1 = someimage.getElementsByTagName('img')[0];
+		var myimg2 = someimage.getElementsByTagName('img')[1];
+		myimg1.setAttribute("src",imageurl);
+		myimg1.setAttribute("ng-src",imageurl);
+		myimg2.setAttribute("src",imageurl);
+		
+		//document.getElementByTagName("zoom img").src = imageurl;
+		//$scope.showImageindescription = imageurl;
 	}
 
 
