@@ -93,7 +93,7 @@
                 <div layout="" flex ></div>
           </md-toolbar>
           <md-tabs md-stretch-tabs="auto" class="padd_tb30 category">
-            <md-tab ng-repeat="topproducts in topcategories">
+            <md-tab ng-repeat="topproducts in topcategories | limitTo: 20">
              <div class="item wid_120">
              <img ng-src="{{topproducts.productImages[1].imageUrl}}" class="md-avatar chs-img">
              </div>
@@ -197,7 +197,7 @@
                 <div layout="column" flex ></div>
           </md-toolbar>
           <md-tabs md-stretch-tabs="auto" class="padd_tb30 feature">
-            <md-tab layout layout-align="column" ng-repeat="product in futureProducts">
+            <md-tab layout layout-align="column" ng-repeat="product in futureProducts | limitTo: 20">
              <div class="item wid_150 viewlarge" >
              <img  ng-src="{{product.productImages[1].imageUrl}}" class="md-avatar">
              </div>

@@ -12,13 +12,17 @@ angular.module('aviate.controllers')
 					$scope.getCartList();
 				});
 			}
-			
+
 			$scope.getCartList = function(){
-				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
-					
-				});
+				if($rootScope.user){
+					MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+						MyCartFactory.checkCartProductsQuantity($scope.productList,function(data){
+							$scope.productList = data;
+						});
+					});
+				}
 			}
-			
+
 			$scope.productDetails = function(products){
 				$state.go('app.productsdetails',{productId:products.productId});
 			}

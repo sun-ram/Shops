@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices) {
 
 	return {
 		// scope: false,
@@ -37,6 +37,24 @@ angular.module('aviate.directives')
 							AuthServices.signUp(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNUPSUCCESS);
+								$scope.myCart = ipCookie('myCart');
+								if($scope.myCart != undefined || $scope.myCart != null){
+
+									for(var i=0;i<$scope.myCart.cartItem.length;i++){
+										$scope.cartDetails = {
+												"customerId" : $rootScope.user.userId, 
+												"storeId" : $rootScope.store.storeId, 
+												"productId" : $scope.myCart.cartItem[i].product.productId, 
+												"price" : $scope.myCart.cartItem[i].product.productPrice.price, 
+												"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
+										}
+										MyCartServices.addToCart($scope.cartDetails).then(function(data){
+											console.log('get Mylist success in Main Nav');
+										});
+
+									}
+	
+								}
 							});
 						};
 
@@ -56,6 +74,17 @@ angular.module('aviate.directives')
 			$scope.removeFromMyCart = function(product, index) {
 				MyCartFactory.removeFromCart(product, index);
 			};
+			
+			$scope.checkOutPage = function() {
+				if($rootScope.user != null){
+					MyCartFactory.myCartTotalPriceCalculation();
+					$state.go('app.checkout');
+				}else{
+					toast.info('need to login first');
+				}
+			};
+			
+			
 			$scope.signInPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',
@@ -123,8 +152,9 @@ angular.module('aviate.directives')
 			$scope.logout = function() {
 				$rootScope.user = null;
 				ipCookie('user', null);
-				$rootScope.myCart = null;
-				ipCookie('myCart', null);
+				$rootScope.myCart = {};
+				$rootScope.myCart.cartItem = [];
+				ipCookie('myCart', $rootScope.myCart);
 			};
 			
 			$scope.changeStore = function() {

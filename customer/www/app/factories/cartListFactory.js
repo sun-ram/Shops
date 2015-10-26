@@ -16,13 +16,19 @@ angular.module('aviate.factories')
 						price : _product.productPrice.price, 
 						quantity : _product.noOfQuantityInCart
 				}
+				factory.myCartTotalPriceCalculation();
 				MyCartServices.addToCart(cartDetails).then(function(data){
 					console.log('Add To My Cart in factory');
+					factory.myCartTotalPriceCalculation();
+					MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+						factory.myCartTotalPriceCalculation();
+						console.log('Get To My Cart in factory');
+					});
 				})
 			}else{
 				for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
-					if($rootScope.myCart.cartItem[i].productId == _product.productId){
-						$rootScope.myCart.cartItem[i].quantity = noOfQuantityInCart;
+					if($rootScope.myCart.cartItem[i].product.productId == _product.productId){
+						$rootScope.myCart.cartItem[i].quantity = _product.noOfQuantityInCart;
 						$rootScope.myCart.cartItem[i].product = _product;
 						_isExistInCart = true;
 					}
@@ -56,6 +62,9 @@ angular.module('aviate.factories')
 			};
 			MyCartServices.removeCartProduct(cartDetails).then(function(data){
 				console.log('get Mylist success in Main Nav');
+				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+					console.log('get Cart in factory');
+				});
 			});
 		}else{
 			$rootScope.myCart.cartItem.splice(_index, 1);
@@ -68,14 +77,42 @@ angular.module('aviate.factories')
 		var  _totalAmount = 0;
 		for(var i=0; i<$rootScope.myCart.cartItem.length; i++){
 			var _subTotal = 0;
-			_subTotal = $rootScope.myCart.cartItem[i].product.noOfQuantityInCart * $rootScope.myCart.cartItem[i].product.productPrice.price;
+			_subTotal = $rootScope.myCart.cartItem[i].quantity * $rootScope.myCart.cartItem[i].product.productPrice.price;
 			$rootScope.myCart.cartItem[i].product.subTotal = _subTotal;
 			_totalAmount += _subTotal;
 		}
 		$rootScope.myCart.cartTotalAmount = _totalAmount;
-		$rootScope.myCart.taxAmount = $rootScope.myCart.cartTotalAmount*($rootScope.tax/100);
-		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.shippingCharges;
+		$rootScope.myCart.shippingCharges = 100;
+		$rootScope.myCart.taxAmount = $rootScope.myCart.cartTotalAmount*(12.5/100);
+		$rootScope.myCart.serviceTax = $rootScope.myCart.cartTotalAmount*(2.5/100);
+		//cartTotalAmount*(2.5/100)
+		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.myCart.shippingCharges+$rootScope.myCart.serviceTax;
 		ipCookie("myCart",$rootScope.myCart);
+	}
+
+
+	factory.checkCartProductsQuantity = function (_productList , callback) {
+		if($rootScope.myCart.cartItem.length > 0){
+			for(var i = 0; $rootScope.myCart.cartItem.length > i; i++){
+				for(var j = 0; _productList.length > j; j++){
+					if(_productList[j].productId == $rootScope.myCart.cartItem[i].product.productId){
+						_productList[j].noOfQuantityInCart = $rootScope.myCart.cartItem[i].quantity;
+					}	
+				}
+			}
+		}
+		callback(_productList);
+	}
+
+	factory.checkSingleProductsinCart = function (_product , callback) {
+		if($rootScope.myCart.cartItem.length > 0){
+			for(var i = 0; $rootScope.myCart.cartItem.length > i; i++){
+				if(_product.productId == $rootScope.myCart.cartItem[i].product.productId){
+					_product.noOfQuantityInCart = $rootScope.myCart.cartItem[i].quantity;
+				}
+			}
+		}
+		callback(_product);
 	}
 
 	return factory;
