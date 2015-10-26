@@ -6,6 +6,12 @@ angular.module('aviate.controllers')
 		ProductService.getProductsByProductId({'productId':$stateParams.productId}).then(function(data){
 			$scope.productDetails = data;
 			console.info($scope.productDetails);
+			for(var i=0;i<$scope.productDetails.productImages.length;i++){
+				if($scope.productDetails.productImages[i].imagePosition == "ORIGINALFRONT"){
+					$scope.changeimage($scope.productDetails.productImages[i].imageUrl);
+				}
+			}
+			
 		});
 	}
 	$scope.getProducts();

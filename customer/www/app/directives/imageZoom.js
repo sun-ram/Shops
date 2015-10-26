@@ -7,6 +7,7 @@ angular.module('aviate.directives')
       var originalImg = original.find('img');
       var zoomed = $(element[0].querySelector('.zoomed'));
       var zoomedImg = zoomed.find('img');
+      zoomedImg.addClass('hide');
 
       var mark = $('<div></div>')
         .addClass('mark')
@@ -19,12 +20,14 @@ angular.module('aviate.directives')
       element
         .on('mouseenter', function(evt){
           mark.removeClass('hide');
+          zoomedImg.removeClass('hide');
 
           var offset = calculateOffset(evt);
           moveMark(offset.X, offset.Y);
         })
         .on('mouseleave', function(evt){
           mark.addClass('hide');
+          zoomedImg.addClass('hide');
         })
         .on('mousemove', function(evt){
           var offset = calculateOffset(evt);
@@ -57,7 +60,7 @@ angular.module('aviate.directives')
             .css('height', zoomLvl*originalDy+'px')
             .css('width', zoomLvl*originalDx+'px');
           zoomedImg
-            .attr('src', attrs.src)
+            .attr('src', attrs.ngSrc)
             .css('height', zoomLvl*originalHeight+'px')
             .css('width', zoomLvl*originalWidth+'px')
             .css('left',-zoomLvl*originalX +'px')
