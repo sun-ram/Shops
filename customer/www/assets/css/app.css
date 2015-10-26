@@ -267,3 +267,24 @@ right: -8px;
 	cursor: pointer;
     background-color: rgb(245, 245, 245);
 }
+
+/* Image icons */
+.sa {
+	background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat
+		-661px -46px;
+}
+
+.sd {
+	background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat
+		-716px -45px;
+}
+
+.sp {
+	background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat
+		-770px -44px;
+}
+
+.src {
+	background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat
+		-829px -44px;
+}
