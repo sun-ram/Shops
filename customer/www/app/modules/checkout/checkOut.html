@@ -3,7 +3,7 @@
             <section class="timeline" layout="row" layout-align="center center">
                 <div layout="row" class="timeline-container" layout-align="center center">
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.addressEntry}">
-                        <md-button class="md-icon-button" aria-label="More">
+                        <md-button class="md-icon-button" aria-label="More" ng-click="goPrevious('address')">
                             <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
                         </md-button>
                         <md-tooltip md-direction="top">
@@ -13,7 +13,7 @@
                     <div flex class="timeline-line" ng-class="{completed:timeLineStatus.addressEntry}">
                     </div>
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.deliveryDate}">
-                        <md-button class="md-icon-button" aria-label="More">
+                        <md-button class="md-icon-button" aria-label="More" ng-click="goNext('address')">
                             <md-icon md-svg-icon="assets/img/checkout/source.svg"></md-icon>
                         </md-button>
                         <md-tooltip md-direction="top">
@@ -23,7 +23,7 @@
                     <div flex class="timeline-line" ng-class="{completed:timeLineStatus.deliveryDate}">
                     </div>
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.verification}">
-                        <md-button class="md-icon-button" aria-label="More">
+                        <md-button class="md-icon-button" aria-label="More" ng-click="goNext('deliverySchedule')">
                             <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
                         </md-button>
                         <md-tooltip md-direction="top">

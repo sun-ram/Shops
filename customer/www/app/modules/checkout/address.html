@@ -1,8 +1,8 @@
 <section class="address-section" layout="column">
     <p class="address-title md-headline">What is your delivery address</p>
-    <div class="address-container" layout="row" layout-wrap>
-        <div flex="50">
-            <md-card ng-repeat="address in addresses track by $index" class="address" ng-click="selectAddress(address.addressId)" ng-class="{selected:address.selected}">
+    <div class="address-container" layout="row" layout-wrap layout-align="center">
+        <!-- <div flex="40"> -->
+            <md-card flex="45" ng-repeat="address in addresses track by $index" class="address" ng-click="selectAddress(address.addressId)" ng-class="{selected:address.selected}">
                 <md-card-content>
                     <div layout="row" class="address-header">
                         <img src="assets/img/checkout/address.svg" height="40px" width="40px">
@@ -26,19 +26,24 @@
                     </div>
                 </md-card-content>
             </md-card>
-        </div>
-        <div flex="10">
+        <!-- </div> -->
+        <!-- <div flex="10">
 
-        </div>
-        <div flex="20">
-            <md-card layout-align="center center" ng-click="openAddressDialog($event,'add')" style="cursor:pointer;position: relative;margin-top: 16%;">
+        </div> -->
+        <!-- <div flex="40"> -->
+            <md-card flex="45" layout-align="center center" ng-click="openAddressDialog($event,'add')" style="cursor:pointer;">
                 <div layout="column">
                     <div flex></div>
+                    <p></p>
+                    <p></p>
                     <img src="assets/img/checkout/add-address.svg" height="50px" width="50px">
                     <p style="text-align:center" class=".md-title">ADD NEW ADDRESS</p>
+                    <p></p>
+                    <p></p>
+                    <div flex></div>
                 </div>
             </md-card>
-        </div>
+       <!--  </div> -->
     </div>
 </section>
 <section class="contact-details md-action" layout="row">

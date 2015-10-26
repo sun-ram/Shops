@@ -1,29 +1,13 @@
 angular.module('aviate.controllers')
-    .controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope',
-        function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope) {
+    .controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory',
+        function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory) {
 
-
+    	MyCartFactory.myCartTotalPriceCalculation();
 
             $scope.addresses = [];
             $scope.delivery = {};
-            $scope.currentOrder = {
-                address:undefined,
-                delivery: {
-                    time: "12am",
-                    date: "12/10/2015"
-                },
-                contactNumber:"",
-                isVerified:false
-            };
-
-
-
-            $scope.timeLineStatus = {
-                addressEntry: false,
-                deliveryDate: false,
-                verification: false,
-                payment: false
-            };
+            $scope.currentOrder = CheckOutServices.currentOrder;
+            $scope.timeLineStatus = CheckOutServices.timeLineStatus;
 
             $scope.selectAddress = function(addressId) {
                 var seletecdAddress = _.filter($scope.addresses, function(add) {
@@ -87,6 +71,17 @@ angular.module('aviate.controllers')
 
 
             };
+            
+            $scope.confirmOrder = function(address) {
+
+                CheckOutServices.confirmOrder(address).then(function(data) {
+                    console.log("data.addressList", data.addressList);
+                    $scope.addresses = data.addressList;
+                });
+
+
+            };
+            
              $scope.removeAddress = function(address) {
 
                 CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
@@ -99,9 +94,7 @@ angular.module('aviate.controllers')
             };
 
             function addressDialogController($scope, address) {
-                //                $scope.address = _.clone(address) || {
-                //                    id: Math.random()
-                //                };
+                $scope.address = _.clone(address) ;
                 $scope.delete = false;
                 if (address) {
                     $scope.AddUpdate = "update";
@@ -120,7 +113,14 @@ angular.module('aviate.controllers')
                 };
             };
 
-            $scope.merchangetTemplate = "app/modules/checkout/address.html";
+            //restoring checkout template based on timeline status 
+            if($scope.timeLineStatus.deliveryDate){
+            	$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
+            }else if($scope.timeLineStatus.addressEntry){
+            	$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
+            }else{
+            	$scope.merchangetTemplate = "app/modules/checkout/address.html";
+            }
 
             $scope.goNext = function(id) {
                 switch (id) {
@@ -150,6 +150,20 @@ angular.module('aviate.controllers')
 
                 }
             };
+            
+            $scope.goPrevious = function(state,mode){
+            	switch(state){
+            		case 'address':
+            			$scope.merchangetTemplate = "app/modules/checkout/address.html";
+            			if(mode == 'edit'){
+            				$scope.editAddress($scope.currentOrder.address);
+            			}
+            			break;
+            		case 'deliverySchedule':
+            			 $scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
+            	}
+            }
+            
             $scope.getAddressList({
                 "customerId": $rootScope.user.userId
             });

@@ -2,6 +2,20 @@ angular.module('aviate.services')
 .service('CheckOutServices',['$q','api','toastr','CONSTANT','ipCookie','$rootScope',
                    function($q, api, toastr, CONSTANT, ipCookie, $rootScope) {
 	
+	this.timeLineStatus = {
+            addressEntry: false,
+            deliveryDate: false,
+            verification: false,
+            payment: false
+        };
+	
+	this.currentOrder = {
+            address:undefined,
+            delivery: undefined,
+            contactNumber:undefined,
+            isVerified:false
+    };
+	
 	this.addAddress = function(user){
 		var d = $q.defer();
 		api.CheckOut.addAddress(user, function(err, result){
