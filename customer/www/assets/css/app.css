@@ -257,3 +257,7 @@ right: -8px;
 .menu-list{padding: 0; margin: 0;}
 .btn-sub:hover{border-left: 5px solid yellow; color: yellow; width: 100%; border-radius: 0px;}
 .btn-menu:hover{background: #1C1E21 ! important; border-left: 5px solid yellow; color: yellow;}
+.sa{background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat -661px -46px;}
+.sd{background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat -716px -45px;}
+.sp{background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat -770px -44px;}
+.src{background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat -829px -44px;}

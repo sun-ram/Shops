@@ -59,13 +59,16 @@
                 <label>Address specific information(Optional)</label>
                 <textarea ng-model="address.addressSpecificInstruction" columns="1" md-maxlength="150"></textarea>
             </md-input-container>
-            <div layout="row" layout-align="end center">
-                <md-button class="md-primary md-raised" ng-disable="addressForm.$dirty">{{AddUpdate}}</md-button>
+            <div layout="row" layout-align="end">
+            <div layout="" layout-align="center">
+                <md-button type="submit" class="md-primary md-raised" ng-disable="addressForm.$dirty">{{AddUpdate}}</md-button>
+            </div>
+             <div layout="" layout-align="center" ng-show="delete">
+                <md-button type="button" class="md-primary md-raised" ng-click="removeAddress(address)">delete</md-button>
+            </div>
             </div>
         </form>
-            <div layout="row" layout-align="end center" ng-show="delete">
-                <md-button class="md-primary md-raised" ng-click="removeAddress(address);">delete</md-button>
-            </div>
+           
         
     </div>
 </md-dialog>

@@ -4,7 +4,7 @@
                 <div layout="row" class="timeline-container" layout-align="center center">
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.addressEntry}">
                         <md-button class="md-icon-button" aria-label="More" ng-click="goPrevious('address')">
-                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                            <div class="sa" style="height:50px; width:50px;"></div>
                         </md-button>
                         <md-tooltip md-direction="top">
                             Select address
@@ -14,7 +14,7 @@
                     </div>
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.deliveryDate}">
                         <md-button class="md-icon-button" aria-label="More" ng-click="goNext('address')">
-                            <md-icon md-svg-icon="assets/img/checkout/source.svg"></md-icon>
+                            <div class="sd" style="height:50px; width:50px;"></div>
                         </md-button>
                         <md-tooltip md-direction="top">
                             Select delivery
@@ -24,7 +24,7 @@
                     </div>
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.verification}">
                         <md-button class="md-icon-button" aria-label="More" ng-click="goNext('deliverySchedule')">
-                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                           <div class="sp" style="height:50px; width:50px;"></div>
                         </md-button>
                         <md-tooltip md-direction="top">
                             Review and confirmed
@@ -34,7 +34,7 @@
                     </div>
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.payment}">
                         <md-button class="md-icon-button" aria-label="More">
-                            <md-icon md-svg-icon="assets/img/checkout/address.svg"></md-icon>
+                             <div class="src" style="height:50px; width:50px;"></div>
                         </md-button>
                         <md-tooltip md-direction="top">
                             Select payment

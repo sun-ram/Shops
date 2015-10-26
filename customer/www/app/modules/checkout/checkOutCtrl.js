@@ -48,8 +48,8 @@ angular.module('aviate.controllers')
             };
 
             var addAddress = function(address) {
-              
                 address.customerId = $rootScope.user.userId;
+                delete address.selected;
                 //address.addressId = "";
                 console.log("data", address);
                 CheckOutServices.addAddress(address).then(function(data) {
@@ -82,8 +82,7 @@ angular.module('aviate.controllers')
 
             };
             
-             $scope.removeAddress = function(address) {
-
+             var removeAddress = function(address) {
                 CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
                      $scope.getAddressList({
                         "customerId": $rootScope.user.userId
@@ -111,6 +110,11 @@ angular.module('aviate.controllers')
                     addAddress(address);
                     $mdDialog.cancel();
                 };
+                
+                $scope.removeAddress = function(address) {
+                	removeAddress(address);
+                    $mdDialog.cancel();
+                };
             };
 
             //restoring checkout template based on timeline status 
@@ -129,7 +133,16 @@ angular.module('aviate.controllers')
                             $scope.timeLineStatus.addressEntry = true;
                             $scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
                         } else {
-                            alert("please choose delivery address / phoneNumber");
+                        	$mdDialog.show(
+                      		      $mdDialog.alert()
+                      		        .parent(angular.element(document.querySelector('#popupContainer')))
+                      		        .clickOutsideToClose(true)
+                      		        .title('Alert')
+                      		        .content('please choose delivery address / phoneNumber.')
+                      		        .ariaLabel('Alert Dialog Demo')
+                      		        .ok('Ok')
+                      		        .targetEvent()
+                      		    );
                         }
                         break;
                     case "deliverySchedule":
@@ -139,7 +152,16 @@ angular.module('aviate.controllers')
                             $scope.timeLineStatus.deliveryDate = true;
                             $scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
                         } else {
-                            alert("please choose delivery date");
+                        	$mdDialog.show(
+                        		      $mdDialog.alert()
+                        		        .parent(angular.element(document.querySelector('#popupContainer')))
+                        		        .clickOutsideToClose(true)
+                        		        .title('Alert')
+                        		        .content('please choose delivery date.')
+                        		        .ariaLabel('Alert Dialog Demo')
+                        		        .ok('Ok')
+                        		        .targetEvent()
+                        		    );
                         }
                         break;
                     case "verification":
