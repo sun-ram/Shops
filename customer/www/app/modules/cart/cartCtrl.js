@@ -3,7 +3,7 @@ angular.module('aviate.controllers')
 		['$scope', '$state', 'toastr', 'CONSTANT','$http','$rootScope','MyCartFactory','MyCartServices',
 		 function($scope, $state, toastr, CONSTANT,$http,$rootScope, MyCartFactory,MyCartServices) {
 			MyCartFactory.myCartTotalPriceCalculation();
-			$rootScope.addToCart = function(product){
+/*			$rootScope.addToCart = function(product){
 				MyCartFactory.addToCart(product,$scope.productList,  function(data){
 					$scope.productList = data;
 					$scope.getCartList();
@@ -18,18 +18,16 @@ angular.module('aviate.controllers')
 						});
 					});
 				}
-			}
+			}*/
 			
-			$rootScope.checkOut = function() {
+/*			$rootScope.checkOut = function() {
 				if($rootScope.user != null){
 					$state.go('app.checkout');
 				}else{
-					toast.info('need to login first');
+					toastr.info('need to login first');
 				}
-			};
+			};*/
 			
-			$scope.removeFromMyCart = function(product, index) {
-				MyCartFactory.removeFromCart(product, index);
-			};
+
 
 	}]);

@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices) {
 
 	return {
 		// scope: false,
@@ -19,7 +19,7 @@ angular.module('aviate.directives')
 				},200);
 				return debounceFn;
 			};
-//console.info('cart-------------',$rootScope.myCart);
+//			console.info('cart-------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signUp.html',
@@ -53,7 +53,7 @@ angular.module('aviate.directives')
 										});
 
 									}
-	
+
 								}
 							});
 						};
@@ -74,17 +74,17 @@ angular.module('aviate.directives')
 			$scope.removeFromMyCart = function(product, index) {
 				MyCartFactory.removeFromCart(product, index);
 			};
-			
-			$scope.checkOutPage = function() {
+
+			/*			$scope.checkOutPage = function() {
 				if($rootScope.user != null){
 					MyCartFactory.myCartTotalPriceCalculation();
 					$state.go('app.checkout');
 				}else{
 					toast.info('need to login first');
 				}
-			};
-			
-			
+			};*/
+
+
 			$scope.signInPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',
@@ -115,11 +115,16 @@ angular.module('aviate.directives')
 
 
 									}
-	
+
 								}
 
 								MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
 									console.log('get Mylist success in Main Nav');
+								});
+
+
+								MyListServices.getMyList({ customerId :$rootScope.user.userId, storeId: $rootScope.store.storeId }).then(function(data){
+									$scope.myListProducts = data;
 								});
 
 
@@ -156,7 +161,7 @@ angular.module('aviate.directives')
 				$rootScope.myCart.cartItem = [];
 				ipCookie('myCart', $rootScope.myCart);
 			};
-			
+
 			$scope.changeStore = function() {
 				if($rootScope.geoLocation.support==true){
 					$rootScope.showLocationDialog();

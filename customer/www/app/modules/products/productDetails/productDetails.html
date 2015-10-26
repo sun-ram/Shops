@@ -24,11 +24,15 @@
 			<div>
 				<div layout="row" flex="60" layout-padding>
 
-					<md-button class="md-raised "
-						style="width: 200px;height: 65px;background-color:#00B8D4">
-					<md-icon md-svg-src="assets/img/icon/favorite21.svg"
-						style="color:white"></md-icon> Add to My List </md-button>
-
+					<md-button class="md-raised "  ng-hide="productDetails.isProductMyList" style="width: 200px;height: 65px;background-color:#00B8D4">
+						<md-icon md-svg-src="assets/img/icon/favorite21.svg" style="color:white"></md-icon> 
+						Add to My List 
+					</md-button>
+  					<md-button ng-show="productDetails.isProductMyList" class="md-raised " ng-click="removeFromMyList(productDetails);" style="width: 200px;height: 65px;background-color:#00B8D4">
+						<md-icon md-svg-src="assets/img/icon/favorite21.svg" style="color:white">
+						</md-icon> 
+						Remove From My List 
+					</md-button>
 
 					
 					<div layout="row" flex="45">

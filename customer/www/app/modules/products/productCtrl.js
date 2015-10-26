@@ -6,22 +6,22 @@ angular.module('aviate.controllers')
 
 			$scope.productList = products;
 
-			$rootScope.addToCart = function(product){
-				MyCartFactory.addToCart(product,$scope.productList,  function(data){
-					$scope.productList = data;
-					$scope.getCartList();
-				});
-			}
-
-			$scope.getCartList = function(){
-				if($rootScope.user){
-					MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
-						MyCartFactory.checkCartProductsQuantity($scope.productList,function(data){
-							$scope.productList = data;
-						});
-					});
-				}
-			}
+//			$rootScope.addToCart = function(product){
+//				MyCartFactory.addToCart(product,$scope.productList,  function(data){
+//					$scope.productList = data;
+//					$scope.getCartList();
+//				});
+//			}
+//
+//			$scope.getCartList = function(){
+//				if($rootScope.user){
+//					MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+//						MyCartFactory.checkCartProductsQuantity($scope.productList,function(data){
+//							$scope.productList = data;
+//						});
+//					});
+//				}
+//			}
 
 			$scope.productDetails = function(products){
 				$state.go('app.productsdetails',{productId:products.productId});

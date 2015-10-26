@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService',
-                                   function($scope,$http,$sce,$stateParams,ProductService) {
+.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService', 'MyListServices', '$rootScope',
+                                   function($scope,$http,$sce,$stateParams,ProductService, MyListServices, $rootScope) {
 
 	$scope.getProducts = function(){
 		ProductService.getProductsByProductId({'productId':$stateParams.productId}).then(function(data){
@@ -11,11 +11,11 @@ angular.module('aviate.controllers')
 					$scope.changeimage($scope.productDetails.productImages[i].imageUrl);
 				}
 			}
-			
+
 		});
 	}
 	$scope.getProducts();
-	
+
 	/*	image zooom*/
 	$scope.zoomLvl = 4;
 	$scope.zoom ;
@@ -57,49 +57,30 @@ angular.module('aviate.controllers')
 		myimg1.setAttribute("src",imageurl);
 		myimg1.setAttribute("ng-src",imageurl);
 		myimg2.setAttribute("src",imageurl);
-		
+
 		//document.getElementByTagName("zoom img").src = imageurl;
 		//$scope.showImageindescription = imageurl;
 	}
 
 
-	$scope.addToMyList = function(){
-		MyListServices.addToMyList().then(function(data){
-			$scope.productDetail.isProductMyList = !$scope.productDetail.isProductMyList;
+	$scope.addToMyList = function(product){
+		MyListServices.addToMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
+			$scope.productDetails.isProductMyList = true;
+			$scope.getMyList();
 		});	
 	};
 
-	$scope.getMyList = function(){
-		MyListServices.getMyList().then(function(data){
 
+	$scope.getMyList = function(){
+		MyListServices.getMyList({"customerId":$rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
+			$scope.myListProducts = data;
 		});
 	};
 
-	$scope.removeFromMyList = function(){
-		MyListServices.removeMyList().then(function(data){
+	$scope.removeFromMyList = function(product){
+		MyListServices.removeMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
+			$scope.getMyList();
+			$scope.productDetails.isProductMyList = false;
 		});	
 	};
-
-	/*	$scope.productDescriptionFun = function(productObj){
-		$rootScope.addListShow = true;
-		var showImageindescription = '';
-		if($rootScope.myLists){
-			for(var i = 0;i<$rootScope.myLists.length;i++)
-				if(true){
-					$rootScope.addListShow = false;
-				}
-		}
-		for(var i = 0; i < productObj.productDetails.productImages.length; i++){
-			if(productObj.productDetails.productImages[i].imagePosition == 'ORIGINALFRONT'){
-				showImageindescription = productObj.productDetails.productImages[i].imageUrl;
-			}
-		}if(productObj.productDetails.productImages.length == 0){
-			showImageindescription = 'http://182.74.202.178:8181/aviate/ImageServlet?imageName=1eb789bde1fa452e92';
-		}
-		productObj.addListShow = $rootScope.addListShow;
-		$rootScope.productDetail = productObj;
-		$rootScope.showImageindescription = showImageindescription;
-		$localStorage.localStorageProductDetail = $rootScope.productDetail;
-	}*/
-}
-]);
+}]);

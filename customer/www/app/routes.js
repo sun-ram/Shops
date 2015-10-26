@@ -8,7 +8,8 @@ angular.module('app')
 	$stateProvider
 	.state('app', {
 		abstract: true,
-		templateUrl: 'app/modules/app/app.html'
+		templateUrl: 'app/modules/app/app.html',
+		controller : 'appCtrl'
 	})
 
 	// Sign In module

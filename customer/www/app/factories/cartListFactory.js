@@ -114,6 +114,17 @@ angular.module('aviate.factories')
 		}
 		callback(_product);
 	}
+	
+	factory.checkProductInMyList = function (_product , callback) {
+		if($rootScope.myList.listItem.length > 0){
+			for(var i = 0; $rootScope.myList.listItem.length > i; i++){
+				if(_product.productId == $rootScope.myList.listItem[i].products.productId){
+					_product.isProductMyList = true;
+				}
+			}
+		}
+		callback(_product);
+	}
 
 	return factory;
 });

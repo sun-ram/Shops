@@ -4,28 +4,21 @@ angular.module('aviate.controllers')
 		 function($scope, $state, toastr, CONSTANT, $http, MyListServices, ipCookie,$rootScope) {
 
 
-			$scope.addToMyList = function(){
+	/*		$scope.addToMyList = function(){
 				MyListServices.addToMyList().then(function(data){
 					$scope.getMyList();
 					$scope.productDetail.isProductMyList=! $scope.productDetail.isProductMyList;
 				});	
-			};
+			};*/
 
 			$scope.getMyList = function(){
-				$scope.user = {};
-				$scope.user.customerId = $rootScope.user.userId;
-				$scope.user.storeId = $rootScope.store.storeId;
-				MyListServices.getMyList($scope.user).then(function(data){
-					$scope.product = data;
+				MyListServices.getMyList({ customerId :$rootScope.user.userId, storeId: $rootScope.store.storeId }).then(function(data){
+					$scope.myListProducts = data;
 				});
 			};
 
-			$scope.removeFromMyList = function(productId){
-				$scope.user = {};
-				$scope.user.customerId = $rootScope.user.userId;
-				$scope.user.storeId = $rootScope.store.storeId;
-				$scope.user.productId = productId;
-				MyListServices.removeMyList($scope.user).then(function(data){
+			$scope.removeFromMyList = function(product){
+				MyListServices.removeMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
 					$scope.getMyList();
 				});	
 			};

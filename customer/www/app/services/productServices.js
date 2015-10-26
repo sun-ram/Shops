@@ -44,7 +44,10 @@ angular.module('aviate.services')
 		api.Product.getProductsByProductId(productId, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					MyCartFactory.checkCartProductsQuantity(result,function(data){
+					MyCartFactory.checkSingleProductsinCart(result,function(data){
+						d.resolve(data);
+					});
+					MyCartFactory.checkProductInMyList(result,function(data){
 						d.resolve(data);
 					});
 				} else {

@@ -4,7 +4,7 @@ angular.module('aviate.services')
 
 	this.addToMyList = function(user){
 		var d = $q.defer();
-		api.MyList.AddToMyList(user, function(err, result){
+		api.MyList.addToMyList(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
@@ -31,7 +31,7 @@ angular.module('aviate.services')
 								noOfQuantityInCart = $rootScope.myCart.cartItem[j].noOfQuantityInCart;
 							}
 						}
-						result.customerMyList[i].noOfQuantityInCart = noOfQuantityInCart;
+						result.customerMyList[i].products.noOfQuantityInCart = noOfQuantityInCart;
 						$rootScope.myList.push(result.customerMyList[i]);
 					}
 					ipCookie('myList', $rootScope.myList);
