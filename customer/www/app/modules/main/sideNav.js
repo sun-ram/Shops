@@ -63,15 +63,29 @@ angular.module('aviate.directives').directive('sideNav', [
       }
     ];
                     $scope.findSubtree = function (newData, parentId,parentchanged){
+                        //incase data contains array of category
                         if(newData && newData.length>0){
                             for(var i=0;newData[i];i++){
+                                //if sele
+                                newData[i].selectionClass="";
+                                if(newData[i].categoryId && newData[i].categoryId == parentId){
+                                     newData[i].selectionClass="selectedField";
+                                }
                                 if(newData[i].parentCategoryId && newData[i].parentCategoryId == parentId && !parentchanged){
                                     newData[i].hide = !newData[i].hide;
                                     parentchanged=true;
                                 }
-                                if(newData[i].productType && newData[i].productType.length>0 && newData[i].categoryId ==  parentId){
+                                if(newData[i].productType && newData[i].productType.length>0){
                                     for(var j=0;newData[i].productType[j];j++){
-                                        newData[i].productType[j].hide = !newData[i].productType[j].hide;
+                                        if(newData[i].categoryId ==  parentId){
+                                            newData[i].productType[j].hide = !newData[i].productType[j].hide;
+                                        }
+                                        newData[i].productType[j].selectionClass = "";
+                                        //code for change selected field class
+                                        if(newData[i].productType[j].productTypeId == parentId){
+                                            newData[i].productType[j].selectionClass = "selectedField";
+                                            console.log("--------------->selected field",newData.productType[j]);
+                                        }
                                     }
                                 }
                                 for(var j=0;newData[i].category && newData[i].category[j];j++){
@@ -82,13 +96,25 @@ angular.module('aviate.directives').directive('sideNav', [
                                 }
                             }
                         }else{
+                            
+                            newData.selectionClass="";
+                            if(newData.categoryId && newData.categoryId == parentId){
+                                     newData.selectionClass="selectedField";
+                            }
                             if(newData.parentCategoryId && newData.parentCategoryId == parentId  && !parentchanged){
                                   newData.hide = !newData.hide;
                                   parentchanged=true;
                             }
-                            if(newData.productType && newData.productType.length>0 && newData.categoryId ==  parentId){
+                            if(newData.productType && newData.productType.length>0){
                                 for(var j=0;newData.productType[j];j++){
-                                    newData.productType[j].hide = !newData.productType[j].hide;
+                                    if( newData.categoryId ==  parentId){
+                                        newData.productType[j].hide = !newData.productType[j].hide;
+                                    }
+                                    newData.productType[j].selectionClass = "";
+                                    if(newData.productType[j].productTypeId == parentId){
+                                        newData.productType[j].selectionClass = "selectedField";
+                                        console.log("--------------->selected field",newData.productType[j]);
+                                    }
                                 }
                             }
                             for(var j=0;newData.category && newData.category[j];j++){
@@ -108,6 +134,7 @@ angular.module('aviate.directives').directive('sideNav', [
                 	}
                 	
                 	$scope.getProductsByProductTypeId = function(productTypeId){
+                        $scope.findSubtree($scope.categoryList, productTypeId,false);
                 		$state.go('app.productType',{'productTypeId': productTypeId})
                 	}
                 	

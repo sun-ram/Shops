@@ -288,3 +288,7 @@ right: -8px;
 	background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat
 		-829px -44px;
 }
+
+.selectedField {
+    background-color : yellow !important;
+}
