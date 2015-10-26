@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("appCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory',
-		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices',
+		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices) {
 
        
 		$scope.checkOut = function() {
