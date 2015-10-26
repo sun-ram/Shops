@@ -1,13 +1,15 @@
 <md-sidenav flex class="md-sidenav-left md-whiteframe-z2"
 	md-component-id="left"> <md-toolbar md-scroll-shrink>
 <!-- <div class="md-toolbar-tools">My Messages</div> -->
-<div layout="row" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #303030;">
-       <svg style="border-radius: 99%;opacity: 1;" class="user-avatar" viewBox="0 0 128 128" pointer-events="none" display="block" >  </svg>
+<div layout="row" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #303030; height: 120px;">
+       <img src="assets/images/reliance.png"/>
       </div>
 </md-toolbar> 
 
 <script type="text/ng-template" id="productTypeList"> 
-	<md-button class="btn-sub"><div layout="row">{{pt.productTypeName}}</div></md-button>
+	<md-menu-item>
+	<md-button class="btn-sub2"><div layout="row">{{pt.productTypeName}}</div></md-button>
+	</md-menu-item>
 </script> 
 	
 <script type="text/ng-template" id="productCategoryList">
@@ -19,11 +21,11 @@
 		<md-button class="btn-sub">{{c.categoryName}}
 		</md-button> </md-menu-item>
 
-	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0" style="padding-left: 20px;">
+	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0" style="padding-left: 0px;">
  			<li ng-hide="pt.hide" ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
  		</ul>
 
-		<ul ng-hide="c.hide" ng-if="c.category.length > 0" style="padding-left: 20px;">
+		<ul ng-hide="c.hide" ng-if="c.category.length > 0" style="padding-left: 0px;">
        		<li ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
      	</ul>
 </script>
