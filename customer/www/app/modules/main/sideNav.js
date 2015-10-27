@@ -110,7 +110,7 @@ angular.module('aviate.directives').directive('sideNav', [
                                     if( newData.categoryId ==  parentId){
                                         newData.productType[j].hide = !newData.productType[j].hide;
                                     }
-                                    newData.productType[j].selectionClass = "";
+                                   newData.productType[j].selectionClass = "";
                                     if(newData.productType[j].productTypeId == parentId){
                                         newData.productType[j].selectionClass = "selectedField";
                                         console.log("--------------->selected field",newData.productType[j]);
@@ -129,13 +129,20 @@ angular.module('aviate.directives').directive('sideNav', [
                     
                     	
                 	$scope.getProductsByCategoryId = function(categoryId){
-                        $scope.findSubtree($scope.categoryList, categoryId,false);
-                		$state.go('app.products',{'categoryId': categoryId})
+                		if(categoryId){
+	                        $scope.findSubtree($scope.categoryList, categoryId,false);
+	                        console.log("getProductsByCategoryId()->",$scope.categoryList);
+	                		$state.go('app.products',{'categoryId': categoryId});
+                		}
+                		
                 	}
                 	
                 	$scope.getProductsByProductTypeId = function(productTypeId){
-                        $scope.findSubtree($scope.categoryList, productTypeId,false);
-                		$state.go('app.productType',{'productTypeId': productTypeId})
+                		if(productTypeId){
+	                        $scope.findSubtree($scope.categoryList, productTypeId,false);
+	                        console.log("getProductsByProductTypeId()->",$scope.categoryList);
+	                		$state.go('app.productType',{'productTypeId': productTypeId});
+                		}
                 	}
                 	
                 	$scope.checkParent = function(parent,c,subDetailsShow){

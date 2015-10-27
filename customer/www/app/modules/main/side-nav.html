@@ -8,7 +8,7 @@
 
 <script type="text/ng-template" id="productTypeList"> 
 	<md-menu-item>
-	<md-button class="btn-sub2"><div layout="row">{{pt.productTypeName}}</div></md-button>
+	<md-button ng-class="pt.selectionClass" class="btn-sub2"><div layout="row">{{pt.productTypeName}}</div></md-button>
 	</md-menu-item>
 </script> 
 	
@@ -26,7 +26,7 @@
  		</ul>
 
 		<ul ng-hide="c.hide" ng-if="c.category.length> 0" style="padding-left: 0px;">
-       		<li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
+       		<li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.category"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
      	</ul>
 </script>
 	

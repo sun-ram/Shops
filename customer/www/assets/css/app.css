@@ -258,8 +258,8 @@ right: -8px;
 .menu-list{padding: 0; margin: 0;}
 .btn-sub{padding-left: 35px ! important; margin: 0;}
 .btn-sub2{padding-left: 50px ! important; margin: 0;}
-.btn-sub2:hover{border-left: 5px solid yellow; background: #7C817E ! important; color: yellow; width: 100%; border-radius: 0px;}
-.btn-sub:hover{border-left: 5px solid yellow; background: #7C817E ! important; color: yellow; width: 100%; border-radius: 0px;}
+.btn-sub2:hover{padding-left: 45px ! important; border-left: 5px solid yellow; background: #7C817E ! important; color: yellow; width: 100%; border-radius: 0px;}
+.btn-sub:hover{padding-left: 30px ! important; border-left: 5px solid yellow; background: #7C817E ! important; color: yellow; width: 100%; border-radius: 0px;}
 .btn-menu:hover{background: #7C817E ! important; border-left: 5px solid yellow; color: yellow; width: 100%; border-radius: 0px;}
 
 
@@ -290,5 +290,5 @@ right: -8px;
 }
 
 .selectedField {
-    background-color : yellow !important;
+    background-color : #7C817E !important;
 }
