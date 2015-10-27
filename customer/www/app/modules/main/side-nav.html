@@ -22,7 +22,7 @@
 		</md-button> </md-menu-item>
 
 	 		<ul ng-hide="c.hide" ng-if="c.category.length == 0" style="padding-left: 0px;">
- 			<li ng-class="pt.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
+ 			<li ng-class="c.selectionClass" ng-hide="c.hide" ng-repeat="pt in c.productType" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
  		</ul>
 
 		<ul ng-hide="c.hide" ng-if="c.category.length> 0" style="padding-left: 0px;">
