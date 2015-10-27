@@ -1,4 +1,4 @@
-<md-dialog style="width:600px">
+<md-dialog style="width:600px; overflow: inherit; max-height: 82%;">
     <md-button class="md-icon-button" ng-click="cancel()" style="position:absolute;top:3px;right:4px;height:25px;width:25px">
         <md-icon md-svg-src="assets/img/checkout/close.svg" style="height:20px;width:20px"></md-icon>
     </md-button>
@@ -9,24 +9,23 @@
             <h3>Add a Delivery address</h3>
             <div flex></div>
         </div>
-        <p>We need your name to be able to find you for the delivery</p>
     </div>
     <div layout="column" layout-padding>
         <form name="addressForm" ng-submit="addAddress(address)">
             <div layout="row">
                 <md-input-container flex>
-                    <label>First name</label>
-                    <input type="text" ng-model="address.firstName" required>
+                    <label>First name<span style="color:red">*</span></label>
+                    <input type="text" ng-model="address.firstName" ng-required="true">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Last Name</label>
-                    <input type="text" ng-model="address.lastName" required>
+                    <label>Last Name<span style="color:red">*</span></label>
+                    <input type="text" ng-model="address.lastName" ng-required="true">
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container flex>
-                    <label>Address</label>
-                    <input type="text" ng-model="address.address" required>
+                    <label>Address<span style="color:red">*</span></label>
+                    <input type="text" ng-model="address.address" ng-required="true">
                 </md-input-container>
 <!--
                 <md-input-container flex>
@@ -37,22 +36,22 @@
             </div>
             <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>City</label>
-                    <input type="text" ng-model="address.city" required>
+                    <label>City<span style="color:red">*</span></label>
+                    <input type="text" ng-model="address.city" ng-required="true">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>State</label>
-                    <input type="text" ng-model="address.state" required>
+                    <label>State<span style="color:red">*</span></label>
+                    <input type="text" ng-model="address.state" ng-required="true">
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container flex>
-                    <label>Postal Code</label>
-                    <input type="text" ng-model="address.postalCode" >
+                    <label>Postal Code<span style="color:red">*</span></label>
+                    <input type="text" valid-number ng-model="address.postalCode" >
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Country</label>
-                    <input type="text" ng-model="address.country" required>
+                    <label>Country<span style="color:red">*</span></label>
+                    <input type="text" ng-model="address.country" ng-required="true">
                 </md-input-container>
             </div>
             <md-input-container>
@@ -62,9 +61,6 @@
             <div layout="row" layout-align="end">
             <div layout="" layout-align="center">
                 <md-button type="submit" class="md-primary md-raised" ng-disable="addressForm.$dirty">{{AddUpdate}}</md-button>
-            </div>
-             <div layout="" layout-align="center" ng-show="delete">
-                <md-button type="button" class="md-primary md-raised" ng-click="removeAddress(address)">delete</md-button>
             </div>
             </div>
         </form>
