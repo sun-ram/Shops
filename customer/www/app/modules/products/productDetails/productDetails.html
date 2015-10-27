@@ -4,7 +4,20 @@
        
         <h1 class="md-display-2" style="position:absolute;color:#fff;top: 25%;left: 40%;"><!-- Fresh Fruits --></h1>
     </div>
-<md-card layout="row" layout-padding style="padding: 25px;">
+    
+    
+    
+	<div layout="row" flex layout-align="space-between center" class="wid_100" style="padding:10px 3%">
+		<div flex layout="column" layout-sm="50">
+			<div flex class="md-caption text-primary" >Fresh Products / Fresh Fruits</div>
+			<div flex class="md-title" style="margin-top:10px; color:#333333">Givvo Large Yellow Onions</div>
+		</div> 
+	</div>  
+                
+                
+                
+                
+<md-card layout="row" layout-padding style="padding: 25px;     margin: 20px 3%;">
 		<div flex="50">
 			<div layout="row" layout-align="start center">
 			
@@ -13,8 +26,8 @@
 			</div>
 			<div layout="row" flex="100" layout-align="start center">
 				
-				<div flex="25" ng-repeat="image in productDetails.productImages" style="padding: 5px" >
-					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-click="changeimage(image.imageUrl)">
+				<div  ng-repeat="image in productDetails.productImages" style="padding: 5px" >
+					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey; width:100px !important;float:left !important; height:100px !important;" height="100" width="100" ng-click="changeimage(image.imageUrl)">
 				</div>
 			</div>
 		</div>
