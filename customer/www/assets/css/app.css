@@ -40,10 +40,10 @@
 .text-black{color:black;}
 
 md-checkbox.md-checked .md-icon{background:#72a308 !important;}
-.bg-yellow,.bg-yellow:hover{background:#FFC234 !important;color:#fff;}
+.bg-yellow,.bg-yellow:hover{background:#E8D935 !important;color:#fff;}
 
 .bg-green,.bg-green:hover{background:#72a308 !important;color:#fff;}
-.bg-wh-tran, .md-subheader-inner{background: rgba(255,255,255, 0.5);}
+/*.bg-wh-tran, .md-subheader-inner{background: rgba(255,255,255, 0.5);}*/
 .bg-white{background:white !important;}
 
 .tright{text-align: right;}
@@ -187,7 +187,7 @@ height: 40px;
 .ft_black{color:#000;}
 .ft_gray{color:gray;}
 
-.nav-bar-subheader{ padding:10px 0px; background-color:#6EAB10 !important}
+.nav-bar-subheader{ padding:10px 0px; background-color:rgba(0,0,0,0.3) !important}
 ul.nav-menu{ width:400px; padding:10px; margin-left:120px; display:inline; list-style-type:none;}
 ul.nav-menu li{ width:auto; display:inline; list-style-type: none; padding:10px; list-style-type:none;}
 
