@@ -26,9 +26,12 @@
 			</div>
 			<div layout="row" flex="100" layout-align="start center">
 				
-				<div  ng-repeat="image in productDetails.productImages" style="padding: 5px" >
-					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey; width:100px !important;float:left !important; height:100px !important;" height="100" width="100" ng-click="changeimage(image.imageUrl)">
-				</div>
+				<div flex="25" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" >
+					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
+ 				</div>
+				<div flex="25" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px" >
+					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
+				</div>	
 			</div>
 		</div>
 		<div flex="50">
