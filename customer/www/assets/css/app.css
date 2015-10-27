@@ -256,11 +256,12 @@ right: -8px;
 .side_logo{ height: 120px;}
 .md-sidenav-left{background: #646464 ! important;}
 .menu-list{padding: 0; margin: 0;}
-.btn-sub{padding-left: 35px ! important; margin: 0;}
-.btn-sub2{padding-left: 50px ! important; margin: 0;}
+.btn-menu{font-size: 18px ! important; }
+.btn-sub{padding-left: 35px ! important; margin: 0; font-size: 14px ! important;}
+.btn-sub2{padding-left: 50px ! important; margin: 0; font-size: 14px ! important;}
 .btn-sub2:hover{padding-left: 45px ! important; border-left: 5px solid yellow; background: #7C817E ! important; color: yellow; width: 100%; border-radius: 0px;}
 .btn-sub:hover{padding-left: 30px ! important; border-left: 5px solid yellow; background: #7C817E ! important; color: yellow; width: 100%; border-radius: 0px;}
-.btn-menu:hover{background: #7C817E ! important; border-left: 5px solid yellow; color: yellow; width: 100%; border-radius: 0px;}
+.btn-menu:hover{background: #7C817E ! important; padding-left: 11px ! important; border-left: 5px solid yellow; color: yellow; width: 100%; border-radius: 0px;}
 
 
 .md-3-line:hover{
