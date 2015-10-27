@@ -11,11 +11,15 @@
         <md-content class="" style="margin: 0 3%;width: 100%;">
           <md-toolbar layout="row" layout-sm="column" class="bg_gray">
               <div layout="row" layout-align="space-between center" class="wid_100">
-                  <div class="text-green"><!-- Fresh Products / Fresh Fruits --></div>
-                   <div class="" layout="row" layout layout-align="">                   
-                       <span flex layout-padding>
+                  <div flex layout="column" layout-sm="50">
+                  
+                  	<div flex class="md-caption text-primary" >Fresh Products / Fresh Fruits</div>
+                  	<div flex class="md-title" style="margin-top:10px; color:#333333">Fruits</div>
+                  </div>
+                   <div class="" flex layout="row" layout-sm="50" layout layout-align="">                   
+                       <span flex layout-padding style="color:#000000;">
                             <md-input-container flex class="nopadd ft_size14">
-                              <label style="margin-top: -20px;">Sort By</label>
+                              <label ng-style="margin-top: 0px; color:#000000;" class="mg-primary">Sort By</label>
                               <md-select ng-model="orderList" >
                                 <md-option value="productName"> Product A-Z </md-option>
                                 <md-option value="-productName"> Product Z-A </md-option>
@@ -26,7 +30,7 @@
                      </span>
                      <span flex >
                         <md-input-container flex class="nopadd ft_size14">
-                            <label style="margin-top: -20px;"><md-icon md-svg-src="assets/img/icon/magnifying47.svg" class="svgstyle name text-black"></md-icon>Search</label>
+                            <label style="margin-top: 8px;">Search</label>
                             <input ng-model="searchProduct">
                         </md-input-container >
                      </span>
@@ -76,7 +80,7 @@
  
 
 </div>
-    <div layout="column" style="width:90%; margin:0px auto; ">
+    <div layout="column" style="width:94%; margin:0px auto; ">
     <div flex layout="row" style="padding:10px 8px;">
     <div layout="row" layout-wrap flex >
          <div ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
@@ -91,7 +95,7 @@
 					<span flex class="md-body-2 text-left">{{product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</span>
 					<span flex class="md-body-2 text-right">
 						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						{{product.productPrice.price}}
+						₹{{product.productPrice.price}}
 					</span>
 				</div>
 				<div layout="row" flex>
