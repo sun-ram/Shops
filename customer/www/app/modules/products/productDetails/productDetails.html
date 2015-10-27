@@ -17,8 +17,8 @@
                 
                 
                 
-<md-card layout="row" layout-padding style="padding: 25px;     margin: 20px 3%;">
-		<div flex="50">
+<md-card layout="row" layout-sm="column" layout-padding style="padding: 25px; margin: 20px 3%;">
+		<div flex>
 			<div layout="row" layout-align="start center">
 			
 			<zoom mark-height="50" mark-width="50"  src="" zoom-lvl="{{zoomLvl}}"></zoom>
@@ -26,15 +26,15 @@
 			</div>
 			<div layout="row" flex="100" layout-align="start center">
 				
-				<div flex="25" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" >
-					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
+				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" >
+					<img  src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
  				</div>
-				<div flex="25" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px" >
+				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px" >
 					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
 				</div>	
 			</div>
 		</div>
-		<div flex="50">
+		<div flex>
 			<div style="padding-left: 15px">
 				<h1 style="color: green">{{productDetails.productName}}</h1>
 				<span>{{productDetails.measurement}} {{productDetails.productUnitOfMeasure.abbreviation}}</span>
@@ -44,11 +44,11 @@
 			<div>
 				<div layout="row" flex="60" layout-padding>
 				
-					<md-button layout-padding ng-hide="productDetails.isProductMyList" class="md-raised " ng-click="addToMyList(productDetails);" style="width: 200px;height: 65px;background-color:#00B8D4; color: white; border-radius: 0px; margin:8px;">
+					<md-button layout-padding ng-hide="productDetails.isProductMyList" class="md-raised " ng-click="addToMyList(productDetails);" style="width: 200px;height: 65px;background-color:#00B8D4; color: white; border-radius: 0px; margin:8px; padding:8px;">
 						<md-icon layout="row" md-svg-src="assets/img/icon/favorite21.svg" style="color:white"></md-icon> 
 						Add to My List 
 					</md-button>
-  					<md-button layout-padding ng-show="productDetails.isProductMyList" class="md-raised " ng-click="removeFromMyList(productDetails);" style="width: 200px;height: 65px;background-color:red; color:#ffffff; margin:8px;">
+  					<md-button layout-padding ng-show="productDetails.isProductMyList" class="md-raised " ng-click="removeFromMyList(productDetails);" style="width: 200px;height: 65px;background-color:red; color:#ffffff; margin:8px; padding:8px;">
 						<md-icon layout="row" md-svg-src="assets/img/icon/favorite21.svg" style="color:white">
 						</md-icon> 
 						Remove From My List 
@@ -125,7 +125,7 @@
 <style>
 
 .zoomed{
-    margin-left: 17em;
+    margin-left: 16em;
     
 }
 
@@ -137,7 +137,7 @@
 }
 .original img{
 	vertical-align:middle;
-	width: 260px ! important;
+	width: 240px ! important;
 }
 
  .zoomed{
@@ -151,12 +151,8 @@
  .zoomed img{    
     position: relative;
 }
-#overlay    {  background:rgba(0,0,0,.75);
-               opacity:1;
-               -webkit-transition: opacity .25s ease;
-			   -moz-transition: opacity .25s ease;}
-
-
+.image img:hover {
+    opacity: 0.5 ! important;}
  /* .mark {
     opacity: .3;
     border: 6px dotted #fff;
