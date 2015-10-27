@@ -7,8 +7,8 @@ angular.module('aviate.constant').constant('CONSTANT', {
 		},
 
 		SUCCESS_CODE:{
-			SIGNINSUCCESS: 'Sign in successfuly',
-			SIGNUPSUCCESS: 'Sign up successfuly',
+			SIGNINSUCCESS: 'Sign in successfully',
+			SIGNUPSUCCESS: 'Sign up successfully',
 			FORGETPASSWORDCONFIRMATION: 'Password has been sent to your mail',
 			ROLE: 'CUSTOMER'
 		},
