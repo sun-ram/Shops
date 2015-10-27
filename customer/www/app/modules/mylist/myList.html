@@ -29,7 +29,7 @@
 				<div flex="15">
 					<img src="{{product.products.productImages[1].imageUrl}}" style="width:120px; padding:5px;"/>
 				</div>
-				<div flex="30" layout="column">
+				<div flex="50"  layout="column">
 					<div  class="md-title">{{product.products.productName}}</div>
 					<div  class="md-caption">{{product.products.measurement}} {{product.products.productUnitOfMeasure.abbreviation}}</div>
 					<div  class="md-subhead" style="margin-top:10px;">Rs {{product.products.productPrice.price}}</div>
@@ -37,7 +37,7 @@
 				<div flex="15" layout="row" layout-align="center center">
 					<md-button ng-click="removeFromMyList(product);">Remove</md-button>
 				</div>
-				<div  flex layout="row" layout-align="end center">
+				<div  flex="20" layout="row" layout-align="end center">
 					<!-- <div style="width:200px;"" layout="row">
 						<md-button class="md-raised md-primary bg-primary" style="background-color:#72a308 !important; padding:10px 30px; ">Add To Cart</md-button>
 					</div> -->
