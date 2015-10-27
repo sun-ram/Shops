@@ -27,7 +27,7 @@
 			<div flex layout="row" ng-repeat="product in myListProducts.listItem" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
 			
 				<div flex="15">
-					<img src="{{product.products.productImages[1].imageUrl}}" style="width:120px; padding:5px;"/>
+					<img src="{{product.products.productImages[1].imageUrl}}" style="width:120px; padding:5px;" ng-click="productDetail(product.products);"/>
 				</div>
 				<div flex="50"  layout="column">
 					<div  class="md-title">{{product.products.productName}}</div>

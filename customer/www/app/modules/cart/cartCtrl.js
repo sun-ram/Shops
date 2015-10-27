@@ -3,6 +3,11 @@ angular.module('aviate.controllers')
 		['$scope', '$state', 'toastr', 'CONSTANT','$http','$rootScope','MyCartFactory','MyCartServices',
 		 function($scope, $state, toastr, CONSTANT,$http,$rootScope, MyCartFactory,MyCartServices) {
 			MyCartFactory.myCartTotalPriceCalculation();
+			
+			$scope.productDetail = function(products){ 
+				$state.go('app.productsdetails',{productId:products.productId});
+			}
+			
 /*			$rootScope.addToCart = function(product){
 				MyCartFactory.addToCart(product,$scope.productList,  function(data){
 					$scope.productList = data;

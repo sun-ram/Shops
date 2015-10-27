@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService', 'MyListServices', '$rootScope',
-                                   function($scope,$http,$sce,$stateParams,ProductService, MyListServices, $rootScope) {
+.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService', 'MyListServices', '$rootScope','$state',
+                                   function($scope,$http,$sce,$stateParams,ProductService, MyListServices, $rootScope,$state) {
 
 	$scope.getProducts = function(){
 		ProductService.getProductsByProductId({'productId':$stateParams.productId}).then(function(data){
@@ -20,7 +20,7 @@ angular.module('aviate.controllers')
 		});
 	}
 	
-	$scope.productDetails = function(products){ 
+	$scope.productDetail = function(products){ 
 		$state.go('app.productsdetails',{productId:products.productId});
 	}
 	
