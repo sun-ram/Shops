@@ -74,10 +74,14 @@ angular.module('aviate.controllers')
 
 
 	$scope.addToMyList = function(product){
+		if($rootScope.user == null || $rootScope.user == undefined){
+			$scope.signInPopup();
+		}else{
 		MyListServices.addToMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
 			$scope.productDetails.isProductMyList = true;
 			$scope.getMyList();
 		});	
+		}
 	};
 
 
