@@ -11,9 +11,19 @@ angular.module('aviate.controllers')
 					$scope.changeimage($scope.productDetails.productImages[i].imageUrl);
 				}
 			}
-
+			$scope.getProductsByProductTypeId($scope.productDetails.productTypeId);
 		});
 	}
+	$scope.getProductsByProductTypeId = function(productTypeId){
+		ProductService.getProductsByProductTypeId({'productTypeId':productTypeId}).then(function(data){
+			$scope.relatedProductList = data;
+		});
+	}
+	
+	$scope.productDetails = function(products){ 
+		$state.go('app.productsdetails',{productId:products.productId});
+	}
+	
 	$scope.getProducts();
 
 	/*	image zooom*/
