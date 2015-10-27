@@ -85,8 +85,14 @@
 	<!-- <md-content> </md-content> -->
 
 </md-card>
-<div layout="row" layout-padding>
-<div ng-repeat="product in productList"   flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+
+	<div layout="row" style="margin: 20px 3%; border-bottom: 1px solid lightgrey;">
+	<h3>Related Products</h3>
+	</div>
+<div layout="column" style="width:95%; margin:0px auto; ">
+<div flex layout="row">
+<div layout="row" layout-wrap flex>
+<div ng-repeat="product in relatedProductList | limitTo: 5 " layout-padding flex-sm="50" flex-lg="25" flex-gt-lg="20" flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
 				<div flex style="height:150px; text-align: center;" ng-click="productDetails(product);">
 					<img style="height:150px;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
@@ -117,6 +123,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		</div>
 		</div>
 		</div>
 		</div>
