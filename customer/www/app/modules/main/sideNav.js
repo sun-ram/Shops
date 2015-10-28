@@ -109,6 +109,7 @@ angular.module('aviate.directives').directive('sideNav', [
                     	
                 	$scope.getProductsByCategoryId = function(categoryId){
                 		if(categoryId){
+                            $scope.optimizeData($scope.categoryList);
 	                        $scope.findSubtree($scope.categoryList, categoryId,false);
 	                        console.log("getProductsByCategoryId()->",$scope.categoryList);
 	                		$state.go('app.products',{'categoryId': categoryId});
@@ -118,6 +119,7 @@ angular.module('aviate.directives').directive('sideNav', [
                 	
                 	$scope.getProductsByProductTypeId = function(productTypeId){
                 		if(productTypeId){
+                            $scope.optimizeData($scope.categoryList);
 	                        $scope.findSubtree($scope.categoryList, productTypeId,false);
 	                        console.log("getProductsByProductTypeId()->",$scope.categoryList);
 	                		$state.go('app.productType',{'productTypeId': productTypeId});
