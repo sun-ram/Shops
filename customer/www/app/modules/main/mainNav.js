@@ -8,12 +8,15 @@ angular.module('aviate.directives')
 		templateUrl: './app/modules/main/nav-main.html',
 		replace: true,
 		link: function($scope, iElm, iAttrs, controller, AuthServices, CONSTANT,toastr){
-
+			$scope.bar= true;
+			$scope.back=false;
+			
 			$scope.toggleLeft = buildToggler('left');
 			$scope.toggleRight = buildCartToggler('right');
 
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
+					$rootScope.newclass = "navigate";
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
 					});
@@ -24,6 +27,7 @@ angular.module('aviate.directives')
 
 			function buildCartToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
+					$rootScope.newclass = "navigate-right";
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
 					});
@@ -182,6 +186,16 @@ angular.module('aviate.directives')
 				}else{
 					$rootScope.showLocationDialog(true);
 				}
+			};
+			
+			$scope.removeLeftNav = function(){				
+				$rootScope.newclass = "remove";
+				$mdSidenav('left').close();
+			};
+			
+			$scope.removeRightNav = function(){				
+				$rootScope.newclass = "remove";
+				$mdSidenav('right').close();
 			};
 		}
 
