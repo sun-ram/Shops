@@ -292,3 +292,8 @@ right: -8px;
 .selectedField {
     background-color : #7C817E !important;
 }
+
+md-backdrop{display: none ! important;}
+.navigate{padding-left: 305px;  transition: 0.2s ease-in all;}
+.navigate-right{padding-right: 305px;  transition: 0.2s ease-in all;}
+.remove{padding-left: 0px; padding-right: 0;}
