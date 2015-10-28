@@ -9,7 +9,8 @@ angular.module('aviate.directives')
 		replace: true,
 		link: function($scope, iElm, iAttrs, controller, AuthServices, CONSTANT,toastr){
 
-			$scope.toggleSidenav = buildToggler('left');
+			$scope.toggleLeft = buildToggler('left');
+			$scope.toggleRight = buildCartToggler('right');
 
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
@@ -19,6 +20,17 @@ angular.module('aviate.directives')
 				},200);
 				return debounceFn;
 			};
+			
+
+			function buildCartToggler(navID) {
+				var debounceFn =  $mdUtil.debounce(function(){
+					$mdSidenav(navID).toggle().then(function () {
+						$log.debug("toggle " + navID + " is done");
+					});
+				},200);
+				return debounceFn;
+			};
+			
 //			console.info('cart-------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
 				$mdDialog.show({
