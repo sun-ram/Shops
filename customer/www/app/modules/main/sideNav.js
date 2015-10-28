@@ -62,42 +62,9 @@ angular.module('aviate.directives').directive('sideNav', [
         
       }
     ];
-                    $scope.findSubtree = function (newData, parentId,parentchanged){
-                        //incase data contains array of category
-                        if(newData && newData.length>0){
-                            for(var i=0;newData[i];i++){
-                                //if sele
-                                newData[i].selectionClass="";
-                                if(newData[i].categoryId && newData[i].categoryId == parentId){
-                                     newData[i].selectionClass="selectedField";
-                                }
-                                if(newData[i].parentCategoryId && newData[i].parentCategoryId == parentId && !parentchanged){
-                                    newData[i].hide = !newData[i].hide;
-                                    parentchanged=true;
-                                }
-                                if(newData[i].productType && newData[i].productType.length>0){
-                                    for(var j=0;newData[i].productType[j];j++){
-                                        if(newData[i].categoryId ==  parentId){
-                                            newData[i].productType[j].hide = !newData[i].productType[j].hide;
-                                        }
-                                        newData[i].productType[j].selectionClass = "";
-                                        //code for change selected field class
-                                        if(newData[i].productType[j].productTypeId == parentId){
-                                            newData[i].productType[j].selectionClass = "selectedField";
-                                            console.log("--------------->selected field",newData.productType[j]);
-                                        }
-                                    }
-                                }
-                                for(var j=0;newData[i].category && newData[i].category[j];j++){
-                                    if(parentchanged){
-                                        newData[i].category[j].hide = newData[i].hide;
-                                    }
-                                    $scope.findSubtree(newData[i].category[j],parentId,parentchanged);
-                                }
-                            }
-                        }else{
-                            
-                            newData.selectionClass="";
+                    
+                    $scope.manipulateSubtree = function (newData, parentId, parentchanged){
+                         newData.selectionClass="";
                             if(newData.categoryId && newData.categoryId == parentId){
                                      newData.selectionClass="selectedField";
                             }
@@ -110,10 +77,9 @@ angular.module('aviate.directives').directive('sideNav', [
                                     if( newData.categoryId ==  parentId){
                                         newData.productType[j].hide = !newData.productType[j].hide;
                                     }
-                                    newData.productType[j].selectionClass = "";
+                                   newData.productType[j].selectionClass = "";
                                     if(newData.productType[j].productTypeId == parentId){
                                         newData.productType[j].selectionClass = "selectedField";
-                                        console.log("--------------->selected field",newData.productType[j]);
                                     }
                                 }
                             }
@@ -123,19 +89,36 @@ angular.module('aviate.directives').directive('sideNav', [
                                 }
                                 $scope.findSubtree(newData.category[j],parentId,parentchanged);
                             }
+                    };
+                        
+                    $scope.findSubtree = function (newData, parentId,parentchanged){
+                        //incase data contains array of category
+                        if(newData && newData.length>0){
+                            for(var i=0;newData[i];i++){
+                               $scope.manipulateSubtree(newData[i], parentId, parentchanged);
+                            }
+                        }else{
+                            $scope.manipulateSubtree(newData, parentId, parentchanged);
                         }
                         
                     }
                     
                     	
                 	$scope.getProductsByCategoryId = function(categoryId){
-                        $scope.findSubtree($scope.categoryList, categoryId,false);
-                		$state.go('app.products',{'categoryId': categoryId})
+                		if(categoryId){
+	                        $scope.findSubtree($scope.categoryList, categoryId,false);
+	                        console.log("getProductsByCategoryId()->",$scope.categoryList);
+	                		$state.go('app.products',{'categoryId': categoryId});
+                		}
+                		
                 	}
                 	
                 	$scope.getProductsByProductTypeId = function(productTypeId){
-                        $scope.findSubtree($scope.categoryList, productTypeId,false);
-                		$state.go('app.productType',{'productTypeId': productTypeId})
+                		if(productTypeId){
+	                        $scope.findSubtree($scope.categoryList, productTypeId,false);
+	                        console.log("getProductsByProductTypeId()->",$scope.categoryList);
+	                		$state.go('app.productType',{'productTypeId': productTypeId});
+                		}
                 	}
                 	
                 	$scope.checkParent = function(parent,c,subDetailsShow){

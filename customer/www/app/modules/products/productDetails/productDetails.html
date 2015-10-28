@@ -1,20 +1,39 @@
-
-<div layout="row" style="padding: 25px">
-		<div flex="50">
+<div style="width:100%;height:100%;position: relative;" class="bg_gray">
+<div style="height:280px;width:100%;position:relative;">
+        <img ng-src="assets/images/banner1.png" alt="" src="assets/images/banner1.png" style="width: 100%;height: 100%;">        
+       
+        <h1 class="md-display-2" style="position:absolute;color:#fff;top: 25%;left: 40%;"><!-- Fresh Fruits --></h1>
+    </div>
+    
+    
+    
+	<div layout="row" flex layout-align="space-between center" class="wid_100" style="padding:10px 3%">
+		<div flex layout="column" layout-sm="50">
+			<div flex class="md-caption text-primary" ><!-- Fresh Products / Fresh Fruits --></div>
+			</div> 
+	</div>  
+                
+                
+                
+                
+<md-card layout="row" layout-sm="column" layout-padding style="padding: 25px; margin: 20px 3%;">
+		<div flex>
 			<div layout="row" layout-align="start center">
 			
 			<zoom mark-height="50" mark-width="50"  src="" zoom-lvl="{{zoomLvl}}"></zoom>
 			<!-- 	<img src="assets/images/fruit.jpg" height="250px" border="1"> -->
 			</div>
 			<div layout="row" flex="100" layout-align="start center">
-				<div ng-repeat="image in productDetails.productImages">
-				<div flex="25" style="padding: 5px" >
-					<img src="{{image.imageUrl}}" height="100px" width="100px" ng-click="changeimage(image.imageUrl)">
-				</div>
-				</div>
+				
+				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" >
+					<img  src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
+ 				</div>
+				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px" >
+					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
+				</div>	
 			</div>
 		</div>
-		<div flex="50">
+		<div flex>
 			<div style="padding-left: 15px">
 				<h1 style="color: green">{{productDetails.productName}}</h1>
 				<span>{{productDetails.measurement}} {{productDetails.productUnitOfMeasure.abbreviation}}</span>
@@ -23,21 +42,20 @@
 			</div>
 			<div>
 				<div layout="row" flex="60" layout-padding>
-
-					<md-button ng-hide="productDetails.isProductMyList" class="md-raised " ng-click="addToMyList(productDetails);" style="width: 200px;height: 65px;background-color:#00B8D4">
-						<md-icon md-svg-src="assets/img/icon/favorite21.svg" style="color:white"></md-icon> 
+				
+					<md-button layout-padding ng-hide="productDetails.isProductMyList" class="md-raised " ng-click="addToMyList(productDetails);" style="width: 200px;height: 65px;background-color:#00B8D4; color: white; border-radius: 0px; margin:8px; padding:8px;">
+						<md-icon layout="row" md-svg-src="assets/img/icon/favorite21.svg" style="color:white"></md-icon> 
 						Add to My List 
 					</md-button>
-  					<md-button ng-show="productDetails.isProductMyList" class="md-raised " ng-click="removeFromMyList(productDetails);" style="width: 200px;height: 65px;background-color:red;co;or:#ffffff">
-						<md-icon md-svg-src="assets/img/icon/favorite21.svg" style="color:white">
+  					<md-button layout-padding ng-show="productDetails.isProductMyList" class="md-raised " ng-click="removeFromMyList(productDetails);" style="width: 200px;height: 65px;background-color:red; color:#ffffff; margin:8px; padding:8px;">
+						<md-icon layout="row" md-svg-src="assets/img/icon/favorite21.svg" style="color:white">
 						</md-icon> 
 						Remove From My List 
 					</md-button>
 
-					
-					<div layout="row" flex="45">
-					<div flex layout="row" class="addtocart-btn">
-						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
+					<div layout="row" flex="45" layout-padding >
+					<div flex layout="row" class="addtocart-btn" style="height: 65px; padding: 0px ! important;">
+						<div flex="15" layout="column" layout-align="center center" class="bg-primary">
 						<md-icon ng-hide="productDetails.noOfQuantityInCart > 0" style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)"></md-icon>
 							<div>
 								<md-icon  ng-show="productDetails.noOfQuantityInCart > 0" style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)"></md-icon>
@@ -47,9 +65,14 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="productDetails.noOfQuantityInCart"><span ng-show="productDetails.noOfQuantityInCart > 0">{{productDetails.noOfQuantityInCart}}</span></div>
-						<div ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" flex="40" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" flex="60" style="padding-top: 20px;padding-left: 25px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
 					</div>
 				</div>
+				
+					
+
+					
+					
 
 				</div>
 			</div>
@@ -59,11 +82,18 @@
 
          
 	<!-- <md-content> </md-content> -->
-</div>
-<div layout="row" layout-padding>
-<div ng-repeat="product in productList"   flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+
+</md-card>
+
+	<div layout="row" style="margin: 50px 3% 10px 3%; border-bottom: 1px solid lightgrey;">
+	<h3>Related Products</h3>
+	</div>
+<div layout="column" style="width:95%; margin:0px auto; ">
+<div flex layout="row" style="margin-bottom: 60px;">
+<div layout="row" layout-wrap flex>
+<div ng-repeat="product in relatedProductList | limitTo: 5 " layout-padding flex-sm="50" flex-lg="25" flex-gt-lg="20" flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px; text-align: center;" ng-click="productDetails(product);">
+				<div flex style="height:150px; text-align: center;" ng-click="productDetail(product);">
 					<img style="height:150px;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
@@ -88,44 +118,45 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span ng-show="product.noOfQuantityInCart > 0">{{product.noOfQuantityInCart}}</span></div>
-						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
 					</div>
 				</div>
 			</div>
+		</div>
+		</div>
+		</div>
 		</div>
 		</div>
 	  <script src="app/directives/imageZoom.js"></script>
 	  <script src="app/modules/products//productDetails/productDetailsCtrl.js"></script>
 <style>
 
-.zoomed{
-    margin-left: 17em;
-    margin-top: 1em;
-}
 
 .original{
     float: left;
     position: relative;
     overflow: hidden;
+    border: 1px solid lightgrey;
 }
 .original img{
 	vertical-align:middle;
-	width: 300px ! important;
+	width: 240px ! important;
 }
 
  .zoomed{
+ 	margin-left: 16em;
     float: left;
     position: absolute;
     overflow: hidden;
-    width: 400px ! important;
+    width: 370px ! important;
 }
 
 
- .zoomed img{
-    height: 600px;
+ .zoomed img{    
     position: relative;
-} 
-
+}
+.image img:hover {
+    opacity: 0.5 ! important;}
  /* .mark {
     opacity: .3;
     border: 6px dotted #fff;
@@ -146,136 +177,3 @@
 	.text-primary{color:#72a308;}
 
 </style>
-<!-- <div>
-<div layout="row" ng-controller="productDetailsCtrl as zoom" layout-wrap>
-	<div flex="40" style="border: 1px solid grey; height: 250px;" layout-padding ng-init="productDetail()">
-	<zoom mark-height="50" mark-width="50"  src="{{zoom.showImageindescription}}" zoom-lvl="{{zoomLvl}}"></zoom>  
-	</div>
-	<div flex="60" layout-padding>
-	<h3 style="color:green">{{product.productName}}</h3>
-	
-	<span>Kilo Gram</span>
-	
-	<p> {{product.productUnitOfMeasure.description}} </p>
-	
-	<p>Product Price  ₹ {{product.productPrice.price}}</p>
-	  <aside>
-         </aside>
-	</div>
-	<div flex="40" style="border: 1px solid grey; margin-top: 10px; " layout="row" layout-padding>
-	<div flex="25" style="border: 1px solid grey; width:100px; height:100px;" layout-padding ng-repeat="images in product.productImages">
-	<img src={{images.imageUrl}} style="max-width: 100%; "  ng-click="changeimage(images.imageUrl)"/>
-	</div>	
-	</div> 
-	<div flex="60" layout-padding>
-	<md-button class="" aria-label="" class="cart-btn" style="color: #fff ! important; border: 2px solid #72A308; background: #72A308; height: 48px; font-size: 16px;">
-            <md-icon class="icon-white" md-svg-src="./assets/img/icon/shopping-cart3.svg" style="fill: #fff;"></md-icon>
-            <span layout-padding>add to cart</span>
-    </md-button>
-    
-    <div layout="row" layout-align="start" class="btn-count" >
-   	<div layout="column" layout-align="start">
-       <md-button class="count" aria-label="" style="line-height: inherit; min-height: inherit; margin: 0; padding:0; width: 25px; min-width: inherit;">
-             <md-icon md-svg-src="./assets/img/icon/navigate6.svg" style="color: black; height: 20px;"></md-icon>
-            </md-button>
-       <md-button class="count" aria-label="" style="line-height: inherit; min-height: inherit; margin: 0; padding:0; width: 25px; min-width: inherit;" >
-             <md-icon md-svg-src="./assets/img/icon/down14.svg" style="color: black;height: 20px;"></md-icon>
-            </md-button> 
-            </div>     
-            <span layout="column" layout-align="center" style="font-size: 20px; padding:0px 20px;">1</span>      
-     </div>
-     
-     <md-button class="" aria-label="" class="cart-btn" style="color: #fff ! important; border: 2px solid #0ffff7  ; background:#0ffff7; font-size: 16px;">
-            <md-icon class="icon-white" md-svg-src="./assets/img/icon/favorite21.svg" style="fill: #fff;"></md-icon></br>
-            <span layout-padding>add to my list</span>
-    </md-button>
-     	
-    </div>
-    
-	</div>
-</div>
-
-<div layout="row">
-Related products
-</div>
-</div>
-<div class="container-fluid" ng-controller="productDetailsCtrl as zoom">
-  <zoom mark-height="100" mark-width="100" src="{{zoom.src}}" zoom-lvl="{{zoomLvl}}"></zoom>
-  <aside>
-    <div>   
-        <fieldset class="control-group">
-          <label for="selectImage" class="control-label">Select Image</label>
-          <div class="controls" ng-mouseleave="$scope.zoom =0">
-          {{zoomLvl}}
-            <select ng-model="zoom.src" id="selectImage" ng-options="image.url as image.name for image in zoom.images">
-              <option value="">Select Image</option>
-            </select>
-            <md-select ng-model="zoom.src" id="selectImage">
-          <md-option ng-repeat="test in images" value="{{test.url}}">
-            {{test.name}}
-          </md-option>
-        </md-select>
-            
-            
-          </div>
-        </fieldset>
-
-    </div>
-  </aside>
-</div>
-	  <script src="app/directives/imageZoom.js"></script>
-	  <script src="app/modules/products//productDetails/productDetailsCtrl.js"></script>
-<style>
-html, body {
-    margin: 0;
-    padding: 0;
-}
-.zoomed{
-    margin-left: 4em;
-}
-
-.original, .zoomed{
-    float: left;
-    position: relative;
-    overflow: hidden;
-}
-
-
-.original img{
-    /* max-height: 300px; */
-        height: 232px;
-    max-width: 100%;
-}
-
-.zoomed img{
-    height: 600px;
-    position: relative;
-}
-
-.mark {
-    opacity: .3;
-    border: 6px dotted #fff;
-    background: #eee;
-}
-
-.hide {
-    visibility: hidden;
-}
-
-aside {
-    position: absolute;
-    right: 0;
-    max-width: 30%;
-}
-
-.container-fluid{
-    margin: 0 .5em;    
-    padding: 0;
-}
-.cart-btn{
-	color: #fff ! important; border: 2px solid #72A308 ! important; background: #72A308 ! important; height: 45px;
-}
-.btn-count{
- 	width: 110px; border: 2px solid #72A308; color: #fff; padding-left: 20px;  background: #72A308; border-radius: 3px;
-}
-</style>  -->

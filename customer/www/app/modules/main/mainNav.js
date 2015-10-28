@@ -119,6 +119,7 @@ angular.module('aviate.directives')
 								}
 
 								MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
+									MyCartFactory.myCartTotalPriceCalculation();
 									console.log('get MyCartlist success in Main Nav');
 								});
 

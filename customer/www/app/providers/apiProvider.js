@@ -141,6 +141,20 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Product.getProductsByProductTypeId = function (product, callback) {
+			httpRequest("POST", "product/getproducts", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};		
 
 		apiClass.Product.getTopCategory = function (product, callback) {
 			httpRequest("POST", "product/gettopproducts", product, function (err, data) {
@@ -354,7 +368,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.CheckOut.confirmOrder = function (order, callback) {
-			httpRequest("POST", "checkout/deleteaddress", order, function (err, data) {
+			httpRequest("POST", "checkout/conformorder", order, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -368,7 +382,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.CheckOut.payment = function (payment, callback) {
-			httpRequest("POST", "checkout/deleteaddress", payment, function (err, data) {
+			httpRequest("POST", "get/payment", payment, function (err, data) {
 				if (err) {
 
 					callback(err, null);

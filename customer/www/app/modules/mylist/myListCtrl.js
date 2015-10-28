@@ -24,7 +24,9 @@ angular.module('aviate.controllers')
 			};
 
 
-
+			$scope.productDetail = function(products){ 
+				$state.go('app.productsdetails',{productId:products.productId});
+			}
 
 
 			/*

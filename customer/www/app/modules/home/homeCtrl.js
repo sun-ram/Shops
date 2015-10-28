@@ -1,8 +1,17 @@
 angular.module('aviate.controllers')
 .controller("homeCtrl",
-		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService',
-		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService) {
+		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService','ipCookie',
+		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService, ipCookie) {
 
+			var store = ipCookie('store');
+
+			if (store == undefined || store == null) {
+				$rootScope.store = null;
+				$rootScope.geoLocation.findlocation=true;
+			}else {
+				$rootScope.geoLocation.findlocation=false;
+			};
+			
 			$scope.images = [
 			                 {
 			                	 src: "assets/images/banner1.png",
@@ -151,7 +160,7 @@ angular.module('aviate.controllers')
 							$rootScope.categoryList();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
-							$state.go('app.home');
+							$state.go('app.home',{},{reload: true});
 						}
 
 					}

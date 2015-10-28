@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService', 'MyListServices', '$rootScope',
-                                   function($scope,$http,$sce,$stateParams,ProductService, MyListServices, $rootScope) {
+.controller("productDetailsCtrl", ['$scope','$http','$sce','$stateParams','ProductService', 'MyListServices', '$rootScope','$state',
+                                   function($scope,$http,$sce,$stateParams,ProductService, MyListServices, $rootScope,$state) {
 
 	$scope.getProducts = function(){
 		ProductService.getProductsByProductId({'productId':$stateParams.productId}).then(function(data){
@@ -11,9 +11,19 @@ angular.module('aviate.controllers')
 					$scope.changeimage($scope.productDetails.productImages[i].imageUrl);
 				}
 			}
-
+			$scope.getProductsByProductTypeId($scope.productDetails.productTypeId);
 		});
 	}
+	$scope.getProductsByProductTypeId = function(productTypeId){
+		ProductService.getProductsByProductTypeId({'productTypeId':productTypeId}).then(function(data){
+			$scope.relatedProductList = data;
+		});
+	}
+	
+	$scope.productDetail = function(products){ 
+		$state.go('app.productsdetails',{productId:products.productId});
+	}
+	
 	$scope.getProducts();
 
 	/*	image zooom*/
@@ -64,10 +74,14 @@ angular.module('aviate.controllers')
 
 
 	$scope.addToMyList = function(product){
+		if($rootScope.user == null || $rootScope.user == undefined){
+			$scope.signInPopup();
+		}else{
 		MyListServices.addToMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
 			$scope.productDetails.isProductMyList = true;
 			$scope.getMyList();
 		});	
+		}
 	};
 
 

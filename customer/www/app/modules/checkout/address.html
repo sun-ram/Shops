@@ -14,6 +14,11 @@
                                 <md-icon md-svg-icon="assets/img/checkout/edit.svg"></md-icon>
                             </md-button>
                         </div>
+                        <div class="address-edit">
+                            <md-button class="md-icon-button" aria-label="More" ng-click="removeAddress(address)">
+                                <md-icon md-svg-icon="assets/img/checkout/close.svg"></md-icon>
+                            </md-button>
+                        </div>                        
                     </div>
                     <div>
                         <ul>
@@ -47,15 +52,15 @@
     </div>
 </section>
 <section class="contact-details md-action" layout="row">
-    <div>
-        <md-input-container flex>
-            <label>Contact Number </label>   
-            <input ng-model="currentOrder.contactNumber" >
+	<div flex></div>
+    <div style="float:right">
+        <md-input-container flex layout-padding>
+            <label style="color: green;">Contact Number <span style="color:red">*</span></label>   
+            <input ng-model="currentOrder.contactNumber" valid-number ng-required="true">
         </md-input-container>
-    </div>
-    <div flex></div>
+    </div>    
     <div layout="row" layout-align="end center">
         <md-button class="md-raised">Back</md-button>
-        <md-button class="md-primary md-raised" ng-click="goNext('address')">Next</md-button>
+        <md-button class="md-primary md-raised" ng-click="goNext('address')" >Next</md-button>
     </div>
 </section>

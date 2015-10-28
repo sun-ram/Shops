@@ -87,7 +87,7 @@ angular.module('aviate.services')
 		api.CheckOut.payment(payment, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.orderId);
+					d.resolve(result);
 				} else {
 					toastr.error(result.errorString);
 				}

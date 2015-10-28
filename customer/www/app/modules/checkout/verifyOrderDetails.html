@@ -43,7 +43,7 @@
             <div class="consolidate-rates" flex>
                 <div layout="row">
                     <h4>Subtotal</h4><span flex></span>
-                    <p> {{myCart.cartTotalAmount }}</p>
+                    <p> {{myCart.cartTotalAmount | number:2}}</p>
                 </div>
                 <div layout="row">
                     <p>vat 12%</p><span flex></span>
@@ -51,7 +51,7 @@
                 </div>
                 <div layout="row">
                     <p>service Tax 2.5%</p><span flex></span>
-                    <p>{{myCart.serviceTax}}</p>
+                    <p>{{myCart.serviceTax | number:2}}</p>
                 </div>
                 <div layout="row">
                     <p>Shipping Charges</p><span flex></span>
@@ -63,7 +63,46 @@
                     <p>{{myCart.grossAmount | number:2}}</p>
                 </div>
             </div>
-            <md-button class="md-raised md-primary" style="with:100% !important; background-color: #6EAB10 !important;">CONFIRM MY ORDER</md-button>
+            <md-button class="md-raised md-primary" style="with:100% !important; background-color: #6EAB10 !important;" ng-click="confirmOrder();">CONFIRM MY ORDER</md-button>
+            <form action="https://demo.globalgatewaye4.firstdata.com/payment" method="post" name="FirstData" style="display:none;">
+				<input name="x_login" value="WSP-MITOS-E2mIIgBi3g"
+					type="hidden">
+				<!-- Payment Page ID -->
+
+				<input name="x_fp_sequence" value="123456" type="hidden">
+				<!-- Used in x_fp_hash calculation in order to make it unique but not used otherwise -->
+
+				<input name="x_fp_timestamp" ng-value="timeStamp" type="hidden">
+				<!-- Time in seconds since January 1, 1970. UTC, Coordinated Universal Time,expire after 15 minutes / 900 seconds -->
+
+				<input name="x_amount" ng-value="TOTAL" type="hidden">
+				<!-- Total dollar amount to be charged inclusive of freight and tax -->
+
+				<input name="x_currency_code" value="INR" type="hidden">
+				<!-- Currency of the transaction. Case sensitive. -->
+
+				<input name="x_fp_hash" ng-value="hash" type="hidden">
+				<!-- x_login, x_fp_sequence, x_fp_timestamp, x_amount, and (if given) x_currency_code – all separated by the ^ character -->
+
+				<input name="x_show_form" value="PAYMENT_FORM" type="hidden">
+				<!-- required in order to stay compatible with the Authorize.net protocol -->
+
+				<div ng-repeat="list in cartItems">
+
+					<input name="x_line_item" ng-value="list.item" type="hidden">
+
+				</div>
+
+				<!-- <input name="x_freight" ng-value="shipping" type="hidden"> -->
+
+				<input name="enable_level3_processing" type="hidden" value="TRUE" /> 
+				<input name="x_po_num" value="purchaseorder1" type="hidden"> 
+				<input name="x_invoice_num" ng-value="orderId" type="hidden">
+				<input name="x_cust_id" value="customerid1" type="hidden"> 
+				<input name="x_email_customer" value="TRUE" type="hidden"> 
+				<input name="x_method" value="CC" type="hidden"> 
+				<input value="CONFIRM MY ORDER" class="btn btn-danger nextBtn" type="submit">
+			</form>
         </div>
     </div>
     <div class="purchased-items-section">
