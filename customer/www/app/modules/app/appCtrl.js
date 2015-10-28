@@ -8,7 +8,7 @@ angular.module('aviate.controllers')
 			if($rootScope.user != null){
 				$state.go('app.checkout');
 			}else{
-				$scope.signInPopup();
+				$rootScope.signInPopup();
 			}
 		};
 		
