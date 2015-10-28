@@ -8,7 +8,7 @@ angular.module('aviate.controllers')
 			if($rootScope.user != null){
 				$state.go('app.checkout');
 			}else{
-				toastr.info('need to login first');
+				$scope.signInPopup();
 			}
 		};
 		

@@ -1,11 +1,4 @@
 <div style="width:100%;height:100%;position: relative;" class="bg_gray">
-<div style="height:280px;width:100%;position:relative;">
-        <img ng-src="assets/images/banner1.png" alt="" src="assets/images/banner1.png" style="width: 100%;height: 100%;">        
-       
-        <h1 class="md-display-2" style="position:absolute;color:#fff;top: 25%;left: 40%;"><!-- Fresh Fruits --></h1>
-    </div>
-    
-    
     
 	<div layout="row" flex layout-align="space-between center" class="wid_100" style="padding:10px 3%">
 		<div flex layout="column" layout-sm="50">
@@ -20,15 +13,15 @@
 		<div flex>
 			<div layout="row" layout-align="start center">
 			
-			<zoom mark-height="50" mark-width="50"  src="" zoom-lvl="{{zoomLvl}}"></zoom>
+			<zoom mark-height="50" mark-width="50"  src="{{image}}" zoom-lvl="{{zoomLvl}}"></zoom>
 			<!-- 	<img src="assets/images/fruit.jpg" height="250px" border="1"> -->
 			</div>
 			<div layout="row" flex="100" layout-align="start center">
 				
-				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" >
+				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" ng-init="changeimage(image.imageUrl)">
 					<img  src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
  				</div>
-				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px" >
+				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px">
 					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
 				</div>	
 			</div>
@@ -85,7 +78,7 @@
 
 </md-card>
 
-	<div layout="row" style="margin: 50px 3% 10px 3%; border-bottom: 1px solid lightgrey;">
+<!-- 	<div layout="row" style="margin: 50px 3% 10px 3%; border-bottom: 1px solid lightgrey;">
 	<h3>Related Products</h3>
 	</div>
 <div layout="column" style="width:95%; margin:0px auto; ">
@@ -120,14 +113,14 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span ng-show="product.noOfQuantityInCart > 0">{{product.noOfQuantityInCart}}</span></div>
-						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px; cursor: pointer;" class="bg-white text-primary">Add To Cart<md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
 					</div>
 				</div>
 			</div>
 		</div>
 		</div>
 		</div>
-		</div>
+		</div> -->
 		</div>
 	  <script src="app/directives/imageZoom.js"></script>
 	  <script src="app/modules/products//productDetails/productDetailsCtrl.js"></script>
