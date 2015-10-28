@@ -12,25 +12,28 @@ angular.module('aviate.directives').directive('sideNav', [
                 	/*$scope.toggleSidenav = function(menuId) {
                 		$mdSidenav(menuId).toggle();
                 	};*/
-                	
+                	$scope.optimizeInnerData = function (data){
+                        if(data.parentCategory){
+                            data.hide = true;
+                        }
+                        for(var j=0;data.category && data.category[j];j++){
+                            $scope.optimizeData(data.category[j]);
+                           if(data.category[j].productType && data.category[j].productType.length>0){
+                                for(var k=0; data.category[j].productType[k]; k++){
+                                    data.category[j].productType[k].hide=true;
+                                }
+                            }
+                        }
+                    }
+                    
                     $scope.optimizeData = function (data){
                         
                         if(data && data.length>0){
                             for(var i=0;data[i];i++){
-                                if(data[i].parentCategory){
-                                    data[i].hide = true;
-                                }
-                                for(var j=0;data[i].category && data[i].category[j];j++){
-                                    $scope.optimizeData(data[i].category[j]);
-                                }
+                                $scope.optimizeInnerData(data[i]);
                             }
                         }else{
-                            if(data.parentCategory){
-                                    data.hide = true;
-                                }
-                                for(var j=0;data.category && data.category[j];j++){
-                                    $scope.optimizeData(data.category[j]);
-                                }
+                            $scope.optimizeInnerData(data);
                         }   
                         
                     }
@@ -84,7 +87,7 @@ angular.module('aviate.directives').directive('sideNav', [
                                 }
                             }
                             for(var j=0;newData.category && newData.category[j];j++){
-                                if(parentchanged){
+                                if(parentchanged && !newData.category[j].hide){
                                     newData.category[j].hide = newData.hide;
                                 }
                                 $scope.findSubtree(newData.category[j],parentId,parentchanged);
