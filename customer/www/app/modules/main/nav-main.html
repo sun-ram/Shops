@@ -8,7 +8,7 @@
 	</md-button> -->
 	
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
-    <md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
+    <md-button ng-click="toggleRight('right')" class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
     <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;">{{myCart.cartItem.length}}</div>
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
     </md-button>
@@ -116,8 +116,16 @@
 </div>
 <md-subheader layout layout-align="row"
 	class="nopadd nomargin tran nav-bar-subheader" style="padding:10px 0px !important;">
-	<md-button ng-click="toggleSidenav('left')" class="md-icon-button" aria-label="Menu" >
+	<!-- <md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
 		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+	</md-button> -->
+	<md-button ng-click="toggleLeft('left');bar=!bar;back=!back" ng-show="bar" class="md-icon-button" aria-label="Menu" >
+		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+		
+	</md-button>
+	<md-button ng-click="removeLeftNav(); back=!back;bar=!bar " ng-show="back" class="md-icon-button" aria-label="Menu" >
+		<md-icon md-svg-icon="assets/img/icon/back.svg" style="color: #fff;"></md-icon>
+		
 	</md-button>
 	<div style="position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;" class="bg-yellow">
 		<img src="assets/img/useravat.png"  width="118" height="80" class="md-card-image" alt="Washed Out">
