@@ -65,7 +65,7 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="productDetails.noOfQuantityInCart"><span ng-show="productDetails.noOfQuantityInCart > 0">{{productDetails.noOfQuantityInCart}}</span></div>
-						<div ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" flex="60" style="padding-top: 20px;padding-left: 25px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" flex="65" style="padding-top: 20px;padding-left: 25px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
 					</div>
 				</div>
 				
@@ -93,11 +93,13 @@
 <div layout="row" layout-wrap flex>
 <div ng-repeat="product in relatedProductList | limitTo: 5 " layout-padding flex-sm="50" flex-lg="25" flex-gt-lg="20" flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px; text-align: center;" ng-click="productDetail(product);">
+				<div class="pro-click">
+				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetail(product);">
 					<img style="height:150px;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
 					<span class="sub-head text-primary">{{product.productName}}</span>
+				</div>
 				</div>
 				<div flex  layout="row">
 					<span flex class="md-body-2 text-left">{{product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</span>
@@ -175,5 +177,6 @@
 	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
 	.bg-white{ background-color:#ffffff;}
 	.text-primary{color:#72a308;}
+	.pro-click{cursor: pointer;}
 
 </style>
