@@ -101,7 +101,7 @@ angular.module('aviate.directives')
 			};*/
 
 
-			$scope.signInPopup = function(ev){
+			$rootScope.signInPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',
 					parent: angular.element(document.body),

@@ -12,25 +12,31 @@ angular.module('aviate.directives').directive('sideNav', [
                 	/*$scope.toggleSidenav = function(menuId) {
                 		$mdSidenav(menuId).toggle();
                 	};*/
-                	
-                    $scope.optimizeData = function (data){
+                    var currentRootCatagoryIndex="";
+                	$scope.optimizeInnerData = function (data){
+                        if(data.parentCategory){
+                            data.hide = true;
+                        }
+                        for(var j=0;data.category && data.category[j];j++){
+                            $scope.optimizeData(data.category[j]);
+                           if(data.category[j].productType && data.category[j].productType.length>0){
+                                for(var k=0; data.category[j].productType[k]; k++){
+                                    data.category[j].productType[k].hide=true;
+                                }
+                            }
+                        }
+                    }
+                    
+                    $scope.optimizeData = function (data, exceptionIndex){
                         
                         if(data && data.length>0){
                             for(var i=0;data[i];i++){
-                                if(data[i].parentCategory){
-                                    data[i].hide = true;
-                                }
-                                for(var j=0;data[i].category && data[i].category[j];j++){
-                                    $scope.optimizeData(data[i].category[j]);
+                                if(!exceptionIndex || exceptionIndex != i){
+                                    $scope.optimizeInnerData(data[i]);
                                 }
                             }
                         }else{
-                            if(data.parentCategory){
-                                    data.hide = true;
-                                }
-                                for(var j=0;data.category && data.category[j];j++){
-                                    $scope.optimizeData(data.category[j]);
-                                }
+                            $scope.optimizeInnerData(data);
                         }   
                         
                     }
@@ -67,6 +73,9 @@ angular.module('aviate.directives').directive('sideNav', [
                          newData.selectionClass="";
                             if(newData.categoryId && newData.categoryId == parentId){
                                      newData.selectionClass="selectedField";
+                                    if((!newData.category || newData.category.length <= 0) && (!newData.productType || newData.productType.length <= 0)){
+                                            newData.hide=false;
+                                    }
                             }
                             if(newData.parentCategoryId && newData.parentCategoryId == parentId  && !parentchanged){
                                   newData.hide = !newData.hide;
@@ -84,7 +93,7 @@ angular.module('aviate.directives').directive('sideNav', [
                                 }
                             }
                             for(var j=0;newData.category && newData.category[j];j++){
-                                if(parentchanged){
+                                if(parentchanged && !newData.category[j].hide){
                                     newData.category[j].hide = newData.hide;
                                 }
                                 $scope.findSubtree(newData.category[j],parentId,parentchanged);
@@ -102,12 +111,37 @@ angular.module('aviate.directives').directive('sideNav', [
                         }
                         
                     }
-                    
-                    	
+                    $scope.executeGetRoot = function (data, keyCatId, currentRoot){
+                        if(data.categoryId == keyCatId){
+                            currentRootCatagoryIndex = currentRoot;
+                        }
+                        for(var j=0;data.category && data.category[j];j++){
+                            $scope.executeGetRoot(data.category[j], keyCatId, currentRoot);
+                        }
+                        if(data.productType && data.productType.length>0){
+                            for(var j=0;data.productType[j];j++){
+                                if(data.productType[j].productTypeId == keyCatId){
+                                    currentRootCatagoryIndex = currentRoot;
+                                }
+                            
+                            }
+                        }
+                    };
+                    $scope.getRootCatagory = function (newData, keyCatId, currentRoot){
+                        if(newData && newData.length>0){
+                            for(var i=0;newData[i];i++){
+                               $scope.executeGetRoot(newData[i], keyCatId, i);
+                            }
+                        }else{
+                            $scope.executeGetRoot(newData, keyCatId, currentRoot);
+                        }
+                    };
                 	$scope.getProductsByCategoryId = function(categoryId){
                 		if(categoryId){
+                            currentRootCatagoryIndex = -1;
+                            $scope.getRootCatagory($scope.categoryList,categoryId, null);
+                            $scope.optimizeData ($scope.categoryList, currentRootCatagoryIndex);
 	                        $scope.findSubtree($scope.categoryList, categoryId,false);
-	                        console.log("getProductsByCategoryId()->",$scope.categoryList);
 	                		$state.go('app.products',{'categoryId': categoryId});
                 		}
                 		
@@ -115,8 +149,10 @@ angular.module('aviate.directives').directive('sideNav', [
                 	
                 	$scope.getProductsByProductTypeId = function(productTypeId){
                 		if(productTypeId){
+                            currentRootCatagoryIndex = -1;
+                            $scope.getRootCatagory($scope.categoryList,productTypeId, null);
+                            $scope.optimizeData ($scope.categoryList, currentRootCatagoryIndex);
 	                        $scope.findSubtree($scope.categoryList, productTypeId,false);
-	                        console.log("getProductsByProductTypeId()->",$scope.categoryList);
 	                		$state.go('app.productType',{'productTypeId': productTypeId});
                 		}
                 	}
