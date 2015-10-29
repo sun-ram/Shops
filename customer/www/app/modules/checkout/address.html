@@ -2,7 +2,7 @@
     <p class="address-title md-headline">What is your delivery address</p>
     <div class="address-container" layout="row" layout-wrap layout-align="center">
         <!-- <div flex="40"> -->
-            <md-card flex="45" ng-repeat="address in addresses track by $index" class="address"  ng-class="{selected:address.selected}">
+            <md-card flex="45" ng-repeat="address in addresses track by $index" class="address" ng-click="selectAddress(address.addressId)"  ng-class="{selected:address.selected}">
                 <md-card-content>
                     <div layout="row" class="address-header">
                         <img ng-click="selectAddress(address.addressId)" src="assets/img/checkout/address.svg" height="40px" width="40px">
@@ -20,7 +20,7 @@
                             </md-button>
                         </div>                        
                     </div>
-                    <div ng-click="selectAddress(address.addressId)">
+                    <div>
                         <ul>
                             <li>{{address.address}}</li>
                             <li>{{address.city}}</li>
