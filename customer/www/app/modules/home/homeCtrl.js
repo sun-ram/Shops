@@ -152,7 +152,8 @@ angular.module('aviate.controllers')
 						$scope.changeStore = function(storedetails){
 							$rootScope.myCart = {};
 							$rootScope.myCart.cartItem = [];
-							ipCookie("myCart", $rootScope.myCart);
+							//ipCookie("myCart", $rootScope.myCart);
+							localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 							$rootScope.store = storedetails;
 							ipCookie("store", storedetails);
 							$rootScope.getFutureProducts();

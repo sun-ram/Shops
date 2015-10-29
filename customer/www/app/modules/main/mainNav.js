@@ -51,6 +51,7 @@ angular.module('aviate.directives')
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT){
+						
 						$scope.isSignUp = true;
 						$scope.signUp = function(user) {
 							user.role = CONSTANT.SUCCESS_CODE.ROLE;
@@ -61,7 +62,7 @@ angular.module('aviate.directives')
 							AuthServices.signUp(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNUPSUCCESS);
-								$scope.myCart = ipCookie('myCart');
+								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -116,13 +117,15 @@ angular.module('aviate.directives')
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT){
+						$scope.title = 'SIGN IN';
+						$scope.forgetPass = false;
 						$scope.isSignUp = false;
 						$scope.signIn = function(user) {
 							AuthServices.signIn(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 
-								$scope.myCart = ipCookie('myCart');
+								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -158,6 +161,7 @@ angular.module('aviate.directives')
 						};
 
 						$scope.forGetPassword = function(user) {
+							$scope.forgetPass = false;
 							if(!user.emailId){
 								toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
 								return;
@@ -185,7 +189,8 @@ angular.module('aviate.directives')
 				ipCookie('user', null);
 				$rootScope.myCart = {};
 				$rootScope.myCart.cartItem = [];
-				ipCookie('myCart', $rootScope.myCart);
+				//ipCookie('myCart', $rootScope.myCart);
+				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 			};
 
 			$scope.changeStore = function() {

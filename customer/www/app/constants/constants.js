@@ -14,7 +14,7 @@ angular.module('aviate.constant').constant('CONSTANT', {
 		},
 
 		ERROR_CODE:{
-			
+			VALIDADDRESS: 'Enter valid address',
 		},
 
 		WARNING_CODE:{

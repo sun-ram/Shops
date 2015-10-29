@@ -27,7 +27,8 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					$rootScope.myCart.cartItem = result.myCartList;
-					ipCookie("myCart", $rootScope.myCart);
+					//ipCookie("myCart", $rootScope.myCart);
+					localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 					d.resolve($rootScope.myCart );
 				} else {
 					toastr.error(result.errorString);
