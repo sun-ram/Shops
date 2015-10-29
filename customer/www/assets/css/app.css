@@ -255,7 +255,8 @@ right: -8px;
 /* sidenav */
 .side_logo{ height: 120px;}
 .md-sidenav-left{background: #646464 ! important; position: fixed;}
-.md-sidenav-right{position: fixed; top: 119px;}
+.md-sidenav-right{position: fixed; top: 50px;}
+.text-right{text-align: right ! important;}
 .menu-list{padding: 0; margin: 0;}
 .btn-menu{font-size: 18px ! important; }
 .btn-sub{padding-left: 35px ! important; margin: 0; font-size: 14px ! important;}
@@ -295,7 +296,7 @@ right: -8px;
 }
 
 md-backdrop{display: none ! important;}
-.navigate{padding-left: 304px;  transition: 0.5s ease-in all;}
+.navigate{padding-left: 304px;  transition: 0.3s ease-in all;}
 .navigate-right{padding-right: 304px;  transition: 0.3s ease-in all;}
 .remove{padding-left: 0px;}
 .remove-right{padding-right: 0px;}
