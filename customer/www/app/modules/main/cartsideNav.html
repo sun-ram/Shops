@@ -1,7 +1,6 @@
 <md-sidenav flex class="md-sidenav-right md-whiteframe-z2"
-	md-component-id="right"> <md-toolbar md-scroll-shrink>
-<div class="md-toolbar-tools">My Cart
-</div>
+	md-component-id="right" > <md-toolbar md-scroll-shrink>
+<div class="md-toolbar-tools">My Cart</div>
 
 </md-toolbar>
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
@@ -13,10 +12,6 @@
                     <h1 style="color:white">{{myCart.cartItem.length}} Items, 
                         <span style="color:yellow">Rs {{myCart.cartTotalAmount }}</span>
                     </h1>
-                     <span flex></span>
-     			 	<md-button class="md-icon-button" ng-click="cancel()">
-      			  		<md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
-    				 </md-button>
                 </div>
             </md-toolbar>
           <md-list>
@@ -64,6 +59,7 @@
                     </div>
                     <md-button class="md-raised ft_size18" style="width:95%;background-color:#8BC34A;color:white;" ng-click="checkOut();">CHECKOUT</md-button>
                 </md-content>
+                
             </md-menu-content>
         </md-menu>
 </md-sidenav> 

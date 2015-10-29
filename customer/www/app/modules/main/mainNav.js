@@ -12,7 +12,7 @@ angular.module('aviate.directives')
 			$scope.back=false;
 			
 			$scope.toggleLeft = buildToggler('left');
-			$rootScope.toggleRight = buildCartToggler('right');
+			$scope.toggleRight = buildCartToggler('right');
 
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
@@ -31,7 +31,7 @@ angular.module('aviate.directives')
 
 			function buildCartToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
-					if($rootScope.navsides == "navigate-right"){
+					 if($rootScope.navsides == "navigate-right"){
 							$rootScope.navsides = "remove-right";
 							}else{
 								$rootScope.navsides = "navigate-right";
