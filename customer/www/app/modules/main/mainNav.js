@@ -189,6 +189,8 @@ angular.module('aviate.directives')
 			};
 
 			$scope.changeStore = function() {
+				$rootScope.newclass = "remove";
+				$mdSidenav('left').close();
 				if($rootScope.geoLocation.support==true){
 					$rootScope.showLocationDialog();
 				}else{
@@ -196,15 +198,6 @@ angular.module('aviate.directives')
 				}
 			};
 			
-			$scope.removeLeftNav = function(){				
-				$rootScope.newclass = "remove";
-				$mdSidenav('left').close();
-			};
-			
-			$scope.removeRightNav = function(){				
-				$rootScope.newclass = "remove";
-				$mdSidenav('right').close();
-			};
 		}
 
 	};
