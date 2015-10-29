@@ -1,11 +1,13 @@
 angular.module('aviate.controllers')
-.controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory',
-                             function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory) {
+.controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory','$filter',
+                             function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter) {
 
 	MyCartFactory.myCartTotalPriceCalculation();
 
 	$scope.addresses = [];
-	$scope.delivery = {};
+	$scope.delivery = {
+			date:null
+	};
 	$scope.currentOrder = CheckOutServices.currentOrder;
 	$scope.timeLineStatus = CheckOutServices.timeLineStatus;
 
@@ -171,35 +173,71 @@ angular.module('aviate.controllers')
 				$scope.timeLineStatus.addressEntry = true;
 				$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 			} else {
+				if($scope.currentOrder.address == null)
+					{
 				$mdDialog.show(
 						$mdDialog.alert()
 						.parent(angular.element(document.querySelector('#popupContainer')))
 						.clickOutsideToClose(true)
-						.title('Alert')
-						.content('please choose delivery address / phoneNumber.')
+						//.title('Alert')
+						.content('Please choose delivery address')
 						.ariaLabel('Alert Dialog Demo')
 						.ok('Ok')
 						.targetEvent()
 				);
+					}
+				else
+				
+				{
+			$mdDialog.show(
+					$mdDialog.alert()
+					.parent(angular.element(document.querySelector('#popupContainer')))
+					.clickOutsideToClose(true)
+					//.title('Alert')
+					.content('Please choose Contact Number')
+					.ariaLabel('Alert Dialog Demo')
+					.ok('Ok')
+					.targetEvent()
+			);
+				}
+
 			}
 			break;
 		case "deliverySchedule":
 			if ($scope.delivery.time && $scope.delivery.date) {
-				$scope.currentOrder.delivery = $scope.delivery;
+				$scope.currentOrder.delivery.time = $scope.delivery.time;
+				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd/MM/yyyy');//new Date($scope.delivery.date);
 				$scope.currentOrder.items = $rootScope.myCard;
 				$scope.timeLineStatus.deliveryDate = true;
 				$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
 			} else {
+				if($scope.delivery.date == null)
+					{
 				$mdDialog.show(
 						$mdDialog.alert()
 						.parent(angular.element(document.querySelector('#popupContainer')))
 						.clickOutsideToClose(true)
-						.title('Alert')
-						.content('please choose delivery date.')
+						//.title('Alert')
+						.content('Please choose delivery date.')
 						.ariaLabel('Alert Dialog Demo')
 						.ok('Ok')
 						.targetEvent()
 				);
+					}
+				else
+					{
+					$mdDialog.show(
+							$mdDialog.alert()
+							.parent(angular.element(document.querySelector('#popupContainer')))
+							.clickOutsideToClose(true)
+							//.title('Alert')
+							.content('Please choose delivery time.')
+							.ariaLabel('Alert Dialog Demo')
+							.ok('Ok')
+							.targetEvent()
+					);
+
+					}
 			}
 			break;
 		case "verification":
@@ -227,6 +265,21 @@ angular.module('aviate.controllers')
 	$scope.getAddressList({
 		"customerId": $rootScope.user.userId
 	});
+	
+	$scope.myDate = new Date();
+    $scope.minDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth(),
+        $scope.myDate.getDate()
+    );
+    
+    //displaying current date in delivery section
+    $scope.choosedDate = $filter('date')(new Date(),'EEE,MMM,d,yyyy').split(',');
+    console.log('formatter choosed date is ',$scope.choosedDate);
+    $scope.formateSelectedDate = function(date){
+    	$scope.choosedDate = $filter('date')(date,'EEE,MMM,d,yyyy').split(',');
+    };
+    
 	console.log("card items",$rootScope.myCard);
 }
 ]);

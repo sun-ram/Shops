@@ -1,20 +1,59 @@
+<style>
 
-<secction class="deliverySlot-section" layout="column" layout-align="center center">
-    <md-card>
+.delivery_slot .md-datepicker-input-container{width: 0px;visibility: hidden;margin: 0px;
+}
+.delivery_slot .md-datepicker-button{width: 25px;height: 25px;z-index: 200;line-height: 15px;margin: 2px 3px;
+}
+.delivery_slot{position: absolute;right: 0;top: 0;background-color: #2A8FBD;color: #fff;}
+.delivery_slot .md-datepicker-button .md-datepicker-calendar-icon{color: #fff;
+height: 20px;}
+ .delivery_slot .md-datepicker-button .md-datepicker-calendar-icon:hover{color: #fff;}
+.slot_day{position: absolute;top: 0;padding: 10px 0px;left: 0;background: #2D3E50;width: 100%;margin: 0px;text-align: center;}
+.time_slot{min-width: 200px;background: #141E2D;color: #4F535A;}
+.time_slot md-option:hover{background: #F3BD29;color: #fff;}
+</style>
+<section class="deliverySlot-section" layout="column" layout-align="start center">
+    <md-card style="width:90%;">
         <md-card-content>
-            <div layout="column" layout-align="center center">
-                <p class="address-title md-headline">Reserve your delivery slot</p>
+            <div layout="column" layout-align="space-between center">
+                <p class="address-title md-headline">Reserve your delivery slot</p>                
+              
+ 					<div layout="row" flex layout-align=" start center">
+ 						<md-card layout  style="width: 250px;height: 200px;position: relative;background-color: #2ECD71;color: #FFF;">
+ 					  <md-card-content layout="column" layout-align="center center" style="width: 100%;" ng-model="date">
+ 						 <md-datepicker class="delivery_slot" aria-label="Choose Date" ng-model="delivery.date" md-min-date="minDate" ng-change="formateSelectedDate(delivery.date)"></md-datepicker>
+ 					<p class="slot_day">{{choosedDate[0]}}</p>
+ 					<p style="margin:40px 0px 0px;"> {{choosedDate[1]}}</p>
+ 					<h1 style="margin: 5px 0px;font-size: 48px;">{{choosedDate[2]}}</h1>
+ 					<p style="margin: 5px 0px;">{{choosedDate[3]}}</p>
+					</md-card-content> 
+					</md-card>	
+					<div layout flex>
+					<md-icon md-svg-icon="assets/img/icon/logistics2.svg" style="height: 70px;width: 70px;"></md-icon> 
+					 </div>
+					<md-card layout  style="width: 250px;height: 200px;position: relative;background-color: #2ECD71;color: #FFF;">
+ 					  <md-card-content layout="column" layout-align="center center" style="width: 100%;" ng-model="date">
+ 					<p class="slot_day">Delivery Time</p>
+ 					<p style="margin:35px 0px 5px;font-size: 35px;">10:00 <span style="font-size:14px">AM</span> </p>
+	 					
+	 					<div layout layout="row" layout-align="space-between center" style="width:100%;margin: 5px 0px;">
+	 					<md-button class="wid_60 md-icon-button" aria-label="Favorite">
+							<md-icon md-svg-icon="assets/img/icon/direction196.svg" md-ink-ripple="" min="1" max="12" ng-click="delivery.time=delivery.time +2;" style="color: white;"></md-icon> </md-button>
+	 					<span>To</span><md-button class="wid_60 md-icon-button" aria-label="Favorite" >
+							<md-icon md-svg-icon="assets/img/icon/right-arrow49.svg" md-ink-ripple="" ng-click="delivery.time = delivery.time - 2;" style="color: white;"></md-icon> </md-button>
+	 					</div>
+ 					<p style="margin: 5px 0px;font-size: 35px;">12:00 <span style="font-size:14px">PM</span></p>
+ 					
+					</md-card-content> 
+					</md-card>	
+ 			
+ 					</div>
 
-                <md-datepicker ng-model="delivery.date" md-placeholder="Enter date"></md-datepicker>
-
-                <md-input-container style="width:70%">
-                    <label>Delivery Time</label>
-                    <input ng-model="delivery.time" type="number" min="1" max="12">
-                </md-input-container>
-            </div>
+  </div>
         </md-card-content>
     </md-card>
-</secction>
+</section>
+
 <section class="contact-details md-action" layout="row">
     <div flex></div>
     <div layout="row" layout-align="end center">

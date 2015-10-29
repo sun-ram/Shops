@@ -11,7 +11,10 @@ angular.module('aviate.services')
 	
 	this.currentOrder = {
             address:undefined,
-            delivery: undefined,
+            delivery: {
+            	date:undefined,
+            	time:undefined
+            },
             contactNumber:undefined,
             isVerified:false
     };
