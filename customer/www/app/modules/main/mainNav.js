@@ -16,7 +16,11 @@ angular.module('aviate.directives')
 
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
+					if($rootScope.newclass == "navigate"){
+					$rootScope.newclass = "remove";
+				}else{
 					$rootScope.newclass = "navigate";
+				}
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
 					});
@@ -27,7 +31,11 @@ angular.module('aviate.directives')
 
 			function buildCartToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
-					$rootScope.newclass = "navigate-right";
+					 if($rootScope.newclass == "navigate-right"){
+							$rootScope.newclass = "remove-right";
+							}else{
+								$rootScope.newclass = "navigate-right";
+							}
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
 					});
