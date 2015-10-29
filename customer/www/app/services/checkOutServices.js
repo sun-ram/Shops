@@ -23,7 +23,7 @@ angular.module('aviate.services')
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve($rootScope.myList);
 				} else {
-					toastr.error(result.errorString);
+					toastr.error(CONSTANT.ERROR_CODE.VALIDADDRESS);
 				}
 			}else{
 				toastr.error(err.errorCode);
