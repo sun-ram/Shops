@@ -31,10 +31,10 @@ angular.module('aviate.directives')
 
 			function buildCartToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
-					 if($rootScope.newclass == "navigate-right"){
-							$rootScope.newclass = "remove-right";
+					 if($rootScope.navsides == "navigate-right"){
+							$rootScope.navsides = "remove-right";
 							}else{
-								$rootScope.newclass = "navigate-right";
+								$rootScope.navsides = "navigate-right";
 							}
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
