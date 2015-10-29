@@ -14,12 +14,13 @@ angular.module('aviate.constant').constant('CONSTANT', {
 		},
 
 		ERROR_CODE:{
-			
+			VALIDADDRESS: 'Enter valid address',
 		},
 
 		WARNING_CODE:{
 			MISSMATCHPASSWORD: 'Confirm password miss match',
-			FORGETPASSWORDNEEDMAILID:'Enter email-id'
+			FORGETPASSWORDNEEDMAILID:'Enter email-id',
+			ADDTHEADDERSS: 'Add The Delivery Address'
 
 		}
 

@@ -1,15 +1,16 @@
 <md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:450px;border-radius:0px;">
   <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
     <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
-      <h2 class="text-center wid_100">SIGN IN</h2>
+      <h2 class="text-center wid_100">{{title}}</h2>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel()">
         <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
       </md-button>
     </div>
   </md-toolbar>
-
-  <md-dialog-content style="max-width:800px;max-height:810px;">
+  
+<!-- Signin -->
+  <md-dialog-content ng-hide="forgetPass" style="max-width:800px;max-height:810px;">
 	  <form name="userForm">			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
@@ -26,7 +27,7 @@
 		        </md-checkbox>
 		      </div>
 		      <div flex class="tright">
-		       <md-button  class="text-orange" ng-click="forGetPassword(user);">Forgot password?</md-button>
+		       <md-button  class="text-orange" ng-click="forgetPass = true;title = 'FORGET PASSWORD'">Forgot password?</md-button>
 		      </div>     
 		    </div> 
 		  <div class="md-actions padd_btm20" layout="row">
@@ -34,6 +35,28 @@
 		      SIGN IN
 		    </md-button>
 		    <md-button class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
+		      CANCEL
+		    </md-button>
+		  </div>
+	  </form>
+  </md-dialog-content>
+  
+  <!-- Forget Pass -->
+  <md-dialog-content ng-show="forgetPass" style="max-width:800px;max-height:810px;">
+	  <form name="userForm">			
+        <md-input-container flex class="padd_btm10">
+          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
+          <input ng-model="user.emailId" type="email" ng-required="true">
+        </md-input-container >
+	      <div layout="row">
+		      <div flex>
+		      </div>
+		    </div> 
+		  <div class="md-actions padd_btm20" layout="row">
+		    <md-button class="md-raised signup_btn_clr" flex ng-click="forGetPassword(user);">
+		      SUBMIT
+		    </md-button>
+		    <md-button class="md-raised md-warning text-white" flex ng-click="forgetPass = false;title = 'SIGN IN'" style="margin-right:20px;" >
 		      CANCEL
 		    </md-button>
 		  </div>

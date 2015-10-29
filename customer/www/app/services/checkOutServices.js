@@ -26,7 +26,7 @@ angular.module('aviate.services')
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve($rootScope.myList);
 				} else {
-					toastr.error(result.errorString);
+					toastr.error(CONSTANT.ERROR_CODE.VALIDADDRESS);
 				}
 			}else{
 				toastr.error(err.errorCode);
@@ -38,13 +38,12 @@ angular.module('aviate.services')
 	this.getAddressList = function(user){
 		var d = $q.defer();
 		api.CheckOut.getAddressList(user, function(err, result){
-			if(result){
-				if (result.status === CONSTANT.STATUS.SUCCESS) {
+			if(result){				
 					ipCookie("myList",result);
 					$rootScope.myList = ipCookie("myList");
 					d.resolve($rootScope.myList);
-				} else {
-					toastr.error(result.errorString);
+				if(result.status === CONSTANT.STATUS.FAILURE)  {
+					toastr.warning(CONSTANT.WARNING_CODE.ADDTHEADDERSS);
 				}
 			}else{
 				toastr.error(err.errorCode);

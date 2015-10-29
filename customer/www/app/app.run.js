@@ -20,7 +20,7 @@ angular.module('app')
 		$rootScope.user = user;
 	};
 
-	var myCart = ipCookie('myCart');
+	var myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 
 	if (myCart != undefined || myCart != null) {
 		$rootScope.myCart = null;

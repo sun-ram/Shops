@@ -8,17 +8,41 @@ angular.module('aviate.directives')
 		templateUrl: './app/modules/main/nav-main.html',
 		replace: true,
 		link: function($scope, iElm, iAttrs, controller, AuthServices, CONSTANT,toastr){
-
-			$scope.toggleSidenav = buildToggler('left');
+			$scope.bar= true;
+			$scope.back=false;
+			
+			$scope.toggleLeft = buildToggler('left');
+			$scope.toggleRight = buildCartToggler('right');
 
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
+					if($rootScope.newclass == "navigate"){
+					$rootScope.newclass = "remove";
+				}else{
+					$rootScope.newclass = "navigate";
+				}
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
 					});
 				},200);
 				return debounceFn;
 			};
+			
+
+			function buildCartToggler(navID) {
+				var debounceFn =  $mdUtil.debounce(function(){
+					 if($rootScope.navsides == "navigate-right"){
+							$rootScope.navsides = "remove-right";
+							}else{
+								$rootScope.navsides = "navigate-right";
+							}
+					$mdSidenav(navID).toggle().then(function () {
+						$log.debug("toggle " + navID + " is done");
+					});
+				},200);
+				return debounceFn;
+			};
+			
 //			console.info('cart-------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
 				$mdDialog.show({
@@ -27,6 +51,7 @@ angular.module('aviate.directives')
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT){
+						
 						$scope.isSignUp = true;
 						$scope.signUp = function(user) {
 							user.role = CONSTANT.SUCCESS_CODE.ROLE;
@@ -37,7 +62,7 @@ angular.module('aviate.directives')
 							AuthServices.signUp(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNUPSUCCESS);
-								$scope.myCart = ipCookie('myCart');
+								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -85,20 +110,22 @@ angular.module('aviate.directives')
 			};*/
 
 
-			$scope.signInPopup = function(ev){
+			$rootScope.signInPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',
 					parent: angular.element(document.body),
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT){
+						$scope.title = 'SIGN IN';
+						$scope.forgetPass = false;
 						$scope.isSignUp = false;
 						$scope.signIn = function(user) {
 							AuthServices.signIn(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 
-								$scope.myCart = ipCookie('myCart');
+								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -134,6 +161,7 @@ angular.module('aviate.directives')
 						};
 
 						$scope.forGetPassword = function(user) {
+							$scope.forgetPass = false;
 							if(!user.emailId){
 								toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
 								return;
@@ -161,16 +189,20 @@ angular.module('aviate.directives')
 				ipCookie('user', null);
 				$rootScope.myCart = {};
 				$rootScope.myCart.cartItem = [];
-				ipCookie('myCart', $rootScope.myCart);
+				//ipCookie('myCart', $rootScope.myCart);
+				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 			};
 
 			$scope.changeStore = function() {
+				$rootScope.newclass = "remove";
+				$mdSidenav('left').close();
 				if($rootScope.geoLocation.support==true){
 					$rootScope.showLocationDialog();
 				}else{
 					$rootScope.showLocationDialog(true);
 				}
 			};
+			
 		}
 
 	};

@@ -85,8 +85,8 @@
     <div layout="row" layout-wrap flex >
          <div ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
-				<div flex style="height:150px; text-align: center;" ng-click="productDetails(product);">
-					<img style="height:150px;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+					<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
 					<span class="sub-head text-primary">{{product.productName}}</span>
@@ -131,7 +131,7 @@
 	.text-primary{ color:#72a308}
 	.text-left{ text-align:left;}
 	.text-right{ text-align:right;}
-	.addtocart-btn{ border:2px solid #72a308; height:50px;}
+	.addtocart-btn{ border:2px solid #72a308; height:50px; cursor: pointer;}
 	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
 	.bg-white{ background-color:#ffffff;}
 	.text-primary{color:#72a308;}
