@@ -19,7 +19,8 @@ angular.module('aviate.constant').constant('CONSTANT', {
 
 		WARNING_CODE:{
 			MISSMATCHPASSWORD: 'Confirm password miss match',
-			FORGETPASSWORDNEEDMAILID:'Enter email-id'
+			FORGETPASSWORDNEEDMAILID:'Enter email-id',
+			ADDTHEADDERSS: 'Add The Delivery Address'
 
 		}
 
