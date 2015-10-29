@@ -73,4 +73,8 @@ angular.module('aviate.controllers')
 	$scope.removeFromMyCart = function(product, index) {
 		MyCartFactory.removeFromCart(product, index);
 	};
+	
+	$scope.cancel = function() {
+		$mdDialog.cancel();
+	};
 }]);
