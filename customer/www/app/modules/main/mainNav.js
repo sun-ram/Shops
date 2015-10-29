@@ -51,6 +51,7 @@ angular.module('aviate.directives')
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT){
+						
 						$scope.isSignUp = true;
 						$scope.signUp = function(user) {
 							user.role = CONSTANT.SUCCESS_CODE.ROLE;
@@ -116,6 +117,8 @@ angular.module('aviate.directives')
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT){
+						$scope.title = 'SIGN IN';
+						$scope.forgetPass = false;
 						$scope.isSignUp = false;
 						$scope.signIn = function(user) {
 							AuthServices.signIn(user).then(function(data){
@@ -158,6 +161,7 @@ angular.module('aviate.directives')
 						};
 
 						$scope.forGetPassword = function(user) {
+							$scope.forgetPass = false;
 							if(!user.emailId){
 								toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
 								return;
