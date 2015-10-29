@@ -48,7 +48,7 @@ angular.module('aviate.factories')
 				}
 			}
 		}
-		ipCookie("myCart",$rootScope.myCart);
+		//ipCookie("myCart",$rootScope.myCart);
 		callback(_productList);
 	}
 
@@ -87,7 +87,8 @@ angular.module('aviate.factories')
 		$rootScope.myCart.serviceTax = $rootScope.myCart.cartTotalAmount*(2.5/100);
 		//cartTotalAmount*(2.5/100)
 		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.myCart.shippingCharges+$rootScope.myCart.serviceTax;
-		ipCookie("myCart",$rootScope.myCart);
+		//ipCookie("myCart",$rootScope.myCart);
+		localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 	}
 
 

@@ -62,7 +62,7 @@ angular.module('aviate.directives')
 							AuthServices.signUp(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNUPSUCCESS);
-								$scope.myCart = ipCookie('myCart');
+								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -125,7 +125,7 @@ angular.module('aviate.directives')
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 
-								$scope.myCart = ipCookie('myCart');
+								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -189,7 +189,8 @@ angular.module('aviate.directives')
 				ipCookie('user', null);
 				$rootScope.myCart = {};
 				$rootScope.myCart.cartItem = [];
-				ipCookie('myCart', $rootScope.myCart);
+				//ipCookie('myCart', $rootScope.myCart);
+				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 			};
 
 			$scope.changeStore = function() {
