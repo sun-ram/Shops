@@ -1,0 +1,58 @@
+	<div id="loginwrapper" ng-controller="logincontroller">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+  
+                    <div id="login-container">
+                    	<button type="button" id="login-close" class="close" aria-hidden="true" ng-click="loginWindowClose()">       &times;    </button>
+                    	<h3 class="text-center">Login To Mitosis Mart</h3>
+                    	<div class="login-form text-center">
+                    	<span ng-hide="loginShow">FORGET PASSWORD?</span>
+                         	<form ng-show="loginShow" class="form-inline"  ng-submit="loginfunc()">
+                            	<div class="form-group">
+                                    <input type="email" ng-model="user.emailId" name="emailId" id="emailId" class="form-control" placeholder='Email Address'  oninvalid="InvalidMsg(this);" onchange="InvalidMsg(this);" ng-required="true"/>
+                                </div>
+                                <div class="form-group">
+                                	<label for="password" class="sr-only">Email Address</label>
+                                    <input  type="password" ng-model="user.password" name="emailId" id="password" class="form-control" pattern=".{4,}" placeholder='Password' required="required" required title="Enter a Min character is 4"/>                                </div>
+                                <button type="submit" class="btn btn-success">LOG IN</button> 
+                            </form> 
+                           	<form class="form-inline" style="padding-top: 12px;">
+                           	
+								<div  ng-hide="loginShow" style='width:100%; margin-bottom:5px;'>
+									<div  class="inner-addon right-addon" style='margin:0px auto; width:200px;'>
+                                		<i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" id='textLoader' style='display:none;'></i>
+                                    	<input type="email" ng-model="user.emailId" name="emailId" class="form-control" placeholder='Email Address'  oninvalid="InvalidMsg(this);" onchange="InvalidMsg(this);" required/>
+                                    </div>
+                                </div>
+	                            	<button  ng-hide="loginShow" type="submit" class="btn btn-success" ng-click="forGetPasswordFunction()">Submit</button>
+                            </form>
+                            
+                            
+                            <button ng-show="loginShow" type="submit" class="btn btn-success" ng-click="loginShow = !loginShow">FORGET PASSWORD?</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<script>
+	
+	function InvalidMsg(textbox) {
+	    if (textbox.value == '') {
+	        textbox.setCustomValidity('email address is required');
+	    }
+	    else if (textbox.validity.typeMismatch){
+	        textbox.setCustomValidity('please enter a valid email address');
+	    }
+	    else {
+	       textbox.setCustomValidity('');
+	       $('#textLoader').show();
+	    }
+	    return true;
+	}	
+		
+	
+	
+	</script>
+				

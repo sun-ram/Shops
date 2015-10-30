@@ -1,0 +1,105 @@
+<link rel="stylesheet"  type="text/css" href="css/datepicker/bootstrap.min.css"/>
+<div ng-include="'htmlfile/header.html'"></div>
+<div ng-include="'htmlfile/navigation.html'" class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+<div class="container-fluid wrapper">
+	<div class="row">
+		<div class="col-sm-12  col-md-10 col-lg-10">
+		<form name="delivery" ng-submit="selectedDate()">
+			<div class="contentbg">
+			<div class="row" >                
+              <div class="checkout-header">               
+               <ul class="list-group">
+               	<li class="list-group-item pull-left">
+                	<div class="select-address ">
+                	
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT ADDRESS">
+                	<a href="#/address"><div class="sa"></div></a></div>
+                	<span class="panel"><span class="progress"></span></span></div> </li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-delivery " >
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT DELIVERY">
+                	<a href="" ng-click="addressToDeliverySlot(contactNo,deliveryAddress.address)" ><div class="sd"></div></a></div><span class="panel"></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-payment ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="REVIEW AND CONFIRMED">
+                	<a href="" ng-click = "selectedDate()" ><div class="src"></div></a></div><span class="panel"></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-rev-conform ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT PAYMENT">
+                	<div class="sp"></div></div></div></li>
+                	</ul>
+                	</div>
+			</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-10 text-center ">
+							<span class="thin_txt insert_address">Reserve Your
+								Delivery slot</span>
+						</div>
+						<div class="col-xs-2 "></div>
+					</div>
+				</div>
+				<div class="row">
+						<div class="col-sm-12 insert_address text-center">
+							<div class="col-sm-3 " style="padding-top: 7px;">
+								<label>Delivery Date :</label>
+							</div>
+							<div class="col-sm-4">
+								<p class="input-group"  ng-click="open($event)">
+									<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="deliveryDate" is-open="opened"
+										 min-date="'{{minDate}}'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/> 
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+								</p>
+							</div>
+						</div>
+				</div>
+				<div class="row">
+						<div class="col-sm-12 insert_address text-center">
+							<div class="col-sm-3 " style="padding-top: 7px;">
+								<label>Delivery Time :</label>
+							</div>
+							<div class="col-sm-4">
+								<p class="input-group">
+								<input type="text" id="durationExample"   class="form-control" ng-model="deliveryTime"  ng-required="true" /> 
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="showTime()">
+										<i  class="glyphicon glyphicon-time"></i>
+									</button>
+								</span>
+								<!-- <input id="durationExample" ng-model="time" type="text" class="time" ng-required="true"/> -->
+								</p>
+							</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="pull-right">
+
+							<a href="#address" type="button" class="btn btn-default">Back</a>
+							<button type="submit" class="btn btn-success">Next</button>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+  <script>
+  $(function() {
+      $('#durationExample').timepicker({
+          'minTime': '10:00am',
+          'maxTime': '10:00pm',
+          'showDuration': false
+      });
+  });
+ </script>

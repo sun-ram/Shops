@@ -1,0 +1,65 @@
+<div ng-include="'htmlfile/header.html'"></div>
+<div ng-include="'htmlfile/navigation.html'"
+	class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+<div class="container-fluid wrapper" ng-controller="headercontroller">
+	<div class="row" ng-init="getCartListFromDB()">
+		<div class="col-sm-12  col-md-10 col-lg-10" ng-init="emptyFun()">
+			<div class="contentbg">
+			<div class="row" >                
+              <div class="checkout-header">               
+               <ul class="list-group">
+               	<li class="list-group-item pull-left">
+                	<div class="select-address ">
+                	
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT ADDRESS">
+                	<a href="#/address"><div class="sa"></div></a></div>
+                	<span class="panel"><span class="progress"></span></span></div> </li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-delivery " >
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT DELIVERY">
+                	<a href="" ng-click="addressToDeliverySlot(contactNo,deliveryAddress.address)" ><div class="sd"></div></a></div><span class="panel"><span class="progress"></span></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-payment ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="REVIEW AND CONFIRMED">
+                	<a href="" ng-click = "selectedDate()" ><div class="src"></div></a></div><span class="panel"><span class="progress"></span></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-rev-conform ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT PAYMENT">
+                	<div class="sp"></div></div></div></li>
+                	</ul>
+                	</div>
+			</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-10 text-center ">
+							<span class="thin_txt insert_address"></span>
+						</div>
+						<div class="col-xs-2 "></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 insert_address text-center">
+						<div class="col-sm-3 " style="padding-top: 7px;"></div>
+						<div class="col-sm-4">
+							<p class="input-group" ng-click="open($event)">
+							<h4>Payment is successful</h4>
+							Your receipt has been send to your email.
+							<h4>
+								<a href="#"><i class="fa fa-chevron-left"></i> Back To Home</a>
+							</h4>
+							</p>
+							<div class="col-xs-6 text-right backtoshop"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"></div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+

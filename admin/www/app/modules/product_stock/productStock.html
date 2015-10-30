@@ -1,0 +1,52 @@
+<div layout="row" ng-init="getProductStockList();getMerchantStore();">
+
+	<div layout="row" flex=65>
+		<h3 layout-padding layout-align="start center">Product Stock</h3>
+	</div>
+	
+	<div ng-hide="user.role == 'STOREADMIN'" layout="row">
+		<md-input-container style="height: 37px; padding: 2px 20px;">
+		<label>Store</label> <md-select name="myModel" ng-model="storesId" ng-change="getStockListByStore()"
+			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.storeName}}</md-option> 
+	    </md-input-container>
+	</div>
+
+	<div layout="row" flex=20>
+		<md-input-container md-theme="input" flex style="height: 72px;">
+		<label>&nbsp;</label> <input style="border-bottom-color: #B0B0B0;" ng-model="search"
+			placeholder="enter search"> </md-input-container>
+
+		<ng-md-icon icon="search" style="line-height: 5;"></ng-md-icon>
+
+
+	</div>
+</div>
+<md-card flex-gt-sm="90" flex-gt-md="80">
+
+<md-data-table-container>
+<table md-data-table class="md-primary"
+	md-progress="deferred">
+	<thead md-order="query.order" md-trigger="onorderchange">
+		<tr>
+              <th  order-by="warehouse.warehouseName" name="Warehouse"></th>
+              <th  numeric order-by="storageBin.storageBinName" name="Storage Bin"></th>
+              <th  numeric order-by="product.productName" name="Product"></th>
+              <th  numeric order-by="availableQuantity" name="Available Qty"></th>
+            </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="product in productStockList | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit | filter:search">
+			<td>{{product.warehouse.warehouseName}}</td>
+			<td>{{product.storageBin.storageBinName}}</td>	
+			<td>{{product.product.productName}}</td>
+			<td>{{product.availableQuantity}}</td>
+			
+		</tr>
+	</tbody>
+</table>
+</md-data-table-container> 
+ <div layout layout="row" class="table-pagination-bg" layout-align="center center">
+<md-data-table-pagination md-limit="query.limit" md-page="query.page"
+	md-total="{{count}}" md-trigger="onpagechange"></md-data-table-pagination></div>
+</md-card>
+</md-card>

@@ -1,0 +1,201 @@
+<div ng-include="'htmlfile/header.html'"></div>
+<div ng-include="'htmlfile/navigation.html'" class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+<div class="container-fluid wrapper">
+	<div class="row">
+		<div class="col-sm-12  col-md-10 col-lg-10">
+			<div class="contentbg">
+			<div class="row" >                
+              <div class="checkout-header">               
+               <ul class="list-group">
+               	<li class="list-group-item pull-left">
+                	<div class="select-address ">
+                	
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT ADDRESS">
+                	<a href="#/address"><div class="sa"></div></a></div>
+                	<span class="panel"><span class="progress"></span></span></div> </li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-delivery " >
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT DELIVERY">
+                	<a href="" ng-click="addressToDeliverySlot(contactNo,deliveryAddress.address)" ><div class="sd"></div></a></div><span class="panel"><span class="progress"></span></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-payment ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="REVIEW AND CONFIRMED">
+                	<a href="" ng-click = "selectedDate()" ><div class="src"></div></a></div><span class="panel"><span ></span></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-rev-conform ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT PAYMENT">
+                	<div class="sp"></div></div></div></li>
+                	</ul>
+                	</div>
+			</div>
+				<div class="row">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12 text-center ">
+								<span class="thin_txt insert_address"> Are These Correct?</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="pull-left">
+							<a class="reviewstep col-xs-12">
+								<div class="address_circle">
+									<div class="sa"></div>
+								</div>
+								<div class="Address_review pull-left">
+									<span class="top-li"><b>ADDRESS </b></span>
+									<p class="botm_li">{{deliveryAddress.address}}</p>
+									<p class="botm_li">{{deliveryAddress.city+" "+deliveryAddress.state+"
+										"+deliveryAddress.country+" "+deliveryAddress.postalCode}}</p>
+								</div>
+								<div class="edit-btn pull-right"  data-toggle="modal" data-target="#myModal" style="cursor:pointer" ng-click = "editAddress(deliveryAddress)"></div>
+							</a> <div class="reviewstep delivery-bcolor col-xs-12" >
+								<div class="address_circle">
+									<div class="sd"></div>
+								</div>
+								<div class="Address_review pull-left">
+									<span class="top-li"><b>DELIVERY </b></span>
+									<p class="botm_li">{{deliveryTime+" "+deliveryDate}}</p>
+								</div>
+								<a class="edit-btn pull-right"  href="#/delivery"></a>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<h2 class="text-theme">Items to be delivered</h2>
+						</div>
+						<div class="well-lg col-xs-12">
+							<table class="table">
+								<tbody>
+									<tr ng-repeat="items in cartItem">
+										<td>
+											<div class="proThumb">
+												<a href="#/productDescription"> 
+												<img class='img-responsive' ng-repeat="image in items.productDetails.productImages"
+													ng-if="image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(items)"
+													src={{image.imageUrl}}>
+												</a>
+											</div>
+										</td>
+										<td>
+											<div class="cart-pro-desc">
+												<div class="cart-desc">{{items.productDetails.productName}}</div>
+												<div class="cart-promesc">{{items.productDetails.measurement}}
+													{{items.productDetails.productUnitOfMeasure.abbreviation}}</div>
+												<strong>{{items.noOfQuantityInCart+"
+													x"+" "}}₹{{items.productDetails.productPrice.price}}</strong>
+											</div>
+										</td>
+										<td>
+											<div class="totalqtyprice">
+												<strong>₹{{items.subTotal}}</strong>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="col-xs-12">
+						<!-- 	<div class="row showInReview">
+								<a class="button checkout placeorder  disabled  first text-center">CONFIRM MY ORDER</a>
+							</div> -->
+							<div class="row orderSummary" style="font-size: 11px;">
+								<div class="totalprice">
+                                	<div class="pricerow">
+                                    	<strong class="pull-left">Subtotal</strong>
+                                        <strong class="pull-right">₹{{cartTotalAmount | number:2}}</strong>
+                                    </div>
+									<div class="pricerow" ng-repeat="taxDetail in taxDetails">
+                                    	<strong class="pull-left">{{taxDetail.taxName}}%</strong>
+                                        <strong class="pull-right">₹{{cartTotalAmount*(taxDetail.rate/100) | number:2}}</strong>
+                                    </div>
+                                    <div class="pricerow">
+                                    	<strong class="pull-left">Shipping Charges</strong>
+                                        <strong class="pull-right">₹{{shippingCharges | number:2}}</strong>
+                                    </div>
+                                    <div style="float:left;width:100%; height:1px;border-bottom:1px solid #ddd"/>
+                                    <div class="pricerow pull-left">
+                                    	<strong class="pull-left">Total</strong>
+                                        <strong class="pull-right">₹{{grossAmount | number:2}}</strong>
+                                    </div>
+                            	</div>
+<!-- 								<div class="padd terms">
+									<div class="input-group">
+										<input type="text" placeholder="Coupen Code"
+											class="form-control"> <span class="input-group-btn">
+											<button class="btn btn-custom ff" type="button">Enter</button>
+										</span>
+
+									</div>
+									<div class="text">
+										<strong>Terms &amp; Conditions</strong><br>1. Limited to
+										use of 1 coupon per checkout 2. Discount is not applicable to
+										baby formula &amp; milk products
+									</div>
+								</div> -->
+
+								<!-- <div class="totalrow col-sm-12">
+									<div class="text nopadding col-xs-9">
+										<strong class="pull-left">Total</strong>
+									</div>
+									<div class="subtotal nopadding col-xs-3">
+										<strong class="pull-right">₹{{grossAmount | number:2}}</strong>
+									</div>
+								</div> -->
+							</div>
+							<div class="row showInReview">
+							<button  type="button" class="btn btn-custom nextBtn"  ng-click="conformOrder()">CONFIRM MY ORDER</button>
+								<form action="https://demo.globalgatewaye4.firstdata.com/payment"
+									method="post" name="FirstData" style="display:none;">
+									<input name="x_login" value="WSP-MITOS-Dz1BuABMbw"
+										type="hidden">
+									<!-- Payment Page ID -->
+
+									<input name="x_fp_sequence" value="123456" type="hidden">
+									<!-- Used in x_fp_hash calculation in order to make it unique but not used otherwise -->
+
+									<input name="x_fp_timestamp" ng-value="timeStamp" type="hidden">
+									<!-- Time in seconds since January 1, 1970. UTC, Coordinated Universal Time,expire after 15 minutes / 900 seconds -->
+
+									<input name="x_amount" ng-value="TOTAL" type="hidden">
+									<!-- Total dollar amount to be charged inclusive of freight and tax -->
+
+									<input name="x_currency_code" value="INR" type="hidden">
+									<!-- Currency of the transaction. Case sensitive. -->
+
+									<input name="x_fp_hash" ng-value="hash" type="hidden">
+									<!-- x_login, x_fp_sequence, x_fp_timestamp, x_amount, and (if given) x_currency_code – all separated by the ^ character -->
+
+									<input name="x_show_form" value="PAYMENT_FORM" type="hidden">
+									<!-- required in order to stay compatible with the Authorize.net protocol -->
+
+									<div ng-repeat="list in cartItems">
+
+										<input name="x_line_item" ng-value="list.item" type="hidden">
+
+									</div>
+
+									<!-- <input name="x_freight" ng-value="shipping" type="hidden"> -->
+
+									<input name="enable_level3_processing" type="hidden" value="TRUE" /> 
+									<input name="x_po_num" value="purchaseorder1" type="hidden"> 
+									<input name="x_invoice_num" ng-value="orderId" type="hidden">
+									<input name="x_cust_id" value="customerid1" type="hidden"> 
+									<input name="x_email_customer" value="TRUE" type="hidden"> 
+									<input name="x_method" value="CC" type="hidden"> 
+									<input value="CONFIRM MY ORDER" class="btn btn-danger nextBtn" type="submit">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

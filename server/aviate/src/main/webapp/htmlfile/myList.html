@@ -1,0 +1,71 @@
+  	<div  ng-include="'htmlfile/header.html'"></div> 
+ 	<div class="container-fluid wrapper" ng-controller="headercontroller" ng-init="myList()">
+	<div class="row">
+ 	<div  ng-include="'htmlfile/navigation.html'" class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+ 	<div class="col-sm-12  col-md-10 col-lg-10">
+    <div class="row productsbg">
+                	<div class="col-xs-12">
+                    	<div class="row">
+                        	<div class="col-xs-6">
+                            	<h3 style=""color:red;">My List</h3>
+                            </div>
+                            <div class="col-xs-6 text-right backtoshop">
+                            	<a href="#"><i class="fa fa-chevron-left"></i> Back To Shopping</a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                    	<div class="row">
+                        	<div class="col-xs-12 col-sm-12">
+                            	<table class="table">
+                                	<tbody>
+                                    	<tr ng-repeat="product in myLists">
+                                        	<td>
+                                            	<div class="proThumb">
+                                            		<a href="#/productDescription">
+                                            			<img class='img-responsive' ng-repeat="image in product.productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(product);productDetail.isProductMyList=true;" src={{image.imageUrl}}>
+                                            		</a>
+                                            	</div>
+                                            </td>
+                                            <td>
+                                            	<div class="cart-pro-desc">
+                                                	<div class="cart-desc truncate">{{product.productDetails.productName}}</div>
+                                                    <div class="cart-promesc">{{product.productDetails.measurement}} {{product.productDetails.productUnitOfMeasure.abbreviation}}</div>
+                                                     <strong>₹{{product.productDetails.productPrice.price}}</strong>
+                                                </div>
+                                            </td>
+                                            <!-- <td>{{items.subtotal}}</td> -->
+                                             <td> 
+                                                <div class="totalqtyprice">
+                                                    <i class="glyphicon glyphicon-remove" style='color:#000;' ng-click="deletefromList(product.productDetails.productId)"></i>
+                                                </div>
+                                             </td> 
+                                             <td style="padding-top: 24px; max-width:130px;">
+                                    	 		<div class="addtocart-btn">
+                                					<a style="color:#fff" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product);">
+                                						<div class="quantity"><i class="glyphicon glyphicon-shopping-cart"></i></div>
+                                    					<span class="" >Add To Cart</span>
+                                					</a>  
+                                					<div class="addqty">
+                                    					<div ng-show="product.noOfQuantityInCart > 0" class="qtyval">
+                                        					{{product.noOfQuantityInCart}}
+                         	            				</div>
+                                        				<div class="qtyaddremove">
+                                        					<div class="qtyadd" ng-show="product.noOfQuantityInCart > 0" style="position:relative;" ><i class="fa fa-sort-up" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCartFun(product);"></i> </div>
+                                        					<div style="padding:5px;"></div>  <div class="qtyreduce"><i ng-show="product.noOfQuantityInCart > 0" class="fa fa-sort-down" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCartFun(product);"></i></div>
+                                        				</div>
+                                    				</div>
+	                                			</div>
+                                             </td>  
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    </div>
+    </div>
+    </div>
+   </div>
+   </div>
+   </div>
+    
+    

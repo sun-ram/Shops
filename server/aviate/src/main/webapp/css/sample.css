@@ -1,0 +1,149 @@
+@CHARSET "ISO-8859-1";
+
+.box { margin: 0px 101px 0px 204px; padding: 20px 162px 0px 0px; width: 683px; height:640px;}
+.row_space {margin-top : 20px;}
+.link {margin-left : 100px; margin-top : 20px;}
+.email_text { width:350px !important;}
+
+h1 {color:#428bca; text-align:center; margin-bottom:23px;}
+h3 {color:white	; text-align:center; margin-bottom:0px;}
+h4 {color:#3BAFDA; text-align:left; margin-bottom:0px;}
+.super_markets { width:100%; height:100px; text-align: center; color: #000; border:1px solid #fff; vertical-align:center; background-color:#E3E3D7; }
+.box_supermarket {margin: 0px 101px 0px 121px; padding: 20px 162px 0px 0px; width: 948px; height:640px;background-color:#E3E3D7;}
+.sm_text {vertical-align:0px; font-weight:bold; color:#000; font-size:20px; }
+.anchor_tags { border: 1px solid #CCCCC2;}
+.menu
+{list-style-item:none;}
+.item{display:inline;
+
+padding:8px;
+color:white;
+}
+.inner
+{
+	background-color:#0a3151;
+	height: 35px;
+	text-align: center;
+}
+.cart
+{
+	width:5px;
+	height:5px;
+	padding:2px;
+	border-radius:5px;
+	color:white;
+	background-color:yellow;
+	
+}
+
+.main-category{
+	width:200px;
+	height:100px;
+	float:left;
+	text-align : center;
+	margin:0px 30px 30px 0px;
+	background-color: #19B5FE;
+	border-radius:5px;
+	cursor : pointer;
+	
+}
+
+.main-category-item{
+	width:200px;
+	height:100px;
+	float:left;
+	text-align : center;
+	margin:0px 30px 30px 0px;
+	background-color:#F9690E;
+	border-radius:5px;
+	cursor : pointer;
+	
+}
+
+.aa{
+	width:500px;
+}
+.col-md-offset-5{
+	margin-left: 33.666667% !important;
+}
+.list-group{
+	
+	border:1px solid #999;
+	padding:5px 5px 8px 5px;
+	list-style-type:none;
+}
+.middle{
+	padding-left: 444px;
+}
+.button_left{
+	float:right;
+}
+.button{
+	border: antiquewhite;
+	padding: 6px;
+	color: white;
+	font-weight: bold;
+	background: #990000;
+	margin: 1px;
+}
+.header{
+	background: #ee4054;	
+	padding: 6px;
+}
+.header_top{
+	background: #444 !important;
+	height: 104px;
+
+}
+.search{
+	padding: 6px;
+    margin-left: 92px
+}
+.username{
+	margin-left: 179px;
+	height: 36px;
+	width: 313px;
+	padding-left: 10px;
+}
+.password{
+	height: 36px;
+	width: 201px;
+	padding-left: 10px;
+}
+.forgot{
+	float: right;
+	margin-bottom : 20px;
+}
+.error{
+	margin-left: 179px;
+	color: yellow;
+}
+.nav{
+	width:15%;
+	background: #555;
+	color: #fff;
+	font-weight: bold;
+}
+.list{
+	padding: 13px 8px 8px 8px;
+}
+.veil {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	width:100%;
+	cursor: not-allowed;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
+}
+.feedLoading {
+	position: absolute;
+	top:200px;
+	width:100%;
+	text-align: center;
+	font-size: 4em;
+	color:white;
+	text-shadow: 2px 2px 2px #021124;
+}

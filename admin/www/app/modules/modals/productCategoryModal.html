@@ -1,0 +1,32 @@
+
+<md-dialog aria-label="Category"  ng-cloak>
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{categoryHeading}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+   
+   
+   
+   
+   <md-input-container flex> <input type="text" ng-model="productCategory.Name"/></md-input-container>
+   
+   
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()" >
+    Cancel
+    </md-button>
+    <md-button ng-click="addCategory(productCategory)" style="margin-right:20px;" >
+     Add
+    </md-button>
+  </div>
+  </form>
+</md-dialog>

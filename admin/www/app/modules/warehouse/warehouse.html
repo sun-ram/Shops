@@ -1,0 +1,147 @@
+	<md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;"ng-click="addWarehouse()">
+		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
+	</md-button>
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getWarehouse()">
+ <md-toolbar class=" md-default-theme">
+	<div class="md-toolbar-tools" layout="row">
+  		<h2 layout-align="start">Warehouse</h2>
+    	<span class="flex"></span>
+	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
+	      <md-input-container md-theme="input" flex>
+	        <label>&nbsp;</label>
+	        <input ng-model="searchText" style="color: white; border-bottom-color: white;" placeholder="enter search">
+	      </md-input-container>
+	      <md-button aria-label="Search" style="line-height: inherit; min-width: inherit;" ng-click="showSearch = !showSearch;srch = true;">
+	        <ng-md-icon icon="search" class="icon-white"></ng-md-icon>
+	      </md-button>
+	  </div>
+      <md-button ng-show="srch" layout-align="end" style="line-height: inherit; min-width: inherit;" aria-label="Search" ng-click="showSearch = !showSearch; srch = false;">
+       <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+      </md-button>
+    </div>
+   </md-toolbar>
+   <md-card-content class="nopaddtop">
+		<md-data-table-container>
+     <md-list>
+       <md-item ng-repeat="warehouse in getWarehouseList | filter:searchText | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" class="md-table-content-row">
+         <md-item-content layout="row" layout-padding>
+            <div layout="row" layout-wrap class="full_wid">
+           		<span flex=5 class="padd-5-3"><ng-md-icon icon="store" size="30"></ng-md-icon></span>
+           
+           	<span flex=30 layout="column" class="padd-lr5" layout-align="start start" ng-click="warehouseDetails(warehouse)">
+           		
+             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{warehouse.warehouseName}}</strong></span>
+              <span n class="hash_color padd-l8 ft-14">{{warehouse.address}} {{warehouse.address1}}</span>
+                          
+           	</span>
+           	   <span flex=50 layout="row" layout-align="start end" ng-click="warehouseDetails(warehouse)">
+           
+              	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18" ng-repeat="storageBin in warehouse.returnBin"><strong>{{storageBin.storageBinName}}{{$last ? '' : ','}}</strong></span>
+          
+           	 </span>
+             <span flex=15 layout="row" layout-align="center center">
+            
+             	<span layout-padding><ng-md-icon style="z-index:500;" icon="mode_edit" size="20" class="icons hash_color" ng-click="editWarehouse(warehouse)"></ng-md-icon></span>
+             	<span layout-padding><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color" ng-click="deleteWarehouse(warehouse.warehouseId)"></ng-md-icon></span>
+          
+             </span>           
+           	        	
+            </div>       	
+           </div>
+         </md-item-content>
+         <md-divider></md-divider>
+       <md-divider></md-divider>
+       </md-item>
+     </md-list>
+	</md-data-table-container>
+   </md-card-content>
+   <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
+	<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{getWarehouseList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	</div>
+</md-card>
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-sm-12" ng-init="getWarehouse()">
+	<div class="col=xs-1 col-sm-3 col-md-6">
+		<span class="caption"><h4>Warehouse</h4></span>
+	</div>
+	<div class="col-xs-11 col-sm-9 col-md-6 nopadding">
+		<div class="col-xs-6 btn-group btn-padd">
+			<p class="text-right">
+				<button type="button" ng-click="addWarehouse()" class="btn btn-info"
+					aria-label="Left Align">Add Warehouse</button>
+			</p>
+		</div>
+		<div class="col-xs-6 nopadding">
+			<form class="navbar-form" role="search">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search"
+						ng-model="searchText">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+							<i class="glyphicon glyphicon-search"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</div>
+<div class="row nopadding">
+	<div class="col-sm-3 btn-group">
+		<button type="button" class="btn btn-info" aria-label="Left Align">
+			Show All</button>
+		<button type="button" class="btn btn-info" id="add-filter"
+			aria-label="Left Align">Filter</button>
+	</div>
+	<div class="col-sm-9 block">
+		<a href="" id="elementId" class=""> </a>
+	</div>
+</div>
+<div class="row nopadding">
+	<div class="padd">
+		<div class="table-responsive">
+			<table ng-table="tableParams" class="table">
+				<tbody ng-repeat="p in $data| filter:searchText">
+					<tr id="tr{{p.warehouseId}}" ng-class-odd="'odd'"
+						ng-class-even="'even'">
+						<td class="rowTd" data-title="'Warehouse Name'" sortable="'categoryName'">
+							{{p.warehouseName}}</td>
+						<td class="rowTd" data-title="'address'" sortable="'address'">
+							{{p.address}}</td>
+						<td class="rowTd" data-title="'city'" sortable="'city'">
+							{{p.address1}}</td>
+						<td class="rowTd" data-title="'state'" sortable="'state'">
+							{{p.city}}</td>
+						<td class="rowTd" data-title="'country'" sortable="'country'">
+							{{p.state}}</td>
+						<td class="rowTd" data-title="'postalCode'"
+							sortable="'postalCode'">{{p.country}}</td>
+						<td class="rowTd" data-title="'phoneNo'" sortable="'phoneNo'">
+							{{p.postelCode}}</td>
+						<td class="rowTd" data-title="'Description'" sortable="'Description'">
+							{{p.description}}</td>
+						<td class="rowTd" data-title="'Return Bin'" sortable="'ReturnBin'">
+							{{p.returnBin}}</td>
+						<td class="rowTd"><button type="button"
+								ng-click="editWarehouse(p);" class="btn btn-info"
+								aria-label="Left Align">Edit</td>
+						<td class="rowTd"><button type="button"
+								ng-click="removewarehouse(p);" class="btn btn-info"
+								aria-label="Left Align">Delete</td>
+						</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div> -->

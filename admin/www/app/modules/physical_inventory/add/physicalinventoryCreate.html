@@ -1,0 +1,40 @@
+ <md-toolbar ng-hide="warehouse.isprocessed" class=" md-default-theme">
+	<div class="md-toolbar-tools" layout="row">
+  		<h2 layout-align="start">Add Inventory</h2>
+    	<span class="flex"></span>
+      <span class="close_box" ui-sref="app.physical_inv">
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon> </span>   
+    </div>
+   </md-toolbar>
+ <md-card class="padd-t30 padd-b30" ng-init="getInventoryWarehouse();">	 
+    <form name="physicalinventoryForm" novalidate>
+	
+	<div layout layout-sm="column">
+        <md-input-container flex class="padd-50">
+          <label><span style="color:red">*</span>Name</label>
+          <input type="text" ng-model="physicalinventoryDetail.inventoryName" ng-required="true"/>
+        </md-input-container>
+        <md-input-container flex class="padd-50">
+          <label>Warehouse</label>
+          <md-select ng-model="physicalinventoryDetail.warehouseId" style="min-width: 200px;" ng-required="true">
+      <md-option ng-value="{{warehouse.warehouseId}}" ng-repeat="warehouse in warehouseData">{{warehouse.warehouseName}}</md-option>
+    </md-select>
+          
+        </md-input-container>        
+	</div>
+	
+	<label class="padd-50 marg-t50" style="color: rgba(0,0,0,0.26);padding:18px 50px;">Description</label>
+	<div layout layout-sm="row">	
+	<md-input-container flex class="padd-50">
+		    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="physicalinventoryDetail.description" ng-required="true"></textarea>
+	</div>
+	
+	<section layout="row" layout-align="start center" layout-wrap class="padd-50 padd-t30">
+    	<md-button class="md-raised md-success  prdct-btns" ng-click="addPhysicalInventory();" ng-disabled="physicalinventoryForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel prdct-btns" ui-sref="app.physical_inv">Cancel</md-button>
+    </section>
+    </form>
+		
+</md-card>
+
+

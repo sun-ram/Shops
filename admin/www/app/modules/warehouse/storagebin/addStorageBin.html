@@ -1,0 +1,97 @@
+<md-card flex-gt-sm="90" flex-gt-md="80">
+   <md-toolbar class=" md-default-theme">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Storage Bin</h2>
+      <span class="close_box">
+	   	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.warehouseDetails"></ng-md-icon> 
+   </span>
+    </div>
+  </md-toolbar>
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+      <form name="warehouseForm" novalidate>
+      
+    <md-input-container>
+       <label><span style="color:red">*</span>Name</label>
+      <input ng-model="storageBin.storageBinName" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+       <label><span style="color:red">*</span>Row (X)</label>
+      <input ng-model="storageBin.xRow" ng-required="true">
+    </md-input-container>
+    
+    <md-input-container>
+       <label><span style="color:red">*</span>Stack (Y)</label>
+      <input ng-model="storageBin.yRow" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+       <label><span style="color:red">*</span>Level (Z)</label>
+      <input ng-model="storageBin.zRow" ng-required="true">
+    </md-input-container>    
+    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    	<md-button class="md-raised md-success padd-50" ng-click="saveStorageBin(storageBin)" ng-disabled="warehouseForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.warehouseDetails">Cancel</md-button>
+    </section>
+    </form>
+    </md-content>
+</md-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<div ng-include="'htmlfile/admin/warehouseheader.html'"></div>
+<div class="row well-sm" ng-init="getWarehouse()">
+<form name="storageBin" ng-submit="addStorageBin()">
+	<div class="col-sm-12 well-lg ">
+		<div class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm">
+			<p>Warehouse *</p>
+			<select class="form-control" ng-model="warehouseId" required="required"
+				ng-options="p.warehouseId as p.warehouseName for  p in getWarehouseList | orderBy:'warehouseName'">
+				<option value="">Select Warehouse</option>
+			</select>
+		</div>
+		<div class="col-sm-3 well-sm">
+			<p>Name *</p>
+			<input type="text" required="required" class="form-control t"
+				placeholder="" ng-model="sbname">
+		</div>
+		<div class="col-sm-3 well-sm">
+			<p>Row (X) *</p>
+			<input type="text" required="required" class="form-control t"
+				placeholder="" ng-model="sbxrow">
+		</div>
+		<div class="col-sm-3 well-sm">
+			<p>Stack (Y) *</p>
+			<input type="text" id="name" required="required"
+				class="form-control t" placeholder="" ng-model="sbyrow">
+		</div>
+		<div class="col-sm-3 well-sm">
+			<p>Level (Z)*</p>
+			<input type="text" id="desc" required="required"
+				class="form-control t" placeholder="" ng-model="sbzrow">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class=" col-xs-offset-5 col-xs-2 col-xs-offset-5">
+				<button type="submit" class="btn btn-primary btn-block"
+					aria-label="Left Align">Add</button>
+			</div>
+		</div>
+	</div>
+	</form>
+</div> -->

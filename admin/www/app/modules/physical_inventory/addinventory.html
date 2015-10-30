@@ -1,0 +1,43 @@
+<div ng-include="'htmlfile/admin/physicalinventoryheader.html'"></div>
+
+<div class="row well-sm" ng-init="getStore()">
+	<div class="col-sm-12 well-lg col-xs-offset-2">
+			<form name="inventory" ng-repeat="store in shopList" ng-if="store.storeId == user.storeId">
+<!-- 			<div class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm">
+				<p>Stores *</p>
+				<div >{{store.storeName}}</div>
+				<select ng-hide="true" class="form-control" ng-model="editInventoryObject.store" ng-options="p as p.storeName for  p in shopList | orderBy:'storeName'">
+					<option value="">Select Stores</option>
+				</select>
+			</div> -->
+			<div class="col-sm-2 well-sm">
+				<p>Name *</p>
+				<input type="text" id="name" required="required" class="form-control t" placeholder="Name" ng-model="editInventoryObject.inventoryName">
+			</div>
+			<div class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm"
+				ng-init="getInventoryWarehouse()">
+				<p>Warehouse *</p>
+				<select class="form-control" ng-model="editInventoryObject.p" ng-options="p as p.warehouseName for  p in getWarehouseList | orderBy:'warehouseName'" >
+					<option value="">Select Warehouse</option>
+				</select>
+			</div>
+			<div class="col-sm-2 well-sm">
+				<p>Description</p>
+				<input type="text" id="desc" class="form-control t" placeholder="Description"
+					ng-model="editInventoryObject.description">
+			</div>
+			<div class="col-sm-2 well-sm">
+			<p> &nbsp</p>
+				<button type="submit" class="btn btn-primary btn-block" aria-label="Left Align" ng-click="addinventoryFunc(editInventoryObject,store)">Add</button>
+			</div>
+<!-- 			<div class="row well-sm">
+				<div class=" col-xs-offset-3 col-xs-2 col-xs-offset-3">
+					<button type="submit" class="btn btn-primary btn-block" aria-label="Left Align" ng-click="addinventoryFunc(editInventoryObject,store)">Add</button>
+				</div>
+
+			</div> -->
+		</form>
+	</div>
+</div>
+
+

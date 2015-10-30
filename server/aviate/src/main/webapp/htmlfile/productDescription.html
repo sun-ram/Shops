@@ -1,0 +1,157 @@
+ <div  ng-include="'htmlfile/header.html'"></div> 
+ <div class="container-fluid wrapper" ng-controller="headercontroller">
+ <script src='jquery-1.8.3.min.js'></script>
+	<script src='jquery.elevatezoom.js'></script>
+
+
+
+	<div class="row">
+	<div  ng-include="'htmlfile/navigation.html'" class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+	<div class="col-sm-12  col-md-10 col-lg-10">
+	            <div id="product-list">
+            	<div class="row">
+                	<div class="col-xs-12">
+                    	<div class="row">
+                        	<div class="col-xs-12 col-sm-12">
+                            	<ol class="breadcrumb">
+                            		<li><a href="#">Home</a>
+                            		<li ng-repeat="menu in breadcrumbMenu"><a href="#" ng-click="selectedCategory(menu.id);removeMenu($index)">{{menu.menu}}</a></li>  
+									<li ng-if="productTypeMenu"><a href="#" ng-click="getProductsByProductTypeId(productTypeMenuId)">{{productTypeMenu}}</a></li>
+                            		<li class="active">{{productDetail.productDetails.productName}}</li> 
+                            	</ol> 
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                            </div>
+                        </div>
+                    </div>
+                   <div class="col-xs-12">
+                   		<div class="row">
+                        	<div class="col-xs-12 col-sm-6 ">
+                            	<div class="product-zoom-container">
+                                    <div class="pro-thumb-img">
+                                        <ul class="list-inline">
+                                            <li ng-repeat=" image in productDetail.productDetails.productImages" ng-init="changeimage(image.imageUrl)" ng-if="image.imagePosition == 'ORIGINALFRONT'" ng-click="changeimage(image.imageUrl)">
+                                           		<img src={{image.imageUrl}} class="img-responsive">
+                                            </li>
+                                            <li ng-repeat=" image in productDetail.productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALBACK'" ng-click="changeimage(image.imageUrl)">
+                                           		<img src={{image.imageUrl}} class="img-responsive">
+                                            </li>
+                                            <li ng-if="productDetail.productDetails.productImages.length == 0">
+                                             	<img ng-click="changeimage('images/coming_soon.jpg')" src="images/coming_soon.jpg" class="img-responsive">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="zoom-img">
+                                        <img id="zoom_09" onmouseover="zoomImg();" src="{{showImageindescription}}" width='300' data-zoom-image={{showImageindescription}} /> 
+                         
+                                   <!-- <img id="zoom_09" src="http://182.74.202.178:8181/aviate/ImageServlet?imageName=7621d5a564f7456ebeffa27565b1c7de" width='300' data-zoom-image="http://182.74.202.178:8181/aviate/ImageServlet?imageName=7621d5a564f7456ebeffa27565b1c7de"> --> 
+                                   
+                                 
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 " >
+                            	<div class="pro-zoomdesc-container">
+                            		<h3>{{productDetail.productDetails.productName}}</h3>
+                               	 	<strong>{{productDetail.productDetails.measurement}} {{productDetail.productDetails.productUnitOfMeasure.abbreviation}}</strong>
+                                	<p>{{productDetail.productDetails.productUnitOfMeasure.description}}</p>
+                                    <div class="zoomdesc-price">₹{{productDetail.productDetails.productPrice.price}}</div>
+                                    <div class="zoomdesc-btn">
+                                    	<div class="button-groups row">
+                                        	<div class="col-xs-6 " ng-show="productDetail.noOfQuantityInCart == 0">
+                                                <a href="" ng-click="productDetail.noOfQuantityInCart = productDetail.noOfQuantityInCart + 1;addToCartFun(productDetail);" class="addcart-btn">
+                                                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                                                    <strong>ADD TO CART</strong>
+                                                </a>
+                                            </div>  
+											<div class="col-xs-6 " ng-show="productDetail.noOfQuantityInCart > 0">  
+												<a href=""  class="addcart-btn">
+ 													<div class='quantitylarge'>
+   														<strong style="width: 70%;" ng-click="productDetail.noOfQuantityInCart = productDetail.noOfQuantityInCart + 1;addToCartFun(productDetail);"><span style='font-size:36px; float:left; font-weight:normal; width:100%; text-align:center;'>{{productDetail.noOfQuantityInCart}}</span></strong>
+                          							</div>
+													<div class="qtyaddremove">
+  														<div class="qtyup" ng-click="productDetail.noOfQuantityInCart = productDetail.noOfQuantityInCart + 1;addToCartFun(productDetail);"><i class="fa fa-chevron-up"></i> </div>
+														<div class="qtyreduce uparrow-pd" ng-click="productDetail.noOfQuantityInCart = productDetail.noOfQuantityInCart - 1;addToCartFun(productDetail);"><i class="fa fa-chevron-down"></i></div>
+											 		</div>
+      											</a>                                              
+ 											</div>
+                                            <div ng-show="!productDetail.isProductMyList" class="col-xs-6 ">    
+                                                 <a href="" ng-click="addtoMyList(productDetail.productDetails.productId);"class="addtomylist-btn">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <strong>ADD TO MY LIST</strong>
+                                                </a>
+                                            </div>
+                                            <div ng-hide="!productDetail.isProductMyList" class="col-xs-6 " >    
+                                                <a style="color:#FFF;" href="" ng-click="deletefromList(productDetail.productDetails.productId);productDetail.isProductMyList=!productDetail.isProductMyList"class="addtomylist-btn">
+                                                    <i class="glyphicon glyphicon-minus"></i>
+                                                    <strong>REMOVE MY LIST</strong>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                    	        	</div>
+                            </div>
+                        </div>
+                   </div>
+    
+    
+	<h3>Related Product</h3>
+		<div id="product-list">
+		  <div class="row">
+            <div ng-repeat="item in productList | limitTo: 4" ng-show="item.productDetails.productTypeId == productDetail.productDetails.productTypeId" style="display:inline-block; " class="col-xs-6 col-sm-3 col-md-3 col-lg-2"ng-if="productDetail.productDetails.productName != item.productDetails.productName"> 
+                <div class="productswrapper">
+                   	<div class="product-img">                	
+                    	<a href="#/productDescription">
+                    		<img ng-repeat="image in item.productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(item,item.noOfQuantityInCart)" src={{image.imageUrl}}>
+                    		<img ng-repeat="image in item.productDetails.productImages" ng-if="!image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(item,item.noOfQuantityInCart)" src="http://182.74.202.178:8181/aviate/ImageServlet?imageName=1eb789bde1fa452e92">
+                    	</a>
+                     </div>
+                     <div class="product-desc">
+                     	<div class="desc">{{item.productDetails.productName}}</div>
+                     	<span class="proMesc">{{item.productDetails.measurement}}</span>
+                     	<span class="proMesc">{{item.productDetails.productUnitOfMeasure.abbreviation}}</span>
+                     </div>
+                     <div class="pro-footer-control">
+                     	<div class="pro-price">
+                       		<strong>₹{{item.productDetails.productPrice.price}}</strong>
+                        </div>
+                                <div class="addtocart-btn">
+                                	<a style="color:#fff" ng-click="item.noOfQuantityInCart = item.noOfQuantityInCart + 1;addToCartFun(item);"><!-- addtoCart(item.productId,$index,item.noOfQuantityInCart) -->
+                                		<div class="quantity"><i class="glyphicon glyphicon-shopping-cart"></i></div>
+                                    	<span class="" >Add To Cart</span>
+                                	</a>  
+                                	<div class="addqty">
+                                    	<div ng-show="item.noOfQuantityInCart > 0" class="qtyval">
+                                        	{{item.noOfQuantityInCart}}
+                         	            </div>
+                                        <div class="qtyaddremove">
+                                        	<div class="qtyadd" ng-show="item.noOfQuantityInCart > 0" style="position:relative;" ><i class="fa fa-sort-up" ng-click="item.noOfQuantityInCart = item.noOfQuantityInCart + 1;addToCartFun(item);"></i> </div><!-- addtoCart(item.productId,$index,1) -->
+                                        	<div style="padding:5px;"></div>  <div class="qtyreduce"><i ng-show="item.noOfQuantityInCart > 0" class="fa fa-sort-down" ng-click="item.noOfQuantityInCart = item.noOfQuantityInCart - 1;addToCartFun(item);"></i></div><!-- reduceFromCart(item.productId,$index,item.noOfQuantityInCart) -->
+                                        </div>
+                                    </div>
+                                </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>
+</div>
+</div> 
+</div>
+</div>
+<script>
+function zoomImg(){
+$("#zoom_09").elevateZoom({
+gallery : "gallery_09", 
+scrollZoom : true 
+}); 
+$("#select").change(function(e){ var currentValue = $("#select").val(); 
+
+$('#gallery_09 a').removeClass('active').eq(currentValue-1).addClass('active');	
+var ez = $('#zoom_09').data('elevateZoom');
+});
+}
+//window.onload = zoomImg();
+</script>            	 

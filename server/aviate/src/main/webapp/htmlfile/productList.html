@@ -1,0 +1,90 @@
+ <div  ng-include="'htmlfile/header.html'"></div> 
+ <div class="container-fluid wrapper">
+	<div class="row" ng-init="getTax();getTaxDetails();getShippingCharges();">
+	<div  ng-include="'htmlfile/navigation.html'" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 product-menu-list"></div>
+	<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+	                                
+	           	<div class="col-xs-12 col-sm-12 well-sm">
+	           	<div class="row">
+                  <div class='col-xs-12 col-sm-7'> 
+                  	<div class="row">
+                   	<ol class="breadcrumb">
+                   		<li><a href="#">Home</a>
+                       		</li><li ng-repeat="menu in breadcrumbMenu"><a href="#" ng-click="selectedCategory(menu.id);removeMenu($index)">{{menu.menu}}</a></li>  
+                           	<li ng-if="productTypeMenu"><a href="#" ng-click="getProductsByProductTypeId(productTypeMenuId)">{{productTypeMenu}}</a></li>
+                 		</ol></div></div>
+                 		<div class="col-xs-12 col-sm-5 " style="background-color:#fff;padding:1px;">
+                 		   <div class="">     
+          		
+                 <select ng-model="orderList" style="margin-top:5px;">
+                    <option selected>Sort By</option>
+    				<option value="productDetails.productName">Product A-Z</option>
+    				<option value="-productDetails.productName">Product Z-A</option>
+    				<option value="productDetails.productPrice.price">Price - Low to High</option>
+    				<option value="-productDetails.productPrice.price">Price - High to Low</option>
+  				</select>
+  					
+  				<div class='pull-right proSearch col-sm-6 '>
+  					<div class="inner-addon left-addon">
+					    <i class="glyphicon glyphicon-search"></i>
+					    <input type="text" ng-model="searchProduct" class="form-control" placeholder='Search...'/>
+					</div>
+  				</div>
+                 	</div>	
+                 		</div>
+                 	 </div>
+                 	
+                  </div>
+ 
+   		
+            <div id="top_advt" class="hidden-sm hidden-xs">
+            </div>
+            <div id="product-list" ng-show="!productList == 0">
+            	<div class="row">
+            <div ng-repeat="item in productList | orderBy: orderList | filter :searchProduct" style="display:inline-block; " class="col-xs-6 col-sm-3 col-md-3 col-lg-2"> 
+                    		<div class="productswrapper">
+                    			<div style='width:100%; height:17px;'>
+                    			<div class='iconVeg' title='Veg-item' ng-if="item.productDetails.type=='Veg'"></div>
+                    			<div class='iconNonVeg' title='NonVeg-item' ng-if="item.productDetails.type=='Non-Veg'"></div>
+                    			<div class='iconeatable' title='Non-Eatable-item' ng-if="item.productDetails.type=='Non-Eatable'"></div>
+                    			</div>
+                        	       <div class="product-img">  
+                            		<a href="#/productDescription">
+                            			<img ng-repeat="image in item.productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(item)" src={{image.imageUrl}}>
+                            			<img ng-repeat="image in item.productDetails.productImages" ng-if="!image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(item)" src="http://182.74.202.178:8181/aviate/ImageServlet?imageName=1eb789bde1fa452e92"> 
+                            			<img ng-if="item.productDetails.productImages.length==0"  ng-click="productDescriptionFun(item)" src="http://182.74.202.178:8181/aviate/ImageServlet?imageName=1eb789bde1fa452e92">
+                            		</a>
+                            	</div>
+                            <div class="product-desc">
+                            	<div class="desc">{{item.productDetails.productName}}</div>
+                                <span class="proMesc">{{item.productDetails.measurement}}</span>
+                                <span class="proMesc">{{item.productDetails.productUnitOfMeasure.abbreviation}}</span>
+                            </div>
+                            <div class="pro-footer-control">
+                            	<div class="pro-price">
+                                	<strong>₹{{item.productDetails.productPrice.price}}</strong>
+                                </div>
+                                <div class="addtocart-btn">
+                                	<a style="color:#fff" ng-click="item.noOfQuantityInCart = item.noOfQuantityInCart + 1;addToCartFun(item);"><!-- addtoCart(item.productId,$index,item.noOfQuantityInCart) -->
+                                		<div class="quantity"><i class="glyphicon glyphicon-shopping-cart"></i></div>
+                                    	<span class="" >Add To Cart</span>
+                                	</a>  
+                                	<div class="addqty">
+                                    	<div ng-show="item.noOfQuantityInCart > 0" class="qtyval">
+                                        	{{item.noOfQuantityInCart}}
+                         	            </div>
+                                        <div class="qtyaddremove">
+                                        	<div class="qtyadd" ng-show="item.noOfQuantityInCart > 0" style="position:relative;" ><i class="fa fa-sort-up" ng-click="item.noOfQuantityInCart = item.noOfQuantityInCart + 1;addToCartFun(item);"></i> </div><!-- addtoCart(item.productId,$index,1) -->
+                                        	<div style="padding:5px;"></div>  <div class="qtyreduce"><i ng-show="item.noOfQuantityInCart > 0" class="fa fa-sort-down" ng-click="item.noOfQuantityInCart = item.noOfQuantityInCart - 1;addToCartFun(item);"></i></div><!-- reduceFromCart(item.productId,$index,item.noOfQuantityInCart) -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>  
+               </div>
+            </div>
+            	<div ng-show="productList == 0">Coming Soon!</div>
+	</div>	
+	</div>
+</div>

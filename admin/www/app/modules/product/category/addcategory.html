@@ -1,0 +1,35 @@
+<div ng-include="'htmlfile/admin/Productheader.html'"
+	ng-init="getAllCategory();getParentCategory();"></div>
+	<div class="col-md-8 col-md-offset-4">
+		<div class="" style="width: 350px">
+			<h3 align="center">Add Product Category</h3>
+			<form name="productCategory" ng-submit="addProductCategory()">
+				<div class="form-group">
+					<input type="text" class="form-control"
+						ng-model="productCategory.Name" placeholder="Category" required>
+				</div>
+				<div class="form-group">
+					<select class="form-control" ng-model="productCategory.Id"
+						ng-options="p.categoryId as p.categoryName for  p in AllCategoryList | orderBy:'categoryName'">
+						<option value="">Select Parent Category</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary btn-block marginbottom">SUBMIT</button>
+			</form>
+		</div>
+	</div>
+	<div class="row nopadding">
+	<div class="padd">
+		<div class="table-responsive">
+			<table ng-table="tableParams" class="table">
+				<tbody ng-repeat="merchant in parentCategoryList | filter:searchText">
+					<tr id="tr{{merchant.merchantId}}" ng-class-odd="'odd'" ng-class-even="'even'">
+						<td class="rowTd" data-title="''"><input type="checkbox"  ng-checked="" ng-true-value="merchantId"></input></td>
+						<td class="rowTd" data-title="'Category'" sortable="'categoryName'"> {{merchant.merchantName}}</td>
+						<td class="rowTd" data-title="'Action'" sortable="'phoneNo'"> {{merchant.phoneNo}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

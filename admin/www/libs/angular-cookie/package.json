@@ -1,0 +1,59 @@
+{
+  "name": "angular-cookie",
+  "version": "1.0.0",
+  "description": "angular module for accessing browser coockies",
+  "main": "angular-cookie.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "echo 'All ok'"
+  },
+  "keywords": [
+    "cookie"
+  ],
+  "author": {
+    "name": "Ivan Pusic"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-contrib-connect": "~0.5.0",
+    "require": "~0.5.0",
+    "npm": "~1.3.11",
+    "grunt-minified": "0.0.6",
+    "install": "~0.1.7",
+    "bower": "~1.3.9",
+    "grunt": "~0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ivpusic/angular-cookie.git"
+  },
+  "gitHead": "67eb8455445dfbf38d23f17e3a0b9af773b03d77",
+  "bugs": {
+    "url": "https://github.com/ivpusic/angular-cookie/issues"
+  },
+  "homepage": "https://github.com/ivpusic/angular-cookie#readme",
+  "_id": "angular-cookie@1.0.0",
+  "_shasum": "0fdbafbf24bb72ba5b6af4afd571a35a104d0eb5",
+  "_from": "angular-cookie@*",
+  "_npmVersion": "2.12.0",
+  "_nodeVersion": "0.12.2",
+  "_npmUser": {
+    "name": "centerstonetech",
+    "email": "ops@centerstonetech.com"
+  },
+  "dist": {
+    "shasum": "0fdbafbf24bb72ba5b6af4afd571a35a104d0eb5",
+    "tarball": "http://registry.npmjs.org/angular-cookie/-/angular-cookie-1.0.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "centerstonetech",
+      "email": "ops@centerstonetech.com"
+    }
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-cookie/-/angular-cookie-1.0.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

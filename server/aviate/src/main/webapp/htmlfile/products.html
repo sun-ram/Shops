@@ -1,0 +1,62 @@
+
+		<div class="row">
+				<div class="col-md-12">
+					<h3>PRODUCTS DETAILS</h3>
+					<!-- <a  href="#/cart"> -->
+						<span class="glyphicon glyphicon-shopping-cart pull-right" ng-click="badgeProduct();">
+							<span class="badge badge-sm up bg-danger">{{badgeSize}}</span>
+						</span>
+					<!-- </a> -->	
+				</div>
+		</div>
+
+		<div ng-include="'htmlfile/header.html'"></div>		
+		<div class="row" ng-show="productShow">
+				<div class="col-md-2 col-md-offset-5" ng-repeat="p in productsList">
+			            <ul class="aa list-group list-group-lg m-b-none">
+              <li>
+
+                <div>Product Name: {{p.productName}}</div>
+		<div>Product Price: {{p.totalprice}}</div>
+<div>Quantity :
+					<select class="" ng-model="quantity" ng-change="quantityCalc(quantity,p.price,$index)">
+					    <option>1</option>
+					    <option>2</option>
+					    <option>3</option>
+					    <option>4</option>
+					 </select>
+					</div>
+          		<button class="button pull-right" ng-click="addtoCart(p,quantity,$index);" ng-disabled="CartButton">{{cartText}}</button>
+                                <a href class="thumb-sm m-r">
+                  <img ng-src="{{p.imageURL}}" class="r r-2x">
+                </a>
+              </li>
+            
+             
+            </ul>																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																 
+				</div>																																																													
+		</div>														
+						
+			<div class="row" ng-show="badgeShow">			
+			<a href="#/address">
+			<button class="button pull-right">CheckOut</button>
+		</a>
+			</div>
+			<div class="row" ng-show="badgeShow">
+          			<h4 class="col-md-2 col-md-offset-5">Total Price : {{orderTotalPrice}}</h4>
+				<div class="col-md-2 col-md-offset-5" ng-repeat="p in productsCart" ng-show="p.size>=1">
+
+           <ul class="aa list-group list-group-lg m-b-none">
+              <li>
+
+					<div>Product Name: {{p.productname}}</div>
+					<div>Product Price: {{p.price}}</div>
+					<div>Quantity: {{p.quantity}}</div>
+          	<span>	<button class="button pull-right" ng-click="deleteProduct($index)">delete</button>
+              </span>
+              </li>
+            
+             
+            </ul>
+				</div>																																																													
+		</div>					

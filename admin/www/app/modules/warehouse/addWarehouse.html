@@ -1,0 +1,55 @@
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="shopList()">
+   <md-toolbar class=" md-default-theme">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">warehouse</h2>
+     <span class="close_box">
+     <ng-md-icon class="icon-white svgstyle" size="35" ng-if="warehouse.status==true" icon="close" ui-sref="app.warehouseDetails"></ng-md-icon>
+	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-if="warehouse.status==null" icon="close" ui-sref="app.warehouse"></ng-md-icon> 
+    </span>
+    </div>
+  </md-toolbar>
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+      <form name="warehouseForm" novalidate>
+      
+    <md-input-container>
+       <label><span style="color:red">*</span>Name</label>
+      <input ng-model="warehouse.warehouseName" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+       <label><span style="color:red">*</span>Description</label>
+      <input ng-model="warehouse.whDescription" ng-required="true">
+    </md-input-container>
+    
+    <md-input-container>
+       <label><span style="color:red">*</span>Address-1</label>
+      <input ng-model="warehouse.address" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+       <label><span style="color:red">*</span>Address-2</label>
+      <input ng-model="warehouse.address1" ng-required="true">
+    </md-input-container>    
+      <md-input-container>
+       <label><span style="color:red">*</span>City</label>
+      <input ng-model="warehouse.city" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+       <label><span style="color:red">*</span>State</label>
+      <input ng-model="warehouse.state" ng-required="true">
+    </md-input-container>
+      <md-input-container>
+       <label><span style="color:red">*</span>Country</label>
+      <input ng-model="warehouse.country" ng-required="true">
+    </md-input-container>
+      <md-input-container>
+       <label><span style="color:red">*</span>Postal Code</label>
+      <input ng-model="warehouse.postelcode" valid-number ng-required="true">
+    </md-input-container>
+    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    	<md-button class="md-raised md-success padd-50" ng-show="warehouse.warehouseId" ng-click="updateWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Update</md-button>
+    	<md-button class="md-raised md-success padd-50" ng-hide="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==true"  ng-click="warehouseDetails(warehouse)">Cancel</md-button>
+    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==null"  ui-sref="app.warehouse">Cancel</md-button>
+    </section>
+    </form>
+    </md-content>
+</md-card>

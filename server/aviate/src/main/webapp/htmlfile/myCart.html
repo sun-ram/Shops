@@ -1,0 +1,97 @@
+ <div  ng-include="'htmlfile/header.html'"></div> 
+ <div class="container-fluid wrapper" ng-controller="headercontroller" ng-init="checkout();getTax();getTaxDetails()">
+	<div class="row">
+	<div  ng-include="'htmlfile/navigation.html'" class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+ 	<div   class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+ 	<div class="col-sm-12  col-md-10 col-lg-10"  ng-controller="headercontroller">
+        	<div id="product-list" class="">
+            	<div class="row productsbg">
+                	<div class="col-xs-12">
+                    	<div class="row">
+                        	<div class="col-xs-6">
+                            	<h3 style=""color:red;">My Cart</h3>
+                            </div>
+                            <div class="col-xs-6 text-right backtoshop">
+                            	<a href="#"><i class="fa fa-chevron-left"></i> Back To Shopping</a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" ng-if="cartWindow">
+                    	<div class="row">
+                        	<div class="col-xs-12 col-sm-8">
+                            	<table class="table">
+                                	<tbody>
+                                    	<tr ng-repeat="items in cartItem">
+                                        	<td>
+                                            	<div class="proThumb">
+                                            	<a href="#/productDescription">
+                                            		<img class='img-responsive' ng-repeat="image in items.productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALFRONT'" ng-click="productDescriptionFun(items)" src={{image.imageUrl}}>
+                                            	</a>
+                                            	</div>
+                                            </td>
+                                            <td>
+                                            	<div class="cart-pro-desc">
+                                                	<div class="cart-desc truncate">{{items.productDetails.productName}}</div>
+                                                    <div class="cart-promesc">{{items.productDetails.measurement}} {{items.productDetails.productUnitOfMeasure.abbreviation}}</div>
+                                                    <strong>₹{{items.productDetails.productPrice.price}}</strong>
+                                                </div>
+                                            </td>
+                                            <td>
+                                            	<div class="mycartadd">
+                                                	<a ng-click="items.noOfQuantityInCart = items.noOfQuantityInCart + 1;addToCartFun(items);" href='' class="text-center">
+                                                		<i class="fa fa-chevron-up"></i>
+                                                	</a>
+                                                    <span class="text-center">{{items.noOfQuantityInCart}}</span>
+                                                    <a ng-show="items.noOfQuantityInCart > 0" ng-click="items.noOfQuantityInCart = items.noOfQuantityInCart - 1;addToCartFun(items);" href='' class="text-center">
+                                                    	<i class="fa fa-chevron-down"></i>
+                                                    </a>
+                                                </div>                                            
+                                            </td>
+                                            <td> 
+                                                <div class="totalqtyprice">
+                                                	<strong>₹{{items.subTotal}}</strong>
+                                                    <i class="glyphicon glyphicon-remove" style='color:#000; float:right' ng-click="deletefromCart(items, $index)"></i>
+                                                </div>
+                                            </td>   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" >
+                            <a ng-click="checkouts()" class='btn btn-theme btn-block btn-lg' >CHECKOUT NOW</a>
+                                <div class="totalprice">
+                                	<div class="pricerow">
+                                    	<strong class="pull-left">Subtotal</strong>
+                                        <strong class="pull-right">₹{{cartTotalAmount | number:2}}</strong>
+                                    </div>
+                                    <div class="pricerow" ng-repeat="taxDetail in taxDetails">
+                                    	<strong class="pull-left">{{taxDetail.taxName}}%</strong>
+                                        <strong class="pull-right">₹{{cartTotalAmount*(taxDetail.rate/100) | number:2}}</strong>
+                                    </div>
+                                    <div class="pricerow">
+                                    	<strong class="pull-left">Shipping Charges</strong>
+                                        <strong class="pull-right">₹{{shippingCharges | number:2}}</strong>
+                                    </div>
+                                    <div style="float:left;width:100%; height:1px;border-bottom:1px solid #ddd"></div>
+                                    <div class="pricerow pull-left">
+                                    	<strong class="pull-left">Total</strong>
+                                        <strong class="pull-right">₹{{grossAmount | number:2}}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="col-xs-12" ng-if="!cartWindow"> 
+                  	 <p>There is nothing in your cart yet. Maybe you want to add...</p>
+                     <ul class="list-unstyled underline">
+                    	<li ng-repeat="pl in productList | limitTo: 4"  >
+                    	 <a href="#/productDescription" ng-click="productDescriptionFun(pl)">{{pl.productDetails.productName}}</a>
+                    	</li>
+                    	
+                    </ul>
+                  </div>
+                </div>
+            </div>
+</div>
+</div>
+</div>

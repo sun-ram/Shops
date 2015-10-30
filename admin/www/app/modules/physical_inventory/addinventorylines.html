@@ -1,0 +1,86 @@
+<div ng-include="'htmlfile/admin/physicalinventoryheader.html'"></div>
+<div class="row well-sm">
+	<div class="col-sm-12 well-lg " >
+	<div ng-hide="true"class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm" ng-init="getInventory()">
+			<p>Inventory : {{inventoryName}}</p>
+		<select ng-hide="true" class="form-control" ng-model="inventoryId" ng-options="p.inventoryId as p.inventoryName for  p in inventoryList | orderBy:'p.inventoryName'">
+				<option value="">Select Inventory</option>
+			</select>
+		</div>
+		<div ng-hide="true" class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm" ng-init="warehouseBin(warehouseId)">
+			<p>Warehouse : {{warehouseName}}</p>
+			<select ng-hide="true" class="form-control" ng-model="warehouseId" ng-change="warehouseBin(warehouseId)" ng-options="p.warehouseId as p.warehouseName for  p in getWarehouseList | orderBy:'warehouseName'">
+				<option value="">Select Warehouse</option>
+			</select>
+		</div>
+		<div class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm" ng-init="getProducts()">
+			<p>Product *</p>
+			<select class="form-control" ng-model="productId" ng-change="productUom(productId)" ng-options="p.productId as p.productName for  p in productList | orderBy:'productName'">
+				<option value="">Select Product</option>
+			</select>
+		</div>
+		<div class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm">
+			<p>UOM *</p>
+			<select class="form-control" ng-model="uomId" ng-options="p.uomId as p.uomName for  p in productUomList | orderBy:'uomName'">
+				<option value="">Select Uom</option>
+			</select>
+		</div>
+		<div class="col-sm-0 col-xs-offset-0 col-xs-2 col-xs-offset-5 well-sm">
+			<p>Storage Bin *</p>
+			<select class="form-control" ng-model="storageBinId" ng-options="p.binId as p.binName for  p in warehouseBinList | orderBy:'binName'">
+				<option value="">Select Storage Bin</option>
+			</select>
+		</div>
+		<div class="col-sm-2 well-sm">
+			<p>Total Quantity *</p>
+			<input type="text" required="required" class="form-control t" placeholder="" ng-model="totalQuantity">
+		</div>
+		<!-- <div class="col-sm-3 well-sm">
+			<p>Booked Quantity *</p>
+			<input type="text" required="required" class="form-control t"
+				placeholder="" ng-model="bookedQuantity">
+		</div>
+		<div class="col-sm-3 well-sm">
+			<p>Available Quantity *</p>
+			<input type="text" required="required" class="form-control t"
+				placeholder="" ng-model="availableQuantity">
+		</div> -->
+		<div class="col-sm-2 well-sm">
+			<p>Description </p>
+			<input type="text" required="required" class="form-control t" placeholder="" ng-model="sbDesc">
+		</div>
+		<div class="col-sm-2 well-sm">
+			<p>&nbsp </p>
+			<button type="submit" class="btn btn-primary btn-block" aria-label="Left Align" ng-click="addInventoryLines()">Add</button>
+		</div>		
+	</div>
+<!-- 	<div class="row">
+		<div class="col-sm-12">
+			<div class=" col-xs-offset-2 col-xs-2 col-xs-offset-5">
+				<button type="submit" class="btn btn-primary btn-block" aria-label="Left Align" ng-click="addInventoryLines()">Add</button>				
+			</div>
+			<div class=" col-xs-offset-2 col-xs-2 col-xs-offset-5">				
+				<button type="submit" class="btn btn-primary btn-block"
+					aria-label="Left Align" ng-click="updatedQuantity()">Update Quantity</button>
+			</div>
+		</div>		
+	</div> -->
+</div>
+
+<div class="row nopadding" ng-init="getInventroyLineList()">
+	<div class="padd">
+		<div class="table-responsive">
+			<table ng-table="tableParams" class="table">
+				<tbody ng-repeat="p in listOfInventroyLine">
+					<tr id="tr{{p.inventoryLineId}}" ng-class-odd="'odd'" ng-class-even="'even'">
+						<td class="rowTd" data-title="'productName'" sortable="'productName'"> {{p.productDetails.productName}}</td>
+						<td class="rowTd" data-title="'quantity'" sortable="'quantity'"> {{p.quantity}}</td>
+						<td class="rowTd"><button type="button" ng-click="editInventory(p);" class="btn btn-info" aria-label="Left Align">Edit</button></td>
+						<td class="rowTd"><button type="button" ng-click="removeInventoryLine(p.inventoryLineId);" class="btn btn-info" aria-label="Left Align">Delete</button></td>
+					</tr>
+				</tbody>
+			</table>
+		<!-- <button type="button" ng-click="conformInventroy(inventoryId);" class="btn btn-info" aria-label="Right Align">Process</button></td> -->
+		</div>
+	</div>
+</div>

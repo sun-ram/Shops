@@ -1,0 +1,47 @@
+	<div id="loginwrapper" header_top" ng-controller="signupcontroller">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="login-container">
+                    	<button type="button" id="login-close" class="close" aria-hidden="true" ng-click="signupWindowClose()">       &times;    </button>
+                    	<h3 class="text-center">Signup To Mitosis Mart</h3>
+                    	<div class="login-form text-center">
+                         	<form class="form-inline" ng-submit="signUp()">
+                            	<div class="form-group">
+                                    <input type="email" ng-model="user.emailId" name="emailId" id="emailId" class="form-control" placeholder='Email Address' required oninvalid="InvalidMsg(this);" onchange="InvalidMsg(this);" required >
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" ng-model="user.password" name="password" id="password" class="form-control" pattern=".{4,}" placeholder='Password' required="required" required title="Enter a Min character is 4"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" class="form-control" pattern=".{4,}" placeholder='Confirm Password' required="required" required title="Enter a Min character is 4"/>
+                                </div>
+                                <button type="submit" ng-disabled="signUpForm.$invalid" class="btn btn-success">SIGN UP</button> 
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>	
+	
+	<script>
+	
+	function InvalidMsg(textbox) {
+	    if (textbox.value == '') {
+	        textbox.setCustomValidity('email address is required');
+	    }
+	    else if (textbox.validity.typeMismatch){
+	        textbox.setCustomValidity('please enter a valid email address');
+	    }
+	    else {
+	       textbox.setCustomValidity('');
+	    }
+	    return true;
+	}	
+		
+	
+	
+	</script>
+				

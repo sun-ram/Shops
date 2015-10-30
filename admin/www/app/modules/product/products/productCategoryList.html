@@ -1,0 +1,70 @@
+<div layout="row" layout-align="end" ng-init="productCategory()">
+
+ <md-input-container flex=20 style="height: 37px; padding: 2px 20px;">
+      <label>Category</label>
+
+<md-select placeholder="Select Category" ng-model="productCategorySelection" ng-change="totalJson = false;showPagination=false;">
+    <md-option ng-value="item" ng-repeat="item in products.category">    
+      {{item.categoryName}} 
+    </md-option>
+  
+</md-select>
+
+</md-input-container> 
+
+<md-input-container flex=30 md-theme="input" flex style="height: 72px;">
+            <label>&nbsp;</label>
+            <input style="border-bottom-color: #B0B0B0;" placeholder="search" ng-model="search"> 
+          </md-input-container>
+          
+            <ng-md-icon icon="search" style="line-height: 5;"></ng-md-icon>
+</div> 
+
+<div>
+
+ <div ui-tree="options">        
+  <div ui-tree-nodes ng-model="productCategorySelection.category">
+  <div ng-if="totalJson" ng-repeat="p in  productCategorySelection">
+    	<md-card ng-repeat="cat in productCategorySelection[$parent.$index].category | filter:search | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" ng-include="'categoryTree'" ui-tree-node ng-include="'categoryTree'" flex-gt-sm="90"  flex-gt-md="80" style="margin: 18px; padding: 20px"; ng-click="getProductTypeByCategoryId(p,$parent.$index);$event.stopPropagation();">
+    </md-card>
+    </div>
+    <md-data-table-pagination ng-show=showPagination md-limit="query.limit" md-page="query.page" md-total="{{Math.floor(productCategorySelection.length/query.limit)-productCategorySelection.length/query.limit?Math.floor(productCategorySelection.length/query.limit)+1:Math.floor(productCategorySelection.length/query.limit)}}" md-trigger="onpagechange"></md-data-table-pagination>
+    <md-card ng-if="!totalJson" ng-repeat="cat in productCategorySelection.category | filter:search | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" ng-include="'categoryTree'" ui-tree-node ng-include="'categoryTree'" flex-gt-sm="90"  flex-gt-md="80" style="margin: 18px; padding: 20px;" ng-click="getProductTypeByCategoryId(cat,$index);$event.stopPropagation();">
+    </md-card>
+     <md-data-table-pagination ng-show=!showPagination  md-limit="query.limit" md-page="query.page" md-total="{{Math.floor(productCategorySelection.category.length/query.limit)-productCategorySelection.category .length/query.limit?Math.floor(productCategorySelection.category.length/query.limit)+1:Math.floor(productCategorySelection.category.length/query.limit)}}" md-trigger="onpagechange"></md-data-table-pagination>
+  </div>
+</div>
+
+</div> 
+<!-- --------------------------------------------------- -->
+
+<script type="text/ng-template" id="categoryTree">
+<div ui-tree-handle>
+    
+	<a class="btn btn-success btn-xs" data-nodrag  data-nodrop ng-click="toggle1(this);$event.stopPropagation();" ng-model="typeButton" ><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+{{cat.categoryName}}
+  </div>
+<ol ui-tree-nodes="" ng-model="cat.productType">
+    <li ng-repeat="productType in cat.productType" ui-tree-node >
+		<div ui-tree-handle>
+		<a class="btn btn-success btn-xs" data-nodrag ng-click="getProductDetails(productType);totalProductType=false;$event.stopPropagation();">{{productType.productTypeName}}</a>
+		</div>
+    </li>
+  </ol>
+
+  <ol ui-tree-nodes="options" ng-model="cat.category" ng-class="{hidden: isCollapsed}">
+    <li ng-repeat="cat in cat.category" data-nodrag ui-tree-node ng-include="'categoryTree'">
+    </li>
+  </ol>
+
+
+
+</script>
+
+
+
+
+
+
+
+ 

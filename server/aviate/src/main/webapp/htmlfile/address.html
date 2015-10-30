@@ -1,0 +1,187 @@
+<div ng-include="'htmlfile/header.html'"></div>
+<div ng-include="'htmlfile/navigation.html'"
+	class="col-sm-3 col-md-2 col-lg-2 product-menu-list"></div>
+<div class="container-fluid wrapper" ng-init="getAddressList()">
+	<div class="row">
+		<div class="col-sm-12  col-md-10 col-lg-10">
+			<div class="contentbg">
+			<!-- 	<div ng-include="'htmlfile/checkoutheader.html'"></div> -->
+			<div class="row" >                
+              <div class="checkout-header">               
+               <ul class="list-group">
+               	<li class="list-group-item pull-left">
+                	<div class="select-address ">
+                	
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT ADDRESS">
+                	<a href="#/address"><div class="sa"></div></a></div>
+                	<span class="panel"></span></div> </li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-delivery " >
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT DELIVERY">
+                	<a href="" ng-click="addressToDeliverySlot(contactNo,deliveryAddress.address)" ><div class="sd"></div></a></div><span class="panel"></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-payment ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="REVIEW AND CONFIRMED">
+                	<a href="" ng-click = "selectedDate()" ><div class="src"></div></a></div><span class="panel"></span></div></li>
+                	<li class="list-group-item pull-left">
+                	<div class="select-rev-conform ">
+                	<div class="chechoutbox" data-toggle="popover" data-placement="top" data-content="SELECT PAYMENT">
+                	<div class="sp"></div></div></div></li>
+                	</ul>
+                	</div>
+			</div>
+				<div class="row">
+					<div class="col-xs-10 text-center ">
+						<span class="thin_txt">What Is Your Delivery Address?</span>
+					</div>
+					<div class="col-xs-2 text-right"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 selection">
+						<div class="card">
+							<div class="add_delevery front">
+								<div class="col-sm-12">
+									<div class="">
+										<div class="col-sm-6 col-xs-12">
+											<div class="">
+												<div class="inner_caption">
+													<span class="round">1</span> <span class="caption">
+														Add a Delivery Address </span>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div id="googleMap" style="width: 500px; height: 380px;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="delivery-address-container back">
+							<div class="del-addressfront ">
+								<div class='col-xs-12 col-sm-6 col-md-6 insert_address' ng-click = "selectedAddress(address,$index)" ng-repeat="address in customerAddressList">
+									<div ng-init="singleAddress(customerAddressList,address)">
+									<div class = "Add-addressfront" ng-class="{'Add-addressfront-active':isSelected==$index}">
+										<div class="inner-sty">
+											<div class="inner_front_address">
+												<span class="addimg pull-left"></span>
+												<div class="get-address pull-left">
+													<ul style="list-style: none">
+														<li><span>{{address.firstName}}</span> <span>{{address.lastName}}</span>
+														</li>
+													</ul>
+												</div>
+											</div>
+										<a href='' class="edit-btn pull-right" data-toggle="modal" data-target="#myModal" ng-click=editAddress(address)></a>
+										</div>
+										<div class="bottom_address well-lg pull-left inner-sty">
+											<div>{{address.address}}</div>
+											<div>{{address.city}} {{address.state}}</div>
+											<div>{{address.country}} {{address.postalCode}}</div>
+										</div>
+									</div>
+								</div>
+								</div>
+								<div class='col-xs-12 col-sm-6 col-md-6 insert_address'>
+									<div class='addnew-address text-center' data-toggle="modal" data-target="#myModal">
+										<a href='' ng-click = "deliveryAddress = {}">
+											<div class='gmap'></div>
+											<h4 class='text-center'>ADD NEW ADDRESS</h4>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<h4 ng-if = "!deliveryAddress.addressId" class="add_head">
+												<span class="fa fa-plus-circle step"></span> Add a Delivery address
+											</h4>
+											<h4 ng-if = "deliveryAddress.addressId" class="add_head">
+												<span class="fa fa-plus-circle step"></span> Edit Delivery address
+											</h4>
+											<p>We'll need your name to be able to address you for the delivery.</p>
+										</div>
+										<div class="modal-body">
+										<form  name = "delivery"  ng-submit="addAddress()" >
+												<div>
+													<div class="col-sm-12">
+														<div class="col-sm-6">
+															<div class="popup_style">
+																<label for="first_name">First name <em>*</em></label> 
+																<input name="firstname" class="form-control" ng-model="deliveryAddress.firstName" required>
+															</div>
+															<div class="popup_style">
+																<label for="last_name">Last name <em>*</em></label> 
+																<input name="lastname" class="form-control" ng-model="deliveryAddress.lastName" required>
+															</div>
+															<!-- <div class="popup_style">
+																<label for="company_name">Company Name (optional)</label> 
+																<input name="company_name" class="form-control" id="company_name" ng-model="companyName">
+															</div> -->
+															<div class="popup_style">
+																<label for="address">Address <em>*</em></label> 
+																<input name="address" class="form-control"ng-model="deliveryAddress.address" required>
+															</div>
+															<div class="popup_style">
+																<label for="city">City <em>*</em></label> 
+																<input name="city" class="form-control" ng-model="deliveryAddress.city" required>
+															</div>
+															<div class="popup_style">
+																<label for="State">State <em>*</em></label> 
+																<input name="state" class="form-control" ng-model="deliveryAddress.state" required>
+															</div>
+														</div>
+														<div class="col-sm-6">
+															<div class="popup_style">
+																<label for="country">Country <em>*</em></label> 
+																<input name="country" class="form-control" ng-model="deliveryAddress.country" required>
+															</div>
+															<div class="popup_style">
+																<label for="PostalCode">PostalCode <em>*</em></label> 
+																<input name="PostalCode" class="form-control" ng-model="deliveryAddress.postalCode" required>
+															</div>
+															<label for="instructions">Address specific instructions (optional)</label>
+															<textarea type="text" ng-model="deliveryAddress.addressSpecificInstruction" class="form-control" rows="7" placeholder="E.g. Please call my contact number instead of pressing the doorbell when you have arrived at my address." ></textarea>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button ng-if = "deliveryAddress.addressId" type="button" ng-click="deleteAddress()" class="btn btn-success" data-dismiss="modal">DELETE</button>
+														<button ng-if = "!deliveryAddress.addressId" type="submit" class="btn btn-success">ADD</button>
+ 														<button ng-if = "deliveryAddress.addressId" type="submit" class="btn btn-success">UPDATE</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='col-xs-12 col-sm-6 col-md-6 insert_address'>
+					<div class='text-center'>
+					<label for="first_name">Contact Number<em>*</em></label>
+						<input name="lastname" class="form-control" ng-model="contactNo"  valid-number>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12  col-md-10 col-lg-10"></div>
+					<div class="modal-footer">
+						<a href="#myCart" type="button" class="btn btn-default">Back</a>
+						<button type="button" ng-click="addressToDeliverySlot(contactNo,deliveryAddress.address)" class="btn btn-success">Next</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function() {
+		$("[data-toggle='popover']").popover();
+	});
+</script>

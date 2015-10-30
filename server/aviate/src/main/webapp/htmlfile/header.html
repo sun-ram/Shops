@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color: rgb(238, 238, 238);">
+<div ng-controller="headercontroller"  ng-init="selectedShop(superMarketId,selectedStore);getTax();getTaxDetails();getShippingCharges();">
+<div ng-show="login">
+	<div ng-if="login" ng-include="'htmlfile/login.html'" ></div>
+</div>
+<div ng-show="signup">
+	<div ng-include="'htmlfile/signup.html'"></div>
+</div>
+	<div class="container-fluid navbar navbar-inverse">
+    	<div class="row">
+        	<div class="col-xs-12 col-sm-3">
+                <div class='navbar-form-container'><img src='images/companyLogo.png' class="header-logo"></div>
+                <div class='navbar-form-container'><img src='images/Jayam_logo.jpg' class="header-logo"></div>
+                <!-- <div class='navbar-form-container'>
+                    <input type="text" ng-model="product"  placeholder="Search" ng-change="searchBox(product)">
+                    <input type="submit" value='SEARCH'/>
+                </div>   --> 
+            </div>    
+            <div ng-show="!list" class="col-xs-12 col-sm-9 nav-shortnavi-container">
+                <ul class="nav-shortnavi">
+                  <li><a data-target="#logoutpopup" data-toggle="modal" href="#"><i class="fa fa-map-marker"></i><span class='hidden-sm hidden-xs'>Change Store</span></a></li>
+                    <li ng-if="cartTotalAmount>0"><a href="#/myCart" ng-click="getCartListFromDB();myCartTotalPriceCalculation()"><i class="fa fa-shopping-cart"></i><span class='hidden-xs hidden-sm'>My Cart <span  style="font-weight:bold">₹{{cartTotalAmount | number:2}}</span></span></a></li>
+                    <li ng-if="!cartTotalAmount"><a href="#/myCart" ng-click="getCartListFromDB();myCartTotalPriceCalculation()"><i class="fa fa-shopping-cart"></i><span class='hidden-xs hidden-sm'>My Cart</span></a></li>                    
+                    <li><a data-target="#signuppopup" data-toggle="modal"  href=''><i class="fa fa-pencil-square-o"></i><span class='hidden-xs hidden-sm'>Sign Up</span></a></li>
+                    <li><a data-target="#loginpopup" data-toggle="modal" href='' id="userlogin"><i class="fa fa-sign-in"></i><span class='hidden-xs hidden-sm'>Login</span></a></li>
+                </ul>  
+            </div>
+            <div ng-show="list" class="col-xs-12 col-sm-9 nav-shortnavi-container">
+                <ul class="nav-shortnavi">
+                  <li><a data-target="#logoutpopup" data-toggle="modal" href="#"><i class="fa fa-map-marker"></i><span class='hidden-sm hidden-xs'>Change Store</span></a></li>
+                    <li><a href="#/myList" ng-click="myList()"><!-- <i class="fa fa-question-circle"></i> --><span class='hidden-sm hidden-xs'>My List</span></a></li>
+                    <li ng-if="cartTotalAmount>0"><a href="#/myCart" ng-click="getCartListFromDB();myCartTotalPriceCalculation()"><i class="fa fa-shopping-cart"></i><span class='hidden-xs hidden-sm' >My Cart <span  style="font-weight:bold">₹{{cartTotalAmount | number:2}}</span></span></a></li>
+                    <li ng-if="!cartTotalAmount"><a href="#/myCart" ng-click="getCartListFromDB();myCartTotalPriceCalculation()"><i class="fa fa-shopping-cart"></i><span class='hidden-xs hidden-sm'>My Cart</span></a></li>                    
+                     <li><a href="#"><i class="fa fa-pencil-square-o"></i><span class='hidden-xs hidden-sm'>Hi,{{usernames}}</span></a></li>
+                    <li><a ng-click="logout()"href='' id="userlogin"><span class='hidden-xs hidden-sm'>LogOut</span></a></li>
+                </ul>  
+            </div>
+        </div>
+        
+        <div class="modal fade" id="loginpopup">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <button type="button" ng- click="deliveryAddress = {}" class="close" data-dismiss="modal" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+    </button>
+   <h3 class="text-center">Login To Mitosis Mart</h3>
+    <div class="login-form text-center">
+    <span ng-hide="loginShow">FORGET PASSWORD?</span>
+     <form ng-show="loginShow" class="form-inline">
+      	<div class="form-group">
+         <input type="email" ng-model="user.emailId" name="emailId" id="emailId" class="form-control" placeholder='Email Address'  oninvalid="InvalidMsg(this);" onchange="InvalidMsg(this);" ng-required="true"/>
+        </div><br/><br/>
+        
+          <div class="form-group">
+         <label for="password" class="sr-only">Email Address</label>
+          <input  type="password" ng-model="user.password" name="emailId" id="password" class="form-control" pattern=".{4,}" placeholder='Password' required="required" required title="Enter a Min character is 4"/></div><br/><br/>
+         <button type="submit" class="btn btn-success" ng-click="loginfunc()" data-dismiss="modal" >LOG IN</button> 
+          <button ng-show="loginShow" type="button" class="btn btn-success" ng-click="loginShow = !loginShow">FORGET PASSWORD?</button> 
+    </form> 
+    <form class="form-inline" style="padding-top: 12px;">
+          	
+	<div  ng-hide="loginShow" style='width:100%; margin-bottom:5px;'>
+	  <div  class="inner-addon right-addon" style='margin:0px auto; width:200px;'>
+      <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" id='textLoader' style='display:none;'></i>
+       	<input type="email" ng-model="user.emailId" name="emailId" class="form-control" placeholder='Email Address'  oninvalid="InvalidMsg(this);" onchange="InvalidMsg(this);" required/>
+     </div>
+   </div>
+	<button  ng-hide="loginShow" type="submit" class="btn btn-success" ng-click="forGetPasswordFunction()">Submit</button>
+    </form>
+                            
+                            
+    
+       
+      </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div class="modal fade" id="signuppopup">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <button type="button" ng-click="deliveryAddress = {}" class="close" data-dismiss="modal" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="text-center">Signup To Mitosis Mart</h3>
+   
+    <div class="login-form text-center">
+       <form class="form-inline">
+       	<div class="form-group">
+          <input type="email" ng-model="user.emailId" name="emailId" id="emailId" class="form-control" placeholder='Email Address' required oninvalid="InvalidMsg(this);" onchange="InvalidMsg(this);" required >                      
+           </div><br/><br/>
+             <div class="form-group">
+              <input type="password" ng-model="user.password" name="password" id="password" class="form-control" pattern=".{4,}" placeholder='Password' required="required" required title="Enter a Min character is 4"/>
+             </div><br/><br/>
+            <div class="form-group">
+           <input type="password" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" class="form-control" pattern=".{4,}" placeholder='Confirm Password' required="required" required title="Enter a Min character is 4"/>
+         </div><br/><br/>
+        <button type="submit" ng-disabled="signUpForm.$invalid"  ng-click="signUp()" class="btn btn-success" data-dismiss="modal">SIGN UP</button> 
+       </form> 
+      </div>
+   </div>
+  </div>
+ </div>
+ </div>
+ 
+ <div class="modal fade" id="logoutpopup">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <button type="button" ng-click="deliveryAddress = {}" class="close" data-dismiss="modal" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="text-center">Are you sure you want to change store?</h4>
+    <center><button class="btn btn-success" ng-click="changeStore()">YES</button> </center>
+   </div>
+  </div>
+ </div>
+ </div>
+ 
+</div>
+        
+        
+    </div>
+    
+    
+    <script>
+	
+	function InvalidMsg(textbox) {
+	    if (textbox.value == '') {
+	        textbox.setCustomValidity('email address is required');
+	    }
+	    else if (textbox.validity.typeMismatch){
+	        textbox.setCustomValidity('please enter a valid email address');
+	    }
+	    else {
+	       textbox.setCustomValidity('');
+	    }
+	    return true;
+	}	
+</script>
+    
+
+
+
+</body>
+</html>

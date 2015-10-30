@@ -1,0 +1,83 @@
+<md-card flex-gt-sm="90" flex-gt-md="80" >
+ <md-toolbar ng-hide="warehouse.isprocessed" class=" md-default-theme">
+	<div class="md-toolbar-tools" layout="row">
+  		<h2 layout-align="start">Add Inventory Lines </h2>
+    	<span class="flex"></span>
+      <span class="close_box" ui-sref="app.physical_inv">
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon> </span>   
+    </div>
+   </md-toolbar>
+   
+   <div ng-hide="warehouse.isprocessed" layout="row" layout-sm="column" ng-init="getProducts();" >
+        <md-input-container layout-padding flex class="marg-t10 mgn-b10">
+	      <label>Product<span style="color:red">*</span></label>
+	      <md-select ng-model="physicalinventorylineDetail.productId" ng-change="productUom(physicalinventorylineDetail.productId)" required>
+	     <md-option ng-value="{{product.productId}}" ng-repeat="product in productData">{{product.productName}}</md-option>
+	      </md-select>		      
+	    </md-input-container>
+	    <md-input-container layout-padding flex class="marg-t10 mgn-b10">
+	      <label>UOM<span style="color:red">*</span></label>
+	    <md-select ng-model="physicalinventorylineDetail.uomId" required>
+	     <md-option ng-value="{{uom.uomId}}" ng-repeat="uom in productUomList">{{uom.uomName}}</md-option>
+	     </md-select>		      
+	    </md-input-container>
+	    <md-input-container layout-padding flex class="marg-t10 mgn-b10">
+	      <label>Storage Bin<span style="color:red">*</span></label>
+	      <md-select ng-model="physicalinventorylineDetail.storageBinId" required>
+	     <md-option ng-value="{{bin.binId}}" ng-repeat="bin in binData">{{bin.binName}}</md-option>
+	      </md-select>		      
+	    </md-input-container>
+        <md-input-container layout-padding flex class="marg-t10 mgn-b10">
+          <label>Total Quantity</label>
+          <input type="text" ng-model="physicalinventorylineDetail.totalQuantity" required/>
+        </md-input-container> 
+        <md-input-container layout-padding flex class="marg-t10 mgn-b10">
+        <label>Description</label>
+		    <textarea id="textarea1" rows="2" style="border: 1px solid #ddd;" aria-label="Description" class="materialize-textarea" ng-model="physicalinventorylineDetail.sbDesc"></textarea>
+		</md-input-container> 
+		<md-input-container class="marg-t10 mgn-b10">
+			<md-button class="md-success" ng-hide = "isEditInventoryLines" ng-click='addInventoryLines();'>Add</md-button> 
+			<md-button class="md-icon-button md-primary" ng-show = "isEditInventoryLines" ng-click='addInventoryLines();'>
+			<ng-md-icon icon="done" size="20" class="icons hash_color"></ng-md-icon>
+			</md-button>
+			<md-button class="md-icon-button md-primary" ng-show = "isEditInventoryLines" ng-click='editCancel();'>
+			<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
+			</md-button>    
+		</md-input-container>      
+	</div>
+         
+    <md-divider></md-divider>
+    <md-toolbar class=" md-default-theme" style="background-color: #83888C">
+    <div layout="row" layout-sm="column">    
+    	<span flex layout-padding class="marg-t10 mgn-b10">Product</span>
+    	<span flex layout-padding class="marg-t10 mgn-b10">Quantity</span>
+    	<span flex layout-padding class="marg-t10 mgn-b10">Description</span>
+    	<span layout-padding layout-align="end center">
+            <md-button class="md-icon-button md-primary" ng-click="" aria-label="Edit">
+  			</md-button>
+         	<md-button class="md-icon-button md-primary" ng-click="" aria-label="Delete">
+         	</md-button>
+         </span>   
+    </div>
+    
+          <span class="close_box" ui-sref="app.physical_inv">
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon> </span> 
+    </md-toolbar>
+    
+       <div layout="row" layout-sm="column" ng-repeat="inventoryLines in listOfInventroyLine">    
+    	<span flex layout-padding class="marg-t10 mgn-b10">{{inventoryLines.productDetails.productName}}</span>
+    	<span flex layout-padding class="marg-t10 mgn-b10">{{inventoryLines.quantity}}</span>
+    	<span flex layout-padding class="marg-t10 mgn-b10">{{inventoryLines.description}}</span> 
+    	<span layout-padding layout-align="end center">
+            <!-- <md-button ng-hide="warehouse.isprocessed" class="md-icon-button md-primary" ng-click="editObjectTransfer(inventoryLines);" aria-label="Edit">
+    			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
+  			</md-button> -->
+         	<md-button ng-hide="warehouse.isprocessed" class="md-icon-button md-primary" ng-click="removeInventoryLine(inventoryLines.inventoryLineId);" aria-label="Delete">
+         		<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
+         	</md-button>
+         </span>   
+   </md-card-content>
+    </div>
+       
+      
+</md-card>

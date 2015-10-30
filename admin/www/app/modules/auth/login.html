@@ -1,0 +1,52 @@
+<style>
+svg{width: 70%;}
+.btn-lgcolor{background-color:#73A542;}
+.text-white{color:#fff !important;}
+.ft-14{font-size:14px;}
+</style>
+
+
+<div layout-align="start center" class="animate img-login" style="width:100%;min-width:100%;max-width:100%;height:100% !important;"  layout="column" class="colorNested ">
+   <md-card-content layout="row">
+	 <h2 class="md-display-2 text-white">Admin Panel</h2>
+   </md-card-content>   
+   <div class="" layout="row" layout-align="center center" layout-wrap >
+     <md-card layout="column" layout-padding>
+     <form name="login" novalidate>
+        <div layout-padding><div layout-padding>
+	      <md-input-container class="" >
+		      <label><md-icon md-svg-src="images/svg/at5.svg" class="name"></md-icon>Email</label>
+		      <input name="emailId" ng-model="user.emailId" type="text" ng-enter="signIn();" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+		      <div ng-messages="login.emailId.$error">
+                   <div ng-message="required" ng-show="(emailRequired && !user.emailId) || (login.emailId.$error.required && !login.emailId.$pristine)" style="color:red;">Email Id is required.</div>
+                   <div ng-message="required" ng-show="login.emailId.$error.email || (!login.emailId.$error.required && !login.emailId.$valid)" style="color:red;">Email Invalid.</div>
+               </div>
+		  </md-input-container>
+			<md-input-container class="" >
+				<label><md-icon md-svg-src="images/svg/block31.svg" class="name"></md-icon>Password</label>
+			      <input ng-model="user.password" name="password" id="password" type="password" ng-enter="signIn();" ng-required="true">
+				     <div ng-messages="login.password.$error" ng-show="(passwordRequired && !user.password) || (login.password.$invalid && !login.password.$pristine)">
+			      <div>Password is required.</div>
+			    </div>
+    		</md-input-container>
+			<div layout="row">
+		      <div>
+		       <md-checkbox  class="md-primary " ng-model="data.cb1" aria-label="Checkbox 1">
+		          	<span>Remember me</span>
+		        	</md-checkbox>
+		      </div>
+		      <div>
+		       <md-button  class="md-primary">forgot password?</md-button>
+		      </div>     
+		    </div> 	
+	      	<div layout layout-row style="padding-top:15px;">
+			   <span flex></span>
+	        		<md-button flex class="md-raised md-primary  text-white" ng-disabled="login.emailId.$invalid || login.password.$invalid"  ng-click="signIn()">Login &nbsp;<md-icon md-svg-src="images/svg/news37.svg" class="name"></md-icon> </md-button>
+	        	<span flex></span>
+	      	</div>
+	      	</div></div>
+	      </form>
+	   </md-card>				
+	</div>
+	
+</div>
