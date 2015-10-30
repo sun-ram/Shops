@@ -334,3 +334,6 @@ md-backdrop{visibility: hidden ! important;}
 }
 .toptool{transition: 0.3s ease-in all; width: calc(100% - 304px)}
 .toptoolrem{width: 100%;}
+ul.nav-menu1{margin-left: 210px ! important;}
+.merch-logo{position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;}
+.merch-marg{left: 178px ! important;}
