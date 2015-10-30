@@ -11,6 +11,16 @@ angular.module('aviate.controllers')
 			}else {
 				$rootScope.geoLocation.findlocation=false;
 			};
+			if(store!=undefined || store!=null){
+			if(store.merchantLogo!= undefined && store.merchantLogo!=null){
+			$rootScope.logoadd="merch-marg";
+			$rootScope.logoadd1="nav-menu1";
+			}
+			else{
+				$rootScope.logoadd="merch-logo";
+				$rootScope.logoadd1="nav-menu";
+			}
+			}
 			
 			$scope.images = [
 			                 {
