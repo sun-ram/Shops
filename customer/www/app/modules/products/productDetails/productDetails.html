@@ -1,6 +1,7 @@
 <div style="width:100%;height:100%;position: relative;" class="bg_gray">
    <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
     <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
+      <h4>{{productDetails.productName}}</h4>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel();">
         <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
@@ -56,7 +57,7 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="productDetails.noOfQuantityInCart"><span ng-show="productDetails.noOfQuantityInCart > 0">{{productDetails.noOfQuantityInCart}}</span></div>
-						<div ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" flex="65" style="padding-top: 20px;padding-left: 25px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" flex="65" style="padding-top: 20px;padding-left: 0px; cursor: pointer;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
 					</div>
 				</div>	
 
@@ -118,3 +119,4 @@
 	.text-primary{color:#72a308;}
 
 </style>
+ 
