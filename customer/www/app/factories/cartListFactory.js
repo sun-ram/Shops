@@ -21,7 +21,7 @@ angular.module('aviate.factories')
 				MyCartServices.addToCart(cartDetails).then(function(data){
 					console.log('Add To My Cart in factory');
 					factory.myCartTotalPriceCalculation();
-					MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+					MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
 						factory.myCartTotalPriceCalculation();
 						console.log('Get To My Cart in factory');
 					});
@@ -64,10 +64,13 @@ angular.module('aviate.factories')
 			};
 			MyCartServices.removeCartProduct(cartDetails).then(function(data){
 				console.log('get Mylist success in Main Nav');
-				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
+					factory.myCartTotalPriceCalculation();
+					$rootScope.myCart.cartItem.splice(_index, 1);
 					console.log('get Cart in factory');
 				});
 			});
+			
 		}else{
 			$rootScope.myCart.cartItem.splice(_index, 1);
 			factory.myCartTotalPriceCalculation();
