@@ -1,9 +1,9 @@
-<div style="width:100%;height:100%;position: relative;top: -70px;" class="bg_gray">
-   <div style="height:280px;width:100%;position:relative;">
+<div style="width:100%;height:100%;position: relative;" class="bg_gray">
+   <section style="height:280px;width:100%;position:relative;">
         <img ng-src="assets/images/banner1.png" alt="" src="assets/images/banner1.png" style="width: 100%;height: 100%;">        
        
         <h1 class="md-display-2" style="position:absolute;color:#fff;top: 25%;left: 40%;"><!-- Fresh Fruits --></h1>
-    </div>
+    </section>
     <section style="background-color:#ddd;">
 <div layout="column" layout-margin layout-fill  >
  
@@ -83,7 +83,7 @@
     <div layout="column" style="width:94%; margin:0px auto; ">
     <div flex layout="row" style="padding:10px 8px;">
     <div layout="row" layout-wrap flex >
-         <div ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
+         <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 			<div class="pro-box" flex layout="column">
 				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
 					<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
