@@ -46,10 +46,10 @@ body, html {
 }
 </style>
 
-<div layout="column" style="width: 90%; margin: 0px auto;"
+<div layout="column" style="width: 90%; margin: 0px auto;margin-top:80px;"
 	ng-init="getMyList()">
 
-	<md-card> <md-card-content>
+	<md-card > <md-card-content>
 	<div flex layout="row" style="border-bottom: 2px solid #eeeeee;">
 		<div flex>
 			<h2 class="md-headline">My List</h2>
@@ -59,15 +59,16 @@ body, html {
 
 	<!-- iterator starts -->
 
-	<div flex layout="row" ng-repeat="product in myListProducts.listItem"
+	<div flex layout="row" layout-sm="column" ng-repeat="product in myListProducts.listItem"
 		style="border-bottom: 2px solid #eeeeee; padding: 10px 0px 0px 0px;">
 
-		<div flex="15">
+		<!-- <div flex="auto" flex-sm="grow">
+			
 			<img src="{{product.products.productImages[1].imageUrl}}"
 				style="width: 120px; padding: 5px;"
 				ng-click="productDetail(product.products);" />
 		</div>
-		<div flex="50" layout="column">
+		<div flex="auto" flex-sm="grow" layout="column">
 			<div class="md-title">{{product.products.productName}}</div>
 			<div class="md-caption">{{product.products.measurement}}
 				{{product.products.productUnitOfMeasure.abbreviation}}</div>
@@ -79,10 +80,10 @@ body, html {
 				ng-click="removeFromMyList(product);"> <md-icon
 				md-svg-icon="assets/img/checkout/close1.svg"></md-icon> </md-button>
 		</div>
-		<div flex="20" layout="row" layout-align="end center">
-			<!-- <div style="width:200px;"" layout="row">
+		<div flex="auto" flex-sm="grow" layout="row" layout-align="end center">
+			<div style="width:200px;"" layout="row">
 						<md-button class="md-raised md-primary bg-primary" style="background-color:#72a308 !important; padding:10px 30px; ">Add To Cart</md-button>
-					</div> -->
+					</div>
 			<div style="width: 200px;" flex layout="row" class="addtocart-btn">
 				<div flex="20" layout="column" layout-align="center center"
 					class="bg-primary">
@@ -110,12 +111,68 @@ body, html {
 					flex="60" style="padding-top: 14px; padding-left: 10px;"
 					class="bg-white text-primary">
 					Add To Cart
-					<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> -->
+					<md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon>
 				</div>
 			</div>
+		</div> -->
+		<div flex layout="row" >
+		 <div class="mylistsliderlist_img">
+		      	<img ng-src="{{product.products.productImages[1].imageUrl}}" class="md-avatar" alt="{{item.who}}" />
+		      </div>
+		        
+		        <div class="md-list-item-text mg_t15" layout="column">
+		        	<h4 class="marg-5 md-title t">{{product.products.productName}}</h4>
+					<div class="md-caption">
+						<span layout-padding>{{product.products.measurement}}
+						{{product.products.productUnitOfMeasure.abbreviation}}</span>
+						<span layout-padding class="md-subhead">{{product.products.productPrice.price}}</span>
+		      </div>		        
+		    </div>
+		 </div>
+		        <div flex  layout="row" layout-align="center center">
+		<!-- 	<div style="width:200px;"" layout="row">
+						<md-button class="md-raised md-primary bg-primary" style="background-color:#72a308 !important; padding:10px 30px; ">Add To Cart</md-button>
+					</div> -->
+			<div style="width: 200px;" layout="row" class="addtocart-btn">
+				
+					<div layout="column" layout-align="center center" style="padding: 3px;"
+					class="bg-primary">
+						<md-icon ng-hide="product.products.noOfQuantityInCart > 0"
+							style="height:30px; width:30px; color:red;"
+							md-svg-src="assets/img/icon/basket-btn-icon.svg"
+							ng-click="product.products.noOfQuantityInCart = product.products.noOfQuantityInCart + 1;addToCart(product.products)"></md-icon>
+					<div>
+						<md-icon ng-show="product.products.noOfQuantityInCart > 0"
+							style="width:20px;  " md-svg-src="assets/img/icon/up-arrow.svg"
+							ng-click="product.products.noOfQuantityInCart = product.products.noOfQuantityInCart + 1;addToCart(product.products)"></md-icon>
+					</div>
+					<div>
+						<md-icon ng-show="product.products.noOfQuantityInCart > 0"
+							style="width:20px;  " md-svg-src="assets/img/icon/down-arrow.svg"
+							ng-click="product.products.noOfQuantityInCart = product.products.noOfQuantityInCart - 1;addToCart(product.products)"></md-icon>
+					</div>
+				</div>
+				
+				<div flex layout="row">
+				<div layout="column" layout-align="center center" layout-padding
+					class="bg-primary" ng-model="product.products.noOfQuantityInCart">
+					<span ng-show="product.products.noOfQuantityInCart > 0">{{product.products.noOfQuantityInCart}}</span>
+				</div>
+				<div
+					ng-click="product.products.noOfQuantityInCart = product.products.noOfQuantityInCart + 1;addToCart(product.products)"
+					flex="80" style="padding-top: 14px; padding-left: 5px;"
+					class="bg-white text-primary">
+					Add To Cart
+					<md-icon style="height:20px; width:20px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon>
+				</div>
+			</div>
+			</div>
 		</div>
+		<div  layout="row" layout-align="end center">
+		         <md-icon aria-label="Menu" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 35px;"></md-icon>
+		         <md-divider ></md-divider>
 	</div>
-
+</div>
 
 	<!-- iterator ends --> </md-card-content>
 	<div class="md-actions">
