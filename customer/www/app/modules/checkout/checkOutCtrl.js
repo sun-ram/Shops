@@ -6,7 +6,9 @@ angular.module('aviate.controllers')
 
 	$scope.addresses = [];
 	$scope.delivery = {
-			date:null
+			date: new Date(),
+			startTime : 10,
+			endTime : 12
 	};
 	$scope.currentOrder = CheckOutServices.currentOrder;
 	$scope.timeLineStatus = CheckOutServices.timeLineStatus;
@@ -218,13 +220,14 @@ angular.module('aviate.controllers')
 			}
 			break;
 		case "deliverySchedule":
-			if ($scope.delivery.time && $scope.delivery.date) {
-				$scope.currentOrder.delivery.time = $scope.delivery.time;
+			//if ($scope.delivery.time && $scope.delivery.date) {
+				$scope.currentOrder.delivery.startTime = $scope.delivery.startTime;
+				$scope.currentOrder.delivery.endTime = $scope.delivery.endTime;
 				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd-MM-yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
  				$scope.currentOrder.items = $rootScope.myCard;
 				$scope.timeLineStatus.deliveryDate = true;
 				$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
-			} else {
+			/*} else {
 				if($scope.delivery.date == null)
 					{
 				$mdDialog.show(
@@ -252,7 +255,7 @@ angular.module('aviate.controllers')
 					);
 
 					}
-			}
+			}*/
 			break;
 		case "verification":
 			$scope.timeLineStatus.verification = true;
@@ -295,5 +298,36 @@ angular.module('aviate.controllers')
     };
     
 	console.log("card items",$rootScope.myCard);
+	
+	$scope.decrementTime = function(){
+		if($scope.delivery.startTime == 10){
+			return;
+		}
+		if($scope.delivery.startTime == 2)
+			$scope.delivery.startTime = 12;
+		else
+			$scope.delivery.startTime = $scope.delivery.startTime - 2;
+		
+		if($scope.delivery.endTime == 2)
+				 $scope.delivery.endTime = 12;
+		else	
+			$scope.delivery.endTime = $scope.delivery.endTime - 2;
+	};
+	
+	$scope.incrementTime = function(){
+		if($scope.delivery.endTime == 10){
+			return;
+		}
+		if($scope.delivery.startTime == 12)
+				$scope.delivery.startTime = 2;
+		else
+			$scope.delivery.startTime = $scope.delivery.startTime + 2;
+		
+		if($scope.delivery.endTime == 12)
+				 $scope.delivery.endTime = 2;
+		else	
+			$scope.delivery.endTime = $scope.delivery.endTime + 2;
+	};
+	
 }
 ]);

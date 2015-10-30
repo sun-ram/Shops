@@ -27,7 +27,7 @@
                 </div>
                 <div class="address-holder">
                     <h3 style="color:#FB8C00">DELIVERY</h3>
-                    <p>{{currentOrder.delivery.time}}&nbsp;&nbsp;{{currentOrder.delivery.date}}</p>
+                    <p>{{currentOrder.delivery.startTime}}:00<span><span ng-show="delivery.startTime == 10"> AM</span><span ng-show="delivery.startTime != 10"> PM</span></span> - {{currentOrder.delivery.endTime}}:00 PM &nbsp;&nbsp;{{currentOrder.delivery.date}}</p>
                     <p></p>
                 </div>
                 <div flex></div>
