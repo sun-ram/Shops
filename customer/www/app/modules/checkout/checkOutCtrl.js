@@ -220,8 +220,7 @@ angular.module('aviate.controllers')
 		case "deliverySchedule":
 			if ($scope.delivery.time && $scope.delivery.date) {
 				$scope.currentOrder.delivery.time = $scope.delivery.time;
-				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd/MM/yyyy');//new Date($scope.delivery.date);
-				$scope.currentOrder.items = $rootScope.myCard;
+				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd-MM-yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
 				$scope.timeLineStatus.deliveryDate = true;
 				$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
 			} else {
