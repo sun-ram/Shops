@@ -189,6 +189,7 @@ height: 40px;
 
 .nav-bar-subheader{ padding:10px 0px; background-color:rgba(0,0,0,0.3) !important}
 ul.nav-menu{ width:400px; padding:10px; margin-left:120px; display:inline; list-style-type:none;}
+ul.nav-menu1{margin-left: 210px ! important;}
 ul.nav-menu li{ width:auto; display:inline; list-style-type: none; padding:10px; list-style-type:none;}
 
 .triangle ::after {
@@ -299,3 +300,5 @@ md-backdrop{display: none ! important;}
 .navigate-right{padding-right: 304px;  transition: 0.3s ease-in all;}
 .remove{padding-left: 0px;}
 .remove-right{padding-right: 0px;}
+.merch-logo{position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;}
+.merch-marg{left: 178px ! important;}
