@@ -1,5 +1,5 @@
 angular.module('aviate.factories')
-.factory('MyCartFactory', function ($rootScope, ipCookie, MyCartServices) {
+.factory('MyCartFactory', function ($rootScope, ipCookie, MyCartServices,toastr,CONSTANT) {
 
 	var _cart, 
 	_isExistInCart, 
@@ -16,6 +16,7 @@ angular.module('aviate.factories')
 						price : _product.productPrice.price, 
 						quantity : _product.noOfQuantityInCart
 				}
+				toastr.success(CONSTANT.SUCCESS_CODE.ADDPRODUCT);
 				factory.myCartTotalPriceCalculation();
 				MyCartServices.addToCart(cartDetails).then(function(data){
 					console.log('Add To My Cart in factory');
@@ -26,6 +27,7 @@ angular.module('aviate.factories')
 					});
 				})
 			}else{
+				toastr.success(CONSTANT.SUCCESS_CODE.ADDPRODUCT);
 				for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
 					if($rootScope.myCart.cartItem[i].product.productId == _product.productId){
 						$rootScope.myCart.cartItem[i].quantity = _product.noOfQuantityInCart;

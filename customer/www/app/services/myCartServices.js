@@ -31,7 +31,7 @@ angular.module('aviate.services')
 					localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 					d.resolve($rootScope.myCart );
 				} else {
-					toastr.error(result.errorString);
+					/*toastr.error(result.errorString);*/
 				}
 			}else{
 				toastr.error(err.errorCode);
@@ -47,6 +47,7 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
+					toastr.success(CONSTANT.SUCCESS_CODE.REMOVEPRODUCT);
 				} else {
 					toastr.error(result.errorString);
 				}

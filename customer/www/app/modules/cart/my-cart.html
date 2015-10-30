@@ -36,17 +36,18 @@
 					<div  class="md-subhead" style="margin-top:10px;">Rs.{{product.product.productPrice.price }}</div>
 				</div>
 				<div flex="20" layout="row" layout-align="center center">
-					<md-button class="md-icon-button" aria-label="More">
-						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="assets/img/icon/up-arrow.svg" ng-click="product.product.noOfQuantityInCart = product.quantity + 1;addToCart(product.product)"></md-icon>
-					</md-button>
+				 <md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.quantity + 1;addToCart(product.product)">
+                                <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon>
+                            </md-button>
 					<span>{{product.quantity}}</span>
-					<md-button class="md-icon-button" aria-label="More">
-						<md-icon style="background-color:red; padding:5px; border-radius:50px; " md-svg-icon="assets/img/icon/down-arrow.svg" ng-click="product.product.noOfQuantityInCart = product.quantity - 1;addToCart(product.product)"></md-icon>
-					</md-button>
-				</div>
+					<md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.quantity - 1;addToCart(product.product)">
+                                <md-icon md-svg-icon="assets/img/checkout/subtract.svg"></md-icon>
+                            </md-button>
+                           	</div>
 				<div flex="15" layout="row" layout-align="center center">
-					<md-button ng-click="removeFromMyCart(product);">Remove</md-button>
-				</div>
+					 <md-button class="md-icon-button" aria-label="More" ng-click="removeFromMyCart(product);">
+                                <md-icon md-svg-icon="assets/img/checkout/close1.svg"></md-icon>
+                            </md-button>				</div>
 				<div flex="20" layout="row" layout-align="center center">
 					<span>Rs.{{product.product.productPrice.price * product.quantity}}</span>
 				</div>

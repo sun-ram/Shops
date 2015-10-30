@@ -1,11 +1,11 @@
 <div layout="column" flex>
     <main-nav></main-nav>
         
+      <side-nav></side-nav>
     <section layout="row" flex >
 	
-      <side-nav></side-nav>
-		<cartsidenav></cartsidenav>       
        <md-content ng-class="navsides" style="width:100%;overflow: visible; ">
+		<cartsidenav></cartsidenav>       
         <ui-view layout="column" layout-fill>
         </ui-view>
       </md-content>

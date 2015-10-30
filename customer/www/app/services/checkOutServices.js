@@ -25,6 +25,7 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve($rootScope.myList);
+					toastr.success(CONSTANT.SUCCESS_CODE.ADDADDRESS);
 				} else {
 					toastr.error(CONSTANT.ERROR_CODE.VALIDADDRESS);
 				}
@@ -58,6 +59,7 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve($rootScope.myList);
+					toastr.success(CONSTANT.SUCCESS_CODE.REMOVEADDRESS);
 				} else {
 					toastr.error(result.errorString);
 				}

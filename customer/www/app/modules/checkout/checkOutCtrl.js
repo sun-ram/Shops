@@ -173,7 +173,7 @@ angular.module('aviate.controllers')
 				$scope.timeLineStatus.addressEntry = true;
 				$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 			} else {
-				if($scope.currentOrder.address == null)
+				if($scope.currentOrder.address == null && $scope.currentOrder.contactNumber != null)
 					{
 				$mdDialog.show(
 						$mdDialog.alert()
@@ -186,9 +186,10 @@ angular.module('aviate.controllers')
 						.targetEvent()
 				);
 					}
-				else
-				
-				{
+				else{
+					
+					if($scope.currentOrder.contactNumber == null && $scope.currentOrder.address != null){
+	
 			$mdDialog.show(
 					$mdDialog.alert()
 					.parent(angular.element(document.querySelector('#popupContainer')))
@@ -200,7 +201,20 @@ angular.module('aviate.controllers')
 					.targetEvent()
 			);
 				}
-
+										else
+												{
+												$mdDialog.show(
+														$mdDialog.alert()
+														.parent(angular.element(document.querySelector('#popupContainer')))
+														.clickOutsideToClose(true)
+														//.title('Alert')
+														.content('Please choose Contact Number/address')
+														.ariaLabel('Alert Dialog Demo')
+														.ok('Ok')
+														.targetEvent()
+												);
+												}
+					}
 			}
 			break;
 		case "deliverySchedule":
