@@ -304,7 +304,7 @@ right: -8px;
 md-backdrop{visibility: hidden ! important;}
  
 .cardsliderheader{padding: 0px; min-height: 100% ! important; min-width: 0 !important;}
-.cardsliderheader md-list{height: auto; overflow: auto;padding-top: 0px;max-height: 255px;}
+.cardsliderheader md-list{height: auto; overflow: auto;padding-top: 0px;max-height: 399px;}
 .cartsliderlist_img{width:60px; margin:5px;height:60px;}
 .listofcartitem md-list-item{padding: 8px 12px;}
 .cartsliderlist_img img{width:100%;height:100%;}
@@ -332,3 +332,5 @@ md-backdrop{visibility: hidden ! important;}
 	border-radius: 5px;
 	background-color: #8BC34A;
 }
+.toptool{transition: 0.3s ease-in all; width: calc(100% - 304px)}
+.toptoolrem{width: 100%;}
