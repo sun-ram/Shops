@@ -38,7 +38,7 @@ angular.module('aviate.services')
 					ipCookie('myList', $rootScope.myList);
 					d.resolve($rootScope.myList);
 				} else {
-					toastr.error(result.errorString);
+					//toastr.error(result.errorString);
 				}
 			}else{
 				toastr.error(err.errorCode);
