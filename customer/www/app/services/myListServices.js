@@ -39,6 +39,9 @@ angular.module('aviate.services')
 					d.resolve($rootScope.myList);
 				} else {
 					//toastr.error(result.errorString);
+					$rootScope.myList = {};
+					ipCookie('myList', $rootScope.myList);
+					d.resolve($rootScope.myList);
 				}
 			}else{
 				toastr.error(err.errorCode);
