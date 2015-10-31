@@ -301,7 +301,7 @@ right: -8px;
 
 .src {background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat -829px -44px;}
 
-md-backdrop{visibility: hidden ! important;}
+/* md-backdrop{visibility: hidden ! important;} */
  
 .cardsliderheader{padding: 0px; min-height: 100% ! important; min-width: 0 !important;}
 .cardsliderheader md-list{height: auto; overflow: auto;padding-top: 0px;max-height: 399px;}
