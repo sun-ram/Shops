@@ -19,6 +19,7 @@ angular.module('aviateAdmin.services')
 		api.Warehouse.save(warehouse, function(err, result){
 			if (result.status == 'SUCCESS') {
 				toastr.success(CONSTANT.ADDWAREHOUSE);
+				d.resolve(result);
 			} else {
 				toastr.error(result.message);
 			}

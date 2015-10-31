@@ -45,6 +45,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.merchantId= $rootScope.user.merchantId;
 		$scope.warehouse.returnBinId = 0;
 		WarehouseService.saveWarehouse($scope.warehouse).then(function(data) {
+			$scope.warehouse = {};
 			$state.go('app.warehouse');
 		});
 	}
