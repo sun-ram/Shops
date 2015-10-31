@@ -26,7 +26,7 @@
 		
 		
      <md-list>
-       <md-item ng-repeat="unit in measureType | filter:searchText | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" class="md-table-content-row">
+       <md-item ng-repeat="unit in measureType | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid" ng-click="unitDetails(unit)">
             <span layout-padding><ng-md-icon icon="arrow_forward" size="30"></ng-md-icon></span>
@@ -57,7 +57,7 @@
      </md-data-table-container>
    </md-card-content>
    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-   	<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{measureType.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+   	<md-data-table-pagination md-limit="unitsPagination.limit" md-page="unitsPagination.page" md-total="{{measureType.length}}" md-trigger="onpagechange"></md-data-table-pagination>
    	</div>
    
 </md-card>

@@ -8,6 +8,7 @@ angular.module('app')
 			.state('app', {
 				abstract: true,
 				templateUrl: 'app/modules/main/app.html',
+				controller: 'appCtrl',
 				data: {
 					requireLogin: true
 				}

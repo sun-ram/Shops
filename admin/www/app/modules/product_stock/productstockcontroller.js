@@ -6,11 +6,8 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			$scope.selected = [];
 			$scope.productStockList=[];
 			$scope.salesOrderList = $localStorage.productstocklist;
-			$scope.query = {
-					order: 'warehouse.warehouseName',
-					limit: 10,
-					page: 1
-			};
+			
+			$scope.productStockPagination.order= 'warehouse.warehouseName';
 
 			$scope.getProductStockList = function () {
 				var request = {};

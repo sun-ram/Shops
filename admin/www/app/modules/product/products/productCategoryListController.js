@@ -3,10 +3,10 @@ angular.module('aviateAdmin.controllers')
                                               function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService) {
 
 
-	$scope.query = {
+	/*$scope.query = {
 			limit: 5,
 			page: 1
-	};
+	};*/
 
 	$scope.count = 3;
 	$scope.srch = true;

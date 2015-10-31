@@ -1,10 +1,10 @@
 aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$location','$state','$rootScope','toastr','CONSTANT','UnitService',
                                               function($scope,$http,$localStorage, $location,$state,$rootScope,toastr,CONSTANT,UnitService) {
 
-	  $scope.query = {
+	 /* $scope.query = {
 			    limit: 5,
 			    page: 1
-			  };
+			  };*/
 	  
 		$scope.count = 3;
 		$scope.srch = true;

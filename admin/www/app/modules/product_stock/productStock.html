@@ -26,7 +26,7 @@
 <md-data-table-container>
 <table md-data-table class="md-primary"
 	md-progress="deferred">
-	<thead md-order="query.order" md-trigger="onorderchange">
+	<thead md-order="productStockPagination.order" md-trigger="onorderchange">
 		<tr>
               <th  order-by="warehouse.warehouseName" name="Warehouse"></th>
               <th  numeric order-by="storageBin.storageBinName" name="Storage Bin"></th>
@@ -35,7 +35,7 @@
             </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="product in productStockList | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit | filter:search">
+		<tr ng-repeat="product in productStockList | orderBy: productStockPagination.order | limitTo: productStockPagination.limit: (productStockPagination.page - 1) * productStockPagination.limit | filter:search">
 			<td>{{product.warehouse.warehouseName}}</td>
 			<td>{{product.storageBin.storageBinName}}</td>	
 			<td>{{product.product.productName}}</td>
@@ -46,7 +46,7 @@
 </table>
 </md-data-table-container> 
  <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-<md-data-table-pagination md-limit="query.limit" md-page="query.page"
+<md-data-table-pagination md-limit="productStockPagination.limit" md-page="productStockPagination.page"
 	md-total="{{count}}" md-trigger="onpagechange"></md-data-table-pagination></div>
 </md-card>
 </md-card>

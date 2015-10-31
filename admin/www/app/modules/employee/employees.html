@@ -25,7 +25,7 @@
    <md-card-content class="nopaddtop">
 		<md-data-table-container>
      <md-list>
-       <md-item ng-repeat="employee in data | filter:searchText | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" class="md-table-content-row">
+       <md-item ng-repeat="employee in data | filter:searchText | orderBy: employeePagination.order | limitTo: employeePagination.limit: (employeePagination.page - 1) * employeePagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid">
            		<span flex=5 class="padd-5-3">
@@ -54,6 +54,6 @@
 	</md-data-table-container>
    </md-card-content>
    <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-		<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{data.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+		<md-data-table-pagination md-limit="employeePagination.limit" md-page="employeePagination.page" md-total="{{data.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </md-card>

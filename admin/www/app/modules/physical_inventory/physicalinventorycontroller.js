@@ -2,10 +2,10 @@ angular.module('aviateAdmin.controllers').controller("physicalinventorycontrolle
 		['$scope','$rootScope','$localStorage','$state','PhysicalInventoryServices','physicalinventorys',
 		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryServices, physicalinventorys) {
 
-			$scope.query = {
+			/*$scope.query = {
 					limit: 5,
 					page: 1
-			};
+			};*/
 
 			$scope.count = 3;
 			$scope.physicalinventoryData = physicalinventorys;

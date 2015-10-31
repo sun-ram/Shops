@@ -39,7 +39,7 @@
       <md-list>
       <md-item ng-if="data.length == 0" style="text-align: center;"><h3>There is no Product</h3></md-item>
          <md-item
-            ng-repeat="products in data | filter:searchTxt | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit">
+            ng-repeat="products in data | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit">
             <md-item-content layout="row" layout-padding
                ng-click="showDetail(products)">
                <div layout="row" layout-wrap class="full_wid">
@@ -83,8 +83,8 @@
       </md-list>
    </md-card-content>
     <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-   <md-data-table-pagination md-limit="query.limit"
-      md-page="query.page" md-total="{{data.length}}"
+   <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{data.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
       </div>
 </md-card>

@@ -25,7 +25,7 @@
    <md-card-content class="nopaddtop">
 	<md-data-table-container>
      <md-list>
-       <md-item md-data-table ng-repeat="store in storeData | filter:searchTxt | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
+       <md-item md-data-table ng-repeat="store in storeData | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid">
          	<span flex=5  class="padd-5-3" >
@@ -56,7 +56,7 @@
 	</md-data-table-container>
    </md-card-content>
    <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{storeData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	<md-data-table-pagination md-limit="storePagination.limit" md-page="storePagination.page" md-total="{{storeData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </md-card>
 

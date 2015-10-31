@@ -3,10 +3,10 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	
 	
  	
-	  $scope.query = {
+	 /* $scope.query = {
 		    limit: 5,
 		    page: 1
-		  };
+		  };*/
   
 	$scope.count = 3;
 	$scope.srch = true;

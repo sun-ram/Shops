@@ -5,11 +5,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
 			$scope.salesOrderList = $localStorage.salesorderlist;
-			$scope.query = {
-					order: 'address.firstName',
-					limit: 10,
-					page: 1
-			};
+			$scope.salesOrderPagination.order= 'address.firstName';
 
 			$scope.getSalesOrderList = function () {
 				var request = {};

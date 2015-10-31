@@ -3,10 +3,10 @@ angular.module('aviateAdmin.controllers')
 			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams, StoreServices, stores) {
 	
 
-			  $scope.query = {
+			 /* $scope.query = {
 					    limit: 5,
 					    page: 1
-					  };
+					  };*/
 				
 				$scope.count = 3;
 				$scope.storeData = stores;

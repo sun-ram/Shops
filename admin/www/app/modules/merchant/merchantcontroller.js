@@ -2,11 +2,10 @@ angular.module('aviateAdmin.controllers').controller("merchantcontroller",
 		['$scope', '$rootScope','$state','$localStorage','$filter','$mdDialog','ngTableParams','MerchantServices','merchants',
 		 function($scope,$rootScope, $state,$localStorage, $filter,$mdDialog,ngTableParams, MerchantServices, merchants) {
 			
-		  $scope.query = {
-				    limit: 5,
-				    page: 1
-				  };
-			
+			/*$scope.query = {
+					limit: 5,
+					page: 1
+			};*/
 			$scope.count = 3;
 			$scope.merchantData = merchants;
 			$scope.srch = true;

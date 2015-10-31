@@ -10,11 +10,11 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 	}else{
 		$scope.isStoreAdmin = false;
 	}
-	
+/*	
 	$scope.query = {
 			limit: 5,
 			page: 1
-	};
+	};*/
 
 	$scope.count = 3;
 	$scope.srch = true;
