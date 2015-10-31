@@ -198,7 +198,7 @@ angular.module('aviate.directives')
 			$scope.changeStore = function() {
 				$rootScope.newclass = "remove";
 				$mdSidenav('left').close();
-				if($rootScope.geoLocation.support==true){
+				if($rootScope.latLong.support==true){
 					$rootScope.showLocationDialog();
 				}else{
 					$rootScope.showLocationDialog(true);

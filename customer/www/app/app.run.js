@@ -2,15 +2,15 @@ angular.module('app')
 .run(function($rootScope, $state, $http, ipCookie, MyCartServices, MyCartFactory) {
 
 	var store = ipCookie('store');
-	$rootScope.geoLocation ={}
+	$rootScope.latLong ={}
 
 	if (store == undefined || store == null) {
 		$rootScope.store = null;
-		$rootScope.geoLocation.findlocation=true;
+		$rootScope.latLong.findlocation=true;
 		$state.go('app.home');
 	}else {
 		$rootScope.store = ipCookie('store');
-		$rootScope.geoLocation.findlocation=false;
+		$rootScope.latLong.findlocation=false;
 	};
 
 	var user = ipCookie('user');
@@ -55,4 +55,8 @@ angular.module('app')
 			
 		});
 	}
+	setTimeout(function() {
+		$rootScope.geoLocation();
+	}, 500);
+	
 });
