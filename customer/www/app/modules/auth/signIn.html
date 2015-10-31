@@ -14,7 +14,7 @@
 	  <form name="userForm">			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="user.emailId" type="email" ng-required="true">
+          <input ng-model="user.emailId" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
         </md-input-container >
 	      <md-input-container flex class="padd_btm10 ">
 	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
@@ -34,7 +34,7 @@
 		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signIn(user);">
 		      SIGN IN
 		    </md-button>
-		    <md-button class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
+		    <md-button  type="button" class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
 		      CANCEL
 		    </md-button>
 		  </div>
@@ -46,7 +46,7 @@
 	  <form name="userForm">			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="user.emailId" type="email" ng-required="true">
+          <input ng-model="user.emailId" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
         </md-input-container >
 	      <div layout="row">
 		      <div flex>
@@ -56,7 +56,7 @@
 		    <md-button class="md-raised signup_btn_clr" flex ng-click="forGetPassword(user);">
 		      SUBMIT
 		    </md-button>
-		    <md-button class="md-raised md-warning text-white" flex ng-click="forgetPass = false;title = 'SIGN IN'" style="margin-right:20px;" >
+		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;title = 'SIGN IN'" style="margin-right:20px;" >
 		      CANCEL
 		    </md-button>
 		  </div>
