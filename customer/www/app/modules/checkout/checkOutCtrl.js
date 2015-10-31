@@ -171,6 +171,9 @@ angular.module('aviate.controllers')
 	$scope.goNext = function(id) {
 		switch (id) {
 		case "address":
+			if($scope.addresses.length ==1){
+				$scope.currentOrder.address = $scope.addresses[0];
+			}
 			if ($scope.currentOrder.address && $scope.currentOrder.contactNumber != null) {
 				$scope.timeLineStatus.addressEntry = true;
 				$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
