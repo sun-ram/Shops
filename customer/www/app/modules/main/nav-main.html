@@ -127,14 +127,15 @@
 	<div style="position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;" class="bg-yellow">
 		<img src="assets/img/useravat.png"  width="118" height="80" class="md-card-image" alt="Washed Out">
 	</div>
-	<div ng-if="store.merchantLogo" ng-class="logoadd" class="merch-logo bg-yellow" >
+	<div ng-if="store.merchantLogo"  class="merch-logo merch-marg bg-yellow" >
 		<img src="{{store.merchantLogo}}"  width="118" height="80" class="md-card-image" alt="Washed Out">
 	</div>
-	<ul ng-class="logoadd1" class="nav-menu">
-
+	<ul  ng-if="store.merchantLogo" class="nav-menu nav-menu1">
 		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
-<!-- 		<li>About Us</li>
-		<li>Contact Us</li> -->
+		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+	</ul>
+	<ul  ng-if="!store.merchantLogo" class="nav-menu">
+		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
 		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
 	</ul>
 

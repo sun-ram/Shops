@@ -11,16 +11,6 @@ angular.module('aviate.controllers')
 			}else {
 				$rootScope.geoLocation.findlocation=false;
 			};
-			if(store!=undefined || store!=null){
-			if(store.merchantLogo!= undefined && store.merchantLogo!=null){
-			$rootScope.logoadd="merch-marg";
-			$rootScope.logoadd1="nav-menu1";
-			}
-			else{
-				$rootScope.logoadd="merch-logo";
-				$rootScope.logoadd1="nav-menu";
-			}
-			}
 			
 			$scope.images = [
 			                 {
@@ -160,14 +150,6 @@ angular.module('aviate.controllers')
 						}
 
 						$scope.changeStore = function(storedetails){
-							if(storedetails.merchantLogo!= undefined && storedetails.merchantLogo!=null){
-							$rootScope.logoadd="merch-marg";
-							$rootScope.logoadd1="nav-menu1";
-							}
-							else{
-								$rootScope.logoadd="merch-logo";
-								$rootScope.logoadd1="nav-menu";
-							}
 							$rootScope.myCart = {};
 							$rootScope.myCart.cartItem = [];
 							//ipCookie("myCart", $rootScope.myCart);
