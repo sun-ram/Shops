@@ -26,7 +26,7 @@
    <md-card-content class="nopaddtop">
 		<md-data-table-container>
      <md-list>
-       <md-item md-data-table ng-repeat="physicalinventory in physicalinventoryData | filter:sreach | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit" class="md-table-content-row"" ng-click="redirectToPhysicalinventoryDetails(physicalinventory);">
+       <md-item md-data-table ng-repeat="physicalinventory in physicalinventoryData | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row"" ng-click="redirectToPhysicalinventoryDetails(physicalinventory);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid">
          
@@ -58,6 +58,6 @@
 	</md-data-table-container>
    </md-card-content>
     <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{physicalinventoryData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{physicalinventoryData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </md-card>

@@ -57,5 +57,11 @@ angular.module('aviateAdmin.controllers')
 					limit: 5,
 					page: 1
 			};
+			
+			$scope.physicalInventoryListPagination = {
+					limit: 5,
+					page: 1
+			};
+			
 
 		}]);
