@@ -98,7 +98,7 @@
 						₹{{product.productPrice.price}}
 					</span>
 				</div>
-				<div layout="row" flex>
+<!-- 				<div layout="row" flex>
 					<div flex layout="row" class="addtocart-btn">
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary">
 						<md-icon ng-hide="product.noOfQuantityInCart > 0" style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)"></md-icon>
@@ -110,9 +110,32 @@
 							</div>
 						</div>
 						<div flex="20" layout="column" layout-align="center center" class="bg-primary" ng-model="product.noOfQuantityInCart"><span ng-show="product.noOfQuantityInCart > 0">{{product.noOfQuantityInCart}}</span></div>
-						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<!-- <md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon> --></div>
+						<div ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" flex="60" style="padding-top: 14px;padding-left: 10px;" class="bg-white text-primary">Add To Cart<md-icon style="height:30px; width:30px; color:red;" md-svg-src="assets/img/icon/basket-btn-icon.svg"></md-icon></div>
 					</div>
-				</div>
+				</div> -->
+							<div layout="row" flex>
+								<div flex="40" layout="column" layout-align="center center"
+									class="button-flex wishlist-btn">
+									<md-icon flex style="height:14px; color:#FFFFFF; margin:3px; "
+										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
+									<div flex>Add To List</div>
+								</div>
+								<div flex="60" layout="row" layout-align="center center"
+									class="button-flex cart-btn">
+									<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+											md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+									</div>
+									<div flex="40" ng-hide="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+									<div flex="40" ng-show="product.noOfQuantityInCart > 0" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+
+									<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+									</div>
+								</div>
+							</div>
+						</div>				
 			</div>
 		</div>
 		</div>
@@ -135,44 +158,4 @@
 	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
 	.bg-white{ background-color:#ffffff;}
 	.text-primary{color:#72a308;}
-</style><!-- 
-
-<div layout="column" style="width:90%; margin:0px auto; ">
-
-	<div flex layout="row" style="padding:20px 8px;">
-		
-		<div flex >
-			<span class="text-primary">Fresh Products / Fresh Fruits</span>
-		</div>
-		<div flex layout="row">
-			
-			<md-input-container flex>
-			  <label>Sort By</label>
-			  <md-select ng-model="orderList">
-				<md-option value="productName"> Product A-Z </md-option>
-				<md-option value="-productName"> Product Z-A </md-option>
-				<md-option value="productPrice.price"> Price - Low to High </md-option>
-				<md-option value="-productPrice.price"> Price - High to Low </md-option>
-			  </md-select>
-			</md-input-container>
-			
-			
-			<md-input-container flex>
-			  <input ng-model="searchProduct" placeholder="Search" >
-			</md-input-container>
-		</div>
-	</div>
-	
-	<div layout="row" layout-wrap flex >
-	
-	<!-- iterator starts here -->
-	
-		
-		
-	<!--  iterator end -->	
-		
-	<!---</div>
-	
-</div>-->
-
-
+</style>
