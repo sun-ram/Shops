@@ -610,7 +610,7 @@ public class ProductUpdateService {
 				response.setStatus(AVMessageStatus.SUCCESS.getValue());
 			}else{
 				response.setStatus(AVMessageStatus.FAILURE.getValue());
-				response.setErrorString("This Abbrevation already exists.");
+				response.setErrorString("This abbreviation already exists.");
 				response.setErrorCode("");
 			}
 		}catch(Exception e){

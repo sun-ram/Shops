@@ -82,9 +82,11 @@
             </md-item> --> 
       </md-list>
    </md-card-content>
+    <div layout layout="row" class="table-pagination-bg" layout-align="center center">
    <md-data-table-pagination md-limit="query.limit"
       md-page="query.page" md-total="{{data.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
+      </div>
 </md-card>
 <!-- 
    <div class="col-sm-12" ng-init="getEmployee()">
