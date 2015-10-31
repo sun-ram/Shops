@@ -17,7 +17,9 @@ angular.module('aviate.constant').constant('CONSTANT', {
 				DECREASEPRODUCT:'Product Decreased Successfully',
 				ADDADDRESS:'Address Added Successfully',
 				UPDATEADDRESS:'Address Updated Successfully',
-				REMOVEADDRESS:'Address Removed Successfully'				
+				REMOVEADDRESS:'Address Removed Successfully',
+				PRODUCTINCRCREASED:'Product Increased Successfully',
+				PRODUCTDECREASED:'Product Decreased Successfully'
 		},
 
 		ERROR_CODE:{
