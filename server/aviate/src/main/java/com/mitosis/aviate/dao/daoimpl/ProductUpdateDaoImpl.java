@@ -61,7 +61,7 @@ public class ProductUpdateDaoImpl extends BaseService implements ProductUpdateDa
 			Expression<String> exp = pc.get("parentCategoryId");
 			Predicate predicate = exp.isNull();
 			cq.where(qb.equal(pc.get("categoryName"),productCategory.getCategoryName()),
-					qb.equal(pc.get("storeId"),productCategory.getStoreId()),predicate);
+					qb.equal(pc.get("merchantId"),productCategory.getMerchantId()),predicate);
 			categories=entityManager.createQuery(cq).getResultList();
 			if(categories.isEmpty()){
 				persist(productCategory);
