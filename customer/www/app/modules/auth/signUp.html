@@ -25,7 +25,7 @@
 	      </md-input-container>
 	      <md-input-container flex class="padd_btm10 ">
 	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Confirm Password</label>
-	        <input ng-model="confirmPassword" type="password" ng-required="true">
+	        <input ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
 	      </md-input-container>
 	       <div class="md-actions padd_btm20" layout="row">
 		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user);">

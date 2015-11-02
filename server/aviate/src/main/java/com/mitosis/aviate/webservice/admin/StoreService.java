@@ -139,6 +139,7 @@ public class StoreService {
 					customerDao.edit(cm);
 					customerDetails=customerDao.getListBycustomerId(cm.getCustomerId());
 					customerDetails.setStoreId(storeModel.getStoreId());
+					customerDetails.setMerchantId(storeModel.getMerchantId());
 					customerDao.updateCustomerDetails(customerDetails);
 
 				} 
