@@ -9,7 +9,9 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					MyCartFactory.checkCartProductsQuantity(result.products,function(data){
-						d.resolve(data);
+						MyCartFactory.checkMyListProductsList(data,function(dataInList){
+							d.resolve(dataInList);
+						});
 					});
 				} else {
 					toastr.error(result.errorString);
@@ -27,7 +29,9 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					MyCartFactory.checkCartProductsQuantity(result.products,function(data){
-						d.resolve(data);
+						MyCartFactory.checkMyListProductsList(data,function(dataInList){
+							d.resolve(dataInList);
+						});
 					});
 				} else {
 					toastr.error(result.errorString);

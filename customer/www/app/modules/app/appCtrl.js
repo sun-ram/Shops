@@ -32,7 +32,9 @@ angular.module('aviate.controllers')
 			if($rootScope.user){
 				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
 					MyCartFactory.checkCartProductsQuantity($scope.productList,function(data){
-						$scope.productList = data;
+							MyCartFactory.checkMyListProductsList(dataInList,function(productList){
+									$scope.productList = productList;
+								});
 					});
 				});
 			}
