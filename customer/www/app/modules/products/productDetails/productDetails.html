@@ -59,7 +59,7 @@
 									</div>
 									<div flex="40" ng-hide="productDetails.noOfQuantityInCart > 0" style="text-align:center; font-size: 20px;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" class="md-subhead">
 									<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white; height: 20px; margin-top: -4px;"></md-icon>Cart</div>
-									<div flex="40" ng-show="productDetails.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{productDetails.noOfQuantityInCart}}</div>
+									<div flex="40" ng-show="productDetails.noOfQuantityInCart > 0" style="text-align:center;font-size:20px" class="md-subhead">{{productDetails.noOfQuantityInCart}}</div>
 
 									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
 										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
