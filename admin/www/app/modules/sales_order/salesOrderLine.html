@@ -19,11 +19,14 @@
 	</div>
 </div>
 <md-card flex-gt-sm="90" flex-gt-md="80">
-
+<md-card-content style="padding: 0px 0px 16px 0px;">
 <md-data-table-container>
-<table md-data-table class="md-primary" md-row-select="selected"
+<table md-data-table class="md-primary"
 	md-progress="deferred">
 	<thead md-order="salesOrderLinePagination.order" md-trigger="onorderchange">
+	<span ng-click="salesOrder()" class="close_box">
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon>
+	 </span> 
 		<tr>
 			<th order-by="productDetails.productName" name="Product"></th>
 			<th order-by="productId" name="Storage-bin"></th>
@@ -47,4 +50,13 @@
 </table>
 </md-data-table-container> <md-data-table-pagination md-limit="salesOrderLinePagination.limit" md-page="salesOrderLinePagination.page"
 	md-total="{{desserts.count}}" md-trigger="onpagechange"></md-data-table-pagination>
+   </md-card-content>
+
 </md-card>
+<style>
+.close_box {
+  position: absolute;
+  right: 22px;
+  top: 97px;
+}
+</style>

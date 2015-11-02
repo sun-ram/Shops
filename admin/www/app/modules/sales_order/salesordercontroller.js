@@ -4,9 +4,16 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
-			$scope.salesOrderList = $localStorage.salesorderlist;
 			$scope.salesOrderPagination.order= 'address.firstName';
+			
+			if($localStorage.state){
+				$scope.salesOrderList = $localStorage.salesorderfilter;
+				$localStorage.state=false;
+			}else{
+				$scope.salesOrderList = $localStorage.salesorderlist;
 
+			}
+			
 			$scope.getSalesOrderList = function () {
 				var request = {};
 				if($rootScope.user.role == "MERCHANTADMIN"){
@@ -44,7 +51,8 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 						"storeId":$scope.storeId
 				};
 				SalesOrderServices.getSalesOrderByStore(request).then(function(data) {
-					$scope.salesOrderList = data;
+					$localStorage.salesorderfilter = data;
+					$scope.salesOrderList = $localStorage.salesorderfilter;
 
 				});
 			};
@@ -69,7 +77,8 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 							}
 
 							SalesOrderServices.getSalesByDate(request).then(function(data) {
-								$scope.salesOrderList = data;
+								$localStorage.salesorderfilter = data;
+								$scope.salesOrderList = $localStorage.salesorderfilter;
 
 							});
 
@@ -86,8 +95,13 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				$localStorage.salesorderline = salesorder;
 				$rootScope.salesOrderDetails = $localStorage.salesorderline;
 				$state.go('app.salesOrderLine');
-			};	  
-
+			};
+			
+			$scope.salesOrder = function () {
+				$localStorage.state=true;
+				$state.go('app.salesorder');
+			};
+			
 			$scope.onpagechange = function(page, limit) {
 				var deferred = $q.defer();
 
