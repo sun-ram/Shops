@@ -1,5 +1,13 @@
 /*-------- color --------*/
-body,html{ position:relative !important; height:100%; width:100%; top:0px !important; }
+@font-face {
+    font-family: nirmalaui;
+    src: url('fonts/NIRMALA.TTF');
+}
+
+body,html{ font-family:'nirmalaui'; height:100%; width:100%; }
+
+
+
 .signup_btn_clr{  background: #72A308 !important;color:#fff !important;}
 .text-green {color: #72A308 !important;}
 
@@ -38,7 +46,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
     background-color: transparent;
 }
 
-.selectedField {background-color : #7C817E !important;}
+.selectedField {background-color : #3b3b3b !important;}
 
 /* ------------ Padding ----------*/
 
@@ -279,7 +287,7 @@ right: -8px;
 
 /* sidenav */
 .side_logo{ height: 120px;}
-.md-sidenav-left{background: #646464 ! important; position: fixed;}
+.md-sidenav-left{background: #424242 ! important; position: fixed; color:#757575;}
 .md-sidenav-right{position: fixed; top: 50px;}
 .menu-list{padding: 0; margin: 0;}
 .btn-menu{font-size: 18px ! important; }
