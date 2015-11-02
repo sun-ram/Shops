@@ -34,7 +34,7 @@
 		    <div layout layout-sm="column">
 		    <md-input-container layout-padding flex>
 		      <label>Password<span style="color:red">*</span></label>
-		      <input ng-model="merchantDetail.password" ng-required="true">
+		      <input ng-model="merchantDetail.password" ng-trim="false" ng-change="merchantDetail.password = merchantDetail.password.split(' ').join('')" ng-required="true">
 		    </md-input-container>
 		    <md-input-container layout-padding flex>
 		      <label>Phone<span style="color:red">*</span></label>

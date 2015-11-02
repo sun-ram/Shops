@@ -23,7 +23,7 @@
     </md-input-container>
         <md-input-container>
       <label>Password<span style="color:red">*</span></label>
-      <input ng-model="storeDetail.password" ng-required="true">
+      <input ng-model="storeDetail.password" ng-trim="false" ng-change="storeDetail.password = storeDetail.password.split(' ').join('')" ng-required="true">
     </md-input-container>
      <md-input-container>
       <label>Phone<span style="color:red">*</span></label>

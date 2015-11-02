@@ -24,7 +24,7 @@ svg{width: 70%;}
 		  </md-input-container>
 			<md-input-container class="" >
 				<label><md-icon md-svg-src="images/svg/block31.svg" class="name"></md-icon>Password</label>
-			      <input ng-model="user.password" name="password" id="password" type="password" ng-enter="signIn();" ng-required="true">
+			      <input ng-model="user.password" name="password" id="password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')" ng-enter="signIn();" ng-required="true">
 				     <div ng-messages="login.password.$error" ng-show="(passwordRequired && !user.password) || (login.password.$invalid && !login.password.$pristine)">
 			      <div>Password is required.</div>
 			    </div>
