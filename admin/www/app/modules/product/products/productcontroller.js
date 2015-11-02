@@ -22,7 +22,7 @@ angular.module('aviateAdmin.controllers')
 
 			$scope.product ={};
 
-			$scope.product.categoryId = $localStorage.productcatId;
+			$scope.product.categoryId = $localStorage.categoryId;
 
 			ProductService.getAllProductListByCategory($scope.product).then(function(data) {
 
@@ -55,10 +55,10 @@ angular.module('aviateAdmin.controllers')
 	$scope.getproductTypeList = function (){
 
 		console.log($scope.product);
-		$scope.category = {'categoryId':$localStorage.categoryId};
+		$scope.category = {'merchantId':$rootScope.user.merchantId};
 		ProductService.productType($scope.category).then(function(data){
 			console.log(data);
-			$scope.productTypes = data.productType;
+			$scope.productTypes = data.productTypes;
 
 		})
 	};
@@ -320,7 +320,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.product.productId = productId;
 
 		ProductService.deleteProduct($scope.product).then(function(data) {
-
+			//$localStorage.totalProductType = false;
 			$scope.getProductList();
 
 			toastr.success("product details have been deleted successfully!!!");

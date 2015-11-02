@@ -58,10 +58,10 @@ angular.module('aviateAdmin.controllers')
 
 		$scope.product = $localStorage.product;
 
-		$scope.category = {'categoryId':$localStorage.categoryId};
+		$scope.category = {'merchantId':$rootScope.user.merchantId};
 		ProductService.productType($scope.category).then(function(data){
 			console.log(data);
-			$scope.productTypes = data.productType;
+			$scope.productTypes = data.productTypes;
 
 		})
 	};

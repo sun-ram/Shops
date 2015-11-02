@@ -38,7 +38,7 @@ public class CustomerModel extends ResponseModel {
 	private List<Address> address;
 
 	@OneToOne (orphanRemoval=true,cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="customer_id", unique= false, nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="customer_id", unique= false, nullable=false, insertable=false, updatable=false,referencedColumnName="customer_id")
 	private CustomerDetailsModel customerDetails;
 
 	public Long getCustomerId() {

@@ -34,7 +34,9 @@
      <div layout layout-sm="column">
     <md-input-container layout-padding flex>
       <label>Password<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.password" ng-required="true">
+      
+  <input ng-model="merchantDetail.password" ng-trim="false" ng-change="merchantDetail.password = merchantDetail.password.split(' ').join('')" ng-required="true">
+      
     </md-input-container>
     <md-input-container layout-padding flex>
       <label>Phone<span style="color:red">*</span></label>
@@ -49,11 +51,18 @@
      <div layout layout-sm="column">
     <md-input-container layout-padding flex>
       <label>Address-1<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.address" ng-required="true">
+     
+      <input name="address1" ng-model="merchantDetail.address" ng-required="true" ng-maxlength="150">
+	    
+            <span ng-message="required" ng-show="merchant.address1.$error.maxlength" style="color:red;">
+       Enter address within 150 characters</span>
     </md-input-container>
       <md-input-container layout-padding flex>
       <label>Address-2<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.address1" ng-required="true">
+      
+      <input name="address2" ng-model="merchantDetail.address1" ng-required="true" ng-maxlength="150">
+		      <span ng-message="required" ng-show="merchant.address2.$error.maxlength" style="color:red;">
+      Enter address within 150 characters</span>
     </md-input-container>
     </div>
      <div layout layout-sm="column">

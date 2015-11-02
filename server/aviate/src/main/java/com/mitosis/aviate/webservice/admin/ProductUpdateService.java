@@ -846,13 +846,16 @@ public class ProductUpdateService {
 					+ "Initializing the removce product service");
 			boolean flag = new ProductDaoImpl().deleteProductById(Long.parseLong(requestObj.getString("productId")));
 			if(flag){
-				response.setStatus("SUCCESS");
+				response.setStatus(AVMessageStatus.SUCCESS.getValue());
 			}else{
-				response.setStatus("FAILURE");
-				response.setErrorString("");
-				response.setErrorCode("");
+				response.setStatus(AVMessageStatus.FAILURE.getValue());
+				response.setErrorString(AVErrorMessage.PRODUCT_DELETE_ERROR.getMessage());
+				response.setErrorCode(AVErrorMessage.PRODUCT_DELETE_ERROR.getCode());
 			}
 		}catch(Exception e){
+			response.setStatus(AVMessageStatus.FAILURE.getValue());
+			response.setErrorString(AVErrorMessage.PRODUCT_DELETE_ERROR.getMessage());
+			response.setErrorCode(AVErrorMessage.PRODUCT_DELETE_ERROR.getCode());
 			e.printStackTrace();
 		}
 		log.info("\n******************************************\n"

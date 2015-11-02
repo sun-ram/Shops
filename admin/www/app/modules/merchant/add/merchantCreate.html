@@ -27,7 +27,7 @@
 		    </md-input-container>
 		    <md-input-container layout-padding flex>
 		      <label>User Name (Email-Id)<span style="color:red">*</span></label>
-		        <input name="userName" ng-model="merchantDetail.userName" type="text" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+		        <input type="email" name="userName" ng-model="merchantDetail.userName" type="text" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
 	        <span ng-message="required" ng-show="merchantForm.userName.$error.email || (!merchantForm.userName.$error.required && !merchantForm.userName.$valid)" style="color:red;">Email Invalid.</span>
 		    </md-input-container>
 		    </div>
@@ -50,18 +50,18 @@
 		    <md-input-container layout-padding flex>
 		      <label>Address-1<span style="color:red">*</span></label>
 		      
-		            <input name="address1" ng-model="merchantDetail.address" ng-required="true" ng-maxlength="50">
+		            <input name="address1" ng-model="merchantDetail.address" ng-required="true" ng-maxlength="150">
 	    
             <span ng-message="required" ng-show="merchantForm.address1.$error.maxlength" style="color:red;">
-       Enter address within 50 characters</span>
+       Enter address within 150 characters</span>
 		      
 		    </md-input-container>
 		      <md-input-container layout-padding flex>
 		      <label>Address-2<span style="color:red">*</span></label>
 		     
-		        <input name="address2" ng-model="merchantDetail.address1" ng-required="true" ng-maxlength="50">
+		        <input name="address2" ng-model="merchantDetail.address1" ng-required="true" ng-maxlength="150">
 		      <span ng-message="required" ng-show="merchantForm.address2.$error.maxlength" style="color:red;">
-      Enter address within 50 characters</span>
+      Enter address within 150 characters</span>
 		    </md-input-container>
 		    </div>
 		    <div layout layout-sm="column">

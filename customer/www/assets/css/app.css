@@ -345,3 +345,6 @@ md-backdrop.md-sidenav-backdrop{ z-index:-59;}
 ul.nav-menu1{margin-left: 210px ! important;}
 .merch-logo{position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;}
 .merch-marg{left: 178px ! important;}
+
+.menu-item{border-bottom: 1px solid lightgrey ! important;}
+.menu-item:hover{background: #72a308 ! important; color: #ffffff ! important; }

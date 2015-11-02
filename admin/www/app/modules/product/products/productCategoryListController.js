@@ -35,9 +35,9 @@ angular.module('aviateAdmin.controllers')
 
 	}	
 
-	$scope.getProductTypeByCategoryId = function (categoryList,index){
+	$scope.getProductTypeByCategoryId = function (categoryId,index){
 
-		var cat = categoryList.category[index].category;
+		/*var cat = categoryList.category[index].category;
 		var lastindex = categoryList.category[index].category.length-1;
 		var categoryId;
 		var productcatId = categoryList.categoryId;
@@ -45,10 +45,10 @@ angular.module('aviateAdmin.controllers')
 			categoryId = cat[lastindex].categoryId;
 			cat = cat[lastindex].category;
 			lastindex = cat.length-1;
-		}
+		}*/
 		$localStorage.totalProductType = true;
 		$localStorage.categoryId=categoryId;
-		$localStorage.productcatId =productcatId;
+		/*$localStorage.productcatId =productcatId;*/
 		$state.go('app.producttype');		
 	}
 
