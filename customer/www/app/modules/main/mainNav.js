@@ -118,11 +118,36 @@ angular.module('aviate.directives')
 					parent: angular.element(document.body),
 					targetEvent: ev,
 					clickOutsideToClose:true,
-					controller: function($scope, AuthServices, toastr, CONSTANT){
+					controller: function($scope, AuthServices, toastr, CONSTANT,ipCookie){
 						$scope.title = 'SIGN IN';
 						$scope.forgetPass = false;
 						$scope.isSignUp = false;
+						$scope.user = {}
+						var authInfo = ipCookie('auth_info');
+						
+						if(authInfo != undefined || authInfo != null){
+							if(authInfo.rememberme){
+							$scope.user.emailId=authInfo.emailId;
+							$scope.user.password = authInfo.password;
+							$scope.rememberme=authInfo.rememberme;
+						}}
+						
+						$scope.saveauth = function() {
+						if($scope.rememberme){
+							if($scope.user.emailId==undefined){
+								toastr.error("Invalid Email Id");
+							}
+							else{
+							$scope.user.rememberme=true;
+							ipCookie('auth_info', $scope.user);
+							}
+							}else{
+							ipCookie('auth_info', null);
+						}
+						}
+						
 						$scope.signIn = function(user) {
+							$scope.saveauth();
 							AuthServices.signIn(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
