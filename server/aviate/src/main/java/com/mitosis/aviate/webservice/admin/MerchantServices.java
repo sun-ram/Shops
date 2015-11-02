@@ -23,6 +23,7 @@ import com.mitosis.aviate.dao.MerchantDAO;
 import com.mitosis.aviate.dao.daoimpl.CommonDaoImpl;
 import com.mitosis.aviate.dao.daoimpl.CustomerDaoImpl;
 import com.mitosis.aviate.dao.daoimpl.MerchantDAOImpl;
+import com.mitosis.aviate.model.CustomerDetailsModel;
 import com.mitosis.aviate.model.CustomerModel;
 import com.mitosis.aviate.model.MerchantDetails;
 import com.mitosis.aviate.model.ProductImages;
@@ -132,10 +133,14 @@ public class MerchantServices  {
 			else{
 				if(!toCheckSignupData.isEmpty() && toCheckSignupDataNotCustomer.isEmpty()){
 					CustomerModel cm=new CustomerModel();
+					CustomerDetailsModel customerDetailModel=new CustomerDetailsModel();
 					flag = merchantDAO.addMerchant(merchantDetails);
 					cm=toCheckSignupData.get(0);
+					customerDetailModel=toCheckSignupData.get(0).getCustomerDetails();
+					customerDetailModel.setMerchantId((long)merchantDetails.getMerchantId());
 					cm.setRole("MERCHANTADMIN");
 					customerDao.edit(cm);
+					customerDao.updateCustomerDetails(customerDetailModel);
 				}
 				else{
 					if(toCheckSignupDataNotCustomer.isEmpty()){
