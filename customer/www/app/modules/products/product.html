@@ -63,14 +63,14 @@
 					</span>
 				</div>
 							<div layout="row" flex>
-								<div flex="40" ng-hide="product.isProductMyList" ng-click="addToMyList(product);" style="font-size:12px; background-color:#00B8D4; color:#FFFFFF;" layout="column" layout-align="center center"
+								<div flex="40" ng-hide="product.isProductMyList" ng-click="addToMyList(product,$index);" style="font-size:12px; background-color:#00B8D4; color:#FFFFFF;" layout="column" layout-align="center center"
 									class="button-flex wishlist-btn">
 									<div flex ><md-icon style="height:14px; color:#FFFFFF; margin:3px; "
 										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
 										</div>
 									<div flex style="text-align:center;">Add To List</div>
 								</div>
-								<div flex="40" ng-show="product.isProductMyList" ng-click="removeFromMyList(product);" style="font-size:12px; background-color:#990000; color:#FFFFFF;" layout="column" layout-align="center center"
+								<div flex="40" ng-show="product.isProductMyList" ng-click="removeFromMyList(product,$index);" style="font-size:12px; background-color:#990000; color:#FFFFFF;" layout="column" layout-align="center center"
 									class="button-flex wishlist-btn">
 									<div flex ><md-icon style="height:14px; color:#FFFFFF; margin:3px; "
 										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
