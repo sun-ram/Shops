@@ -33,7 +33,10 @@
         </md-input-container>
     <md-input-container>
       <label>Address<span style="color:red">*</span></label>
-      <input ng-model="storeDetail.address" ng-required="true">
+      
+          <input name="address1" ng-model="storeDetail.address" ng-required="true" ng-maxlength="150">
+		      <span ng-message="required" ng-show="storeForm.address1.$error.maxlength" style="color:red;">
+      Enter address within 150 characters</span>
     </md-input-container>
     <md-input-container>
       <label>City<span style="color:red">*</span></label>

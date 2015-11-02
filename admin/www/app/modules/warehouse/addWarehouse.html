@@ -23,11 +23,17 @@
     <div layout layout-sm="column">
 	    <md-input-container layout-padding  flex>
 	       <label>Address-1<span style="color:red">*</span></label>
-	      <input ng-model="warehouse.address" ng-required="true">
+	    
+	       <input name="address1" ng-model="warehouse.address" ng-required="true" ng-maxlength="150">
+		      <span ng-message="required" ng-show="warehouseForm.address1.$error.maxlength" style="color:red;">
+      Enter address within 150 characters</span>
 	    </md-input-container>
 	    <md-input-container layout-padding  flex>
 	       <label>Address-2<span style="color:red">*</span></label>
-	      <input ng-model="warehouse.address1" ng-required="true">
+	      
+	       <input name="address2" ng-model="warehouse.address1" ng-required="true" ng-maxlength="150">
+		      <span ng-message="required" ng-show="warehouseForm.address2.$error.maxlength" style="color:red;">
+      Enter address within 150 characters</span>
 	    </md-input-container>  
 	  </div>
 	  <div layout layout-sm="column">  
