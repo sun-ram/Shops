@@ -1,5 +1,5 @@
 /*-------- color --------*/
-
+body,html{ position:relative !important; height:100%; width:100%; top:0px !important; }
 .signup_btn_clr{  background: #72A308 !important;color:#fff !important;}
 .text-green {color: #72A308 !important;}
 
