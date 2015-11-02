@@ -11,6 +11,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.merchantImage.substring(23)) : "";
 			$scope.merchantDetail.merchantImageType=$scope.merchantImage ? ($scope.merchantImage.substring(11).split(";")[0]) : "";
 			MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
+				$scope.merchantImage=null;
 				$scope.merchantDetail = null;
 			});
 		};

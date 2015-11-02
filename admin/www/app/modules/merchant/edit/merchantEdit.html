@@ -2,8 +2,8 @@
    <md-toolbar class=" md-default-theme">
     <div class="md-toolbar-tools">
       <div class="md-layout-row layout-align-start-center pt_relat">	 
-			<img src="{{merchantImage}}" ng-show="merchantImage" style="display: block;width:60px; min-height: 60px;  border-radius: 99%;" />
-		      <img src="{{merchantDetail.productImages.imageUrl}}" ng-hide="merchantImage" style="display: block;width:60px; min-height: 60px;  border-radius: 99%;" /> 
+			<img src="{{merchantImage}}" ng-show="merchantImage" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
+		      <img src="{{merchantDetail.productImages.imageUrl}}" ng-hide="merchantImage" style="display: block;width:45px; height: 45px;  border-radius: 99%;" /> 
 			     	<label class="custom-file-upload">	
 					    <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
 					    <input id="file-upload1" type="file" ng-model="merchantImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
