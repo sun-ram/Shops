@@ -24,21 +24,37 @@
 		<class>com.mitosis.aviate.model.InventoryModel</class>
 		<class>com.mitosis.aviate.model.InventoryLineModel</class>
 		<class>com.mitosis.aviate.model.MyCartModel</class>
-		<class>com.mitosis.aviate.model.Units</class>	
+		<class>com.mitosis.aviate.model.Units</class>
 		<class>com.mitosis.aviate.model.MerchantDetails</class>
 		<class>com.mitosis.aviate.model.OrderTax</class>
 		<class>com.mitosis.aviate.model.TaxModel</class>
 		<class>com.mitosis.aviate.model.ShippingChargeModel</class>
 		<class>com.mitosis.aviate.model.BinProductModel</class>
 		<class>com.mitosis.aviate.model.PriceModel</class>
-		
-		
+
+		<!-- Production Server -->
+		<!-- <properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://49.50.78.143:3306/shopsbacker" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="shopsbacker" />
+			<property name="javax.persistence.jdbc.password" value="@MitShops@" />
+		</properties> -->
+
+		<!-- Test Server -->
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://182.74.202.178:3306/aviate" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://54.68.134.166:3306/aviate_new" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="!MySql#123" />
+			<property name="javax.persistence.jdbc.password" value="root" />
 		</properties>
+
+		<!-- Dev Server -->
+		<!-- <properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aviate_new" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="root" />
+		</properties> -->
 
 	</persistence-unit>
 </persistence>
