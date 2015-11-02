@@ -256,6 +256,9 @@ angular.module('aviateAdmin.controllers')
 	}
 
 	$scope.editproduct = function(products) {
+		ProductService.setProductObj(products);
+		$state.go('app.editproduct');
+		/*
 
 		console.log(products);
 		$localStorage.product ={};
@@ -304,9 +307,9 @@ angular.module('aviateAdmin.controllers')
 
 		}
 
-		$state.go('app.editproduct');
+		
 
-	}
+	*/}
 
 
 

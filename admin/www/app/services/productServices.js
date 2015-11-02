@@ -93,8 +93,9 @@ angular.module('aviateAdmin.services')
 	
 	this.editProduct = function(product){
 		var d = $q.defer();
-		api.Product.save(product, function(err, result){
+		api.Product.updateProduct(product, function(err, result){
 			if (result.status == 'SUCCESS') {
+				toastr.success("product details have been updated successfully!!!");
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);
@@ -117,7 +118,13 @@ angular.module('aviateAdmin.services')
 	
 	
 
-	
+	this.setProductObj = function(product){
+		this.obj = product;
+	};
+
+	this.getProductObj = function(){
+		return this.obj;
+	};
 	
 	
 

@@ -18,23 +18,23 @@
    <div flex="50" class="padd-50 padd-b30" layout-padding layout="column" layout-sm="column">
     <md-input-container>
       <label>Product Name</label>
-      <input type="text" ng-model="product.productName" ng-required="true"/>
+      <input type="text" ng-model="productDetails.productName" ng-required="true"/>
     </md-input-container>
  	   
     <md-input-container>
-    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="product.productUnitOfMeasure.description" ng-required="true"></textarea>
+    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="productDetails.productUnitOfMeasure.description" ng-required="true"></textarea>
     </md-input-container>
     
     
     <md-input-container>
       <label>Product Measurement</label>
-      <input type="text" ng-model="product.measurement" valid-number ng-required="true"/>
+      <input type="text" ng-model="productDetails.measurement" valid-number ng-required="true"/>
     </md-input-container>
     
     <md-input-container>
       <label>Type</label>
 
-      <md-select placeholder="Select Type" ng-model="product.type" ng-required="true">
+      <md-select placeholder="Select Type" ng-model="productDetails.type" ng-required="true">
    		 <md-option ng-value="item.Name" ng-repeat="item in typeList">    
       		{{item.Name}}  
     	</md-option>
@@ -43,14 +43,14 @@
     
     <md-input-container>
       <label>Price</label>
-        <input type="text" ng-model="product.productPrice.price" valid-number ng-required="true"/>
+        <input type="text" ng-model="productDetails.productPrice.price" valid-number ng-required="true"/>
     </md-input-container>
         
 
     <md-input-container>
       <label>Type</label>
 
-      <md-select placeholder="Select Product Type" ng-model="product.productTypeId" ng-required="true">
+      <md-select placeholder="Select Product Type" ng-model="productDetails.productTypeId" ng-required="true">
    		 <md-option ng-value="item1.productTypeId" ng-repeat="item1 in productTypes">    
       		{{item1.productTypeName}}  
     	</md-option>
@@ -58,7 +58,7 @@
     </md-input-container>
     <md-input-container>
       <label>Measurement Unit</label>
-      <md-select name="myModel" ng-model="product.productUnitOfMeasure.abbreviation" ng-required="true">
+      <md-select name="myModel" ng-model="productDetails.productUnitOfMeasure.abbreviation" ng-required="true">
         <md-option ng-value="item.abbreviation" ng-repeat="item in measuredUnits"> 
            {{item.description}}   	
       		</md-option>
@@ -67,8 +67,8 @@
     </md-input-container>
     
     <section layout="row" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success  prdct-btns" ng-click="editproduct();" ng-disabled="addProductForm.$invalid">Update</md-button>
-    <md-button ui-sref="app.producttype" class="md-raised md-cancel prdct-btns">Cancel</md-button>
+    	<md-button class="md-raised md-success  prdct-btns" ng-click="editproduct(productDetails);" ng-disabled="addProductForm.$invalid">Update</md-button>
+    	<md-button ui-sref="app.producttype" class="md-raised md-cancel prdct-btns">Cancel</md-button>
     </section>
     </div>
     
@@ -76,12 +76,13 @@
     
 	    <div class="padd-lrtb30">
 	     <div class="md-layout-row layout-align-start-center pt_relat">	
-		    	  <img style="width: 100px;"  ng-show="showorgfront" src="{{OriginalFrontImage}}" class="img-circle" /> 
-		    	  	  <img style="width: 100px;"  ng-show="!showorgfront" src="{{orginalfrontimage}}" class="img-circle" />
+		    	  <img style="width: 100px;"  ng-show="originalFrontImage" src="{{originalFrontImage}}" class="img-circle" /> 
+		    	  	  <!-- <img style="width: 100px;"  ng-show="!showorgfront" src="{{orginalfrontimage}}" class="img-circle" /> -->
+		    	  	  <img ng-hide="originalFrontImage" style="width: 100px;"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALFRONT'"  src="{{image.imageUrl}}" class="img-circle" />
 		    	 	
 					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20" ng-click="showorgfront = true"></ng-md-icon>
-                       <input id="file-upload1" type="file" ng-model="OriginalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
+                       <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
+                       <input id="file-upload1" type="file" ng-model="originalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
                     	<span id="file-name1" ></span>
                     </label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Original Front Image</h3> 
@@ -90,11 +91,11 @@
 	    </div>
 	    <div class="padd-lrtb30">
 	     <div class="md-layout-row layout-align-start-center pt_relat">	 
-		    	<img src="{{OriginalBackImage}}" ng-show="showorgback" class="img-circle" style="width: 100px;" /> 
-					 <img ng-show="!showorgback" src="{{orginalbackimage}}" class="img-circle" style="width: 100px;" /></svg>	
+		    	<img ng-show="originalBackImage" src="{{originalBackImage}}" class="img-circle" style="width: 100px;" /> 
+					 <img ng-hide="originalBackImage" style="width: 100px;"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALBACK'"  src="{{image.imageUrl}}" class="img-circle" />	
 					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20" ng-click="showorgback = true"></ng-md-icon>
-                       <input id="file-upload2" type="file" ng-model="OriginalBackImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name2','file-upload2')"/>
+                       <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
+                       <input id="file-upload2" type="file" ng-model="originalBackImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name2','file-upload2')"/>
                     	<span id="file-name2"></span>
                     </label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Original Back Image</h3> 
@@ -102,9 +103,8 @@
 	    </div>
 	    <div class="padd-lrtb30">
 	     <div class="md-layout-row layout-align-start-center pt_relat">	 
-		    	<img style="width: 100px;"  src="{{smallFrontImage}}"  ng-show="showsmallfront" class="img-circle" /> 
-		    	 <img style="width: 100px;"  ng-show="!showsmallfront" src="{{smallfrontimage}}" class="img-circle" />
-		    	</svg>	
+		    	<img style="width: 100px;" ng-show="smallFrontImage"  src="{{smallFrontImage}}" class="img-circle" /> 
+		    	 <img style="width: 100px;" ng-hide="smallFrontImage"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'SMALLFRONT'"  src="{{image.imageUrl}}" class="img-circle" />
 					
 					<label id="file-uploadtest" >
                        <ng-md-icon icon="file_upload" size="20" ng-click="showsmallfront = true"></ng-md-icon>
@@ -117,17 +117,15 @@
 	    </div>
 	    <div class="padd-lrtb30">	    
 	    <div class="md-layout-row layout-align-start-center pt_relat">	 
-		    	 <img style="width: 100px;"  ng-show="showsmallback" src="{{smallBackImage}}" class="img-circle" /> 
-		    	  <img style="width: 100px;"  ng-show="!showsmallback" src="{{smallbackimage}}" class="img-circle"/> 
-		    	 </svg>	
+		    	 <img style="width: 100px;"  ng-show="smallBackImage" src="{{smallBackImage}}" class="img-circle" /> 
+		    	  <img style="width: 100px;" ng-hide="smallBackImage"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'SMALLBACK'"  src="{{image.imageUrl}}" class="img-circle" /> 
 					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20" ng-click="showsmallback = true"></ng-md-icon>
+                       <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
                        <input id="file-upload4" type="file" ng-model="smallBackImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name4','file-upload4')"/>
                     	<span id="file-name4" ></span>
                     </label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Thumbnail Back Image</h3> 
-		     	    	
-		    </div>	
+		  </div>	
 	    </div>
     
     </div>

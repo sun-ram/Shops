@@ -452,6 +452,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Product.updateProduct = function (product, callback) {
+			httpRequest("POST", "update/product/update", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 		apiClass.Product.deleteProduct = function (product, callback) {
 			httpRequest("POST", "update/deleteproduct", product, function (err, data) {
