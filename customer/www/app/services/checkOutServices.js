@@ -25,7 +25,13 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve($rootScope.myList);
+					if(user.addressId==undefined){
 					toastr.success(CONSTANT.SUCCESS_CODE.ADDADDRESS);
+					}
+					else{
+						toastr.success(CONSTANT.SUCCESS_CODE.UPDATEADDRESS);
+					}
+					
 				} else {
 					toastr.error(CONSTANT.ERROR_CODE.VALIDADDRESS);
 				}
