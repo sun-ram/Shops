@@ -151,6 +151,7 @@ angular.module('aviate.factories')
 	
 
 	factory.checkMyListProductsList = function (_productList , callback) {
+		if($rootScope.myList.listItem){
 		if($rootScope.myList.listItem.length > 0){
 			for(var i = 0; $rootScope.myList.listItem.length > i; i++){
 				for(var j = 0; _productList.length > j; j++){
@@ -160,7 +161,9 @@ angular.module('aviate.factories')
 				}
 			}
 		}
+		}
 		callback(_productList);
+	
 	}
 
 	return factory;
