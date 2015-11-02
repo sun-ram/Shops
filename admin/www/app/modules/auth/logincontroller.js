@@ -1,8 +1,8 @@
 angular.module('aviateAdmin.controllers')
 .controller("logincontroller", function($rootScope, $localStorage, $scope, $http, $state,$mdToast, toastr, api, ipCookie, AuthService) {
-
+	$scope.user = {}
 	$scope.signIn = function() {
-
+		$scope.saveauth();
 		if($scope.login.$invalid){
 			
 			if($scope.login.emailId.$invalid){
@@ -15,7 +15,6 @@ angular.module('aviateAdmin.controllers')
 			}
 
 		}
-
 		var userInfo = {
 				"emailId": $scope.user.emailId,
 				"password": $scope.user.password
@@ -33,4 +32,27 @@ angular.module('aviateAdmin.controllers')
 			}
 		});
 	};
+	
+	$scope.saveauth = function() {
+		if($scope.rememberme){
+			if($scope.user.emailId==undefined){
+				toastr.error("Invalid Email Id");
+			}
+			else{
+			$scope.user.rememberme=true;
+			ipCookie('auth_info', $scope.user);
+			}
+			}else{
+			ipCookie('auth_info', null);
+		}
+		}
+	
+	var authInfo = ipCookie('auth_info');
+	
+	if(authInfo != undefined || authInfo != null){
+		if(authInfo.rememberme){
+			$scope.user.emailId=authInfo.emailId;
+			$scope.user.password = authInfo.password;
+			$scope.rememberme=authInfo.rememberme;
+	}}
 });
