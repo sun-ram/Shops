@@ -25,7 +25,8 @@ public enum AVErrorMessage {
 	ADDRESS_NOT_VALID("E0024","please enter correct address,City,State,Country and PostalCode"),
 	EMAILID_ALREADY_EXIT("E0025","EmailId already registered"),
 	USER_ALREADY_EXIT("E0026","Username(EmailId) Already exists"),
-	INVALID_LOGIN("E0027","Invalid Email/Password");
+	INVALID_LOGIN("E0027","Invalid Email/Password"),
+	ADDRESS_LENGTH_ERROR("E0028","Address is not valid,Max 200 Characters.");
 	
 
 	private final String erroeCode;

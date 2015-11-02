@@ -4,22 +4,23 @@ angular.module('aviate.controllers')
 		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory, MyCartServices,$mdDialog,MyListServices) {
 
 
-			$scope.addToMyList = function(product){
+			$scope.addToMyList = function(product,index){
 				if($rootScope.user == null || $rootScope.user == undefined){
 					$rootScope.signInPopup();
 				}else{
 				MyListServices.addToMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
-					$scope.productDetails.isProductMyList = true;
-					$scope.getMyList();
+					$scope.productList[index].isProductMyList = true;
+					$scope.getProducts();
 				});	
 				}
 			};
 			
-			$scope.removeFromMyList = function(product){
+			$scope.removeFromMyList = function(product,index){
 				MyListServices.removeMyList({"customerId":$rootScope.user.userId,"productId" : product.productId,"storeId" : $rootScope.store.storeId}).then(function(data){
 					$scope.getMyList();
-					$scope.productDetails.isProductMyList = false;
+					$scope.productList[index].isProductMyList = false;
 				});	
+				$scope.getProducts();
 			};
 			
 			$scope.getMyList = function(){
@@ -29,16 +30,9 @@ angular.module('aviate.controllers')
 			};
 			
 			$scope.getProducts = function(){
-				if($rootScope.user == null || $rootScope.user == undefined){
-					$scope.productList = products;
-				}else{
-				$scope.getMyList();
-				MyCartFactory.checkCartProductsQuantity(products,function(data){
-					MyCartFactory.checkProductInMyList(data,function(dataInList){
-						$scope.productList = dataInList;
+					MyCartFactory.checkMyListProductsList(products,function(data){
+						$scope.productList = data;
 					});
-				});
-				}
 			};
 			
 			$scope.productDetails = function(ev,products){
