@@ -115,7 +115,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 
 .header_color .md-icon-button{border-radius:0px;}
 .bor_radius{border-radius:0px;}
-md-dialog {border-radius:0px;}
+md-dialog {border-radius:0px; display: block ! important;}
 
 
 /* ------------ Floating ----------*/

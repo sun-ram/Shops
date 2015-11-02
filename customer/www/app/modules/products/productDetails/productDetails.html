@@ -9,7 +9,7 @@
     </div>
   </md-toolbar>         
 <md-card layout="row" layout-sm="column" layout-padding style="padding: 25px; margin: 20px 3%;">
-		<div flex>
+		<div flex-gt-md="35" flex-gt-sm="50">
 			<div layout="row" layout-align="start center">
 			
 			<zoom mark-height="50" mark-width="50"  src="{{image}}" zoom-lvl="{{zoomLvl}}"></zoom>
@@ -17,49 +17,52 @@
 			</div>
 			<div layout="row" flex="100" layout-align="start center">
 				
-				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" ng-init="changeimage(image.imageUrl)">
+				<div flex="30" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" ng-init="changeimage(image.imageUrl)">
 					<img  src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
  				</div>
-				<div flex="20" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px">
+				<div flex="30" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px">
 					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
 				</div>	
 			</div>
 		</div>
-		<div flex>
-			<div style="padding-left: 15px">
+		<div flex-gt-md="65" flex-gt-sm="50">
+			<div>
 				<h1 style="color: green">{{productDetails.productName}}</h1>
-				<span>{{productDetails.measurement}} {{productDetails.productUnitOfMeasure.abbreviation}}</span>
-				<p>{{productDetails.productUnitOfMeasure.description}}</p>
-				<p>Effective Price Rs {{productDetails.productPrice.price}}</p>
+				<span style="font-style: italic; font-size: 22px; font-weight: bold; ">{{productDetails.measurement}} {{productDetails.productUnitOfMeasure.abbreviation}}</span>
+				<p style="color: grey;">{{productDetails.productUnitOfMeasure.description}}</p>
+				<p style="font-size: 22px;"><span style="font-style: italic;">Effective Price: </span> <b style="color: red;"> Rs. {{productDetails.productPrice.price}}</b></p>
 			</div>
 			<div>
 				
-				<div layout="row" flex style="height: 60px;">
-								<div ng-hide="productDetails.isProductMyList" ng-click="addToMyList(productDetails);" flex="40" style="font-size:12px; background-color:#00B8D4; color:#FFFFFF;" layout="column" layout-align="center center"
+				<div layout="row" flex>
+						<div flex-gt-sm = "40" flex="30" layout="row" layout-align="start center" style="margin-right: 20px; cursor: pointer;">
+								<div flex="100" ng-hide="productDetails.isProductMyList" ng-click="addToMyList(productDetails);" flex="40" style="font-size:12px; background-color:#00B8D4; color:#FFFFFF;" layout="column" layout-align="center center"
 									class="button-flex wishlist-btn">
-									<div flex ><md-icon style="height:14px; color:#FFFFFF; margin:3px; "
+									<div flex layout-padding><md-icon style="height:18px; color:#FFFFFF; "
 										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
 										</div>
-									<div flex style="text-align:center;">Add To List</div>
+									<div flex style="text-align:center; font-size: 19px; padding-bottom: 4px;">Add To List</div>
 								</div>
 								<div ng-show="productDetails.isProductMyList" ng-click="removeFromMyList(productDetails);" flex="40" style="font-size:12px; background-color:red; color:#FFFFFF;" layout="column" layout-align="center center"
 									class="button-flex wishlist-btn">
-									<div flex ><md-icon style="height:14px; color:#FFFFFF; margin:3px; "
+									<div flex layout-padding><md-icon style="height:18px; color:#FFFFFF;"
 										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
 										</div>
-									<div flex style="text-align:center;">Remove From My List</div>
+									<div flex style="text-align:center; font-size: 19px; padding-bottom: 4px;">Remove From My List</div>
 								</div>
-								<div flex="60" layout="row" layout-align="center center"
+						</div>
+								<div flex-gt-sm = "40" flex="30" layout="row" layout-align="center center"
 									class="button-flex cart-btn">
-									<div flex="30"  ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)"">
-										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)"">
+										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
 											md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
 									</div>
-									<div flex="40" ng-hide="productDetails.noOfQuantityInCart > 0" style="text-align:center" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" class="md-subhead">Cart</div>
+									<div flex="40" ng-hide="productDetails.noOfQuantityInCart > 0" style="text-align:center; font-size: 20px;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" class="md-subhead">
+									<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white; height: 20px; margin-top: -4px;"></md-icon>Cart</div>
 									<div flex="40" ng-show="productDetails.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{productDetails.noOfQuantityInCart}}</div>
 
-									<div flex="30"  ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
-										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
+										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
 											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
 									</div>
 								</div>
