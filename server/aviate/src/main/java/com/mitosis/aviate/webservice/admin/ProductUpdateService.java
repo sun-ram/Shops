@@ -490,10 +490,137 @@ public class ProductUpdateService {
 				productDetails.setProductId(productImageJson.getLong("productId"));
 				ProductDao productDao = new ProductDaoImpl();
 				productDetails = productDao.getProductDetails(productImageJson.getLong("productId"));
+				ResponseModel response = new ResponseModel();
+				ProductPriceDetails productPrice = new ProductPriceDetails();
+				List<ProductImages> productImageList = new ArrayList<ProductImages>();
+				ProductOffer productOffer = new ProductOffer();
+				ProductUOM productUnitOfMeasure = new ProductUOM();
+				ProductImages productImage;
+				String imageName, imageString, imageUrl;
+				byte[] byeImage;
+				try{
+					log.info("\n******************************************\n"
+							+ "Initializing the update product type service");
+					properties.load(getClass().getResourceAsStream(
+							"/properties/serverurl.properties"));
+					String imageLocation = properties.getProperty("imageUrl");
+					//String imageLocation = "http://182.74.202.178:8181/aviate/ImageServlet?imageName=";
+					if(commonDao.isValidProperty(productImageJson, "storeId"))			
+						productDetails.setStoreId(productImageJson.getInt("storeId"));
+					if(commonDao.isValidProperty(productImageJson, "merchantId"))	
+						productDetails.setMerchantId(productImageJson.getInt("merchantId"));
+					productDetails.setProductTypeId(Long.parseLong(productImageJson.getString("productTypeId")));
+					productDetails.setProductName(productImageJson.getString("productName"));
+					productDetails.setMeasurement(productImageJson.getString("measurement"));
+					productDetails.setType(productImageJson.getString("type"));
+
+					//			productDetails.setProductDescription(productImageJson.getString("productDescription"));
+					productUnitOfMeasure.setAbbreviation(productImageJson.getString("abbreviation"));
+					productUnitOfMeasure.setDescription(productImageJson.getString("description"));
+					if(commonDao.isValidProperty(productImageJson, "productId")){
+
+						productDetails.setProductId(productImageJson.getLong("productId"));
+					}
+					if(commonDao.isValidProperty(productImageJson, "offereName")){
+						productOffer.setOfferName(productImageJson.getString("offereName"));
+						productOffer.setStoreId(Long.parseLong(productImageJson.getString("storeId")));
+						productUpdateDao.updateProductOffer(productOffer);
+						if(commonDao.isValidProperty(productImageJson, "groupCount")){
+							productDetails.setGroupCount(productImageJson.getString("groupCount"));
+						}
+					}
+					if(commonDao.isValidProperty(productImageJson, "smallFrontImage")){
+						for(ProductImages temp : productDetails.getProductImages()){
+							if(temp.getImagePosition().equalsIgnoreCase("SMALLFRONT")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("smallFrontImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("SMALLFRONT");
+								temp.setImageType(productImageJson.getString("smallFrontImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+							}
+						}
+
+					}
+					if(commonDao.isValidProperty(productImageJson, "smallBackImage")){
+						for(ProductImages temp : productDetails.getProductImages()){
+							if(temp.getImagePosition().equalsIgnoreCase("SMALLBACK")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("smallBackImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("SMALLBACK");
+								temp.setImageType(productImageJson.getString("smallBackImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+							}}}
+
+					if(commonDao.isValidProperty(productImageJson, "originalFrontImage")){
+						for(ProductImages temp : productDetails.getProductImages()){
+							if(temp.getImagePosition().equalsIgnoreCase("ORIGINALFRONT")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("originalFrontImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("ORIGINALFRONT");
+								temp.setImageType(productImageJson.getString("originalFrontImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+							}}}
+
+					if(commonDao.isValidProperty(productImageJson, "originalBackImage")){
+						for(ProductImages temp : productDetails.getProductImages()){
+							if(temp.getImagePosition().equalsIgnoreCase("ORIGINALBACK")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("originalBackImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("ORIGINALBACK");
+								temp.setImageType(productImageJson.getString("originalBackImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+							}}}
+					productUpdateDao.updateProduct(productDetails);
+					if(productDetails.getStatus().equals("SUCCESS")){
+						productPrice.setPrice(Double.parseDouble(productImageJson.getString("price")));
+						productPrice.setProductId(productDetails.getProductId());
+						if(productImageJson.has("priceId")){
+
+
+							productPrice.setPriceId(Long.valueOf(productImageJson.getString("priceId")));
+
+						}
+						productUpdateDao.updateProductPrice(productPrice);
+						productUnitOfMeasure.setProductId(productDetails.getProductId());
+						if(productImageJson.has("measureId")){
+
+
+							productUnitOfMeasure.setUnitOfMeasureId(Long.valueOf(productImageJson.getString("measureId")));
+
+						}
+
+						productUpdateDao.updateUOM(productUnitOfMeasure);
+						response.setStatus("SUCCESS");
+						response.setErrorString("");
+						response.setErrorCode("");
+						System.out.println(productUnitOfMeasure);
+						return response;
+					}
+					
+				}catch(Exception e){
+					e.printStackTrace();
+					response.setStatus("FAILURE");
+					response.setErrorString("");
+					response.setErrorCode("");
+				}
+				return response;
 			}
-			productDetails.setProductId(productImageJson.getLong("productId"));
-			addProductDetailsInfo(productImageJson, productDetails);
-			//productUpdateDao.updateProduct(productDetails);
 
 		}catch(Exception e){
 			e.printStackTrace();
