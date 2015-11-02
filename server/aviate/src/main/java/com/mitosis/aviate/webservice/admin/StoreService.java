@@ -118,7 +118,16 @@ public class StoreService {
 				credentials.put("role", "STOREADMIN");
 				credentials.put("store_id", storeModel.getStoreId());
 				credentials.put("merchantId", storeModel.getMerchantId());
+				if(flag){
 				signup.signUp(credentials);
+				}
+				else{
+					response.setStatus(AVMessageStatus.FAILURE.getValue());
+					response.setErrorString(AVErrorMessage.ADDRESS_LENGTH_ERROR.getCode());
+					response.setErrorString(AVErrorMessage.ADDRESS_LENGTH_ERROR.getMessage());
+					response.setErrorCode("");
+					return response;
+				}
 			}
 			else{
 				if(!toCheckSignupData.isEmpty() && toCheckSignupDataNotCustomer.isEmpty()){
@@ -143,7 +152,16 @@ public class StoreService {
 							credentials.put("password", storeModel.getPassword());
 							credentials.put("role", "STOREADMIN");
 							credentials.put("store_id", storeModel.getStoreId());
+							if(flag){
 							signup.signUp(credentials);
+							}
+							else{
+								response.setStatus(AVMessageStatus.FAILURE.getValue());
+								response.setErrorString(AVErrorMessage.ADDRESS_LENGTH_ERROR.getCode());
+								response.setErrorString(AVErrorMessage.ADDRESS_LENGTH_ERROR.getMessage());
+								response.setErrorCode("");
+								return response;
+							}
 						}
 						else{
 							List<CustomerDetailsModel> cm=new ArrayList<CustomerDetailsModel>();
@@ -174,7 +192,6 @@ public class StoreService {
 				response.setStatus(AVMessageStatus.FAILURE.getValue());
 				response.setErrorString(AVErrorMessage.EMAILID_ALREADY_EXIT.getCode());
 				response.setErrorString(AVErrorMessage.EMAILID_ALREADY_EXIT.getMessage());
-
 				response.setErrorCode("");
 			}
 		}catch(Exception e){
