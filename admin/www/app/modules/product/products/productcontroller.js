@@ -22,7 +22,7 @@ angular.module('aviateAdmin.controllers')
 
 			$scope.product ={};
 
-			$scope.product.categoryId = $localStorage.productcatId;
+			$scope.product.categoryId = $localStorage.categoryId;
 
 			ProductService.getAllProductListByCategory($scope.product).then(function(data) {
 
