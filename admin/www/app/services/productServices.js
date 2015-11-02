@@ -43,7 +43,7 @@ angular.module('aviateAdmin.services')
 	
 	this.productType = function(product){
 		var d = $q.defer();
-		api.Product.productType(product, function(err, result){
+		api.Product.getAllProductType(product, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
@@ -110,7 +110,7 @@ angular.module('aviateAdmin.services')
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
-				toastr.error(result.DELETIONFAILED);
+				toastr.error(result.errorString);
 			}
 		})
 		return d.promise;

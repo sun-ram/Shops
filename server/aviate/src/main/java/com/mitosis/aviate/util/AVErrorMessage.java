@@ -26,7 +26,8 @@ public enum AVErrorMessage {
 	EMAILID_ALREADY_EXIT("E0025","EmailId already registered"),
 	USER_ALREADY_EXIT("E0026","Username(EmailId) Already exists"),
 	INVALID_LOGIN("E0027","Invalid Email/Password"),
-	ADDRESS_LENGTH_ERROR("E0028","Address is not valid,Max 200 Characters.");
+	ADDRESS_LENGTH_ERROR("E0028","Address is not valid,Max 200 Characters."),
+	PRODUCT_DELETE_ERROR("E0029","Can't Delete, This product in sales.");
 	
 
 	private final String erroeCode;
