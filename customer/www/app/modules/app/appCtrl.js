@@ -6,12 +6,21 @@ angular.module('aviate.controllers')
 		
 		$scope.checkOut = function() {
 			if($rootScope.user != null){
+				$rootScope.change=false;
 				$state.go('app.checkout');
 			}else{
 				$rootScope.signInPopup();
 			}
 		};
 		
+		$scope.checkOutfromcart = function() {
+					if($rootScope.user != null){
+						$rootScope.change=true;
+			 				$state.go('app.checkout');
+			 			}else{
+			 				$rootScope.signInPopup();
+			 			}
+		};
 		$scope.addToCart = function(product){
 			MyCartFactory.addToCart(product,$scope.productList,  function(data){
 				$scope.productList = data;

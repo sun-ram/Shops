@@ -98,6 +98,16 @@ angular.module('aviate.controllers')
 		});
 	};
 
+	$scope.cancel1=function(){
+		//$rootScope.change=false;
+		$state.go('app.home');
+	}
+	$scope.back=function()
+	{
+		//$rootScope.change=true;
+		$state.go('app.cart');
+	}
+	
 	$scope.payment = function() {
 		var paymentJSON ={
 				"amount":$rootScope.myCart.grossAmount
@@ -147,6 +157,7 @@ angular.module('aviate.controllers')
 		$scope.cancel = function() {
 			$mdDialog.cancel();
 		};
+		
 
 		$scope.addAddress = function(address) {
 			addAddress(address);
