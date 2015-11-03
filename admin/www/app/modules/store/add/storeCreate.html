@@ -19,7 +19,7 @@
     </md-input-container>
         <md-input-container layout-padding flex>
       <label>User Name(email-id)<span style="color:red">*</span></label>
-        <input type="email" name="emailId" ng-model="storeDetail.emailId" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+        <input type="email" name="emailId" ng-model="storeDetail.emailId" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
   <span ng-message="required" ng-show="storeForm.emailId.$error.email || (!storeForm.emailId.$error.required && !storeForm.emailId.$valid)" style="color:red;">Email Invalid.</span>
      
     </md-input-container>

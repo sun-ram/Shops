@@ -47,7 +47,7 @@
 	<md-input-container layout-padding flex>
        <label></span>Email ID<span style="color:red">*</span></label>
       
-        <input type="email" name="emailId" ng-model="user.emailId" ng-required="true" ng-disabled="user.customerId" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+        <input type="email" name="emailId" ng-model="user.emailId" ng-required="true" ng-disabled="user.customerId" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
 	        <span ng-message="required" ng-show="employeeForm.emailId.$error.email || (!employeeForm.emailId.$error.required && !employeeForm.emailId.$valid)" style="color:red;">Email Invalid.</span>
     </md-input-container>    
     <md-input-container layout-padding flex>
