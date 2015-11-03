@@ -35,7 +35,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		.error(function (data, status, headers, config) {
 			callback({
 				error: true,
-				errorCode: "UNKNOWN_ERROR"
+				errorCode: "CONNECTION_ERROR"
 			}, null);
 		});
 	};
