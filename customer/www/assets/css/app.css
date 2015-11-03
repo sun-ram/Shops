@@ -26,7 +26,7 @@ body,html{ font-family:'nirmalaui'; height:100%; width:100%; }
 
 .organic {background: #72A308;}
 
-/* .price {background: #61DDAB;} */
+.price {background: #61DDAB;}
 
 md-checkbox.md-checked .md-icon{background:#72a308 !important;}
 
