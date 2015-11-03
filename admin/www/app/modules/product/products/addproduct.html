@@ -15,7 +15,7 @@
 	<h3 layout-align="start center">Create Product</h3>
   </div>
   
-  <form name="addProductForm" layout="row" >
+  <form name="addProductForm" layout="row" novalidate>
   
    <div flex="50" class="padd-50 padd-b30" layout-padding layout="column" layout-sm="column">
     <md-input-container>
@@ -48,7 +48,9 @@
     <md-input-container>
       <label>Price</label>
      <!--    <input type="text" class="decimalnumber" ng-model="product.productPrice.price" />  -->
-       <input type="text" ng-model="product.productPrice.price" valid-number ng-required="true"/> 
+       <input type="text" name="price" ng-model="product.productPrice.price" pattern="^\d*(\.\d{2}$)?" ng-required="true"/> 
+   	 <span ng-message="required" ng-show="addProductForm.price.$error.price || (!addProductForm.price.$error.required && !addProductForm.price.$valid)" style="color:red;">Price Should be Number and upto 2 digits decimal point.</span>
+   
     </md-input-container>
         
 
