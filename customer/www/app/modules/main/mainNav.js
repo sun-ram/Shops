@@ -222,6 +222,7 @@ angular.module('aviate.directives')
 
 			$scope.changeStore = function() {
 				$rootScope.newclass = "remove";
+				$rootScope.topbar = "toptoolrem";
 				$mdSidenav('left').close();
 				if($rootScope.latLong.support==true){
 					$rootScope.showLocationDialog();
