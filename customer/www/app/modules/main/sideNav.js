@@ -31,7 +31,7 @@ angular.module('aviate.directives').directive('sideNav', [
                         
                         if(data && data.length>0){
                             for(var i=0;data[i];i++){
-                                if(!exceptionIndex || exceptionIndex != i){
+                                if(typeof exceptionIndex == 'undefined' || exceptionIndex != i){
                                     $scope.optimizeInnerData(data[i]);
                                 }
                             }
