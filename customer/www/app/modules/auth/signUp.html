@@ -9,8 +9,8 @@
     </div>
   </md-toolbar>
 
-  <md-dialog-content style="max-width:800px;max-height:810px;">
-	  <form name="userForm">			
+  <md-dialog-content style="padding:0px;">
+	  <form name="userForm" layout-padding>			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
           <input ng-model="user.emailId" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
@@ -27,7 +27,7 @@
 	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Confirm Password</label>
 	        <input ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
 	      </md-input-container>
-	       <div class="md-actions padd_btm20" layout="row">
+	       <div class="md-actions" layout="row">
 		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user);">
 		      SIGN UP
 		    </md-button>
