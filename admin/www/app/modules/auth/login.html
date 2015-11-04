@@ -1,5 +1,5 @@
 <style>
-svg{width: 70%;}
+svg{width: 70%;color:white;fill:white;}
 .btn-lgcolor{background-color:#73A542;}
 .text-white{color:#fff !important;}
 .ft-14{font-size:14px;}
@@ -31,7 +31,7 @@ svg{width: 70%;}
     		</md-input-container>
 			<div layout="row">
 		      <div>
-		       <md-checkbox  class="md-primary " ng-change="saveauth()" ng-model="rememberme" aria-label="Checkbox 1">
+		       <md-checkbox  class="md-green" ng-change="saveauth()" ng-model="rememberme" aria-label="Checkbox 1">
 		          	<span>Remember me</span>
 		        	</md-checkbox>
 		      </div>
@@ -41,7 +41,7 @@ svg{width: 70%;}
 		    </div> 	
 	      	<div layout layout-row style="padding-top:15px;">
 			   <span flex></span>
-	        		<md-button flex class="md-raised md-primary  text-white" ng-disabled="login.emailId.$invalid || login.password.$invalid"  ng-click="signIn()">Login &nbsp;<md-icon md-svg-src="images/svg/news37.svg" class="name"></md-icon> </md-button>
+	        		<md-button flex class="md-raised md-success  text-white" ng-disabled="login.emailId.$invalid || login.password.$invalid"  ng-click="signIn()">Login &nbsp;<md-icon md-svg-src="images/svg/news37.svg" class="name"></md-icon> </md-button>
 	        	<span flex></span>
 	      	</div>
 	      	</div></div>
