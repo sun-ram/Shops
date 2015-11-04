@@ -21,50 +21,106 @@
 	</md-toolbar>
 	
 	<md-list>
+	   <div layout layout-sm="column">
 	
+        <md-item class="md-raised" layout-padding  flex>
+	   
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.address[0].firstName}} {{employee.address[0].lastName}}</span>
             		 <span class="hash_color ft-14">Name</span>
            	</span> 
+      	</md-item>
+           	
+           	
+	
+        <md-item class="md-raised" layout-padding  flex>
+           	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.role}}</span>
             		 <span class="hash_color ft-14">Role</span>
-           	</span>           	                    
+           	</span>  
+           	</md-item>
+           	</div>
+           		   <div layout layout-sm="column">
+           	
+           	         	          <md-item class="md-raised" layout-padding  flex>
+           	         	                    
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.customerDetails.storeId}}</span>
             		 <span class="hash_color ft-14">Store Id</span>
            	</span> 
+           	</md-item>
+           	
+	
+        <md-item class="md-raised" layout-padding  flex>
+           	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.customerDetails.phoneNo}}</span>
             		 <span class="hash_color ft-14">Phone</span>
            	</span> 
+           	</md-item>
+           	
+           	</div>
+           		   <div layout layout-sm="column">
+           	
+           	        <md-item class="md-raised" layout-padding  flex>
            	
            	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.customerDetails.emailId}}</span>
             		 <span class="hash_color ft-14">Email ID</span>
            	</span> 
+           	</md-item>
+           	
+	
+        <md-item class="md-raised" layout-padding  flex>
+           	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.address[0].address}}</span>
             		 <span class="hash_color ft-14">Address</span>
-           	</span>           	                    
+           	</span>   
+           	</md-item>
+           	</div>
+           		   <div layout layout-sm="column">
+           	
+           	        <md-item class="md-raised" layout-padding  flex>
+           	        	                    
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.address[0].city}}</span>
             		 <span class="hash_color ft-14">City</span>
            	</span> 
+           	</md-item>
+           	
+           
+	
+        <md-item class="md-raised" layout-padding  flex>
+           	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.address[0].state}}</span>
             		 <span class="hash_color ft-14">State</span>
            	</span>
+           	</md-item>
+           	</div>
+           		   <div layout layout-sm="column">
+           	
+           	        <md-item class="md-raised" layout-padding  flex>
+           	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.address[0].country}}</span>
             		 <span class="hash_color ft-14">Country</span>
            	</span> 
+           	</md-item>
+           	
+          
+	
+        <md-item class="md-raised" layout-padding  flex>
+           	
            	<span  layout="column" class="detail-list" layout-align="start start">
             		 <span class="ft-18 paddtb-8">{{employee.address[0].postalCode}}</span>
             		 <span class="hash_color ft-14">Postal Code</span>
            	</span>           	            	          	        	
-
+</md-item>
+</div>
      </md-list>
      
    </md-card-content>
