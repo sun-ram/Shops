@@ -162,8 +162,7 @@ angular.module('aviateAdmin.controllers')
 			$localStorage.products.description =  $scope.product.productUnitOfMeasure.description;
 			$localStorage.products.type =  $scope.product.type;
 			/*  Small Front Image base64 Start*/
-			$localStorage.products.smallFrontImage =   $scope.smallFrontImage ? (($scope.smallFrontImage.substring(11).split(";")[0].length < 4) ? $scope.smallFrontImage.substring(22) : 
-				$scope.smallFrontImage.substring(23)) : "";
+			$localStorage.products.smallFrontImage = $scope.smallFrontImage.split(",")[1];
 
 			/*  Small Front Image base64 End*/
 
@@ -175,8 +174,7 @@ angular.module('aviateAdmin.controllers')
 
 			/*  Small Back Image base64 Start*/
 
-			$localStorage.products.smallBackImage =  $scope.smallBackImage ? (($scope.smallBackImage.substring(11).split(";")[0].length < 4) ? $scope.smallBackImage.substring(22) : 
-				$scope.smallBackImage.substring(23)) : "";
+			$localStorage.products.smallBackImage =$scope.smallBackImage.split(",")[1];
 
 			/*  Small Back Image base64 End*/		
 
@@ -188,8 +186,7 @@ angular.module('aviateAdmin.controllers')
 
 			/* Orginal Front Image base64 Start*/
 
-			$localStorage.products.originalFrontImage =  $scope.OriginalFrontImage ? (($scope.OriginalFrontImage.substring(11).split(";")[0].length < 4) ? $scope.OriginalFrontImage.substring(22) :
-				$scope.OriginalFrontImage.substring(23)) : "";
+			$localStorage.products.originalFrontImage =$scope.OriginalFrontImage.split(",")[1];
 
 			/* Orginal Front Image base64 End*/
 
@@ -200,8 +197,7 @@ angular.module('aviateAdmin.controllers')
 
 					/* Orginal Back Image base64 Start*/
 
-					$localStorage.products.originalBackImage = $scope.OriginalBackImage ? (($scope.OriginalBackImage.substring(11).split(";")[0].length < 4) ? $scope.OriginalBackImage.substring(22) :
-						$scope.OriginalBackImage.substring(23)) : "";
+					$localStorage.products.originalBackImage = $scope.OriginalBackImage.split(",")[1];
 
 					/* Orginal Back Image base64 End*/
 

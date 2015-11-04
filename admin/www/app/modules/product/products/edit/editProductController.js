@@ -80,25 +80,28 @@ angular.module('aviateAdmin.controllers')
 
 		if($scope.smallFrontImage && $scope.smallFrontImage != undefined){
 
-			$scope.product.smallFrontImage =   $scope.smallFrontImage ? (($scope.smallFrontImage.substring(11).split(";")[0].length < 4) ? $scope.smallFrontImage.substring(22) : 
-				$scope.smallFrontImage.substring(23)) : "";
+			$scope.product.smallFrontImage =   $scope.smallFrontImage.split(",")[1];
 
 			$scope.product.smallFrontImageType = $scope.smallFrontImage ? ($scope.smallFrontImage.substring(11).split(";")[0]) : "";
 		}
-		$scope.product.smallBackImage =  $scope.smallBackImage ? (($scope.smallBackImage.substring(11).split(";")[0].length < 4) ? $scope.smallBackImage.substring(22) : 
-			$scope.smallBackImage.substring(23)) : "";
+		
+		if($scope.smallBackImage && $scope.smallBackImage != undefined){
+		$scope.product.smallBackImage =  $scope.smallBackImage.split(",")[1];
 
 		$scope.product.smallBackImageType = $scope.smallBackImage ? ($scope.smallBackImage.substring(11).split(";")[0]) : "";
+		}
+		
+		if($scope.originalFrontImage && $scope.originalFrontImage != undefined){
+			$scope.product.originalFrontImage =  $scope.originalFrontImage.split(",")[1];
 
-		$scope.product.originalFrontImage =  $scope.originalFrontImage ? (($scope.originalFrontImage.substring(11).split(";")[0].length < 4) ? $scope.originalFrontImage.substring(22) :
-			$scope.originalFrontImage.substring(23)) : "";
+			$scope.product.originalFrontImageType = $scope.originalFrontImage ? ($scope.originalFrontImage.substring(11).split(";")[0]) : "";
+			}
+		
+		if($scope.originalBackImage && $scope.originalBackImage != undefined){
+			$scope.product.originalBackImage =  $scope.originalBackImage.split(",")[1];
 
-		$scope.product.originalFrontImageType= $scope.originalFrontImage ? ($scope.originalFrontImage.substring(11).split(";")[0]) : "",
-
-				$scope.product.originalBackImage = $scope.originalBackImage ? (($scope.originalBackImage.substring(11).split(";")[0].length < 4) ? $scope.originalBackImage.substring(22) :
-					$scope.originalBackImage.substring(23)) : "";
-
-				$scope.product.originalBackImageType =  $scope.originalBackImage ? ($scope.originalBackImage.substring(11).split(";")[0]) : "";
+			$scope.product.originalBackImageType = $scope.originalBackImage ? ($scope.originalBackImage.substring(11).split(";")[0]) : "";
+			}
 
 				$scope.product.merchantId = $rootScope.user.merchantId;
 				$scope.product.storeId = $rootScope.user.storeId;
