@@ -12,7 +12,7 @@ svg{width: 70%;color:white;fill:white;}
    </md-card-content>   
    <div class="" layout="row" layout-align="center center" layout-wrap >
      <md-card layout="column" layout-padding>
-     <form name="login" novalidate>
+     <form name="login" novalidate ng-hide="forget">
         <div layout-padding><div layout-padding>
 	      <md-input-container class="" >
 		      <label><md-icon md-svg-src="images/svg/at5.svg" class="name"></md-icon>Email</label>
@@ -36,12 +36,30 @@ svg{width: 70%;color:white;fill:white;}
 		        	</md-checkbox>
 		      </div>
 		      <div>
-		       <md-button  class="md-primary">forgot password?</md-button>
+		       <md-button  class="md-primary" ng-click="forget=true">forgot password?</md-button>
 		      </div>     
 		    </div> 	
 	      	<div layout layout-row style="padding-top:15px;">
 			   <span flex></span>
 	        		<md-button flex class="md-raised md-success  text-white" ng-disabled="login.emailId.$invalid || login.password.$invalid"  ng-click="signIn()">Login &nbsp;<md-icon md-svg-src="images/svg/news37.svg" class="name"></md-icon> </md-button>
+	        	<span flex></span>
+	      	</div>
+	      	</div></div>
+	      </form>
+	      <form name="reset" novalidate ng-show="forget">
+        <div layout-padding><div layout-padding>
+	      <md-input-container class="" >
+		      <label><md-icon md-svg-src="images/svg/at5.svg" class="name"></md-icon>Email</label>
+		      <input name="emailId" ng-model="user.emailId" type="text"  ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+		     
+		  </md-input-container>
+			<div layout layout-row style="padding-top:15px;">
+			   <span flex></span>
+	        		<md-button flex class="md-raised md-primary  text-white"   ng-click="cancel()">Cancel </md-button>
+	        	<span flex></span>
+	      	
+			   <span flex></span>
+	        		<md-button flex class="md-raised md-success  text-white"  ng-disabled="reset.emailId.$invalid" ng-click="forgetpass(user)">Submit </md-button>
 	        	<span flex></span>
 	      	</div>
 	      	</div></div>

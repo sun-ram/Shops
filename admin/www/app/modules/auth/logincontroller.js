@@ -1,6 +1,19 @@
 angular.module('aviateAdmin.controllers')
 .controller("logincontroller", function($rootScope, $localStorage, $scope, $http, $state,$mdToast, toastr, api, ipCookie, AuthService) {
 	$scope.user = {}
+	$scope.forgetpass = function(user) {
+				$scope.forget = false;
+				AuthService.forgetpass(user).then(function(data){
+					$scope.user ="";
+					$state.go('login');
+				});
+			};
+			$scope.cancel=function()
+			{
+				$scope.forget=false;
+				$scope.user ="";
+				$state.go('login');
+			}
 	$scope.signIn = function() {
 		$scope.saveauth();
 		if($scope.login.$invalid){

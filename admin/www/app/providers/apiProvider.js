@@ -65,7 +65,19 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
+		apiClass.User.forgetpass = function (user, callback) {
+			httpRequest("POST", "customer/forgetpassword", user, function (err, data) {
+				if (err) {
 
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 		apiClass.Employee = {
 				name: ""
 		};

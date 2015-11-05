@@ -19,6 +19,8 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ADDSTORAGEBIN:'StorageBin Added Successfully',
 	DELETESTORAGEBIN:'StorageBin Deleted Successfully',
 	INV_PROCESSED:'Inventory has been processed successfully',
+	FORGETPASSWORDCONFIRMATION:'Password has been sent your Email',
+	FORGETPASSWORDNEEDMAILID:"This Email-Id is not registered.",
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
@@ -29,6 +31,6 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 		
 	}
 	
-	
+		
 
  });
