@@ -1,4 +1,6 @@
- <md-toolbar ng-hide="warehouse.isprocessed" class=" md-default-theme">
+<md-card flex-gt-sm="90" flex-gt-md="80">
+
+<md-toolbar ng-hide="warehouse.isprocessed" class=" md-default-theme">
 	<div class="md-toolbar-tools" layout="row">
   		<h2 layout-align="start">Add Inventory</h2>
     	<span class="flex"></span>
@@ -6,8 +8,11 @@
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon> </span>   
     </div>
    </md-toolbar>
- <md-card class="padd-t30 padd-b30" ng-init="getInventoryWarehouse();">	 
-    <form name="physicalinventoryForm" novalidate>
+       <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container" ng-init="getInventoryWarehouse();">
+   
+<!--  <md-card class="padd-t30 padd-b30" ng-init="getInventoryWarehouse();">	 
+ -->   
+  <form name="physicalinventoryForm" novalidate>
 	
 	<div layout layout-sm="column">
         <md-input-container flex class="padd-50">
@@ -35,6 +40,7 @@
     </section>
     </form>
 		
-</md-card>
+    </md-content>
 
+</md-card>
 
