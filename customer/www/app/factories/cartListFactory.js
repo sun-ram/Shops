@@ -16,16 +16,6 @@ angular.module('aviate.factories')
 						price : _product.productPrice.price, 
 						quantity : _product.noOfQuantityInCart
 				}
-				for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
-					if($rootScope.myCart.cartItem[i].product.productId == _product.productId){
-						if($rootScope.myCart.cartItem[i].quantity > _product.noOfQuantityInCart){
-							toastr.error(CONSTANT.SUCCESS_CODE.PRODUCTDECREASED);
-						}else if($rootScope.myCart.cartItem[i].quantity < _product.noOfQuantityInCart){
-							toastr.success(CONSTANT.SUCCESS_CODE.PRODUCTINCRCREASED);
-						}
-						
-					}
-				}
 				factory.myCartTotalPriceCalculation();
 				MyCartServices.addToCart(cartDetails).then(function(data){
 					console.log('Add To My Cart in factory');
@@ -38,18 +28,11 @@ angular.module('aviate.factories')
 			}else{
 				for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
 					if($rootScope.myCart.cartItem[i].product.productId == _product.productId){
-						if($rootScope.myCart.cartItem[i].quantity > _product.noOfQuantityInCart){
-							toastr.error(CONSTANT.SUCCESS_CODE.PRODUCTDECREASED);
-						}else if($rootScope.myCart.cartItem[i].quantity < _product.noOfQuantityInCart){
-							toastr.success(CONSTANT.SUCCESS_CODE.PRODUCTINCRCREASED);
-						}
-						
-					if($rootScope.myCart.cartItem[i].product.productId == _product.productId){
 						$rootScope.myCart.cartItem[i].quantity = _product.noOfQuantityInCart;
 						$rootScope.myCart.cartItem[i].product = _product;
 						_isExistInCart = true;
 					}
-				}}
+				}
 				if(!_isExistInCart){
 					$rootScope.myCart.cartItem.push({
 						product:_product,

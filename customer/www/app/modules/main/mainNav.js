@@ -129,7 +129,6 @@ angular.module('aviate.directives')
 							if(authInfo.rememberme){
 							$scope.user.emailId=authInfo.emailId;
 							$scope.user.password = authInfo.password;
-							$scope.rememberme=authInfo.rememberme;
 						}}
 						
 						$scope.saveauth = function() {
@@ -141,9 +140,7 @@ angular.module('aviate.directives')
 							$scope.user.rememberme=true;
 							ipCookie('auth_info', $scope.user);
 							}
-							}else{
-							ipCookie('auth_info', null);
-						}
+							}
 						}
 						
 						$scope.signIn = function(user) {
