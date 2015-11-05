@@ -19,8 +19,7 @@ angular.module('aviateAdmin.controllers')
 
 			$scope.updateMerchant = function(){
 				if ($scope.merchantImage != "" && $scope.merchantImage!=undefined && $scope.merchantImage!=null) {
-					$scope.merchantDetail.merchantImage=$scope.merchantImage ? (($scope.merchantImage.substring(11).split(";")[0].length < 4) ? $scope.merchantImage.substring(22) : 
-						$scope.merchantImage.substring(23)) : "";
+					$scope.merchantDetail.merchantImage=$scope.merchantImage.split(",")[1];
 					$scope.merchantDetail.merchantImageType=$scope.merchantImage ? ($scope.merchantImage.substring(11).split(";")[0]) : "";
 				} 
 				

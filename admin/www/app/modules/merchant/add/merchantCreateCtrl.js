@@ -7,8 +7,7 @@ angular.module('aviateAdmin.controllers')
 				toastr.warning("Please select merchant logo");
 				return;
 			} 
-			$scope.merchantDetail.merchantImage=$scope.merchantImage ? (($scope.merchantImage.substring(11).split(";")[0].length < 4) ? $scope.merchantImage.substring(22) : 
-				$scope.merchantImage.substring(23)) : "";
+			$scope.merchantDetail.merchantImage=$scope.merchantImage.split(",")[1];
 			$scope.merchantDetail.merchantImageType=$scope.merchantImage ? ($scope.merchantImage.substring(11).split(";")[0]) : "";
 			MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
 				$scope.merchantImage=null;
