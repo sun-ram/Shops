@@ -13,6 +13,9 @@ angular.module('aviateAdmin.controllers')
 				};
 				PhysicalInventoryServices.addNewPhysicalInventory($scope.inventoryData).then(function(data){
 					//toastr.success(data.status);
+					$state.go('app.physical_inv');
+
+
 				});
 			};
 			$scope.getInventoryWarehouse = function()
