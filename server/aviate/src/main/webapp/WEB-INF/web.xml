@@ -32,4 +32,13 @@
 		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/json/*</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>image-servlet</servlet-name>
+		<servlet-class>com.mitosis.aviate.servlet.ImageReader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>image-servlet</servlet-name>
+		<url-pattern>/images/*</url-pattern>
+	</servlet-mapping>
 </web-app>
