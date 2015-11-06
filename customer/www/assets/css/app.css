@@ -62,7 +62,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .md-tab{padding: 8px; }
 .padd-0 {padding: 0px;}
 .padd-5{padding: 0px;}
-.navigate{padding-left: 304px;  transition: 0.3s ease-in all;}
+.navigate{padding-left: 220px;  transition: 0.3s ease-in all;}
 .navigate-right{padding-right: 304px;  transition: 0.3s ease-in all;}
 .remove{padding-left: 0px;}
 .remove-right{padding-right: 0px;}
@@ -165,7 +165,7 @@ md-dialog {border-radius:0px; display: block ! important;}
     height:150px;
 }
 .viewlarge img {
-    width:95% !important;
+    width:100% !important;
         height: 95%;
     vertical-align:top;
 }
@@ -340,7 +340,7 @@ md-backdrop.md-sidenav-backdrop{ z-index:-59;}
 	border-radius: 5px;
 	background-color: #8BC34A;
 }
-.toptool{transition: 0.3s ease-in all; width: calc(100% - 304px)}
+.toptool{transition: 0.3s ease-in all; width: calc(100% - 220px)}
 .toptoolrem{width: 100%;}
 ul.nav-menu1{margin-left: 210px ! important;}
 .merch-logo{position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;}
@@ -348,3 +348,6 @@ ul.nav-menu1{margin-left: 210px ! important;}
 
 .menu-item{border-bottom: 1px solid lightgrey ! important;}
 .menu-item:hover{background: #72a308 ! important; color: #ffffff ! important; }
+/* .top-tool{width: calc(100% - 220px);} */
+.producutItem{min-width:220px;max-width:280px;}
+.customerSideNav{min-width:180px;max-width:220px;}

@@ -96,7 +96,7 @@
                 <div layout="" flex ></div>
           </md-toolbar>
           <md-tabs md-stretch-tabs="auto" class="padd_tb30 category">
-            <md-tab ng-repeat="topproducts in topcategories | limitTo: 20">
+            <md-tab ng-repeat="topproducts in topcategories | limitTo: 20" style="width:130px;">
              <div class="item wid_120">
              <img ng-src="{{topproducts.productImages[1].imageUrl}}" class="md-avatar chs-img">
              </div>
