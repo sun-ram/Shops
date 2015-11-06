@@ -264,3 +264,13 @@ md-select .md-select-value{
 .table-pagination-bg{
 	background-color: #E1E1E1;
 }
+
+
+
+
+/* 6-11-2015 */
+.pro-header{ background-color:#448ECB; color:#FFFFFF; padding:5px;}
+.pro-header div{ padding:10px 5px;}
+.pro-lists{ padding:5px; height:50px; border-bottom:1px solid #eeeeee;}
+.pro-lists input[type="text"]{ width:100%; border:1px solid #999999;}
+.pro-lists div{ padding:3px 5px; height:30px; }
