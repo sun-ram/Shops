@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,12 +23,15 @@ import com.mitosis.aviate.model.CustomerModel;
 import com.mitosis.aviate.model.MyCartModel;
 import com.mitosis.aviate.model.ProductCategory;
 import com.mitosis.aviate.model.ProductDetails;
+import com.mitosis.aviate.model.ProductImages;
 import com.mitosis.aviate.model.ProductType;
 import com.mitosis.aviate.model.SalesOrderLineModel;
 import com.mitosis.aviate.model.SalesOrderModel;
 import com.mitosis.aviate.model.ShippingChargeModel;
 import com.mitosis.aviate.model.StoreModel;
 import com.mitosis.aviate.model.TaxModel;
+import com.mitosis.aviate.model.service.ProductTypeResponse;
+import com.mitosis.aviate.util.AVMessageStatus;
 import com.mitosis.aviate.webservice.ecommerce.ProductServices;
 
 public class ProductDaoImpl extends BaseService implements ProductDao {
@@ -585,5 +589,66 @@ public class ProductDaoImpl extends BaseService implements ProductDao {
 			close();
 		}
 		return productDetails;
+	}
+	
+	@Override
+	public List<ProductCategory> getPoductCategoryList(Long merchantId) {
+		List<ProductCategory> products = null;
+		try{
+			begin();
+			entityManager.getEntityManagerFactory().getCache().evictAll();
+			CriteriaBuilder qb = entityManager.getCriteriaBuilder();			
+			CriteriaQuery<ProductCategory> cq = qb.createQuery(ProductCategory.class);			
+			Root<ProductCategory> product = cq.from(ProductCategory.class);
+			cq.select(product);
+			cq.where(qb.equal(product.get("merchantId"),merchantId));
+			products = entityManager.createQuery(cq).getResultList();			
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage());
+			throw e;
+		}finally{
+			close();
+		}
+		return products;
+	}
+	
+	@Override
+	public List<ProductImages> getProductImage(Long productId) {
+		List<ProductImages> images = null;
+		try{
+			begin();
+			entityManager.getEntityManagerFactory().getCache().evictAll();
+			CriteriaBuilder qb = entityManager.getCriteriaBuilder();			
+			CriteriaQuery<ProductImages> cq = qb.createQuery(ProductImages.class);			
+			Root<ProductImages> product = cq.from(ProductImages.class);
+			cq.select(product);
+			cq.where(qb.equal(product.get("productId"),productId));
+			images = entityManager.createQuery(cq).getResultList();	
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage());
+			throw e;
+		}finally{
+			close();
+		}
+		return images;
+	}
+	
+	@Override
+	public boolean updateProductImage(ProductImages images) {
+		boolean flag =false;
+		try{
+			begin();
+			merge(images);
+			flush();
+			clear();
+			commit();
+			flag=true;
+		}catch(Exception e){
+			log.error(e.getMessage());
+			throw e;
+		}
+		return flag;
 	}
 }

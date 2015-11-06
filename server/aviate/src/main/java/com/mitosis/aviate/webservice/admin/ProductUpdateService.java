@@ -644,6 +644,127 @@ public class ProductUpdateService {
 		return response;
 	}
 
+	@Path("/getmerchantproducts")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductCategoryResponse getMerchantCategories(JSONObject requestObj) throws JSONException{
+		ProductCategoryResponse productCategoryResponse = new ProductCategoryResponse();
+		List<ProductCategory> categories = new ArrayList<ProductCategory>();
+		try{
+			log.info("\n******************************************\n"
+					+ "Initializing the get product types by store service");
+			ProductDao productDao = new ProductDaoImpl();
+			categories = productDao.getPoductCategoryList(Long.parseLong(requestObj.getString("merchantId")));
+			productCategoryResponse.setCategories(categories);
+			productCategoryResponse.setStatus(AVMessageStatus.SUCCESS.getValue());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		log.info("\n******************************************\n"
+				+ "Response of the get product types by store service");
+		return productCategoryResponse;
+	}
+
+	@Path("/product/imageupdate")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel updateProductImage(JSONObject productImageJson){
+		try{
+			if(commonDao.isValidProperty(productImageJson, "productId")){
+				ProductDao productDao = new ProductDaoImpl();
+				List<ProductImages> images= productDao.getProductImage(productImageJson.getLong("productId"));
+				ResponseModel response = new ResponseModel();
+				ProductImages productImage;
+				String imageName, imageString, imageUrl;
+				byte[] byeImage;
+				try{
+					log.info("\n******************************************\n"
+							+ "Initializing the update product type service");
+					properties.load(getClass().getResourceAsStream(
+							"/properties/serverurl.properties"));
+					String imageLocation = properties.getProperty("imageUrl");
+					//String imageLocation = "http://182.74.202.178:8181/aviate/ImageServlet?imageName=";
+					if(commonDao.isValidProperty(productImageJson, "smallFrontImage")){
+						for(ProductImages temp : images){
+							if(temp.getImagePosition().equalsIgnoreCase("SMALLFRONT")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("smallFrontImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("SMALLFRONT");
+								temp.setImageType(productImageJson.getString("smallFrontImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+								productDao.updateProductImage(temp);
+							}
+						}
+					}
+					if(commonDao.isValidProperty(productImageJson, "smallBackImage")){
+						for(ProductImages temp : images){
+							if(temp.getImagePosition().equalsIgnoreCase("SMALLBACK")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("smallBackImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("SMALLBACK");
+								temp.setImageType(productImageJson.getString("smallBackImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+								productDao.updateProductImage(temp);
+
+							}}}
+
+					if(commonDao.isValidProperty(productImageJson, "originalFrontImage")){
+						for(ProductImages temp : images){
+							if(temp.getImagePosition().equalsIgnoreCase("ORIGINALFRONT")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("originalFrontImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("ORIGINALFRONT");
+								temp.setImageType(productImageJson.getString("originalFrontImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+								productDao.updateProductImage(temp);
+
+							}}}
+
+					if(commonDao.isValidProperty(productImageJson, "originalBackImage")){
+						for(ProductImages temp : images){
+							if(temp.getImagePosition().equalsIgnoreCase("ORIGINALBACK")){
+								imageName = UUID.randomUUID().toString().replace("-", "");
+								imageString = productImageJson.getString("originalBackImage");
+								byeImage = Base64.decodeBase64(imageString);			
+								temp.setImage(byeImage);
+								temp.setImagePosition("ORIGINALBACK");
+								temp.setImageType(productImageJson.getString("originalBackImageType"));
+								temp.setImageName(imageName);
+								imageUrl = imageLocation + imageName;
+								temp.setImageUrl(imageUrl);
+								productDao.updateProductImage(temp);
+							}}}
+					response.setStatus("SUCCESS");
+					response.setErrorString("");
+					response.setErrorCode("");
+				}catch(Exception e){
+					e.printStackTrace();
+					response.setStatus("FAILURE");
+					response.setErrorString("");
+					response.setErrorCode("");
+				}
+				return response;
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return response;
+	}
 
 	@Path("/product/getproducttypes")
 	@POST
@@ -679,7 +800,7 @@ public class ProductUpdateService {
 				+ "Response of the get product type service");
 		return listObj;
 	}
-
+	
 	@Path("/product/getproducttypesbystore")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

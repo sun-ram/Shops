@@ -8,10 +8,12 @@ import org.codehaus.jettison.json.JSONObject;
 import com.mitosis.aviate.model.MyCartModel;
 import com.mitosis.aviate.model.ProductCategory;
 import com.mitosis.aviate.model.ProductDetails;
+import com.mitosis.aviate.model.ProductImages;
 import com.mitosis.aviate.model.ProductType;
 import com.mitosis.aviate.model.ShippingChargeModel;
 import com.mitosis.aviate.model.StoreModel;
 import com.mitosis.aviate.model.TaxModel;
+import com.mitosis.aviate.model.service.ProductTypeResponse;
 
 public interface ProductDao {
 	
@@ -62,6 +64,7 @@ public interface ProductDao {
 	
 	public List<String> getShopCityList();
 
-	
-	
+	public List<ProductCategory> getPoductCategoryList(Long merchantId);
+	public List<ProductImages> getProductImage(Long productId);	
+	public boolean updateProductImage(ProductImages images);
 }
