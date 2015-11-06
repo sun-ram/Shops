@@ -1,7 +1,14 @@
 package com.mitosis.aviate.webservice.admin;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -9,8 +16,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -19,12 +32,15 @@ import org.codehaus.jettison.json.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.mitosis.aviate.dao.BinProductDAO;
 import com.mitosis.aviate.dao.CommonDao;
 import com.mitosis.aviate.dao.ProductDao;
 import com.mitosis.aviate.dao.ProductUpdateDao;
+import com.mitosis.aviate.dao.daoimpl.BinProductDAOImpl;
 import com.mitosis.aviate.dao.daoimpl.CommonDaoImpl;
 import com.mitosis.aviate.dao.daoimpl.ProductDaoImpl;
 import com.mitosis.aviate.dao.daoimpl.ProductUpdateDaoImpl;
+import com.mitosis.aviate.model.BinProductModel;
 import com.mitosis.aviate.model.ProductCategory;
 import com.mitosis.aviate.model.ProductDetails;
 import com.mitosis.aviate.model.ProductImages;
@@ -863,6 +879,84 @@ public class ProductUpdateService {
 		return response;
 	}
 
+	@Path("/product/exportExcelFile")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public   ResponseModel exportExcelFile(JSONObject requestObj){
+		try{
+			log.info("\n******************************************\n"
+					+ "Initializing the export   product service");
+			BinProductDAO binProductDao = new BinProductDAOImpl();
+			List<BinProductModel> binProductList = binProductDao.getBinProducts(Long.parseLong(requestObj.getString("storeId")));
+			List<ProductDetails> productLists = new ArrayList<ProductDetails>();
+			
+			for(int i=0;i<binProductList.size();i++){
+				ProductDetails product = binProductList.get(i).getProduct();
+				productLists.add(product);
+			}
+
+			//Blank workbook
+			XSSFWorkbook workbook = new XSSFWorkbook(); 
+			
+			//Create a blank sheet
+			XSSFSheet sheet = workbook.createSheet("Product Data");
+			 
+			//This data needs to be written (Object[])
+			Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
+			data.put(1, new Object[] {"PRODUCT ID", "NAME", "PRICE","UNIT","MEASUREMENT","BRAND","AVAILABLE QUANTITY"});
+			for(int i=0;i<productLists.size();i++){
+				data.put(i+2, new Object[] {productLists.get(i).getProductId(), productLists.get(i).getProductName(), 
+						productLists.get(i).getProductPrice().getPrice(),productLists.get(i).getMeasurement(),productLists.get(i).getProductUnitOfMeasure().getAbbreviation(),
+						productLists.get(i).getBrand(),productLists.get(i).getAvilability()} );
+			}
+			Set<Integer> keyset = data.keySet();
+			int rownum = 0;
+			for (Integer key : keyset)
+			{
+			    Row row = sheet.createRow(rownum++);
+			    Object [] objArr = data.get(key);
+			    int cellnum = 0;
+			    for (Object obj : objArr)
+			    {
+			       Cell cell = row.createCell(cellnum++);
+			       if(obj instanceof String)
+			            cell.setCellValue((String)obj);
+			        else if(obj instanceof Integer)
+			            cell.setCellValue((Integer)obj);
+			        else if(obj instanceof Long)
+			            cell.setCellValue((Long)obj);
+			        else if(obj instanceof Double)
+			            cell.setCellValue((Double)obj);			       
+			    }
+			}
+			
+		    File file  = new File(System.getProperty("java.io.tmpdir")+File.separator+"storeProductList.xlsx");
+		    System.out.println(file.getAbsolutePath());
+			FileOutputStream out = new FileOutputStream(file);
+		    workbook.write(out);
+		    out.close();
+		    response.setFileInByteArrayString(file.getAbsolutePath());
+		    /*FileInputStream fis = new FileInputStream(file);
+		    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	        byte[] buf = new byte[1024];
+	        for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum); //no doubt here is 0
+            }
+	        byte[] bytes = bos.toByteArray();
+	        ResponseBuilder response = Response.ok((Object) file);
+			response.header("Content-Disposition",
+				"attachment; filename=new-excel-file.xls");
+			return response.build();*/
+		    return response;
+			
+		}catch(Exception e){
+
+			e.printStackTrace();
+			return response;
+		}
+		
+	}
 
 
 }
