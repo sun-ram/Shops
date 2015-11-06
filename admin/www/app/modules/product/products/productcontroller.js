@@ -349,7 +349,15 @@ angular.module('aviateAdmin.controllers')
 		Id:"Non-Eatable",Name:"Non-Eatable"
 	}];
 
+	$scope.exportXmls = function(){
+		$scope.store = {};
+		$scope.store.storeId = 79;
+		ProductService.exportExcelFile($scope.store).then(function(data) {
 
+			console.log("file exported successfully");
+
+		})
+	}
 
 }
 ]);

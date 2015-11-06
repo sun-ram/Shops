@@ -39,6 +39,35 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			}, null);
 		});
 	};
+	
+	var httpRequest1 = function (method, path, data, callback) {
+		if (http == null) callback({
+			error: true,
+			errorCode: "HTTP_NULL"
+		}, null);
+
+		_apiHeaders['Content-Type'] = 'application/json';
+		http({
+			method: method,
+			url: _apiUrl + path,
+			headers: _apiHeaders,
+			data: data,
+			responseType: 'arraybuffer'
+		})
+		.success(function (data, status, headers, config) {
+			if (data.error) {
+				callback(data, null);
+			} else {
+				callback(null, data);
+			}
+		})
+		.error(function (data, status, headers, config) {
+			callback({
+				error: true,
+				errorCode: "CONNECTION_ERROR"
+			}, null);
+		});
+	};
 
 
 
@@ -487,6 +516,33 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				} else {
 
+					callback(null, data);
+
+				}
+			});
+
+
+		};
+		
+		apiClass.Product.exportExcelFile = function (storeId, callback) {
+			httpRequest("POST", "update/product/exportExcelFile", storeId, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+					console.log("dataformat",data.fileInByteArrayString);
+					var a = window.document.createElement('a');
+                    a.href = window.URL.createObjectURL(data.fileInByteArrayString);
+                    a.download = data.fileInByteArrayString;
+
+                    // Append anchor to body.
+                    document.body.appendChild(a)
+                    a.click();
+
+
+                    // Remove anchor from body
+                    document.body.removeChild(a)
 					callback(null, data);
 
 				}
