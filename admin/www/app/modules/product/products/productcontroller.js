@@ -14,6 +14,23 @@ angular.module('aviateAdmin.controllers')
 	$scope.srch = true;
 
 
+	$scope.getAllProductList = function() {
+		$scope.product = {
+				"merchantId":$rootScope.user.merchantId
+		}
+		ProductService.getAllProductList($scope.product).then(function(data) {
+
+			$scope.data = data.categories;
+
+			console.log($scope.data);
+
+		})
+	}
+
+	$scope.updateProduct = function(product) {
+		product.productImages=null;
+		ProductService.editProduct(product);
+	}
 
 
 	$scope.getProductList = function() {

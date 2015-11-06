@@ -592,6 +592,22 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Product.getAllProductList = function (merchant, callback) {
+			httpRequest("POST", "update/getmerchantproducts", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		
 		//physical Inventory Module
 		apiClass.PhysicalInventory ={
 				name:""

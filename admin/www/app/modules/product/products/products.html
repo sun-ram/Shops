@@ -3,7 +3,7 @@
    style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
    <ng-md-icon icon="add" size="35" style="fill: white;"></ng-md-icon>
 </md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getProductList();getproductTypeList();">
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getAllProductList()">
    <md-card-content style="padding: 0px 0px 16px 0px;">
       <md-toolbar class="md-whiteframe-4dp">
          <div class="md-toolbar-tools ">
@@ -87,39 +87,41 @@
       		<div flex="15">Category</div>
       		<div flex="15">Product Type</div>
       	</div>
-      	
-      	<div layout="row" flex class="pro-lists" layout-align="start center">
+      	<div ng-repeat="category in data">
+      	<div ng-repeat="producttype in category.productType">
+      	<div ng-repeat="product in producttype.products" ng-init="editProduct=product">
+      	<div layout="row" flex class="pro-lists" layout-align="start center" ng-hide="showDetails">
       		<div flex="20" layout="row" style="">
-				<div flex="20"><ng-md-icon  icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon ng-click="showDetails = ! showDetails" icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color"></ng-md-icon></div>
 				<div flex="40"><img flex style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src="http://54.68.134.166:8080/aviate/ImageServlet?imageName=bb5c8b5665d94137b9d7f42c7d70aeeb" width="40" height="40"/></div>
 			</div>
-      		<div flex="20">Product Name</div>
-      		<div flex="10">Unit</div>
-      		<div flex="10">UOM</div>
-      		<div flex="10">Price</div>
-      		<div flex="15">Category</div>
-      		<div flex="15">Product Type</div>
+      		<div flex="20">{{product.productName}}</div>
+      		<div flex="10">{{product.measurement}}</div>
+      		<div flex="10">{{product.productUnitOfMeasure.abbreviation}}</div>
+      		<div flex="10">{{product.productPrice.price}}</div>
+      		<div flex="15">{{category.categoryName}}</div>
+      		<div flex="15">{{producttype.productTypeName}}</div>
       	</div>
       	
-      	<div layout="row" flex class="pro-lists" layout-align="start center">
+      	<div ng-show="showDetails" layout="row" flex class="pro-lists" layout-align="start center">
       		<div flex="20" layout="row" style="">
-				<div flex="20"><ng-md-icon  icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon  ng-click="updateProduct(editProduct)" icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon  icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon  icon="close" size="20"  style="margin:5px" class="icons hash_color"></ng-md-icon></div>
 				<div flex="40"><img flex style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src="http://54.68.134.166:8080/aviate/ImageServlet?imageName=bb5c8b5665d94137b9d7f42c7d70aeeb" width="40" height="40"/></div>
 			</div>
       		<div flex="20">
-				 <input type="text" />
+				 <input type="text"  ng-model="editProduct.productName" value="{{product.productName}}"/>
 			</div>
-      		<div flex="10">Unit</div>
-      		<div flex="10">UOM</div>
-      		<div flex="10">Price</div>
-      		<div flex="15">Category</div>
-      		<div flex="15">Product Type</div>
+      		<div flex="10"><input type="text"   ng-model="editProduct.measurement" value="{{product.measurement}}"/></div>
+      		<div flex="10"><input type="text"   ng-model="editProduct.productUnitOfMeasure.abbreviation" value="{{product.productUnitOfMeasure.abbreviation}}"/></div>
+      		<div flex="10"><input type="text"   ng-model="editProduct.productPrice.price" value="{{product.productPrice.price}}"/></div>
+      		<div flex="15"><input type="text"   value="{{category.categoryName}}"/></div>
+      		<div flex="15"><input type="text"   value="{{producttype.productTypeName}}"/></div>
       	</div>
-      
+       </div></div></div>
       </div>
    </md-card-content>
     <div layout layout="row" class="table-pagination-bg" layout-align="center center">
@@ -127,7 +129,8 @@
       md-page="productsPagination.page" md-total="{{data.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
       </div>
-</md-card>
+     
+</md-card> 
 <!-- 
    <div class="col-sm-12" ng-init="getEmployee()">
    	<div class="col=xs-1 col-sm-3 col-md-6">
