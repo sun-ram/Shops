@@ -216,7 +216,7 @@
 			<version>3.3.2</version>
 		</dependency>		
 				
-		<!-- Hibernate -->
+		<!-- Hibernate dsf-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
