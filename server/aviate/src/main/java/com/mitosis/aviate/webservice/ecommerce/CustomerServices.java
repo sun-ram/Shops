@@ -75,10 +75,17 @@ public class CustomerServices {
 					customerDao.saveOtherRole(customerModel);
 				}
 				if(customerModel.getStatus().equals(AVMessageStatus.SUCCESS.getValue())){
+					
 					customerDetail.setEmailId(credentials.getString("emailId"));
 					customerDetail.setCustomerId(customerModel.getCustomerId());
 					customerDao.updateCustomerDetails(customerDetail);
 					customerDetail.setStatus(AVMessageStatus.SUCCESS.getValue());
+					if(customerModel.getRole().equalsIgnoreCase("CUSTOMER")){
+						String to=customerDetail.getEmailId();
+						String subject="Account registered";
+						String body="Welcome ! you are successfully registered with shopsbacker";
+						boolean flag=CommonUtil.sendMail(to, subject, body);
+					}
 				}else {
 					customerDetail.setErrorCode(AVErrorMessage.CUSTOMER_ALREADY_EXITS.getCode());
 					customerDetail.setErrorString(AVErrorMessage.CUSTOMER_ALREADY_EXITS.getMessage());
