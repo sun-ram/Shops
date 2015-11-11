@@ -166,7 +166,12 @@ angular.module('app')
 				templateUrl: 'app/modules/product/productPrice.html',
 				controller : 'productpricecontroller'
 			})
-			
+
+			.state('app.productupload', {
+				url: '/productupload',
+				templateUrl: 'app/modules/product/productUpload.html',
+				controller : 'productcontroller'
+			})
 			// warehouse module
 			.state('app.warehouse', {
 				url: '/warehouse',

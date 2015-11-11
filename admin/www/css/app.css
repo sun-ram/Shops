@@ -241,7 +241,7 @@ md-select .md-select-value{
  }
  
 .ctg{
-	margin:15px 15px; color: grey;
+	margin:5px; color: grey;
 }
 .drag-object, [ng-drag-clone], [ng-drop] [ng-drag]{
 	 cursor: move;
@@ -251,7 +251,7 @@ md-select .md-select-value{
 	padding:0px; margin:15px 15px 15px 35px; color: grey;
 }
 .prod-typ{
-	padding:0px; margin:15px 15px 15px 100px; color: grey;
+	padding:0px; margin:5px 5px 5px 100px; color: grey;
 }
 .droparea{
 	margin-top: 10px;
@@ -264,3 +264,13 @@ md-select .md-select-value{
 .table-pagination-bg{
 	background-color: #E1E1E1;
 }
+
+
+
+
+/* 6-11-2015 */
+.pro-header{ background-color:#448ECB; color:#FFFFFF; padding:5px;}
+.pro-header div{ padding:10px 5px;}
+.pro-lists{ padding:5px; height:50px; border-bottom:1px solid #eeeeee;}
+.pro-lists input[type="text"]{ width:100%; border:1px solid #999999;}
+.pro-lists div{ padding:3px 5px; height:30px; }

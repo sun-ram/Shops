@@ -49,7 +49,7 @@ angular.module('aviateAdmin.controllers')
 	$scope.saveauth = function() {
 		if($scope.rememberme){
 			if($scope.user.emailId==undefined){
-				toastr.error("Invalid Email Id");
+				toastr.error("Please Enter Email Id");
 			}
 			else{
 			$scope.user.rememberme=true;

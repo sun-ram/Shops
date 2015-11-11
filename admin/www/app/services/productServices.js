@@ -116,6 +116,18 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
+	this.exportExcelFile = function(storeId){
+		var d = $q.defer();
+		api.Product.exportExcelFile(storeId, function(err, result){
+/*			if (result.status == 'SUCCESS') {
+				toastr.success("SUCCESS");
+			} else {
+				toastr.error(result.errorString);
+			}*/
+		})
+		return d.promise;
+	};
+	
 	
 
 	this.setProductObj = function(product){
@@ -126,6 +138,16 @@ angular.module('aviateAdmin.services')
 		return this.obj;
 	};
 	
-	
+	this.getAllProductList = function(merchant){	
+		var d = $q.defer();
+		api.Product.getAllProductList(merchant, function(err, result){
+			if (result.status == 'SUCCESS') {
+				d.resolve(result);
+			} else {
+				toastr.error(result.errorString);
+			}
+		})
+		return d.promise;
+	};	
 
 }]);

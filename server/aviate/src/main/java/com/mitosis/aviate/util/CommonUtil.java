@@ -1,10 +1,17 @@
 package com.mitosis.aviate.util;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -13,13 +20,21 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.codehaus.jettison.json.JSONException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.mitosis.aviate.dao.daoimpl.BaseService;
 import com.mitosis.aviate.model.service.ResponseModel;
 
 
+/**
+ * @author prabakaran
+ *
+ */
+/**
+ * @author prabakaran
+ *
+ */
 public final class CommonUtil {
 
 
@@ -67,25 +82,25 @@ public final class CommonUtil {
 		}
 		return response;
 	}
-	
+
 	public static JSONObject addStatusMessage(Exception e){
 		JSONObject response = new JSONObject();
 		try {
-				response.put("status", AVMessageStatus.FAILURE.getValue());
-				response.put("errorString", e.getMessage());
-				response.put("errorCode", "");
+			response.put("status", AVMessageStatus.FAILURE.getValue());
+			response.put("errorString", e.getMessage());
+			response.put("errorCode", "");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		return response;
 	}
-	
+
 	public static JSONObject addStatusMessage(String e){
 		JSONObject response = new JSONObject();
 		try {
-				response.put("status", AVMessageStatus.FAILURE.getValue());
-				response.put("errorString", e);
-				response.put("errorCode", "");
+			response.put("status", AVMessageStatus.FAILURE.getValue());
+			response.put("errorString", e);
+			response.put("errorCode", "");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -99,12 +114,12 @@ public final class CommonUtil {
 	 * @return ResponseModel
 	 */
 	public static ResponseModel addStatusMessage(Exception e,ResponseModel response){
-				response.setStatus(AVMessageStatus.FAILURE.getValue());
-				response.setErrorString(e.getMessage());
-				response.setErrorCode("");
+		response.setStatus(AVMessageStatus.FAILURE.getValue());
+		response.setErrorString(e.getMessage());
+		response.setErrorCode("");
 		return response;
 	}
-	
+
 	public static boolean sendMail(String to, String subject, String body){
 		boolean flag = false;
 		String from = "prabakaran.a@mitosistech.com";
@@ -139,7 +154,7 @@ public final class CommonUtil {
 		}
 		return flag;
 	}
-	
+
 	public Date stringToDate(String date){
 		Date dateformat =null;
 		try{			
@@ -150,7 +165,7 @@ public final class CommonUtil {
 		}
 		return dateformat;
 	}
-	
+
 	public String dateToString(String date){
 		String dateString =null;
 		try{			
@@ -161,6 +176,86 @@ public final class CommonUtil {
 		}
 		return dateString;
 	}
-	
-	
+
+	/**
+	 * 
+	 * @author prabakaran
+	 * @param JSONObject ex:{"image":"image string","imageType":"type ex:png"}
+	 * @return JSONObject ex:{"imageName":"q243sf3423","imageUrl":"http://localhost:8080/aviate/images/12b312ga.jpg"}
+	 * 
+	 */
+	public JSONObject insertImage(JSONObject images){
+		JSONObject resultObject = new JSONObject();
+		try {
+			String imageString = images.getString("image");
+			String imageType = images.getString("imageType");
+			byte[] byeImage = Base64.decodeBase64(imageString.getBytes());
+			InputStream in = new ByteArrayInputStream(byeImage);
+			BufferedImage bufferedImage = ImageIO.read(in);
+			String imagePath = "";
+			String imageUrl = "";
+			Properties properties = new Properties();
+			try {
+				properties.load(getClass().getResourceAsStream(
+						"/properties/serverurl.properties"));
+
+				imagePath = properties.getProperty("imagePath");
+				imageUrl = properties.getProperty("imageUrl");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String imageName = UUID.randomUUID().toString().replace("-", "");
+			imageName = imageName + "." + imageType;
+			File imageFile = new File(imagePath + "/" + imageName);
+			FileUtils.forceMkdir(imageFile);
+			ImageIO.write(bufferedImage, imageType, imageFile);
+			imageUrl = imageUrl + "/" + imageName;
+			in.close();
+			resultObject.put("imageName", imageName);
+			resultObject.put("imageUrl", imageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				resultObject.put("imageName", "");
+				resultObject.put("imageUrl", "");
+			} catch (Exception e1) {
+				e.printStackTrace();
+			}
+		}
+		return resultObject;
+	}
+	/**
+	 * 
+	 * @author prabakaran
+	 * @param JSONObject ex:{"imageUrl":"http://localhost:8080/aviate/images/12b312ga.jpg"}
+	 * @return boolean
+	 * 
+	 */
+	public boolean removeImage(JSONObject images){
+		boolean success = false;
+		try {
+			String imagePath = "";
+			Properties properties = new Properties();
+			try {
+				properties.load(getClass().getResourceAsStream(
+						"/properties/serverurl.properties"));
+				imagePath = properties.getProperty("imagePath");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			int si = images.getString("imageUrl").lastIndexOf("/");
+			if (si!=-1){
+				String fname = images.getString("imageUrl").substring(si+1);
+				File file = new File(imagePath+fname);
+				success = file.delete();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return success;
+
+
+	}
+
+
 }

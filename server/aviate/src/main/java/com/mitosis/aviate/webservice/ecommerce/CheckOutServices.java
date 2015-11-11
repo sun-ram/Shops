@@ -318,7 +318,7 @@ public class CheckOutServices {
 			inventoryModel.setWarehouseId(warehouse.getWarehouseId());
 			inventoryModel.setInventoryName("Created From Sales Order"+salesOrder.getSalesOrderId()+"-"+count);
 			inventoryModel.setIsactive(true);
-			inventoryModel.setMerchant(salesOrder.getStore().getMerchant());
+			//inventoryModel.setMerchant(salesOrder.getStore().getMerchant());
 			inventoryModel.setProcessed(false);
 			inventoryModel.setStoreId(salesOrder.getStoreId());
 			inventoryModel.setUpdated(new Date());

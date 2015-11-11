@@ -178,8 +178,8 @@
 
 		<dependency>
 			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.5.0-b01</version>
+	<artifactId>mail</artifactId>
+	<version>1.5.0-b01</version>
 		</dependency>
 		
 		<!-- Spring and Hibernate Added by Sundaram -->
@@ -223,5 +223,10 @@
 			<version>4.2.1.Final</version>
 		</dependency>
 
+<dependency>
+ <groupId>org.apache.poi</groupId>
+ <artifactId>poi-ooxml</artifactId>
+ <version>3.9</version>
+</dependency>
 	</dependencies>
 </project>
