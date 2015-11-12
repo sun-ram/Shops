@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
 import java.util.HashSet;
@@ -56,14 +56,15 @@ public class User implements java.io.Serializable {
 	private Set storesForUpdatedby = new HashSet(0);
 	private Set discountsForUpdatedby = new HashSet(0);
 	private Set orderNumbersForCreatedby = new HashSet(0);
-	private Set deliveryTimeSlotsForUpdatedby = new HashSet(0);
 	private Set productTypesForCreatedby = new HashSet(0);
+	private Set deliveryTimeSlotsForUpdatedby = new HashSet(0);
 	private Set productInventoriesForCreatedby = new HashSet(0);
 	private Set salesOrdersForBackerId = new HashSet(0);
 	private Set storesForUserId = new HashSet(0);
 	private Set deliveryTimeSlotsForCreatedby = new HashSet(0);
 	private Set productOffersForCreatedby = new HashSet(0);
 	private Set usersForCreatedby = new HashSet(0);
+	private Set movementLinesForCreatedby = new HashSet(0);
 	private Set productImagesForUpdatedby = new HashSet(0);
 	private Set productImagesForCreatedby = new HashSet(0);
 	private Set rolesForCreatedby = new HashSet(0);
@@ -75,11 +76,14 @@ public class User implements java.io.Serializable {
 	private Set taxesForUpdatedby = new HashSet(0);
 	private Set shippingChargesesForCreatedby = new HashSet(0);
 	private Set storagebinsForUpdatedby = new HashSet(0);
-	private Set discountsForCreatedby = new HashSet(0);
 	private Set productTypesForUpdatedby = new HashSet(0);
+	private Set productOfferLinesForUpdatedby = new HashSet(0);
+	private Set discountsForCreatedby = new HashSet(0);
 	private Set usersForUpdatedby = new HashSet(0);
+	private Set movementLinesForUpdatedby = new HashSet(0);
 	private Set merchantsForUpdatedby = new HashSet(0);
 	private Set uomsForUpdatedby = new HashSet(0);
+	private Set productOfferLinesForCreatedby = new HashSet(0);
 	private Set orderNumbersForUpdatedby = new HashSet(0);
 	private Set shippingChargesesForUpdatedby = new HashSet(0);
 	private Set productsForCreatedby = new HashSet(0);
@@ -115,18 +119,20 @@ public class User implements java.io.Serializable {
 			Set rolesForUpdatedby, Set movementsForUpdatedby,
 			Set productInventoriesForUpdatedby, Set storesForUpdatedby,
 			Set discountsForUpdatedby, Set orderNumbersForCreatedby,
-			Set deliveryTimeSlotsForUpdatedby, Set productTypesForCreatedby,
+			Set productTypesForCreatedby, Set deliveryTimeSlotsForUpdatedby,
 			Set productInventoriesForCreatedby, Set salesOrdersForBackerId,
 			Set storesForUserId, Set deliveryTimeSlotsForCreatedby,
 			Set productOffersForCreatedby, Set usersForCreatedby,
-			Set productImagesForUpdatedby, Set productImagesForCreatedby,
-			Set rolesForCreatedby, Set movementsForCreatedby,
-			Set productsForUpdatedby, Set merchantsForCreatedby,
-			Set warehousesForUpdatedby, Set salesOrdersForShopperId,
-			Set taxesForUpdatedby, Set shippingChargesesForCreatedby,
-			Set storagebinsForUpdatedby, Set discountsForCreatedby,
-			Set productTypesForUpdatedby, Set usersForUpdatedby,
-			Set merchantsForUpdatedby, Set uomsForUpdatedby,
+			Set movementLinesForCreatedby, Set productImagesForUpdatedby,
+			Set productImagesForCreatedby, Set rolesForCreatedby,
+			Set movementsForCreatedby, Set productsForUpdatedby,
+			Set merchantsForCreatedby, Set warehousesForUpdatedby,
+			Set salesOrdersForShopperId, Set taxesForUpdatedby,
+			Set shippingChargesesForCreatedby, Set storagebinsForUpdatedby,
+			Set productTypesForUpdatedby, Set productOfferLinesForUpdatedby,
+			Set discountsForCreatedby, Set usersForUpdatedby,
+			Set movementLinesForUpdatedby, Set merchantsForUpdatedby,
+			Set uomsForUpdatedby, Set productOfferLinesForCreatedby,
 			Set orderNumbersForUpdatedby, Set shippingChargesesForUpdatedby,
 			Set productsForCreatedby, Set productCategoriesForUpdatedby) {
 		this.userId = userId;
@@ -161,14 +167,15 @@ public class User implements java.io.Serializable {
 		this.storesForUpdatedby = storesForUpdatedby;
 		this.discountsForUpdatedby = discountsForUpdatedby;
 		this.orderNumbersForCreatedby = orderNumbersForCreatedby;
-		this.deliveryTimeSlotsForUpdatedby = deliveryTimeSlotsForUpdatedby;
 		this.productTypesForCreatedby = productTypesForCreatedby;
+		this.deliveryTimeSlotsForUpdatedby = deliveryTimeSlotsForUpdatedby;
 		this.productInventoriesForCreatedby = productInventoriesForCreatedby;
 		this.salesOrdersForBackerId = salesOrdersForBackerId;
 		this.storesForUserId = storesForUserId;
 		this.deliveryTimeSlotsForCreatedby = deliveryTimeSlotsForCreatedby;
 		this.productOffersForCreatedby = productOffersForCreatedby;
 		this.usersForCreatedby = usersForCreatedby;
+		this.movementLinesForCreatedby = movementLinesForCreatedby;
 		this.productImagesForUpdatedby = productImagesForUpdatedby;
 		this.productImagesForCreatedby = productImagesForCreatedby;
 		this.rolesForCreatedby = rolesForCreatedby;
@@ -180,11 +187,14 @@ public class User implements java.io.Serializable {
 		this.taxesForUpdatedby = taxesForUpdatedby;
 		this.shippingChargesesForCreatedby = shippingChargesesForCreatedby;
 		this.storagebinsForUpdatedby = storagebinsForUpdatedby;
-		this.discountsForCreatedby = discountsForCreatedby;
 		this.productTypesForUpdatedby = productTypesForUpdatedby;
+		this.productOfferLinesForUpdatedby = productOfferLinesForUpdatedby;
+		this.discountsForCreatedby = discountsForCreatedby;
 		this.usersForUpdatedby = usersForUpdatedby;
+		this.movementLinesForUpdatedby = movementLinesForUpdatedby;
 		this.merchantsForUpdatedby = merchantsForUpdatedby;
 		this.uomsForUpdatedby = uomsForUpdatedby;
+		this.productOfferLinesForCreatedby = productOfferLinesForCreatedby;
 		this.orderNumbersForUpdatedby = orderNumbersForUpdatedby;
 		this.shippingChargesesForUpdatedby = shippingChargesesForUpdatedby;
 		this.productsForCreatedby = productsForCreatedby;
@@ -491,6 +501,15 @@ public class User implements java.io.Serializable {
 		this.orderNumbersForCreatedby = orderNumbersForCreatedby;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getProductTypesForCreatedby() {
+		return this.productTypesForCreatedby;
+	}
+
+	public void setProductTypesForCreatedby(Set productTypesForCreatedby) {
+		this.productTypesForCreatedby = productTypesForCreatedby;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
 	public Set getDeliveryTimeSlotsForUpdatedby() {
 		return this.deliveryTimeSlotsForUpdatedby;
@@ -499,15 +518,6 @@ public class User implements java.io.Serializable {
 	public void setDeliveryTimeSlotsForUpdatedby(
 			Set deliveryTimeSlotsForUpdatedby) {
 		this.deliveryTimeSlotsForUpdatedby = deliveryTimeSlotsForUpdatedby;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public Set getProductTypesForCreatedby() {
-		return this.productTypesForCreatedby;
-	}
-
-	public void setProductTypesForCreatedby(Set productTypesForCreatedby) {
-		this.productTypesForCreatedby = productTypesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
@@ -564,6 +574,15 @@ public class User implements java.io.Serializable {
 
 	public void setUsersForCreatedby(Set usersForCreatedby) {
 		this.usersForCreatedby = usersForCreatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getMovementLinesForCreatedby() {
+		return this.movementLinesForCreatedby;
+	}
+
+	public void setMovementLinesForCreatedby(Set movementLinesForCreatedby) {
+		this.movementLinesForCreatedby = movementLinesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
@@ -666,15 +685,6 @@ public class User implements java.io.Serializable {
 		this.storagebinsForUpdatedby = storagebinsForUpdatedby;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public Set getDiscountsForCreatedby() {
-		return this.discountsForCreatedby;
-	}
-
-	public void setDiscountsForCreatedby(Set discountsForCreatedby) {
-		this.discountsForCreatedby = discountsForCreatedby;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
 	public Set getProductTypesForUpdatedby() {
 		return this.productTypesForUpdatedby;
@@ -685,12 +695,40 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
+	public Set getProductOfferLinesForUpdatedby() {
+		return this.productOfferLinesForUpdatedby;
+	}
+
+	public void setProductOfferLinesForUpdatedby(
+			Set productOfferLinesForUpdatedby) {
+		this.productOfferLinesForUpdatedby = productOfferLinesForUpdatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getDiscountsForCreatedby() {
+		return this.discountsForCreatedby;
+	}
+
+	public void setDiscountsForCreatedby(Set discountsForCreatedby) {
+		this.discountsForCreatedby = discountsForCreatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
 	public Set getUsersForUpdatedby() {
 		return this.usersForUpdatedby;
 	}
 
 	public void setUsersForUpdatedby(Set usersForUpdatedby) {
 		this.usersForUpdatedby = usersForUpdatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
+	public Set getMovementLinesForUpdatedby() {
+		return this.movementLinesForUpdatedby;
+	}
+
+	public void setMovementLinesForUpdatedby(Set movementLinesForUpdatedby) {
+		this.movementLinesForUpdatedby = movementLinesForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
@@ -709,6 +747,16 @@ public class User implements java.io.Serializable {
 
 	public void setUomsForUpdatedby(Set uomsForUpdatedby) {
 		this.uomsForUpdatedby = uomsForUpdatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getProductOfferLinesForCreatedby() {
+		return this.productOfferLinesForCreatedby;
+	}
+
+	public void setProductOfferLinesForCreatedby(
+			Set productOfferLinesForCreatedby) {
+		this.productOfferLinesForCreatedby = productOfferLinesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")

@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ public class MyCart implements java.io.Serializable {
 	private Customer customerByCustomerId;
 	private Customer customerByUpdatedby;
 	private Store store;
-	private String productOfferLineId;
+	private ProductOfferLine productOfferLine;
 	private int qty;
 	private char isactive;
 	private Date created;
@@ -51,8 +51,8 @@ public class MyCart implements java.io.Serializable {
 	public MyCart(String myCartId, Merchant merchant, Product product,
 			Customer customerByCreatedby, ProductOffer productOffer,
 			Customer customerByCustomerId, Customer customerByUpdatedby,
-			Store store, String productOfferLineId, int qty, char isactive,
-			Date created, Date updated) {
+			Store store, ProductOfferLine productOfferLine, int qty,
+			char isactive, Date created, Date updated) {
 		this.myCartId = myCartId;
 		this.merchant = merchant;
 		this.product = product;
@@ -61,7 +61,7 @@ public class MyCart implements java.io.Serializable {
 		this.customerByCustomerId = customerByCustomerId;
 		this.customerByUpdatedby = customerByUpdatedby;
 		this.store = store;
-		this.productOfferLineId = productOfferLineId;
+		this.productOfferLine = productOfferLine;
 		this.qty = qty;
 		this.isactive = isactive;
 		this.created = created;
@@ -148,13 +148,14 @@ public class MyCart implements java.io.Serializable {
 		this.store = store;
 	}
 
-	@Column(name = "PRODUCT_OFFER_LINE_ID", length = 32)
-	public String getProductOfferLineId() {
-		return this.productOfferLineId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PRODUCT_OFFER_LINE_ID")
+	public ProductOfferLine getProductOfferLine() {
+		return this.productOfferLine;
 	}
 
-	public void setProductOfferLineId(String productOfferLineId) {
-		this.productOfferLineId = productOfferLineId;
+	public void setProductOfferLine(ProductOfferLine productOfferLine) {
+		this.productOfferLine = productOfferLine;
 	}
 
 	@Column(name = "QTY", nullable = false)

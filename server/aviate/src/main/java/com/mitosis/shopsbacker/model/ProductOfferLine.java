@@ -1,13 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,13 +17,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * ProductOfferline Created by Sundaram C.
+ * ProductOfferLine Created by Sundaram C.
  */
 @Entity
-@Table(name = "product_offerline", catalog = "shopsbacker")
-public class ProductOfferline implements java.io.Serializable {
+@Table(name = "product_offer_line", catalog = "shopsbacker")
+public class ProductOfferLine implements java.io.Serializable {
 
-	private String productOfferlineId;
+	private String productOfferLineId;
 	private User userByCreatedby;
 	private User userByUpdatedby;
 	private Product product;
@@ -35,15 +32,15 @@ public class ProductOfferline implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<MyCart> myCarts = new ArrayList<MyCart>();
+	private Set myCarts = new HashSet(0);
 
-	public ProductOfferline() {
+	public ProductOfferLine() {
 	}
 
-	public ProductOfferline(String productOfferlineId, User userByCreatedby,
+	public ProductOfferLine(String productOfferLineId, User userByCreatedby,
 			User userByUpdatedby, Product product, ProductOffer productOffer,
 			double discountPercentage, char isactive, Date updated) {
-		this.productOfferlineId = productOfferlineId;
+		this.productOfferLineId = productOfferLineId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
 		this.product = product;
@@ -53,11 +50,11 @@ public class ProductOfferline implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public ProductOfferline(String productOfferlineId, User userByCreatedby,
+	public ProductOfferLine(String productOfferLineId, User userByCreatedby,
 			User userByUpdatedby, Product product, ProductOffer productOffer,
 			double discountPercentage, char isactive, Date created,
-			Date updated, List<MyCart> myCarts) {
-		this.productOfferlineId = productOfferlineId;
+			Date updated, Set myCarts) {
+		this.productOfferLineId = productOfferLineId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
 		this.product = product;
@@ -70,13 +67,13 @@ public class ProductOfferline implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "PRODUCT_OFFERLINE_ID", unique = true, nullable = false, length = 32)
-	public String getProductOfferlineId() {
-		return this.productOfferlineId;
+	@Column(name = "PRODUCT_OFFER_LINE_ID", unique = true, nullable = false, length = 32)
+	public String getProductOfferLineId() {
+		return this.productOfferLineId;
 	}
 
-	public void setProductOfferlineId(String productOfferlineId) {
-		this.productOfferlineId = productOfferlineId;
+	public void setProductOfferLineId(String productOfferLineId) {
+		this.productOfferLineId = productOfferLineId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -157,12 +154,12 @@ public class ProductOfferline implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productOfferline")
-	public List<MyCart> getMyCarts() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productOfferLine")
+	public Set getMyCarts() {
 		return this.myCarts;
 	}
 
-	public void setMyCarts(List<MyCart> myCarts) {
+	public void setMyCarts(Set myCarts) {
 		this.myCarts = myCarts;
 	}
 

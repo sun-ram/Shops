@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
 import java.util.HashSet;
@@ -40,6 +40,8 @@ public class Storagebin implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private Set productInventories = new HashSet(0);
+	private Set movementLinesForToBinId = new HashSet(0);
+	private Set movementLinesForFromBinId = new HashSet(0);
 
 	public Storagebin() {
 	}
@@ -63,7 +65,8 @@ public class Storagebin implements java.io.Serializable {
 			User userByCreatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, String description, String row,
 			String stack, String level, char isactive, Date created,
-			Date updated, Set productInventories) {
+			Date updated, Set productInventories, Set movementLinesForToBinId,
+			Set movementLinesForFromBinId) {
 		this.storagebinId = storagebinId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -79,6 +82,8 @@ public class Storagebin implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.productInventories = productInventories;
+		this.movementLinesForToBinId = movementLinesForToBinId;
+		this.movementLinesForFromBinId = movementLinesForFromBinId;
 	}
 
 	@Id
@@ -222,6 +227,24 @@ public class Storagebin implements java.io.Serializable {
 
 	public void setProductInventories(Set productInventories) {
 		this.productInventories = productInventories;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebinByToBinId")
+	public Set getMovementLinesForToBinId() {
+		return this.movementLinesForToBinId;
+	}
+
+	public void setMovementLinesForToBinId(Set movementLinesForToBinId) {
+		this.movementLinesForToBinId = movementLinesForToBinId;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebinByFromBinId")
+	public Set getMovementLinesForFromBinId() {
+		return this.movementLinesForFromBinId;
+	}
+
+	public void setMovementLinesForFromBinId(Set movementLinesForFromBinId) {
+		this.movementLinesForFromBinId = movementLinesForFromBinId;
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -14,17 +14,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Movementline Created by Sundaram C.
+ * MovementLine Created by Sundaram C.
  */
 @Entity
-@Table(name = "movementline", catalog = "shopsbacker")
-public class Movementline implements java.io.Serializable {
+@Table(name = "movement_line", catalog = "shopsbacker")
+public class MovementLine implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String movementlineId;
+	private String movementLineId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
 	private Storagebin storagebinByFromBinId;
@@ -36,14 +32,14 @@ public class Movementline implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 
-	public Movementline() {
+	public MovementLine() {
 	}
 
-	public Movementline(String movementlineId, User userByUpdatedby,
+	public MovementLine(String movementLineId, User userByUpdatedby,
 			User userByCreatedby, Movement movement,
 			Storagebin storagebinByToBinId, Product product, int qty,
 			char isactive, Date created, Date updated) {
-		this.movementlineId = movementlineId;
+		this.movementLineId = movementLineId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
 		this.movement = movement;
@@ -55,11 +51,11 @@ public class Movementline implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public Movementline(String movementlineId, User userByUpdatedby,
+	public MovementLine(String movementLineId, User userByUpdatedby,
 			User userByCreatedby, Storagebin storagebinByFromBinId,
 			Movement movement, Storagebin storagebinByToBinId, Product product,
 			int qty, char isactive, Date created, Date updated) {
-		this.movementlineId = movementlineId;
+		this.movementLineId = movementLineId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
 		this.storagebinByFromBinId = storagebinByFromBinId;
@@ -73,13 +69,13 @@ public class Movementline implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "MOVEMENTLINE_ID", unique = true, nullable = false, length = 32)
-	public String getMovementlineId() {
-		return this.movementlineId;
+	@Column(name = "MOVEMENT_LINE_ID", unique = true, nullable = false, length = 32)
+	public String getMovementLineId() {
+		return this.movementLineId;
 	}
 
-	public void setMovementlineId(String movementlineId) {
-		this.movementlineId = movementlineId;
+	public void setMovementLineId(String movementLineId) {
+		this.movementLineId = movementLineId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

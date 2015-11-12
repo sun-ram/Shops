@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -45,7 +45,10 @@ public class Product implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private char isactive;
+	private Set productOfferLines = new HashSet(0);
 	private Set myCarts = new HashSet(0);
+	private Set salesOrderLines = new HashSet(0);
+	private Set movementLines = new HashSet(0);
 	private Set productImages = new HashSet(0);
 	private Set productOffers = new HashSet(0);
 	private Set productInventories = new HashSet(0);
@@ -79,8 +82,9 @@ public class Product implements java.io.Serializable {
 			ProductType productType, String name, String edibleType,
 			Integer groupCount, String brand, BigDecimal price,
 			Character isYourHot, BigDecimal unit, Date created, Date updated,
-			char isactive, Set myCarts, Set productImages, Set productOffers,
-			Set productInventories) {
+			char isactive, Set productOfferLines, Set myCarts,
+			Set salesOrderLines, Set movementLines, Set productImages,
+			Set productOffers, Set productInventories) {
 		this.productId = productId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -100,7 +104,10 @@ public class Product implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.isactive = isactive;
+		this.productOfferLines = productOfferLines;
 		this.myCarts = myCarts;
+		this.salesOrderLines = salesOrderLines;
+		this.movementLines = movementLines;
 		this.productImages = productImages;
 		this.productOffers = productOffers;
 		this.productInventories = productInventories;
@@ -289,12 +296,39 @@ public class Product implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public Set getProductOfferLines() {
+		return this.productOfferLines;
+	}
+
+	public void setProductOfferLines(Set productOfferLines) {
+		this.productOfferLines = productOfferLines;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	public Set getMyCarts() {
 		return this.myCarts;
 	}
 
 	public void setMyCarts(Set myCarts) {
 		this.myCarts = myCarts;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public Set getSalesOrderLines() {
+		return this.salesOrderLines;
+	}
+
+	public void setSalesOrderLines(Set salesOrderLines) {
+		this.salesOrderLines = salesOrderLines;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public Set getMovementLines() {
+		return this.movementLines;
+	}
+
+	public void setMovementLines(Set movementLines) {
+		this.movementLines = movementLines;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")

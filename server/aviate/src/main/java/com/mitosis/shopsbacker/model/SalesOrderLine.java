@@ -1,33 +1,35 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 /**
- * SalesOrderline Created by Sundaram C.
+ * SalesOrderLine Created by Sundaram C.
  */
 @Entity
-@Table(name = "sales_orderline", catalog = "shopsbacker")
-public class SalesOrderline implements java.io.Serializable {
+@Table(name = "sales_order_line", catalog = "shopsbacker")
+public class SalesOrderLine implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String salesOrderlineId;
-	private Product product;
+	private String salesOrderLineId;
 	private SalesOrder salesOrder;
+	private Product product;
+	private String salesOrderId;
 	private int qty;
 	private BigDecimal price;
 	private BigDecimal grossAmount;
@@ -39,16 +41,16 @@ public class SalesOrderline implements java.io.Serializable {
 	private Date updated;
 	private String updatedby;
 
-	public SalesOrderline() {
+	public SalesOrderLine() {
 	}
 
-	public SalesOrderline(String salesOrderlineId, Product product,
-			SalesOrder salesOrder, int qty, BigDecimal price,
+	public SalesOrderLine(SalesOrder salesOrder, Product product,
+			String salesOrderId, int qty, BigDecimal price,
 			BigDecimal grossAmount, BigDecimal netAmount, BigDecimal discount,
 			char isactive, Date created, Date updated) {
-		this.salesOrderlineId = salesOrderlineId;
-		this.product = product;
 		this.salesOrder = salesOrder;
+		this.product = product;
+		this.salesOrderId = salesOrderId;
 		this.qty = qty;
 		this.price = price;
 		this.grossAmount = grossAmount;
@@ -59,14 +61,14 @@ public class SalesOrderline implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public SalesOrderline(String salesOrderlineId, Product product,
-			SalesOrder salesOrder, int qty, BigDecimal price,
+	public SalesOrderLine(SalesOrder salesOrder, Product product,
+			String salesOrderId, int qty, BigDecimal price,
 			BigDecimal grossAmount, BigDecimal netAmount, BigDecimal discount,
 			char isactive, Date created, String createdby, Date updated,
 			String updatedby) {
-		this.salesOrderlineId = salesOrderlineId;
-		this.product = product;
 		this.salesOrder = salesOrder;
+		this.product = product;
+		this.salesOrderId = salesOrderId;
 		this.qty = qty;
 		this.price = price;
 		this.grossAmount = grossAmount;
@@ -79,14 +81,26 @@ public class SalesOrderline implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "salesOrder"))
 	@Id
-	@Column(name = "SALES_ORDERLINE_ID", unique = true, nullable = false, length = 32)
-	public String getSalesOrderlineId() {
-		return this.salesOrderlineId;
+	@GeneratedValue(generator = "generator")
+	@Column(name = "SALES_ORDER_LINE_ID", unique = true, nullable = false, length = 32)
+	public String getSalesOrderLineId() {
+		return this.salesOrderLineId;
 	}
 
-	public void setSalesOrderlineId(String salesOrderlineId) {
-		this.salesOrderlineId = salesOrderlineId;
+	public void setSalesOrderLineId(String salesOrderLineId) {
+		this.salesOrderLineId = salesOrderLineId;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public SalesOrder getSalesOrder() {
+		return this.salesOrder;
+	}
+
+	public void setSalesOrder(SalesOrder salesOrder) {
+		this.salesOrder = salesOrder;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -99,14 +113,13 @@ public class SalesOrderline implements java.io.Serializable {
 		this.product = product;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SALES_ORDER_ID", nullable = false)
-	public SalesOrder getSalesOrder() {
-		return this.salesOrder;
+	@Column(name = "SALES_ORDER_ID", nullable = false, length = 32)
+	public String getSalesOrderId() {
+		return this.salesOrderId;
 	}
 
-	public void setSalesOrder(SalesOrder salesOrder) {
-		this.salesOrder = salesOrder;
+	public void setSalesOrderId(String salesOrderId) {
+		this.salesOrderId = salesOrderId;
 	}
 
 	@Column(name = "QTY", nullable = false)

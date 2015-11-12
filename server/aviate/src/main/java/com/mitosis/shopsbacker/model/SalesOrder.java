@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,6 +54,7 @@ public class SalesOrder implements java.io.Serializable {
 	private Date updated;
 	private String updatedby;
 	private Set orderTaxes = new HashSet(0);
+	private SalesOrderLine salesOrderLine;
 	private Set favourites = new HashSet(0);
 
 	public SalesOrder() {
@@ -93,7 +95,7 @@ public class SalesOrder implements java.io.Serializable {
 			String customerSign, String merchantId, Date deliveryTime,
 			Character deliveryFlag, BigDecimal discountAmount, char isactive,
 			String createdby, Date created, Date updated, String updatedby,
-			Set orderTaxes, Set favourites) {
+			Set orderTaxes, SalesOrderLine salesOrderLine, Set favourites) {
 		this.salesOrderId = salesOrderId;
 		this.userByBackerId = userByBackerId;
 		this.customer = customer;
@@ -123,6 +125,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.updated = updated;
 		this.updatedby = updatedby;
 		this.orderTaxes = orderTaxes;
+		this.salesOrderLine = salesOrderLine;
 		this.favourites = favourites;
 	}
 
@@ -396,6 +399,15 @@ public class SalesOrder implements java.io.Serializable {
 
 	public void setOrderTaxes(Set orderTaxes) {
 		this.orderTaxes = orderTaxes;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "salesOrder")
+	public SalesOrderLine getSalesOrderLine() {
+		return this.salesOrderLine;
+	}
+
+	public void setSalesOrderLine(SalesOrderLine salesOrderLine) {
+		this.salesOrderLine = salesOrderLine;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")

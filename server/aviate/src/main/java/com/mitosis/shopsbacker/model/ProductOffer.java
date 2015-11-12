@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
 import java.util.HashSet;
@@ -39,6 +39,7 @@ public class ProductOffer implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
+	private Set productOfferLines = new HashSet(0);
 	private Set myCarts = new HashSet(0);
 
 	public ProductOffer() {
@@ -67,7 +68,7 @@ public class ProductOffer implements java.io.Serializable {
 			User userByUpdatedby, Merchant merchant, Product product,
 			String name, String description, Date fromDate, Date todate,
 			Date startTime, Date endTime, char isactive, Date created,
-			Date updated, Set myCarts) {
+			Date updated, Set productOfferLines, Set myCarts) {
 		this.productOfferId = productOfferId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -82,6 +83,7 @@ public class ProductOffer implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.productOfferLines = productOfferLines;
 		this.myCarts = myCarts;
 	}
 
@@ -220,6 +222,15 @@ public class ProductOffer implements java.io.Serializable {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productOffer")
+	public Set getProductOfferLines() {
+		return this.productOfferLines;
+	}
+
+	public void setProductOfferLines(Set productOfferLines) {
+		this.productOfferLines = productOfferLines;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productOffer")

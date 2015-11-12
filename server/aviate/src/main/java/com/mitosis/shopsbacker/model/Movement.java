@@ -1,14 +1,17 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +35,7 @@ public class Movement implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
+	private Set movementLines = new HashSet(0);
 
 	public Movement() {
 	}
@@ -52,7 +56,7 @@ public class Movement implements java.io.Serializable {
 	public Movement(String movementId, User userByCreatedby,
 			User userByUpdatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, char ismoved, char isupdated,
-			char isactive, Date created, Date updated) {
+			char isactive, Date created, Date updated, Set movementLines) {
 		this.movementId = movementId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -65,6 +69,7 @@ public class Movement implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.movementLines = movementLines;
 	}
 
 	@Id
@@ -181,6 +186,15 @@ public class Movement implements java.io.Serializable {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movement")
+	public Set getMovementLines() {
+		return this.movementLines;
+	}
+
+	public void setMovementLines(Set movementLines) {
+		this.movementLines = movementLines;
 	}
 
 }

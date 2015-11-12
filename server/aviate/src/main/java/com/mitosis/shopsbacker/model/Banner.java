@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 12, 2015 3:32:23 PM 
+// Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -12,13 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 /**
  * Banner Created by Sundaram C.
  */
 @Entity
-@Table(name = "banner", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "IS_SHOPSBACKER_BANNER"))
+@Table(name = "banner", catalog = "shopsbacker")
 public class Banner implements java.io.Serializable {
 
 	private String bannerId;
@@ -139,7 +138,7 @@ public class Banner implements java.io.Serializable {
 		this.tabTitleBold = tabTitleBold;
 	}
 
-	@Column(name = "IS_SHOPSBACKER_BANNER", unique = true, nullable = false, length = 1)
+	@Column(name = "IS_SHOPSBACKER_BANNER", nullable = false, length = 1)
 	public char getIsShopsbackerBanner() {
 		return this.isShopsbackerBanner;
 	}
