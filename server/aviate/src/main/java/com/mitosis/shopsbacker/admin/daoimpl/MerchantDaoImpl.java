@@ -8,7 +8,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
-import com.mitosis.shopsbacker.common.dao.CommonDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 
