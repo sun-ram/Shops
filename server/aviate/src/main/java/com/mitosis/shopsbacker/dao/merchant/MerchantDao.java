@@ -2,15 +2,16 @@ package com.mitosis.shopsbacker.dao.merchant;
 
 import java.util.List;
 
-import com.mitosis.aviate.model.MerchantDetails;
+import com.mitosis.shopsbacker.model.Merchant;
+
 
 public interface MerchantDao<T> {
 	
-	public void saveMerchantDetails(MerchantDetails merchantDetails);
-	public void updateMerchandDetails(MerchantDetails merchantDetails);
-	public List<MerchantDetails> getMerchantList();
-	public void deleteMerchant(MerchantDetails merchantDetails);
-	public List<MerchantDetails> getMerchantListByName(String param);
-	public MerchantDetails getMerchantById(long parseLong);
+	public void saveMerchant(Merchant merchant);
+	public void updateMerchant(Merchant merchant);
+	public List<Merchant> getMerchantList();
+	public void deleteMerchant(Merchant merchant);
+	public List<Merchant> getMerchantListByName(String param);
+	public Merchant getMerchantById(String id);  
 }
 
