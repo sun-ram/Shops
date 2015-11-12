@@ -1,16 +1,17 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,11 +26,10 @@ import javax.persistence.UniqueConstraint;
 		"NAME", "MERCHANT_ID" }))
 public class Discount implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String discountId;
+	private User userByCreatedby;
+	private User userByUpdatedby;
+	private Merchant merchant;
 	private String name;
 	private Double discountPercentage;
 	private BigDecimal discountAmount;
@@ -40,23 +40,32 @@ public class Discount implements java.io.Serializable {
 	private Date startTime;
 	private Date endTime;
 	private BigDecimal minAmount;
-	private String merchantId;
-	private List<Product> products = new ArrayList<Product>();
+	private char isactive;
+	private Date created;
+	private Date updated;
+	private Set products = new HashSet(0);
 
 	public Discount() {
 	}
 
-	public Discount(String discountId, BigDecimal minAmount, String merchantId) {
+	public Discount(String discountId, Merchant merchant, BigDecimal minAmount,
+			char isactive) {
 		this.discountId = discountId;
+		this.merchant = merchant;
 		this.minAmount = minAmount;
-		this.merchantId = merchantId;
+		this.isactive = isactive;
 	}
 
-	public Discount(String discountId, String name, Double discountPercentage,
-			BigDecimal discountAmount, Integer minQty, Integer maxQty,
-			Date startDate, Date endDate, Date startTime, Date endTime,
-			BigDecimal minAmount, String merchantId, List<Product> products) {
+	public Discount(String discountId, User userByCreatedby,
+			User userByUpdatedby, Merchant merchant, String name,
+			Double discountPercentage, BigDecimal discountAmount,
+			Integer minQty, Integer maxQty, Date startDate, Date endDate,
+			Date startTime, Date endTime, BigDecimal minAmount, char isactive,
+			Date created, Date updated, Set products) {
 		this.discountId = discountId;
+		this.userByCreatedby = userByCreatedby;
+		this.userByUpdatedby = userByUpdatedby;
+		this.merchant = merchant;
 		this.name = name;
 		this.discountPercentage = discountPercentage;
 		this.discountAmount = discountAmount;
@@ -67,7 +76,9 @@ public class Discount implements java.io.Serializable {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.minAmount = minAmount;
-		this.merchantId = merchantId;
+		this.isactive = isactive;
+		this.created = created;
+		this.updated = updated;
 		this.products = products;
 	}
 
@@ -79,6 +90,36 @@ public class Discount implements java.io.Serializable {
 
 	public void setDiscountId(String discountId) {
 		this.discountId = discountId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATEDBY")
+	public User getUserByCreatedby() {
+		return this.userByCreatedby;
+	}
+
+	public void setUserByCreatedby(User userByCreatedby) {
+		this.userByCreatedby = userByCreatedby;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATEDBY")
+	public User getUserByUpdatedby() {
+		return this.userByUpdatedby;
+	}
+
+	public void setUserByUpdatedby(User userByUpdatedby) {
+		this.userByUpdatedby = userByUpdatedby;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MERCHANT_ID", nullable = false)
+	public Merchant getMerchant() {
+		return this.merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 
 	@Column(name = "NAME", length = 100)
@@ -175,21 +216,41 @@ public class Discount implements java.io.Serializable {
 		this.minAmount = minAmount;
 	}
 
-	@Column(name = "MERCHANT_ID", nullable = false, length = 32)
-	public String getMerchantId() {
-		return this.merchantId;
+	@Column(name = "ISACTIVE", nullable = false, length = 1)
+	public char getIsactive() {
+		return this.isactive;
 	}
 
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED", length = 19)
+	public Date getCreated() {
+		return this.created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "UPDATED", length = 19)
+	public Date getUpdated() {
+		return this.updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
-	public List<Product> getProducts() {
+	public Set getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set products) {
 		this.products = products;
 	}
 

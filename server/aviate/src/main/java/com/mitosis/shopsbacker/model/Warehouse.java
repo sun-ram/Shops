@@ -1,11 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,10 +25,6 @@ import javax.persistence.UniqueConstraint;
 		"NAME", "STORE_ID" }))
 public class Warehouse implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String warehouseId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
@@ -40,10 +35,8 @@ public class Warehouse implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	
-	private List<Movement> movements = new ArrayList<Movement>();
-	private List<Storagebin> storagebins = new ArrayList<Storagebin>();
-	
+	private Set movements = new HashSet(0);
+	private Set storagebins = new HashSet(0);
 
 	public Warehouse() {
 	}
@@ -65,7 +58,7 @@ public class Warehouse implements java.io.Serializable {
 	public Warehouse(String warehouseId, User userByUpdatedby,
 			User userByCreatedby, Merchant merchant, Store store, String name,
 			String description, char isactive, Date created, Date updated,
-			 List<Movement> movements, List<Storagebin> storagebins) {
+			Set movements, Set storagebins) {
 		this.warehouseId = warehouseId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -178,20 +171,20 @@ public class Warehouse implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
-	public  List<Movement> getMovements() {
+	public Set getMovements() {
 		return this.movements;
 	}
 
-	public void setMovements( List<Movement> movements) {
+	public void setMovements(Set movements) {
 		this.movements = movements;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
-	public List<Storagebin> getStoragebins() {
+	public Set getStoragebins() {
 		return this.storagebins;
 	}
 
-	public void setStoragebins(List<Storagebin> storagebins) {
+	public void setStoragebins(Set storagebins) {
 		this.storagebins = storagebins;
 	}
 

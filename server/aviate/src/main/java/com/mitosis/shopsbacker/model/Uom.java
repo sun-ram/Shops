@@ -1,10 +1,9 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,10 +21,6 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "uom", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class Uom implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String uomId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
@@ -34,7 +29,7 @@ public class Uom implements java.io.Serializable {
 	private String isactive;
 	private String created;
 	private String updated;
-	private List<Product> products = new ArrayList<Product>();
+	private Set products = new HashSet(0);
 
 	public Uom() {
 	}
@@ -54,7 +49,7 @@ public class Uom implements java.io.Serializable {
 
 	public Uom(String uomId, User userByUpdatedby, User userByCreatedby,
 			String name, String description, String isactive, String created,
-			String updated, List<Product> products) {
+			String updated, Set products) {
 		this.uomId = uomId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -142,11 +137,11 @@ public class Uom implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uom")
-	public List<Product> getProducts() {
+	public Set getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set products) {
 		this.products = products;
 	}
 

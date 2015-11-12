@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,12 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name = "my_cart", catalog = "shopsbacker")
 public class MyCart implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String myCartId;
-	private ProductOfferline productOfferline;
 	private Merchant merchant;
 	private Product product;
 	private Customer customerByCreatedby;
@@ -33,6 +28,7 @@ public class MyCart implements java.io.Serializable {
 	private Customer customerByCustomerId;
 	private Customer customerByUpdatedby;
 	private Store store;
+	private String productOfferLineId;
 	private int qty;
 	private char isactive;
 	private Date created;
@@ -52,13 +48,12 @@ public class MyCart implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	public MyCart(String myCartId, ProductOfferline productOfferline,
-			Merchant merchant, Product product, Customer customerByCreatedby,
-			ProductOffer productOffer, Customer customerByCustomerId,
-			Customer customerByUpdatedby, Store store, int qty, char isactive,
+	public MyCart(String myCartId, Merchant merchant, Product product,
+			Customer customerByCreatedby, ProductOffer productOffer,
+			Customer customerByCustomerId, Customer customerByUpdatedby,
+			Store store, String productOfferLineId, int qty, char isactive,
 			Date created, Date updated) {
 		this.myCartId = myCartId;
-		this.productOfferline = productOfferline;
 		this.merchant = merchant;
 		this.product = product;
 		this.customerByCreatedby = customerByCreatedby;
@@ -66,6 +61,7 @@ public class MyCart implements java.io.Serializable {
 		this.customerByCustomerId = customerByCustomerId;
 		this.customerByUpdatedby = customerByUpdatedby;
 		this.store = store;
+		this.productOfferLineId = productOfferLineId;
 		this.qty = qty;
 		this.isactive = isactive;
 		this.created = created;
@@ -80,16 +76,6 @@ public class MyCart implements java.io.Serializable {
 
 	public void setMyCartId(String myCartId) {
 		this.myCartId = myCartId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PRODUCT_OFFERLINE_ID")
-	public ProductOfferline getProductOfferline() {
-		return this.productOfferline;
-	}
-
-	public void setProductOfferline(ProductOfferline productOfferline) {
-		this.productOfferline = productOfferline;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -160,6 +146,15 @@ public class MyCart implements java.io.Serializable {
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	@Column(name = "PRODUCT_OFFER_LINE_ID", length = 32)
+	public String getProductOfferLineId() {
+		return this.productOfferLineId;
+	}
+
+	public void setProductOfferLineId(String productOfferLineId) {
+		this.productOfferLineId = productOfferLineId;
 	}
 
 	@Column(name = "QTY", nullable = false)

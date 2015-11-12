@@ -1,11 +1,14 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,16 +20,12 @@ import javax.persistence.TemporalType;
 @Table(name = "missing_product", catalog = "shopsbacker")
 public class MissingProduct implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String missingProductId;
+	private Merchant merchant;
+	private Customer customer;
+	private Store store;
 	private String name;
 	private String description;
-	private String customerId;
-	private String merchantId;
-	private String storeId;
 	private char isactive;
 	private Date created;
 	private String createdby;
@@ -36,25 +35,25 @@ public class MissingProduct implements java.io.Serializable {
 	public MissingProduct() {
 	}
 
-	public MissingProduct(String missingProductId, String name,
-			String customerId, String merchantId, char isactive) {
+	public MissingProduct(String missingProductId, Merchant merchant,
+			Customer customer, String name, char isactive) {
 		this.missingProductId = missingProductId;
+		this.merchant = merchant;
+		this.customer = customer;
 		this.name = name;
-		this.customerId = customerId;
-		this.merchantId = merchantId;
 		this.isactive = isactive;
 	}
 
-	public MissingProduct(String missingProductId, String name,
-			String description, String customerId, String merchantId,
-			String storeId, char isactive, Date created, String createdby,
-			Date updated, String updatedby) {
+	public MissingProduct(String missingProductId, Merchant merchant,
+			Customer customer, Store store, String name, String description,
+			char isactive, Date created, String createdby, Date updated,
+			String updatedby) {
 		this.missingProductId = missingProductId;
+		this.merchant = merchant;
+		this.customer = customer;
+		this.store = store;
 		this.name = name;
 		this.description = description;
-		this.customerId = customerId;
-		this.merchantId = merchantId;
-		this.storeId = storeId;
 		this.isactive = isactive;
 		this.created = created;
 		this.createdby = createdby;
@@ -70,6 +69,36 @@ public class MissingProduct implements java.io.Serializable {
 
 	public void setMissingProductId(String missingProductId) {
 		this.missingProductId = missingProductId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MERCHANT_ID", nullable = false)
+	public Merchant getMerchant() {
+		return this.merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STORE_ID")
+	public Store getStore() {
+		return this.store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 	@Column(name = "NAME", nullable = false, length = 100)
@@ -88,33 +117,6 @@ public class MissingProduct implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Column(name = "CUSTOMER_ID", nullable = false, length = 32)
-	public String getCustomerId() {
-		return this.customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
-	@Column(name = "MERCHANT_ID", nullable = false, length = 32)
-	public String getMerchantId() {
-		return this.merchantId;
-	}
-
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
-	}
-
-	@Column(name = "STORE_ID", length = 32)
-	public String getStoreId() {
-		return this.storeId;
-	}
-
-	public void setStoreId(String storeId) {
-		this.storeId = storeId;
 	}
 
 	@Column(name = "ISACTIVE", nullable = false, length = 1)

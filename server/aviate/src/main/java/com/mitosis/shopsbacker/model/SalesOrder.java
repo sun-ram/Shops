@@ -1,12 +1,11 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,10 +24,6 @@ import javax.persistence.TemporalType;
 @Table(name = "sales_order", catalog = "shopsbacker")
 public class SalesOrder implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String salesOrderId;
 	private User userByBackerId;
 	private Customer customer;
@@ -57,7 +52,8 @@ public class SalesOrder implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private String updatedby;
-	private List<SalesOrderline> salesOrderlines = new ArrayList<SalesOrderline>();
+	private Set orderTaxes = new HashSet(0);
+	private Set favourites = new HashSet(0);
 
 	public SalesOrder() {
 	}
@@ -97,7 +93,7 @@ public class SalesOrder implements java.io.Serializable {
 			String customerSign, String merchantId, Date deliveryTime,
 			Character deliveryFlag, BigDecimal discountAmount, char isactive,
 			String createdby, Date created, Date updated, String updatedby,
-			List<SalesOrderline> salesOrderlines) {
+			Set orderTaxes, Set favourites) {
 		this.salesOrderId = salesOrderId;
 		this.userByBackerId = userByBackerId;
 		this.customer = customer;
@@ -126,7 +122,8 @@ public class SalesOrder implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.updatedby = updatedby;
-		this.salesOrderlines = salesOrderlines;
+		this.orderTaxes = orderTaxes;
+		this.favourites = favourites;
 	}
 
 	@Id
@@ -393,12 +390,21 @@ public class SalesOrder implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")
-	public List<SalesOrderline> getSalesOrderlines() {
-		return this.salesOrderlines;
+	public Set getOrderTaxes() {
+		return this.orderTaxes;
 	}
 
-	public void setSalesOrderlines(List<SalesOrderline> salesOrderlines) {
-		this.salesOrderlines = salesOrderlines;
+	public void setOrderTaxes(Set orderTaxes) {
+		this.orderTaxes = orderTaxes;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")
+	public Set getFavourites() {
+		return this.favourites;
+	}
+
+	public void setFavourites(Set favourites) {
+		this.favourites = favourites;
 	}
 
 }

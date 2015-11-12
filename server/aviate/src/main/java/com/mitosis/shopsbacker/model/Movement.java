@@ -1,18 +1,14 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,10 +20,6 @@ import javax.persistence.TemporalType;
 @Table(name = "movement", catalog = "shopsbacker")
 public class Movement implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String movementId;
 	private User userByCreatedby;
 	private User userByUpdatedby;
@@ -40,7 +32,6 @@ public class Movement implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<Movementline> movementlines = new ArrayList<Movementline>();
 
 	public Movement() {
 	}
@@ -61,7 +52,7 @@ public class Movement implements java.io.Serializable {
 	public Movement(String movementId, User userByCreatedby,
 			User userByUpdatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, char ismoved, char isupdated,
-			char isactive, Date created, Date updated, List<Movementline> movementlines) {
+			char isactive, Date created, Date updated) {
 		this.movementId = movementId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -74,7 +65,6 @@ public class Movement implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
-		this.movementlines = movementlines;
 	}
 
 	@Id
@@ -191,15 +181,6 @@ public class Movement implements java.io.Serializable {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movement")
-	public List<Movementline> getMovementlines() {
-		return this.movementlines;
-	}
-
-	public void setMovementlines(List<Movementline> movementlines) {
-		this.movementlines = movementlines;
 	}
 
 }

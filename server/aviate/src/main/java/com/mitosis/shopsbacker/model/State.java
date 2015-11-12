@@ -1,10 +1,9 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,15 +20,11 @@ import javax.persistence.Table;
 @Table(name = "state", catalog = "shopsbacker")
 public class State implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String stateId;
 	private Country country;
 	private String name;
 	private char isactive;
-	private List<Address> addresses = new ArrayList<Address>();
+	private Set addresses = new HashSet(0);
 
 	public State() {
 	}
@@ -42,7 +37,7 @@ public class State implements java.io.Serializable {
 	}
 
 	public State(String stateId, Country country, String name, char isactive,
-			List<Address> addresses) {
+			Set addresses) {
 		this.stateId = stateId;
 		this.country = country;
 		this.name = name;
@@ -89,11 +84,11 @@ public class State implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-	public List<Address> getAddresses() {
+	public Set getAddresses() {
 		return this.addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(Set addresses) {
 		this.addresses = addresses;
 	}
 

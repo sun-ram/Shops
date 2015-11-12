@@ -1,11 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,10 +23,6 @@ import javax.persistence.TemporalType;
 @Table(name = "product_type", catalog = "shopsbacker")
 public class ProductType implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String productTypeId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
@@ -38,8 +33,7 @@ public class ProductType implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<Product> products = new ArrayList<Product>();
-
+	private Set products = new HashSet(0);
 
 	public ProductType() {
 	}
@@ -62,7 +56,7 @@ public class ProductType implements java.io.Serializable {
 	public ProductType(String productTypeId, User userByUpdatedby,
 			User userByCreatedby, Merchant merchant,
 			ProductCategory productCategory, Store store, String name,
-			char isactive, Date created, Date updated, List<Product> products) {
+			char isactive, Date created, Date updated, Set products) {
 		this.productTypeId = productTypeId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -175,11 +169,11 @@ public class ProductType implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productType")
-	public List<Product> getProducts() {
+	public Set getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set products) {
 		this.products = products;
 	}
 

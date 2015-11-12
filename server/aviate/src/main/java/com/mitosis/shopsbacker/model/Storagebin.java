@@ -1,11 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,10 +25,6 @@ import javax.persistence.UniqueConstraint;
 		"NAME", "ROW", "STACK", "LEVEL", "WAREHOUSE_ID" }))
 public class Storagebin implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String storagebinId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
@@ -44,11 +39,7 @@ public class Storagebin implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
-	private List<Movementline> movementlinesForToBinId = new ArrayList<Movementline>();
-	private List<Movementline> movementlinesForFromBinId = new ArrayList<Movementline>();
-	
-	
+	private Set productInventories = new HashSet(0);
 
 	public Storagebin() {
 	}
@@ -72,8 +63,7 @@ public class Storagebin implements java.io.Serializable {
 			User userByCreatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, String description, String row,
 			String stack, String level, char isactive, Date created,
-			Date updated, List<ProductInventory> productInventories, List<Movementline> movementlinesForToBinId,
-			List<Movementline> movementlinesForFromBinId) {
+			Date updated, Set productInventories) {
 		this.storagebinId = storagebinId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -89,8 +79,6 @@ public class Storagebin implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.productInventories = productInventories;
-		this.movementlinesForToBinId = movementlinesForToBinId;
-		this.movementlinesForFromBinId = movementlinesForFromBinId;
 	}
 
 	@Id
@@ -228,30 +216,12 @@ public class Storagebin implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebin")
-	public List<ProductInventory> getProductInventories() {
+	public Set getProductInventories() {
 		return this.productInventories;
 	}
 
-	public void setProductInventories(List<ProductInventory> productInventories) {
+	public void setProductInventories(Set productInventories) {
 		this.productInventories = productInventories;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebinByToBinId")
-	public List<Movementline> getMovementlinesForToBinId() {
-		return this.movementlinesForToBinId;
-	}
-
-	public void setMovementlinesForToBinId(List<Movementline> movementlinesForToBinId) {
-		this.movementlinesForToBinId = movementlinesForToBinId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebinByFromBinId")
-	public List<Movementline> getMovementlinesForFromBinId() {
-		return this.movementlinesForFromBinId;
-	}
-
-	public void setMovementlinesForFromBinId(List<Movementline> movementlinesForFromBinId) {
-		this.movementlinesForFromBinId = movementlinesForFromBinId;
 	}
 
 }

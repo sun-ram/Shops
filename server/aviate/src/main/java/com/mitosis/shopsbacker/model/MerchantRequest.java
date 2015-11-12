@@ -1,11 +1,14 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,13 +20,9 @@ import javax.persistence.TemporalType;
 @Table(name = "merchant_request", catalog = "shopsbacker")
 public class MerchantRequest implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String merchantRequestId;
+	private Address address;
 	private String name;
-	private String addressId;
 	private String email;
 	private char isactive;
 	private Date created;
@@ -34,20 +33,20 @@ public class MerchantRequest implements java.io.Serializable {
 	public MerchantRequest() {
 	}
 
-	public MerchantRequest(String merchantRequestId, String name,
-			String addressId, char isactive) {
+	public MerchantRequest(String merchantRequestId, Address address,
+			String name, char isactive) {
 		this.merchantRequestId = merchantRequestId;
+		this.address = address;
 		this.name = name;
-		this.addressId = addressId;
 		this.isactive = isactive;
 	}
 
-	public MerchantRequest(String merchantRequestId, String name,
-			String addressId, String email, char isactive, Date created,
+	public MerchantRequest(String merchantRequestId, Address address,
+			String name, String email, char isactive, Date created,
 			String createdby, Date updated, String updatedby) {
 		this.merchantRequestId = merchantRequestId;
+		this.address = address;
 		this.name = name;
-		this.addressId = addressId;
 		this.email = email;
 		this.isactive = isactive;
 		this.created = created;
@@ -66,6 +65,16 @@ public class MerchantRequest implements java.io.Serializable {
 		this.merchantRequestId = merchantRequestId;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ADDRESS_ID", nullable = false)
+	public Address getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Column(name = "NAME", nullable = false, length = 100)
 	public String getName() {
 		return this.name;
@@ -73,15 +82,6 @@ public class MerchantRequest implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Column(name = "ADDRESS_ID", nullable = false, length = 32)
-	public String getAddressId() {
-		return this.addressId;
-	}
-
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
 	}
 
 	@Column(name = "EMAIL", length = 100)

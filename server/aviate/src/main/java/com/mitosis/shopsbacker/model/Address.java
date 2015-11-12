@@ -1,15 +1,13 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,8 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * Address Created by Sundaram C.
  */
@@ -27,10 +23,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "address", catalog = "shopsbacker")
 public class Address implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String addressId;
 	private State state;
 	private Customer customer;
@@ -48,8 +40,9 @@ public class Address implements java.io.Serializable {
 	private String updatedby;
 	private Date created;
 	private Date updated;
-	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
-	private List<User> users = new ArrayList<User>();
+	private Set salesOrders = new HashSet(0);
+	private Set users = new HashSet(0);
+	private Set merchantRequests = new HashSet(0);
 
 	public Address() {
 	}
@@ -72,8 +65,8 @@ public class Address implements java.io.Serializable {
 			Country country, String landmark, String address1, String address2,
 			String city, String pinCode, String phoneNo, String latitude,
 			String longitude, Character isactive, String createdby,
-			String updatedby, Date created, Date updated, List<SalesOrder> salesOrders,
-			List<User> users) {
+			String updatedby, Date created, Date updated, Set salesOrders,
+			Set users, Set merchantRequests) {
 		this.addressId = addressId;
 		this.state = state;
 		this.customer = customer;
@@ -93,12 +86,11 @@ public class Address implements java.io.Serializable {
 		this.updated = updated;
 		this.salesOrders = salesOrders;
 		this.users = users;
+		this.merchantRequests = merchantRequests;
 	}
 
 	@Id
 	@Column(name = "ADDRESS_ID", unique = true, nullable = false, length = 32)
-	@GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
 	public String getAddressId() {
 		return this.addressId;
 	}
@@ -257,21 +249,30 @@ public class Address implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	public List<SalesOrder> getSalesOrders() {
+	public Set getSalesOrders() {
 		return this.salesOrders;
 	}
 
-	public void setSalesOrders(List<SalesOrder> salesOrders) {
+	public void setSalesOrders(Set salesOrders) {
 		this.salesOrders = salesOrders;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	public List<User> getUsers() {
+	public Set getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set users) {
 		this.users = users;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
+	public Set getMerchantRequests() {
+		return this.merchantRequests;
+	}
+
+	public void setMerchantRequests(Set merchantRequests) {
+		this.merchantRequests = merchantRequests;
 	}
 
 }

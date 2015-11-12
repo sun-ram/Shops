@@ -1,11 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,10 +21,6 @@ import javax.persistence.TemporalType;
 @Table(name = "image", catalog = "shopsbacker")
 public class Image implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String imageId;
 	private String name;
 	private String type;
@@ -35,12 +30,10 @@ public class Image implements java.io.Serializable {
 	private String updatedby;
 	private Date created;
 	private Date updated;
-	
-	
-	private List<ProductImage> productImages = new ArrayList<ProductImage>();
-	private List<User> users = new ArrayList<User>();
-	private List<Product> products = new ArrayList<Product>();
-	
+	private Set productImages = new HashSet(0);
+	private Set banners = new HashSet(0);
+	private Set users = new HashSet(0);
+	private Set products = new HashSet(0);
 
 	public Image() {
 	}
@@ -58,7 +51,8 @@ public class Image implements java.io.Serializable {
 
 	public Image(String imageId, String name, String type, String url,
 			char isactive, String createdby, String updatedby, Date created,
-			Date updated, List<ProductImage> productImages, List<User> users, List<Product> products) {
+			Date updated, Set productImages, Set banners, Set users,
+			Set products) {
 		this.imageId = imageId;
 		this.name = name;
 		this.type = type;
@@ -69,6 +63,7 @@ public class Image implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.productImages = productImages;
+		this.banners = banners;
 		this.users = users;
 		this.products = products;
 	}
@@ -158,29 +153,38 @@ public class Image implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
-	public List<ProductImage> getProductImages() {
+	public Set getProductImages() {
 		return this.productImages;
 	}
 
-	public void setProductImages(List<ProductImage> productImages) {
+	public void setProductImages(Set productImages) {
 		this.productImages = productImages;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
-	public List<User> getUsers() {
+	public Set getBanners() {
+		return this.banners;
+	}
+
+	public void setBanners(Set banners) {
+		this.banners = banners;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+	public Set getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set users) {
 		this.users = users;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
-	public List<Product> getProducts() {
+	public Set getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set products) {
 		this.products = products;
 	}
 

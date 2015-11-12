@@ -1,13 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,10 +24,6 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "user", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "USER_NAME"))
 public class User implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String userId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
@@ -48,58 +41,48 @@ public class User implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	
-	
-	private List<ProductCategory> productCategoriesForCreatedby = new ArrayList<ProductCategory>();
-	private List<Tax> taxesForCreatedby = new ArrayList<Tax>();
-	private List<Uom> uomsForCreatedby = new ArrayList<Uom>();
-	private List<Store> storesForCreatedby = new ArrayList<Store>();
-	private List<ProductOffer> productOffersForUpdatedby = new ArrayList<ProductOffer>();
-	
-	private List<Warehouse> warehousesForCreatedby = new ArrayList<Warehouse>();
-	private List<Storagebin> storagebinsForCreatedby = new ArrayList<Storagebin>();
-	private List<Role> rolesForUpdatedby = new ArrayList<Role>();
-	private List<Movement> movementsForUpdatedby = new ArrayList<Movement>();
-	private List<ProductInventory> productInventoriesForUpdatedby = new ArrayList<ProductInventory>();
-	
-	private List<Store> storesForUpdatedby = new ArrayList<Store>();
-	private List<OrderNumber> orderNumbersForCreatedby = new ArrayList<OrderNumber>();
-	private List<DeliveryTimeSlot> deliveryTimeSlotsForUpdatedby = new ArrayList<DeliveryTimeSlot>();
-	private List<ProductType> productTypesForCreatedby = new ArrayList<ProductType>();
-	private List<ProductInventory> productInventoriesForCreatedby = new ArrayList<ProductInventory>();
-	
-	private List<SalesOrder> salesOrdersForBackerId = new ArrayList<SalesOrder>();
-	private List<Store> storesForUserId = new ArrayList<Store>();
-	private List<DeliveryTimeSlot> deliveryTimeSlotsForCreatedby = new ArrayList<DeliveryTimeSlot>();
-	private List<ProductOffer> productOffersForCreatedby = new ArrayList<ProductOffer>();
-	private List<User> usersForCreatedby = new ArrayList<User>();
-	
-	
-	
-	private Set movementlinesForCreatedby = new HashSet(0);
+	private Set productCategoriesForCreatedby = new HashSet(0);
+	private Set taxesForCreatedby = new HashSet(0);
+	private Set bannersForCreatedby = new HashSet(0);
+	private Set uomsForCreatedby = new HashSet(0);
+	private Set storesForCreatedby = new HashSet(0);
+	private Set productOffersForUpdatedby = new HashSet(0);
+	private Set bannersForUpdatedby = new HashSet(0);
+	private Set warehousesForCreatedby = new HashSet(0);
+	private Set storagebinsForCreatedby = new HashSet(0);
+	private Set rolesForUpdatedby = new HashSet(0);
+	private Set movementsForUpdatedby = new HashSet(0);
+	private Set productInventoriesForUpdatedby = new HashSet(0);
+	private Set storesForUpdatedby = new HashSet(0);
+	private Set discountsForUpdatedby = new HashSet(0);
+	private Set orderNumbersForCreatedby = new HashSet(0);
+	private Set deliveryTimeSlotsForUpdatedby = new HashSet(0);
+	private Set productTypesForCreatedby = new HashSet(0);
+	private Set productInventoriesForCreatedby = new HashSet(0);
+	private Set salesOrdersForBackerId = new HashSet(0);
+	private Set storesForUserId = new HashSet(0);
+	private Set deliveryTimeSlotsForCreatedby = new HashSet(0);
+	private Set productOffersForCreatedby = new HashSet(0);
+	private Set usersForCreatedby = new HashSet(0);
 	private Set productImagesForUpdatedby = new HashSet(0);
 	private Set productImagesForCreatedby = new HashSet(0);
 	private Set rolesForCreatedby = new HashSet(0);
-	private Set productsForUpdatedby = new HashSet(0);
-	
 	private Set movementsForCreatedby = new HashSet(0);
+	private Set productsForUpdatedby = new HashSet(0);
 	private Set merchantsForCreatedby = new HashSet(0);
 	private Set warehousesForUpdatedby = new HashSet(0);
 	private Set salesOrdersForShopperId = new HashSet(0);
 	private Set taxesForUpdatedby = new HashSet(0);
-	
+	private Set shippingChargesesForCreatedby = new HashSet(0);
 	private Set storagebinsForUpdatedby = new HashSet(0);
-	private Set productOfferlinesForUpdatedby = new HashSet(0);
+	private Set discountsForCreatedby = new HashSet(0);
 	private Set productTypesForUpdatedby = new HashSet(0);
 	private Set usersForUpdatedby = new HashSet(0);
-	private Set movementlinesForUpdatedby = new HashSet(0);
-	
 	private Set merchantsForUpdatedby = new HashSet(0);
 	private Set uomsForUpdatedby = new HashSet(0);
-	private Set productOfferlinesForCreatedby = new HashSet(0);
 	private Set orderNumbersForUpdatedby = new HashSet(0);
+	private Set shippingChargesesForUpdatedby = new HashSet(0);
 	private Set productsForCreatedby = new HashSet(0);
-	
 	private Set productCategoriesForUpdatedby = new HashSet(0);
 
 	public User() {
@@ -124,26 +107,27 @@ public class User implements java.io.Serializable {
 			Image image, Role role, Merchant merchant, Address address,
 			Store store, String name, String password, String emailid,
 			String deveiceid, String userName, Integer phoneNo, char isactive,
-			Date created, Date updated, List<ProductCategory> productCategoriesForCreatedby,
-			List<Tax> taxesForCreatedby, List<Uom> uomsForCreatedby,
-			List<Store> storesForCreatedby, List<ProductOffer> productOffersForUpdatedby,
-			List<Warehouse> warehousesForCreatedby, List<Storagebin> storagebinsForCreatedby,
-			List<Role> rolesForUpdatedby, List<Movement> movementsForUpdatedby,
-			List<ProductInventory> productInventoriesForUpdatedby, List<Store> storesForUpdatedby,
-			List<OrderNumber> orderNumbersForCreatedby, List<DeliveryTimeSlot> deliveryTimeSlotsForUpdatedby,
-			List<ProductType> productTypesForCreatedby, List<ProductInventory> productInventoriesForCreatedby,
-			List<SalesOrder> salesOrdersForBackerId, List<Store> storesForUserId,
-			List<DeliveryTimeSlot> deliveryTimeSlotsForCreatedby, List<ProductOffer> productOffersForCreatedby,
-			List<User> usersForCreatedby, Set movementlinesForCreatedby,
+			Date created, Date updated, Set productCategoriesForCreatedby,
+			Set taxesForCreatedby, Set bannersForCreatedby,
+			Set uomsForCreatedby, Set storesForCreatedby,
+			Set productOffersForUpdatedby, Set bannersForUpdatedby,
+			Set warehousesForCreatedby, Set storagebinsForCreatedby,
+			Set rolesForUpdatedby, Set movementsForUpdatedby,
+			Set productInventoriesForUpdatedby, Set storesForUpdatedby,
+			Set discountsForUpdatedby, Set orderNumbersForCreatedby,
+			Set deliveryTimeSlotsForUpdatedby, Set productTypesForCreatedby,
+			Set productInventoriesForCreatedby, Set salesOrdersForBackerId,
+			Set storesForUserId, Set deliveryTimeSlotsForCreatedby,
+			Set productOffersForCreatedby, Set usersForCreatedby,
 			Set productImagesForUpdatedby, Set productImagesForCreatedby,
-			Set rolesForCreatedby, Set productsForUpdatedby,
-			Set movementsForCreatedby, Set merchantsForCreatedby,
+			Set rolesForCreatedby, Set movementsForCreatedby,
+			Set productsForUpdatedby, Set merchantsForCreatedby,
 			Set warehousesForUpdatedby, Set salesOrdersForShopperId,
-			Set taxesForUpdatedby, Set storagebinsForUpdatedby,
-			Set productOfferlinesForUpdatedby, Set productTypesForUpdatedby,
-			Set usersForUpdatedby, Set movementlinesForUpdatedby,
+			Set taxesForUpdatedby, Set shippingChargesesForCreatedby,
+			Set storagebinsForUpdatedby, Set discountsForCreatedby,
+			Set productTypesForUpdatedby, Set usersForUpdatedby,
 			Set merchantsForUpdatedby, Set uomsForUpdatedby,
-			Set productOfferlinesForCreatedby, Set orderNumbersForUpdatedby,
+			Set orderNumbersForUpdatedby, Set shippingChargesesForUpdatedby,
 			Set productsForCreatedby, Set productCategoriesForUpdatedby) {
 		this.userId = userId;
 		this.userByUpdatedby = userByUpdatedby;
@@ -164,15 +148,18 @@ public class User implements java.io.Serializable {
 		this.updated = updated;
 		this.productCategoriesForCreatedby = productCategoriesForCreatedby;
 		this.taxesForCreatedby = taxesForCreatedby;
+		this.bannersForCreatedby = bannersForCreatedby;
 		this.uomsForCreatedby = uomsForCreatedby;
 		this.storesForCreatedby = storesForCreatedby;
 		this.productOffersForUpdatedby = productOffersForUpdatedby;
+		this.bannersForUpdatedby = bannersForUpdatedby;
 		this.warehousesForCreatedby = warehousesForCreatedby;
 		this.storagebinsForCreatedby = storagebinsForCreatedby;
 		this.rolesForUpdatedby = rolesForUpdatedby;
 		this.movementsForUpdatedby = movementsForUpdatedby;
 		this.productInventoriesForUpdatedby = productInventoriesForUpdatedby;
 		this.storesForUpdatedby = storesForUpdatedby;
+		this.discountsForUpdatedby = discountsForUpdatedby;
 		this.orderNumbersForCreatedby = orderNumbersForCreatedby;
 		this.deliveryTimeSlotsForUpdatedby = deliveryTimeSlotsForUpdatedby;
 		this.productTypesForCreatedby = productTypesForCreatedby;
@@ -182,25 +169,24 @@ public class User implements java.io.Serializable {
 		this.deliveryTimeSlotsForCreatedby = deliveryTimeSlotsForCreatedby;
 		this.productOffersForCreatedby = productOffersForCreatedby;
 		this.usersForCreatedby = usersForCreatedby;
-		this.movementlinesForCreatedby = movementlinesForCreatedby;
 		this.productImagesForUpdatedby = productImagesForUpdatedby;
 		this.productImagesForCreatedby = productImagesForCreatedby;
 		this.rolesForCreatedby = rolesForCreatedby;
-		this.productsForUpdatedby = productsForUpdatedby;
 		this.movementsForCreatedby = movementsForCreatedby;
+		this.productsForUpdatedby = productsForUpdatedby;
 		this.merchantsForCreatedby = merchantsForCreatedby;
 		this.warehousesForUpdatedby = warehousesForUpdatedby;
 		this.salesOrdersForShopperId = salesOrdersForShopperId;
 		this.taxesForUpdatedby = taxesForUpdatedby;
+		this.shippingChargesesForCreatedby = shippingChargesesForCreatedby;
 		this.storagebinsForUpdatedby = storagebinsForUpdatedby;
-		this.productOfferlinesForUpdatedby = productOfferlinesForUpdatedby;
+		this.discountsForCreatedby = discountsForCreatedby;
 		this.productTypesForUpdatedby = productTypesForUpdatedby;
 		this.usersForUpdatedby = usersForUpdatedby;
-		this.movementlinesForUpdatedby = movementlinesForUpdatedby;
 		this.merchantsForUpdatedby = merchantsForUpdatedby;
 		this.uomsForUpdatedby = uomsForUpdatedby;
-		this.productOfferlinesForCreatedby = productOfferlinesForCreatedby;
 		this.orderNumbersForUpdatedby = orderNumbersForUpdatedby;
+		this.shippingChargesesForUpdatedby = shippingChargesesForUpdatedby;
 		this.productsForCreatedby = productsForCreatedby;
 		this.productCategoriesForUpdatedby = productCategoriesForUpdatedby;
 	}
@@ -369,197 +355,215 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<ProductCategory> getProductCategoriesForCreatedby() {
+	public Set getProductCategoriesForCreatedby() {
 		return this.productCategoriesForCreatedby;
 	}
 
 	public void setProductCategoriesForCreatedby(
-			List<ProductCategory> productCategoriesForCreatedby) {
+			Set productCategoriesForCreatedby) {
 		this.productCategoriesForCreatedby = productCategoriesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<Tax> getTaxesForCreatedby() {
+	public Set getTaxesForCreatedby() {
 		return this.taxesForCreatedby;
 	}
 
-	public void setTaxesForCreatedby(List<Tax> taxesForCreatedby) {
+	public void setTaxesForCreatedby(Set taxesForCreatedby) {
 		this.taxesForCreatedby = taxesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<Uom> getUomsForCreatedby() {
+	public Set getBannersForCreatedby() {
+		return this.bannersForCreatedby;
+	}
+
+	public void setBannersForCreatedby(Set bannersForCreatedby) {
+		this.bannersForCreatedby = bannersForCreatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getUomsForCreatedby() {
 		return this.uomsForCreatedby;
 	}
 
-	public void setUomsForCreatedby(List<Uom> uomsForCreatedby) {
+	public void setUomsForCreatedby(Set uomsForCreatedby) {
 		this.uomsForCreatedby = uomsForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<Store> getStoresForCreatedby() {
+	public Set getStoresForCreatedby() {
 		return this.storesForCreatedby;
 	}
 
-	public void setStoresForCreatedby(List<Store> storesForCreatedby) {
+	public void setStoresForCreatedby(Set storesForCreatedby) {
 		this.storesForCreatedby = storesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public List<ProductOffer> getProductOffersForUpdatedby() {
+	public Set getProductOffersForUpdatedby() {
 		return this.productOffersForUpdatedby;
 	}
 
-	public void setProductOffersForUpdatedby(List<ProductOffer> productOffersForUpdatedby) {
+	public void setProductOffersForUpdatedby(Set productOffersForUpdatedby) {
 		this.productOffersForUpdatedby = productOffersForUpdatedby;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
+	public Set getBannersForUpdatedby() {
+		return this.bannersForUpdatedby;
+	}
+
+	public void setBannersForUpdatedby(Set bannersForUpdatedby) {
+		this.bannersForUpdatedby = bannersForUpdatedby;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<Warehouse> getWarehousesForCreatedby() {
+	public Set getWarehousesForCreatedby() {
 		return this.warehousesForCreatedby;
 	}
 
-	public void setWarehousesForCreatedby(List<Warehouse> warehousesForCreatedby) {
+	public void setWarehousesForCreatedby(Set warehousesForCreatedby) {
 		this.warehousesForCreatedby = warehousesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<Storagebin> getStoragebinsForCreatedby() {
+	public Set getStoragebinsForCreatedby() {
 		return this.storagebinsForCreatedby;
 	}
 
-	public void setStoragebinsForCreatedby(List<Storagebin> storagebinsForCreatedby) {
+	public void setStoragebinsForCreatedby(Set storagebinsForCreatedby) {
 		this.storagebinsForCreatedby = storagebinsForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public List<Role> getRolesForUpdatedby() {
+	public Set getRolesForUpdatedby() {
 		return this.rolesForUpdatedby;
 	}
 
-	public void setRolesForUpdatedby(List<Role> rolesForUpdatedby) {
+	public void setRolesForUpdatedby(Set rolesForUpdatedby) {
 		this.rolesForUpdatedby = rolesForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public List<Movement> getMovementsForUpdatedby() {
+	public Set getMovementsForUpdatedby() {
 		return this.movementsForUpdatedby;
 	}
 
-	public void setMovementsForUpdatedby(List<Movement> movementsForUpdatedby) {
+	public void setMovementsForUpdatedby(Set movementsForUpdatedby) {
 		this.movementsForUpdatedby = movementsForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public List<ProductInventory> getProductInventoriesForUpdatedby() {
+	public Set getProductInventoriesForUpdatedby() {
 		return this.productInventoriesForUpdatedby;
 	}
 
 	public void setProductInventoriesForUpdatedby(
-			List<ProductInventory> productInventoriesForUpdatedby) {
+			Set productInventoriesForUpdatedby) {
 		this.productInventoriesForUpdatedby = productInventoriesForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public List<Store> getStoresForUpdatedby() {
+	public Set getStoresForUpdatedby() {
 		return this.storesForUpdatedby;
 	}
 
-	public void setStoresForUpdatedby(List<Store> storesForUpdatedby) {
+	public void setStoresForUpdatedby(Set storesForUpdatedby) {
 		this.storesForUpdatedby = storesForUpdatedby;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
+	public Set getDiscountsForUpdatedby() {
+		return this.discountsForUpdatedby;
+	}
+
+	public void setDiscountsForUpdatedby(Set discountsForUpdatedby) {
+		this.discountsForUpdatedby = discountsForUpdatedby;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<OrderNumber> getOrderNumbersForCreatedby() {
+	public Set getOrderNumbersForCreatedby() {
 		return this.orderNumbersForCreatedby;
 	}
 
-	public void setOrderNumbersForCreatedby(List<OrderNumber> orderNumbersForCreatedby) {
+	public void setOrderNumbersForCreatedby(Set orderNumbersForCreatedby) {
 		this.orderNumbersForCreatedby = orderNumbersForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public List<DeliveryTimeSlot> getDeliveryTimeSlotsForUpdatedby() {
+	public Set getDeliveryTimeSlotsForUpdatedby() {
 		return this.deliveryTimeSlotsForUpdatedby;
 	}
 
 	public void setDeliveryTimeSlotsForUpdatedby(
-			List<DeliveryTimeSlot> deliveryTimeSlotsForUpdatedby) {
+			Set deliveryTimeSlotsForUpdatedby) {
 		this.deliveryTimeSlotsForUpdatedby = deliveryTimeSlotsForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<ProductType> getProductTypesForCreatedby() {
+	public Set getProductTypesForCreatedby() {
 		return this.productTypesForCreatedby;
 	}
 
-	public void setProductTypesForCreatedby(List<ProductType> productTypesForCreatedby) {
+	public void setProductTypesForCreatedby(Set productTypesForCreatedby) {
 		this.productTypesForCreatedby = productTypesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<ProductInventory> getProductInventoriesForCreatedby() {
+	public Set getProductInventoriesForCreatedby() {
 		return this.productInventoriesForCreatedby;
 	}
 
 	public void setProductInventoriesForCreatedby(
-			List<ProductInventory> productInventoriesForCreatedby) {
+			Set productInventoriesForCreatedby) {
 		this.productInventoriesForCreatedby = productInventoriesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByBackerId")
-	public List<SalesOrder> getSalesOrdersForBackerId() {
+	public Set getSalesOrdersForBackerId() {
 		return this.salesOrdersForBackerId;
 	}
 
-	public void setSalesOrdersForBackerId(List<SalesOrder> salesOrdersForBackerId) {
+	public void setSalesOrdersForBackerId(Set salesOrdersForBackerId) {
 		this.salesOrdersForBackerId = salesOrdersForBackerId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUserId")
-	public List<Store> getStoresForUserId() {
+	public Set getStoresForUserId() {
 		return this.storesForUserId;
 	}
 
-	public void setStoresForUserId(List<Store> storesForUserId) {
+	public void setStoresForUserId(Set storesForUserId) {
 		this.storesForUserId = storesForUserId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<DeliveryTimeSlot> getDeliveryTimeSlotsForCreatedby() {
+	public Set getDeliveryTimeSlotsForCreatedby() {
 		return this.deliveryTimeSlotsForCreatedby;
 	}
 
 	public void setDeliveryTimeSlotsForCreatedby(
-			List<DeliveryTimeSlot> deliveryTimeSlotsForCreatedby) {
+			Set deliveryTimeSlotsForCreatedby) {
 		this.deliveryTimeSlotsForCreatedby = deliveryTimeSlotsForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<ProductOffer> getProductOffersForCreatedby() {
+	public Set getProductOffersForCreatedby() {
 		return this.productOffersForCreatedby;
 	}
 
-	public void setProductOffersForCreatedby(List<ProductOffer> productOffersForCreatedby) {
+	public void setProductOffersForCreatedby(Set productOffersForCreatedby) {
 		this.productOffersForCreatedby = productOffersForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public List<User> getUsersForCreatedby() {
+	public Set getUsersForCreatedby() {
 		return this.usersForCreatedby;
 	}
 
-	public void setUsersForCreatedby(List<User> usersForCreatedby) {
+	public void setUsersForCreatedby(Set usersForCreatedby) {
 		this.usersForCreatedby = usersForCreatedby;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public Set getMovementlinesForCreatedby() {
-		return this.movementlinesForCreatedby;
-	}
-
-	public void setMovementlinesForCreatedby(Set movementlinesForCreatedby) {
-		this.movementlinesForCreatedby = movementlinesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
@@ -589,15 +593,6 @@ public class User implements java.io.Serializable {
 		this.rolesForCreatedby = rolesForCreatedby;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public Set getProductsForUpdatedby() {
-		return this.productsForUpdatedby;
-	}
-
-	public void setProductsForUpdatedby(Set productsForUpdatedby) {
-		this.productsForUpdatedby = productsForUpdatedby;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
 	public Set getMovementsForCreatedby() {
 		return this.movementsForCreatedby;
@@ -605,6 +600,15 @@ public class User implements java.io.Serializable {
 
 	public void setMovementsForCreatedby(Set movementsForCreatedby) {
 		this.movementsForCreatedby = movementsForCreatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
+	public Set getProductsForUpdatedby() {
+		return this.productsForUpdatedby;
+	}
+
+	public void setProductsForUpdatedby(Set productsForUpdatedby) {
+		this.productsForUpdatedby = productsForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
@@ -643,6 +647,16 @@ public class User implements java.io.Serializable {
 		this.taxesForUpdatedby = taxesForUpdatedby;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getShippingChargesesForCreatedby() {
+		return this.shippingChargesesForCreatedby;
+	}
+
+	public void setShippingChargesesForCreatedby(
+			Set shippingChargesesForCreatedby) {
+		this.shippingChargesesForCreatedby = shippingChargesesForCreatedby;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
 	public Set getStoragebinsForUpdatedby() {
 		return this.storagebinsForUpdatedby;
@@ -652,14 +666,13 @@ public class User implements java.io.Serializable {
 		this.storagebinsForUpdatedby = storagebinsForUpdatedby;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public Set getProductOfferlinesForUpdatedby() {
-		return this.productOfferlinesForUpdatedby;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
+	public Set getDiscountsForCreatedby() {
+		return this.discountsForCreatedby;
 	}
 
-	public void setProductOfferlinesForUpdatedby(
-			Set productOfferlinesForUpdatedby) {
-		this.productOfferlinesForUpdatedby = productOfferlinesForUpdatedby;
+	public void setDiscountsForCreatedby(Set discountsForCreatedby) {
+		this.discountsForCreatedby = discountsForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
@@ -681,15 +694,6 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
-	public Set getMovementlinesForUpdatedby() {
-		return this.movementlinesForUpdatedby;
-	}
-
-	public void setMovementlinesForUpdatedby(Set movementlinesForUpdatedby) {
-		this.movementlinesForUpdatedby = movementlinesForUpdatedby;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
 	public Set getMerchantsForUpdatedby() {
 		return this.merchantsForUpdatedby;
 	}
@@ -707,16 +711,6 @@ public class User implements java.io.Serializable {
 		this.uomsForUpdatedby = uomsForUpdatedby;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")
-	public Set getProductOfferlinesForCreatedby() {
-		return this.productOfferlinesForCreatedby;
-	}
-
-	public void setProductOfferlinesForCreatedby(
-			Set productOfferlinesForCreatedby) {
-		this.productOfferlinesForCreatedby = productOfferlinesForCreatedby;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
 	public Set getOrderNumbersForUpdatedby() {
 		return this.orderNumbersForUpdatedby;
@@ -724,6 +718,16 @@ public class User implements java.io.Serializable {
 
 	public void setOrderNumbersForUpdatedby(Set orderNumbersForUpdatedby) {
 		this.orderNumbersForUpdatedby = orderNumbersForUpdatedby;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUpdatedby")
+	public Set getShippingChargesesForUpdatedby() {
+		return this.shippingChargesesForUpdatedby;
+	}
+
+	public void setShippingChargesesForUpdatedby(
+			Set shippingChargesesForUpdatedby) {
+		this.shippingChargesesForUpdatedby = shippingChargesesForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByCreatedby")

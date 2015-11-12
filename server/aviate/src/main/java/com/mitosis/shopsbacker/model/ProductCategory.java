@@ -1,11 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,10 +23,6 @@ import javax.persistence.TemporalType;
 @Table(name = "product_category", catalog = "shopsbacker")
 public class ProductCategory implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String productCategoryId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
@@ -39,13 +34,9 @@ public class ProductCategory implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	
-	private List<Product> products = new ArrayList<Product>();
-	private List<ProductCategory> productCategories = new ArrayList<ProductCategory>();
-	private List<ProductType> productTypes = new ArrayList<ProductType>();
-	
-	
-	
+	private Set products = new HashSet(0);
+	private Set productCategories = new HashSet(0);
+	private Set productTypes = new HashSet(0);
 
 	public ProductCategory() {
 	}
@@ -66,7 +57,7 @@ public class ProductCategory implements java.io.Serializable {
 			User userByCreatedby, Merchant merchant,
 			ProductCategory productCategory, Store store, String name,
 			Integer orderSequence, char isactive, Date created, Date updated,
-			List<Product> products, List<ProductCategory> productCategories, List<ProductType> productTypes) {
+			Set products, Set productCategories, Set productTypes) {
 		this.productCategoryId = productCategoryId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -191,29 +182,29 @@ public class ProductCategory implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productCategory")
-	public List<Product> getProducts() {
+	public Set getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set products) {
 		this.products = products;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productCategory")
-	public List<ProductCategory> getProductCategories() {
+	public Set getProductCategories() {
 		return this.productCategories;
 	}
 
-	public void setProductCategories(List<ProductCategory> productCategories) {
+	public void setProductCategories(Set productCategories) {
 		this.productCategories = productCategories;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productCategory")
-	public List<ProductType> getProductTypes() {
+	public Set getProductTypes() {
 		return this.productTypes;
 	}
 
-	public void setProductTypes(List<ProductType> productTypes) {
+	public void setProductTypes(Set productTypes) {
 		this.productTypes = productTypes;
 	}
 

@@ -1,11 +1,10 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,10 +23,6 @@ import javax.persistence.TemporalType;
 @Table(name = "customer_feedback", catalog = "shopsbacker")
 public class CustomerFeedback implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String customerFeedbackId;
 	private Merchant merchant;
 	private Customer customerByCreatedby;
@@ -38,7 +33,7 @@ public class CustomerFeedback implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
+	private Set salesOrders = new HashSet(0);
 
 	public CustomerFeedback() {
 	}
@@ -62,7 +57,7 @@ public class CustomerFeedback implements java.io.Serializable {
 	public CustomerFeedback(String customerFeedbackId, Merchant merchant,
 			Customer customerByCreatedby, Customer customerByCustomerId,
 			Customer customerByUpdatedby, Store store, String comments,
-			char isactive, Date created, Date updated, List<SalesOrder> salesOrders) {
+			char isactive, Date created, Date updated, Set salesOrders) {
 		this.customerFeedbackId = customerFeedbackId;
 		this.merchant = merchant;
 		this.customerByCreatedby = customerByCreatedby;
@@ -175,11 +170,11 @@ public class CustomerFeedback implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerFeedback")
-	public List<SalesOrder> getSalesOrders() {
+	public Set getSalesOrders() {
 		return this.salesOrders;
 	}
 
-	public void setSalesOrders(List<SalesOrder> salesOrders) {
+	public void setSalesOrders(Set salesOrders) {
 		this.salesOrders = salesOrders;
 	}
 

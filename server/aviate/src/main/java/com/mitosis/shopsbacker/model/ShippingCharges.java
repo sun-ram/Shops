@@ -1,12 +1,18 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * ShippingCharges Created by Sundaram C.
@@ -15,31 +21,44 @@ import javax.persistence.Table;
 @Table(name = "shipping_charges", catalog = "shopsbacker")
 public class ShippingCharges implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String shippingChargesId;
+	private User userByUpdatedby;
+	private User userByCreatedby;
+	private Merchant merchant;
 	private BigDecimal chargingAmount;
 	private BigDecimal amountRange;
-	private String merchantId;
+	private char isactive;
+	private Date created;
+	private Date updated;
 
 	public ShippingCharges() {
 	}
 
-	public ShippingCharges(String shippingChargesId, BigDecimal chargingAmount,
-			String merchantId) {
+	public ShippingCharges(String shippingChargesId, User userByUpdatedby,
+			User userByCreatedby, Merchant merchant, BigDecimal chargingAmount,
+			char isactive, Date created, Date updated) {
 		this.shippingChargesId = shippingChargesId;
+		this.userByUpdatedby = userByUpdatedby;
+		this.userByCreatedby = userByCreatedby;
+		this.merchant = merchant;
 		this.chargingAmount = chargingAmount;
-		this.merchantId = merchantId;
+		this.isactive = isactive;
+		this.created = created;
+		this.updated = updated;
 	}
 
-	public ShippingCharges(String shippingChargesId, BigDecimal chargingAmount,
-			BigDecimal amountRange, String merchantId) {
+	public ShippingCharges(String shippingChargesId, User userByUpdatedby,
+			User userByCreatedby, Merchant merchant, BigDecimal chargingAmount,
+			BigDecimal amountRange, char isactive, Date created, Date updated) {
 		this.shippingChargesId = shippingChargesId;
+		this.userByUpdatedby = userByUpdatedby;
+		this.userByCreatedby = userByCreatedby;
+		this.merchant = merchant;
 		this.chargingAmount = chargingAmount;
 		this.amountRange = amountRange;
-		this.merchantId = merchantId;
+		this.isactive = isactive;
+		this.created = created;
+		this.updated = updated;
 	}
 
 	@Id
@@ -50,6 +69,36 @@ public class ShippingCharges implements java.io.Serializable {
 
 	public void setShippingChargesId(String shippingChargesId) {
 		this.shippingChargesId = shippingChargesId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATEDBY", nullable = false)
+	public User getUserByUpdatedby() {
+		return this.userByUpdatedby;
+	}
+
+	public void setUserByUpdatedby(User userByUpdatedby) {
+		this.userByUpdatedby = userByUpdatedby;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATEDBY", nullable = false)
+	public User getUserByCreatedby() {
+		return this.userByCreatedby;
+	}
+
+	public void setUserByCreatedby(User userByCreatedby) {
+		this.userByCreatedby = userByCreatedby;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MERCHANT_ID", nullable = false)
+	public Merchant getMerchant() {
+		return this.merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 
 	@Column(name = "CHARGING_AMOUNT", nullable = false, precision = 15)
@@ -70,13 +119,33 @@ public class ShippingCharges implements java.io.Serializable {
 		this.amountRange = amountRange;
 	}
 
-	@Column(name = "MERCHANT_ID", nullable = false, length = 32)
-	public String getMerchantId() {
-		return this.merchantId;
+	@Column(name = "ISACTIVE", nullable = false, length = 1)
+	public char getIsactive() {
+		return this.isactive;
 	}
 
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED", nullable = false, length = 19)
+	public Date getCreated() {
+		return this.created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "UPDATED", nullable = false, length = 19)
+	public Date getUpdated() {
+		return this.updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 }

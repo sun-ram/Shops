@@ -1,14 +1,17 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +34,7 @@ public class Tax implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
+	private Set orderTaxes = new HashSet(0);
 
 	public Tax() {
 	}
@@ -47,6 +51,21 @@ public class Tax implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+	}
+
+	public Tax(String taxId, User userByUpdatedby, User userByCreatedby,
+			Merchant merchant, String name, double taxPercentage,
+			char isactive, Date created, Date updated, Set orderTaxes) {
+		this.taxId = taxId;
+		this.userByUpdatedby = userByUpdatedby;
+		this.userByCreatedby = userByCreatedby;
+		this.merchant = merchant;
+		this.name = name;
+		this.taxPercentage = taxPercentage;
+		this.isactive = isactive;
+		this.created = created;
+		this.updated = updated;
+		this.orderTaxes = orderTaxes;
 	}
 
 	@Id
@@ -134,6 +153,15 @@ public class Tax implements java.io.Serializable {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tax")
+	public Set getOrderTaxes() {
+		return this.orderTaxes;
+	}
+
+	public void setOrderTaxes(Set orderTaxes) {
+		this.orderTaxes = orderTaxes;
 	}
 
 }

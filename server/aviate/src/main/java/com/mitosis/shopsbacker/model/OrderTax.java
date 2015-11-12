@@ -1,12 +1,18 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * OrderTax Created by Sundaram C.
@@ -15,26 +21,43 @@ import javax.persistence.Table;
 @Table(name = "order_tax", catalog = "shopsbacker")
 public class OrderTax implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String orderTaxId;
-	private String salesOrderId;
-	private String taxId;
+	private Merchant merchant;
+	private Tax tax;
+	private SalesOrder salesOrder;
 	private BigDecimal taxAmount;
-	private String merchantId;
+	private char isactive;
+	private Date created;
+	private String createdby;
+	private Date updated;
+	private String updatedby;
 
 	public OrderTax() {
 	}
 
-	public OrderTax(String orderTaxId, String salesOrderId, String taxId,
-			BigDecimal taxAmount, String merchantId) {
+	public OrderTax(String orderTaxId, Merchant merchant, Tax tax,
+			SalesOrder salesOrder, BigDecimal taxAmount, char isactive) {
 		this.orderTaxId = orderTaxId;
-		this.salesOrderId = salesOrderId;
-		this.taxId = taxId;
+		this.merchant = merchant;
+		this.tax = tax;
+		this.salesOrder = salesOrder;
 		this.taxAmount = taxAmount;
-		this.merchantId = merchantId;
+		this.isactive = isactive;
+	}
+
+	public OrderTax(String orderTaxId, Merchant merchant, Tax tax,
+			SalesOrder salesOrder, BigDecimal taxAmount, char isactive,
+			Date created, String createdby, Date updated, String updatedby) {
+		this.orderTaxId = orderTaxId;
+		this.merchant = merchant;
+		this.tax = tax;
+		this.salesOrder = salesOrder;
+		this.taxAmount = taxAmount;
+		this.isactive = isactive;
+		this.created = created;
+		this.createdby = createdby;
+		this.updated = updated;
+		this.updatedby = updatedby;
 	}
 
 	@Id
@@ -47,22 +70,34 @@ public class OrderTax implements java.io.Serializable {
 		this.orderTaxId = orderTaxId;
 	}
 
-	@Column(name = "SALES_ORDER_ID", nullable = false, length = 32)
-	public String getSalesOrderId() {
-		return this.salesOrderId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MERCHANT_ID", nullable = false)
+	public Merchant getMerchant() {
+		return this.merchant;
 	}
 
-	public void setSalesOrderId(String salesOrderId) {
-		this.salesOrderId = salesOrderId;
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 
-	@Column(name = "TAX_ID", nullable = false, length = 32)
-	public String getTaxId() {
-		return this.taxId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TAX_ID", nullable = false)
+	public Tax getTax() {
+		return this.tax;
 	}
 
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
+	public void setTax(Tax tax) {
+		this.tax = tax;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SALES_ORDER_ID", nullable = false)
+	public SalesOrder getSalesOrder() {
+		return this.salesOrder;
+	}
+
+	public void setSalesOrder(SalesOrder salesOrder) {
+		this.salesOrder = salesOrder;
 	}
 
 	@Column(name = "TAX_AMOUNT", nullable = false, precision = 15)
@@ -74,13 +109,51 @@ public class OrderTax implements java.io.Serializable {
 		this.taxAmount = taxAmount;
 	}
 
-	@Column(name = "MERCHANT_ID", nullable = false, length = 32)
-	public String getMerchantId() {
-		return this.merchantId;
+	@Column(name = "ISACTIVE", nullable = false, length = 1)
+	public char getIsactive() {
+		return this.isactive;
 	}
 
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED", length = 19)
+	public Date getCreated() {
+		return this.created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	@Column(name = "CREATEDBY", length = 32)
+	public String getCreatedby() {
+		return this.createdby;
+	}
+
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "UPDATED", length = 19)
+	public Date getUpdated() {
+		return this.updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
+	@Column(name = "UPDATEDBY", length = 32)
+	public String getUpdatedby() {
+		return this.updatedby;
+	}
+
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 }

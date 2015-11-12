@@ -1,6 +1,6 @@
 package com.mitosis.shopsbacker.model;
 
-// Generated Nov 6, 2015 7:27:52 PM 
+// Generated Nov 12, 2015 3:32:23 PM 
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -22,10 +22,6 @@ import javax.persistence.UniqueConstraint;
 		"STORE_ID", "MERCHANT_ID" }))
 public class OrderNumber implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String orderNumberId;
 	private User userByUpdatedby;
 	private User userByCreatedby;
