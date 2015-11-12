@@ -11,7 +11,7 @@ import com.mitosis.shopsbacker.model.StateMasterDesc;*/
 
 public interface GeneralService<T> extends MutualService<T>,CommonService<T> {
 
-	/*public List<CountryMasterDesc> getCountryList(BigDecimal languageId);
+	/*
 	public List<CountryMasterDesc> getNationalityList(BigDecimal languageId);
 	public List<StateMasterDesc> getStateList(BigDecimal languageId, BigDecimal countryId);
 	
