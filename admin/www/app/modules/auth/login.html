@@ -18,15 +18,15 @@ svg{width: 70%;color:white;fill:white;}
 		      <label><md-icon md-svg-src="images/svg/at5.svg" class="name"></md-icon>Email</label>
 		      <input name="emailId" ng-model="user.emailId" type="text" ng-enter="signIn();" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
 		      <div ng-messages="login.emailId.$error">
-                   <div ng-message="required" ng-show="(emailRequired && !user.emailId) || (login.emailId.$error.required && !login.emailId.$pristine)" style="color:red;">Email Id is required.</div>
-                   <div ng-message="required" ng-show="login.emailId.$error.email || (!login.emailId.$error.required && !login.emailId.$valid)" style="color:red;">Email Invalid.</div>
+                   <div ng-message="required" ng-show="(emailRequired && !user.emailId) || (login.emailId.$error.required && !login.emailId.$pristine)" style="color:red;"><div style="font-size:4;">Email Id is required.</div></div>
+                   <div ng-message="required" ng-show="login.emailId.$error.email || (!login.emailId.$error.required && !login.emailId.$valid)" style="color:red;"><div style="font-size:4;">Email Invalid.</div></div>
                </div>
 		  </md-input-container>
 			<md-input-container class="" >
 				<label><md-icon md-svg-src="images/svg/block31.svg" class="name"></md-icon>Password</label>
 			      <input ng-model="user.password" name="password" id="password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')" ng-enter="signIn();" ng-required="true">
 				     <div ng-messages="login.password.$error" ng-show="(passwordRequired && !user.password) || (login.password.$invalid && !login.password.$pristine)">
-			      <div>Password is required.</div>
+			      <div style="width:279px;height:14px;font-size:small;">Password is required.</div>
 			    </div>
     		</md-input-container>
 			<div layout="row">

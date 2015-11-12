@@ -125,6 +125,7 @@ angular.module('aviate.controllers')
 	};
 
 	var removeAddress = function(address) {
+		alert("Hi");
 		CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
 			$scope.getAddressList({
 				"customerId": $rootScope.user.userId
@@ -135,12 +136,23 @@ angular.module('aviate.controllers')
 	};
 
 	$scope.removeAddress = function(address) {
-		CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
-			$scope.getAddressList({
-				"customerId": $rootScope.user.userId
-			});
-		});
+	
+		var confirm = $mdDialog.confirm()
+        .title('Would you like to delete Address?')
+		        .ok('Delete')
+		        .cancel('Cancel');
+		  $mdDialog.show(confirm).then(function() {
+	
+			  CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
+					$scope.getAddressList({
+						"customerId": $rootScope.user.userId
+					});
+				});
 
+  }, function() {
+			  
+			  });		
+		
 
 	};
 
