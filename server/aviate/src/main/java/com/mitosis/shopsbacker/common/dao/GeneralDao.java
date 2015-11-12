@@ -1,8 +1,5 @@
-package com.mitosis.shopsbacker.dao;
+package com.mitosis.shopsbacker.common.dao;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 /*
 import com.mitosis.shopsbacker.model.CountryMasterDesc;

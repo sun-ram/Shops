@@ -1,7 +1,4 @@
-package com.mitosis.shopsbacker.daoimpl;
-
-import java.math.BigDecimal;
-import java.util.List;
+package com.mitosis.shopsbacker.common.daoimpl;
 
 import org.eclipse.persistence.sessions.factories.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

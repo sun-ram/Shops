@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.dao;
+package com.mitosis.shopsbacker.common.dao;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ public interface CommonDao<T>   {
 	void update(T entity);
 
 	void delete(T entity);
+	List<T> findById(int id); 
 
 	List<T> findByName(String name); 
-	List<T> findById(int id); 
 	List<T> findAll();
 	List<T> findAll(DetachedCriteria criteria);
 }

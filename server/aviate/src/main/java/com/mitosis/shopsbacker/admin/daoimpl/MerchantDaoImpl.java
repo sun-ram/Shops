@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.daoimpl.merchant;
+package com.mitosis.shopsbacker.admin.daoimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +13,7 @@ import com.mitosis.shopsbacker.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 
 @Repository
-public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport implements
+public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		MerchantDao<T>, CommonDao<T>, Serializable {
 
 	/**
@@ -21,11 +21,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	public void save(T entity) {
-		getSession().save(entity);  
-
-	}
+	
 
 	@Override
 	public void update(T entity) {
@@ -96,6 +92,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public Merchant getMerchantById(String id) {
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
 		criteria.add(Restrictions.eq("merchantId", id));
 		return ((List<Merchant>) findAll(criteria)).get(0);

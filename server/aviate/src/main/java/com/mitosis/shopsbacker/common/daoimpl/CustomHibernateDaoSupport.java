@@ -1,10 +1,10 @@
-package com.mitosis.shopsbacker.daoimpl;
+package com.mitosis.shopsbacker.common.daoimpl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CustomHibernateDaoSupport  {
+public class CustomHibernateDaoSupport<T>  {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -12,5 +12,10 @@ public class CustomHibernateDaoSupport  {
     public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
+    
+	public void save(T entity) {
+		getSession().save(entity);  
+
+	}
     
 }

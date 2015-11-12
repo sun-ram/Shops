@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.daoimpl;
+package com.mitosis.shopsbacker.common.daoimpl;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.service.merchant;
+package com.mitosis.shopsbacker.admin.service;
 
 import java.util.List;
 

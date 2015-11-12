@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.dao.merchant;
+package com.mitosis.shopsbacker.admin.dao;
 
 import java.util.List;
 
