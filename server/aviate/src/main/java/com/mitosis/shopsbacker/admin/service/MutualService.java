@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.service;
+package com.mitosis.shopsbacker.admin.service;
 
 import java.math.BigDecimal;
 import java.util.List;

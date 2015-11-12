@@ -1,15 +1,15 @@
-package com.mitosis.shopsbacker.serviceimpl;
+package com.mitosis.shopsbacker.admin.serviceimpl;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /*import org.springframework.transaction.annotation.Transactional;*/
 
-import com.mitosis.shopsbacker.dao.GeneralDao;
+import com.mitosis.shopsbacker.admin.service.CommonService;
+import com.mitosis.shopsbacker.admin.service.GeneralService;
+import com.mitosis.shopsbacker.admin.service.MutualService;
+import com.mitosis.shopsbacker.common.dao.GeneralDao;
 /*import com.mitosis.shopsbacker.model.BankBranch;
  import com.mitosis.shopsbacker.model.BankMaster;
  import com.mitosis.shopsbacker.model.BusinessComponent;
@@ -30,9 +30,6 @@ import com.mitosis.shopsbacker.dao.GeneralDao;
  import com.mitosis.shopsbacker.model.RulePageMaster;
  import com.mitosis.shopsbacker.model.StateMaster;
  import com.mitosis.shopsbacker.model.StateMasterDesc;*/
-import com.mitosis.shopsbacker.service.CommonService;
-import com.mitosis.shopsbacker.service.GeneralService;
-import com.mitosis.shopsbacker.service.MutualService;
 
 @SuppressWarnings("serial")
 @Service("generalServiceImpl")

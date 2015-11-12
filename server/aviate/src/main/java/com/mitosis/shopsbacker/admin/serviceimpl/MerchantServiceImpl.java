@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.serviceimpl.merchant;
+package com.mitosis.shopsbacker.admin.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.dao.merchant.MerchantDao;
+import com.mitosis.shopsbacker.admin.dao.MerchantDao;
+import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.service.merchant.MerchantService;
 
 @Service
 public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable {
