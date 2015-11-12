@@ -14,18 +14,13 @@ import com.mitosis.shopsbacker.model.Merchant;
 
 @Repository
 public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
-		MerchantDao<T>, CommonDao<T>, Serializable {
+		MerchantDao<T>, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findAll(DetachedCriteria criteria) {
-		return criteria.getExecutableCriteria(getSession()).list();
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override

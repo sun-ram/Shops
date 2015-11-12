@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CustomHibernateDaoSupport<T> {
@@ -26,6 +27,11 @@ public class CustomHibernateDaoSupport<T> {
 
 	public void delete(T entity) {
 		getSession().delete(entity);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(DetachedCriteria criteria) {
+		return criteria.getExecutableCriteria(getSession()).list();
 	}
 
 	public List<T> findByName(String name) {
