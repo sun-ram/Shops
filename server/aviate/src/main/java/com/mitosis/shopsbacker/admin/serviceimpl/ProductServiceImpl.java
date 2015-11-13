@@ -50,4 +50,18 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 	}
 
+	@Override
+	@Transactional
+	public void addProduct(Product product) {
+		productDao.addProduct(product);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateProduct(Product product) {
+		productDao.updateProduct(product);
+		
+	}
+
 }

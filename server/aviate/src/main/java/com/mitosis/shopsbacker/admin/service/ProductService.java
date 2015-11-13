@@ -15,5 +15,9 @@ public interface ProductService<T> {
 	public List<Product> getProductListByCategoty(ProductCategory productCategory);
 	
 	public void deleteProduct(Product product);
+	
+	public void addProduct(Product product);
+	
+	public void updateProduct(Product product);
 
 }

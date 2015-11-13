@@ -74,4 +74,28 @@ ProductDao<T>, Serializable{
 		
 	}
 
+	@Override
+	public void addProduct(Product product) {
+		try {
+			save((T) product);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw(e);
+		}
+		
+	}
+
+	@Override
+	public void updateProduct(Product product) {
+		try {
+			update((T) product);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw(e);
+		}
+		
+	}
+
 }
