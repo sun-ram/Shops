@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.admin.dao.MovementLineDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -13,6 +14,7 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.MovementLine;
 
+@Repository
 public class MovementLineDaoImpl<T>  extends CustomHibernateDaoSupport<T> implements
 MovementLineDao<T>, Serializable{
 
