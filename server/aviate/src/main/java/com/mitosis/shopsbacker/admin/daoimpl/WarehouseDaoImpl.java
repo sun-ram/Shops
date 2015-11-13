@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.mitosis.shopsbacker.admin.dao.WarehouseDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Storagebin;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
 
 @SuppressWarnings({ "serial", "rawtypes" })
@@ -32,18 +33,18 @@ WarehouseDao<T>, Serializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Storagebin> listOfStorageBins(String id) {
+	public List<Storagebin> listOfStorageBins(Warehouse warehouse) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Storagebin.class);
-		criteria.add(Restrictions.eq("warehouseId", id));
+		criteria.add(Restrictions.eq("warehouse", warehouse));
 		return ((List<Storagebin>) findAll(criteria));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Warehouse> checkUniqueName(String warehouseName, String storeId) {
+	public List<Warehouse> checkUniqueName(String warehouseName, Store store) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Warehouse.class);
 		criteria.add(Restrictions.eq("name", warehouseName));
-		criteria.add(Restrictions.eq("store", storeId));
+		criteria.add(Restrictions.eq("store", store));
 		return ((List<Warehouse>) findAll(criteria));
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mitosis.shopsbacker.admin.dao.WarehouseDao;
 import com.mitosis.shopsbacker.admin.service.WarehouseService;
 import com.mitosis.shopsbacker.model.Storagebin;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
 
 @Service
@@ -43,18 +44,6 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>, Serializabl
 
 	@Override
 	@Transactional
-	public List<Storagebin> listOfStorageBins(String warehouseId) {
-		return warehouseDao.listOfStorageBins(warehouseId);		
-	}
-
-	@Override
-	@Transactional
-	public List<Warehouse> checkUniqueName(String warehouseName, String storeId) {
-		return warehouseDao.checkUniqueName(warehouseName, storeId);
-	}
-
-	@Override
-	@Transactional
 	public Warehouse getSingleWarehouse(String warehouseId) {
 		return warehouseDao.getSingleWarehouse(warehouseId);
 	}
@@ -63,6 +52,20 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>, Serializabl
 	@Transactional
 	public void updateWarehouse(Warehouse warehouse) {
 		warehouseDao.updateWarehouse(warehouse);
+	}
+
+	@Override
+	@Transactional
+	public List<Storagebin> listOfStorageBins(Warehouse warehouse) {
+		warehouseDao.listOfStorageBins(warehouse);
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public List<Warehouse> checkUniqueName(String warehouseName, Store store) {
+		warehouseDao.checkUniqueName(warehouseName, store);
+		return null;
 	}
 	
 

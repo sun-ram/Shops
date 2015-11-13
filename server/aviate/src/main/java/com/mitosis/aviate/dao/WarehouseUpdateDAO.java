@@ -5,7 +5,6 @@ import java.util.List;
 import com.mitosis.aviate.model.StorageBinModel;
 import com.mitosis.aviate.model.WarehouseModel;
 
-
 public interface WarehouseUpdateDAO {
 	public boolean addWarehouse(WarehouseModel warehouseModel);
 	public boolean deleteWarehouse(String warehouseId);
