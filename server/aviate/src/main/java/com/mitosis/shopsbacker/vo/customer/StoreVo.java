@@ -1,173 +1,180 @@
 package com.mitosis.shopsbacker.vo.customer;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+// Generated Nov 12, 2015 6:16:19 PM 
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class StoreVo {
-	private Long storeId;
-	private Long merchantId;
-	private String storeName;
-	private String storeOrder;
-	private String address;
-	private String city;
-	private String state;
-	private String latitude;
-	private String longitude;
-	private Long postalCode;
-	private String country;
-	private String area;
-	private Long phoneNo;
-	private Long createdBy;
-	private Long updatedBy;
-	private String logoUrl;
-	private byte[] image;
-	private String imageType;
-	private String imageName;
-	
-	private String emailId;
-	
-	private String password;
-	
-	//private MerchantDetails merchant;
-	
-	//private List<CustomerDetailsModel> customerDetails;
-	
-	public Long getStoreId() {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+
+/**
+ * Store Created by Sundaram C.
+ */
+
+public class StoreVo implements java.io.Serializable {
+
+	private String storeId;
+	private UserVo userByUpdatedby;
+	private UserVo userByCreatedby;
+	private UserVo userByUserId;
+	private MerchantVo merchant;
+	private String name;
+	private char isactive;
+	private Date created;
+	private Date updated;
+	private List<WarehouseVo> warehouses = new ArrayList<WarehouseVo>();
+	private List<OrderNumberVo> orderNumbers = new ArrayList<OrderNumberVo>();
+	private List<ProductCategoryVo> productCategories = new ArrayList<ProductCategoryVo>();
+	private List<FavouriteVo> favourites = new ArrayList<FavouriteVo>();
+	private List<MissingProductVo> missingProducts = new ArrayList<MissingProductVo>();
+	private List<StoragebinVo> storagebins = new ArrayList<StoragebinVo>();
+	private List<BannerVo> banners = new ArrayList<BannerVo>();
+	private List<SalesOrderVo> salesOrders = new ArrayList<SalesOrderVo>();
+	private List<CustomerFeedbackVo> customerFeedbacks = new ArrayList<CustomerFeedbackVo>();
+	private List<MyCartVo> myCarts = new ArrayList<MyCartVo>();
+	private List<UserVo> users = new ArrayList<UserVo>();
+	private List<MovementVo> movements = new ArrayList<MovementVo>();
+	private List<ProductTypeVo> productTypes = new ArrayList<ProductTypeVo>();
+	private List<ProductInventoryVo> productInventories = new ArrayList<ProductInventoryVo>();
+	public String getStoreId() {
 		return storeId;
 	}
-	public Long getMerchantId() {
-		return merchantId;
-	}
-	public String getStoreName() {
-		return storeName;
-	}
-	public String getStoreOrder() {
-		return storeOrder;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public String getState() {
-		return state;
-	}
-/*	public List<CustomerDetailsModel> getCustomerDetails() {
-		return customerDetails;
-	}
-	public void setCustomerDetails(List<CustomerDetailsModel> customerDetails) {
-		this.customerDetails = customerDetails;
-	}*/
-	public String getLatitude() {
-		return latitude;
-	}
-	public String getLongitude() {
-		return longitude;
-	}
-	public Long getPostalCode() {
-		return postalCode;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public String getArea() {
-		return area;
-	}
-	public Long getPhoneNo() {
-		return phoneNo;
-	}
-	public Long getCreatedBy() {
-		return createdBy;
-	}
-	public Long getUpdatedBy() {
-		return updatedBy;
-	}
-	public void setStoreId(Long storeId) {
+	public void setStoreId(String storeId) {
 		this.storeId = storeId;
 	}
-	public void setMerchantId(Long merchantId) {
-		this.merchantId = merchantId;
+	public UserVo getUserByUpdatedby() {
+		return userByUpdatedby;
 	}
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
+	public void setUserByUpdatedby(UserVo userByUpdatedby) {
+		this.userByUpdatedby = userByUpdatedby;
 	}
-	public void setStoreOrder(String storeOrder) {
-		this.storeOrder = storeOrder;
+	public UserVo getUserByCreatedby() {
+		return userByCreatedby;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setUserByCreatedby(UserVo userByCreatedby) {
+		this.userByCreatedby = userByCreatedby;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public UserVo getUserByUserId() {
+		return userByUserId;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setUserByUserId(UserVo userByUserId) {
+		this.userByUserId = userByUserId;
 	}
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
+	public MerchantVo getMerchant() {
+		return merchant;
 	}
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
 	}
-	public void setPostalCode(Long postalCode) {
-		this.postalCode = postalCode;
+	public String getName() {
+		return name;
 	}
-	public void setCountry(String country) {
-		this.country = country;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setArea(String area) {
-		this.area = area;
+	public char getIsactive() {
+		return isactive;
 	}
-	public void setPhoneNo(Long phoneNo) {
-		this.phoneNo = phoneNo;
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
 	}
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
+	public Date getCreated() {
+		return created;
 	}
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
-	public String getLogoUrl() {
-		return logoUrl;
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+	public List<WarehouseVo> getWarehouses() {
+		return warehouses;
+	}
+	public void setWarehouses(List<WarehouseVo> warehouses) {
+		this.warehouses = warehouses;
+	}
+	public List<OrderNumberVo> getOrderNumbers() {
+		return orderNumbers;
+	}
+	public void setOrderNumbers(List<OrderNumberVo> orderNumbers) {
+		this.orderNumbers = orderNumbers;
+	}
+	public List<ProductCategoryVo> getProductCategories() {
+		return productCategories;
+	}
+	public void setProductCategories(List<ProductCategoryVo> productCategories) {
+		this.productCategories = productCategories;
+	}
+	public List<FavouriteVo> getFavourites() {
+		return favourites;
+	}
+	public void setFavourites(List<FavouriteVo> favourites) {
+		this.favourites = favourites;
+	}
+	public List<MissingProductVo> getMissingProducts() {
+		return missingProducts;
+	}
+	public void setMissingProducts(List<MissingProductVo> missingProducts) {
+		this.missingProducts = missingProducts;
+	}
+	public List<StoragebinVo> getStoragebins() {
+		return storagebins;
+	}
+	public void setStoragebins(List<StoragebinVo> storagebins) {
+		this.storagebins = storagebins;
+	}
+	public List<BannerVo> getBanners() {
+		return banners;
+	}
+	public void setBanners(List<BannerVo> banners) {
+		this.banners = banners;
+	}
+	public List<SalesOrderVo> getSalesOrders() {
+		return salesOrders;
+	}
+	public void setSalesOrders(List<SalesOrderVo> salesOrders) {
+		this.salesOrders = salesOrders;
+	}
+	public List<CustomerFeedbackVo> getCustomerFeedbacks() {
+		return customerFeedbacks;
+	}
+	public void setCustomerFeedbacks(List<CustomerFeedbackVo> customerFeedbacks) {
+		this.customerFeedbacks = customerFeedbacks;
+	}
+	public List<MyCartVo> getMyCarts() {
+		return myCarts;
+	}
+	public void setMyCarts(List<MyCartVo> myCarts) {
+		this.myCarts = myCarts;
+	}
+	public List<UserVo> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserVo> users) {
+		this.users = users;
+	}
+	public List<MovementVo> getMovements() {
+		return movements;
+	}
+	public void setMovements(List<MovementVo> movements) {
+		this.movements = movements;
+	}
+	public List<ProductTypeVo> getProductTypes() {
+		return productTypes;
+	}
+	public void setProductTypes(List<ProductTypeVo> productTypes) {
+		this.productTypes = productTypes;
+	}
+	public List<ProductInventoryVo> getProductInventories() {
+		return productInventories;
+	}
+	public void setProductInventories(List<ProductInventoryVo> productInventories) {
+		this.productInventories = productInventories;
 	}
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
-	public byte[] getImage() {
-		return image;
-	}
-	public String getImageType() {
-		return imageType;
-	}
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
-	public void setImageType(String imageType) {
-		this.imageType = imageType;
-	}
-	public String getImageName() {
-		return imageName;
-	}
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
-	}
-	public String getEmailId() {
-		return emailId;
-	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	
 }

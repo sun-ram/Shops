@@ -1,84 +1,122 @@
 package com.mitosis.shopsbacker.vo.customer;
 
+// Generated Nov 12, 2015 6:16:19 PM 
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+
+/**
+ * MyCart Created by Sundaram C.
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class MyCartVo {
-	private int myCartId;
-	private int customerId;
-	private int productId;
-	private int quantity;
-	private double price;
-	private Long storeId;
-	private boolean active;
-	
-	//private ProductDetails product;
+public class MyCartVo implements java.io.Serializable {
 
-	public int getMyCartId() {
+	private String myCartId;
+	private MerchantVo merchant;
+	private ProductVo product;
+	private CustomerVo customerByCreatedby;
+	private ProductOfferVo productOffer;
+	private CustomerVo customerByCustomerId;
+	private CustomerVo customerByUpdatedby;
+	private StoreVo store;
+	private ProductOfferLineVo productOfferLine;
+	private int qty;
+	private char isactive;
+	private Date created;
+	private Date updated;
+	public String getMyCartId() {
 		return myCartId;
 	}
-
-	public void setMyCartId(int myCartId) {
+	public void setMyCartId(String myCartId) {
 		this.myCartId = myCartId;
 	}
-
-	public int getCustomerId() {
-		return customerId;
+	public MerchantVo getMerchant() {
+		return merchant;
 	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
 	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public Long getStoreId() {
-		return storeId;
-	}
-
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	/*public ProductDetails getProduct() {
+	public ProductVo getProduct() {
 		return product;
 	}
-
-	public void setProduct(ProductDetails product) {
+	public void setProduct(ProductVo product) {
 		this.product = product;
-	}*/
+	}
+	public CustomerVo getCustomerByCreatedby() {
+		return customerByCreatedby;
+	}
+	public void setCustomerByCreatedby(CustomerVo customerByCreatedby) {
+		this.customerByCreatedby = customerByCreatedby;
+	}
+	public ProductOfferVo getProductOffer() {
+		return productOffer;
+	}
+	public void setProductOffer(ProductOfferVo productOffer) {
+		this.productOffer = productOffer;
+	}
+	public CustomerVo getCustomerByCustomerId() {
+		return customerByCustomerId;
+	}
+	public void setCustomerByCustomerId(CustomerVo customerByCustomerId) {
+		this.customerByCustomerId = customerByCustomerId;
+	}
+	public CustomerVo getCustomerByUpdatedby() {
+		return customerByUpdatedby;
+	}
+	public void setCustomerByUpdatedby(CustomerVo customerByUpdatedby) {
+		this.customerByUpdatedby = customerByUpdatedby;
+	}
+	public StoreVo getStore() {
+		return store;
+	}
+	public void setStore(StoreVo store) {
+		this.store = store;
+	}
+	public ProductOfferLineVo getProductOfferLine() {
+		return productOfferLine;
+	}
+	public void setProductOfferLine(ProductOfferLineVo productOfferLine) {
+		this.productOfferLine = productOfferLine;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	public char getIsactive() {
+		return isactive;
+	}
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
 
 }

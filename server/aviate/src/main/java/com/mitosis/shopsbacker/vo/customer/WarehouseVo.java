@@ -13,27 +13,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 
 /**
- * Tax Created by Sundaram C.
+ * Warehouse Created by Sundaram C.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class TaxVo implements java.io.Serializable {
+public class WarehouseVo implements java.io.Serializable {
 
-	private String taxId;
+	private String warehouseId;
 	private UserVo userByUpdatedby;
 	private UserVo userByCreatedby;
 	private MerchantVo merchant;
+	private StoreVo store;
 	private String name;
-	private double taxPercentage;
+	private String description;
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<OrderTaxVo> orderTaxes = new ArrayList<OrderTaxVo>();
-	public String getTaxId() {
-		return taxId;
+	private List<MovementVo> movements = new ArrayList<MovementVo>();
+	private List<StoragebinVo> storagebins = new ArrayList<StoragebinVo>();
+	public String getWarehouseId() {
+		return warehouseId;
 	}
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
+	public void setWarehouseId(String warehouseId) {
+		this.warehouseId = warehouseId;
 	}
 	public UserVo getUserByUpdatedby() {
 		return userByUpdatedby;
@@ -53,17 +55,23 @@ public class TaxVo implements java.io.Serializable {
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
+	public StoreVo getStore() {
+		return store;
+	}
+	public void setStore(StoreVo store) {
+		this.store = store;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getTaxPercentage() {
-		return taxPercentage;
+	public String getDescription() {
+		return description;
 	}
-	public void setTaxPercentage(double taxPercentage) {
-		this.taxPercentage = taxPercentage;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public char getIsactive() {
 		return isactive;
@@ -83,12 +91,17 @@ public class TaxVo implements java.io.Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public List<OrderTaxVo> getOrderTaxes() {
-		return orderTaxes;
+	public List<MovementVo> getMovements() {
+		return movements;
 	}
-	public void setOrderTaxes(List<OrderTaxVo> orderTaxes) {
-		this.orderTaxes = orderTaxes;
+	public void setMovements(List<MovementVo> movements) {
+		this.movements = movements;
+	}
+	public List<StoragebinVo> getStoragebins() {
+		return storagebins;
+	}
+	public void setStoragebins(List<StoragebinVo> storagebins) {
+		this.storagebins = storagebins;
 	}
 
-	
 }

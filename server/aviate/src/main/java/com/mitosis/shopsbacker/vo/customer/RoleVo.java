@@ -10,36 +10,27 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.mitosis.shopsbacker.vo.admin.MerchantVo;
-
 /**
- * Tax Created by Sundaram C.
+ * Role Created by Sundaram C.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class TaxVo implements java.io.Serializable {
+public class RoleVo implements java.io.Serializable {
 
-	private String taxId;
-	private UserVo userByUpdatedby;
+	private String roleId;
 	private UserVo userByCreatedby;
-	private MerchantVo merchant;
+	private UserVo userByUpdatedby;
 	private String name;
-	private double taxPercentage;
+	private String description;
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<OrderTaxVo> orderTaxes = new ArrayList<OrderTaxVo>();
-	public String getTaxId() {
-		return taxId;
+	private List<UserVo> users = new ArrayList<UserVo>();
+	public String getRoleId() {
+		return roleId;
 	}
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
-	}
-	public UserVo getUserByUpdatedby() {
-		return userByUpdatedby;
-	}
-	public void setUserByUpdatedby(UserVo userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 	public UserVo getUserByCreatedby() {
 		return userByCreatedby;
@@ -47,11 +38,11 @@ public class TaxVo implements java.io.Serializable {
 	public void setUserByCreatedby(UserVo userByCreatedby) {
 		this.userByCreatedby = userByCreatedby;
 	}
-	public MerchantVo getMerchant() {
-		return merchant;
+	public UserVo getUserByUpdatedby() {
+		return userByUpdatedby;
 	}
-	public void setMerchant(MerchantVo merchant) {
-		this.merchant = merchant;
+	public void setUserByUpdatedby(UserVo userByUpdatedby) {
+		this.userByUpdatedby = userByUpdatedby;
 	}
 	public String getName() {
 		return name;
@@ -59,11 +50,11 @@ public class TaxVo implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getTaxPercentage() {
-		return taxPercentage;
+	public String getDescription() {
+		return description;
 	}
-	public void setTaxPercentage(double taxPercentage) {
-		this.taxPercentage = taxPercentage;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public char getIsactive() {
 		return isactive;
@@ -83,12 +74,12 @@ public class TaxVo implements java.io.Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public List<OrderTaxVo> getOrderTaxes() {
-		return orderTaxes;
+	public List<UserVo> getUsers() {
+		return users;
 	}
-	public void setOrderTaxes(List<OrderTaxVo> orderTaxes) {
-		this.orderTaxes = orderTaxes;
+	public void setUsers(List<UserVo> users) {
+		this.users = users;
 	}
 
-	
+
 }

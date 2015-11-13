@@ -13,33 +13,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 
 /**
- * Tax Created by Sundaram C.
+ * Movement Created by Sundaram C.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class TaxVo implements java.io.Serializable {
+public class MovementVo implements java.io.Serializable {
 
-	private String taxId;
-	private UserVo userByUpdatedby;
+	private String movementId;
 	private UserVo userByCreatedby;
+	private UserVo userByUpdatedby;
 	private MerchantVo merchant;
+	private WarehouseVo warehouse;
+	private StoreVo store;
 	private String name;
-	private double taxPercentage;
+	private char ismoved;
+	private char isupdated;
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<OrderTaxVo> orderTaxes = new ArrayList<OrderTaxVo>();
-	public String getTaxId() {
-		return taxId;
+	private List<MovementLineVo> movementLines = new ArrayList<MovementLineVo>();
+	public String getMovementId() {
+		return movementId;
 	}
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
-	}
-	public UserVo getUserByUpdatedby() {
-		return userByUpdatedby;
-	}
-	public void setUserByUpdatedby(UserVo userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setMovementId(String movementId) {
+		this.movementId = movementId;
 	}
 	public UserVo getUserByCreatedby() {
 		return userByCreatedby;
@@ -47,11 +44,29 @@ public class TaxVo implements java.io.Serializable {
 	public void setUserByCreatedby(UserVo userByCreatedby) {
 		this.userByCreatedby = userByCreatedby;
 	}
+	public UserVo getUserByUpdatedby() {
+		return userByUpdatedby;
+	}
+	public void setUserByUpdatedby(UserVo userByUpdatedby) {
+		this.userByUpdatedby = userByUpdatedby;
+	}
 	public MerchantVo getMerchant() {
 		return merchant;
 	}
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
+	}
+	public WarehouseVo getWarehouse() {
+		return warehouse;
+	}
+	public void setWarehouse(WarehouseVo warehouse) {
+		this.warehouse = warehouse;
+	}
+	public StoreVo getStore() {
+		return store;
+	}
+	public void setStore(StoreVo store) {
+		this.store = store;
 	}
 	public String getName() {
 		return name;
@@ -59,11 +74,17 @@ public class TaxVo implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getTaxPercentage() {
-		return taxPercentage;
+	public char getIsmoved() {
+		return ismoved;
 	}
-	public void setTaxPercentage(double taxPercentage) {
-		this.taxPercentage = taxPercentage;
+	public void setIsmoved(char ismoved) {
+		this.ismoved = ismoved;
+	}
+	public char getIsupdated() {
+		return isupdated;
+	}
+	public void setIsupdated(char isupdated) {
+		this.isupdated = isupdated;
 	}
 	public char getIsactive() {
 		return isactive;
@@ -83,12 +104,13 @@ public class TaxVo implements java.io.Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public List<OrderTaxVo> getOrderTaxes() {
-		return orderTaxes;
+	public List<MovementLineVo> getMovementLines() {
+		return movementLines;
 	}
-	public void setOrderTaxes(List<OrderTaxVo> orderTaxes) {
-		this.orderTaxes = orderTaxes;
+	public void setMovementLines(List<MovementLineVo> movementLines) {
+		this.movementLines = movementLines;
 	}
-
 	
+	
+
 }

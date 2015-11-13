@@ -2,9 +2,8 @@ package com.mitosis.shopsbacker.vo.customer;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,27 +12,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 
 /**
- * Tax Created by Sundaram C.
+ * ShippingCharges Created by Sundaram C.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class TaxVo implements java.io.Serializable {
+public class ShippingChargesVo implements java.io.Serializable {
 
-	private String taxId;
+	private String shippingChargesId;
 	private UserVo userByUpdatedby;
 	private UserVo userByCreatedby;
 	private MerchantVo merchant;
-	private String name;
-	private double taxPercentage;
+	private BigDecimal chargingAmount;
+	private BigDecimal amountRange;
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<OrderTaxVo> orderTaxes = new ArrayList<OrderTaxVo>();
-	public String getTaxId() {
-		return taxId;
+	public String getShippingChargesId() {
+		return shippingChargesId;
 	}
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
+	public void setShippingChargesId(String shippingChargesId) {
+		this.shippingChargesId = shippingChargesId;
 	}
 	public UserVo getUserByUpdatedby() {
 		return userByUpdatedby;
@@ -53,17 +51,17 @@ public class TaxVo implements java.io.Serializable {
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
-	public String getName() {
-		return name;
+	public BigDecimal getChargingAmount() {
+		return chargingAmount;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setChargingAmount(BigDecimal chargingAmount) {
+		this.chargingAmount = chargingAmount;
 	}
-	public double getTaxPercentage() {
-		return taxPercentage;
+	public BigDecimal getAmountRange() {
+		return amountRange;
 	}
-	public void setTaxPercentage(double taxPercentage) {
-		this.taxPercentage = taxPercentage;
+	public void setAmountRange(BigDecimal amountRange) {
+		this.amountRange = amountRange;
 	}
 	public char getIsactive() {
 		return isactive;
@@ -83,12 +81,5 @@ public class TaxVo implements java.io.Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public List<OrderTaxVo> getOrderTaxes() {
-		return orderTaxes;
-	}
-	public void setOrderTaxes(List<OrderTaxVo> orderTaxes) {
-		this.orderTaxes = orderTaxes;
-	}
 
-	
 }

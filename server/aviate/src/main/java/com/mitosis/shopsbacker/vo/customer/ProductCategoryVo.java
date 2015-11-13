@@ -1,91 +1,123 @@
 package com.mitosis.shopsbacker.vo.customer;
-import java.io.Serializable;
+
+// Generated Nov 12, 2015 6:16:19 PM 
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+
+/**
+ * ProductCategory Created by Sundaram C.
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class ProductCategoryVo implements Serializable  {
-	private static final long serialVersionUID = -5188662426062165691L;
-	private Long categoryId;
-	private Long parentCategoryId;
-	private Long storeId;
-	private String categoryName;
-	private Long merchantId;
+public class ProductCategoryVo implements java.io.Serializable {
 
-	//private ProductCategory parentCategory;
-	
-	//private List<ProductCategory> category;
-	
-	//private List<ProductType> productType;
-
-	public Long getCategoryId() {
-		return categoryId;
+	private String productCategoryId;
+	private UserVo userByUpdatedby;
+	private UserVo userByCreatedby;
+	private MerchantVo merchant;
+	private ProductCategoryVo productCategory;
+	private StoreVo store;
+	private String name;
+	private Integer orderSequence;
+	private char isactive;
+	private Date created;
+	private Date updated;
+	private List<ProductVo> products = new ArrayList<ProductVo>();
+	private List<ProductCategoryVo> productCategories = new ArrayList<ProductCategoryVo>();
+	private List<ProductTypeVo> productTypes = new ArrayList<ProductTypeVo>();
+	public String getProductCategoryId() {
+		return productCategoryId;
+	}
+	public void setProductCategoryId(String productCategoryId) {
+		this.productCategoryId = productCategoryId;
+	}
+	public UserVo getUserByUpdatedby() {
+		return userByUpdatedby;
+	}
+	public void setUserByUpdatedby(UserVo userByUpdatedby) {
+		this.userByUpdatedby = userByUpdatedby;
+	}
+	public UserVo getUserByCreatedby() {
+		return userByCreatedby;
+	}
+	public void setUserByCreatedby(UserVo userByCreatedby) {
+		this.userByCreatedby = userByCreatedby;
+	}
+	public MerchantVo getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
+	}
+	public ProductCategoryVo getProductCategory() {
+		return productCategory;
+	}
+	public void setProductCategory(ProductCategoryVo productCategory) {
+		this.productCategory = productCategory;
+	}
+	public StoreVo getStore() {
+		return store;
+	}
+	public void setStore(StoreVo store) {
+		this.store = store;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getOrderSequence() {
+		return orderSequence;
+	}
+	public void setOrderSequence(Integer orderSequence) {
+		this.orderSequence = orderSequence;
+	}
+	public char getIsactive() {
+		return isactive;
+	}
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+	public List<ProductVo> getProducts() {
+		return products;
+	}
+	public void setProducts(List<ProductVo> products) {
+		this.products = products;
+	}
+	public List<ProductCategoryVo> getProductCategories() {
+		return productCategories;
+	}
+	public void setProductCategories(List<ProductCategoryVo> productCategories) {
+		this.productCategories = productCategories;
+	}
+	public List<ProductTypeVo> getProductTypes() {
+		return productTypes;
+	}
+	public void setProductTypes(List<ProductTypeVo> productTypes) {
+		this.productTypes = productTypes;
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public Long getParentCategoryId() {
-		return parentCategoryId;
-	}
-
-	public void setParentCategoryId(Long parentCategoryId) {
-		this.parentCategoryId = parentCategoryId;
-	}
-
-	public Long getStoreId() {
-		return storeId;
-	}
-
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public Long getMerchantId() {
-		return merchantId;
-	}
-
-	public void setMerchantId(Long merchantId) {
-		this.merchantId = merchantId;
-	}
-
-	/*public ProductCategory getParentCategory() {
-		return parentCategory;
-	}
-
-	public void setParentCategory(ProductCategory parentCategory) {
-		this.parentCategory = parentCategory;
-	}
-
-	public List<ProductCategory> getCategory() {
-		return category;
-	}
-
-	public void setCategory(List<ProductCategory> category) {
-		this.category = category;
-	}
-
-	public List<ProductType> getProductType() {
-		return productType;
-	}
-
-	public void setProductType(List<ProductType> productType) {
-		this.productType = productType;
-	}*/
-
-	
 	
 
 }

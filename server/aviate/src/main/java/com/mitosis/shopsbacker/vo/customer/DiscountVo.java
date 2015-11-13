@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.vo.customer;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,23 +27,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 
 /**
- * ProductOffer Created by Sundaram C.
+ * Discount Created by Sundaram C.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class ProductOfferVo implements java.io.Serializable {
+public class DiscountVo implements java.io.Serializable {
 
-	private String productOfferId;
+	private String discountId;
 	private UserVo userByCreatedby;
 	private UserVo userByUpdatedby;
 	private MerchantVo merchant;
-	private ProductVo product;
 	private String name;
-	public String getProductOfferId() {
-		return productOfferId;
+	private Double discountPercentage;
+	private BigDecimal discountAmount;
+	private Integer minQty;
+	private Integer maxQty;
+	private Date startDate;
+	private Date endDate;
+	private Date startTime;
+	private Date endTime;
+	private BigDecimal minAmount;
+	private char isactive;
+	private Date created;
+	private Date updated;
+	private List<ProductVo> products = new ArrayList<ProductVo>();
+	public String getDiscountId() {
+		return discountId;
 	}
-	public void setProductOfferId(String productOfferId) {
-		this.productOfferId = productOfferId;
+	public void setDiscountId(String discountId) {
+		this.discountId = discountId;
 	}
 	public UserVo getUserByCreatedby() {
 		return userByCreatedby;
@@ -62,35 +75,47 @@ public class ProductOfferVo implements java.io.Serializable {
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
-	public ProductVo getProduct() {
-		return product;
-	}
-	public void setProduct(ProductVo product) {
-		this.product = product;
-	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
+	public Double getDiscountPercentage() {
+		return discountPercentage;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDiscountPercentage(Double discountPercentage) {
+		this.discountPercentage = discountPercentage;
 	}
-	public Date getFromDate() {
-		return fromDate;
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
 	}
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
 	}
-	public Date getTodate() {
-		return todate;
+	public Integer getMinQty() {
+		return minQty;
 	}
-	public void setTodate(Date todate) {
-		this.todate = todate;
+	public void setMinQty(Integer minQty) {
+		this.minQty = minQty;
+	}
+	public Integer getMaxQty() {
+		return maxQty;
+	}
+	public void setMaxQty(Integer maxQty) {
+		this.maxQty = maxQty;
+	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	public Date getStartTime() {
 		return startTime;
@@ -103,6 +128,12 @@ public class ProductOfferVo implements java.io.Serializable {
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	public BigDecimal getMinAmount() {
+		return minAmount;
+	}
+	public void setMinAmount(BigDecimal minAmount) {
+		this.minAmount = minAmount;
 	}
 	public char getIsactive() {
 		return isactive;
@@ -122,28 +153,12 @@ public class ProductOfferVo implements java.io.Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public List<ProductOfferLineVo> getProductOfferLines() {
-		return productOfferLines;
+	public List<ProductVo> getProducts() {
+		return products;
 	}
-	public void setProductOfferLines(List<ProductOfferLineVo> productOfferLines) {
-		this.productOfferLines = productOfferLines;
+	public void setProducts(List<ProductVo> products) {
+		this.products = products;
 	}
-	public List<MyCartVo> getMyCarts() {
-		return myCarts;
-	}
-	public void setMyCarts(List<MyCartVo> myCarts) {
-		this.myCarts = myCarts;
-	}
-	private String description;
-	private Date fromDate;
-	private Date todate;
-	private Date startTime;
-	private Date endTime;
-	private char isactive;
-	private Date created;
-	private Date updated;
-	private List<ProductOfferLineVo> productOfferLines = new ArrayList<ProductOfferLineVo>();
-	private List<MyCartVo> myCarts = new ArrayList<MyCartVo>();
 
 	
 

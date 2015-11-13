@@ -1,84 +1,119 @@
 package com.mitosis.shopsbacker.vo.customer;
 
+// Generated Nov 12, 2015 6:16:19 PM 
+
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * SalesOrderLine Created by Sundaram C.
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class SalesOrderLineVo {
-	private Long SalesOrderLineId;
-	private Long salesOrderId;
-	private Long productName;
-	private Long productId;
-	private Long storageBinId;
-	private Long quantity;
-	private Long price;
-	private Long imageUrl;
+public class SalesOrderLineVo implements java.io.Serializable {
 
-	//private ProductDetails productDetails;
-	
-	//private StorageBinModel storageBin;
-	
-	public Long getSalesOrderLineId() {
-		return SalesOrderLineId;
+	private String salesOrderLineId;
+	private SalesOrderVo salesOrder;
+	private ProductVo product;
+	public String getSalesOrderLineId() {
+		return salesOrderLineId;
 	}
-	public Long getSalesOrderId() {
+	public void setSalesOrderLineId(String salesOrderLineId) {
+		this.salesOrderLineId = salesOrderLineId;
+	}
+	public SalesOrderVo getSalesOrder() {
+		return salesOrder;
+	}
+	public void setSalesOrder(SalesOrderVo salesOrder) {
+		this.salesOrder = salesOrder;
+	}
+	public ProductVo getProduct() {
+		return product;
+	}
+	public void setProduct(ProductVo product) {
+		this.product = product;
+	}
+	public String getSalesOrderId() {
 		return salesOrderId;
 	}
-	public Long getProductName() {
-		return productName;
-	}
-	public Long getQuantity() {
-		return quantity;
-	}
-	public Long getImageUrl() {
-		return imageUrl;
-	}
-	public void setSalesOrderLineId(Long salesOrderLineId) {
-		SalesOrderLineId = salesOrderLineId;
-	}
-	public void setSalesOrderId(Long salesOrderId) {
+	public void setSalesOrderId(String salesOrderId) {
 		this.salesOrderId = salesOrderId;
 	}
-	public void setProductName(Long productName) {
-		this.productName = productName;
+	public int getQty() {
+		return qty;
 	}
-	public void setQuantity(Long quantity) {
-		this.quantity = quantity;
+	public void setQty(int qty) {
+		this.qty = qty;
 	}
-	public void setImageUrl(Long imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-	public Long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	public Long getProductId() {
-		return productId;
+	public BigDecimal getGrossAmount() {
+		return grossAmount;
 	}
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setGrossAmount(BigDecimal grossAmount) {
+		this.grossAmount = grossAmount;
 	}
-	/*public ProductDetails getProductDetails() {
-		return productDetails;
+	public BigDecimal getNetAmount() {
+		return netAmount;
 	}
-	public void setProductDetails(ProductDetails productDetails) {
-		this.productDetails = productDetails;
-	}*/
-	public Long getStorageBinId() {
-		return storageBinId;
+	public void setNetAmount(BigDecimal netAmount) {
+		this.netAmount = netAmount;
 	}
-	public void setStorageBinId(Long storageBinId) {
-		this.storageBinId = storageBinId;
+	public BigDecimal getDiscount() {
+		return discount;
 	}
-	/*public StorageBinModel getStorageBin() {
-		return storageBin;
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
 	}
-	public void setStorageBin(StorageBinModel storageBin) {
-		this.storageBin = storageBin;
-	}*/
+	public char getIsactive() {
+		return isactive;
+	}
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public String getCreatedby() {
+		return createdby;
+	}
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+	public String getUpdatedby() {
+		return updatedby;
+	}
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
+	}
+	private String salesOrderId;
+	private int qty;
+	private BigDecimal price;
+	private BigDecimal grossAmount;
+	private BigDecimal netAmount;
+	private BigDecimal discount;
+	private char isactive;
+	private Date created;
+	private String createdby;
+	private Date updated;
+	private String updatedby;
+
 	
 }

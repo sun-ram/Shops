@@ -1,57 +1,62 @@
 package com.mitosis.shopsbacker.vo.customer;
 
+// Generated Nov 12, 2015 6:16:19 PM 
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+
+/**
+ * OrderTax Created by Sundaram C.
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class OrderTaxVo {
+public class OrderTaxVo implements java.io.Serializable {
 
-	private Long orderTaxId;
-	private Long salesOrderId;
-	private Long taxId;
-	private Double taxBaseAmount;
-	private Double taxAmount;
-	private Date created;
-	private Long createdBy;
-	private Date updated;
-	private Long updatedBy;
-	private boolean active;
-	private Long storeId;
-	private Long merchantId;
-	
-	public Long getOrderTaxId() {
+	private String orderTaxId;
+	private MerchantVo merchant;
+	private TaxVo tax;
+	private SalesOrderVo salesOrder;
+	public String getOrderTaxId() {
 		return orderTaxId;
 	}
-	public void setOrderTaxId(Long orderTaxId) {
+	public void setOrderTaxId(String orderTaxId) {
 		this.orderTaxId = orderTaxId;
 	}
-	public Long getOrderId() {
-		return salesOrderId;
+	public MerchantVo getMerchant() {
+		return merchant;
 	}
-	public void setOrderId(Long orderId) {
-		this.salesOrderId = orderId;
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
 	}
-	public Long getTaxId() {
-		return taxId;
+	public TaxVo getTax() {
+		return tax;
 	}
-	public void setTaxId(Long taxId) {
-		this.taxId = taxId;
+	public void setTax(TaxVo tax) {
+		this.tax = tax;
 	}
-	public Double getTaxBaseAmount() {
-		return taxBaseAmount;
+	public SalesOrderVo getSalesOrder() {
+		return salesOrder;
 	}
-	public void setTaxBaseAmount(Double taxBaseAmount) {
-		this.taxBaseAmount = taxBaseAmount;
+	public void setSalesOrder(SalesOrderVo salesOrder) {
+		this.salesOrder = salesOrder;
 	}
-	public Double getTaxAmount() {
+	public BigDecimal getTaxAmount() {
 		return taxAmount;
 	}
-	public void setTaxAmount(Double taxAmount) {
+	public void setTaxAmount(BigDecimal taxAmount) {
 		this.taxAmount = taxAmount;
+	}
+	public char getIsactive() {
+		return isactive;
+	}
+	public void setIsactive(char isactive) {
+		this.isactive = isactive;
 	}
 	public Date getCreated() {
 		return created;
@@ -59,11 +64,11 @@ public class OrderTaxVo {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public Long getCreatedBy() {
-		return createdBy;
+	public String getCreatedby() {
+		return createdby;
 	}
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 	public Date getUpdated() {
 		return updated;
@@ -71,31 +76,18 @@ public class OrderTaxVo {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	public Long getUpdatedBy() {
-		return updatedBy;
+	public String getUpdatedby() {
+		return updatedby;
 	}
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	public Long getStoreId() {
-		return storeId;
-	}
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
-	public Long getMerchantId() {
-		return merchantId;
-	}
-	public void setMerchantId(Long merchantId) {
-		this.merchantId = merchantId;
-	}
-	
-	
-	
+	private BigDecimal taxAmount;
+	private char isactive;
+	private Date created;
+	private String createdby;
+	private Date updated;
+	private String updatedby;
+
+
 }
