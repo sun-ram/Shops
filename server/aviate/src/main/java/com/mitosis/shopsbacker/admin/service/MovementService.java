@@ -1,5 +1,7 @@
 package com.mitosis.shopsbacker.admin.service;
 
+import java.util.List;
+
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Store;
@@ -17,6 +19,7 @@ public interface MovementService<T> {
 	
 	public Movement getMovement(String movementId);
 	
-	public void updateMovements(Movement uniqueMovementList);
+	public List<Movement> getMovementListByStore(Store store);
+	
 
 }

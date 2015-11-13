@@ -1,5 +1,7 @@
 package com.mitosis.shopsbacker.admin.dao;
 
+import java.util.List;
+
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Store;
@@ -12,5 +14,5 @@ public interface  MovementDao<T> {
 	public void updateMovement(Movement movement);
 	public boolean uniqueNameChecking(Store store,Warehouse warehouse,String movementName, Merchant merchant);
 	public Movement getMovement(String movementId);
-	public void updateMovements(Movement uniqueMovementList);
+	public List<Movement> getMovementListByStore(Store store);
 }

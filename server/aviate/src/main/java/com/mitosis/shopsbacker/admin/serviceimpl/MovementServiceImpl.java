@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.admin.serviceimpl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,9 +63,9 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 	}
 
 	@Override
-	public void updateMovements(Movement uniqueMovementList) {
-		movementDao.updateMovements(uniqueMovementList);
-		
+	public List<Movement> getMovementListByStore(Store store) {
+		return movementDao.getMovementListByStore(store);
 	}
+
 
 }

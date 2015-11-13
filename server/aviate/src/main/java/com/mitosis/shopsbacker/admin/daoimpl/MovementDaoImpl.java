@@ -78,24 +78,18 @@ MovementDao<T>, Serializable{
 	@Override
 	public Movement getMovement(String movementId) {
 		
-		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Movement.class);
 		criteria.add(Restrictions.eq("movementId", movementId));
 		return ((List<Movement>) findAll(criteria)).get(0);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void updateMovements(Movement uniqueMovementList) {
-		try {
-			update((T) uniqueMovementList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	public List<Movement> getMovementListByStore(Store store) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Movement.class);
+		criteria.add(Restrictions.eq("store", store));
+		return ((List<Movement>) findAll(criteria));
 	}
-
-
-
 
 
 }
