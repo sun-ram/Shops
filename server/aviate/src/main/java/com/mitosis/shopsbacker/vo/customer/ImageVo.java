@@ -31,14 +31,36 @@ public class ImageVo implements java.io.Serializable {
 	private String name;
 	private String type;
 	private String url;
-	private char isactive;
-	private String createdby;
-	private String updatedby;
-	private Date created;
-	private Date updated;
-	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
-	private List<BannerVo> banners = new ArrayList<BannerVo>();
-	private List<UserVo> users = new ArrayList<UserVo>();
-	private List<ProductVo> products = new ArrayList<ProductVo>();
+	private String image;
+	public String getImageId() {
+		return imageId;
+	}
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}	
 
 }
