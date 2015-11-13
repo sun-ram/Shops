@@ -2,7 +2,6 @@ package com.mitosis.shopsbacker.admin.dao;
 
 import java.util.List;
 
-import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Storagebin;
 public interface StoragebinDao<T> {
 

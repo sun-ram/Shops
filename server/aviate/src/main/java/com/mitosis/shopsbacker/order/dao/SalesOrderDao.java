@@ -1,32 +1,20 @@
 package com.mitosis.shopsbacker.order.dao;
 
-import org.codehaus.jettison.json.JSONObject;
+import java.util.List;
 
-import com.mitosis.aviate.model.OrderTax;
-import com.mitosis.aviate.model.SalesOrderModel;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.util.OrderStatus;
 
-/**
- * @author prabakaran
- *
- * @param <T>
- */
+
 public interface SalesOrderDao<T> {
 	
-	public JSONObject getStoreNameMaxOrderId(Long storeId);
-	
-	public void saveOrder(SalesOrder salesOrder);
-	
-	public void updateOrder(SalesOrder salesOrder);
-	
-	public void getOrder(SalesOrder salesOrder);
-	
-	public void getOrder(Store store);
-	
-	public SalesOrderModel conformPayment(String orderId,String transactionNo,String paymentMethod);
-
-	boolean saveOrderTax(OrderTax orderTax);
-	
+	public List<SalesOrder> getSalesOrders(Store store);
+	public List<SalesOrder> getOrderList(String salesOrderId,Store store);
+	public List<SalesOrder> getOrderList(Store store);
+	public List<SalesOrder> getOrderList(Store store,OrderStatus status);
+	public List<SalesOrder> salesOrderDetailList(String fromDate,String toDate,Store store);
+	public SalesOrder salesOrderById(String salesOrderId);
+	public void updateSalesOrder(SalesOrder salesOrder);
 
 }

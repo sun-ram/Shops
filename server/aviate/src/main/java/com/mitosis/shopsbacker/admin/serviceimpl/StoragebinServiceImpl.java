@@ -11,7 +11,7 @@ import com.mitosis.shopsbacker.admin.dao.StoragebinDao;
 import com.mitosis.shopsbacker.admin.service.StoragebinService;
 import com.mitosis.shopsbacker.model.Storagebin;
 
-@Service
+@Service("storagebinServiceImpl")
 public class StoragebinServiceImpl<T> implements StoragebinService<T>, Serializable{
 
 	/**
