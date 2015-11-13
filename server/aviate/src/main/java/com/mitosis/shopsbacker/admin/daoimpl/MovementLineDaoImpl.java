@@ -53,13 +53,19 @@ MovementLineDao<T>, Serializable{
 		criteria.add(Restrictions.eq("movement", movement));
 		return ((List<MovementLine>) findAll(criteria));
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void removeMovementLineByMovement(Movement movement) {
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(MovementLine.class);
 		criteria.add(Restrictions.eq("movement", movement));
 		
+		List<MovementLine> movementLines = (List<MovementLine>) findAll(criteria);
+		
+		for(MovementLine movementLine:movementLines){
+			delete((T) movementLine);
+		}
 	}
 
 }
