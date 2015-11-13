@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,20 +40,20 @@ public class Customer implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private char isactive;
-	private Set customerFeedbacksForCreatedby = new HashSet(0);
-	private Set myCartsForCreatedby = new HashSet(0);
-	private Set favouritesForUpdatedby = new HashSet(0);
-	private Set salesOrders = new HashSet(0);
-	private Set customerFeedbacksForCustomerId = new HashSet(0);
-	private Set favouritesForCustomerId = new HashSet(0);
-	private Set favouritesForCreatedby = new HashSet(0);
-	private Set customerFeedbacksForUpdatedby = new HashSet(0);
-	private Set missingProducts = new HashSet(0);
-	private Set customersForUpdatedby = new HashSet(0);
-	private Set addresses = new HashSet(0);
-	private Set customersForCreatedby = new HashSet(0);
-	private Set myCartsForUpdatedby = new HashSet(0);
-	private Set myCartsForCustomerId = new HashSet(0);
+	private List<CustomerFeedback> customerFeedbacksForCreatedby = new ArrayList<CustomerFeedback>();
+	private List<MyCart> myCartsForCreatedby = new ArrayList<MyCart>();
+	private List<Favourite> favouritesForUpdatedby = new ArrayList<Favourite>();
+	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
+	private List<CustomerFeedback> customerFeedbacksForCustomerId = new ArrayList<CustomerFeedback>();
+	private List<Favourite> favouritesForCustomerId = new ArrayList<Favourite>();
+	private List<Favourite> favouritesForCreatedby = new ArrayList<Favourite>();
+	private List<CustomerFeedback> customerFeedbacksForUpdatedby = new ArrayList<CustomerFeedback>();
+	private List<MissingProduct> missingProducts = new ArrayList<MissingProduct>();
+	private List<Customer> customersForUpdatedby = new ArrayList<Customer>();
+	private List<Address> addresses = new ArrayList<Address>();
+	private List<Customer> customersForCreatedby = new ArrayList<Customer>();
+	private List<MyCart> myCartsForUpdatedby = new ArrayList<MyCart>();
+	private List<MyCart> myCartsForCustomerId = new ArrayList<MyCart>();
 
 	public Customer() {
 	}
@@ -73,14 +76,14 @@ public class Customer implements java.io.Serializable {
 			Customer customerByUpdatedby, String name, String email,
 			String password, String imageId, String deviceid,
 			String deviceType, Integer phoneNo, Date created, Date updated,
-			char isactive, Set customerFeedbacksForCreatedby,
-			Set myCartsForCreatedby, Set favouritesForUpdatedby,
-			Set salesOrders, Set customerFeedbacksForCustomerId,
-			Set favouritesForCustomerId, Set favouritesForCreatedby,
-			Set customerFeedbacksForUpdatedby, Set missingProducts,
-			Set customersForUpdatedby, Set addresses,
-			Set customersForCreatedby, Set myCartsForUpdatedby,
-			Set myCartsForCustomerId) {
+			char isactive, List<CustomerFeedback> customerFeedbacksForCreatedby,
+			List<MyCart> myCartsForCreatedby, List<Favourite> favouritesForUpdatedby,
+			List<SalesOrder> salesOrders, List<CustomerFeedback> customerFeedbacksForCustomerId,
+			List<Favourite> favouritesForCustomerId, List<Favourite> favouritesForCreatedby,
+			List<CustomerFeedback> customerFeedbacksForUpdatedby, List<MissingProduct> missingProducts,
+			List<Customer> customersForUpdatedby, List<Address> addresses,
+			List<Customer> customersForCreatedby, List<MyCart> myCartsForUpdatedby,
+			List<MyCart> myCartsForCustomerId) {
 		this.customerId = customerId;
 		this.customerByCreatedby = customerByCreatedby;
 		this.customerByUpdatedby = customerByUpdatedby;
@@ -233,131 +236,131 @@ public class Customer implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCreatedby")
-	public Set getCustomerFeedbacksForCreatedby() {
+	public List<CustomerFeedback> getCustomerFeedbacksForCreatedby() {
 		return this.customerFeedbacksForCreatedby;
 	}
 
 	public void setCustomerFeedbacksForCreatedby(
-			Set customerFeedbacksForCreatedby) {
+			List<CustomerFeedback> customerFeedbacksForCreatedby) {
 		this.customerFeedbacksForCreatedby = customerFeedbacksForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCreatedby")
-	public Set getMyCartsForCreatedby() {
+	public List<MyCart> getMyCartsForCreatedby() {
 		return this.myCartsForCreatedby;
 	}
 
-	public void setMyCartsForCreatedby(Set myCartsForCreatedby) {
+	public void setMyCartsForCreatedby(List<MyCart> myCartsForCreatedby) {
 		this.myCartsForCreatedby = myCartsForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByUpdatedby")
-	public Set getFavouritesForUpdatedby() {
+	public List<Favourite> getFavouritesForUpdatedby() {
 		return this.favouritesForUpdatedby;
 	}
 
-	public void setFavouritesForUpdatedby(Set favouritesForUpdatedby) {
+	public void setFavouritesForUpdatedby(List<Favourite> favouritesForUpdatedby) {
 		this.favouritesForUpdatedby = favouritesForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public Set getSalesOrders() {
+	public List<SalesOrder> getSalesOrders() {
 		return this.salesOrders;
 	}
 
-	public void setSalesOrders(Set salesOrders) {
+	public void setSalesOrders(List<SalesOrder> salesOrders) {
 		this.salesOrders = salesOrders;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCustomerId")
-	public Set getCustomerFeedbacksForCustomerId() {
+	public List<CustomerFeedback> getCustomerFeedbacksForCustomerId() {
 		return this.customerFeedbacksForCustomerId;
 	}
 
 	public void setCustomerFeedbacksForCustomerId(
-			Set customerFeedbacksForCustomerId) {
+			List<CustomerFeedback> customerFeedbacksForCustomerId) {
 		this.customerFeedbacksForCustomerId = customerFeedbacksForCustomerId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCustomerId")
-	public Set getFavouritesForCustomerId() {
+	public List<Favourite> getFavouritesForCustomerId() {
 		return this.favouritesForCustomerId;
 	}
 
-	public void setFavouritesForCustomerId(Set favouritesForCustomerId) {
+	public void setFavouritesForCustomerId(List<Favourite> favouritesForCustomerId) {
 		this.favouritesForCustomerId = favouritesForCustomerId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCreatedby")
-	public Set getFavouritesForCreatedby() {
+	public List<Favourite> getFavouritesForCreatedby() {
 		return this.favouritesForCreatedby;
 	}
 
-	public void setFavouritesForCreatedby(Set favouritesForCreatedby) {
+	public void setFavouritesForCreatedby(List<Favourite> favouritesForCreatedby) {
 		this.favouritesForCreatedby = favouritesForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByUpdatedby")
-	public Set getCustomerFeedbacksForUpdatedby() {
+	public List<CustomerFeedback> getCustomerFeedbacksForUpdatedby() {
 		return this.customerFeedbacksForUpdatedby;
 	}
 
 	public void setCustomerFeedbacksForUpdatedby(
-			Set customerFeedbacksForUpdatedby) {
+			List<CustomerFeedback> customerFeedbacksForUpdatedby) {
 		this.customerFeedbacksForUpdatedby = customerFeedbacksForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public Set getMissingProducts() {
+	public List<MissingProduct> getMissingProducts() {
 		return this.missingProducts;
 	}
 
-	public void setMissingProducts(Set missingProducts) {
+	public void setMissingProducts(List<MissingProduct> missingProducts) {
 		this.missingProducts = missingProducts;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByUpdatedby")
-	public Set getCustomersForUpdatedby() {
+	public List<Customer> getCustomersForUpdatedby() {
 		return this.customersForUpdatedby;
 	}
 
-	public void setCustomersForUpdatedby(Set customersForUpdatedby) {
+	public void setCustomersForUpdatedby(List<Customer> customersForUpdatedby) {
 		this.customersForUpdatedby = customersForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public Set getAddresses() {
+	public List<Address> getAddresses() {
 		return this.addresses;
 	}
 
-	public void setAddresses(Set addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCreatedby")
-	public Set getCustomersForCreatedby() {
+	public List<Customer> getCustomersForCreatedby() {
 		return this.customersForCreatedby;
 	}
 
-	public void setCustomersForCreatedby(Set customersForCreatedby) {
+	public void setCustomersForCreatedby(List<Customer> customersForCreatedby) {
 		this.customersForCreatedby = customersForCreatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByUpdatedby")
-	public Set getMyCartsForUpdatedby() {
+	public List<MyCart> getMyCartsForUpdatedby() {
 		return this.myCartsForUpdatedby;
 	}
 
-	public void setMyCartsForUpdatedby(Set myCartsForUpdatedby) {
+	public void setMyCartsForUpdatedby(List<MyCart> myCartsForUpdatedby) {
 		this.myCartsForUpdatedby = myCartsForUpdatedby;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerByCustomerId")
-	public Set getMyCartsForCustomerId() {
+	public List<MyCart> getMyCartsForCustomerId() {
 		return this.myCartsForCustomerId;
 	}
 
-	public void setMyCartsForCustomerId(Set myCartsForCustomerId) {
+	public void setMyCartsForCustomerId(List<MyCart> myCartsForCustomerId) {
 		this.myCartsForCustomerId = myCartsForCustomerId;
 	}
 

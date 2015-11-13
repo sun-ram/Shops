@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,8 +38,8 @@ public class Warehouse implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set movements = new HashSet(0);
-	private Set storagebins = new HashSet(0);
+	private List<Movement> movements = new ArrayList<Movement>();
+	private List<Storagebin> storagebins = new ArrayList<Storagebin>();
 
 	public Warehouse() {
 	}
@@ -58,7 +61,7 @@ public class Warehouse implements java.io.Serializable {
 	public Warehouse(String warehouseId, User userByUpdatedby,
 			User userByCreatedby, Merchant merchant, Store store, String name,
 			String description, char isactive, Date created, Date updated,
-			Set movements, Set storagebins) {
+			List<Movement> movements, List<Storagebin> storagebins) {
 		this.warehouseId = warehouseId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -171,20 +174,20 @@ public class Warehouse implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
-	public Set getMovements() {
+	public List<Movement> getMovements() {
 		return this.movements;
 	}
 
-	public void setMovements(Set movements) {
+	public void setMovements(List<Movement> movements) {
 		this.movements = movements;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
-	public Set getStoragebins() {
+	public List<Storagebin> getStoragebins() {
 		return this.storagebins;
 	}
 
-	public void setStoragebins(Set storagebins) {
+	public void setStoragebins(List<Storagebin> storagebins) {
 		this.storagebins = storagebins;
 	}
 

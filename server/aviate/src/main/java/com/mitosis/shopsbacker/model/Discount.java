@@ -3,9 +3,12 @@ package com.mitosis.shopsbacker.model;
 // Generated Nov 12, 2015 6:16:19 PM 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +46,7 @@ public class Discount implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set products = new HashSet(0);
+	private List<Product> products = new ArrayList<Product>();
 
 	public Discount() {
 	}
@@ -61,7 +64,7 @@ public class Discount implements java.io.Serializable {
 			Double discountPercentage, BigDecimal discountAmount,
 			Integer minQty, Integer maxQty, Date startDate, Date endDate,
 			Date startTime, Date endTime, BigDecimal minAmount, char isactive,
-			Date created, Date updated, Set products) {
+			Date created, Date updated, List<Product> products) {
 		this.discountId = discountId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -246,11 +249,11 @@ public class Discount implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
-	public Set getProducts() {
+	public List<Product> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(Set products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 

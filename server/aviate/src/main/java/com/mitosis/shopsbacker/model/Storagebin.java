@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,9 +42,9 @@ public class Storagebin implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set productInventories = new HashSet(0);
-	private Set movementLinesForToBinId = new HashSet(0);
-	private Set movementLinesForFromBinId = new HashSet(0);
+	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
+	private List<MovementLine> movementLinesForToBinId = new ArrayList<MovementLine>();
+	private List<MovementLine> movementLinesForFromBinId = new ArrayList<MovementLine>();
 
 	public Storagebin() {
 	}
@@ -65,8 +68,8 @@ public class Storagebin implements java.io.Serializable {
 			User userByCreatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, String description, String row,
 			String stack, String level, char isactive, Date created,
-			Date updated, Set productInventories, Set movementLinesForToBinId,
-			Set movementLinesForFromBinId) {
+			Date updated, List<ProductInventory> productInventories, List<MovementLine> movementLinesForToBinId,
+			List<MovementLine> movementLinesForFromBinId) {
 		this.storagebinId = storagebinId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -221,29 +224,29 @@ public class Storagebin implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebin")
-	public Set getProductInventories() {
+	public List<ProductInventory> getProductInventories() {
 		return this.productInventories;
 	}
 
-	public void setProductInventories(Set productInventories) {
+	public void setProductInventories(List<ProductInventory> productInventories) {
 		this.productInventories = productInventories;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebinByToBinId")
-	public Set getMovementLinesForToBinId() {
+	public List<MovementLine> getMovementLinesForToBinId() {
 		return this.movementLinesForToBinId;
 	}
 
-	public void setMovementLinesForToBinId(Set movementLinesForToBinId) {
+	public void setMovementLinesForToBinId(List<MovementLine> movementLinesForToBinId) {
 		this.movementLinesForToBinId = movementLinesForToBinId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "storagebinByFromBinId")
-	public Set getMovementLinesForFromBinId() {
+	public List<MovementLine> getMovementLinesForFromBinId() {
 		return this.movementLinesForFromBinId;
 	}
 
-	public void setMovementLinesForFromBinId(Set movementLinesForFromBinId) {
+	public void setMovementLinesForFromBinId(List<MovementLine> movementLinesForFromBinId) {
 		this.movementLinesForFromBinId = movementLinesForFromBinId;
 	}
 

@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,20 +37,20 @@ public class Store implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set warehouses = new HashSet(0);
-	private Set orderNumbers = new HashSet(0);
-	private Set productCategories = new HashSet(0);
-	private Set favourites = new HashSet(0);
-	private Set missingProducts = new HashSet(0);
-	private Set storagebins = new HashSet(0);
-	private Set banners = new HashSet(0);
-	private Set salesOrders = new HashSet(0);
-	private Set customerFeedbacks = new HashSet(0);
-	private Set myCarts = new HashSet(0);
-	private Set users = new HashSet(0);
-	private Set movements = new HashSet(0);
-	private Set productTypes = new HashSet(0);
-	private Set productInventories = new HashSet(0);
+	private List<Warehouse> warehouses = new ArrayList<Warehouse>();
+	private List<OrderNumber> orderNumbers = new ArrayList<OrderNumber>();
+	private List<ProductCategory> productCategories = new ArrayList<ProductCategory>();
+	private List<Favourite> favourites = new ArrayList<Favourite>();
+	private List<MissingProduct> missingProducts = new ArrayList<MissingProduct>();
+	private List<Storagebin> storagebins = new ArrayList<Storagebin>();
+	private List<Banner> banners = new ArrayList<Banner>();
+	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
+	private List<CustomerFeedback> customerFeedbacks = new ArrayList<CustomerFeedback>();
+	private List<MyCart> myCarts = new ArrayList<MyCart>();
+	private List<User> users = new ArrayList<User>();
+	private List<Movement> movements = new ArrayList<Movement>();
+	private List<ProductType> productTypes = new ArrayList<ProductType>();
+	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
 
 	public Store() {
 	}
@@ -67,11 +70,11 @@ public class Store implements java.io.Serializable {
 
 	public Store(String storeId, User userByUpdatedby, User userByCreatedby,
 			User userByUserId, Merchant merchant, String name, char isactive,
-			Date created, Date updated, Set warehouses, Set orderNumbers,
-			Set productCategories, Set favourites, Set missingProducts,
-			Set storagebins, Set banners, Set salesOrders,
-			Set customerFeedbacks, Set myCarts, Set users, Set movements,
-			Set productTypes, Set productInventories) {
+			Date created, Date updated, List<Warehouse> warehouses, List<OrderNumber> orderNumbers,
+			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
+			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,
+			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
+			List<ProductType> productTypes, List<ProductInventory> productInventories) {
 		this.storeId = storeId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -186,128 +189,128 @@ public class Store implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getWarehouses() {
+	public List<Warehouse> getWarehouses() {
 		return this.warehouses;
 	}
 
-	public void setWarehouses(Set warehouses) {
+	public void setWarehouses(List<Warehouse> warehouses) {
 		this.warehouses = warehouses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getOrderNumbers() {
+	public List<OrderNumber> getOrderNumbers() {
 		return this.orderNumbers;
 	}
 
-	public void setOrderNumbers(Set orderNumbers) {
+	public void setOrderNumbers(List<OrderNumber> orderNumbers) {
 		this.orderNumbers = orderNumbers;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getProductCategories() {
+	public List<ProductCategory> getProductCategories() {
 		return this.productCategories;
 	}
 
-	public void setProductCategories(Set productCategories) {
+	public void setProductCategories(List<ProductCategory> productCategories) {
 		this.productCategories = productCategories;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getFavourites() {
+	public List<Favourite> getFavourites() {
 		return this.favourites;
 	}
 
-	public void setFavourites(Set favourites) {
+	public void setFavourites(List<Favourite> favourites) {
 		this.favourites = favourites;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getMissingProducts() {
+	public List<MissingProduct> getMissingProducts() {
 		return this.missingProducts;
 	}
 
-	public void setMissingProducts(Set missingProducts) {
+	public void setMissingProducts(List<MissingProduct> missingProducts) {
 		this.missingProducts = missingProducts;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getStoragebins() {
+	public List<Storagebin> getStoragebins() {
 		return this.storagebins;
 	}
 
-	public void setStoragebins(Set storagebins) {
+	public void setStoragebins(List<Storagebin> storagebins) {
 		this.storagebins = storagebins;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getBanners() {
+	public List<Banner> getBanners() {
 		return this.banners;
 	}
 
-	public void setBanners(Set banners) {
+	public void setBanners(List<Banner> banners) {
 		this.banners = banners;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getSalesOrders() {
+	public List<SalesOrder> getSalesOrders() {
 		return this.salesOrders;
 	}
 
-	public void setSalesOrders(Set salesOrders) {
+	public void setSalesOrders(List<SalesOrder> salesOrders) {
 		this.salesOrders = salesOrders;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getCustomerFeedbacks() {
+	public List<CustomerFeedback> getCustomerFeedbacks() {
 		return this.customerFeedbacks;
 	}
 
-	public void setCustomerFeedbacks(Set customerFeedbacks) {
+	public void setCustomerFeedbacks(List<CustomerFeedback> customerFeedbacks) {
 		this.customerFeedbacks = customerFeedbacks;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getMyCarts() {
+	public List<MyCart> getMyCarts() {
 		return this.myCarts;
 	}
 
-	public void setMyCarts(Set myCarts) {
+	public void setMyCarts(List<MyCart> myCarts) {
 		this.myCarts = myCarts;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getUsers() {
+	public List<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getMovements() {
+	public List<Movement> getMovements() {
 		return this.movements;
 	}
 
-	public void setMovements(Set movements) {
+	public void setMovements(List<Movement> movements) {
 		this.movements = movements;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getProductTypes() {
+	public List<ProductType> getProductTypes() {
 		return this.productTypes;
 	}
 
-	public void setProductTypes(Set productTypes) {
+	public void setProductTypes(List<ProductType> productTypes) {
 		this.productTypes = productTypes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-	public Set getProductInventories() {
+	public List<ProductInventory> getProductInventories() {
 		return this.productInventories;
 	}
 
-	public void setProductInventories(Set productInventories) {
+	public void setProductInventories(List<ProductInventory> productInventories) {
 		this.productInventories = productInventories;
 	}
 

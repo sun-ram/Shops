@@ -2,8 +2,11 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +32,7 @@ public class Uom implements java.io.Serializable {
 	private String isactive;
 	private String created;
 	private String updated;
-	private Set products = new HashSet(0);
+	private List<Product> products = new ArrayList<Product>();
 
 	public Uom() {
 	}
@@ -49,7 +52,7 @@ public class Uom implements java.io.Serializable {
 
 	public Uom(String uomId, User userByUpdatedby, User userByCreatedby,
 			String name, String description, String isactive, String created,
-			String updated, Set products) {
+			String updated, List<Product> products) {
 		this.uomId = uomId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -137,11 +140,11 @@ public class Uom implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uom")
-	public Set getProducts() {
+	public List<Product> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(Set products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 

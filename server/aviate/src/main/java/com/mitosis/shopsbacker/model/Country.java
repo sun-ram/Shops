@@ -2,8 +2,11 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,8 +30,8 @@ public class Country implements java.io.Serializable {
 	private String currencyCode;
 	private String currencyName;
 	private char isactive;
-	private Set addresses = new HashSet(0);
-	private Set states = new HashSet(0);
+	private List<Address> addresses = new ArrayList<Address>();
+	private List<State> states = new ArrayList<State>();
 
 	public Country() {
 	}
@@ -42,7 +45,7 @@ public class Country implements java.io.Serializable {
 
 	public Country(String countryId, String name, String code,
 			String currencyCode, String currencyName, char isactive,
-			Set addresses, Set states) {
+			List<Address> addresses, List<State> states) {
 		this.countryId = countryId;
 		this.name = name;
 		this.code = code;
@@ -109,20 +112,20 @@ public class Country implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-	public Set getAddresses() {
+	public List<Address> getAddresses() {
 		return this.addresses;
 	}
 
-	public void setAddresses(Set addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-	public Set getStates() {
+	public List<State> getStates() {
 		return this.states;
 	}
 
-	public void setStates(Set states) {
+	public void setStates(List<State> states) {
 		this.states = states;
 	}
 

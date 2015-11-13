@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +35,7 @@ public class ProductOfferLine implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set myCarts = new HashSet(0);
+	private List<MyCart> myCarts = new ArrayList<MyCart>();
 
 	public ProductOfferLine() {
 	}
@@ -53,7 +56,7 @@ public class ProductOfferLine implements java.io.Serializable {
 	public ProductOfferLine(String productOfferLineId, User userByCreatedby,
 			User userByUpdatedby, Product product, ProductOffer productOffer,
 			double discountPercentage, char isactive, Date created,
-			Date updated, Set myCarts) {
+			Date updated, List<MyCart> myCarts) {
 		this.productOfferLineId = productOfferLineId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -155,11 +158,11 @@ public class ProductOfferLine implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productOfferLine")
-	public Set getMyCarts() {
+	public List<MyCart> getMyCarts() {
 		return this.myCarts;
 	}
 
-	public void setMyCarts(Set myCarts) {
+	public void setMyCarts(List<MyCart> myCarts) {
 		this.myCarts = myCarts;
 	}
 

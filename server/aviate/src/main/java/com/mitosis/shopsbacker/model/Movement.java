@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +38,7 @@ public class Movement implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set movementLines = new HashSet(0);
+	private List<MovementLine> movementLines = new ArrayList<MovementLine>();
 
 	public Movement() {
 	}
@@ -56,7 +59,7 @@ public class Movement implements java.io.Serializable {
 	public Movement(String movementId, User userByCreatedby,
 			User userByUpdatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, char ismoved, char isupdated,
-			char isactive, Date created, Date updated, Set movementLines) {
+			char isactive, Date created, Date updated, List<MovementLine> movementLines) {
 		this.movementId = movementId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -189,11 +192,11 @@ public class Movement implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movement")
-	public Set getMovementLines() {
+	public List<MovementLine> getMovementLines() {
 		return this.movementLines;
 	}
 
-	public void setMovementLines(Set movementLines) {
+	public void setMovementLines(List<MovementLine> movementLines) {
 		this.movementLines = movementLines;
 	}
 

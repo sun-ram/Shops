@@ -3,9 +3,12 @@ package com.mitosis.shopsbacker.model;
 // Generated Nov 12, 2015 6:16:19 PM 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,9 +56,9 @@ public class SalesOrder implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private String updatedby;
-	private Set orderTaxes = new HashSet(0);
+	private List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 	private SalesOrderLine salesOrderLine;
-	private Set favourites = new HashSet(0);
+	private List<Favourite> favourites = new ArrayList<Favourite>();
 
 	public SalesOrder() {
 	}
@@ -95,7 +98,7 @@ public class SalesOrder implements java.io.Serializable {
 			String customerSign, String merchantId, Date deliveryTime,
 			Character deliveryFlag, BigDecimal discountAmount, char isactive,
 			String createdby, Date created, Date updated, String updatedby,
-			Set orderTaxes, SalesOrderLine salesOrderLine, Set favourites) {
+			List<OrderTax> orderTaxes, SalesOrderLine salesOrderLine, List<Favourite> favourites) {
 		this.salesOrderId = salesOrderId;
 		this.userByBackerId = userByBackerId;
 		this.customer = customer;
@@ -393,11 +396,11 @@ public class SalesOrder implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")
-	public Set getOrderTaxes() {
+	public List<OrderTax> getOrderTaxes() {
 		return this.orderTaxes;
 	}
 
-	public void setOrderTaxes(Set orderTaxes) {
+	public void setOrderTaxes(List<OrderTax> orderTaxes) {
 		this.orderTaxes = orderTaxes;
 	}
 
@@ -411,11 +414,11 @@ public class SalesOrder implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")
-	public Set getFavourites() {
+	public List<Favourite> getFavourites() {
 		return this.favourites;
 	}
 
-	public void setFavourites(Set favourites) {
+	public void setFavourites(List<Favourite> favourites) {
 		this.favourites = favourites;
 	}
 

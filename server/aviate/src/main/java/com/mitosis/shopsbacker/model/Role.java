@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +35,7 @@ public class Role implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set users = new HashSet(0);
+	private List<User> users = new ArrayList<User>();
 
 	public Role() {
 	}
@@ -45,7 +48,7 @@ public class Role implements java.io.Serializable {
 
 	public Role(String roleId, User userByCreatedby, User userByUpdatedby,
 			String name, String description, char isactive, Date created,
-			Date updated, Set users) {
+			Date updated, List<User> users) {
 		this.roleId = roleId;
 		this.userByCreatedby = userByCreatedby;
 		this.userByUpdatedby = userByUpdatedby;
@@ -135,11 +138,11 @@ public class Role implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-	public Set getUsers() {
+	public List<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +37,7 @@ public class Tax implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private Set orderTaxes = new HashSet(0);
+	private List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 
 	public Tax() {
 	}
@@ -55,7 +58,7 @@ public class Tax implements java.io.Serializable {
 
 	public Tax(String taxId, User userByUpdatedby, User userByCreatedby,
 			Merchant merchant, String name, double taxPercentage,
-			char isactive, Date created, Date updated, Set orderTaxes) {
+			char isactive, Date created, Date updated, List<OrderTax> orderTaxes) {
 		this.taxId = taxId;
 		this.userByUpdatedby = userByUpdatedby;
 		this.userByCreatedby = userByCreatedby;
@@ -156,11 +159,11 @@ public class Tax implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tax")
-	public Set getOrderTaxes() {
+	public List<OrderTax> getOrderTaxes() {
 		return this.orderTaxes;
 	}
 
-	public void setOrderTaxes(Set orderTaxes) {
+	public void setOrderTaxes(List<OrderTax> orderTaxes) {
 		this.orderTaxes = orderTaxes;
 	}
 

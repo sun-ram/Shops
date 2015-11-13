@@ -2,9 +2,11 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,9 +42,9 @@ public class Address implements java.io.Serializable {
 	private String updatedby;
 	private Date created;
 	private Date updated;
-	private Set salesOrders = new HashSet(0);
-	private Set users = new HashSet(0);
-	private Set merchantRequests = new HashSet(0);
+	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
+	private List<User>  users =new ArrayList<User>();
+	private List<MerchantRequest>  merchantRequests = new ArrayList<MerchantRequest>();
 
 	public Address() {
 	}
@@ -65,8 +67,8 @@ public class Address implements java.io.Serializable {
 			Country country, String landmark, String address1, String address2,
 			String city, String pinCode, String phoneNo, String latitude,
 			String longitude, Character isactive, String createdby,
-			String updatedby, Date created, Date updated, Set salesOrders,
-			Set users, Set merchantRequests) {
+			String updatedby, Date created, Date updated, List<SalesOrder> salesOrders,
+			List<User> users, List<MerchantRequest> merchantRequests) {
 		this.addressId = addressId;
 		this.state = state;
 		this.customer = customer;
@@ -249,29 +251,29 @@ public class Address implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	public Set getSalesOrders() {
+	public List<SalesOrder> getSalesOrders() {
 		return this.salesOrders;
 	}
 
-	public void setSalesOrders(Set salesOrders) {
+	public void setSalesOrders(List<SalesOrder> salesOrders) {
 		this.salesOrders = salesOrders;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	public Set getUsers() {
+	public List<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	public Set getMerchantRequests() {
+	public List<MerchantRequest> getMerchantRequests() {
 		return this.merchantRequests;
 	}
 
-	public void setMerchantRequests(Set merchantRequests) {
+	public void setMerchantRequests(List<MerchantRequest> merchantRequests) {
 		this.merchantRequests = merchantRequests;
 	}
 
