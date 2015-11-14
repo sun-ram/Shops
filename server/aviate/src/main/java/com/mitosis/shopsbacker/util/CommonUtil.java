@@ -243,7 +243,7 @@ public final class CommonUtil {
 	 * @throws Exception 
 	 * 
 	 */
-	public boolean uploadImage(String imageString, String imageType,
+	public static boolean uploadImage(String imageString, String imageType,
 			String imagePath, String imageName) throws Exception {
 		boolean success = false;
 		try {
@@ -288,7 +288,7 @@ public final class CommonUtil {
 	 * @param full_address
 	 * @return JsonNode
 	 */
-	public JsonNode getLatLong(String full_address) {
+	public static JsonNode getLatLong(String full_address) {
 		JsonNode location = null;
 		try{
 		full_address=full_address.replaceAll(" ", "%20");

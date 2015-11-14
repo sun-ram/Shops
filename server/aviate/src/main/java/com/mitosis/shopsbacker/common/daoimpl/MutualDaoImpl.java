@@ -2,9 +2,11 @@ package com.mitosis.shopsbacker.common.daoimpl;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.dao.MutualDao;
 
+@Repository
 public class MutualDaoImpl implements MutualDao {
 
 	@Autowired

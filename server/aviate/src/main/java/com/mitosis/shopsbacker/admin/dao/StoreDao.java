@@ -2,15 +2,8 @@ package com.mitosis.shopsbacker.admin.dao;
 
 import java.util.List;
 
-import org.codehaus.jettison.json.JSONObject;
-
-import com.mitosis.aviate.model.StoreModel;
-import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.model.Tax;
-import com.mitosis.shopsbacker.model.User;
 
 /**
  * @author JAI BHARATHI

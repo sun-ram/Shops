@@ -11,7 +11,7 @@ import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.model.Merchant;
 
-@Service
+@Service("MerchantServiceImpl")
 public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable {
 
 	/**

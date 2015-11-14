@@ -34,8 +34,8 @@ public class MerchantRestServices<T> {
 	final static Logger log = Logger
 			.getLogger(MerchantRestServices.class.getName());
 
-	@Autowired
-	Jaxb2Marshaller jaxb2Marshaller;
+	/*@Autowired
+	Jaxb2Marshaller jaxb2Marshaller;*/
 
 	@Autowired
 	MerchantService<T> merchantService;
@@ -46,13 +46,13 @@ public class MerchantRestServices<T> {
 	@Autowired
 	UserService<T> userService;
 
-	public Jaxb2Marshaller getJaxb2Marshaller() {
+	/*public Jaxb2Marshaller getJaxb2Marshaller() {
 		return jaxb2Marshaller;
 	}
 
 	public void setJaxb2Marshaller(Jaxb2Marshaller jaxb2Marshaller) {
 		this.jaxb2Marshaller = jaxb2Marshaller;
-	}
+	}*/
 
 	public UserService<T> getUserService() {
 		return userService;
@@ -90,7 +90,6 @@ public class MerchantRestServices<T> {
 	}
 
 	ResponseModel response = new ResponseModel();
-	CommonUtil commonUtil = new CommonUtil();
 
 	@Path("/addmerchant")
 	@POST
@@ -131,7 +130,7 @@ public class MerchantRestServices<T> {
 					+ merchantVo.getUser().getAddress().getCountryId()
 					+ ","
 					+ merchantVo.getUser().getAddress().getPinCode();
-			JsonNode location = commonUtil.getLatLong(full_address);
+			JsonNode location = CommonUtil.getLatLong(full_address);
 			if (location == null) {
 				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
 				response.setErrorString(SBErrorMessage.INVALID_ADDRESS
@@ -154,7 +153,7 @@ public class MerchantRestServices<T> {
 			merchantImagePath = "merchant" + defaultImagePath;
 
 			String imageName = UUID.randomUUID().toString().replace("-", "");
-			if (commonUtil.uploadImage(merchantVo.getLogo().getImage(),
+			if (CommonUtil.uploadImage(merchantVo.getLogo().getImage(),
 					merchantVo.getLogo().getType(), merchantImagePath,
 					imageName)) {
 				merchantVo.getLogo().setName(imageName);
@@ -173,8 +172,8 @@ public class MerchantRestServices<T> {
 		return response;
 	}
 
-	public Merchant setMerchant(MerchantVo merchantVo) {
-		Merchant merchant = new Merchant();
+	public Merchant setMerchant(MerchantVo merchantVo) throws Exception {
+		Merchant merchant = (Merchant) CommonUtil.setAuditColumnInfo(Merchant.class.getName());
 		merchant.setName(merchantVo.getName());
 
 		Image image = setImage(merchantVo);

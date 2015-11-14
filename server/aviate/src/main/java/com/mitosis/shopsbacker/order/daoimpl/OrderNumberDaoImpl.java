@@ -4,10 +4,9 @@ import java.io.Serializable;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
-import com.mitosis.shopsbacker.model.Customer;
-import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.OrderNumber;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.dao.OrderNumberDao;
@@ -17,6 +16,7 @@ import com.mitosis.shopsbacker.order.dao.OrderNumberDao;
  *
  * @param <T>
  */
+@Repository
 public class OrderNumberDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements OrderNumberDao<T>, Serializable {
 

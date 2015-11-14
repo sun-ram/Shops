@@ -6,12 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author prabakaran
  *
  * @param <T>
  */
+@Repository
 public class CustomHibernateDaoSupport<T> {
 
 	@Autowired

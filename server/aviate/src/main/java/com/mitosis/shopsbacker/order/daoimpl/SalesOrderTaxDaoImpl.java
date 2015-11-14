@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.OrderTax;
@@ -15,6 +16,7 @@ import com.mitosis.shopsbacker.order.dao.SalesOrderTaxDao;
  *
  * @param <T>
  */
+@Repository
 public class SalesOrderTaxDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements SalesOrderTaxDao<T>, Serializable {
 
