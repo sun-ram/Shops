@@ -89,4 +89,23 @@ public class ProductCategoryServiceImpl<T> implements
 		return productCategoryDao.getProductCategoryList(merchant);
 	}
 
+	@Override
+	@Transactional
+	public void addCategory(ProductCategory productCategory) {
+		productCategoryDao.addCategory(productCategory);
+		
+	}
+
+	@Override
+	public void updateCategory(ProductCategory productCategory) {
+		productCategoryDao.updateCategory(productCategory);
+		
+	}
+
+	@Override
+	public void deleteCategory(ProductCategory productCategory) {
+		productCategoryDao.deleteCategory(productCategory);
+		
+	}
+
 }

@@ -16,5 +16,11 @@ public interface ProductCategoryDao<T> {
 	public ProductCategory getCategoryById(String productCategoryId);
 
 	public List<ProductCategory> getProductCategoryList(Merchant merchant);
+	
+	public void addCategory(ProductCategory productCategory);
+	
+	public void updateCategory(ProductCategory productCategory);
+	
+	public void deleteCategory(ProductCategory productCategory);
 
 }

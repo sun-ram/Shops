@@ -25,5 +25,11 @@ public interface ProductCategoryService<T> {
 
 	public void setParentCategories(List<ProductCategory> productCategoryList,
 			List<ProductCategory> productCategories);
+	
+	public void addCategory(ProductCategory productCategory);
+	
+	public void updateCategory(ProductCategory productCategory);
+	
+	public void deleteCategory(ProductCategory productCategory);
 
 }

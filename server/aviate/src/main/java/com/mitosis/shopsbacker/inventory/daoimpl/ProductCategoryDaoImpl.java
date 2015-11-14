@@ -63,4 +63,37 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
+	@Override
+	public void addCategory(ProductCategory productCategory) {
+		try {
+			save((T) productCategory);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+		
+	}
+
+	@Override
+	public void updateCategory(ProductCategory productCategory) {
+		try {
+			update((T) productCategory);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+		
+	}
+
+	@Override
+	public void deleteCategory(ProductCategory productCategory) {
+		try {
+			delete((T) productCategory);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+		
+	}
+
 }
