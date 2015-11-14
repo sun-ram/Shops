@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.serviceimpl;
+package com.mitosis.shopsbacker.common.serviceimpl;
 
 import java.io.Serializable;
 
@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /*import org.springframework.transaction.annotation.Transactional;*/
 
-import com.mitosis.shopsbacker.admin.service.CommonService;
-import com.mitosis.shopsbacker.admin.service.GeneralService;
-import com.mitosis.shopsbacker.admin.service.MutualService;
 import com.mitosis.shopsbacker.common.dao.GeneralDao;
 /*import com.mitosis.shopsbacker.model.BankBranch;
  import com.mitosis.shopsbacker.model.BankMaster;
@@ -30,6 +27,9 @@ import com.mitosis.shopsbacker.common.dao.GeneralDao;
  import com.mitosis.shopsbacker.model.RulePageMaster;
  import com.mitosis.shopsbacker.model.StateMaster;
  import com.mitosis.shopsbacker.model.StateMasterDesc;*/
+import com.mitosis.shopsbacker.common.service.CommonService;
+import com.mitosis.shopsbacker.common.service.GeneralService;
+import com.mitosis.shopsbacker.common.service.MutualService;
 
 @SuppressWarnings("serial")
 @Service("generalServiceImpl")

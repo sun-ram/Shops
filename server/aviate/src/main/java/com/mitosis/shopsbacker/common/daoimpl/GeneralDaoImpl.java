@@ -1,23 +1,13 @@
 package com.mitosis.shopsbacker.common.daoimpl;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
 
-import com.mitosis.shopsbacker.dao.GeneralDao;
+import com.mitosis.shopsbacker.common.dao.GeneralDao;
+
 /*
 import com.mitosis.shopsbacker.model.CountryMaster;
 import com.mitosis.shopsbacker.model.CountryMasterDesc;
@@ -25,7 +15,7 @@ import com.mitosis.shopsbacker.model.StateMaster;
 import com.mitosis.shopsbacker.model.StateMasterDesc;*/
 
 @Repository
-public class GeneralDaoImpl<T>  extends CustomHibernateDaoSupport implements GeneralDao<T>,Serializable {
+public class GeneralDaoImpl<T>  extends CustomHibernateDaoSupport<T> implements GeneralDao<T>,Serializable {
  
 	/**
 	 * 
@@ -68,6 +58,7 @@ public class GeneralDaoImpl<T>  extends CustomHibernateDaoSupport implements Gen
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<T> load(DetachedCriteria criteria){
 		
 		

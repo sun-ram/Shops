@@ -1,8 +1,7 @@
-package com.mitosis.shopsbacker.admin.serviceimpl;
+package com.mitosis.shopsbacker.common.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mitosis.shopsbacker.admin.service.MutualService;
 import com.mitosis.shopsbacker.common.dao.MutualDao;
 /*import com.mitosis.shopsbacker.model.CityMaster;
 import com.mitosis.shopsbacker.model.CompanyMaster;
@@ -10,6 +9,7 @@ import com.mitosis.shopsbacker.model.CountryMaster;
 import com.mitosis.shopsbacker.model.DistrictMaster;
 import com.mitosis.shopsbacker.model.NationalityMaster;
 import com.mitosis.shopsbacker.model.StateMaster;*/
+import com.mitosis.shopsbacker.common.service.MutualService;
 
 public class MutualServiceImpl<T> implements MutualService<T> {
 	@Autowired

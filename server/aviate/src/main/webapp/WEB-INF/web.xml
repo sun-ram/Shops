@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>Aviate1</display-name>
+	<display-name>ShopsBacker</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
@@ -17,9 +17,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<listener>
+	
+	<!-- <listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
+	</listener> -->
 	
 	
 	<servlet>
@@ -27,11 +28,11 @@
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
-			<param-value>com.mitosis.aviate.servlet.ResponseCorsFilter</param-value>
+			<param-value>com.mitosis.shopsbacker.common.CORSServletFilter</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.mitosis.aviate.webservice</param-value>
+			<param-value>com.mitosis.shopsbacker.webservice</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -47,9 +48,10 @@
 		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/json/*</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>image-servlet</servlet-name>
-		<servlet-class>com.mitosis.aviate.servlet.ImageReader</servlet-class>
+		<servlet-class>com.mitosis.shopsbacker.common.ImageReader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

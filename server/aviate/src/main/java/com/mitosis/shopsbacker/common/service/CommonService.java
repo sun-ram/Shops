@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.service;
+package com.mitosis.shopsbacker.common.service;
 
 public interface CommonService <T> {
 

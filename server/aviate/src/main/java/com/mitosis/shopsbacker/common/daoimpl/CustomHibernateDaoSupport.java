@@ -7,6 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author prabakaran
+ *
+ * @param <T>
+ */
 public class CustomHibernateDaoSupport<T> {
 
 	@Autowired
@@ -32,6 +37,15 @@ public class CustomHibernateDaoSupport<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(DetachedCriteria criteria) {
 		return criteria.getExecutableCriteria(getSession()).list();
+	}
+	
+	/**
+	 * This method will return unique Result.
+	 * @param criteria
+	 * @return Object
+	 */
+	public Object findUnique(DetachedCriteria criteria) {
+		return criteria.getExecutableCriteria(getSession()).uniqueResult();
 	}
 
 	public List<T> findByName(String name) {

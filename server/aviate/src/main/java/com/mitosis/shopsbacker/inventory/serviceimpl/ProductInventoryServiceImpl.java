@@ -14,7 +14,7 @@ import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.Store;
 
-@Service
+@Service("productInventoryServiceImpl") 
 public class ProductInventoryServiceImpl<T> implements
 		ProductInventoryService<T>, Serializable {
 

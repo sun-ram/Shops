@@ -1,10 +1,34 @@
 package com.mitosis.shopsbacker.util;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
+import javax.imageio.ImageIO;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.codehaus.jettison.json.JSONObject;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 public final class CommonUtil {
 
 	/**
@@ -72,4 +96,213 @@ public final class CommonUtil {
 		method.invoke(obj, new Date());
 		return obj;
 	}
+	
+
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function to find near by based on latitude and longitude : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+	public static double distance(double lat1, double lon1, double lat2,
+			double lon2) {
+		double theta = lon1 - lon2;
+		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
+				+ Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
+				* Math.cos(deg2rad(theta));
+		dist = Math.acos(dist);
+		dist = rad2deg(dist);
+		dist = dist * 60 * 1.1515;
+		dist = dist * 1.609344;
+
+		return (dist);
+	}
+
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function converts decimal degrees to radians : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	private static double deg2rad(double deg) {
+		return (deg * Math.PI / 180.0);
+	}
+
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	/* :: This function converts radians to decimal degrees : */
+	/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+	private static double rad2deg(double rad) {
+		return (rad * 180.0 / Math.PI);
+	}
+
+	public static JSONObject statusMessage(boolean flag) {
+		JSONObject response = new JSONObject();
+		try {
+			if (flag) {
+				response.put("status", SBMessageStatus.SUCCESS.getValue());
+			} else {
+				response.put("status", SBMessageStatus.FAILURE.getValue());
+				response.put("errorString", "");
+				response.put("errorCode", "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+
+	public static JSONObject addStatusMessage(Exception e) {
+		JSONObject response = new JSONObject();
+		try {
+			response.put("status", SBMessageStatus.FAILURE.getValue());
+			response.put("errorString", e.getMessage());
+			response.put("errorCode", "");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		return response;
+	}
+
+	public static JSONObject addStatusMessage(String e) {
+		JSONObject response = new JSONObject();
+		try {
+			response.put("status", SBMessageStatus.FAILURE.getValue());
+			response.put("errorString", e);
+			response.put("errorCode", "");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		return response;
+	}
+
+	/**
+	 * adding error messages to ResponseModel
+	 * 
+	 * @author Anbukkani G
+	 * @param e
+	 * @param response
+	 * @return ResponseModel
+	 */
+	public static ResponseModel addStatusMessage(Exception e,
+			ResponseModel response) {
+		response.setStatus(SBMessageStatus.FAILURE.getValue());
+		response.setErrorString(e.getMessage());
+		response.setErrorCode("");
+		return response;
+	}
+
+	public static boolean sendMail(String to, String subject, String body) {
+		boolean flag = false;
+		String from = "prabakaran.a@mitosistech.com";
+		String pass = "praba123";
+		String host = "smtp.gmail.com";
+		Properties props = System.getProperties();
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.user", from);
+		props.put("mail.smtp.password", pass);
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", "true");
+		Session session = Session.getDefaultInstance(props);
+		MimeMessage message = new MimeMessage(session);
+		try {
+			message.setFrom(new InternetAddress(from));
+			InternetAddress toAddress = new InternetAddress();
+			toAddress = new InternetAddress(to);
+			message.addRecipient(Message.RecipientType.TO, toAddress);
+			message.setSubject(subject);
+			message.setContent(message, "text/html");
+			message.setText(body);
+			Transport transport = session.getTransport("smtp");
+			transport.connect(host, from, pass);
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+			flag = true;
+		} catch (AddressException ae) {
+			ae.printStackTrace();
+		} catch (MessagingException me) {
+			me.printStackTrace();
+		}
+		return flag;
+	}
+
+	public String dateToString(String date) {
+		String dateString = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+			dateString = sdf.format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dateString;
+	}
+
+	/**
+	 * public boolean uploadImagr(String imageString, String imageType,
+			String imagePath, String imageName) returns true if the ImageIO.write is success. 
+			
+	 * @author prabakaran
+	 * @param String imageString, String imageType,
+			String imagePath, String imageName
+	 * @return boolean
+	 * @throws Exception 
+	 * 
+	 */
+	public boolean uploadImage(String imageString, String imageType,
+			String imagePath, String imageName) throws Exception {
+		boolean success = false;
+		try {
+			byte[] byeImage = Base64.decodeBase64(imageString.getBytes());
+			InputStream in = new ByteArrayInputStream(byeImage);
+			BufferedImage bufferedImage = ImageIO.read(in);
+			imageName = imageName + "." + imageType;
+			File file = new File(imagePath);
+			if (!file.exists()) {
+				file.mkdir();
+			}
+			File imageFile = new File(imagePath + "/" + imageName);
+			FileUtils.forceMkdir(imageFile);
+			success = ImageIO.write(bufferedImage, imageType, imageFile);
+			in.close();
+		} catch (Exception e) {
+			throw e;
+		}
+		return success;
+	}
+
+	/**
+	 * 
+	 * @author prabakaran
+	 * @param imagePath
+	 * @return boolean
+	 * 
+	 */
+	public boolean removeImage(String imagePath) {
+		boolean success = false;
+		try {
+			File file = new File(imagePath);
+			success = file.delete();
+		} catch (Exception e) {
+			throw e;
+		}
+		return success;
+	}
+	
+	/**
+	 * public JsonNode getLatLong(String full_address) returns JsonNode it contains lat and long.
+	 * @param full_address
+	 * @return JsonNode
+	 */
+	public JsonNode getLatLong(String full_address) {
+		JsonNode location = null;
+		try{
+		full_address=full_address.replaceAll(" ", "%20");
+		full_address=full_address.replaceAll("#", "");
+		Client client=Client.create();
+		WebResource resource = client.resource("http://maps.google.com/maps/api/geocode/json?address="+full_address+"&sensor=false");
+		JSONObject res =new JSONObject(resource.accept(MediaType.APPLICATION_JSON).get(String.class));
+		JsonNode rootNode = new ObjectMapper().readTree(res.toString());
+		location = rootNode.findValue("location");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return location;
+	}
+
 }

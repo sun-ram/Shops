@@ -1,9 +1,9 @@
 package com.mitosis.shopsbacker.common.daoimpl;
 
-import org.eclipse.persistence.sessions.factories.SessionFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mitosis.shopsbacker.dao.MutualDao;
+import com.mitosis.shopsbacker.common.dao.MutualDao;
 
 public class MutualDaoImpl implements MutualDao {
 

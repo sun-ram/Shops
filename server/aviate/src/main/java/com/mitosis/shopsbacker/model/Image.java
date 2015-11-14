@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,6 +38,7 @@ public class Image implements java.io.Serializable {
 	private String updatedby;
 	private Date created;
 	private Date updated;
+	private Merchant merchant;
 	private List<ProductImage> productImages = new ArrayList<ProductImage>();
 	private List<Banner> banners = new ArrayList<Banner>();
 	private List<User> users = new ArrayList<User>();
@@ -58,7 +61,7 @@ public class Image implements java.io.Serializable {
 	public Image(String imageId, String name, String type, String url,
 			char isactive, String createdby, String updatedby, Date created,
 			Date updated, List<ProductImage> productImages, List<Banner> banners, List<User> users,
-			List<Product> products) {
+			List<Product> products, Merchant merchant) {
 		this.imageId = imageId;
 		this.name = name;
 		this.type = type;
@@ -72,6 +75,7 @@ public class Image implements java.io.Serializable {
 		this.banners = banners;
 		this.users = users;
 		this.products = products;
+		this.merchant = merchant;
 	}
 
 	@Id
@@ -194,6 +198,16 @@ public class Image implements java.io.Serializable {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 
 }

@@ -66,6 +66,13 @@ public class ProductInventory implements java.io.Serializable {
 		return this.productInventoryId;
 	}
 
+	/**
+	 * @param updatedby the updatedby to set
+	 */
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
+	}
+
 	public void setProductInventoryId(String productInventoryId) {
 		this.productInventoryId = productInventoryId;
 	}

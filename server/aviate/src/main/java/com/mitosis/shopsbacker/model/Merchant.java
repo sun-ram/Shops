@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -34,8 +37,8 @@ public class Merchant implements java.io.Serializable {
 	private String updatedby;
 	private String createdby;
 	private String name;
-	private String userId;
-	private String logo;
+	private User user;
+	private Image logo;
 	private char isactive;
 	private Date created;
 	private Date updated;
@@ -77,7 +80,7 @@ public class Merchant implements java.io.Serializable {
 	}
 
 	public Merchant(String merchantId, String updatedby,
-			String createdby, String name, String userId, String logo,
+			String createdby, String name, User user, Image logo,
 			char isactive, Date created, Date updated, List<ProductCategory> productCategories,
 			List<Favourite> favourites, List<ProductType> productTypes, List<Banner> banners, List<Discount> discounts,
 			List<Store> stores, List<Tax> taxes, List<Warehouse> warehouses, List<ShippingCharges> shippingChargeses,
@@ -89,7 +92,7 @@ public class Merchant implements java.io.Serializable {
 		this.updatedby = updatedby;
 		this.createdby = createdby;
 		this.name = name;
-		this.userId = userId;
+		this.user = user;
 		this.logo = logo;
 		this.isactive = isactive;
 		this.created = created;
@@ -153,22 +156,20 @@ public class Merchant implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Column(name = "USER_ID", length = 32)
-	public String getUserId() {
-		return this.userId;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "merchantForUser")
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
-	@Column(name = "LOGO", length = 32)
-	public String getLogo() {
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "merchant")
+	public Image getLogo() {
 		return this.logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(Image logo) {
 		this.logo = logo;
 	}
 

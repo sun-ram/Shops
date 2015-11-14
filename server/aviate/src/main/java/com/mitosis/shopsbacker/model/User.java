@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,6 +51,7 @@ public class User implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
+	private Merchant merchantForUser;
 	private List<SalesOrder> salesOrdersForBackerId = new ArrayList<SalesOrder>();
 	private List<Store> storesForUserId = new ArrayList<Store>();
 	private List<SalesOrder> salesOrdersForShopperId = new ArrayList<SalesOrder>();
@@ -77,7 +80,7 @@ public class User implements java.io.Serializable {
 			String deveiceid, String userName, Integer phoneNo, char isactive,
 			Date created, Date updated, 
   List<SalesOrder> salesOrdersForBackerId,List<Store> storesForUserId,  
-			List<SalesOrder> salesOrdersForShopperId) {
+			List<SalesOrder> salesOrdersForShopperId, Merchant merchantForUser) {
 		this.userId = userId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -98,6 +101,7 @@ public class User implements java.io.Serializable {
 		this.salesOrdersForBackerId = salesOrdersForBackerId;
 		this.storesForUserId = storesForUserId;
 		this.salesOrdersForShopperId = salesOrdersForShopperId;
+		this.merchantForUser = merchantForUser;
 	}
 
 	@Id
@@ -286,5 +290,15 @@ public class User implements java.io.Serializable {
 
 	public void setSalesOrdersForShopperId(List<SalesOrder> salesOrdersForShopperId) {
 		this.salesOrdersForShopperId = salesOrdersForShopperId;
+	}
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public Merchant getMerchantForUser() {
+		return merchantForUser;
+	}
+
+	public void setMerchantForUser(Merchant merchantForUser) {
+		this.merchantForUser = merchantForUser;
 	}
 }

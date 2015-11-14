@@ -8,14 +8,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc
 	    http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans
-	    http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd
 		http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
         http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
         http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.2.xsd">
 
+	<context:component-scan base-package="com.mitosis.shopsbacker" />
 	<context:annotation-config />
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -67,7 +68,7 @@
 				<value>com.mitosis.shopsbacker.model.MerchantRequest</value>
 				<value>com.mitosis.shopsbacker.model.MissingProduct</value>
 				<value>com.mitosis.shopsbacker.model.Movement</value>
-				<value>com.mitosis.shopsbacker.model.Movementline</value>
+				<value>com.mitosis.shopsbacker.model.MovementLine</value>
 				<value>com.mitosis.shopsbacker.model.MyCart</value>
 				<value>com.mitosis.shopsbacker.model.OrderNumber</value>
 				<value>com.mitosis.shopsbacker.model.OrderTax</value>
@@ -76,11 +77,11 @@
 				<value>com.mitosis.shopsbacker.model.ProductImage</value>
 				<value>com.mitosis.shopsbacker.model.ProductInventory</value>
 				<value>com.mitosis.shopsbacker.model.ProductOffer</value>
-				<value>com.mitosis.shopsbacker.model.ProductOfferline</value>
+				<value>com.mitosis.shopsbacker.model.ProductOfferLine</value>
 				<value>com.mitosis.shopsbacker.model.ProductType</value>
 				<value>com.mitosis.shopsbacker.model.Role</value>
 				<value>com.mitosis.shopsbacker.model.SalesOrder</value>
-				<value>com.mitosis.shopsbacker.model.SalesOrderline</value>
+				<value>com.mitosis.shopsbacker.model.SalesOrderLine</value>
 				<value>com.mitosis.shopsbacker.model.ShippingCharges</value>
 				<value>com.mitosis.shopsbacker.model.State</value>
 				<value>com.mitosis.shopsbacker.model.Storagebin</value>
@@ -99,18 +100,18 @@
     </bean>
     
     
-    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+   <!--  <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
 			<list>
 				<value></value>
-				<!-- <value>com.matson.ml.cv.vo.CountryVo</value>
+				<value>com.matson.ml.cv.vo.CountryVo</value>
 				<value>com.matson.ml.cv.vo.StateVo</value>			
-				<value>com.matson.ml.cv.cas.user.profile.MatsonPortalUser</value> -->
+				<value>com.matson.ml.cv.cas.user.profile.MatsonPortalUser</value>
 				
 			</list>
 
 		</property>
-	</bean>
+	</bean> -->
   
     <tx:annotation-driven/>
 	

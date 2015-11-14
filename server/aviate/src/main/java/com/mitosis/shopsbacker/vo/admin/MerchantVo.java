@@ -4,8 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.mitosis.shopsbacker.vo.customer.ImageVo;
-import com.mitosis.shopsbacker.vo.customer.UserVo;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
