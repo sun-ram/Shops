@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.admin.serviceimpl;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mitosis.shopsbacker.admin.dao.TaxDao;
 import com.mitosis.shopsbacker.admin.service.TaxService;
@@ -11,6 +12,7 @@ import com.mitosis.shopsbacker.model.Tax;
 /**
  * @author RiyazKhan.M
  */
+@Service("taxServiceImpl")
 public class TaxServiceImpl<T> implements TaxService<T>,
 Serializable {
 

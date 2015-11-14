@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.admin.dao.TaxDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -14,6 +15,7 @@ import com.mitosis.shopsbacker.model.Tax;
 /**
  * @author RiyazKhan.M
  */
+@Repository
 public class TaxDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 TaxDao<T>, Serializable{
 
