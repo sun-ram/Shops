@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.serviceimpl;
+package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.admin.dao.MovementDao;
-import com.mitosis.shopsbacker.admin.service.MovementService;
+import com.mitosis.shopsbacker.inventory.dao.MovementDao;
+import com.mitosis.shopsbacker.inventory.service.MovementService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
-
+/**
+ * @author RiyazKhan.M
+ */
 @Service("movementServiceImpl")
 public class MovementServiceImpl<T> implements MovementService<T>, Serializable {
 

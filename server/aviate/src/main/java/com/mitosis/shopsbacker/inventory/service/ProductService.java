@@ -1,11 +1,13 @@
-package com.mitosis.shopsbacker.admin.service;
+package com.mitosis.shopsbacker.inventory.service;
 
 import java.util.List;
 
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
-
+/**
+ * @author RiyazKhan.M
+ */
 public interface ProductService<T> {
 	
 	public List<Product> getProductListByType(ProductType productType);

@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.daoimpl;
+package com.mitosis.shopsbacker.inventory.daoimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,20 +7,19 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.mitosis.shopsbacker.admin.dao.ProductDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.inventory.dao.ProductDao;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
-
+/**
+ * @author RiyazKhan.M
+ */
 @Repository
 public class ProductDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 ProductDao<T>, Serializable{
- 
-	/**
-	 * 
-	 */
+  
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -28,9 +27,9 @@ ProductDao<T>, Serializable{
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("productType", productType));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
@@ -39,11 +38,9 @@ ProductDao<T>, Serializable{
 	@Override
 	public Product getProduct(String productId) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
-			criteria.add(Restrictions.eq("productType", productId));
-			return (Product) findAll(criteria);
+			
+			return (Product) getSession().get(Product.class, productId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
@@ -54,9 +51,9 @@ ProductDao<T>, Serializable{
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("productCategory", productCategory));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
@@ -67,7 +64,6 @@ ProductDao<T>, Serializable{
 		try {
 			delete((T) product);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
@@ -79,7 +75,6 @@ ProductDao<T>, Serializable{
 		try {
 			save((T) product);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
@@ -91,7 +86,6 @@ ProductDao<T>, Serializable{
 		try {
 			update((T) product);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}

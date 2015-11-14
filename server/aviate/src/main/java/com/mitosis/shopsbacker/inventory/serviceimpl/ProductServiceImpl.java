@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.serviceimpl;
+package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,18 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.admin.dao.ProductDao;
-import com.mitosis.shopsbacker.admin.service.ProductService;
+import com.mitosis.shopsbacker.inventory.dao.ProductDao;
+import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
-
+/**
+ * @author RiyazKhan.M
+ */
 @Service("productServiceImpl")
 public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
