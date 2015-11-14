@@ -14,19 +14,17 @@ import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
 
+/**
+ * @author fayaz
+ */
 @Service("salesOrderServiceImpl")
-public class SalesOrderServiceImpl<T> implements SalesOrderService<T>, Serializable {
+public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
+		Serializable {
 
-	/**
-	 * 
-	 */
-	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Autowired
 	SalesOrderDao<T> salesOrderDao;
-	
-	
 
 	public SalesOrderDao<T> getSalesOrderDao() {
 		return salesOrderDao;
@@ -39,13 +37,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>, Serializa
 	@Override
 	@Transactional
 	public List<SalesOrder> getSalesOrders(Store store) {
-		return salesOrderDao.getSalesOrders(store);
-	}
-
-	@Override
-	@Transactional
-	public List<SalesOrder> getOrderList(String salesOrderId, Store store) {
-		return salesOrderDao.getOrderList(salesOrderId, store);
+		return salesOrderDao.getSalesOrders(store, true);
 	}
 
 	@Override
@@ -77,23 +69,22 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>, Serializa
 	@Transactional
 	public void updateSalesOrder(SalesOrder salesOrder) {
 		salesOrderDao.updateSalesOrder(salesOrder);
-		
+
 	}
 
 	@Override
 	@Transactional
 	public void conformPayment(String salesOrderId, String transactionNo,
 			String paymentMethod) {
-		SalesOrder salesOrder=new SalesOrder();
-		salesOrder=salesOrderDao.salesOrderById(salesOrderId);
-		if(salesOrder!=null){
+		SalesOrder salesOrder = salesOrderDao.salesOrderById(salesOrderId);
+		if (salesOrder != null) {
 			salesOrder.setIspaid('Y');
 			salesOrder.setStatus(OrderStatus.Initialized.toString());
 			salesOrder.setPaymentMethod(paymentMethod);
 			salesOrder.setTransactionNo(transactionNo);
 			salesOrderDao.updateSalesOrder(salesOrder);
 		}
-		
+
 	}
 
 }

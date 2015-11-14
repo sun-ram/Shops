@@ -14,92 +14,86 @@ import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
 
+/**
+ * @author fayaz
+ */
 @Repository
-public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
-SalesOrderDao<T>, Serializable{
+public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
+		implements SalesOrderDao<T>, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-	CommonUtil util=new CommonUtil();
 
 	@Override
-	public List<SalesOrder> getSalesOrders(Store store) {
+	public List<SalesOrder> getSalesOrders(Store store, boolean isPaid) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("store", store));
-			criteria.add(Restrictions.eq("ispaid", "Y"));
+			criteria.add(Restrictions.eq("ispaid", isPaid ? 'Y' : "N"));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(e);
-		}
-	}
-	
-	@Override
-	public List<SalesOrder> getOrderList(String salesOrderId, Store store) {
-		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
-			criteria.add(Restrictions.eq("store", store));
-			criteria.add(Restrictions.eq("salesOrderId", salesOrderId));
-			return (List<SalesOrder>) findAll(criteria);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
 
 	@Override
 	public List<SalesOrder> getOrderList(Store store) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("store", store));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
 
 	@Override
 	public List<SalesOrder> getOrderList(Store store, OrderStatus status) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("store", store));
-			criteria.add(Restrictions.eq("status", status));
+			criteria.add(Restrictions.eq("status", status.toString()));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
-	
 
 	@Override
-	public List<SalesOrder> salesOrderDetailList(String fromDate,String toDate,Store store) {
+	public List<SalesOrder> salesOrderDetailList(String fromDate,
+			String toDate, Store store) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("store", store));
-			criteria.add(Restrictions.ge("created", util.stringToDate(fromDate)));
-			criteria.add(Restrictions.le("created", util.stringToDate(toDate)));
+			criteria.add(Restrictions.ge("created",
+					CommonUtil.stringToDate(fromDate)));
+			criteria.add(Restrictions.le("created",
+					CommonUtil.stringToDate(toDate)));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
 
 	@Override
 	public SalesOrder salesOrderById(String salesOrderId) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
-			criteria.add(Restrictions.eq("salesOrderId", salesOrderId));
-			return ((List<SalesOrder>) findAll(criteria)).get(0);
+			return (SalesOrder) getSession()
+					.get(SalesOrder.class, salesOrderId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
 
@@ -109,12 +103,8 @@ SalesOrderDao<T>, Serializable{
 			update((T) salesOrder);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
-		
+
 	}
-
-
-
-
 }
