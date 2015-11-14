@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.serviceimpl;
+package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,19 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.WarehouseDao;
-import com.mitosis.shopsbacker.admin.service.WarehouseService;
+import com.mitosis.shopsbacker.inventory.service.WarehouseService;
 import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
 
-@Service
-public class WarehouseServiceImpl<T> implements WarehouseService<T>, Serializable {
-	
+/**
+ * @author JAI BHARATHI
+ * 
+ */
+@Service("WarehouseServiceImpl")
+public class WarehouseServiceImpl<T> implements WarehouseService<T>,
+		Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	WarehouseDao<T> warehouseDao;
-	
+
 	public WarehouseDao<T> getWarehouseDao() {
 		return warehouseDao;
 	}
@@ -32,20 +37,20 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>, Serializabl
 	@Override
 	@Transactional
 	public void addWarehouse(Warehouse warehouse) {
-		
+
 		warehouseDao.addWarehouse(warehouse);
 	}
 
 	@Override
 	@Transactional
 	public void deleteWarehouse(String warehouseId) {
-		warehouseDao.deleteWarehouse(warehouseId);		
+		warehouseDao.deleteWarehouse(warehouseId);
 	}
 
 	@Override
 	@Transactional
-	public Warehouse getSingleWarehouse(String warehouseId) {
-		return warehouseDao.getSingleWarehouse(warehouseId);
+	public Warehouse getWarehouse(String warehouseId) {
+		return warehouseDao.getWarehouse(warehouseId);
 	}
 
 	@Override
@@ -56,17 +61,9 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>, Serializabl
 
 	@Override
 	@Transactional
-	public List<Storagebin> listOfStorageBins(Warehouse warehouse) {
-		warehouseDao.listOfStorageBins(warehouse);
+	public List<Warehouse> getWarehouse(String warehouseName, Store store) {
+		warehouseDao.getWarehouse(warehouseName, store);
 		return null;
 	}
-
-	@Override
-	@Transactional
-	public List<Warehouse> checkUniqueName(String warehouseName, Store store) {
-		warehouseDao.checkUniqueName(warehouseName, store);
-		return null;
-	}
-	
 
 }

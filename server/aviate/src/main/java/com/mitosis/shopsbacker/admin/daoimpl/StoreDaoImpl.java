@@ -3,25 +3,41 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
-import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.model.Tax;
+import com.mitosis.shopsbacker.model.User;
 
-@SuppressWarnings("serial")
+/**
+ * @author JAI BHARATHI
+ * 
+ */
+@Repository
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
-StoreDao<T>, Serializable{
+		StoreDao<T>, Serializable {
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void addUpdateStoreDetails(Store store) {
+	public void saveStore(Store store) {
+		try {
+			save((T) store);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateStore(Store store) {
 		try {
 			update((T) store);
 		} catch (Exception e) {
@@ -29,73 +45,86 @@ StoreDao<T>, Serializable{
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void removeStore(Store store) {
-		delete((T) store);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void updateOrderStatus(SalesOrder salesOrder) {
 		try {
-			update((T) salesOrder);
+			delete((T) store);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void removeEmployee(Customer customer) {
-		delete((T) customer);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Store getStoreDetailsById(String id) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
-		criteria.add(Restrictions.eq("storeId", id));
-		return ((List<Store>) findAll(criteria)).get(0);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<SalesOrder> getUserDetails(JSONObject requestObj) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
+	public Store getStoreById(String id) {
 		try {
-			criteria.add(Restrictions.eq("storeId", requestObj.getString("storeId")));
-			criteria.add(Restrictions.eq("isPaid","Paid"));
-		} catch (JSONException e) {
+			return (Store) getSession().get(Store.class, id);
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
-		return (List<SalesOrder>) findAll(criteria);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Store> getStoreByMerchant(Merchant merchant) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
-		criteria.add(Restrictions.eq("merchant", merchant));
-		return ((List<Store>) findAll(criteria));
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
+			criteria.add(Restrictions.eq("merchant", merchant));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Store>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override
-	public Store getStoreLogoByImageName(String imageName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public List<Customer> getEmployeeList(String storeId, List<String> roles) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Store> getShopList(String city) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
+					"store");
+			criteria.createAlias("store.users", "user");
+			criteria.createAlias("user.address", "address");
+			criteria.add(Restrictions.like("address.city", "%" + city + "%"));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Store>) findAll(criteria));
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override
-	public List<SalesOrder> getOrderList(JSONObject requestObj) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Store> getShopList(String city, String address) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
+					"store");
+			criteria.createAlias("store.users", "user");
+			criteria.createAlias("user.address", "address");
+			criteria.add(Restrictions.like("address.city", "%" + city + "%"));
+			criteria.add(Restrictions.like("address.address1", "%" + address
+					+ "%"));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Store>) findAll(criteria));
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public List<String> getShopCityList() {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(Address.class);
+			ProjectionList proList = Projections.projectionList();
+			proList.add(Projections.property("city"));
+			criteria.setProjection(proList);
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<String>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

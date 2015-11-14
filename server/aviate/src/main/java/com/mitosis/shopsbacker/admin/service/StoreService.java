@@ -1,10 +1,9 @@
-package com.mitosis.shopsbacker.admin.dao;
+package com.mitosis.shopsbacker.admin.service;
 
 import java.util.List;
 
 import org.codehaus.jettison.json.JSONObject;
 
-import com.mitosis.aviate.model.StoreModel;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
@@ -16,8 +15,7 @@ import com.mitosis.shopsbacker.model.User;
  * @author JAI BHARATHI
  * 
  */
-public interface StoreDao<T> {
-
+public interface StoreService<T> {
 	public void saveStore(Store store);
 
 	public void updateStore(Store store);
@@ -33,5 +31,4 @@ public interface StoreDao<T> {
 	public List<Store> getShopList(String city, String address);
 
 	public List<String> getShopCityList();
-
 }
