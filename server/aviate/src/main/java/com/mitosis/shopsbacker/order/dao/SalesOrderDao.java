@@ -2,6 +2,8 @@ package com.mitosis.shopsbacker.order.dao;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
+
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.OrderStatus;
@@ -23,5 +25,7 @@ public interface SalesOrderDao<T> {
 	public SalesOrder salesOrderById(String salesOrderId);
 
 	public void updateSalesOrder(SalesOrder salesOrder);
+	
+	public void saveSalesOrder(SalesOrder salesOrder);
 
 }

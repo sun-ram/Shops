@@ -18,4 +18,6 @@ public interface StoragebinDao<T> {
 
 	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse);
 
+	public List<Storagebin> listOfStorageBins(Warehouse warehouse);
+
 }

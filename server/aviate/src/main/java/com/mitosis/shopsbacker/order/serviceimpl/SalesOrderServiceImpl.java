@@ -87,4 +87,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 
 	}
 
+	@Override
+	@Transactional
+	public void saveSalesOrder(SalesOrder salesOrder) {
+		salesOrderDao.saveSalesOrder(salesOrder);
+		
+	}
+
 }

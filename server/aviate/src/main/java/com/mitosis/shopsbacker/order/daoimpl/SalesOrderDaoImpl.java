@@ -107,4 +107,15 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 
 	}
+
+	@Override
+	public void saveSalesOrder(SalesOrder salesOrder) {
+		try {
+			save((T) salesOrder);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+		
+	}
 }

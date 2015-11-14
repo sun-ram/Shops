@@ -77,4 +77,18 @@ public class StoragebinDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
+	@Override
+	public List<Storagebin> listOfStorageBins(Warehouse warehouse) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(Storagebin.class);
+			criteria.add(Restrictions.eq("warehouse", warehouse));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (List<Storagebin>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+
 }

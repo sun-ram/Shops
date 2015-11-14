@@ -23,6 +23,8 @@ public interface SalesOrderService<T> {
 	public SalesOrder salesOrderById(String salesOrderId);
 
 	public void updateSalesOrder(SalesOrder salesOrder);
+	
+	public void saveSalesOrder(SalesOrder salesOrder);
 
 	public void conformPayment(String salesOrderId, String transactionNo,
 			String paymentMethod);

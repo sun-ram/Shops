@@ -15,4 +15,6 @@ public interface StoragebinService<T> {
 	public void removeStorageBin(Storagebin storagebin);
 
 	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse);
+
+	public List<Storagebin> listOfStorageBins(Warehouse warehouse);
 }
