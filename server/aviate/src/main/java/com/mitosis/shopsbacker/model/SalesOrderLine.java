@@ -81,9 +81,9 @@ public class SalesOrderLine implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "salesOrder"))
 	@Id
-	@GeneratedValue(generator = "generator")
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(name = "SALES_ORDER_LINE_ID", unique = true, nullable = false, length = 32)
 	public String getSalesOrderLineId() {
 		return this.salesOrderLineId;
