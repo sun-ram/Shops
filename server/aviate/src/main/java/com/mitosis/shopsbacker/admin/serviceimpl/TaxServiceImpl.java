@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mitosis.shopsbacker.admin.dao.TaxDao;
-import com.mitosis.shopsbacker.admin.service.StoragebinService;
 import com.mitosis.shopsbacker.admin.service.TaxService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Tax;
@@ -19,7 +18,7 @@ Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	TaxDao taxDao;
+	TaxDao<T> taxDao;
 
 	@Override
 	public void addTax(Tax tax) {
