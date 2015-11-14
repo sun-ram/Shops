@@ -27,8 +27,8 @@ import javax.persistence.TemporalType;
 public class ProductOfferLine implements java.io.Serializable {
 
 	private String productOfferLineId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private Product product;
 	private ProductOffer productOffer;
 	private double discountPercentage;
@@ -40,12 +40,12 @@ public class ProductOfferLine implements java.io.Serializable {
 	public ProductOfferLine() {
 	}
 
-	public ProductOfferLine(String productOfferLineId, User userByCreatedby,
-			User userByUpdatedby, Product product, ProductOffer productOffer,
+	public ProductOfferLine(String productOfferLineId, String createdby,
+			String updatedby, Product product, ProductOffer productOffer,
 			double discountPercentage, char isactive, Date updated) {
 		this.productOfferLineId = productOfferLineId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.product = product;
 		this.productOffer = productOffer;
 		this.discountPercentage = discountPercentage;
@@ -53,13 +53,13 @@ public class ProductOfferLine implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public ProductOfferLine(String productOfferLineId, User userByCreatedby,
-			User userByUpdatedby, Product product, ProductOffer productOffer,
+	public ProductOfferLine(String productOfferLineId, String createdby,
+			String updatedby, Product product, ProductOffer productOffer,
 			double discountPercentage, char isactive, Date created,
 			Date updated, List<MyCart> myCarts) {
 		this.productOfferLineId = productOfferLineId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.product = product;
 		this.productOffer = productOffer;
 		this.discountPercentage = discountPercentage;
@@ -78,25 +78,20 @@ public class ProductOfferLine implements java.io.Serializable {
 	public void setProductOfferLineId(String productOfferLineId) {
 		this.productOfferLineId = productOfferLineId;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

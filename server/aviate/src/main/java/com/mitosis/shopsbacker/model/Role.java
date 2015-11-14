@@ -28,8 +28,8 @@ import javax.persistence.UniqueConstraint;
 public class Role implements java.io.Serializable {
 
 	private String roleId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private String name;
 	private String description;
 	private char isactive;
@@ -46,12 +46,12 @@ public class Role implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	public Role(String roleId, User userByCreatedby, User userByUpdatedby,
+	public Role(String roleId, String createdby, String updatedby,
 			String name, String description, char isactive, Date created,
 			Date updated, List<User> users) {
 		this.roleId = roleId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.name = name;
 		this.description = description;
 		this.isactive = isactive;
@@ -70,24 +70,20 @@ public class Role implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY")
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY")
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@Column(name = "NAME", unique = true, nullable = false, length = 60)

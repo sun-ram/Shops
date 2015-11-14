@@ -21,8 +21,8 @@ import javax.persistence.TemporalType;
 public class MovementLine implements java.io.Serializable {
 
 	private String movementLineId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
+	private String updatedby;
+	private String createdby;
 	private Storagebin storagebinByFromBinId;
 	private Movement movement;
 	private Storagebin storagebinByToBinId;
@@ -35,13 +35,13 @@ public class MovementLine implements java.io.Serializable {
 	public MovementLine() {
 	}
 
-	public MovementLine(String movementLineId, User userByUpdatedby,
-			User userByCreatedby, Movement movement,
+	public MovementLine(String movementLineId, String updatedby,
+			String createdby, Movement movement,
 			Storagebin storagebinByToBinId, Product product, int qty,
 			char isactive, Date created, Date updated) {
 		this.movementLineId = movementLineId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.movement = movement;
 		this.storagebinByToBinId = storagebinByToBinId;
 		this.product = product;
@@ -51,13 +51,13 @@ public class MovementLine implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public MovementLine(String movementLineId, User userByUpdatedby,
-			User userByCreatedby, Storagebin storagebinByFromBinId,
+	public MovementLine(String movementLineId, String updatedby,
+			String createdby, Storagebin storagebinByFromBinId,
 			Movement movement, Storagebin storagebinByToBinId, Product product,
 			int qty, char isactive, Date created, Date updated) {
 		this.movementLineId = movementLineId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.storagebinByFromBinId = storagebinByFromBinId;
 		this.movement = movement;
 		this.storagebinByToBinId = storagebinByToBinId;
@@ -78,24 +78,20 @@ public class MovementLine implements java.io.Serializable {
 		this.movementLineId = movementLineId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
+	}
+ 
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
-	}
-
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

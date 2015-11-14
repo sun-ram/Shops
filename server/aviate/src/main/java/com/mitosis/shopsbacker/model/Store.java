@@ -29,9 +29,9 @@ import javax.persistence.UniqueConstraint;
 public class Store implements java.io.Serializable {
 
 	private String storeId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
-	private User userByUserId;
+	private String updatedby;
+	private String createdby;
+	private User user;
 	private Merchant merchant;
 	private String name;
 	private char isactive;
@@ -55,12 +55,12 @@ public class Store implements java.io.Serializable {
 	public Store() {
 	}
 
-	public Store(String storeId, User userByUpdatedby, User userByCreatedby,
+	public Store(String storeId, String updatedby, String createdby,
 			Merchant merchant, String name, char isactive, Date created,
 			Date updated) {
 		this.storeId = storeId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.name = name;
 		this.isactive = isactive;
@@ -68,17 +68,17 @@ public class Store implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public Store(String storeId, User userByUpdatedby, User userByCreatedby,
-			User userByUserId, Merchant merchant, String name, char isactive,
+	public Store(String storeId, String updatedby, String createdby,
+			User user, Merchant merchant, String name, char isactive,
 			Date created, Date updated, List<Warehouse> warehouses, List<OrderNumber> orderNumbers,
 			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
 			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,
 			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
 			List<ProductType> productTypes, List<ProductInventory> productInventories) {
 		this.storeId = storeId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUserId = userByUserId;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
+		this.user = user;
 		this.merchant = merchant;
 		this.name = name;
 		this.isactive = isactive;
@@ -110,34 +110,30 @@ public class Store implements java.io.Serializable {
 		this.storeId = storeId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID")
-	public User getUserByUserId() {
-		return this.userByUserId;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setUserByUserId(User userByUserId) {
-		this.userByUserId = userByUserId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

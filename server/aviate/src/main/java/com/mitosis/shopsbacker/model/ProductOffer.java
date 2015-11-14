@@ -29,8 +29,8 @@ import javax.persistence.UniqueConstraint;
 public class ProductOffer implements java.io.Serializable {
 
 	private String productOfferId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private Merchant merchant;
 	private Product product;
 	private String name;
@@ -48,13 +48,13 @@ public class ProductOffer implements java.io.Serializable {
 	public ProductOffer() {
 	}
 
-	public ProductOffer(String productOfferId, User userByCreatedby,
-			User userByUpdatedby, Merchant merchant, Product product,
+	public ProductOffer(String productOfferId, String createdby,
+			String updatedby, Merchant merchant, Product product,
 			String name, Date fromDate, Date todate, Date startTime,
 			Date endTime, char isactive, Date created, Date updated) {
 		this.productOfferId = productOfferId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.merchant = merchant;
 		this.product = product;
 		this.name = name;
@@ -67,14 +67,14 @@ public class ProductOffer implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public ProductOffer(String productOfferId, User userByCreatedby,
-			User userByUpdatedby, Merchant merchant, Product product,
+	public ProductOffer(String productOfferId, String createdby,
+			String updatedby, Merchant merchant, Product product,
 			String name, String description, Date fromDate, Date todate,
 			Date startTime, Date endTime, char isactive, Date created,
 			Date updated, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts) {
 		this.productOfferId = productOfferId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.merchant = merchant;
 		this.product = product;
 		this.name = name;
@@ -100,24 +100,20 @@ public class ProductOffer implements java.io.Serializable {
 		this.productOfferId = productOfferId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

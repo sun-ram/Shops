@@ -23,8 +23,8 @@ import javax.persistence.UniqueConstraint;
 public class DeliveryTimeSlot implements java.io.Serializable {
 
 	private String deliveryTimeSlotId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private Merchant merchant;
 	private Date fromTime;
 	private Date toTime;
@@ -35,12 +35,12 @@ public class DeliveryTimeSlot implements java.io.Serializable {
 	public DeliveryTimeSlot() {
 	}
 
-	public DeliveryTimeSlot(String deliveryTimeSlotId, User userByCreatedby,
-			User userByUpdatedby, Merchant merchant, Date fromTime,
+	public DeliveryTimeSlot(String deliveryTimeSlotId, String createdby,
+			String updatedby, Merchant merchant, Date fromTime,
 			Date toTime, char isactive, Date created, Date updated) {
 		this.deliveryTimeSlotId = deliveryTimeSlotId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.merchant = merchant;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
@@ -59,24 +59,21 @@ public class DeliveryTimeSlot implements java.io.Serializable {
 		this.deliveryTimeSlotId = deliveryTimeSlotId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+ 
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -29,11 +29,11 @@ import javax.persistence.TemporalType;
 public class SalesOrder implements java.io.Serializable {
 
 	private String salesOrderId;
-	private User userByBackerId;
+	private User backer;
 	private Customer customer;
 	private CustomerFeedback customerFeedback;
 	private Address address;
-	private User userByShopperId;
+	private User shopper;
 	private Store store;
 	private String orderNo;
 	private Date deliveryDate;
@@ -88,9 +88,9 @@ public class SalesOrder implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public SalesOrder(String salesOrderId, User userByBackerId,
+	public SalesOrder(String salesOrderId, User backer,
 			Customer customer, CustomerFeedback customerFeedback,
-			Address address, User userByShopperId, Store store, String orderNo,
+			Address address, User shopper, Store store, String orderNo,
 			Date deliveryDate, String deliveryTimeSlotId, char ispaid,
 			BigDecimal amount, String paymentMethod, String transactionNo,
 			String status, BigDecimal totalTaxAmount,
@@ -100,11 +100,11 @@ public class SalesOrder implements java.io.Serializable {
 			String createdby, Date created, Date updated, String updatedby,
 			List<OrderTax> orderTaxes, SalesOrderLine salesOrderLine, List<Favourite> favourites) {
 		this.salesOrderId = salesOrderId;
-		this.userByBackerId = userByBackerId;
+		this.backer = backer;
 		this.customer = customer;
 		this.customerFeedback = customerFeedback;
 		this.address = address;
-		this.userByShopperId = userByShopperId;
+		this.shopper = shopper;
 		this.store = store;
 		this.orderNo = orderNo;
 		this.deliveryDate = deliveryDate;
@@ -144,12 +144,12 @@ public class SalesOrder implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BACKER_ID")
-	public User getUserByBackerId() {
-		return this.userByBackerId;
+	public User getBacker() {
+		return this.backer;
 	}
 
-	public void setUserByBackerId(User userByBackerId) {
-		this.userByBackerId = userByBackerId;
+	public void setBacker(User backer) {
+		this.backer = backer;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -184,12 +184,12 @@ public class SalesOrder implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SHOPPER_ID")
-	public User getUserByShopperId() {
-		return this.userByShopperId;
+	public User getShopper() {
+		return this.shopper;
 	}
 
-	public void setUserByShopperId(User userByShopperId) {
-		this.userByShopperId = userByShopperId;
+	public void setShopper(User shopper) {
+		this.shopper = shopper;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

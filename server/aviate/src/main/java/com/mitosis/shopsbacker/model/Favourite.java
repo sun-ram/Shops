@@ -26,10 +26,10 @@ public class Favourite implements java.io.Serializable {
 
 	private String favouriteId;
 	private Merchant merchant;
-	private Customer customerByCreatedby;
+	private String createdby;
 	private SalesOrder salesOrder;
-	private Customer customerByCustomerId;
-	private Customer customerByUpdatedby;
+	private Customer customer;
+	private String updatedby;
 	private Store store;
 	private String name;
 	private char isactive;
@@ -40,15 +40,15 @@ public class Favourite implements java.io.Serializable {
 	}
 
 	public Favourite(String favouriteId, Merchant merchant,
-			Customer customerByCreatedby, SalesOrder salesOrder,
-			Customer customerByCustomerId, Customer customerByUpdatedby,
+			String createdby, SalesOrder salesOrder,
+			Customer customer, String updatedby,
 			Store store, String name, char isactive, Date created, Date updated) {
 		this.favouriteId = favouriteId;
 		this.merchant = merchant;
-		this.customerByCreatedby = customerByCreatedby;
+		this.createdby = createdby;
 		this.salesOrder = salesOrder;
-		this.customerByCustomerId = customerByCustomerId;
-		this.customerByUpdatedby = customerByUpdatedby;
+		this.customer = customer;
+		this.updatedby = updatedby;
 		this.store = store;
 		this.name = name;
 		this.isactive = isactive;
@@ -76,14 +76,12 @@ public class Favourite implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public Customer getCustomerByCreatedby() {
-		return this.customerByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setCustomerByCreatedby(Customer customerByCreatedby) {
-		this.customerByCreatedby = customerByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -98,22 +96,20 @@ public class Favourite implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
-	public Customer getCustomerByCustomerId() {
-		return this.customerByCustomerId;
+	public Customer getCustomer() {
+		return this.customer;
 	}
 
-	public void setCustomerByCustomerId(Customer customerByCustomerId) {
-		this.customerByCustomerId = customerByCustomerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public Customer getCustomerByUpdatedby() {
-		return this.customerByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setCustomerByUpdatedby(Customer customerByUpdatedby) {
-		this.customerByUpdatedby = customerByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

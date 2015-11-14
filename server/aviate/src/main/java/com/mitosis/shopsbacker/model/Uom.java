@@ -25,8 +25,8 @@ import javax.persistence.UniqueConstraint;
 public class Uom implements java.io.Serializable {
 
 	private String uomId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
+	private String updatedby;
+	private String createdby;
 	private String name;
 	private String description;
 	private String isactive;
@@ -37,12 +37,12 @@ public class Uom implements java.io.Serializable {
 	public Uom() {
 	}
 
-	public Uom(String uomId, User userByUpdatedby, User userByCreatedby,
+	public Uom(String uomId, String updatedby, String createdby,
 			String name, String description, String isactive, String created,
 			String updated) {
 		this.uomId = uomId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.name = name;
 		this.description = description;
 		this.isactive = isactive;
@@ -50,12 +50,12 @@ public class Uom implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public Uom(String uomId, User userByUpdatedby, User userByCreatedby,
+	public Uom(String uomId, String updatedby, String createdby,
 			String name, String description, String isactive, String created,
 			String updated, List<Product> products) {
 		this.uomId = uomId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.name = name;
 		this.description = description;
 		this.isactive = isactive;
@@ -74,24 +74,21 @@ public class Uom implements java.io.Serializable {
 		this.uomId = uomId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@Column(name = "NAME", unique = true, nullable = false, length = 10)

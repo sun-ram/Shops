@@ -23,10 +23,10 @@ public class MyCart implements java.io.Serializable {
 	private String myCartId;
 	private Merchant merchant;
 	private Product product;
-	private Customer customerByCreatedby;
+	private String createdby;
 	private ProductOffer productOffer;
-	private Customer customerByCustomerId;
-	private Customer customerByUpdatedby;
+	private Customer customer;
+	private String updatedby;
 	private Store store;
 	private ProductOfferLine productOfferLine;
 	private int qty;
@@ -38,28 +38,28 @@ public class MyCart implements java.io.Serializable {
 	}
 
 	public MyCart(String myCartId, Merchant merchant, Product product,
-			Customer customerByCustomerId, Store store, int qty, char isactive) {
+			Customer customer, Store store, int qty, char isactive) {
 		this.myCartId = myCartId;
 		this.merchant = merchant;
 		this.product = product;
-		this.customerByCustomerId = customerByCustomerId;
+		this.customer = customer;
 		this.store = store;
 		this.qty = qty;
 		this.isactive = isactive;
 	}
 
 	public MyCart(String myCartId, Merchant merchant, Product product,
-			Customer customerByCreatedby, ProductOffer productOffer,
-			Customer customerByCustomerId, Customer customerByUpdatedby,
+			String createdby, ProductOffer productOffer,
+			Customer customer, String updatedby,
 			Store store, ProductOfferLine productOfferLine, int qty,
 			char isactive, Date created, Date updated) {
 		this.myCartId = myCartId;
 		this.merchant = merchant;
 		this.product = product;
-		this.customerByCreatedby = customerByCreatedby;
+		this.createdby = createdby;
 		this.productOffer = productOffer;
-		this.customerByCustomerId = customerByCustomerId;
-		this.customerByUpdatedby = customerByUpdatedby;
+		this.customer = customer;
+		this.updatedby = updatedby;
 		this.store = store;
 		this.productOfferLine = productOfferLine;
 		this.qty = qty;
@@ -98,14 +98,12 @@ public class MyCart implements java.io.Serializable {
 		this.product = product;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY")
-	public Customer getCustomerByCreatedby() {
-		return this.customerByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setCustomerByCreatedby(Customer customerByCreatedby) {
-		this.customerByCreatedby = customerByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -120,22 +118,20 @@ public class MyCart implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
-	public Customer getCustomerByCustomerId() {
-		return this.customerByCustomerId;
+	public Customer getCustomer() {
+		return this.customer;
 	}
 
-	public void setCustomerByCustomerId(Customer customerByCustomerId) {
-		this.customerByCustomerId = customerByCustomerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY")
-	public Customer getCustomerByUpdatedby() {
-		return this.customerByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setCustomerByUpdatedby(Customer customerByUpdatedby) {
-		this.customerByUpdatedby = customerByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

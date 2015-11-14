@@ -22,24 +22,25 @@ import javax.persistence.TemporalType;
 public class ShippingCharges implements java.io.Serializable {
 
 	private String shippingChargesId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
 	private Merchant merchant;
 	private BigDecimal chargingAmount;
 	private BigDecimal amountRange;
 	private char isactive;
 	private Date created;
+	private String createdby;
 	private Date updated;
+	private String updatedby;
+	
 
 	public ShippingCharges() {
 	}
 
-	public ShippingCharges(String shippingChargesId, User userByUpdatedby,
-			User userByCreatedby, Merchant merchant, BigDecimal chargingAmount,
+	public ShippingCharges(String shippingChargesId, String updatedby,
+			String createdby, Merchant merchant, BigDecimal chargingAmount,
 			char isactive, Date created, Date updated) {
 		this.shippingChargesId = shippingChargesId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.chargingAmount = chargingAmount;
 		this.isactive = isactive;
@@ -47,12 +48,12 @@ public class ShippingCharges implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public ShippingCharges(String shippingChargesId, User userByUpdatedby,
-			User userByCreatedby, Merchant merchant, BigDecimal chargingAmount,
+	public ShippingCharges(String shippingChargesId, String updatedby,
+			String createdby, Merchant merchant, BigDecimal chargingAmount,
 			BigDecimal amountRange, char isactive, Date created, Date updated) {
 		this.shippingChargesId = shippingChargesId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.chargingAmount = chargingAmount;
 		this.amountRange = amountRange;
@@ -71,24 +72,20 @@ public class ShippingCharges implements java.io.Serializable {
 		this.shippingChargesId = shippingChargesId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

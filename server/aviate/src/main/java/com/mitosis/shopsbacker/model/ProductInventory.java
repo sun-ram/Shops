@@ -23,8 +23,8 @@ import javax.persistence.UniqueConstraint;
 public class ProductInventory implements java.io.Serializable {
 
 	private String productInventoryId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private Storagebin storagebin;
 	private Merchant merchant;
 	private Product product;
@@ -37,13 +37,13 @@ public class ProductInventory implements java.io.Serializable {
 	public ProductInventory() {
 	}
 
-	public ProductInventory(String productInventoryId, User userByCreatedby,
-			User userByUpdatedby, Storagebin storagebin, Merchant merchant,
+	public ProductInventory(String productInventoryId, String createdby,
+			String updatedby, Storagebin storagebin, Merchant merchant,
 			Product product, Store store, int availableQty, char isactive,
 			Date created, Date updated) {
 		this.productInventoryId = productInventoryId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.storagebin = storagebin;
 		this.merchant = merchant;
 		this.product = product;
@@ -64,24 +64,20 @@ public class ProductInventory implements java.io.Serializable {
 		this.productInventoryId = productInventoryId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUserByUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

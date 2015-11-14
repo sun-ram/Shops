@@ -29,8 +29,8 @@ import javax.persistence.UniqueConstraint;
 public class Storagebin implements java.io.Serializable {
 
 	private String storagebinId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
+	private String updatedby;
+	private String createdby;
 	private Merchant merchant;
 	private Warehouse warehouse;
 	private Store store;
@@ -49,12 +49,12 @@ public class Storagebin implements java.io.Serializable {
 	public Storagebin() {
 	}
 
-	public Storagebin(String storagebinId, User userByUpdatedby,
-			User userByCreatedby, Merchant merchant, Warehouse warehouse,
+	public Storagebin(String storagebinId, String updatedby,
+			String createdby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, char isactive, Date created, Date updated) {
 		this.storagebinId = storagebinId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.warehouse = warehouse;
 		this.store = store;
@@ -64,15 +64,15 @@ public class Storagebin implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public Storagebin(String storagebinId, User userByUpdatedby,
-			User userByCreatedby, Merchant merchant, Warehouse warehouse,
+	public Storagebin(String storagebinId, String updatedby,
+			String createdby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, String description, String row,
 			String stack, String level, char isactive, Date created,
 			Date updated, List<ProductInventory> productInventories, List<MovementLine> movementLinesForToBinId,
 			List<MovementLine> movementLinesForFromBinId) {
 		this.storagebinId = storagebinId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.warehouse = warehouse;
 		this.store = store;
@@ -99,24 +99,20 @@ public class Storagebin implements java.io.Serializable {
 		this.storagebinId = storagebinId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

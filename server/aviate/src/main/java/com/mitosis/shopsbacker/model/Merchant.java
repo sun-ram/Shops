@@ -28,8 +28,8 @@ import javax.persistence.UniqueConstraint;
 public class Merchant implements java.io.Serializable {
 
 	private String merchantId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
+	private String updatedby;
+	private String createdby;
 	private String name;
 	private String userId;
 	private String logo;
@@ -61,20 +61,20 @@ public class Merchant implements java.io.Serializable {
 	public Merchant() {
 	}
 
-	public Merchant(String merchantId, User userByUpdatedby,
-			User userByCreatedby, String name, char isactive, Date created,
+	public Merchant(String merchantId, String updatedby,
+			String createdby, String name, char isactive, Date created,
 			Date updated) {
 		this.merchantId = merchantId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.name = name;
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
 	}
 
-	public Merchant(String merchantId, User userByUpdatedby,
-			User userByCreatedby, String name, String userId, String logo,
+	public Merchant(String merchantId, String updatedby,
+			String createdby, String name, String userId, String logo,
 			char isactive, Date created, Date updated, List<ProductCategory> productCategories,
 			List<Favourite> favourites, List<ProductType> productTypes, List<Banner> banners, List<Discount> discounts,
 			List<Store> stores, List<Tax> taxes, List<Warehouse> warehouses, List<ShippingCharges> shippingChargeses,
@@ -83,8 +83,8 @@ public class Merchant implements java.io.Serializable {
 			List<MissingProduct> missingProducts, List<CustomerFeedback> customerFeedbacks, List<DeliveryTimeSlot> deliveryTimeSlots,
 			List<ProductOffer> productOffers) {
 		this.merchantId = merchantId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.name = name;
 		this.userId = userId;
 		this.logo = logo;
@@ -124,24 +124,20 @@ public class Merchant implements java.io.Serializable {
 		this.merchantId = merchantId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@Column(name = "NAME", unique = true, nullable = false, length = 100)

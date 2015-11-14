@@ -21,8 +21,8 @@ import javax.persistence.TemporalType;
 public class Banner implements java.io.Serializable {
 
 	private String bannerId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
+	private String updatedby;
+	private String createdby;
 	private Image image;
 	private Merchant merchant;
 	private Store store;
@@ -42,13 +42,13 @@ public class Banner implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	public Banner(String bannerId, User userByUpdatedby, User userByCreatedby,
+	public Banner(String bannerId, String updatedby, String createdby,
 			Image image, Merchant merchant, Store store, String tabTitleSmall,
 			String tabTitleBold, char isShopsbackerBanner, char isactive,
 			Date created, Date updated) {
 		this.bannerId = bannerId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.image = image;
 		this.merchant = merchant;
 		this.store = store;
@@ -70,24 +70,20 @@ public class Banner implements java.io.Serializable {
 		this.bannerId = bannerId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY")
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY")
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

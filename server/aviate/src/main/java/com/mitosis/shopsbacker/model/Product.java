@@ -30,8 +30,8 @@ import javax.persistence.UniqueConstraint;
 public class Product implements java.io.Serializable {
 
 	private String productId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private Image image;
 	private Merchant merchant;
 	private Discount discount;
@@ -59,14 +59,14 @@ public class Product implements java.io.Serializable {
 	public Product() {
 	}
 
-	public Product(String productId, User userByCreatedby,
-			User userByUpdatedby, Merchant merchant,
+	public Product(String productId, String createdby,
+			String updatedby, Merchant merchant,
 			ProductCategory productCategory, Uom uom, ProductType productType,
 			String name, BigDecimal price, BigDecimal unit, Date created,
 			Date updated, char isactive) {
 		this.productId = productId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.merchant = merchant;
 		this.productCategory = productCategory;
 		this.uom = uom;
@@ -79,8 +79,8 @@ public class Product implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	public Product(String productId, User userByCreatedby,
-			User userByUpdatedby, Image image, Merchant merchant,
+	public Product(String productId, String createdby,
+			String updatedby, Image image, Merchant merchant,
 			Discount discount, ProductCategory productCategory, Uom uom,
 			ProductType productType, String name, String edibleType,
 			Integer groupCount, String brand, BigDecimal price,
@@ -89,8 +89,8 @@ public class Product implements java.io.Serializable {
 			List<SalesOrderLine> salesOrderLines, List<MovementLine> movementLines, List<ProductImage> productImages,
 			List<ProductOffer> productOffers, List<ProductInventory> productInventories) {
 		this.productId = productId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.image = image;
 		this.merchant = merchant;
 		this.discount = discount;
@@ -126,24 +126,20 @@ public class Product implements java.io.Serializable {
 		this.productId = productId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

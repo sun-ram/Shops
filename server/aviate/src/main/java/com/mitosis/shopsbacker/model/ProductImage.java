@@ -23,8 +23,8 @@ import javax.persistence.UniqueConstraint;
 public class ProductImage implements java.io.Serializable {
 
 	private String productImageId;
-	private User userByCreatedby;
-	private User userByUpdatedby;
+	private String createdby;
+	private String updatedby;
 	private Image image;
 	private Product product;
 	private String isactive;
@@ -34,12 +34,12 @@ public class ProductImage implements java.io.Serializable {
 	public ProductImage() {
 	}
 
-	public ProductImage(String productImageId, User userByCreatedby,
-			User userByUpdatedby, Image image, Product product,
+	public ProductImage(String productImageId, String createdby,
+			String updatedby, Image image, Product product,
 			String isactive, Date created, Date updated) {
 		this.productImageId = productImageId;
-		this.userByCreatedby = userByCreatedby;
-		this.userByUpdatedby = userByUpdatedby;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
 		this.image = image;
 		this.product = product;
 		this.isactive = isactive;
@@ -57,24 +57,20 @@ public class ProductImage implements java.io.Serializable {
 		this.productImageId = productImageId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

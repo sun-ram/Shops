@@ -23,8 +23,8 @@ import javax.persistence.UniqueConstraint;
 public class OrderNumber implements java.io.Serializable {
 
 	private String orderNumberId;
-	private User userByUpdatedby;
-	private User userByCreatedby;
+	private String updatedby;
+	private String createdby;
 	private Merchant merchant;
 	private Store store;
 	private int startingNumber;
@@ -38,12 +38,12 @@ public class OrderNumber implements java.io.Serializable {
 	public OrderNumber() {
 	}
 
-	public OrderNumber(String orderNumberId, User userByUpdatedby,
-			User userByCreatedby, Merchant merchant, Store store,
+	public OrderNumber(String orderNumberId, String updatedby,
+			String createdby, Merchant merchant, Store store,
 			int startingNumber, char isactive, Date created, Date updated) {
 		this.orderNumberId = orderNumberId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.store = store;
 		this.startingNumber = startingNumber;
@@ -52,13 +52,13 @@ public class OrderNumber implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public OrderNumber(String orderNumberId, User userByUpdatedby,
-			User userByCreatedby, Merchant merchant, Store store,
+	public OrderNumber(String orderNumberId, String updatedby,
+			String createdby, Merchant merchant, Store store,
 			int startingNumber, String prefix, String suffix,
 			Integer nextNumber, char isactive, Date created, Date updated) {
 		this.orderNumberId = orderNumberId;
-		this.userByUpdatedby = userByUpdatedby;
-		this.userByCreatedby = userByCreatedby;
+		this.updatedby = updatedby;
+		this.createdby = createdby;
 		this.merchant = merchant;
 		this.store = store;
 		this.startingNumber = startingNumber;
@@ -80,24 +80,20 @@ public class OrderNumber implements java.io.Serializable {
 		this.orderNumberId = orderNumberId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATEDBY", nullable = false)
-	public User getUserByUpdatedby() {
-		return this.userByUpdatedby;
+	public String getUpdatedby() {
+		return this.updatedby;
 	}
 
-	public void setUserByUpdatedby(User userByUpdatedby) {
-		this.userByUpdatedby = userByUpdatedby;
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATEDBY", nullable = false)
-	public User getUserByCreatedby() {
-		return this.userByCreatedby;
+	public String getCreatedby() {
+		return this.createdby;
 	}
 
-	public void setUserByCreatedby(User userByCreatedby) {
-		this.userByCreatedby = userByCreatedby;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
