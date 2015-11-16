@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jettison.json.JSONObject;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -303,6 +304,30 @@ public final class CommonUtil {
 		}
 		
 		return location;
+	}
+	
+	/**
+	 * public static String passwordEncoder(String password).
+	 * @param password - password given by the user when signup
+	 * @return hashedPassword - returns encoded string using bcrypt
+	 */
+	public static String passwordEncoder(String password){	
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password);
+		return hashedPassword;
+	}
+	
+	/**
+	 *public static boolean passwordVerification(String password,String hashedPassword).
+	 * @param password - password given by the user when login
+	 * @param hashedPassword - encoded password from database
+	 * @return status - returns true or false based upon password match
+	 */
+	public static boolean passwordVerification(String password,String hashedPassword){
+		boolean status = false;
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		status = passwordEncoder.matches(password, hashedPassword);
+		return status;
 	}
 
 }
