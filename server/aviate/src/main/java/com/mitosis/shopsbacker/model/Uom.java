@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -21,7 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Uom Created by Sundaram C.
  */
 @Entity
-@Table(name = "uom", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "uom", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "UOM_NAME"))
 public class Uom implements java.io.Serializable {
 
 	private String uomId;
@@ -94,7 +96,7 @@ public class Uom implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@Column(name = "NAME", unique = true, nullable = false, length = 10)
+	@Column(name = "UOM_NAME", unique = true, nullable = false, length = 10)
 	public String getName() {
 		return this.name;
 	}
@@ -121,7 +123,8 @@ public class Uom implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	@Column(name = "CREATED", nullable = false, length = 45)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED", nullable = false, length = 19)
 	public Date getCreated() {
 		return this.created;
 	}
@@ -130,7 +133,8 @@ public class Uom implements java.io.Serializable {
 		this.created = created;
 	}
 
-	@Column(name = "UPDATED", nullable = false, length = 45)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "UPDATED", nullable = false, length = 19)
 	public Date getUpdated() {
 		return this.updated;
 	}

@@ -51,7 +51,6 @@ public class UomRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel addUnits(UomVo uomVo) {
 		ResponseModel response = new ResponseModel();
-		;
 		try {
 			log.info("\n******************************************\n"
 					+ "Initializing the add or update units service");
