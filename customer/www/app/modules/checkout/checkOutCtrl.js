@@ -125,7 +125,7 @@ angular.module('aviate.controllers')
 	};
 
 	var removeAddress = function(address) {
-		alert("Hi");
+	
 		CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
 			$scope.getAddressList({
 				"customerId": $rootScope.user.userId
