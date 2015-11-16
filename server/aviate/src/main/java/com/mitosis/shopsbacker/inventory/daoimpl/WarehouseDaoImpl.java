@@ -7,8 +7,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.mitosis.shopsbacker.admin.dao.WarehouseDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.inventory.dao.WarehouseDao;
 import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;

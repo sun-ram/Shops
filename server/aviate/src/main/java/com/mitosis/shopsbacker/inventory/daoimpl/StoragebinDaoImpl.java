@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.daoimpl;
+package com.mitosis.shopsbacker.inventory.daoimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.mitosis.shopsbacker.admin.dao.StoragebinDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.inventory.dao.StoragebinDao;
 import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Warehouse;
 

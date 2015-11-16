@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.admin.dao.StoragebinDao;
 import com.mitosis.shopsbacker.admin.service.StoragebinService;
+import com.mitosis.shopsbacker.inventory.dao.StoragebinDao;
 import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Warehouse;
 

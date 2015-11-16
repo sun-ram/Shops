@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.dao;
+package com.mitosis.shopsbacker.inventory.dao;
 
 /**
  * @author JAI BHARATHI
@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
-import com.mitosis.shopsbacker.model.Storagebin;
 
 public interface WarehouseDao<T> {
 
