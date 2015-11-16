@@ -53,45 +53,11 @@
 		</property>
 		<!-- <property name="hibernate.default_schema" value="shopsbacker"/> -->
 
-		 <property name="annotatedClasses">
-			<list>				
-				<value>com.mitosis.shopsbacker.model.Address</value>
-				<value>com.mitosis.shopsbacker.model.Banner</value>
-				<value>com.mitosis.shopsbacker.model.Country</value>
-				<value>com.mitosis.shopsbacker.model.Customer</value>
-				<value>com.mitosis.shopsbacker.model.CustomerFeedback</value>
-				<value>com.mitosis.shopsbacker.model.DeliveryTimeSlot</value>
-				<value>com.mitosis.shopsbacker.model.Discount</value>
-				<value>com.mitosis.shopsbacker.model.Favourite</value>
-				<value>com.mitosis.shopsbacker.model.Image</value>
-				<value>com.mitosis.shopsbacker.model.Merchant</value>
-				<value>com.mitosis.shopsbacker.model.MerchantRequest</value>
-				<value>com.mitosis.shopsbacker.model.MissingProduct</value>
-				<value>com.mitosis.shopsbacker.model.Movement</value>
-				<value>com.mitosis.shopsbacker.model.MovementLine</value>
-				<value>com.mitosis.shopsbacker.model.MyCart</value>
-				<value>com.mitosis.shopsbacker.model.OrderNumber</value>
-				<value>com.mitosis.shopsbacker.model.OrderTax</value>
-				<value>com.mitosis.shopsbacker.model.Product</value>
-				<value>com.mitosis.shopsbacker.model.ProductCategory</value>
-				<value>com.mitosis.shopsbacker.model.ProductImage</value>
-				<value>com.mitosis.shopsbacker.model.ProductInventory</value>
-				<value>com.mitosis.shopsbacker.model.ProductOffer</value>
-				<value>com.mitosis.shopsbacker.model.ProductOfferLine</value>
-				<value>com.mitosis.shopsbacker.model.ProductType</value>
-				<value>com.mitosis.shopsbacker.model.Role</value>
-				<value>com.mitosis.shopsbacker.model.SalesOrder</value>
-				<value>com.mitosis.shopsbacker.model.SalesOrderLine</value>
-				<value>com.mitosis.shopsbacker.model.ShippingCharges</value>
-				<value>com.mitosis.shopsbacker.model.State</value>
-				<value>com.mitosis.shopsbacker.model.Storagebin</value>
-				<value>com.mitosis.shopsbacker.model.Store</value>
-				<value>com.mitosis.shopsbacker.model.Tax</value>
-				<value>com.mitosis.shopsbacker.model.Uom</value>
-				<value>com.mitosis.shopsbacker.model.User</value>
-				<value>com.mitosis.shopsbacker.model.Warehouse</value>				
-			</list>
-		</property>
+		 <property name="packagesToScan">
+		      <list>
+		          <value>com.mitosis.shopsbacker.model</value>            
+		      </list>
+		  </property>
 	</bean>
 	
 	 <bean id="transactionManager" 
@@ -112,7 +78,8 @@
 
 		</property>
 	</bean> -->
-  
+  <bean id="merchantRestService" class="com.mitosis.shopsbacker.webservice.MerchantRestServices"/>
+  <bean id="uomRestService" class="com.mitosis.shopsbacker.webservice.UomRestServices"/>
     <tx:annotation-driven/>
 	
 </beans>

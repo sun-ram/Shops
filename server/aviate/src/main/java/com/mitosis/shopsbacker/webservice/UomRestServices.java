@@ -30,7 +30,7 @@ import com.mitosis.shopsbacker.vo.inventory.UomVo;
  * @author Anbukkani Gajendran
  *
  */
-@Path("Uom")
+@Path("uom")
 public class UomRestServices<T> {
 	Logger log = Logger.getLogger(UomRestServices.class);
 
@@ -56,7 +56,7 @@ public class UomRestServices<T> {
 			log.info("\n******************************************\n"
 					+ "Initializing the add or update units service");
 
-			Uom uom = getUomService().getUomByName(uomVo.getName());
+			/*Uom uom = getUomService().getUomByName(uomVo.getName());
 			if (uom != null) {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				response.setErrorString(SBErrorMessage.UOM_NAME_ALREADY_EXIST
@@ -64,7 +64,7 @@ public class UomRestServices<T> {
 				response.setErrorCode(SBErrorMessage.UOM_NAME_ALREADY_EXIST
 						.getCode());
 				return response;
-			}
+			}*/
 			setUom(uomVo);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
@@ -128,6 +128,7 @@ public class UomRestServices<T> {
 				.setAuditColumnInfo(Uom.class.getName());
 		productUnitOfMeasure.setDescription(uomVo.getDescription());
 		productUnitOfMeasure.setName(uomVo.getName());
+		productUnitOfMeasure.setIsactive('Y');
 		getUomService().addUOM(productUnitOfMeasure);
 	}
 }

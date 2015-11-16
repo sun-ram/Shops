@@ -3,17 +3,14 @@ package com.mitosis.shopsbacker.model;
 // Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -32,17 +29,17 @@ public class Uom implements java.io.Serializable {
 	private String createdby;
 	private String name;
 	private String description;
-	private String isactive;
-	private String created;
-	private String updated;
+	private char isactive;
+	private Date created;
+	private Date updated;
 	private List<Product> products = new ArrayList<Product>();
 
 	public Uom() {
 	}
 
 	public Uom(String uomId, String updatedby, String createdby,
-			String name, String description, String isactive, String created,
-			String updated) {
+			String name, String description, char isactive, Date created,
+			Date updated) {
 		this.uomId = uomId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -54,8 +51,8 @@ public class Uom implements java.io.Serializable {
 	}
 
 	public Uom(String uomId, String updatedby, String createdby,
-			String name, String description, String isactive, String created,
-			String updated, List<Product> products) {
+			String name, String description, char isactive, Date created,
+			Date updated, List<Product> products) {
 		this.uomId = uomId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -79,7 +76,7 @@ public class Uom implements java.io.Serializable {
 		this.uomId = uomId;
 	}
 
-	
+	@Column(name = "UPDATEDBY", nullable = false, length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
@@ -88,6 +85,7 @@ public class Uom implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
+	@Column(name = "CREATEDBY", nullable = false, length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -114,30 +112,30 @@ public class Uom implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Column(name = "ISACTIVE", nullable = false, length = 45)
-	public String getIsactive() {
+	@Column(name = "ISACTIVE", nullable = false, length = 1)
+	public char getIsactive() {
 		return this.isactive;
 	}
 
-	public void setIsactive(String isactive) {
+	public void setIsactive(char isactive) {
 		this.isactive = isactive;
 	}
 
 	@Column(name = "CREATED", nullable = false, length = 45)
-	public String getCreated() {
+	public Date getCreated() {
 		return this.created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 
 	@Column(name = "UPDATED", nullable = false, length = 45)
-	public String getUpdated() {
+	public Date getUpdated() {
 		return this.updated;
 	}
 
-	public void setUpdated(String updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 

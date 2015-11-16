@@ -90,9 +90,9 @@ public final class CommonUtil {
 		method.invoke(obj, "123");
 		Class[] paramString1 = new Class[1];
 		paramString1[0] = Date.class;
-		method = cls.getDeclaredMethod("setCreated", paramString);
+		method = cls.getDeclaredMethod("setUpdated", paramString1);
 		method.invoke(obj, new Date());
-		method = cls.getDeclaredMethod("setCreated", paramString);
+		method = cls.getDeclaredMethod("setCreated", paramString1);
 		method.invoke(obj, new Date());
 		return obj;
 	}
