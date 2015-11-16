@@ -10,7 +10,8 @@ public enum SBErrorMessage {
 	
 	METCHANT_NAME_ALREADY_EXIST("E0001","Merchant name already exist."),
 	USER_NAME_ALREADY_EXIST("E0002","User name already exist."),
-	INVALID_ADDRESS("E0003","Enter correct address");
+	INVALID_ADDRESS("E0003","Enter correct address"),
+	UOM_NAME_ALREADY_EXIST("E0004","Uom name already exist.");
 
 	private final String erroeCode;
 	  private final String errorMessage;

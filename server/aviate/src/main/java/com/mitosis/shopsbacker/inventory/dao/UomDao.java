@@ -18,5 +18,7 @@ public interface UomDao<T> {
 	public List<Uom> getAllUOM();
 
 	public Uom getUOMById(String uomId);
+	
+	public Uom getUomByName(String name);
 
 }

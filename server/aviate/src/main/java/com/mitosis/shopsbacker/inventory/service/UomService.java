@@ -17,5 +17,7 @@ public interface UomService<T> {
 	public Uom getUOMById(String uomId);
 	
 	public void removeUOM(Uom productUnitOfMeasure);
+	
+	public Uom getUomByName(String name);
 
 }

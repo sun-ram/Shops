@@ -77,4 +77,22 @@ public class UomDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 
 	}
 
+	/**
+	 * @author Anbukkani Gajendran
+	 * @param Uom Name
+	 * @throws Exception
+	 * @return Uom
+	 */
+	@Override
+	public Uom getUomByName(String name) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Uom.class);
+			criteria.add(Restrictions.eq("name",name));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (Uom) findUnique(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
 }

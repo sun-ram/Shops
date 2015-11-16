@@ -61,5 +61,11 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 		uomDao.removeUOM(productUnitOfMeasure);
 		
 	}
+	
+	@Override
+	@Transactional
+	public Uom getUomByName(String name) {
+		return uomDao.getUomByName(name);
+	}
 
 }
