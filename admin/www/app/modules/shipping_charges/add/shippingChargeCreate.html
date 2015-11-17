@@ -1,0 +1,79 @@
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getStoreDetails()">
+   <md-toolbar class=" md-default-theme">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Store</h2>
+      <span class="close_box">
+	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.store"></ng-md-icon> </span>
+    </div>
+    <span class="close_box">
+		 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.store"></ng-md-icon>
+	 </span>
+  </md-toolbar>
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+    <form name="storeForm" novalidate>
+    	    <div layout layout-sm="column">
+    
+    <md-input-container layout-padding flex>
+      <label>Name<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.storeName" ng-required="true">
+    </md-input-container>
+        <md-input-container layout-padding flex>
+      <label>User Name(email-id)<span style="color:red">*</span></label>
+        <input type="email" name="emailId" ng-model="storeDetail.emailId" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+  <span ng-message="required" ng-show="storeForm.emailId.$error.email || (!storeForm.emailId.$error.required && !storeForm.emailId.$valid)" style="color:red;">Email Invalid.</span>
+     
+    </md-input-container>
+    </div>
+    	    <div layout layout-sm="column">
+    
+        <md-input-container layout-padding flex>
+      <label>Password<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.password" ng-trim="false" ng-change="storeDetail.password = storeDetail.password.split(' ').join('')" ng-required="true">
+    </md-input-container>
+     <md-input-container layout-padding flex>
+      <label>Phone<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
+      <span ng-message="required" ng-show="storeForm.phoneNo.$error.maxlength" style="color:red;">
+       Enter phoneNo within 20 digit</span>
+		      
+    </md-input-container>
+    </div>
+    	    <div layout layout-sm="column">
+    
+    <md-input-container layout-padding flex>
+      <label>Address<span style="color:red">*</span></label>
+     
+      <input name="address1" ng-model="storeDetail.address" ng-required="true" ng-maxlength="150">
+		      <span ng-message="required" ng-show="storeForm.address1.$error.maxlength" style="color:red;">
+      Enter address within 150 characters</span>
+    </md-input-container>
+    <md-input-container layout-padding flex>
+      <label>City<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.city" ng-required="true">
+    </md-input-container>
+    </div>
+    	    <div layout layout-sm="column">
+    
+    <md-input-container layout-padding flex>
+      <label>State<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.state" ng-required="true">
+    </md-input-container>
+    <md-input-container layout-padding flex>
+      <label>Country<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.country" ng-required="true">
+    </md-input-container>
+    </div>
+    	    <div layout layout-sm="column">
+    
+      <md-input-container layout-padding flex>
+      <label>Postal Code<span style="color:red">*</span></label>
+      <input ng-model="storeDetail.postalCode" valid-number ng-required="true">
+    </md-input-container>
+    </div>
+    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    	<md-button class="md-raised md-success padd-50" ng-click="addStore();" ng-disabled="storeForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.shippingCharges">Cancel</md-button>
+    </section>
+    </form>
+    </md-content>
+</md-card>

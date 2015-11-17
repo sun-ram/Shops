@@ -260,7 +260,31 @@ angular.module('app')
 		url: '/salesOrderLine',
 		templateUrl: 'app/modules/sales_order/salesOrderLine.html',
 		controller : 'salesordercontroller'
+	})
+	
+	//shipping charges module
+	.state('app.shippingCharges',{
+		url: '/shippingCharges',
+		templateUrl: 'app/modules/shipping_charges/shippingCharges.html',
+		controller : 'shippingChargesController'
+	})
+	.state('app.shippingchargedetails', {
+		url: '/shippingCharges/details',
+		templateUrl: 'app/modules/shipping_charges/details/shippingChargesDetails.html',
+		controller : 'shippingChargesDetailsCtrl'
+	})
+	.state('app.newshippingcharges', {
+		url: '/shippingCharges/new',
+		templateUrl: 'app/modules/shipping_charges/add/shippingChargeCreate.html',
+		controller : 'shippingChargeCreateCtrl'
+	})
+	.state('app.editshippingcharges', {
+		url: '/shippingCharges/edit',
+		templateUrl: 'app/modules/shipping_charges/edit/shippingChargesEdit.html',
+		controller : 'shippingChargesEditCtrl'
 	});
+	
+	
 	
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common = 'Content-Type: application/json';
