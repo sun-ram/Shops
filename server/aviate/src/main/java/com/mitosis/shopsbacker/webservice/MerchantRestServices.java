@@ -53,7 +53,7 @@ public class MerchantRestServices<T> {
 
 	@Autowired
 	UserService<T> userService;
-	
+
 	@Autowired
 	AddressService<T> addessService;
 
@@ -147,7 +147,7 @@ public class MerchantRestServices<T> {
 			merchantImageUpload(merchantVo);
 
 			Merchant merchant = setMerchant(merchantVo);
-			
+
 			merchantService.saveMerchant(merchant);
 
 		} catch (Exception e) {
@@ -159,7 +159,7 @@ public class MerchantRestServices<T> {
 	}
 
 	public void merchantImageUpload(MerchantVo merchantVo) throws IOException,
-			Exception {
+	Exception {
 		String merchantImagePath = "";
 		String defaultImagePath = "";
 		Properties properties = new Properties();
@@ -196,30 +196,29 @@ public class MerchantRestServices<T> {
 		Image image = setImage(merchantVo);
 		merchant.setLogo(image);
 
-		User user = setUser(merchantVo, merchant);
+		UserVo userVo = merchantVo.getUser();
+		User user = setUser(userVo);
+		user.setMerchant(merchant);
 		merchant.setUser(user);
 		return merchant;
 	}
 
-	public User setUser(MerchantVo merchantVo, Merchant merchant) throws Exception {
+	public User setUser(UserVo userVo) throws Exception {
 		User user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
-		UserVo userVo = merchantVo.getUser();
 		user.setName(userVo.getName());
 		user.setUserName(userVo.getUserName());
 		user.setPassword(userVo.getPassword());
 		user.setEmailid(userVo.getEmailid());
 		user.setRole(getRoleService()
 				.getRole(RoleName.MERCHANTADMIN.toString()));
-		user.setMerchant(merchant);
-		merchant.setUser(user);
 		AddressVo addressVo = userVo.getAddress();
-		
+
 		Address address = setAddress(addressVo);
-		
+
 		addessService.saveAddress(address);
-		
+
 		user.setAddress(address);
-		
+
 		return user;
 	}
 
@@ -285,7 +284,7 @@ public class MerchantRestServices<T> {
 	}
 
 	public void updateMerchantImage(MerchantVo merchantVo) throws IOException,
-			Exception {
+	Exception {
 		String merchantImagePath = "";
 		String defaultImagePath = "";
 		Properties properties = new Properties();
@@ -298,7 +297,7 @@ public class MerchantRestServices<T> {
 			String imageName = UUID.randomUUID().toString().replace("-", "");
 			if (CommonUtil.uploadImage(merchantVo.getLogo().getImage(),
 					merchantVo.getLogo().getType(), defaultImagePath
-							+ merchantImagePath, imageName)) {
+					+ merchantImagePath, imageName)) {
 				merchantVo.getLogo().setName(imageName);
 				merchantVo.getLogo().setUrl(
 						merchantImagePath + "/" + imageName + "."
@@ -318,7 +317,9 @@ public class MerchantRestServices<T> {
 		merchant.setLogo(image);
 		image.setMerchant(merchant);
 
-		User user = setUser(merchantVo, merchant);
+		UserVo userVo = merchantVo.getUser();
+		User user = setUser(userVo);
+		user.setMerchant(merchant);
 		merchant.setUser(user);
 	}
 
@@ -348,17 +349,19 @@ public class MerchantRestServices<T> {
 		ImageVo imageVo = setImageVo(merchant);
 		merchantVo.setLogo(imageVo);
 
-		UserVo userVo = setUserVo(merchant);
+		User user = merchant.getUser();
+		UserVo userVo = setUserVo(user);
+		userVo.setMerchant(merchantVo);
 		merchantVo.setUser(userVo);
 		return merchantVo;
 	}
 
-	public UserVo setUserVo(Merchant merchant) {
+	public UserVo setUserVo(User user) {
 		UserVo userVo = new UserVo();
-		userVo.setName(merchant.getUser().getName());
-		userVo.setUserName(merchant.getUser().getUserName());
-		userVo.setPassword(merchant.getUser().getPassword());
-		userVo.setEmailid(merchant.getUser().getEmailid());
+		userVo.setName(user.getName());
+		userVo.setUserName(user.getUserName());
+		userVo.setPassword(user.getPassword());
+		userVo.setEmailid(user.getEmailid());
 		return userVo;
 	}
 

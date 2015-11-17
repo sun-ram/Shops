@@ -15,6 +15,7 @@ import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 
 /**
  * @author JAI BHARATHI
@@ -76,5 +77,11 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	public List<String> getShopCityList() {
 		return storeDao.getShopCityList();
 	}
+
+	@Override
+	public List<Store> getStoreListByName(String name, Merchant merchant) {
+		return storeDao.getStoreListByName(name,merchant);
+	}
+
 
 }

@@ -114,7 +114,7 @@ public class Store implements java.io.Serializable {
 	public void setStoreId(String storeId) {
 		this.storeId = storeId;
 	}
-
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
@@ -122,7 +122,8 @@ public class Store implements java.io.Serializable {
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}
-
+	
+	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
