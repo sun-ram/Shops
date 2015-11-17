@@ -16,7 +16,7 @@ svg{width: 70%;color:white;fill:white;}
         <div layout-padding><div layout-padding>
 	      <md-input-container class="" >
 		      <label><md-icon md-svg-src="images/svg/at5.svg" class="name"></md-icon>Email</label>
-		      <input name="emailId" ng-model="user.emailId" type="text" ng-enter="signIn();" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+		      <input name="emailId" ng-model="user.emailId" type="text" ng-enter="signIn();" ng-required="true">
 		      <div ng-messages="login.emailId.$error">
                    <div ng-message="required" ng-show="(emailRequired && !user.emailId) || (login.emailId.$error.required && !login.emailId.$pristine)" style="color:red;"><div style="font-size:4;">Email Id is required.</div></div>
                    <div ng-message="required" ng-show="login.emailId.$error.email || (!login.emailId.$error.required && !login.emailId.$valid)" style="color:red;"><div style="font-size:4;">Email Invalid.</div></div>

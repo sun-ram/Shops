@@ -81,7 +81,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.User.login = function (user, callback) {
-			httpRequest("POST", "customer/login", user, function (err, data) {
+			httpRequest("POST", "user/login", user, function (err, data) {
 				if (err) {
 
 					callback(err, null);

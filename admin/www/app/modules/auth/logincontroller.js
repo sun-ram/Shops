@@ -29,7 +29,7 @@ angular.module('aviateAdmin.controllers')
 
 		}
 		var userInfo = {
-				"emailId": $scope.user.emailId,
+				"userName": $scope.user.emailId,
 				"password": $scope.user.password
 		};
 		AuthService.login(userInfo).then(function(data) {
