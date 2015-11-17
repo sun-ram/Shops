@@ -108,7 +108,7 @@ public class Image implements java.io.Serializable {
 		this.type = type;
 	}
 
-	@Column(name = "URL", nullable = false, length = 45)
+	@Column(name = "URL", nullable = false, length = 200)
 	public String getUrl() {
 		return this.url;
 	}

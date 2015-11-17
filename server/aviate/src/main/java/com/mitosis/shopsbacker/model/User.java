@@ -47,7 +47,7 @@ public class User implements java.io.Serializable {
 	private String emailid;
 	private String deveiceid;
 	private String userName;
-	private Integer phoneNo;
+	private String phoneNo;
 	private char isactive;
 	private Date created;
 	private Date updated;
@@ -77,7 +77,7 @@ public class User implements java.io.Serializable {
 	public User(String userId, String updatedby, String createdby,
 			Image image, Role role, Merchant merchant, Address address,
 			Store store, String name, String password, String emailid,
-			String deveiceid, String userName, Integer phoneNo, char isactive,
+			String deveiceid, String userName, String phoneNo, char isactive,
 			Date created, Date updated, 
   List<SalesOrder> salesOrdersForBackerId,List<Store> storesForUserId,  
 			List<SalesOrder> salesOrdersForShopperId, Merchant merchantForUser) {
@@ -116,6 +116,7 @@ public class User implements java.io.Serializable {
 		this.userId = userId;
 	}
 
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
@@ -124,6 +125,7 @@ public class User implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
+	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -228,11 +230,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "PHONE_NO")
-	public Integer getPhoneNo() {
+	public String getPhoneNo() {
 		return this.phoneNo;
 	}
 
-	public void setPhoneNo(Integer phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 

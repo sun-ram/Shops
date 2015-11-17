@@ -75,6 +75,7 @@ public class Role implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
+	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -83,6 +84,7 @@ public class Role implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}

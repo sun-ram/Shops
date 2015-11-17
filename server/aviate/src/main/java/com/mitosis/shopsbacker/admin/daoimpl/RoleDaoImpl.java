@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.RoleDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -16,6 +17,7 @@ import com.mitosis.shopsbacker.model.Role;
  * @param <T>
  */
 @Repository
+@Transactional
 public class RoleDaoImpl<T> extends CustomHibernateDaoSupport<T> implements RoleDao<T>, Serializable {
 
 	/**

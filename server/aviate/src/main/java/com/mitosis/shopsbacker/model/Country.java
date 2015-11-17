@@ -125,7 +125,7 @@ public class Country implements java.io.Serializable {
 		this.addresses = addresses;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "country")
 	public List<State> getStates() {
 		return this.states;
 	}

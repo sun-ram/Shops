@@ -13,8 +13,7 @@ import com.mitosis.shopsbacker.vo.common.ImageVo;
  * User Created by Sundaram C.
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class UserVo implements java.io.Serializable {
+public class UserVo  {
 
 	private String userId;
 	private ImageVo image;
@@ -24,65 +23,62 @@ public class UserVo implements java.io.Serializable {
 	private String emailid;
 	private String deveiceid;
 	private String userName;
-	private Integer phoneNo;
-	
+	private String phoneNo;
 	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
 	public ImageVo getImage() {
 		return image;
-	}
-	public void setImage(ImageVo image) {
-		this.image = image;
 	}
 	public AddressVo getAddress() {
 		return address;
 	}
-	public void setAddress(AddressVo address) {
-		this.address = address;
-	}
-	
 	public String getName() {
 		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getEmailid() {
 		return emailid;
-	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
 	}
 	public String getDeveiceid() {
 		return deveiceid;
 	}
-	public void setDeveiceid(String deveiceid) {
-		this.deveiceid = deveiceid;
-	}
 	public String getUserName() {
 		return userName;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public void setImage(ImageVo image) {
+		this.image = image;
+	}
+	public void setAddress(AddressVo address) {
+		this.address = address;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
+	}
+	public void setDeveiceid(String deveiceid) {
+		this.deveiceid = deveiceid;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Integer getPhoneNo() {
-		return phoneNo;
-	}
-	public void setPhoneNo(Integer phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	
-
+	
 	
 }

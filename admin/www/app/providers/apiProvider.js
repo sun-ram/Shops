@@ -107,6 +107,26 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Region = {
+				name: ""
+		};
+
+		apiClass.Region.getCountries = function (country, callback) {
+			httpRequest("POST", "common/country", country, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		
 		apiClass.Employee = {
 				name: ""
 		};
@@ -203,6 +223,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 		apiClass.Merchant.addNewMerchant = function (merchant, callback) {
 			httpRequest("POST", "merchant/addmerchant", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.Merchant.updateMerchant = function (merchant, callback) {
+			httpRequest("POST", "merchant/updatemerchant", merchant, function (err, data) {
 				if (err) {
 
 					callback(err, null);

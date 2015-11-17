@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.common.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -38,6 +39,7 @@ public class CustomHibernateDaoSupport<T> {
 	
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(DetachedCriteria criteria) {
+		criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.getExecutableCriteria(getSession()).list();
 	}
 	
@@ -60,9 +62,9 @@ public class CustomHibernateDaoSupport<T> {
 		return null;
 	}
 
-	public List<T> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(Criteria criteria) {
+		return criteria.list();
 	}
 
 }

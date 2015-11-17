@@ -23,7 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Uom Created by Sundaram C.
  */
 @Entity
-@Table(name = "uom", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "UOM_NAME"))
+@Table(name = "uom", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class Uom implements java.io.Serializable {
 
 	private String uomId;
@@ -96,7 +96,7 @@ public class Uom implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@Column(name = "UOM_NAME", unique = true, nullable = false, length = 10)
+	@Column(name = "NAME", unique = true, nullable = false, length = 10)
 	public String getName() {
 		return this.name;
 	}

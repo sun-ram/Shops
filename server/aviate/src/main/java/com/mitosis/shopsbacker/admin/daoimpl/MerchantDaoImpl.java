@@ -6,12 +6,14 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 
 @Repository
+@Transactional
 public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		MerchantDao<T>, Serializable {
 
@@ -65,7 +67,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	@Override
 	public List<Merchant> getMerchantListByName(String param) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
-		criteria.add(Restrictions.eq("userName", param));
+		criteria.add(Restrictions.eq("name", param));
 		return (List<Merchant>) findAll(criteria);
 	}
 

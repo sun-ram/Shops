@@ -1,16 +1,40 @@
 angular.module('aviateAdmin.controllers')
 	.controller("createMerchantCtrl", 
-	['$scope', '$state','toastr','MerchantServices',
-	 function($scope, $state, toastr, MerchantServices) {
+	['$scope', '$state','toastr','MerchantServices','CommonServices',
+	 function($scope, $state, toastr, MerchantServices, CommonServices) {
+
+		$scope.getState = function(country){
+			$scope.cunt = JSON.parse(country);
+			$scope.states = $scope.cunt.states;
+		}
+		
+		$scope.getCountries = function(){
+			CommonServices.getCountries($scope.country).then(function(data){
+				$scope.countries=data;
+			});
+		}
+		$scope.getCountries();
+		
 		$scope.addMerchant = function(){
-			if ($scope.merchantImage == "" || $scope.merchantImage==undefined) {
+			if ($scope.merchantLogo == "" || $scope.merchantLogo==undefined) {
 				toastr.warning("Please select merchant logo");
 				return;
 			} 
-			$scope.merchantDetail.merchantImage=$scope.merchantImage.split(",")[1];
-			$scope.merchantDetail.merchantImageType=$scope.merchantImage ? ($scope.merchantImage.substring(11).split(";")[0]) : "";
+			
+			$scope.cnt = JSON.parse($scope.country);
+			$scope.st = JSON.parse($scope.state);
+			$scope.merchantDetail.user.address.country = {};
+			$scope.merchantDetail.user.address.state = {};
+			$scope.merchantDetail.user.address.country.countryId = $scope.cnt.countryId;
+			$scope.merchantDetail.user.address.country.name = $scope.cnt.name;
+			$scope.merchantDetail.user.address.state.stateId = $scope.st.stateId;
+			$scope.merchantDetail.user.address.state.name = $scope.st.name;
+			
+			$scope.merchantDetail.logo = {};
+			$scope.merchantDetail.logo.image=$scope.merchantLogo.split(",")[1];
+			$scope.merchantDetail.logo.type=$scope.merchantLogo ? ($scope.merchantLogo.substring(11).split(";")[0]) : "";
 			MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
-				$scope.merchantImage=null;
+				$scope.merchantLogo=null;
 				$scope.merchantDetail = null;
 				$state.go('app.merchantdetails');
 			});

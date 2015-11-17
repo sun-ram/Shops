@@ -9,7 +9,7 @@ public interface MerchantService<T> {
 	public void saveMerchant(Merchant merchant);
 	public void updateMerchant(Merchant merchant);
 	public List<Merchant> getMerchantList();
-	public void deleteMerchant(Merchant merchant);
+	public void deleteMerchant(String id);
 	public List<Merchant> getMerchantListByName(String param);
 	public Merchant getMerchantById(String id);
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.UserDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -21,6 +22,7 @@ import com.mitosis.shopsbacker.model.User;
  */
 
 @Repository
+@Transactional
 public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		UserDao<T>, Serializable {
 

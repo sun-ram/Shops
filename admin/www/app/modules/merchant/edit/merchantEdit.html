@@ -2,11 +2,11 @@
    <md-toolbar class=" md-default-theme">
     <div class="md-toolbar-tools">
       <div class="md-layout-row layout-align-start-center pt_relat">	 
-			<img src="{{merchantImage}}" ng-show="merchantImage" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
-		      <img src="{{merchantDetail.productImages.imageUrl}}" ng-hide="merchantImage" style="display: block;width:45px; height: 45px;  border-radius: 99%;" /> 
+			<img src="{{merchantLogo}}" ng-show="merchantLogo" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
+		      <img src="{{merchantDetail.logo.url}}" ng-hide="merchantLogo" style="display: block;width:45px; height: 45px;  border-radius: 99%;" /> 
 			     	<label class="custom-file-upload">	
 					    <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
-					    <input id="file-upload1" type="file" ng-model="merchantImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
+					    <input id="file-upload1" type="file" ng-model="merchantLogo" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
 					    <span ng-hide="true" id="file-name1" ></span>
 					</label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Merchants</h3>     	
@@ -22,69 +22,92 @@
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
     <form name="merchant" novalidate>
     <div layout layout-sm="column">
-    <md-input-container layout-padding flex>
-      <label>Name<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.merchantName" value="{{merchantDetail.merchantName}}">
-    </md-input-container>
-    <md-input-container layout-padding flex>
-      <label>User Name (Email-Id)<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.userName" ng-required="true" ng-disabled="true">
-    </md-input-container>
-    </div>
-     <div layout layout-sm="column">
-    <md-input-container layout-padding flex>
-      <label>Password<span style="color:red">*</span></label>
-      
-  <input ng-model="merchantDetail.password" ng-trim="false" ng-change="merchantDetail.password = merchantDetail.password.split(' ').join('')" ng-required="true">
-      
-    </md-input-container>
-    <md-input-container layout-padding flex>
-      <label>Phone<span style="color:red">*</span></label>
-      
-    <input ng-model="merchantDetail.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
-      <span ng-message="required" ng-show="merchant.phoneNo.$error.maxlength" style="color:red;">
-       Enter phoneNo within 20 digit</span>
-		      
-      
-    </md-input-container>
-    </div>
-     <div layout layout-sm="column">
-    <md-input-container layout-padding flex>
-      <label>Address-1<span style="color:red">*</span></label>
-     
-      <input name="address1" ng-model="merchantDetail.address" ng-required="true" ng-maxlength="150">
-	    
-            <span ng-message="required" ng-show="merchant.address1.$error.maxlength" style="color:red;">
-       Enter address within 150 characters</span>
-    </md-input-container>
-      <md-input-container layout-padding flex>
-      <label>Address-2<span style="color:red">*</span></label>
-      
-      <input name="address2" ng-model="merchantDetail.address1" ng-required="true" ng-maxlength="150">
-		      <span ng-message="required" ng-show="merchant.address2.$error.maxlength" style="color:red;">
-      Enter address within 150 characters</span>
-    </md-input-container>
-    </div>
-     <div layout layout-sm="column">
-      <md-input-container layout-padding flex>
-      <label>City<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.city" ng-required="true">
-    </md-input-container>
-    <md-input-container layout-padding flex>
-      <label>State<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.state" ng-required="true">
-    </md-input-container>
-    </div>
-     <div layout layout-sm="column">
-      <md-input-container layout-padding flex>
-      <label>Country<span style="color:red">*</span></label>
-      <input ng-model="merchantDetail.country" ng-required="true">
-    </md-input-container>
-      <md-input-container layout-padding flex>
-      <label>Postal Code<span style="color:red">*</span></label>
-      <input valid-number ng-model="merchantDetail.postalCode" ng-required="true">
-    </md-input-container>
-    </div>
+		    <md-input-container layout-padding  flex>
+		      <label>Name<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.name" ng-required="true">
+		    </md-input-container>
+		    <md-input-container layout-padding  flex>
+		      <label>Contact Persion Name<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.user.name" ng-required="true">
+		    </md-input-container>
+		  </div>
+		  <div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		      <label>User Name<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.user.userName" name="userName" ng-required="true">
+		    </md-input-container>
+		    <md-input-container layout-padding flex>
+		      <label>Password<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.user.password" ng-trim="false" ng-change="merchantDetail.user.password = merchantDetail.user.password.split(' ').join('')" ng-required="true">
+		    </md-input-container>
+		  </div>
+		    <div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		     <label>Email<span style="color:red">*</span></label>
+		        <input type="email" ng-model="merchantDetail.user.emailid" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+	        <span ng-message="required" ng-show="merchantForm.userName.$error.email || (!merchantForm.userName.$error.required && !merchantForm.userName.$valid)" style="color:red;">Email Invalid.</span>
+		    </md-input-container>
+		    <md-input-container layout-padding flex>
+		    <label>Phone<span style="color:red">*</span></label>
+	  		<input ng-model="merchantDetail.user.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
+		      <span ng-message="required" ng-show="merchantForm.phoneNo.$error.maxlength" style="color:red;">
+		       	Enter phoneNo within 20 digit
+		      </span>
+		    </md-input-container>
+		    </div>
+		    <div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		      <label>Address-1<span style="color:red">*</span></label>
+		      <input name="address1" ng-model="merchantDetail.user.address.address1" ng-required="true" ng-maxlength="150">
+             <span ng-message="required" ng-show="merchantForm.address1.$error.maxlength" style="color:red;">
+               Enter address within 150 characters
+             </span>
+		    </md-input-container>
+		      <md-input-container layout-padding flex>
+		      <label>Address-2<span style="color:red">*</span></label>
+		      <input name="address2" ng-model="merchantDetail.user.address.address2" ng-required="true" ng-maxlength="150">
+		      <span ng-message="required" ng-show="merchantForm.address2.$error.maxlength" style="color:red;">
+      			Enter address within 150 characters
+      		  </span>
+		    </md-input-container>
+		    </div>
+		    <div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		      <label>City<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.user.address.city" ng-required="true">
+		    </md-input-container>
+		    <md-input-container layout-padding flex>
+       			<label>Country<span style="color:red">*</span></label>
+         		<md-select ng-model="country" ng-required="true" ng-change = "getState(country);">
+		            <md-option ng-repeat="cnt in countries" value="{{cnt}}">
+		              {{cnt.name}}
+		            </md-option>
+          		</md-select>
+    		</md-input-container>
+		    
+		    <!-- <md-input-container layout-padding flex>
+		      <label>State<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.user.address.state" ng-required="true">
+		    </md-input-container> -->
+		    </div>
+		    <div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+       			<label>State<span style="color:red">*</span></label>
+         		<md-select ng-model="state" ng-required="true">
+		            <md-option ng-repeat="state in states" value="{{state}}">
+		              {{state.name}}
+		            </md-option>
+          		</md-select>
+    		</md-input-container>
+		      <!-- <md-input-container layout-padding flex>
+		      <label>Country<span style="color:red">*</span></label>
+		      <input ng-model="merchantDetail.user.address.country" ng-required="true">
+		    </md-input-container> -->
+		    <md-input-container layout-padding flex>
+		      <label>Postal Code<span style="color:red">*</span></label>
+		      <input valid-number ng-model="merchantDetail.user.address.pinCode" ng-required="true">
+		   	</md-input-container>
+		   	</div>
     <section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
     	<md-button class="md-raised md-success padd-50" ng-click="updateMerchant();" ng-disabled="merchant.$invalid">Update</md-button>
     	<md-button class="md-raised md-cancel padd-50" ui-sref="app.merchants">Cancel</md-button>

@@ -30,6 +30,23 @@ angular.module('aviateAdmin.services')
 		});
 		return d.promise;
 	};
+	
+	this.updateMerchant = function(merchant){
+		var d = $q.defer();
+		api.Merchant.updateMerchant(merchant, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					toastr.success(CONSTANT.ADDMERCHENT);
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 
 	this.deleteMerchant = function(merchant){
 		var d = $q.defer();

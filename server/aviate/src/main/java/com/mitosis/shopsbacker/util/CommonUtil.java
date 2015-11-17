@@ -95,6 +95,10 @@ public final class CommonUtil {
 		method.invoke(obj, new Date());
 		method = cls.getDeclaredMethod("setCreated", paramString1);
 		method.invoke(obj, new Date());
+		/*Class[] paramString2 = new Class[1];
+		paramString2[0] = Character.class;
+		method = cls.getDeclaredMethod("setIsactive", paramString2);
+		method.invoke(obj, 'Y');*/
 		return obj;
 	}
 	
@@ -273,7 +277,7 @@ public final class CommonUtil {
 	 * @return boolean
 	 * 
 	 */
-	public boolean removeImage(String imagePath) {
+	public static boolean removeImage(String imagePath) {
 		boolean success = false;
 		try {
 			File file = new File(imagePath);

@@ -11,7 +11,7 @@ import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.model.Merchant;
 
-@Service("MerchantServiceImpl")
+@Service("merchantServiceImpl")
 public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable {
 
 	/**
@@ -50,8 +50,8 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 	@Override
 	@Transactional
-	public void deleteMerchant(Merchant merchant) {
-		getMerchantDao().deleteMerchant(merchant);
+	public void deleteMerchant(String id) {
+		getMerchantDao().deleteMerchant(getMerchantById(id));
 	}
 
 	@Override
