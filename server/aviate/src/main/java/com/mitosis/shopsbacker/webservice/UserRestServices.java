@@ -21,7 +21,7 @@ import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.customer.RoleVo;
 
 @Path("user")
-public class UserLoginServices<T> {
+public class UserRestServices<T> {
 
 	ResponseModel response = new ResponseModel();
 

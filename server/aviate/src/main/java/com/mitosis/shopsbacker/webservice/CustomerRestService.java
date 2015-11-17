@@ -17,7 +17,7 @@ import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 @Path("customer")
-public class CustomerLoginService<T> {
+public class CustomerRestService<T> {
 
 	ResponseModel response = new ResponseModel();
 
