@@ -144,7 +144,7 @@ public class User implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID")
 	public Role getRole() {
 		return this.role;
@@ -154,7 +154,7 @@ public class User implements java.io.Serializable {
 		this.role = role;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MERCHANT_ID")
 	public Merchant getMerchant() {
 		return this.merchant;
@@ -174,7 +174,7 @@ public class User implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STORE_ID")
 	public Store getStore() {
 		return this.store;

@@ -26,9 +26,10 @@ public interface UserDao<T> {
 
 	public List<User> getUserByMerchant(Merchant merchant);
 
-	public List<User> getUsersByStoreAndRole(Store store,
-			Role role);
+	public List<User> getUsersByStoreAndRole(Store store, Role role);
 
-	public List<User> getUserByName(String userName);
+	public User getUserByName(String userName);
+
+	public User getUserByName(String userName, String password);
 
 }

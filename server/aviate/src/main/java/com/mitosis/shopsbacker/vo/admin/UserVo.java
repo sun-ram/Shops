@@ -6,8 +6,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.customer.RoleVo;
 
 /**
  * User Created by Sundaram C.
@@ -24,6 +27,10 @@ public class UserVo  {
 	private String deveiceid;
 	private String userName;
 	private String phoneNo;
+	private RoleVo role;
+	private MerchantVo merchant;
+	private StoreVo store;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -77,6 +84,24 @@ public class UserVo  {
 	}
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
+	}
+	public RoleVo getRole() {
+		return role;
+	}
+	public void setRole(RoleVo role) {
+		this.role = role;
+	}
+	public MerchantVo getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
+	}
+	public StoreVo getStore() {
+		return store;
+	}
+	public void setStore(StoreVo store) {
+		this.store = store;
 	}
 	
 	

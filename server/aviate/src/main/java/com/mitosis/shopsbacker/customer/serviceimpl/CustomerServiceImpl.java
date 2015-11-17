@@ -65,4 +65,9 @@ public class CustomerServiceImpl<T> implements CustomerService<T>, Serializable 
 		return getCustomerDao().getCustomerInfoByEmail(email);
 	}
 
+	@Override
+	public Customer getCustomerInfoByEmail(String email, String password) {
+		return getCustomerDao().getCustomerInfoByEmail(email,password);
+	}
+
 }

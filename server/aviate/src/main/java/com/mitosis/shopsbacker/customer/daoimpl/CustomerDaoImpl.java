@@ -67,4 +67,12 @@ public class CustomerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (Customer) findAll(criteria);
 	}
 
+	@Override
+	public Customer getCustomerInfoByEmail(String email, String password) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
+		criteria.add(Restrictions.eq("email", email));
+		criteria.add(Restrictions.eq("password", password));
+		return (Customer) findUnique(criteria);
+	}
+
 }

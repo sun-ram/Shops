@@ -68,6 +68,7 @@
     <bean id="merchantRestService" class="com.mitosis.shopsbacker.webservice.MerchantRestServices"/>
     <bean id="uomRestService" class="com.mitosis.shopsbacker.webservice.UomRestServices"/>
     <bean id="commonRestService" class="com.mitosis.shopsbacker.webservice.CommonRestServices"/>
+     <bean id="userService" class="com.mitosis.shopsbacker.webservice.UserLoginServices"/>
     
    <!--  <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">

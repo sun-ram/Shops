@@ -18,5 +18,7 @@ public interface CustomerDao<T> {
 	public Customer getCustomerInfoById(String id);
 
 	public Customer getCustomerInfoByEmail(String email);
+	
+	public Customer getCustomerInfoByEmail(String email,String password);
 
 }

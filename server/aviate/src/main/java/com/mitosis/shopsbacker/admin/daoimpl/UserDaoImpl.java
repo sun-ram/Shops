@@ -82,23 +82,38 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (List<User>) findAll(criteria);
 	}
 
-
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUsersByStoreAndRole(Store store,
-			Role role) {
+	public List<User> getUsersByStoreAndRole(Store store, Role role) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("store", store));
 		criteria.add(Restrictions.eq("role", role));
 		return (List<User>) findAll(criteria);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUserByName(String userName) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
-		criteria.add(Restrictions.eq("userName", userName));
-		return (List<User>) findAll(criteria);
+	public User getUserByName(String userName) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+			criteria.add(Restrictions.eq("userName", userName));
+			return (User) findUnique(criteria);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+
+	@Override
+	public User getUserByName(String userName, String password) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+			criteria.add(Restrictions.eq("userName", userName));
+			criteria.add(Restrictions.eq("password", password));
+			return (User) findUnique(criteria);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw (e);
+		}
 	}
 
 }

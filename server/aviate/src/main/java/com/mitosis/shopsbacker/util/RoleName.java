@@ -5,5 +5,5 @@ package com.mitosis.shopsbacker.util;
  *
  */
 public enum RoleName {
-	SuperAdmin, MerchantAdmin, StoreAdmin, Shopper, Backer
+	SUPERADMIN, MERCHANTADMIN, STOREADMIN, SHOPPER, BACKER
 }

@@ -21,8 +21,10 @@ public interface UserService<T> {
 	public void deleteUser(User user);
 
 	public User getUser(String id);
-	
-	public List<User> getUserByUserName(String userName);
+
+	public User getUserByUserName(String userName);
+
+	public User getUserByUserName(String userName, String password);
 
 	public List<User> getUser(Store store);
 

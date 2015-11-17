@@ -118,7 +118,7 @@ public class MerchantRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			List<User> checkUniqueUser = getUserService().getUserByUserName(
+			List<User> checkUniqueUser = (List<User>) getUserService().getUserByUserName(
 					merchantVo.getName());
 			if (!checkUniqueUser.isEmpty()) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
@@ -209,7 +209,7 @@ public class MerchantRestServices<T> {
 		user.setPassword(userVo.getPassword());
 		user.setEmailid(userVo.getEmailid());
 		user.setRole(getRoleService()
-				.getRole(RoleName.MerchantAdmin.toString()));
+				.getRole(RoleName.MERCHANTADMIN.toString()));
 		user.setMerchant(merchant);
 		merchant.setUser(user);
 		AddressVo addressVo = userVo.getAddress();
