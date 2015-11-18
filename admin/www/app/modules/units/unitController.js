@@ -8,20 +8,20 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 	  
 		$scope.count = 3;
 		$scope.srch = true;
-		$scope.unit = $localStorage.unit;
+		$scope.uom = $localStorage.uom;
 
 		$scope.getmeasurementunit = function() {
 			
-			var unit ={
+			var uom ={
 			}
-			UnitService.UnitList(unit).then(function(data) {
+			UnitService.UnitList(uom).then(function(data) {
 				$scope.uoms =[];
 				$scope.uoms = data.uom;
 			});
 		};
 	
-		$scope.updateUnit = function(unit) {
-			UnitService.UpdateUnit(unit).then(function(data) {
+		$scope.updateUnit = function(uom) {
+			UnitService.UpdateUnit(uom).then(function(data) {
 				toastr.success(CONSTANT.UPDATEUNIT);
 				$state.go('app.units');
 			});
@@ -35,29 +35,29 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 			});
 		};
 		
-		$scope.deleteUnit = function(unit) {
-				UnitService.deleteUnit(unit).then(function(data) {
+		$scope.deleteUnit = function(uom) {
+				UnitService.deleteUnit(uom).then(function(data) {
 					$scope.getmeasurementunit();
 				toastr.success(CONSTANT.DELETEUNIT);
 			});
 		}		
 			
 		
-	$scope.unitDetails = function(unit){
-		$localStorage.unit = unit;
+	$scope.unitDetails = function(uom){
+		$localStorage.uom = uom;
 		$state.go('app.detailsUnit');
 		
 	},
 	
-	$scope.editUnit = function(unit) {
-		$localStorage.unit = unit;
-		$scope.uom = $localStorage.unit;
+	$scope.editUnit = function(uom) {
+		$localStorage.uom = uom;
+		$scope.uom = $localStorage.uom;
 		$state.go('app.createUnit');
 	},
 	
 	$scope.addUnit = function(){
-		$scope.unit = {};
-		$localStorage.unit = {};
+		$scope.uom = {};
+		$localStorage.uom = {};
 		$state.go('app.createUnit');
 		
 	}

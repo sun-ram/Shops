@@ -269,8 +269,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				name: ""
 		};
 
-		apiClass.Unit.unitList = function (unit, callback) {
-			httpRequest("POST", "uom/getuoms", unit, function (err, data) {
+		apiClass.Unit.unitList = function (uom, callback) {
+			httpRequest("POST", "uom/getuoms", uom, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -283,8 +283,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.Unit.Update = function (unit, callback) {
-			httpRequest("POST", "uom/adduom", unit, function (err, data) {
+		apiClass.Unit.Update = function (uom, callback) {
+			httpRequest("POST", "uom/adduom", uom, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -297,8 +297,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};            
 
-		apiClass.Unit.Delete = function (unit, callback) {
-			httpRequest("POST", "update/product/removeunits", unit, function (err, data) {
+		apiClass.Unit.Delete = function (uom, callback) {
+			httpRequest("POST", "uom/deleteuom", uom, function (err, data) {
 				if (err) {
 
 					callback(err, null);
