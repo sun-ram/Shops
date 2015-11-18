@@ -34,7 +34,7 @@ public class ShippingCharges implements java.io.Serializable {
 	private String createdby;
 	private Date updated;
 	private String updatedby;
-	
+
 
 	public ShippingCharges() {
 	}
@@ -78,6 +78,7 @@ public class ShippingCharges implements java.io.Serializable {
 		this.shippingChargesId = shippingChargesId;
 	}
 
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
@@ -86,6 +87,7 @@ public class ShippingCharges implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
+	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -94,7 +96,7 @@ public class ShippingCharges implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MERCHANT_ID", nullable = false)
 	public Merchant getMerchant() {
 		return this.merchant;

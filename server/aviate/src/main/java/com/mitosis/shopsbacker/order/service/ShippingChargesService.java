@@ -16,4 +16,8 @@ public interface ShippingChargesService<T> {
 
 	public void updateShippingCharges(ShippingCharges shippingCharges);
 
+	public ShippingCharges getShippingChargesById(String id);
+
+	public void deleteShippingCharges(String id);
+
 }

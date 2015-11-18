@@ -17,7 +17,7 @@ import com.mitosis.shopsbacker.order.service.ShippingChargesService;
  */
 @Service("shippingChargesServiceImpl")
 public class ShippingChargesServiceImpl<T> implements
-		ShippingChargesService<T>, Serializable {
+ShippingChargesService<T>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -41,6 +41,18 @@ public class ShippingChargesServiceImpl<T> implements
 	public void updateShippingCharges(ShippingCharges shippingCharges) {
 		shippingChargesDao.updateShippingCharges(shippingCharges);
 
+	}
+
+	@Override
+	@Transactional
+	public ShippingCharges getShippingChargesById(String id) {
+		return shippingChargesDao.getShippingChargesById(id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteShippingCharges(String id) {
+		shippingChargesDao.deleteShippingCharges(id);
 	}
 
 }
