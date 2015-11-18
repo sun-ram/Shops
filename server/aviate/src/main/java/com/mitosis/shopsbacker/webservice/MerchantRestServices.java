@@ -126,7 +126,7 @@ public class MerchantRestServices<T> {
 				return response;
 			}
 			User checkUniqueUser = getUserService().getUserByUserName(
-					merchantVo.getName());
+					merchantVo.getUser().getUserName());
 			if (checkUniqueUser != null) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
 						.getCode());
@@ -214,7 +214,7 @@ public class MerchantRestServices<T> {
 		UserVo userVo = merchantVo.getUser();
 		user.setName(userVo.getName());
 		user.setUserName(userVo.getUserName());
-		user.setPassword(userVo.getPassword());
+		user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
 		user.setEmailid(userVo.getEmailid());
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(getRoleService()
