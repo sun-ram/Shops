@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers')
-.controller("shippingChargesController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams',
-			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams) {
+.controller("shippingChargesController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','ShippingChargeServices',
+			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,ShippingChargeServices) {
 	
 
 			 /* $scope.query = {
@@ -9,41 +9,44 @@ angular.module('aviateAdmin.controllers')
 					  };*/
 				
 				$scope.count = 3;
-				/*$scope.storeData = stores;*/
 				$scope.srch = true;
+				$scope.shipping = {};
+				$scope.shipping.merchant = {
+						merchantId:"ff80818151128155015112824b3a0001"
+				}
 				
-				$scope.getStoreDetails=function(){
-					StoreServices.getStore({'merchantId':$rootScope.user.merchantId}).then(function(data){
-						$scope.storeData=data;
+				$scope.getShippingCharges=function(){
+					if(ShippingChargeServices.getShippingChargeObj()){
+						$scope.shippingChargeList = ShippingChargeServices.getShippingChargeObj();
+					}else{
+					ShippingChargeServices.getShippingCharge($scope.shipping).then(function(data){
+						$scope.shippingChargeList=data;
 					});
+					}
 				};
 				
-				$scope.redirectToStoreDetails = function(store){
-					StoreServices.setStoreObj(store);
+				$scope.redirectToShippingCharges = function(shippingCharge){
+					ShippingChargeServices.setShippingChargeObj(shippingCharge);
 					$state.go('app.shippingchargedetails');
 				}
 				
-				$scope.redirectToEditStore = function(store){
-					StoreServices.setStoreObj(store);
+				$scope.redirectToEditShippingCharge = function(shippingCharge){
+					ShippingChargeServices.setShippingChargeObj(shippingCharge);
 					$state.go('app.editshippingcharges');
 				}
 
-				$scope.deleteStore= function(storeId) {
+				$scope.deleteShippingCharge= function(shippingCharge) {
 									
 									var confirm = $mdDialog.confirm()
 							        .title('Would you like to delete Store?')
 							        .ok('Delete')
 							        .cancel('Cancel');
 							  $mdDialog.show(confirm).then(function() {
-					
-								  $scope.store = {};
-					 					$scope.store.storeId = storeId;
-					 					StoreServices.deleteStore($scope.store).then(function(data){
+					 					ShippingChargeServices.deleteShippingCharge(shippingCharge).then(function(data){
 					 						$state.go('app.shippingCharges');
-					 						$scope.getStoreDetails();
+					 						$scope.getShippingCharges();
 					 					});
 									
-					
 								  }, function() {
 								  
 								  });				};

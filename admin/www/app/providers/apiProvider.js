@@ -1075,6 +1075,67 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		/*Shipping Charges modules*/
+		apiClass.ShippingService = {
+				name: ""
+		};
+		
+		apiClass.ShippingService.addNewShippingCharge = function (shippingCharge, callback) {
+			httpRequest("POST", "shippingcharges/addshippingcharges", shippingCharge, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.ShippingService.getShippingCharge = function (merchant, callback) {
+			httpRequest("POST", "shippingcharges/getshippingcharges", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.ShippingService.deleteShippingCharge = function (id, callback) {
+			httpRequest("POST", "shippingcharges/delete", id, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.ShippingService.updateShippingCharge = function (shippingCharge, callback) {
+			httpRequest("POST", "shippingcharges/update", shippingCharge, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 		return apiClass;
 	}]

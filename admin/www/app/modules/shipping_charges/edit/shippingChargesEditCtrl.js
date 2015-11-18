@@ -1,32 +1,32 @@
 angular.module('aviateAdmin.controllers')
 .controller("shippingChargesEditCtrl", 
-		['$scope', '$state','toastr','StoreServices',
-		 function($scope, $state,  toastr, StoreServices) {
+		['$scope', '$state','toastr','ShippingChargeServices',
+		 function($scope, $state,  toastr, ShippingChargeServices) {
 
-			$scope.getStore = function(){
-				$scope.storeDetail = StoreServices.getStoreObj();
-				$scope.temp = localStorage.getItem('storeDetails');
-				if($scope.storeDetail){
-					localStorage.setItem('storeDetails',JSON.stringify($scope.storeDetail));
+			$scope.getshippingCharge = function(){
+				$scope.shippingCharge = ShippingChargeServices.getShippingChargeObj();
+				$scope.temp = localStorage.getItem('shippingCharge');
+				if($scope.shippingCharge){
+					localStorage.setItem('shippingCharge',JSON.stringify($scope.shippingCharge));
 				}else if($scope.temp && $scope.temp != 'undefined'){
-					$scope.storeDetail = JSON.parse($scope.temp);
+					$scope.shippingCharge = JSON.parse($scope.temp);
 				}else{
-					localStorage.removeItem('storeDetails');
+					localStorage.removeItem('shippingCharge');
 					$state.go('app.newshippingcharges');
 				}
 			};
-			$scope.getStore();
+			$scope.getshippingCharge();
 
-			$scope.updateStore = function(){
-				StoreServices.addNewStore($scope.storeDetail).then(function(data){
-					localStorage.removeItem('storeDetails');
+			$scope.updateShippingCharges = function(){
+				ShippingChargeServices.updateShippingCharge($scope.shippingCharge).then(function(data){
+					localStorage.removeItem('shippingCharge');
 					$state.go('app.shippingCharges');
 				});
 			};
 			
-			$scope.redirectToStoreDetails = function(store){
-				StoreServices.setStoreObj(store);
-				$state.go('app.shippingchargedetails');
+			$scope.redirectToShippingCharges = function(shippingCharges){
+				StoreServices.setShippingChargeObj(shippingCharges);
+				$state.go('app.shippingCharges');
 			}
 
 		}]);

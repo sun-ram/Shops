@@ -21,6 +21,9 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	INV_PROCESSED:'Inventory has been processed successfully',
 	FORGETPASSWORDCONFIRMATION:'Password has been sent your Email',
 	FORGETPASSWORDNEEDMAILID:"This Email-Id is not registered.",
+	ADDSHIPPING:'Shipping Charges Added successfully',
+	DELETESHIPPING:'Shipping Charges Deleted successfully',
+	UPDATESHIPPING:'Shipping Charges Updated Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
