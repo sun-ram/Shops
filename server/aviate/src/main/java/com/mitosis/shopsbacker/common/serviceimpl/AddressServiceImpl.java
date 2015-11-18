@@ -13,6 +13,10 @@ import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.vo.common.AddressVo;
+import com.mitosis.shopsbacker.vo.common.CountryVo;
+import com.mitosis.shopsbacker.vo.common.StateVo;
 
 @Service("addressServiceImpl")
 public class AddressServiceImpl<T> implements AddressService<T> {
@@ -85,6 +89,53 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	@Override
 	public State getStateById(String id) {
 		return getAddressDao().getStateById(id);
+	}
+
+	@Override
+	public AddressVo setAddressVo(Address address) {
+		AddressVo addressVo = new AddressVo();
+		addressVo.setAddress1(address.getAddress1());
+		addressVo.setAddress2(address.getAddress2());
+		addressVo.setCity(address.getCity());
+		addressVo.setPhoneNo(address.getPhoneNo());
+		addressVo.setPinCode(address.getPinCode());
+		addressVo.setLatitude(address.getLatitude());
+		addressVo.setLongitude(address.getLongitude());
+		addressVo.setCountry(setCountryVo(address.getCountry()));
+		addressVo.setState(setCountryVo(address.getState()));
+		return addressVo;
+	}
+
+	@Override
+	public Address setAddress(AddressVo addressVo){
+			Address address = new Address();
+			address.setAddress1(addressVo.getAddress1());
+			address.setAddress2(addressVo.getAddress2());
+			address.setCity(addressVo.getCity());
+			address.setPhoneNo(addressVo.getPhoneNo());
+			address.setPinCode(addressVo.getPinCode());
+			address.setLatitude(addressVo.getLatitude());
+			address.setLongitude(addressVo.getLongitude());
+			address.setCountry(getCountry(addressVo.getCountry().getCountryId()));
+			address.setState(getStateById(addressVo.getState().getStateId()));
+			return address;
+		
+	}
+	
+	public CountryVo setCountryVo(Country country){
+		CountryVo countryVo = new CountryVo();
+		countryVo.setName(country.getName());
+		countryVo.setCountryId(country.getCountryId());
+		countryVo.setCurrencyCode(country.getCurrencyCode());
+		countryVo.setCurrencyName(country.getCurrencyName());
+		return countryVo;
+	}
+	
+	public StateVo setCountryVo(State state){
+		StateVo stateVo = new StateVo();
+		stateVo.setName(state.getName());
+		stateVo.setStateId(state.getStateId());
+		return stateVo;
 	}
 
 }

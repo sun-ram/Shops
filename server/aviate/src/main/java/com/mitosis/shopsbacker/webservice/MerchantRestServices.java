@@ -153,7 +153,7 @@ public class MerchantRestServices<T> {
 
 			merchantImageUpload(merchantVo);
 
-			Merchant merchant = setMerchant(merchantVo);
+			Merchant merchant = merchantService.setMerchant(merchantVo);
 			
 			merchantService.saveMerchant(merchant);
 
@@ -195,63 +195,7 @@ public class MerchantRestServices<T> {
 		return location;
 	}
 
-	public Merchant setMerchant(MerchantVo merchantVo) throws Exception {
-		Merchant merchant = (Merchant) CommonUtil
-				.setAuditColumnInfo(Merchant.class.getName());
-		merchant.setName(merchantVo.getName());
 
-		Image image = setImage(merchantVo);
-		merchant.setLogo(image);
-
-		UserVo userVo = merchantVo.getUser();
-		User user = setUser(userVo);
-		user.setMerchant(merchant);
-		//merchant.setUser(user);
-		//user.setMerchant(merchant);
-		return merchant;
-	}
-
-	public User setUser(UserVo userVo) throws Exception {
-		User user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
-		user.setName(userVo.getName());
-		user.setUserName(userVo.getUserName());
-		user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
-		user.setEmailid(userVo.getEmailid());
-		user.setPhoneNo(userVo.getPhoneNo());
-		user.setRole(getRoleService()
-				.getRole(RoleName.MERCHANTADMIN.toString()));
-		AddressVo addressVo = userVo.getAddress();
-		
-		Address address = setAddress(addressVo);
-		
-		//addessService.saveAddress(address);
-		
-		user.setAddress(address);
-		
-		return user;
-	}
-
-	public Address setAddress(AddressVo addressVo) throws Exception {
-		Address address = (Address) CommonUtil.setAuditColumnInfo(Address.class.getName());
-		address.setAddress1(addressVo.getAddress1());
-		address.setAddress2(addressVo.getAddress2());
-		address.setCity(addressVo.getCity());
-		address.setPhoneNo(addressVo.getPhoneNo());
-		address.setPinCode(addressVo.getPinCode());
-		address.setLatitude(addressVo.getLatitude());
-		address.setLongitude(addressVo.getLongitude());
-		address.setCountry(addessService.getCountry(addressVo.getCountry().getCountryId()));
-		address.setState(addessService.getStateById(addressVo.getState().getStateId()));
-		return address;
-	}
-
-	public Image setImage(MerchantVo merchantVo) throws Exception {
-		Image image = (Image) CommonUtil.setAuditColumnInfo(Image.class.getName());
-		image.setName(merchantVo.getLogo().getName());
-		image.setType(merchantVo.getLogo().getType());
-		image.setUrl(merchantVo.getLogo().getUrl());
-		return image;
-	}
 
 	@Path("/update")
 	@POST
@@ -373,7 +317,7 @@ public class MerchantRestServices<T> {
 			List<Merchant> merchants = merchantService.getMerchantList();
 			List<MerchantVo> listOfMerchantVo = new ArrayList<MerchantVo>();
 			for (Merchant merchant : merchants) {
-				MerchantVo merchantVo = setMerchantVo(merchant);
+				MerchantVo merchantVo = merchantService.setMerchantVo(merchant);
 				listOfMerchantVo.add(merchantVo);
 			}
 			merchantResponse.setMerchant(listOfMerchantVo);
@@ -385,75 +329,6 @@ public class MerchantRestServices<T> {
 		return merchantResponse;
 	}
 
-	public MerchantVo setMerchantVo(Merchant merchant) throws Exception {
-		MerchantVo merchantVo = new MerchantVo();
-		merchantVo.setName(merchant.getName());
-		merchantVo.setMerchantId(merchant.getMerchantId());
-
-		ImageVo imageVo = setImageVo(merchant);
-		merchantVo.setLogo(imageVo);
-
-		User user = merchant.getUser();
-		UserVo userVo = setUserVo(user);
-		userVo.setMerchant(merchantVo);
-		merchantVo.setUser(userVo);
-		return merchantVo;
-	}
-
-	public UserVo setUserVo(User user) throws Exception {
-		UserVo userVo = new UserVo();
-		userVo.setName(user.getName());
-		userVo.setUserName(user.getUserName());
-		userVo.setPassword(user.getPassword());
-		userVo.setEmailid(user.getEmailid());
-		userVo.setPhoneNo(user.getPhoneNo());
-		userVo.setUserId(user.getUserId());
-		userVo.setAddress(setAddressVo(user.getAddress()));
-		return userVo;
-	}
-	
-	public AddressVo setAddressVo(Address address) throws Exception {
-		AddressVo addressVo = new AddressVo();
-		addressVo.setAddress1(address.getAddress1());
-		addressVo.setAddress2(address.getAddress2());
-		addressVo.setCity(address.getCity());
-		addressVo.setPhoneNo(address.getPhoneNo());
-		addressVo.setPinCode(address.getPinCode());
-		addressVo.setLatitude(address.getLatitude());
-		addressVo.setLongitude(address.getLongitude());
-		addressVo.setCountry(setCountryVo(address.getCountry()));
-		addressVo.setState(setCountryVo(address.getState()));
-		return addressVo;
-	}
-	
-	public CountryVo setCountryVo(Country country){
-		CountryVo countryVo = new CountryVo();
-		countryVo.setName(country.getName());
-		countryVo.setCountryId(country.getCountryId());
-		countryVo.setCurrencyCode(country.getCurrencyCode());
-		countryVo.setCurrencyName(country.getCurrencyName());
-		return countryVo;
-	}
-	
-	public StateVo setCountryVo(State state){
-		StateVo stateVo = new StateVo();
-		stateVo.setName(state.getName());
-		stateVo.setStateId(state.getStateId());
-		return stateVo;
-	}
-	
-
-	public ImageVo setImageVo(Merchant merchant) throws IOException {
-		ImageVo imageVo = new ImageVo();
-		Properties properties = new Properties();
-		properties.load(getClass().getResourceAsStream(
-				"/properties/serverurl.properties"));
-		String imageUrl = properties.getProperty("imageUrl");
-		imageVo.setName(merchant.getLogo().getName());
-		imageVo.setType(merchant.getLogo().getType());
-		imageVo.setUrl(imageUrl.concat(merchant.getLogo().getUrl()));
-		return imageVo;
-	}
 
 	@Path("/deletemerchant")
 	@POST

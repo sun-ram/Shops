@@ -6,6 +6,8 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Role;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+import com.mitosis.shopsbacker.vo.admin.UserVo;
 
 /**
  * @author prabakaran
@@ -31,5 +33,11 @@ public interface UserService<T> {
 	public List<User> getUser(Merchant merchant);
 
 	public List<User> getUsers(Store store, Role role);
+	
+	public User setUser(UserVo userVo,Role role)throws Exception;
+	
+	public UserVo setUserVo(User user);
+	
+
 
 }

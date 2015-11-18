@@ -7,6 +7,8 @@ import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.vo.admin.UserVo;
+import com.mitosis.shopsbacker.vo.common.AddressVo;
 
 public interface AddressService<T> {
 	
@@ -29,5 +31,9 @@ public interface AddressService<T> {
 	public List<State> getState(String countryId);
 	
 	public State getStateById(String id);
+	
+	public AddressVo setAddressVo(Address address);
+	
+	public Address setAddress(AddressVo addressVo);
 
 }
