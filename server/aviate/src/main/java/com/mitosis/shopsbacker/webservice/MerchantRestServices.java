@@ -203,15 +203,16 @@ public class MerchantRestServices<T> {
 		Image image = setImage(merchantVo);
 		merchant.setLogo(image);
 
-		setUser(merchantVo, merchant);
+		UserVo userVo = merchantVo.getUser();
+		User user = setUser(userVo);
+		user.setMerchant(merchant);
 		//merchant.setUser(user);
 		//user.setMerchant(merchant);
 		return merchant;
 	}
 
-	public User setUser(MerchantVo merchantVo, Merchant merchant) throws Exception {
+	public User setUser(UserVo userVo) throws Exception {
 		User user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
-		UserVo userVo = merchantVo.getUser();
 		user.setName(userVo.getName());
 		user.setUserName(userVo.getUserName());
 		user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
@@ -219,8 +220,6 @@ public class MerchantRestServices<T> {
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(getRoleService()
 				.getRole(RoleName.MERCHANTADMIN.toString()));
-		user.setMerchant(merchant);
-		merchant.setUser(user);
 		AddressVo addressVo = userVo.getAddress();
 		
 		Address address = setAddress(addressVo);
@@ -394,20 +393,22 @@ public class MerchantRestServices<T> {
 		ImageVo imageVo = setImageVo(merchant);
 		merchantVo.setLogo(imageVo);
 
-		UserVo userVo = setUserVo(merchant);
+		User user = merchant.getUser();
+		UserVo userVo = setUserVo(user);
+		userVo.setMerchant(merchantVo);
 		merchantVo.setUser(userVo);
 		return merchantVo;
 	}
 
-	public UserVo setUserVo(Merchant merchant) throws Exception {
+	public UserVo setUserVo(User user) throws Exception {
 		UserVo userVo = new UserVo();
-		userVo.setName(merchant.getUser().getName());
-		userVo.setUserName(merchant.getUser().getUserName());
-		userVo.setPassword(merchant.getUser().getPassword());
-		userVo.setEmailid(merchant.getUser().getEmailid());
-		userVo.setPhoneNo(merchant.getUser().getPhoneNo());
-		userVo.setUserId(merchant.getUser().getUserId());
-		userVo.setAddress(setAddressVo(merchant.getUser().getAddress()));
+		userVo.setName(user.getName());
+		userVo.setUserName(user.getUserName());
+		userVo.setPassword(user.getPassword());
+		userVo.setEmailid(user.getEmailid());
+		userVo.setPhoneNo(user.getPhoneNo());
+		userVo.setUserId(user.getUserId());
+		userVo.setAddress(setAddressVo(user.getAddress()));
 		return userVo;
 	}
 	
