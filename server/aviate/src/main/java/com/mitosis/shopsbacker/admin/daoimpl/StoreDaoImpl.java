@@ -129,13 +129,18 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 
 	@Override
 	public List<Store> getStoreListByName(String name, Merchant merchant) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
-				"store");
-		criteria.createAlias("name", "name");
-		criteria.createAlias("merchant", "merchant");
-
-		criteria.add(Restrictions.eq("isactive", 'Y'));
-		return ((List<Store>) findAll(criteria));
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
+					"store");
+			
+			criteria.add(Restrictions.eq("name", name));
+			criteria.add(Restrictions.eq("merchant", merchant));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Store>) findAll(criteria));
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw(e);
+		}
 	}
 
 }

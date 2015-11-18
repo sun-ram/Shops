@@ -434,7 +434,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		apiClass.Store.addNewStore = function (store, callback) {
-			httpRequest("POST", "store/addstoreorupdate", store, function (err, data) {
+			httpRequest("POST", "store/addstore", store, function (err, data) {
 				if (err) {
 
 					callback(err, null);
