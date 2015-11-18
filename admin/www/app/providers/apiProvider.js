@@ -270,7 +270,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Unit.unitList = function (unit, callback) {
-			httpRequest("POST", "update/product/merchant/getunits", unit, function (err, data) {
+			httpRequest("POST", "uom/getuoms", unit, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -284,7 +284,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Unit.Update = function (unit, callback) {
-			httpRequest("POST", "update/product/addunits", unit, function (err, data) {
+			httpRequest("POST", "uom/adduom", unit, function (err, data) {
 				if (err) {
 
 					callback(err, null);

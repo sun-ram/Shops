@@ -9,9 +9,9 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.UpdateUnit = function(unit){
+	this.UpdateUnit = function(uom){
 		var d = $q.defer();
-		api.Unit.Update(unit, function(err, result){
+		api.Unit.Update(uom, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
@@ -21,9 +21,9 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.saveUnit = function(unit){
+	this.saveUnit = function(uom){
 		var d = $q.defer();
-		api.Unit.Update(unit, function(err, result){
+		api.Unit.Update(uom, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {

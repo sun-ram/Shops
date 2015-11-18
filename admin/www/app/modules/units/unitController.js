@@ -12,13 +12,11 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 
 		$scope.getmeasurementunit = function() {
 			
-			$localStorage.unit = {};
 			var unit ={
-					merchantId:$rootScope.user.merchantId
 			}
 			UnitService.UnitList(unit).then(function(data) {
-				$scope.measureType =[];
-				$scope.measureType = data.units;
+				$scope.uoms =[];
+				$scope.uoms = data.uom;
 			});
 		};
 	
@@ -29,9 +27,9 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 			});
 		};		
 		
-		$scope.saveUnit = function(unit) {
-			unit.merchantId = $rootScope.user.merchantId
-			UnitService.saveUnit(unit).then(function(data) {
+		$scope.saveUnit = function(uom) {
+			//unit.merchantId = $rootScope.user.merchantId
+			UnitService.saveUnit(uom).then(function(data) {
 				toastr.success(CONSTANT.ADDUNIT);
 				$state.go('app.units');
 			});
@@ -53,7 +51,7 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 	
 	$scope.editUnit = function(unit) {
 		$localStorage.unit = unit;
-		$scope.unit = $localStorage.unit;
+		$scope.uom = $localStorage.unit;
 		$state.go('app.createUnit');
 	},
 	

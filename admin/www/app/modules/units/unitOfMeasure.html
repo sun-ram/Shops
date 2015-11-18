@@ -4,7 +4,7 @@
 <md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getmeasurementunit()">
  <md-toolbar class=" md-default-theme">
 	<div class="md-toolbar-tools" layout="row">
-  		<h2 layout-align="start">Units Of Measure</h2>
+  		<h2 layout-align="start">Units Of Measurement</h2>
     	<span class="flex"></span>
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
@@ -26,18 +26,18 @@
 		
 		
      <md-list>
-       <md-item ng-repeat="unit in measureType | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit" class="md-table-content-row">
+       <md-item ng-repeat="uom in uoms | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
-            <div layout="row" layout-wrap class="full_wid" ng-click="unitDetails(unit)">
+            <div layout="row" layout-wrap class="full_wid" ng-click="unitDetails(uom)">
             <span layout-padding><ng-md-icon icon="arrow_forward" size="30"></ng-md-icon></span>
            	<span flex=30 layout="column" class="padd-lr5 ft-18" layout-align="start start">
            		
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{unit.description}}</strong></span>
+             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{uom.description}}</strong></span>
                           
            	</span>
            	   <span flex=30 layout="row" layout-align="start end">
            
-              	<span class="padd-tr5-lb8 ft-18" ><strong>{{unit.abbreviation}}</strong></span>
+              	<span class="padd-tr5-lb8 ft-18" ><strong>{{uom.name}}</strong></span>
           
            	 </span>
              <span flex=30 layout="row" layout-align="end center">
