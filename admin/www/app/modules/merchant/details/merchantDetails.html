@@ -16,7 +16,7 @@
 	 </span>      	
 	</md-toolbar>
 	<md-list>
-	      <div layout layout-sm="column">
+	   <div layout layout-sm="column">
 	
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
@@ -28,6 +28,21 @@
            	<span  layout="column" class="detail-list" layout-align="start start">
              <span class="ft-18 paddtb-8">{{merchant.user.phoneNo}}</span>
              <span class="hash_color ft-14">Phone Number</span>
+           	</span>                     
+       </md-item>
+       </div>
+       <div layout layout-sm="column">
+	
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+             <span class="ft-18 paddtb-8">{{merchant.user.name}}</span>
+             <span class="hash_color ft-14">Contact persion Name</span>
+           	</span>                     
+       </md-item>
+       <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+             <span class="ft-18 paddtb-8">{{merchant.user.emailid}}</span>
+             <span class="hash_color ft-14">Email</span>
            	</span>                     
        </md-item>
        </div>
@@ -56,7 +71,7 @@
        </md-item>
        <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{merchant.state}}</span>
+             <span class="ft-18 paddtb-8">{{merchant.user.address.state.name}}</span>
              <span class="hash_color ft-14">State</span>
            	</span>                     
        </md-item>
@@ -65,7 +80,7 @@
        
        <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{merchant.country}}</span>
+             <span class="ft-18 paddtb-8">{{merchant.user.address.country.name}}</span>
              <span class="hash_color ft-14">Country</span>
            	</span>                     
        </md-item>

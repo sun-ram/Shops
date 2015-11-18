@@ -34,9 +34,9 @@ angular.module('aviateAdmin.controllers')
 			$scope.merchantDetail.logo.image=$scope.merchantLogo.split(",")[1];
 			$scope.merchantDetail.logo.type=$scope.merchantLogo ? ($scope.merchantLogo.substring(11).split(";")[0]) : "";
 			MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
-				$scope.merchantLogo=null;
+				/*$scope.merchantLogo=null;
 				$scope.merchantDetail = null;
-				$state.go('app.merchantdetails');
+				$state.go('app.merchantdetails');*/
 			});
 		};
 	

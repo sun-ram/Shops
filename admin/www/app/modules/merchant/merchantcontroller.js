@@ -8,6 +8,7 @@ angular.module('aviateAdmin.controllers').controller("merchantcontroller",
 			};*/
 			$scope.count = 3;
 			$scope.merchantData = merchants;
+			console.info($scope.merchantData);
 			$scope.srch = true;
 			
 			$scope.redirectToMerchant=function(){

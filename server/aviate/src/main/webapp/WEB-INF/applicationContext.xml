@@ -65,11 +65,10 @@
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <bean id="merchantRestService" class="com.mitosis.shopsbacker.webservice.MerchantRestServices"/>
+    <!-- <bean id="merchantRestService" class="com.mitosis.shopsbacker.webservice.MerchantRestServices"/> -->
     <bean id="uomRestService" class="com.mitosis.shopsbacker.webservice.UomRestServices"/>
     <bean id="commonRestService" class="com.mitosis.shopsbacker.webservice.CommonRestServices"/>
      <bean id="userService" class="com.mitosis.shopsbacker.webservice.UserRestServices"/>
-     <bean id="storeRestService" class="com.mitosis.shopsbacker.webservice.StoreRestService"/>
    <!--  <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
 			<list>

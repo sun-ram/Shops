@@ -5,7 +5,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Merchant.getList(merchant, function(err, result){
 			if(result){
-				d.resolve(result.merchantList);
+				d.resolve(result.merchant);
 			}
 			else{
 				toastr.error(err.errorCode);

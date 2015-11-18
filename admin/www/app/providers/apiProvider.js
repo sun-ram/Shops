@@ -236,7 +236,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.Merchant.updateMerchant = function (merchant, callback) {
-			httpRequest("POST", "merchant/updatemerchant", merchant, function (err, data) {
+			httpRequest("POST", "merchant/update", merchant, function (err, data) {
 				if (err) {
 
 					callback(err, null);

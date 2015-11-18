@@ -46,7 +46,7 @@ public class ImageReader extends HttpServlet {
 			throws ServletException, IOException {
 		logger.info(req.getRequestURL());
 		try{
-				String fname = req.getRequestURL().substring(IMAGE_FILE_URL.length()-1, req.getRequestURL().length()-1);
+				String fname = req.getRequestURL().substring(IMAGE_FILE_URL.length(), req.getRequestURL().length());
 				File file = new File(IMAGE_FILE_LOCATION+fname);
 				InputStream in = new FileInputStream(file);
 				ServletOutputStream out = resp.getOutputStream();

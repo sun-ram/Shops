@@ -105,7 +105,7 @@ public class Address implements java.io.Serializable {
 		this.addressId = addressId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STATE_ID", nullable = false)
 	public State getState() {
 		return this.state;
@@ -125,7 +125,7 @@ public class Address implements java.io.Serializable {
 		this.customer = customer;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "COUNTRY_ID", nullable = false)
 	public Country getCountry() {
 		return this.country;

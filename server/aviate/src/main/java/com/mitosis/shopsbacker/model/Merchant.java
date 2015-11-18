@@ -158,7 +158,9 @@ public class Merchant implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "merchantForUser")
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	@JoinColumn(name = "USER_ID")
 	public User getUser() {
 		return this.user;
 	}
@@ -166,7 +168,9 @@ public class Merchant implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "merchant")
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	@JoinColumn(name="LOGO_ID")
 	public Image getLogo() {
 		return this.logo;
 	}

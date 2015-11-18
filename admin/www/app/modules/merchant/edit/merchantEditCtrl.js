@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("merchantEditCtrl", 
-		['$scope', '$rootScope','$state','toastr','MerchantServices',
-		 function($scope,$rootScope, $state,  toastr, MerchantServices) {
+		['$scope', '$rootScope','$state','toastr','MerchantServices', 'CommonServices',
+		 function($scope,$rootScope, $state,  toastr, MerchantServices, CommonServices) {
 
 			$scope.getMerchant = function(){
 				$scope.merchantDetail = MerchantServices.getMerchantObj();
@@ -14,15 +14,22 @@ angular.module('aviateAdmin.controllers')
 					localStorage.removeItem('merchantDetails');
 					$state.go('app.newmerchant');
 				}
+				console.info($scope.merchantDetail);
 			};
 			$scope.getMerchant();
+			
+			$scope.getState = function(country){
+				$scope.cunt = JSON.parse(country);
+				$scope.states = $scope.cunt.states;
+			}
 			
 			$scope.getCountries = function(){
 				CommonServices.getCountries($scope.country).then(function(data){
 					$scope.countries=data;
+					$scope.country = $scope.merchantDetail.user.address.country;
+					$scope.state = $scope.merchantDetail.user.address.state.stateId;
 				});
 			}
-			
 			$scope.getCountries();
 
 			$scope.updateMerchant = function(){
@@ -37,25 +44,14 @@ angular.module('aviateAdmin.controllers')
 				$scope.merchantDetail.user.address.state.stateId = $scope.st.stateId;
 				$scope.merchantDetail.user.address.state.name = $scope.st.name;
 				
-				$scope.merchantDetail.logo = {};
-				$scope.merchantDetail.logo.image=$scope.merchantLogo.split(",")[1];
-				$scope.merchantDetail.logo.type=$scope.merchantLogo ? ($scope.merchantLogo.substring(11).split(";")[0]) : "";
-				MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
-					$scope.merchantLogo=null;
-					$scope.merchantDetail = null;
-					$state.go('app.merchantdetails');
-				});
-			
-				
-				if ($scope.merchantLogo != "" && $scope.merchantLogo!=undefined && $scope.merchantLogo!=null) {
+				if ($scope.merchantLogo != "" && $scope.merchantLogo != undefined && $scope.merchantLogo != null) {
 					$scope.merchantDetail.logo = {};
 					$scope.merchantDetail.logo.image=$scope.merchantLogo.split(",")[1];
 					$scope.merchantDetail.logo.type=$scope.merchantLogo ? ($scope.merchantLogo.substring(11).split(";")[0]) : "";
-				} 
-				
-				MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
-					localStorage.removeItem('merchantDetails');
-					$rootScope.merchantLogo="";
+				}
+				MerchantServices.updateMerchant($scope.merchantDetail).then(function(data){
+					$scope.merchantLogo=null;
+					$scope.merchantDetail = null;
 					$state.go('app.merchants');
 				});
 			};

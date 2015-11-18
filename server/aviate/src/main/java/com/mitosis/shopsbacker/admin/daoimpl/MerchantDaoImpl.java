@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Merchant;
 
 @Repository
@@ -53,14 +54,9 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		delete((T) merchant);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Merchant getMerchantById(String id) {
-
-		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
-		criteria.add(Restrictions.eq("merchantId", id));
-		return ((List<Merchant>) findAll(criteria)).get(0);
-
+		return(Merchant) getSession().get(Merchant.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
