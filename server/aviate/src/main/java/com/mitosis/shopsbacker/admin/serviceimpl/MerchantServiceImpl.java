@@ -18,6 +18,7 @@ import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 
 @Service("merchantServiceImpl")
 public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable {
@@ -117,9 +118,19 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 	}
 
 	@Override
-	public MerchantVo setMerchantVo(Merchant merchant) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public MerchantVo setMerchantVo(Merchant merchant) throws Exception {
+		  MerchantVo merchantVo = new MerchantVo();
+		  merchantVo.setName(merchant.getName());
+		  merchantVo.setMerchantId(merchant.getMerchantId());
+
+		  ImageVo imageVo = imageService.setImageVo(merchant);
+		  merchantVo.setLogo(imageVo);
+
+		  User user = merchant.getUser();
+		  UserVo userVo = userService.setUserVo(user);
+		  userVo.setMerchant(merchantVo);
+		  merchantVo.setUser(userVo);
+		  return merchantVo;
+		 }
 
 }
