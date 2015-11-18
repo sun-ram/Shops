@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.model.User;
@@ -21,6 +22,7 @@ import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.customer.RoleVo;
 
 @Path("user")
+@Controller("userRestServices")
 public class UserRestServices<T> {
 
 	ResponseModel response = new ResponseModel();
@@ -37,7 +39,8 @@ public class UserRestServices<T> {
 		try {
 			UserVo userDetails = new UserVo();
 			if (userVo.getUserName() != null) {
-				User user = userService.getUserByUserName(userVo.getUserName(),userVo.getPassword());
+				User user = userService.getUserByUserName(userVo.getUserName(),
+						userVo.getPassword());
 				if (user != null) {
 					userDetails = setUserDetails(user);
 					userLoginResponseVo.setUserVo(userDetails);

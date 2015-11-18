@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Customer;
@@ -17,6 +18,7 @@ import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 @Path("customer")
+@Controller("customerRestService")
 public class CustomerRestService<T> {
 
 	ResponseModel response = new ResponseModel();
