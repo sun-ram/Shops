@@ -36,15 +36,11 @@
 		      <label>User Name<span style="color:red">*</span></label>
 		      <input ng-model="merchantDetail.user.userName" name="userName" ng-required="true" ng-disabled="true">
 		    </md-input-container>
-		    <md-input-container layout-padding flex>
-		      <label>Password<span style="color:red">*</span></label>
-		      <input ng-model="merchantDetail.user.password" ng-trim="false" ng-change="merchantDetail.user.password = merchantDetail.user.password.split(' ').join('')" ng-required="true">
-		    </md-input-container>
 		  </div>
 		    <div layout layout-sm="column">
 		    <md-input-container layout-padding flex>
 		     <label>Email<span style="color:red">*</span></label>
-		        <input type="email" ng-model="merchantDetail.user.emailid" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+		        <input type="email" ng-model="merchantDetail.user.emailid" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$" ng-disabled="true">
 	        <!-- <span ng-message="required" ng-show="merchantForm.userName.$error.email || (!merchantForm.userName.$error.required && !merchantForm.userName.$valid)" style="color:red;">Email Invalid.</span> -->
 		    </md-input-container>
 		    <md-input-container layout-padding flex>
