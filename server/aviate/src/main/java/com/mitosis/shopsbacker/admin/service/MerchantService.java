@@ -14,6 +14,6 @@ public interface MerchantService<T> {
 	public List<Merchant> getMerchantListByName(String param);
 	public Merchant getMerchantById(String id);
 	public Merchant setMerchant(MerchantVo merchantVo)throws Exception;
-	public MerchantVo setMerchantVo(Merchant merchant);
+	public MerchantVo setMerchantVo(Merchant merchant) throws Exception;
 	
 }
