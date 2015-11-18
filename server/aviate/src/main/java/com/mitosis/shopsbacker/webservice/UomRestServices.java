@@ -3,6 +3,7 @@
  */
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,16 +13,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.util.Units;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.responsevo.UomResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.util.SBErrorMessage;
-import com.mitosis.shopsbacker.util.SBMessageProperties;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
@@ -81,27 +78,27 @@ public class UomRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject getUnits() {
-		JSONObject uomList = new JSONObject();
+	public UomResponseVo getUnits() {
+		UomResponseVo response=new UomResponseVo();
 		try {
 			log.info("\n******************************************\n"
 					+ "Initializing the get units service");
 			List<Uom> listOfUom = getUomService().getAllUOM();
-			JSONArray uoms = new JSONArray();
+			List<UomVo> uoms=new ArrayList<UomVo>();
 			for (Uom uom : listOfUom) {
 				UomVo uomVo = setUomVo(uom);
-				uoms.put(uomVo);
+				uoms.add(uomVo);
 			}
-			uomList.put("uoms", uoms);
-			uomList.put(SBMessageProperties.STATUS.getValue(), SBMessageStatus.SUCCESS.getValue());
+			response.setUom(uoms);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			uomList.put(SBMessageProperties.STATUS.getValue(), SBMessageStatus.FAILURE.getValue());
-			uomList.put(SBMessageProperties.MESSAGE.getValue(), e.getMessage());
+			response.setStatus( SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
 		}
 		log.info("\n******************************************\n"
 				+ "Response of the get units service");
-		return uomList;
+		return response;
 	}
 
 	/**
