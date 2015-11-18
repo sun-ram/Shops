@@ -12,6 +12,7 @@ import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Uom;
 /**
  * @author RiyazKhan.M
  */
@@ -63,4 +64,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 	}
 
+	@Override
+	@Transactional
+	public List<Product> getProductByUom(Uom uom){
+		return productDao.getProductByUom(uom);
+	}
 }

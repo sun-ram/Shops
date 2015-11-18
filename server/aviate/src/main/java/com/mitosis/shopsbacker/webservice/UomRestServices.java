@@ -4,6 +4,7 @@
 package com.mitosis.shopsbacker.webservice;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,11 +15,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.responsevo.UomResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
@@ -27,12 +32,16 @@ import com.mitosis.shopsbacker.vo.inventory.UomVo;
  * @author Anbukkani Gajendran
  *
  */
+@Controller("uomRestServices")
 @Path("uom")
 public class UomRestServices<T> {
 	Logger log = Logger.getLogger(UomRestServices.class);
 
 	@Autowired
 	UomService<T> uomService;
+
+	@Autowired
+	ProductService<T> productService;
 
 	public UomService<T> getUomService() {
 		return uomService;
@@ -46,11 +55,11 @@ public class UomRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseModel addUnits(UomVo uomVo) {
+	public ResponseModel addUom(UomVo uomVo) {
 		ResponseModel response = new ResponseModel();
 		try {
 			log.info("\n******************************************\n"
-					+ "Initializing the add or update units service");
+					+ "Initializing the add or update uom service");
 
 			/*Uom uom = getUomService().getUomByName(uomVo.getName());
 			if (uom != null) {
@@ -70,7 +79,7 @@ public class UomRestServices<T> {
 			response.setErrorCode("");
 		}
 		log.info("\n******************************************\n"
-				+ "Response of the add or update units service");
+				+ "Response of the add or update uom service");
 		return response;
 	}
 
@@ -78,7 +87,7 @@ public class UomRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UomResponseVo getUnits() {
+	public UomResponseVo getUoms() {
 		UomResponseVo response=new UomResponseVo();
 		try {
 			log.info("\n******************************************\n"
@@ -98,6 +107,35 @@ public class UomRestServices<T> {
 		}
 		log.info("\n******************************************\n"
 				+ "Response of the get units service");
+		return response;
+	}
+	
+	@Path("/deleteuom")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel deleteUom(UomVo uomVo) {
+		ResponseModel response = new ResponseModel();
+		try {
+			log.info("\n******************************************\n"
+					+ "Initializing the delete uom service");
+			Uom uom = uomService.getUOMById(uomVo.getUomId());
+			List<Product> products=productService.getProductByUom(uom);
+			if(products.size()>0){
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				response.setErrorString(SBErrorMessage.UOM_ALREDY_ASSIGNED_IN_PRODUCT.getMessage());
+				response.setErrorCode(SBErrorMessage.UOM_ALREDY_ASSIGNED_IN_PRODUCT.getCode());
+			}
+			uomService.removeUOM(uom);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+			response.setErrorCode("");
+		}
+		log.info("\n******************************************\n"
+				+ "Response of the delete uom service");
 		return response;
 	}
 
@@ -120,11 +158,23 @@ public class UomRestServices<T> {
 	 * @throws Exception
 	 */
 	private void setUom(UomVo uomVo) throws Exception {
-		Uom productUnitOfMeasure = (Uom) CommonUtil
+		Uom productUnitOfMeasure=null;
+		if(uomVo.getUomId()==null){
+		 productUnitOfMeasure = (Uom) CommonUtil
 				.setAuditColumnInfo(Uom.class.getName());
+			productUnitOfMeasure.setIsactive('Y');
+		}else{
+			productUnitOfMeasure=uomService.getUOMById(uomVo.getUomId());
+			productUnitOfMeasure.setUpdated(new Date());
+			//TODO: Need to get user from session and set as Updatedby.
+			productUnitOfMeasure.setUpdatedby("1223");
+		}
 		productUnitOfMeasure.setDescription(uomVo.getDescription());
 		productUnitOfMeasure.setName(uomVo.getName());
-		productUnitOfMeasure.setIsactive('Y');
+		if(uomVo.getUomId()==null){
 		getUomService().addUOM(productUnitOfMeasure);
+		}else{
+			getUomService().updateUOM(productUnitOfMeasure);
+		}
 	}
 }

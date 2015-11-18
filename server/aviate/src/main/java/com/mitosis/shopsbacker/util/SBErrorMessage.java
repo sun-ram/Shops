@@ -13,7 +13,8 @@ public enum SBErrorMessage {
 	INVALID_ADDRESS("E0003","Enter correct address"),
 	UOM_NAME_ALREADY_EXIST("E0004","Uom name already exist."),
 	INVALID_USERNAME("E0003","Invalid username or password"),
-	STORE_NAME_ALREADY_EXIST("E0005","Store name already exist.");
+	STORE_NAME_ALREADY_EXIST("E0005","Store name already exist."),
+	UOM_ALREDY_ASSIGNED_IN_PRODUCT("E0008","You can not able to delete this Unit Of Measurement. Because it is already assigned some product.");
 
 	private final String erroeCode;
 	  private final String errorMessage;

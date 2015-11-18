@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.UomDao;
@@ -17,6 +18,7 @@ import com.mitosis.shopsbacker.model.Uom;
  */
 
 @Repository
+@Transactional
 public class UomDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		UomDao<T>, Serializable {
 
@@ -59,7 +61,7 @@ public class UomDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	@Override
 	public Uom getUOMById(String uomId) {
 		try {
-			return (Uom) getSession().get(SalesOrder.class, uomId);
+			return (Uom) getSession().get(Uom.class, uomId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw (e);
