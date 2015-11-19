@@ -29,12 +29,22 @@ angular.module('aviateAdmin.controllers')
 			//$scope.store.merchantId = $rootScope.user.merchantId;
 			$scope.store.merchant = {};
 			$scope.store.merchant.merchantId = {};
-			$scope.store.merchant.merchantId = "ff80818151128155015112824b3a0001";
+			$scope.store.merchant.merchantId = "2c9fa0375119c5c8015119e22dd50004";
+			if($scope.store.id){
+				StoreServices.updateStore($scope.store).then(function(data){
+					//toastr.success(data.status);
+					$scope.store = null;
+					$state.go('app.store');
+				});
+				
+			}
+			else{
 			StoreServices.addNewStore($scope.store).then(function(data){
 				//toastr.success(data.status);
 				$scope.store = null;
 				$state.go('app.store');
 			});
+			}
 		};
 		
 		

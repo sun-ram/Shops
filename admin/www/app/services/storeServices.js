@@ -33,6 +33,23 @@ angular.module('aviateAdmin.services')
 		});
 		return d.promise;
 	};
+	
+	this.updateStore = function(store){
+		var d = $q.defer();
+		api.Store.updateStore(store, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					toastr.success(CONSTANT.ADDSTORE);
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 	this.deleteStore = function(store){
 		var d = $q.defer();
 		api.Store.deleteStore(store, function(err, result){

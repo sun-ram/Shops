@@ -446,6 +446,21 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Store.updateStore = function (store, callback) {
+			httpRequest("POST", "store/update", store, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		apiClass.Store.deleteStore = function (store, callback) {
 			httpRequest("POST", "store/removestore", store, function (err, data) {
 				if (err) {
