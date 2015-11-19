@@ -126,8 +126,14 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 			
 		}
 		merchant.setName(merchantVo.getName());
-		Image image = imageService.setImage(merchantVo.getLogo());
-		merchant.setLogo(image);
+		
+		if (merchantVo.getLogo().getImage() != null) {
+			Image image = imageService.setImage(merchantVo.getLogo());
+			merchant.setLogo(image);;
+		}
+		
+		
+		
 		UserVo userVo = merchantVo.getUser();
 		Role role = roleService.getRole(RoleName.MERCHANTADMIN.toString());
 		User user = userService.setUser(userVo, role);
@@ -145,7 +151,7 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 		merchantVo.setLogo(imageVo);
 		User user = merchant.getUser();
 		UserVo userVo = userService.setUserVo(user);
-		userVo.setMerchant(merchantVo);
+		//userVo.setMerchant(merchantVo);
 		merchantVo.setUser(userVo);
 		return merchantVo;
 	}

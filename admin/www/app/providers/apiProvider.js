@@ -145,7 +145,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		apiClass.Employee.save = function (employee, callback) {
-			httpRequest("POST", "store/employeeregister", employee, function (err, data) {
+			httpRequest("POST", "user/register", employee, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -159,7 +159,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Employee.update = function (employee, callback) {
-			httpRequest("POST", "store/editemployee", employee, function (err, data) {
+			httpRequest("POST", "user/update", employee, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -173,7 +173,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};   
 
 		apiClass.Employee.deleteEmployee = function (employee, callback) {
-			httpRequest("POST", "store/removeemployee", employee, function (err, data) {
+			httpRequest("POST", "user/deleteemployee", employee, function (err, data) {
 				if (err) {
 
 					callback(err, null);

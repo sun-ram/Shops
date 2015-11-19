@@ -119,7 +119,7 @@ public class MerchantRestServices<T> {
 				return response;
 			}
 
-			JsonNode location = getLatLongByAddress(merchantVo);
+			/*JsonNode location = getLatLongByAddress(merchantVo);
 
 			if (location == null) {
 				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
@@ -132,7 +132,7 @@ public class MerchantRestServices<T> {
 			JsonNode loc = location.findValue("lat".toString());
 			merchantVo.getUser().getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
-			merchantVo.getUser().getAddress().setLongitude(loc.toString());
+			merchantVo.getUser().getAddress().setLongitude(loc.toString());*/
 
 			merchantImageUpload(merchantVo);
 			Image img = null;
@@ -152,8 +152,7 @@ public class MerchantRestServices<T> {
 	public void merchantImageUpload(MerchantVo merchantVo) throws IOException,
 			Exception {
 
-		if (merchantVo.getLogo() == null
-				&& merchantVo.getLogo().getImage() == null) {
+		if (merchantVo.getLogo().getImage() == null) {
 			return;
 		}
 
@@ -224,7 +223,8 @@ public class MerchantRestServices<T> {
 
 			getMerchantService().updateMerchant(merchant);
 			
-			if(merchant.getMerchantId() != null){
+			if(merchant.getMerchantId() != null && img != null){
+				
 				imageService.deleteImage(img);
 				 
 			}

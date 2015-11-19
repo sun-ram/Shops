@@ -4,17 +4,12 @@ package com.mitosis.shopsbacker.vo.customer;
 
 
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  * Role Created by Sundaram C.
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class RoleVo implements java.io.Serializable {
+public class RoleVo {
 
 	private String roleId;
 	private String name;

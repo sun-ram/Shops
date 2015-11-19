@@ -2,12 +2,8 @@ package com.mitosis.shopsbacker.vo.admin;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.mitosis.shopsbacker.model.Address;
-import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.customer.RoleVo;

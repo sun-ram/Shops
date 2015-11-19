@@ -1,13 +1,10 @@
 package com.mitosis.shopsbacker.vo;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ResponseModel {
 
 	private String errorCode = "";

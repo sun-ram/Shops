@@ -4,7 +4,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Employee.getList(employee, function(err, result){
 			if (result.status == 'SUCCESS') {
-				d.resolve(result.customerList);
+				d.resolve(result.users);
 			} else {
 				toastr.error(result.errorString);
 			}
@@ -16,6 +16,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Employee.save(employee, function(err, result){
 			if (result.status == 'SUCCESS') {
+				toastr.success("Employee Added Successfully");
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);
@@ -28,6 +29,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Employee.update(employee, function(err, result){
 			if (result.status == 'SUCCESS') {
+				toastr.success(CONSTANT.UPDATEEMPLOYEE);
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);
@@ -40,6 +42,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Employee.deleteEmployee(employee, function(err, result){
 			if (result.status == 'SUCCESS') {
+				toastr.success("Employee Deleted Successfully");
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);

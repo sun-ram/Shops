@@ -30,18 +30,10 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 
 	@Override
 	public Image setImage(ImageVo imageVo) throws Exception {
-		Image image = null;
-		if (imageVo.getImageId() == null) {
-			image = (Image) CommonUtil
+		
+		
+		Image image = (Image) CommonUtil
 					.setAuditColumnInfo(Image.class.getName());
-		} else {
-			// TODO: Need to implement image dao and get image using given image
-			// id. Then assign;
-			image = null;
-			image.setUpdated(new Date());
-			// TODO: Need to get user from seesion and set to updated by.
-			image.setUpdatedby("1234");
-		}
 		image.setName(imageVo.getName());
 		image.setType(imageVo.getType());
 		image.setUrl(imageVo.getUrl());

@@ -15,6 +15,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
@@ -155,6 +156,22 @@ public class UserRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel saveUser(UserVo userVo) {
 		try {
+			
+			JsonNode location = getLatLongByAddress(userVo);
+
+			if (location == null) {
+				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
+				response.setErrorString(SBErrorMessage.INVALID_ADDRESS
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+
+			JsonNode loc = location.findValue("lat".toString());
+			userVo.getAddress().setLatitude(loc.toString());
+			loc = location.findValue("lng".toString());
+			userVo.getAddress().setLongitude(loc.toString());
+
 			Store store = storeService.getStoreById(userVo.getStore().getStoreId());
 			//TODO need to set data from userVo to user Entity
 			User user = userService.setUser(userVo, roleService.getRole(userVo.getRole().getName()));
@@ -167,6 +184,17 @@ public class UserRestServices<T> {
 		}
 		return response;
 	}
+	
+	public JsonNode getLatLongByAddress(UserVo userVo) {
+		String full_address = userVo.getAddress().getAddress1()
+				+ "," + userVo.getAddress().getAddress2() + ","
+				+ userVo.getAddress().getCity() + ","
+				+ userVo.getAddress().getState().getName() + ","
+				+ userVo.getAddress().getCountry().getName()
+				+ "," + userVo.getAddress().getPinCode();
+		JsonNode location = CommonUtil.getLatLong(full_address);
+		return location;
+	}
 
 	@Path("/update")
 	@POST
@@ -174,6 +202,22 @@ public class UserRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel updateUser(UserVo userVo) {
 		try {
+			
+			JsonNode location = getLatLongByAddress(userVo);
+
+			if (location == null) {
+				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
+				response.setErrorString(SBErrorMessage.INVALID_ADDRESS
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+
+			JsonNode loc = location.findValue("lat".toString());
+			userVo.getAddress().setLatitude(loc.toString());
+			loc = location.findValue("lng".toString());
+			userVo.getAddress().setLongitude(loc.toString());
+
 			//TODO we need to implement Set entity to vo
 			User user = userService.setUser(userVo, roleService.getRole(userVo.getRole().getName()));
 			userService.updateUser(user);

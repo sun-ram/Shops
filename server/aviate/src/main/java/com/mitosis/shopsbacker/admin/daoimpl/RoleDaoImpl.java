@@ -38,6 +38,6 @@ public class RoleDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public List<Role> getRole(List<String> roles) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Role.class);
 		criteria.add(Restrictions.in("name", roles));
-		return (List<Role>) findUnique(criteria);
+		return (List<Role>) findAll(criteria);
 	}
 }
