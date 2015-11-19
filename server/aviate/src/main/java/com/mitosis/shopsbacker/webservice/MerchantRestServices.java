@@ -21,25 +21,18 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
-import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
-import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.State;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.responsevo.MerchantResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
-import com.mitosis.shopsbacker.vo.common.CountryVo;
-import com.mitosis.shopsbacker.vo.common.ImageVo;
-import com.mitosis.shopsbacker.vo.common.StateVo;
 
 /**
  * @author prabakaran
@@ -52,15 +45,12 @@ public class MerchantRestServices<T> {
 	final static Logger log = Logger.getLogger(MerchantRestServices.class
 			.getName());
 
-	@Autowired(required=true)
+	@Autowired(required = true)
 	MerchantService<T> merchantService;
 
 	@Autowired
-	CustomerService<T> customerService;
-
-	@Autowired
 	UserService<T> userService;
-	
+
 	@Autowired
 	AddressService<T> addessService;
 
@@ -78,14 +68,6 @@ public class MerchantRestServices<T> {
 
 	public void setUserService(UserService<T> userService) {
 		this.userService = userService;
-	}
-
-	public CustomerService<T> getCustomerService() {
-		return customerService;
-	}
-
-	public void setCustomerService(CustomerService<T> customerService) {
-		this.customerService = customerService;
 	}
 
 	public MerchantService<T> getMerchantService() {
@@ -154,7 +136,7 @@ public class MerchantRestServices<T> {
 			merchantImageUpload(merchantVo);
 
 			Merchant merchant = merchantService.setMerchant(merchantVo);
-			
+
 			merchantService.saveMerchant(merchant);
 
 		} catch (Exception e) {
@@ -173,14 +155,16 @@ public class MerchantRestServices<T> {
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		defaultImagePath = properties.getProperty("imagePath");
-		merchantImagePath = "merchant/" + merchantVo.getName()+"/";
+		merchantImagePath = "merchant/" + merchantVo.getName() + "/";
 
 		String imageName = UUID.randomUUID().toString().replace("-", "");
 		if (CommonUtil.uploadImage(merchantVo.getLogo().getImage(), merchantVo
-				.getLogo().getType(), defaultImagePath+merchantImagePath, imageName)) {
+				.getLogo().getType(), defaultImagePath + merchantImagePath,
+				imageName)) {
 			merchantVo.getLogo().setName(imageName);
 			merchantVo.getLogo().setUrl(
-					merchantImagePath+imageName + "." + merchantVo.getLogo().getType());
+					merchantImagePath + imageName + "."
+							+ merchantVo.getLogo().getType());
 		}
 	}
 
@@ -189,13 +173,11 @@ public class MerchantRestServices<T> {
 				+ "," + merchantVo.getUser().getAddress().getAddress2() + ","
 				+ merchantVo.getUser().getAddress().getCity() + ","
 				+ merchantVo.getUser().getAddress().getState().getName() + ","
-				+ merchantVo.getUser().getAddress().getCountry().getName() + ","
-				+ merchantVo.getUser().getAddress().getPinCode();
+				+ merchantVo.getUser().getAddress().getCountry().getName()
+				+ "," + merchantVo.getUser().getAddress().getPinCode();
 		JsonNode location = CommonUtil.getLatLong(full_address);
 		return location;
 	}
-
-
 
 	@Path("/update")
 	@POST
@@ -216,10 +198,10 @@ public class MerchantRestServices<T> {
 			merchantVo.getUser().getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
 			merchantVo.getUser().getAddress().setLongitude(loc.toString());
-			
+
 			Merchant merchant = getMerchantService().getMerchantById(
 					merchantVo.getMerchantId());
-			
+
 			if (merchantVo.getLogo().getImage() != null
 					&& merchantVo.getLogo().getType() != null) {
 				merchantVo.getLogo().setUrl(merchant.getLogo().getUrl());
@@ -246,13 +228,15 @@ public class MerchantRestServices<T> {
 
 		setUserForUpdate(merchantVo, merchant);
 	}
-	
-	public void setImageForUpdate(Merchant merchant , MerchantVo merchantVo) throws Exception {
+
+	public void setImageForUpdate(Merchant merchant, MerchantVo merchantVo)
+			throws Exception {
 		Image image = merchant.getLogo();
 		image.setName(merchantVo.getLogo().getName());
 		image.setType(merchantVo.getLogo().getType());
 		image.setUrl(merchantVo.getLogo().getUrl());
 	}
+
 	public void updateMerchantImage(MerchantVo merchantVo) throws IOException,
 			Exception {
 		String merchantImagePath = "";
@@ -261,22 +245,24 @@ public class MerchantRestServices<T> {
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		defaultImagePath = properties.getProperty("imagePath");
-		merchantImagePath = "merchant/" + merchantVo.getName()+"/";
-		if (CommonUtil.removeImage(defaultImagePath.concat(merchantVo.getLogo().getUrl()))) {
+		merchantImagePath = "merchant/" + merchantVo.getName() + "/";
+		if (CommonUtil.removeImage(defaultImagePath.concat(merchantVo.getLogo()
+				.getUrl()))) {
 			String imageName = UUID.randomUUID().toString().replace("-", "");
 			if (CommonUtil.uploadImage(merchantVo.getLogo().getImage(),
 					merchantVo.getLogo().getType(), defaultImagePath
 							+ merchantImagePath, imageName)) {
 				merchantVo.getLogo().setName(imageName);
 				merchantVo.getLogo().setUrl(
-						merchantImagePath+imageName + "." + merchantVo.getLogo().getType());
+						merchantImagePath + imageName + "."
+								+ merchantVo.getLogo().getType());
 			}
 		}
 
 	}
 
-	
-	public void setUserForUpdate(MerchantVo merchantVo, Merchant merchant) throws Exception {
+	public void setUserForUpdate(MerchantVo merchantVo, Merchant merchant)
+			throws Exception {
 		User user = merchant.getUser();
 		UserVo userVo = merchantVo.getUser();
 		user.setName(userVo.getName());
@@ -284,16 +270,19 @@ public class MerchantRestServices<T> {
 		user.setPassword(userVo.getPassword());
 		user.setEmailid(userVo.getEmailid());
 		user.setPhoneNo(userVo.getPhoneNo());
-		/*user.setRole(getRoleService()
-				.getRole(RoleName.MerchantAdmin.toString()));*/
+		/*
+		 * user.setRole(getRoleService()
+		 * .getRole(RoleName.MerchantAdmin.toString()));
+		 */
 		user.setMerchant(merchant);
 		merchant.setUser(user);
 		AddressVo addressVo = userVo.getAddress();
 		Address address = setAddressForUpdate(addressVo, user);
 		user.setAddress(address);
 	}
-	
-	public Address setAddressForUpdate(AddressVo addressVo, User user) throws Exception {
+
+	public Address setAddressForUpdate(AddressVo addressVo, User user)
+			throws Exception {
 		Address address = user.getAddress();
 		address.setAddress1(addressVo.getAddress1());
 		address.setAddress2(addressVo.getAddress2());
@@ -302,11 +291,13 @@ public class MerchantRestServices<T> {
 		address.setPinCode(addressVo.getPinCode());
 		address.setLatitude(addressVo.getLatitude());
 		address.setLongitude(addressVo.getLongitude());
-		address.setCountry(addessService.getCountry(addressVo.getCountry().getCountryId()));
-		address.setState(addessService.getStateById(addressVo.getState().getStateId()));
+		address.setCountry(addessService.getCountry(addressVo.getCountry()
+				.getCountryId()));
+		address.setState(addessService.getStateById(addressVo.getState()
+				.getStateId()));
 		return address;
 	}
-	
+
 	@Path("/getmerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -321,14 +312,14 @@ public class MerchantRestServices<T> {
 				listOfMerchantVo.add(merchantVo);
 			}
 			merchantResponse.setMerchant(listOfMerchantVo);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
+			merchantResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			merchantResponse.setErrorString(e.getMessage());
 		}
 		return merchantResponse;
 	}
-
 
 	@Path("/deletemerchant")
 	@POST

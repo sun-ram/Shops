@@ -31,5 +31,7 @@ public interface UserDao<T> {
 	public User getUserByName(String userName);
 
 	public User getUserByName(String userName, String password);
+	
+	public List<User> getUsers(List<Role> role, Store store);
 
 }

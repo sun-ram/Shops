@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.admin.daoimpl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -18,7 +19,8 @@ import com.mitosis.shopsbacker.model.Role;
  */
 @Repository
 @Transactional
-public class RoleDaoImpl<T> extends CustomHibernateDaoSupport<T> implements RoleDao<T>, Serializable {
+public class RoleDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
+		RoleDao<T>, Serializable {
 
 	/**
 	 * 
@@ -31,4 +33,11 @@ public class RoleDaoImpl<T> extends CustomHibernateDaoSupport<T> implements Role
 		return (Role) findUnique(criteria);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Role> getRole(List<String> roles) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Role.class);
+		criteria.add(Restrictions.in("name", roles));
+		return (List<Role>) findUnique(criteria);
+	}
 }

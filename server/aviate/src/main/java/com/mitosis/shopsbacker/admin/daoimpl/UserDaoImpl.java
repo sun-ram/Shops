@@ -116,4 +116,13 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getUsers(List<Role> role, Store store) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+		criteria.add(Restrictions.eq("store", store));
+		criteria.add(Restrictions.in("role", role));
+		return (List<User>) findAll(criteria);
+	}
+
 }

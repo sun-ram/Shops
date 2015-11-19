@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.model.Country;
@@ -21,6 +22,7 @@ import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
 
 @Path("/common")
+@Controller("commonRestServices")
 public class CommonRestServices<T> {
 	Logger log = Logger.getLogger(CommonRestServices.class);
 

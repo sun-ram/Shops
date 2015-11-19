@@ -1,15 +1,17 @@
 package com.mitosis.shopsbacker.admin.serviceimpl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mitosis.shopsbacker.admin.dao.RoleDao;
+import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.admin.dao.UserDao;
 import com.mitosis.shopsbacker.admin.service.UserService;
-import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -17,7 +19,6 @@ import com.mitosis.shopsbacker.model.Role;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 
@@ -36,9 +37,32 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 
 	@Autowired
 	UserDao<T> userDao;
-	
+
 	@Autowired
 	AddressService<T> addressService;
+
+	@Autowired
+	RoleDao<T> roleDao;
+
+	@Autowired
+	StoreDao<T> storeDao;
+
+	
+	public RoleDao<T> getRoleDao() {
+		return roleDao;
+	}
+
+	public StoreDao<T> getStoreDao() {
+		return storeDao;
+	}
+
+	public void setRoleDao(RoleDao<T> roleDao) {
+		this.roleDao = roleDao;
+	}
+
+	public void setStoreDao(StoreDao<T> storeDao) {
+		this.storeDao = storeDao;
+	}
 
 	public AddressService<T> getAddressService() {
 		return addressService;
@@ -70,9 +94,8 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 
 	@Override
 	@Transactional
-	public void deleteUser(User user) {
-		getUserDao().deleteUser(user);
-
+	public void deleteUser(String id) {
+		getUserDao().deleteUser(getUser(id));
 	}
 
 	@Override
@@ -108,9 +131,27 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	public User getUserByUserName(String userName, String password) {
 		return getUserDao().getUserByName(userName, password);
 	}
-	
-	public User setUser(UserVo userVo,Role role) throws Exception{
-		User user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
+
+	/* @author prabakaran
+	 * This method will return List of users
+	 * @Param request parms List Of roles and store id
+	 */
+	@Override
+	public List<User> getUsers(List<String> roles, String storeId) {
+		return userDao.getUsers(roleDao.getRole(roles),
+				storeDao.getStoreById(storeId));
+	}
+
+	public User setUser(UserVo userVo, Role role) throws Exception {
+		User user = null;
+		if(userVo.getUserId() == null){
+			user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
+		}else{
+			user = userDao.getUser(userVo.getUserId());
+			user.setUpdated(new Date());
+			//TODO need to get user from session and set to updatedby
+			user.setUpdatedby("123");
+		}
 		user.setName(userVo.getName());
 		user.setUserName(userVo.getUserName());
 		user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
@@ -118,16 +159,16 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(role);
 		AddressVo addressVo = userVo.getAddress();
-		
+
 		Address address = addressService.setAddress(addressVo);
-		
-		//addessService.saveAddress(address);
-		
+
+		// addessService.saveAddress(address);
+
 		user.setAddress(address);
-		
+
 		return user;
 	}
-	
+
 	public UserVo setUserVo(User user) {
 		UserVo userVo = new UserVo();
 		userVo.setName(user.getName());
@@ -139,6 +180,5 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		userVo.setAddress(addressService.setAddressVo(user.getAddress()));
 		return userVo;
 	}
-
 
 }

@@ -3,6 +3,8 @@ package com.mitosis.shopsbacker.common.serviceimpl;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.springframework.stereotype.Service;
+
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -10,6 +12,7 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
+@Service("imageServiceImpl")
 public class ImageServiceImpl<T> implements ImageService<T> {
 
 	@Override

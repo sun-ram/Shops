@@ -1,5 +1,7 @@
 package com.mitosis.shopsbacker.admin.dao;
 
+import java.util.List;
+
 import com.mitosis.shopsbacker.model.Role;
 
 /**
@@ -10,5 +12,7 @@ import com.mitosis.shopsbacker.model.Role;
 public interface RoleDao<T> {
 	
 	public Role getRole(String name);
+	
+	public List<Role> getRole(List<String> roles);
 
 }

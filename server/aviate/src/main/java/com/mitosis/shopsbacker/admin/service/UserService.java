@@ -20,7 +20,7 @@ public interface UserService<T> {
 
 	public void updateUser(User user);
 
-	public void deleteUser(User user);
+	public void deleteUser(String id);
 
 	public User getUser(String id);
 
@@ -33,6 +33,8 @@ public interface UserService<T> {
 	public List<User> getUser(Merchant merchant);
 
 	public List<User> getUsers(Store store, Role role);
+	
+	public List<User> getUsers(List<String> roles, String storeId);
 	
 	public User setUser(UserVo userVo,Role role)throws Exception;
 	

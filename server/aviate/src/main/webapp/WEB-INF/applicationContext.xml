@@ -21,7 +21,7 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://54.68.134.166:3306/shopsbacker" />		
+		<property name="url" value="jdbc:mysql://localhost:3306/shopsbacker" />		
 		<property name="username" value="root"/>
 		<property name="password" value="root"/>
 	</bean>
@@ -66,9 +66,6 @@
     </bean>
     
     <!-- <bean id="merchantRestService" class="com.mitosis.shopsbacker.webservice.MerchantRestServices"/> -->
-    <bean id="uomRestService" class="com.mitosis.shopsbacker.webservice.UomRestServices"/>
-    <bean id="commonRestService" class="com.mitosis.shopsbacker.webservice.CommonRestServices"/>
-     <bean id="userService" class="com.mitosis.shopsbacker.webservice.UserRestServices"/>
    <!--  <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
 			<list>

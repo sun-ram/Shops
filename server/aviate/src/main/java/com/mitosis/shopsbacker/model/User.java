@@ -131,7 +131,7 @@ public class User implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IMAGE_ID")
 	public Image getImage() {
 		return this.image;
