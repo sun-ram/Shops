@@ -4,8 +4,8 @@ angular.module('aviateAdmin.controllers')
 	 function($scope, $state, toastr, ShippingChargeServices, $rootScope) {
 		$scope.addShippingCharge = function(){
 			$scope.shipping.merchant = {
-					merchantId:"ff80818151128155015112824b3a0001",
-					name:"praba"
+					merchantId:"2c9fa0375119c5c801511b14c88200a0",
+					name:"Jayam"
 			}
 			ShippingChargeServices.addNewShippingCharge($scope.shipping).then(function(data){
 				//toastr.success(data.status);

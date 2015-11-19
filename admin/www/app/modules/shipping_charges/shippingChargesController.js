@@ -12,17 +12,15 @@ angular.module('aviateAdmin.controllers')
 				$scope.srch = true;
 				$scope.shipping = {};
 				$scope.shipping.merchant = {
-						merchantId:"ff80818151128155015112824b3a0001"
+						merchantId:"2c9fa0375119c5c801511b14c88200a0"
 				}
 				
 				$scope.getShippingCharges=function(){
-					if(ShippingChargeServices.getShippingChargeObj()){
-						$scope.shippingChargeList = ShippingChargeServices.getShippingChargeObj();
-					}else{
+					
 					ShippingChargeServices.getShippingCharge($scope.shipping).then(function(data){
 						$scope.shippingChargeList=data;
 					});
-					}
+					
 				};
 				
 				$scope.redirectToShippingCharges = function(shippingCharge){
@@ -38,7 +36,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.deleteShippingCharge= function(shippingCharge) {
 									
 									var confirm = $mdDialog.confirm()
-							        .title('Would you like to delete Store?')
+							        .title('Would you like to delete Shipping Charge?')
 							        .ok('Delete')
 							        .cancel('Cancel');
 							  $mdDialog.show(confirm).then(function() {

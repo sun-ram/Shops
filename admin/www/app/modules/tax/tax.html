@@ -1,0 +1,66 @@
+<a ui-sref="app.newtax">
+	<md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
+		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
+	</md-button>
+</a>
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getTax()">
+ <md-toolbar class=" md-default-theme">
+	<div class="md-toolbar-tools" layout="row">
+  		<h2 layout-align="start">Tax</h2>
+    	<span class="flex"></span>
+	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
+	      <md-input-container md-theme="input" flex>
+	        <label>&nbsp;</label>
+	        <input ng-model="searchTxt" style="color: white; border-bottom-color: white;" placeholder="enter search">
+	      </md-input-container>
+	      <md-button aria-label="Search" style="line-height: inherit; min-width: inherit;" ng-click="showSearch = !showSearch;srch = true;">
+	        <ng-md-icon icon="search" class="icon-white"></ng-md-icon>
+	      </md-button>
+	  </div>
+      <md-button ng-show="srch" layout-align="end" style="line-height: inherit; min-width: inherit;" aria-label="Search" ng-click="showSearch = !showSearch; srch = false;">
+       <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+      </md-button>
+    </div>
+   </md-toolbar>
+   <div layout="row" flex class="pro-header">
+      		<div flex="10">&nbsp;</div>
+      		<div flex="20">Tax Name</div>
+      		<div flex="20">Tax_Percentage</div>
+      	</div>
+   
+   <md-card-content class="nopaddtop">
+	<md-data-table-container>
+     <md-list>
+       <md-item md-data-table ng-repeat="tax in taxList | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid">
+         	<span flex=10  class="padd-5-3" ></span>
+           	<span flex=25 layout="column" class="padd-lr5" layout-align="start start">
+             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{tax.name}}</strong></span>
+           	</span>
+           	 <span flex=50 layout="row">
+             	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{tax.taxPercentage}}%</strong></span>
+           	 </span>
+             <span flex=15 layout="row" layout-align="end center">
+                <!-- <md-button style="z-index:500;" class="md-icon-button md-primary" ng-click="" aria-label="Edit"> -->
+                <md-button class="md-icon-button md-primary" ng-click="redirectToEditTax(tax);$event.stopPropagation();" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
+      			</md-button>
+             	<!-- <md-button style="z-index:500;" class="md-icon-button md-primary" ng-click="deleteStore(store.storeId);$event.stopPropagation();" aria-label="Delete"> -->
+             	<md-button class="md-icon-button md-primary" ng-click="deleteTax(tax);$event.stopPropagation();" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+             </span>
+            </div>
+         </md-item-content>
+         <md-divider></md-divider>
+       <md-divider></md-divider>
+       </md-item>
+     </md-list>
+	</md-data-table-container>
+   </md-card-content>
+   <div layout layout="row" class="table-pagination-bg" layout-align="center center">
+	<md-data-table-pagination md-limit="storePagination.limit" md-page="storePagination.page" md-total="{{shippingChargeList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	</div>
+</md-card>
+

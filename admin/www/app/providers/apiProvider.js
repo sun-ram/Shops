@@ -1136,6 +1136,67 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		/*Tax modules*/
+		apiClass.TaxService = {
+				name: ""
+		};
+		
+		apiClass.TaxService.addNewTax = function (tax, callback) {
+			httpRequest("POST", "tax/addtax", tax, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.TaxService.getTax = function (merchant, callback) {
+			httpRequest("POST", "tax/gettax", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.TaxService.deleteTax = function (id, callback) {
+			httpRequest("POST", "tax/deletetax", id, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.TaxService.updateTax = function (tax, callback) {
+			httpRequest("POST", "tax/updatetax", tax, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 		return apiClass;
 	}]

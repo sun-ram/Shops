@@ -282,6 +282,28 @@ angular.module('app')
 		url: '/shippingCharges/edit',
 		templateUrl: 'app/modules/shipping_charges/edit/shippingChargesEdit.html',
 		controller : 'shippingChargesEditCtrl'
+	})
+	
+	//tax module
+	.state('app.tax',{
+		url: '/tax',
+		templateUrl: 'app/modules/tax/tax.html',
+		controller : 'taxController'
+	})
+	.state('app.taxdetails', {
+		url: '/tax/details',
+		templateUrl: 'app/modules/tax/details/taxDetails.html',
+		controller : 'taxDetailsCtrl'
+	})
+	.state('app.newtax', {
+		url: '/tax/new',
+		templateUrl: 'app/modules/tax/add/taxCreate.html',
+		controller : 'taxCreateCtrl'
+	})
+	.state('app.edittax', {
+		url: '/tax/edit',
+		templateUrl: 'app/modules/tax/edit/taxEdit.html',
+		controller : 'taxEditCtrl'
 	});
 	
 	
