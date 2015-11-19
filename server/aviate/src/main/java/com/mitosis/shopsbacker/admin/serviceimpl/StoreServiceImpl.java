@@ -155,6 +155,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	public StoreVo setStoreVo(Store store) throws Exception {
 		StoreVo storeVo = new StoreVo();
 		storeVo.setName(store.getName());
+		storeVo.setStoreId(store.getStoreId());
 		User user = store.getUser();
 		UserVo userVo = userService.setUserVo(user);
 		storeVo.setUser(userVo);
@@ -174,6 +175,11 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 		User user = userService.setUser(userVo,role);
 		user.setStore(store);
 		store.setUser(user);
+	}
+
+	@Override
+	public List<Store> getStoreList() {
+		return storeDao.getStoreList();
 	}
 
 

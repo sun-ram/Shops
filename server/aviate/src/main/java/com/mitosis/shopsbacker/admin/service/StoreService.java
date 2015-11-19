@@ -36,5 +36,7 @@ public interface StoreService<T> {
 	
 	public void setStore(Store store, StoreVo storeVo)throws Exception;
 	
+	public List<Store> getStoreList();
+	
 	
 }

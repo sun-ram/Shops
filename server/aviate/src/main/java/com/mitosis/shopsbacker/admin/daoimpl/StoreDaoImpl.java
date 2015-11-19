@@ -9,6 +9,7 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -24,6 +25,7 @@ import com.mitosis.shopsbacker.model.User;
  * 
  */
 @Repository
+@Transactional
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		StoreDao<T>, Serializable {
 
@@ -136,6 +138,19 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 			
 			criteria.add(Restrictions.eq("name", name));
 			criteria.add(Restrictions.eq("merchant", merchant));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Store>) findAll(criteria));
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
+	@Override
+	public List<Store> getStoreList() {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
+					"store");
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {

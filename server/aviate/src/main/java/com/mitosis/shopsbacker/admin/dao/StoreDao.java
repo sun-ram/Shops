@@ -28,5 +28,7 @@ public interface StoreDao<T> {
 	public List<String> getShopCityList();
 	
 	public List<Store> getStoreListByName(String name, Merchant merchant);
+
+	public List<Store> getStoreList();
 	
 }

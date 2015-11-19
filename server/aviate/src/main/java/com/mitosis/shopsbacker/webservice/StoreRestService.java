@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -169,12 +170,54 @@ public class StoreRestService<T> {
 		return response;
 	}
 	
-	
-	@Path("/getshoplist")
+	@Path("/getstorebymerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public StoreResponseVo getShopList(AddressVo addressVo) {
+	public StoreResponseVo getStoreList(MerchantVo merchantVo) {
+		StoreResponseVo storeResponse = new StoreResponseVo();
+		try {
+			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
+			List<Store> stores = getStoreService().getStoreByMerchant(merchant);
+			List<StoreVo> storeVoList=new ArrayList<StoreVo>();
+			for (Store store : stores) {
+				StoreVo storeVo = storeService.setStoreVo(store);
+				storeVoList.add(storeVo);
+			}
+			
+			storeResponse.setStore(storeVoList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return storeResponse;
+	}
+	
+	@Path("/getstorelist")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public StoreResponseVo getStoreList() {
+		StoreResponseVo storeResponse = new StoreResponseVo();
+		try {
+			List<Store> stores = getStoreService().getStoreList();
+			for (Store store : stores) {
+				StoreVo storeVo = storeService.setStoreVo(store);
+				storeResponse.getStore().add(storeVo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return storeResponse;
+	}
+	
+	
+	@Path("/getstorelistbycity")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public StoreResponseVo getStoreList(AddressVo addressVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getShopList(addressVo.getCity());
