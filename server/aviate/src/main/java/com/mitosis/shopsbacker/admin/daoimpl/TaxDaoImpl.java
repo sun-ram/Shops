@@ -6,16 +6,19 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.TaxDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
+import com.mitosis.shopsbacker.model.ShippingCharges;
 import com.mitosis.shopsbacker.model.Tax;
 /**
  * @author RiyazKhan.M
  */
 @Repository
+@Transactional
 public class TaxDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 TaxDao<T>, Serializable{
 
@@ -55,18 +58,28 @@ TaxDao<T>, Serializable{
 	}
 
 	@Override
-	public Tax getTax(Merchant merchant) {
+	public List<Tax> getTax(Merchant merchant) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(Tax.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
-			return (Tax) findAll(criteria).get(0);
+			return (List<Tax>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw (e);
 		}
 		
+	}
+
+	@Override
+	public Tax getTaxById(String id) {
+		try {
+			return (Tax) getSession().get(Tax.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 

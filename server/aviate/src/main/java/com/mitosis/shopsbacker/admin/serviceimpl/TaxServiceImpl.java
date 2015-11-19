@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.admin.serviceimpl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,12 @@ Serializable {
 	}
 
 	@Override
-	public Tax getTax(Merchant merchant) {
+	public Tax getTaxById(String id) {
+		return taxDao.getTaxById(id);
+	}
+
+	@Override
+	public List<Tax> getTax(Merchant merchant) {
 		return taxDao.getTax(merchant);
 	}
 }

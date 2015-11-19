@@ -1,5 +1,7 @@
 package com.mitosis.shopsbacker.admin.dao;
 
+import java.util.List;
+
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Tax;
 /**
@@ -13,6 +15,8 @@ public interface TaxDao<T> {
 	
 	public void updateTax(Tax tax);
 	
-	public Tax getTax(Merchant merchant);
+	public List<Tax> getTax(Merchant merchant);
+	
+	public Tax getTaxById(String id);
 
 }
