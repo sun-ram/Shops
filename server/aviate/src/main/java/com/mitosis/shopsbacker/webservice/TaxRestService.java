@@ -43,13 +43,15 @@ public class TaxRestService<T> {
 		this.taxService = taxService;
 	}
 	
-	ResponseModel response = new ResponseModel();
+	ResponseModel response = null;
+	TaxResponseVo taxResponse = null;
 	
 	@Path("/addtax")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel addTax(TaxVo taxVo) {
+		response = new ResponseModel();
 		try {
 			List<Tax> taxList = taxService.getTaxListByName(taxVo.getName());
 			if(taxList.isEmpty()){
@@ -87,6 +89,7 @@ public class TaxRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel updateTax(TaxVo taxVo) {
+		response = new ResponseModel();
 		try {
 			Tax tax = taxService.getTaxById(taxVo.getTaxId());
 			tax.setTaxPercentage(taxVo.getTaxPercentage());
@@ -113,7 +116,8 @@ public class TaxRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public TaxResponseVo getTax(TaxVo taxsVo) {
-		TaxResponseVo taxResponse = new TaxResponseVo();
+		taxResponse = new TaxResponseVo();
+		response = new ResponseModel();
 		try {
 			List<Tax> taxList = taxService.getTax(taxsVo.getMerchant());
 			for (Tax tax : taxList) {
@@ -132,6 +136,7 @@ public class TaxRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel deleteTax(TaxVo taxVo) {
+		response = new ResponseModel();
 		try {
 			Tax tax = taxService.getTaxById(taxVo.getTaxId());
 			taxService.removeTax(tax);

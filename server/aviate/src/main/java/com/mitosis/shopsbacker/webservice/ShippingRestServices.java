@@ -42,13 +42,15 @@ public class ShippingRestServices<T> {
 		this.shippingChargeService = shippingChargeService;
 	}
 
-	ResponseModel response = new ResponseModel();
+	ResponseModel response = null;
+	ShippingChargesResponseVo shippingchargesResponse = null;
 
 	@Path("/addshippingcharges")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel addShippingCharges(ShippingChargesVo shippingChargesVo) {
+		response = new ResponseModel();
 		try {
 			ShippingCharges shippingCharges = setShippingCharges(shippingChargesVo);
 			shippingChargeService.saveShippingCharges(shippingCharges);
@@ -75,6 +77,7 @@ public class ShippingRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel updateShippingCharges(ShippingChargesVo shippingChargesVo) {
+		response = new ResponseModel();
 		try {
 			ShippingCharges shippingCharge = shippingChargeService.getShippingChargesById(shippingChargesVo.getShippingChargesId());
 			shippingCharge.setChargingAmount(shippingChargesVo.getChargingAmount());
@@ -93,7 +96,8 @@ public class ShippingRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ShippingChargesResponseVo getShippingCharges(ShippingChargesVo shippingChargesVo) {
-		ShippingChargesResponseVo shippingchargesResponse = new ShippingChargesResponseVo();
+		response = new ResponseModel();
+		shippingchargesResponse = new ShippingChargesResponseVo();
 		try {
 			List<ShippingCharges> shippingcharges = shippingChargeService.getShippingCharges(shippingChargesVo.getMerchant());
 			for (ShippingCharges shippingcharge : shippingcharges) {
@@ -121,6 +125,7 @@ public class ShippingRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel deleteShippingCharges(ShippingChargesVo shippingChargesVo) {
+		response = new ResponseModel();
 		try {
 			shippingChargeService.deleteShippingCharges(shippingChargesVo.getShippingChargesId());
 		} catch (Exception e) {

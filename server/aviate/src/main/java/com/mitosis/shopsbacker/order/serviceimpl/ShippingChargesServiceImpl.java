@@ -22,6 +22,14 @@ ShippingChargesService<T>, Serializable {
 
 	@Autowired
 	ShippingChargesDao<T> shippingChargesDao;
+	
+	public ShippingChargesDao<T> getShippingChargesDao() {
+		return shippingChargesDao;
+	}
+
+	public void setShippingChargesDao(ShippingChargesDao<T> shippingChargesDao) {
+		this.shippingChargesDao = shippingChargesDao;
+	}
 
 	@Override
 	@Transactional
