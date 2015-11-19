@@ -19,5 +19,6 @@ public interface TaxService<T> {
 	
 	public Tax getTaxById(String id);
 
+	public List<Tax> getTaxListByName(String param);
 
 }

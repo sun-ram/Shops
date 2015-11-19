@@ -103,7 +103,7 @@ public class Tax implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MERCHANT_ID", nullable = false)
 	public Merchant getMerchant() {
 		return this.merchant;

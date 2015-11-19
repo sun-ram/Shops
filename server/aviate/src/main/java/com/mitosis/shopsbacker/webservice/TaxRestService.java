@@ -10,11 +10,14 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.mitosis.shopsbacker.admin.service.TaxService;
 import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.responsevo.TaxResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
+import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.TaxVo;
 
@@ -24,6 +27,7 @@ import com.mitosis.shopsbacker.vo.admin.TaxVo;
  * @param <T>
  */
 @Path("tax")
+@Controller("taxRestService")
 public class TaxRestService<T> {
 	final static Logger log = Logger.getLogger(Tax.class
 			.getName());
@@ -47,8 +51,19 @@ public class TaxRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel addTax(TaxVo taxVo) {
 		try {
-			Tax tax = setTax(taxVo);
-			taxService.addTax(tax);
+			List<Tax> taxList = taxService.getTaxListByName(taxVo.getName());
+			if(taxList.isEmpty()){
+				Tax tax = setTax(taxVo);
+				taxService.addTax(tax);
+				return response;
+			}else{
+				response.setErrorCode(SBErrorMessage.TAX_NAME_ALREADY_EXIST
+						.getCode());
+				response.setErrorString(SBErrorMessage.TAX_NAME_ALREADY_EXIST
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

@@ -82,5 +82,11 @@ TaxDao<T>, Serializable{
 		}
 	}
 
+	@Override
+	public List<Tax> getTaxListByName(String param) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Tax.class);
+			criteria.add(Restrictions.eq("name", param));
+			return (List<Tax>) findAll(criteria);
+		}
 
 }

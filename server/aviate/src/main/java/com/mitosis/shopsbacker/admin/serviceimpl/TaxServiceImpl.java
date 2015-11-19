@@ -50,4 +50,9 @@ Serializable {
 	public List<Tax> getTax(Merchant merchant) {
 		return taxDao.getTax(merchant);
 	}
+
+	@Override
+	public List<Tax> getTaxListByName(String param) {
+		return taxDao.getTaxListByName(param);
+	}
 }

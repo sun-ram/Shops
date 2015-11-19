@@ -18,5 +18,7 @@ public interface TaxDao<T> {
 	public List<Tax> getTax(Merchant merchant);
 	
 	public Tax getTaxById(String id);
+	
+	public List<Tax> getTaxListByName(String param);
 
 }
