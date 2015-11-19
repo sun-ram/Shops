@@ -421,7 +421,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Store.getStore = function (store, callback) {
-			httpRequest("POST", "store/getmerchantstore", store, function (err, data) {
+			httpRequest("POST", "store/getstorebymerchant", store, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -462,7 +462,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.Store.deleteStore = function (store, callback) {
-			httpRequest("POST", "store/removestore", store, function (err, data) {
+			httpRequest("POST", "store/delete", store, function (err, data) {
 				if (err) {
 
 					callback(err, null);

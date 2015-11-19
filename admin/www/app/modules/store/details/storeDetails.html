@@ -19,34 +19,43 @@
 	
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.storeName}}</span>
+             <span class="ft-18 paddtb-8">{{store.name}}</span>
              <span class="hash_color ft-14">Name</span>
            	</span>                     
        </md-item>
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.customerDetails[0].emailId}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.emailid}}</span>
              <span class="hash_color ft-14">User Name(Email-id)</span>
            	</span>                     
        </md-item>
        </div>
-       <!--  <md-item >
+		      <div layout layout-sm="column">
+	
+        <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.password}}</span>
-             <span class="hash_color ft-14">Password</span>
+             <span class="ft-18 paddtb-8">{{store.user.userName}}</span>
+             <span class="hash_color ft-14">User Name</span>
            	</span>                     
-       </md-item> -->
+       </md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+             <span class="ft-18 paddtb-8">{{store.user.name}}</span>
+             <span class="hash_color ft-14">Contact No</span>
+           	</span>                     
+       </md-item>
+       </div>
        	      <div layout layout-sm="column">
        
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.phoneNo}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.phoneNo}}</span>
              <span class="hash_color ft-14">Phone</span>
            	</span>                     
        </md-item>
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.address}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.address.address1}}</span>
              <span class="hash_color ft-14">Address</span>
            	</span>                     
        </md-item>
@@ -55,13 +64,13 @@
        
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.city}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.address.city}}</span>
              <span class="hash_color ft-14">City</span>
            	</span>                     
        </md-item>
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.state}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.address.state.name}}</span>
              <span class="hash_color ft-14">State</span>
            	</span>                     
        </md-item>
@@ -70,13 +79,13 @@
        
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.country}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.address.country.name}}</span>
              <span class="hash_color ft-14">Country</span>
            	</span>                     
        </md-item>
         <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
-             <span class="ft-18 paddtb-8">{{store.postalCode}}</span>
+             <span class="ft-18 paddtb-8">{{store.user.address.pinCode}}</span>
              <span class="hash_color ft-14">Postal Code</span>
            	</span>                     
        </md-item>

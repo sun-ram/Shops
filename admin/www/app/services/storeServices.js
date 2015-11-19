@@ -5,7 +5,7 @@ angular.module('aviateAdmin.services')
 		api.Store.getStore(store, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.storeList);
+					d.resolve(result.store);
 				}else{
 					toastr.error(result.errorString);	
 				}
