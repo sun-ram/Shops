@@ -29,7 +29,7 @@ angular.module('aviateAdmin.controllers')
 			//$scope.store.merchantId = $rootScope.user.merchantId;
 			$scope.store.merchant = {};
 			$scope.store.merchant.merchantId = {};
-			$scope.store.merchant.merchantId = "2c9fa0375119c5c801511a7afeb20088";
+			$scope.store.merchant.merchantId = $rootScope.user.merchantId;
 			if($scope.store.id){
 				StoreServices.updateStore($scope.store).then(function(data){
 					//toastr.success(data.status);
