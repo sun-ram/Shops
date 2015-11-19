@@ -26,7 +26,6 @@ angular.module('aviateAdmin.controllers')
 				$scope.store.user.address.country.name = $scope.cnt.name;
 				$scope.store.user.address.state.stateId = $scope.st.stateId;
 				$scope.store.user.address.state.name = $scope.st.name;
-				
 				StoreServices.updateStore($scope.store).then(function(data){
 					localStorage.removeItem('store');
 					$state.go('app.store');
