@@ -21,7 +21,7 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
-import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.User;
@@ -31,8 +31,6 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
-import com.mitosis.shopsbacker.vo.admin.UserVo;
-import com.mitosis.shopsbacker.vo.common.AddressVo;
 
 /**
  * @author prabakaran
@@ -53,6 +51,9 @@ public class MerchantRestServices<T> {
 
 	@Autowired
 	AddressService<T> addessService;
+	
+	@Autowired
+	ImageService<T> imageService;
 
 	public AddressService<T> getAddessService() {
 		return addessService;
@@ -134,8 +135,9 @@ public class MerchantRestServices<T> {
 			merchantVo.getUser().getAddress().setLongitude(loc.toString());
 
 			merchantImageUpload(merchantVo);
+			Image img = null;
 
-			Merchant merchant = merchantService.setMerchant(merchantVo);
+			Merchant merchant = merchantService.setMerchant(merchantVo, img);
 
 			merchantService.saveMerchant(merchant);
 
@@ -149,6 +151,12 @@ public class MerchantRestServices<T> {
 
 	public void merchantImageUpload(MerchantVo merchantVo) throws IOException,
 			Exception {
+
+		if (merchantVo.getLogo() == null
+				&& merchantVo.getLogo().getImage() == null) {
+			return;
+		}
+
 		String merchantImagePath = "";
 		String defaultImagePath = "";
 		Properties properties = new Properties();
@@ -199,19 +207,27 @@ public class MerchantRestServices<T> {
 			loc = location.findValue("lng".toString());
 			merchantVo.getUser().getAddress().setLongitude(loc.toString());
 
-			Merchant merchant = getMerchantService().getMerchantById(
-					merchantVo.getMerchantId());
+			/*if(merchantVo.getLogo() != null && merchantVo.getLogo().getImage() != null){
+				Merchant merchant = getMerchantService().getMerchantById(
+						merchantVo.getMerchantId());
+				
+			}*/
+			
+			/*Merchant merchant = getMerchantService().getMerchantById(
+					merchantVo.getMerchantId());*/
+			Image img = null;
+			
+			
+			merchantImageUpload(merchantVo);
 
-			if (merchantVo.getLogo().getImage() != null
-					&& merchantVo.getLogo().getType() != null) {
-				merchantVo.getLogo().setUrl(merchant.getLogo().getUrl());
-				updateMerchantImage(merchantVo);
-			}
-
-			setMerchantForUpdate(merchant, merchantVo);
+			Merchant merchant = merchantService.setMerchant(merchantVo, img);
 
 			getMerchantService().updateMerchant(merchant);
-
+			
+			if(merchant.getMerchantId() != null){
+				imageService.deleteImage(img);
+				 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -220,48 +236,25 @@ public class MerchantRestServices<T> {
 		return response;
 	}
 
-	public void setMerchantForUpdate(Merchant merchant, MerchantVo merchantVo)
+	/*public void setMerchantForUpdate(Merchant merchant, MerchantVo merchantVo)
 			throws Exception {
 		merchant.setName(merchantVo.getName());
 
 		setImageForUpdate(merchant, merchantVo);
 
 		setUserForUpdate(merchantVo, merchant);
-	}
+	}*/
 
-	public void setImageForUpdate(Merchant merchant, MerchantVo merchantVo)
+	/*public void setImageForUpdate(Merchant merchant, MerchantVo merchantVo)
 			throws Exception {
 		Image image = merchant.getLogo();
 		image.setName(merchantVo.getLogo().getName());
 		image.setType(merchantVo.getLogo().getType());
 		image.setUrl(merchantVo.getLogo().getUrl());
-	}
+	}*/
+	
 
-	public void updateMerchantImage(MerchantVo merchantVo) throws IOException,
-			Exception {
-		String merchantImagePath = "";
-		String defaultImagePath = "";
-		Properties properties = new Properties();
-		properties.load(getClass().getResourceAsStream(
-				"/properties/serverurl.properties"));
-		defaultImagePath = properties.getProperty("imagePath");
-		merchantImagePath = "merchant/" + merchantVo.getName() + "/";
-		if (CommonUtil.removeImage(defaultImagePath.concat(merchantVo.getLogo()
-				.getUrl()))) {
-			String imageName = UUID.randomUUID().toString().replace("-", "");
-			if (CommonUtil.uploadImage(merchantVo.getLogo().getImage(),
-					merchantVo.getLogo().getType(), defaultImagePath
-							+ merchantImagePath, imageName)) {
-				merchantVo.getLogo().setName(imageName);
-				merchantVo.getLogo().setUrl(
-						merchantImagePath + imageName + "."
-								+ merchantVo.getLogo().getType());
-			}
-		}
-
-	}
-
-	public void setUserForUpdate(MerchantVo merchantVo, Merchant merchant)
+	/*public void setUserForUpdate(MerchantVo merchantVo, Merchant merchant)
 			throws Exception {
 		User user = merchant.getUser();
 		UserVo userVo = merchantVo.getUser();
@@ -270,18 +263,18 @@ public class MerchantRestServices<T> {
 		user.setPassword(userVo.getPassword());
 		user.setEmailid(userVo.getEmailid());
 		user.setPhoneNo(userVo.getPhoneNo());
-		/*
+		
 		 * user.setRole(getRoleService()
 		 * .getRole(RoleName.MerchantAdmin.toString()));
-		 */
+		 
 		user.setMerchant(merchant);
 		merchant.setUser(user);
 		AddressVo addressVo = userVo.getAddress();
 		Address address = setAddressForUpdate(addressVo, user);
 		user.setAddress(address);
-	}
+	}*/
 
-	public Address setAddressForUpdate(AddressVo addressVo, User user)
+	/*public Address setAddressForUpdate(AddressVo addressVo, User user)
 			throws Exception {
 		Address address = user.getAddress();
 		address.setAddress1(addressVo.getAddress1());
@@ -296,7 +289,7 @@ public class MerchantRestServices<T> {
 		address.setState(addessService.getStateById(addressVo.getState()
 				.getStateId()));
 		return address;
-	}
+	}*/
 
 	@Path("/getmerchant")
 	@POST

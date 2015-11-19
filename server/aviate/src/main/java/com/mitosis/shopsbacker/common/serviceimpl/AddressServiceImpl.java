@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.common.serviceimpl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 
 	@Autowired
 	AddressDao<T> addressDao;
-	
+
 	public AddressDao<T> getAddressDao() {
 		return addressDao;
 	}
@@ -36,7 +37,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	@Transactional
 	public void saveAddress(Address address) {
 		getAddressDao().saveAddress(address);
-		
+
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 
 	@Override
 	@Transactional
-	public List<Address> getAddress(String id) {
+	public Address getAddress(String id) {
 		return getAddressDao().getAddress(id);
 	}
 
@@ -92,6 +93,31 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	}
 
 	@Override
+	public Address setAddress(AddressVo addressVo) throws Exception {
+		Address address = null;
+		if (addressVo.getAddressId() == null) {
+			address = (Address) CommonUtil.setAuditColumnInfo(Address.class
+					.getName());
+		} else {
+			address = addressDao.getAddress(addressVo.getAddressId());
+			address.setUpdated(new Date());
+			// TODO need to get user from session and set to updatedby
+			address.setUpdatedby("123");
+		}
+		address.setAddress1(addressVo.getAddress1());
+		address.setAddress2(addressVo.getAddress2());
+		address.setCity(addressVo.getCity());
+		address.setPhoneNo(addressVo.getPhoneNo());
+		address.setPinCode(addressVo.getPinCode());
+		address.setLatitude(addressVo.getLatitude());
+		address.setLongitude(addressVo.getLongitude());
+		address.setCountry(getCountry(addressVo.getCountry().getCountryId()));
+		address.setState(getStateById(addressVo.getState().getStateId()));
+		return address;
+
+	}
+
+	@Override
 	public AddressVo setAddressVo(Address address) {
 		AddressVo addressVo = new AddressVo();
 		addressVo.setAddress1(address.getAddress1());
@@ -105,24 +131,8 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		addressVo.setState(setCountryVo(address.getState()));
 		return addressVo;
 	}
-
-	@Override
-	public Address setAddress(AddressVo addressVo){
-			Address address = new Address();
-			address.setAddress1(addressVo.getAddress1());
-			address.setAddress2(addressVo.getAddress2());
-			address.setCity(addressVo.getCity());
-			address.setPhoneNo(addressVo.getPhoneNo());
-			address.setPinCode(addressVo.getPinCode());
-			address.setLatitude(addressVo.getLatitude());
-			address.setLongitude(addressVo.getLongitude());
-			address.setCountry(getCountry(addressVo.getCountry().getCountryId()));
-			address.setState(getStateById(addressVo.getState().getStateId()));
-			return address;
-		
-	}
 	
-	public CountryVo setCountryVo(Country country){
+	public CountryVo setCountryVo(Country country) {
 		CountryVo countryVo = new CountryVo();
 		countryVo.setName(country.getName());
 		countryVo.setCountryId(country.getCountryId());
@@ -130,8 +140,8 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		countryVo.setCurrencyName(country.getCurrencyName());
 		return countryVo;
 	}
-	
-	public StateVo setCountryVo(State state){
+
+	public StateVo setCountryVo(State state) {
 		StateVo stateVo = new StateVo();
 		stateVo.setName(state.getName());
 		stateVo.setStateId(state.getStateId());

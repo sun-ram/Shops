@@ -18,7 +18,7 @@ public interface AddressService<T> {
 	
 	public void deleteAddress(Address address);
 	
-	public List<Address> getAddress(String id);
+	public Address getAddress(String id);
 	
 	public List<Address> getAddress(Customer customer);
 	
@@ -34,6 +34,6 @@ public interface AddressService<T> {
 	
 	public AddressVo setAddressVo(Address address);
 	
-	public Address setAddress(AddressVo addressVo);
+	public Address setAddress(AddressVo addressVo) throws Exception;
 
 }

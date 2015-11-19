@@ -45,6 +45,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	@Override
 	public List<Merchant> getMerchantList() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
+		criteria.add(Restrictions.eq("isactive", 'Y'));
 		return (List<Merchant>) findAll(criteria);
 	}
 
@@ -64,6 +65,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public List<Merchant> getMerchantListByName(String param) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
 		criteria.add(Restrictions.eq("name", param));
+		criteria.add(Restrictions.eq("isactive", 'Y'));
 		return (List<Merchant>) findAll(criteria);
 	}
 

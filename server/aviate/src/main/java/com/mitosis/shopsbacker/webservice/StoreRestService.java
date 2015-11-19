@@ -104,10 +104,10 @@ public class StoreRestService<T> {
 		user.setStore(store);
 		
 		MerchantVo merchantVo = storeVo.getMerchant();
- 		Merchant merchant = merchantService.setMerchant(merchantVo);
+ 		//Merchant merchant = merchantService.setMerchant(merchantVo);
 
 		store.setUser(user);
-		store.setMerchant(merchant);
+		//store.setMerchant(merchant);
 		return store;
 	}
 	

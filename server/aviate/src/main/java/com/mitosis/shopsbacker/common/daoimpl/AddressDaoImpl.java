@@ -59,10 +59,9 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Address> getAddress(String id) {
-		return (List<Address>) getSession().get(Address.class, id);
+	public Address getAddress(String id) {
+		return (Address) getSession().get(Address.class, id);
 	}
 
 	@SuppressWarnings("unchecked")

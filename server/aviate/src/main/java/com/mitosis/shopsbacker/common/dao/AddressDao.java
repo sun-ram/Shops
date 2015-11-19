@@ -17,7 +17,7 @@ public interface AddressDao<T> {
 	
 	public void deleteAddress(Address address);
 	
-	public List<Address> getAddress(String id);
+	public Address getAddress(String id);
 	
 	public List<Address> getAddress(Customer customer);
 	

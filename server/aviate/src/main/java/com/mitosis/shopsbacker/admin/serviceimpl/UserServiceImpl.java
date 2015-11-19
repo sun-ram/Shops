@@ -159,11 +159,8 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(role);
 		AddressVo addressVo = userVo.getAddress();
-
 		Address address = addressService.setAddress(addressVo);
-
 		// addessService.saveAddress(address);
-
 		user.setAddress(address);
 
 		return user;
