@@ -18,6 +18,7 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Country;
+import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.State;
 import com.mitosis.shopsbacker.model.Store;
@@ -94,120 +95,9 @@ public class StoreRestService<T> {
 
 	ResponseModel response = new ResponseModel();
 
-	public Store setStore(StoreVo storeVo) throws Exception {
-		Store store = (Store) CommonUtil
-				.setAuditColumnInfo(Store.class.getName());
-		store.setName(storeVo.getName());
-
-		UserVo userVo = storeVo.getUser();
-		User user = setUser(userVo);
-		user.setStore(store);
-		
-		MerchantVo merchantVo = storeVo.getMerchant();
- 		//Merchant merchant = merchantService.setMerchant(merchantVo);
-
-		store.setUser(user);
-		//store.setMerchant(merchant);
-		return store;
-	}
 	
 
-	public void setStore(Store store, StoreVo storeVo)
-			throws Exception {
-		store = (Store) CommonUtil.setAuditColumnInfo(Store.class
-				.getName());
-		store.setName(storeVo.getName());
 
-		UserVo userVo = storeVo.getUser();
-		User user = setUser(userVo);
-		user.setStore(store);
-		store.setUser(user);
-	}
-	
-	public StoreVo setStoreVo(Store store) throws Exception {
-		StoreVo storeVo = new StoreVo();
-		storeVo.setName(store.getName());
-		User user = store.getUser();
-		UserVo userVo = setUserVo(user);
-		storeVo.setUser(userVo);
-		return storeVo;
-	}
-	
-	public UserVo setUserVo(User user) throws Exception {
-		UserVo userVo = new UserVo();
-		userVo.setName(user.getName());
-		userVo.setUserName(user.getUserName());
-		userVo.setPassword(user.getPassword());
-		userVo.setEmailid(user.getEmailid());
-		userVo.setPhoneNo(user.getPhoneNo());
-		userVo.setUserId(user.getUserId());
-		userVo.setAddress(setAddressVo(user.getAddress()));
-		return userVo;
-	}
-	
-	public AddressVo setAddressVo(Address address) throws Exception {
-		AddressVo addressVo = new AddressVo();
-		addressVo.setAddress1(address.getAddress1());
-		addressVo.setAddress2(address.getAddress2());
-		addressVo.setCity(address.getCity());
-		addressVo.setPhoneNo(address.getPhoneNo());
-		addressVo.setPinCode(address.getPinCode());
-		addressVo.setLatitude(address.getLatitude());
-		addressVo.setLongitude(address.getLongitude());
-		addressVo.setCountry(setCountryVo(address.getCountry()));
-		addressVo.setState(setCountryVo(address.getState()));
-		return addressVo;
-	}
-	
-	public CountryVo setCountryVo(Country country){
-		CountryVo countryVo = new CountryVo();
-		countryVo.setName(country.getName());
-		countryVo.setCountryId(country.getCountryId());
-		countryVo.setCurrencyCode(country.getCurrencyCode());
-		countryVo.setCurrencyName(country.getCurrencyName());
-		return countryVo;
-	}
-	
-	public StateVo setCountryVo(State state){
-		StateVo stateVo = new StateVo();
-		stateVo.setName(state.getName());
-		stateVo.setStateId(state.getStateId());
-		return stateVo;
-	}
-
-	public User setUser(UserVo userVo) throws Exception {
-		User user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
-		user.setName(userVo.getName());
-		user.setUserName(userVo.getUserName());
-		user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
-		user.setEmailid(userVo.getEmailid());
-		user.setPhoneNo(userVo.getPhoneNo());
-		user.setRole(getRoleService()
-				.getRole(RoleName.MERCHANTADMIN.toString()));
-		AddressVo addressVo = userVo.getAddress();
-		
-		Address address = setAddress(addressVo);
-		
-		//addessService.saveAddress(address);
-		
-		user.setAddress(address);
-		
-		return user;
-	}
-
-	public Address setAddress(AddressVo addressVo) throws Exception {
-		Address address = (Address) CommonUtil.setAuditColumnInfo(Address.class.getName());
-		address.setAddress1(addressVo.getAddress1());
-		address.setAddress2(addressVo.getAddress2());
-		address.setCity(addressVo.getCity());
-		address.setPhoneNo(addressVo.getPhoneNo());
-		address.setPinCode(addressVo.getPinCode());
-		address.setLatitude(addressVo.getLatitude());
-		address.setLongitude(addressVo.getLongitude());
-		address.setCountry(addessService.getCountry(addressVo.getCountry().getCountryId()));
-		address.setState(addessService.getStateById(addressVo.getState().getStateId()));
-		return address;
-	}
 	@Path("/addstore")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -231,9 +121,8 @@ public class StoreRestService<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-
-			Store store = setStore(storeVo);
-
+			Store store = storeService.setStore(storeVo);
+			store.setMerchant(merchant);
 			storeService.saveStore(store);
 
 		} catch (Exception e) {
@@ -250,13 +139,10 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel updateStoreDetails(StoreVo storeVo) {
 		try {
-			
-			Store store = getStoreService().getStoreById(
-					storeVo.getStoreId());
-			
-			setStore(store, storeVo);
+				
+			Store store = storeService.setStore(storeVo);
 
-			storeService.saveStore(store);
+			storeService.updateStore(store);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -293,7 +179,7 @@ public class StoreRestService<T> {
 		try {
 			List<Store> stores = getStoreService().getShopList(addressVo.getCity());
 			for (Store store : stores) {
-				StoreVo storeVo = setStoreVo(store);
+				StoreVo storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
 			}
 		} catch (Exception e) {
@@ -312,7 +198,7 @@ public class StoreRestService<T> {
 		try {
 			List<Store> stores = getStoreService().getShopList(addressVo.getCity(),addressVo.getAddress1());
 			for (Store store : stores) {
-				StoreVo storeVo = setStoreVo(store);
+				StoreVo storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
 			}
 		} catch (Exception e) {

@@ -27,6 +27,7 @@ import com.mitosis.shopsbacker.model.User;
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		StoreDao<T>, Serializable {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void saveStore(Store store) {
 		try {

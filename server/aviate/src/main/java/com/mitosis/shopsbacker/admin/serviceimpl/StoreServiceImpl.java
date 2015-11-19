@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.admin.serviceimpl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jettison.json.JSONObject;
@@ -9,14 +10,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
+import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Role;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.admin.UserVo;
 
 /**
  * @author JAI BHARATHI
@@ -29,6 +39,32 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 	@Autowired
 	StoreDao<T> storeDao;
+	
+	@Autowired
+	UserService<T> userService;
+	
+	@Autowired
+	RoleService<T> roleService;
+	
+
+	@Autowired
+	MerchantService<T> merchantService;
+	
+	public MerchantService<T> getMerchantService() {
+		return merchantService;
+	}
+
+	public void setMerchantService(MerchantService<T> merchantService) {
+		this.merchantService = merchantService;
+	}
+
+	public UserService<T> getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService<T> userService) {
+		this.userService = userService;
+	}
 
 	public StoreDao<T> getStoreDao() {
 		return storeDao;
@@ -90,6 +126,54 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	@Transactional
 	public List<Store> getStoreListByName(String name, Merchant merchant) {
 		return storeDao.getStoreListByName(name,merchant);
+	}
+
+	@Override
+	public Store setStore(StoreVo storeVo) throws Exception {
+		
+		Store store = null;
+		if(storeVo.getStoreId() == null){
+			store = (Store) CommonUtil.setAuditColumnInfo(Store.class.getName());
+		}else{
+			store = storeDao.getStoreById(storeVo.getStoreId());
+			store.setUpdated(new Date());
+			//TODO need to get user from session and set to updatedby
+			store.setUpdatedby("123");
+		}
+		
+		UserVo userVo = storeVo.getUser();
+		Role role = roleService.getRole(RoleName.STOREADMIN.toString());
+		User user = userService.setUser(userVo,role);
+		user.setStore(store);
+		store.setUser(user);
+		store.setName(storeVo.getName());
+		return store;
+	
+	}
+
+	@Override
+	public StoreVo setStoreVo(Store store) throws Exception {
+		StoreVo storeVo = new StoreVo();
+		storeVo.setName(store.getName());
+		User user = store.getUser();
+		UserVo userVo = userService.setUserVo(user);
+		storeVo.setUser(userVo);
+		return storeVo;
+	}
+	
+	@Override
+	public void setStore(Store store, StoreVo storeVo)
+			throws Exception {
+		store = (Store) CommonUtil.setAuditColumnInfo(Store.class
+				.getName());
+		store.setName(storeVo.getName());
+		Role role = (Role) CommonUtil
+				.setAuditColumnInfo(Role.class.getName());
+		role.setName("STOREADMIN");
+		UserVo userVo = storeVo.getUser();
+		User user = userService.setUser(userVo,role);
+		user.setStore(store);
+		store.setUser(user);
 	}
 
 
