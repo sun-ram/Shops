@@ -13,11 +13,15 @@ public interface WarehouseDao<T> {
 
 	public void addWarehouse(Warehouse warehouse);
 
-	public void deleteWarehouse(String warehouseId);
+	public void deleteWarehouse(Warehouse warehouse);
 
 	public List<Warehouse> getWarehouse(String warehouseName, Store store);
 
 	public Warehouse getWarehouse(String warehouseId);
 
 	public void updateWarehouse(Warehouse warehouse);
+	
+	public List<Warehouse> getWarehouse(Store store);
+	
+	public List<Warehouse> getWarehouse(String warehouseId, String warehouseName, Store store);
 }
