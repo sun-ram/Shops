@@ -98,6 +98,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		if (addressVo.getAddressId() == null) {
 			address = (Address) CommonUtil.setAuditColumnInfo(Address.class
 					.getName());
+			address.setIsactive('Y');
 		} else {
 			address = addressDao.getAddress(addressVo.getAddressId());
 			address.setUpdated(new Date());

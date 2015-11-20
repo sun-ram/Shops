@@ -1,5 +1,5 @@
 angular.module('aviateAdmin.services')
-.service('EmployeeService',['$q','api','toastr', function($q, api, toastr) {
+.service('EmployeeService',['$q', 'api', 'toastr', 'CONSTANT', function($q, api, toastr, CONSTANT) {
 	this.employeeList = function(employee){
 		var d = $q.defer();
 		api.Employee.getList(employee, function(err, result){

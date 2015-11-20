@@ -132,7 +132,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Employee.getList = function (employee, callback) {
-			httpRequest("POST", "store/getemployeelist", employee, function (err, data) {
+			httpRequest("POST", "user/getemployees", employee, function (err, data) {
 				if (err) {
 
 					callback(err, null);

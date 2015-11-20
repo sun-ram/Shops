@@ -34,4 +34,6 @@ public interface UserDao<T> {
 	
 	public List<User> getUsers(List<Role> role, Store store);
 
+	public List<User> getUsers(List<Role> role, Merchant merchant);
+
 }

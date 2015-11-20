@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.admin.dao.RoleDao;
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.admin.dao.UserDao;
+import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.model.Address;
@@ -45,7 +47,13 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	RoleDao<T> roleDao;
 
 	@Autowired
+	RoleService<T> roleService;
+	
+	@Autowired
 	StoreDao<T> storeDao;
+	
+	@Autowired
+	MerchantDao<T> merchantDao;
 
 	
 	public RoleDao<T> getRoleDao() {
@@ -131,6 +139,8 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	public User getUserByUserName(String userName, String password) {
 		return getUserDao().getUserByName(userName, password);
 	}
+	
+	
 
 	/* @author prabakaran
 	 * This method will return List of users
@@ -142,10 +152,21 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 				storeDao.getStoreById(storeId));
 	}
 
+	/* @author prabakaran
+	 * This method will return List of users
+	 * @Param request parms List Of roles and merchant id
+	 */
+	@Override
+	public List<User> getUsersByMerchantId(List<String> roles, String merchantId) {
+		return userDao.getUsers(roleDao.getRole(roles),
+				merchantDao.getMerchantById(merchantId));
+	}
+
 	public User setUser(UserVo userVo, Role role) throws Exception {
 		User user = null;
 		if(userVo.getUserId() == null){
 			user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
+			user.setIsactive('Y');
 		}else{
 			user = userDao.getUser(userVo.getUserId());
 			user.setUpdated(new Date());
@@ -174,8 +195,11 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		userVo.setEmailid(user.getEmailid());
 		userVo.setPhoneNo(user.getPhoneNo());
 		userVo.setUserId(user.getUserId());
+		userVo.setRole(roleService.setRoleVo(user.getRole()));
 		userVo.setAddress(addressService.setAddressVo(user.getAddress()));
 		return userVo;
 	}
+
+	
 
 }

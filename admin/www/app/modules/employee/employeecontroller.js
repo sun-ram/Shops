@@ -1,14 +1,46 @@
-aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$location','$state','$mdDialog','EmployeeService','toastr','CONSTANT','$rootScope','CommonServices',
-                                              function($scope,$localStorage, $location,$state,$mdDialog,EmployeeService,toastr,CONSTANT, $rootScope, CommonServices) {
+aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$location','$state','$mdDialog','EmployeeService','toastr','CONSTANT','$rootScope','CommonServices','StoreServices',
+                                              function($scope,$localStorage, $location,$state,$mdDialog,EmployeeService,toastr,CONSTANT, $rootScope, CommonServices, StoreServices) {
 
 	if (angular.isDefined($localStorage.userDetails)) {
 		$scope.user = $localStorage.userDetails;
 	}	
 
-	if($rootScope.user.role == 'STOREADMIN'){
-		$scope.isStoreAdmin = true;
+	
+	$scope.getStores=function(){
+		StoreServices.getStore({'merchantId':$rootScope.user.merchantId}).then(function(data){
+			$scope.stores=data;
+			console.info($scope.stores);
+		});
+	};
+	
+	$scope.getEmployee = function() {
+		if($rootScope.user.role=="MERCHANTADMIN"){
+			$scope.employee = {
+					"merchantId":$rootScope.user.merchantId
+			};
+		} else if($rootScope.user.role=="STOREADMIN"){
+			
+			$scope.employee = {
+				"storeId":$rootScope.user.storeId
+			};
+		}
+		
+		//$localStorage.employees = {};
+		//$rootScope.user.storeId ? ($scope.employee.storeId = $rootScope.user.storeId) : '' ;
+		//$scope.shopList();
+		EmployeeService.employeeList($scope.employee).then(function(data) {
+			$scope.data = data;
+
+		});
+	};
+	
+	$scope.getEmployee();
+	
+	if($rootScope.user.role == 'MERCHANTADMIN'){
+		$scope.isMerchantAdmin = true;
+		$scope.getStores();
 	}else{
-		$scope.isStoreAdmin = false;
+		$scope.isMerchantAdmin = false;
 	}
 
 	$scope.count = 3;
@@ -29,42 +61,51 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		});
 	}
 	$scope.getCountries();
-
-	$scope.getEmployee = function() {
-		$localStorage.employees = {};
-		$scope.employee = {
-				"storeId":"ff808181511baaf501511bae0a070002"
-		};
-		//$rootScope.user.storeId ? ($scope.employee.storeId = $rootScope.user.storeId) : '' ;
-		//$scope.shopList();
-		EmployeeService.employeeList($scope.employee).then(function(data) {
-			$scope.data = data;
-
-		});
-	};
-
-	$scope.saveEmployee = function(employee) {
+	
+	$scope.saveEmployee = function() {
+		$scope.user.address.country = {};
+		$scope.cnt = JSON.parse($scope.country1);
+		$scope.user.address.country.countryId = $scope.cnt.countryId;
+		$scope.user.address.country.name = $scope.cnt.name;
+		$scope.sta = JSON.parse($scope.state);
+		$scope.user.address.state = $scope.sta;
 		if($rootScope.user.role=="STOREADMIN"){
-			employee.storeId = $rootScope.user.storeId;
+			$scope.user.store = {};
+			$scope.user.store.storeId = $rootScope.user.storeId
 		}
-		EmployeeService.saveEmployee(employee).then(function(data) {
+			$scope.user.merchant = {};
+			$scope.user.merchant.merchantId = $rootScope.user.merchantId
+		
+		EmployeeService.saveEmployee($scope.user).then(function(data) {
 			$state.go('app.aviateemployees');
 		});
 	}
 
 	$scope.updateEmployee = function() {
+		$scope.user.address.country = {};
+		$scope.cnt = JSON.parse($scope.country1);
+		$scope.user.address.country.countryId = $scope.cnt.countryId;
+		$scope.user.address.country.name = $scope.cnt.name;
+		$scope.sta = JSON.parse($scope.state);
+		$scope.user.address.state = $scope.sta;
+		if($rootScope.user.role=="STOREADMIN"){
+			$scope.user.store = {};
+			$scope.user.store.storeId = $rootScope.user.storeId
+		}
+		$scope.user.merchant = {};
+		$scope.user.merchant.merchantId = $rootScope.user.merchantId
 		EmployeeService.updateEmployee($scope.user).then(function(data) {
 			$state.go('app.aviateemployees');
 		});
 	}
 
-	$scope.deleteEmployee = function(customerId) {
+	$scope.deleteEmployee = function(userId) {
 		var confirm = $mdDialog.confirm().title('Would you like to delete Employee?')
 		.ok('Delete')
 		.cancel('Cancel');
 		$mdDialog.show(confirm).then(function() {
 			$scope.customer={};
-			$scope.customer.customerId = customerId;
+			$scope.customer.userId = userId;
 			EmployeeService.deleteEmployee($scope.customer).then(function(data) {
 				$scope.getEmployee();
 			});
@@ -104,8 +145,8 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 
 	},
 
-	$scope.editEmployee = function(employee) {
-		$scope.employee = employee;
+	$scope.editEmployee = function(user) {
+		/*$scope.employee = employee;
 		$scope.user = {};
 		$scope.user.customerDetailsId = employee.customerDetails.customerDetailsId;
 		$scope.user.customerId = employee.customerId;
@@ -120,9 +161,10 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.user.state = employee.address[0].state;
 		$scope.user.status = employee.status;
 		$scope.user.country =	 employee.address[0].country;
-		$scope.user.postalCode =	 employee.address[0].postalCode;
+		$scope.user.postalCode =	 employee.address[0].postalCode;*/
 		//$scope.user.createdBy =	 employee.customerDetails.createdBy;
-		$localStorage.user = $scope.user;
+		
+		$localStorage.user = user;
 		$state.go('app.addemployee');
 	}
 	$scope.user = $localStorage.user;

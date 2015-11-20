@@ -2,7 +2,7 @@
 <md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
 	<ng-md-icon icon="add" size="35" class="icon-white" ng-click="addemployee()"></ng-md-icon>
 </md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getEmployee()">
+<md-card flex-gt-sm="90" flex-gt-md="80">
 	<md-toolbar class=" md-default-theme">
 		<div class="md-toolbar-tools" layout="row">
 	  		<h2 layout-align="start">Employees</h2>
@@ -39,7 +39,7 @@
            	 </span>
              <span flex=15 layout="row" layout-align="center center">
              	<md-button class="md-icon-button md-primary"  ng-click="editEmployee(employee);$event.stopPropagation();"><ng-md-icon style="z-index:500;" icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon></md-button>
-             	<md-button class="md-icon-button md-primary" ng-click="deleteEmployee(employee.customerId);$event.stopPropagation();"><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color" ></ng-md-icon></md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="deleteEmployee(employee.userId);$event.stopPropagation();"><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color" ></ng-md-icon></md-button>
              </span>           
             </div>       	
            </div>

@@ -71,6 +71,7 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public List<User> getUserByStore(Store store) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("store", store));
+		criteria.add(Restrictions.eq("isactive",'Y'));
 		return (List<User>) findAll(criteria);
 	}
 
@@ -79,6 +80,7 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public List<User> getUserByMerchant(Merchant merchant) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("merchant", merchant));
+		criteria.add(Restrictions.eq("isactive",'Y'));
 		return (List<User>) findAll(criteria);
 	}
 
@@ -88,6 +90,7 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("store", store));
 		criteria.add(Restrictions.eq("role", role));
+		criteria.add(Restrictions.eq("isactive",'Y'));
 		return (List<User>) findAll(criteria);
 	}
 
@@ -122,6 +125,17 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.add(Restrictions.eq("store", store));
 		criteria.add(Restrictions.in("role", role));
+		criteria.add(Restrictions.eq("isactive",'Y'));
+		return (List<User>) findAll(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getUsers(List<Role> role, Merchant merchant) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+		criteria.add(Restrictions.eq("merchant", merchant));
+		criteria.add(Restrictions.in("role", role));
+		criteria.add(Restrictions.eq("isactive",'Y'));
 		return (List<User>) findAll(criteria);
 	}
 

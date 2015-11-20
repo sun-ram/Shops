@@ -119,7 +119,7 @@ public class MerchantRestServices<T> {
 				return response;
 			}
 
-			/*JsonNode location = getLatLongByAddress(merchantVo);
+			JsonNode location = getLatLongByAddress(merchantVo);
 
 			if (location == null) {
 				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
@@ -132,7 +132,7 @@ public class MerchantRestServices<T> {
 			JsonNode loc = location.findValue("lat".toString());
 			merchantVo.getUser().getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
-			merchantVo.getUser().getAddress().setLongitude(loc.toString());*/
+			merchantVo.getUser().getAddress().setLongitude(loc.toString());
 
 			merchantImageUpload(merchantVo);
 			Image img = null;

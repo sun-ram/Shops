@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -332,6 +333,14 @@ public final class CommonUtil {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		status = passwordEncoder.matches(password, hashedPassword);
 		return status;
+	}
+	
+	public static boolean isValidProperty(JSONObject obj,String key) throws JSONException{
+		boolean flag = false; 
+		if( obj.has(key) && obj.getString(key)!=null && !obj.getString(key).equals("")){
+			flag = true;
+		}
+		return flag;
 	}
 
 }

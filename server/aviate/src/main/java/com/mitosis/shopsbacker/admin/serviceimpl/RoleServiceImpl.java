@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mitosis.shopsbacker.admin.dao.RoleDao;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.model.Role;
+import com.mitosis.shopsbacker.vo.customer.RoleVo;
 
 /**
  * @author prabakaran
@@ -24,17 +25,18 @@ public class RoleServiceImpl<T> implements RoleService<T>, Serializable {
 
 	@Autowired
 	RoleDao<T> roleDao;
-	
-	public RoleDao<T> getRoleDao() {
-		return roleDao;
-	}
-
-	public void setRoleDao(RoleDao<T> roleDao) {
-		this.roleDao = roleDao;
-	}
 
 	public Role getRole(String name) {
-		return getRoleDao().getRole(name);
+		return roleDao.getRole(name);
+	}
+
+	@Override
+	public RoleVo setRoleVo(Role role) {
+		RoleVo roleVo = new RoleVo();
+		roleVo.setName(role.getName());
+		roleVo.setRoleId(role.getRoleId());
+		roleVo.setDescription(role.getDescription());
+		return roleVo;
 	}
 
 }

@@ -4,8 +4,8 @@
       <h2 class="md-flex">Employee</h2>
    	<span class="close_box">
    	<!-- <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="close()"></ng-md-icon>  -->
-   	 <ng-md-icon class="icon-white svgstyle" size="35" ng-if="user.status=='true'" icon="close" ui-sref="app.employeedetailsview"></ng-md-icon>
-	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-if="user.status==null"  icon="close" ui-sref="app.aviateemployees"></ng-md-icon> 
+   	 <ng-md-icon class="icon-white svgstyle" size="35" ng-if="employee.status=='true'" icon="close" ui-sref="app.employeedetailsview"></ng-md-icon>
+	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-if="employee.status==null"  icon="close" ui-sref="app.aviateemployees"></ng-md-icon> 
    </span> 
     </div>
   </md-toolbar>
@@ -19,8 +19,8 @@
 		    <md-input-container layout-padding flex> 
 		     <label>Role<span style="color:red">*</span></label>
 		    <md-select ng-model="user.role.name" ng-required="true">
-	           <md-option  value="DELIVERYBOY">DELIVERYBOY</md-option>
-	            <md-option  value="PICKER">PICKER</md-option>
+	           <md-option  value="SHOPPER">SHOPPER</md-option>
+	            <md-option  value="BACKER">BACKER</md-option>
 		    </md-select> 
 		    </md-input-container>
        	</div>
@@ -33,14 +33,14 @@
 		       <label>Password<span style="color:red">*</span></label>
 		      <input ng-model="user.password" ng-required="true">
 		    </md-input-container>
-	    <!--  <md-input-container ng-if = "!isStoreAdmin" layout-padding flex>
+	     <md-input-container ng-if = "isMerchantAdmin" layout-padding flex>
 	       <label>Store<span style="color:red">*</span></label>
-	         <md-select ng-model="user.storeId" ng-required="true">
-	            <md-option ng-repeat="shop in shops" value="{{shop.storeId}}">
-	              {{shop.storeName}}
+	         <md-select ng-model="user.store.storeId" ng-required="true">
+	            <md-option ng-repeat="store in stores" value="{{store.storeId}}">
+	              {{store.name}}
 	            </md-option>
 	          </md-select>
-	    </md-input-container> -->
+	    </md-input-container>
     	</div>
 		<div layout layout-sm="column">
 			<md-input-container layout-padding flex>
@@ -73,7 +73,7 @@
 		    </md-input-container>
 		    <md-input-container layout-padding flex>
        			<label>Country<span style="color:red">*</span></label>
-         		<md-select ng-model="country" ng-required="true" ng-change = "getState(country);">
+         		<md-select ng-model="country1" ng-required="true" ng-change = "getState(country1);">
 		            <md-option ng-repeat="cnt in countries" value="{{cnt}}">
 		              {{cnt.name}}
 		            </md-option>
@@ -95,10 +95,10 @@
 		    </md-input-container>
     	</div>
 	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-	    	<md-button class="md-raised md-success padd-50" ng-show="user.userId" ng-click="updateEmployee(user);">Update</md-button>
+	    	<md-button class="md-raised md-success padd-50" ng-show="user.userId" ng-click="updateEmployee();">Update</md-button>
 	    	<md-button class="md-raised md-success padd-50" ng-hide="user.userId" ng-click="saveEmployee(user);" ng-disabled="employeeForm.$invalid">Create</md-button>
-	    	<md-button class="md-raised md-cancel padd-50" ng-if="user.status=='true'" ui-sref="app.employeedetailsview">Cancel</md-button>
-	    	<md-button class="md-raised md-cancel padd-50" ng-if="user.status==null" ng-click="cancel();">Cancel</md-button>
+	    	<md-button class="md-raised md-cancel padd-50" ng-if="employee.status=='true'" ui-sref="app.employeedetailsview">Cancel</md-button>
+	    	<md-button class="md-raised md-cancel padd-50" ng-if="employee.status==null" ng-click="cancel();">Cancel</md-button>
 	    </section>
     </form>
     </md-content>

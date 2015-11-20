@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.responsevo.EmployeeResponseVo;
@@ -51,6 +53,9 @@ public class UserRestServices<T> {
 	
 	@Autowired
 	RoleService<T> roleService;
+	
+	@Autowired
+	MerchantService<T> merchantService;
 
 	@Path("/login")
 	@POST
@@ -171,11 +176,11 @@ public class UserRestServices<T> {
 			userVo.getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
 			userVo.getAddress().setLongitude(loc.toString());
-
 			Store store = storeService.getStoreById(userVo.getStore().getStoreId());
-			//TODO need to set data from userVo to user Entity
+			Merchant merchant = merchantService.getMerchantById(userVo.getMerchant().getMerchantId());
 			User user = userService.setUser(userVo, roleService.getRole(userVo.getRole().getName()));
 			user.setStore(store);
+			user.setMerchant(merchant);
 			userService.saveUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -212,13 +217,10 @@ public class UserRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-
 			JsonNode loc = location.findValue("lat".toString());
 			userVo.getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
 			userVo.getAddress().setLongitude(loc.toString());
-
-			//TODO we need to implement Set entity to vo
 			User user = userService.setUser(userVo, roleService.getRole(userVo.getRole().getName()));
 			userService.updateUser(user);
 		} catch (Exception e) {
@@ -239,8 +241,15 @@ public class UserRestServices<T> {
 			List<String> roles = new ArrayList<String>();
 			roles.add(RoleName.BACKER.toString());
 			roles.add(RoleName.SHOPPER.toString());
-			List<User> users = userService.getUsers(roles,
-					req.getString("storeId"));
+			
+			List<User> users = new ArrayList<User>();
+			if(CommonUtil.isValidProperty(req, "storeId")){
+				users = userService.getUsers(roles,
+						req.getString("storeId"));
+			}else if(CommonUtil.isValidProperty(req, "merchantId")){
+				 users = userService.getUsersByMerchantId(roles,
+							req.getString("merchantId"));
+			}
 			List<UserVo> usersVo = new ArrayList<UserVo>();
 			for (User usr : users) {
 				usersVo.add(userService.setUserVo(usr));
