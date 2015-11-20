@@ -1,11 +1,11 @@
 <md-card flex-gt-sm="90" flex-gt-md="80" ng-init="shopList()">
    <md-toolbar class=" md-default-theme">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Employee</h2>
+      <h2 class="md-flex">Employee</h2> 
    	<span class="close_box">
    	<!-- <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="close()"></ng-md-icon>  -->
-   	 <ng-md-icon class="icon-white svgstyle" size="35" ng-if="employee.status=='true'" icon="close" ui-sref="app.employeedetailsview"></ng-md-icon>
-	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-if="employee.status==null"  icon="close" ui-sref="app.aviateemployees"></ng-md-icon> 
+   	 <ng-md-icon class="icon-white svgstyle" size="35" ng-show="user.userId" icon="close" ng-click="redirectToEmployeeDetails();"></ng-md-icon>
+	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-hide="user.userId"  icon="close" ui-sref="app.aviateemployees"></ng-md-icon> 
    </span> 
     </div>
   </md-toolbar>
@@ -97,8 +97,8 @@
 	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
 	    	<md-button class="md-raised md-success padd-50" ng-show="user.userId" ng-click="updateEmployee();">Update</md-button>
 	    	<md-button class="md-raised md-success padd-50" ng-hide="user.userId" ng-click="saveEmployee(user);" ng-disabled="employeeForm.$invalid">Create</md-button>
-	    	<md-button class="md-raised md-cancel padd-50" ng-if="employee.status=='true'" ui-sref="app.employeedetailsview">Cancel</md-button>
-	    	<md-button class="md-raised md-cancel padd-50" ng-if="employee.status==null" ng-click="cancel();">Cancel</md-button>
+	    	<md-button class="md-raised md-cancel padd-50" ng-show="user.userId" ng-click="redirectToEmployeeDetails();">Cancel</md-button>
+	    	<md-button class="md-raised md-cancel padd-50" ng-hide="user.userId" ui-sref="app.aviateemployees">Cancel</md-button>
 	    </section>
     </form>
     </md-content>

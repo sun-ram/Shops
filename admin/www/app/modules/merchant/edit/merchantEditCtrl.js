@@ -57,8 +57,13 @@ angular.module('aviateAdmin.controllers')
 			};
 			
 			$scope.redirectToMerchantDetails = function(merchant){
-				MerchantServices.setMerchantObj(merchant);
-				$state.go('app.merchantdetails');
+				if($rootScope.fromDetailsPage == true){
+					MerchantServices.setMerchantObj(merchant);
+					$state.go('app.merchantdetails');
+					$rootScope.fromDetailsPage = false;
+				} else {
+					$state.go('app.merchants');
+				}
 			}
 
 		}]);

@@ -24,17 +24,14 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 				"storeId":$rootScope.user.storeId
 			};
 		}
-		
 		//$localStorage.employees = {};
 		//$rootScope.user.storeId ? ($scope.employee.storeId = $rootScope.user.storeId) : '' ;
 		//$scope.shopList();
 		EmployeeService.employeeList($scope.employee).then(function(data) {
 			$scope.data = data;
-
 		});
 	};
 	
-	$scope.getEmployee();
 	
 	if($rootScope.user.role == 'MERCHANTADMIN'){
 		$scope.isMerchantAdmin = true;
@@ -140,12 +137,16 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 
 	$scope.employee = $localStorage.employees;
 
-	$scope.cancel = function(){
-		$state.go('app.aviateemployees');
+	$scope.redirectToEmployeeDetails = function(){
+		if($rootScope.fromDetailsPage == true){
+			$state.go('app.employeedetailsview');
+			$rootScope.fromDetailsPage = false;
+		} else {
+			$state.go('app.aviateemployees');
+		}
+	}
 
-	},
-
-	$scope.editEmployee = function(user) {
+	$scope.editEmployee = function(user,detail) {
 		/*$scope.employee = employee;
 		$scope.user = {};
 		$scope.user.customerDetailsId = employee.customerDetails.customerDetailsId;
@@ -165,6 +166,8 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		//$scope.user.createdBy =	 employee.customerDetails.createdBy;
 		
 		$localStorage.user = user;
+		if(detail == true)
+			$rootScope.fromDetailsPage = true;
 		$state.go('app.addemployee');
 	}
 	$scope.user = $localStorage.user;

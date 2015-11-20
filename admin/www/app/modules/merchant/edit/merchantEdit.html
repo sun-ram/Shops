@@ -11,10 +11,7 @@
 					</label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Merchants</h3>     	
 		    </div>  
-      <span ng-hide="fromDetailsPage" class="close_box">
-    	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.merchants"></ng-md-icon> 
-    </span> 
-     <span ng-show="fromDetailsPage" class="close_box">
+     <span class="close_box">
     	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="redirectToMerchantDetails(merchantDetail)"></ng-md-icon> 
     </span> 
     </div>
@@ -106,7 +103,7 @@
 		   	</div>
     <section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
     	<md-button class="md-raised md-success padd-50" ng-click="updateMerchant();" ng-disabled="merchant.$invalid">Update</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.merchants">Cancel</md-button>
+    	<md-button class="md-raised md-cancel padd-50" ng-click="redirectToMerchantDetails(merchantDetail)">Cancel</md-button>
     </section>
     </form>
     </md-content>
