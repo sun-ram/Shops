@@ -124,7 +124,21 @@ public class ProductTypeRestServices<T> {
 		return productTypeResponseVo;
 
 	}
-
+	
+	/*@Path("/getProductTypeByCategory")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductTypeResponseVo getProductTypeByCategory(
+			ProductTypeVo productTypeVo) {
+		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
+		List<ProductTypeVo> productTypeVoResponse = new ArrayList<ProductTypeVo>();
+		List<ProductType> productType = new ArrayList<ProductType>();
+		productType=productTypeService.g
+				return null;
+		
+	}
+*/
 	public ProductType setProductTypeDetails(ProductTypeVo ProductTypeVo)
 			throws Exception {
 		Merchant merchant = new Merchant();

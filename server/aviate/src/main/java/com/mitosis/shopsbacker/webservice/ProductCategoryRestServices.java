@@ -199,6 +199,32 @@ public class ProductCategoryRestServices<T> {
 		}
 		return productCategoryResponseVo;
 	}
+	
+	@Path("/getallcategorylist")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductCategoryResponseVo getCategoryListData(
+			ProductCategoryVo productCategoryVo) {
+		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
+		Merchant merchant = merchantService.getMerchantById(productCategoryVo
+				.getMerchant().getMerchantId());
+		if (merchant != null) {
+			List<ProductCategory> parentCategories = productCategoryService
+					.getRootProductCategoryList(merchant);
+			List<ProductCategoryVo> rootProductCategoryVoList = new ArrayList<ProductCategoryVo>();
+			Map<String, ProductCategoryVo> productCategoryVoParentMap = new HashMap<String, ProductCategoryVo>();
+			ProductCategoryVo prodCategoryVo = new ProductCategoryVo();
+			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
+					rootProductCategoryVoList, productCategoryVoParentMap);
+			productCategoryResponseVo
+					.setProductCategoryVo(rootProductCategoryVoList);
+			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+					.getValue());
+			// productCategoryResponseVo=productCategory.
+		}
+		return productCategoryResponseVo;
+	}
 
 	private void getHierarchicalProductCategorys(
 			List<ProductCategory> productCategories,
