@@ -8,27 +8,31 @@
     </div>
   </md-toolbar>
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-      <form name="warehouseForm" novalidate>
+      <form name="storagebinForm" novalidate>
       
     <md-input-container>
        <label><span style="color:red">*</span>Name</label>
-      <input ng-model="storageBin.storageBinName" ng-required="true">
+      <input ng-model="storagebin.name" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+       <label><span style="color:red">*</span>Description</label>
+      <input ng-model="storagebin.description" ng-required="true">
     </md-input-container>
     <md-input-container>
        <label><span style="color:red">*</span>Row (X)</label>
-      <input ng-model="storageBin.xRow" ng-required="true">
+      <input ng-model="storagebin.row" ng-required="true">
     </md-input-container>
     
     <md-input-container>
        <label><span style="color:red">*</span>Stack (Y)</label>
-      <input ng-model="storageBin.yRow" ng-required="true">
+      <input ng-model="storagebin.stack" ng-required="true">
     </md-input-container>
     <md-input-container>
        <label><span style="color:red">*</span>Level (Z)</label>
-      <input ng-model="storageBin.zRow" ng-required="true">
+      <input ng-model="storagebin.level" ng-required="true">
     </md-input-container>    
     <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50" ng-click="saveStorageBin(storageBin)" ng-disabled="warehouseForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-success padd-50" ng-click="saveStorageBin(storagebin)" ng-disabled="storagebinForm.$invalid">Create</md-button>
     	<md-button class="md-raised md-cancel padd-50" ui-sref="app.warehouseDetails">Cancel</md-button>
     </section>
     </form>

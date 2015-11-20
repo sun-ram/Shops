@@ -1,5 +1,5 @@
-aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog','$localStorage','$location','$state','toastr','CONSTANT', '$http','WarehouseService','$location',
-                                              function($scope,$rootScope,$mdDialog,$localStorage, $location,$state,toastr,CONSTANT,$http,WarehouseService,$localStorage) {
+aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog','$localStorage','$location','$state','toastr','CONSTANT', '$http','WarehouseService','$location','CommonServices',
+                                              function($scope,$rootScope,$mdDialog,$localStorage, $location,$state,toastr,CONSTANT,$http,WarehouseService,$localStorage,CommonServices) {
 	
 	
  	
@@ -11,10 +11,22 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	$scope.count = 3;
 	$scope.srch = true;
 	
+	$scope.getState = function(country){
+		$scope.cunt = JSON.parse(country);
+		$scope.states = $scope.cunt.states;
+	}
+	
+	$scope.getCountries = function(){
+		CommonServices.getCountries($scope.country).then(function(data){
+			$scope.countries=data;
+		});
+	}
+	
+	$scope.getCountries();
+	
 	$scope.warehouseDetails = function(warehouse){
 		localStorage.setItem('warehouse',JSON.stringify(warehouse));
 		$scope.warehouse = JSON.parse(localStorage.getItem('warehouse'));
-		$scope.warehouse.status=true;
 		$state.go('app.warehouseDetails');
 		
 	},
@@ -41,9 +53,20 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	} 
 	
 	$scope.saveWarehouse = function() {
-		$scope.warehouse.storeId = $rootScope.user.storeId;
-		$scope.warehouse.merchantId= $rootScope.user.merchantId;
-		$scope.warehouse.returnBinId = 0;
+		$scope.warehouse.store ={};
+		$scope.warehouse.merchant={};
+		$scope.warehouse.store.storeId = $rootScope.user.storeId;
+		$scope.warehouse.merchant.merchantId= $rootScope.user.merchantId;
+		
+		$scope.cnt = JSON.parse($scope.country);
+		$scope.st = JSON.parse($scope.state);
+		$scope.warehouse.address.country = {};
+		$scope.warehouse.address.state = {};
+		$scope.warehouse.address.country.countryId = $scope.cnt.countryId;
+		$scope.warehouse.address.country.name = $scope.cnt.name;
+		$scope.warehouse.address.state.stateId = $scope.st.stateId;
+		$scope.warehouse.address.state.name = $scope.st.name;
+		
 		WarehouseService.saveWarehouse($scope.warehouse).then(function(data) {
 			$scope.warehouse = {};
 			$state.go('app.warehouse');
@@ -51,9 +74,22 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	}
 	
 	$scope.updateWarehouse = function() {
-		$scope.warehouse.storeId = $rootScope.user.storeId;
-		$scope.warehouse.merchantId= 1;
-		$scope.warehouse.returnBinId = 0;
+		
+		$scope.warehouse.store ={};
+		$scope.warehouse.merchant={};
+		$scope.warehouse.store.storeId = $rootScope.user.storeId;
+		$scope.warehouse.merchant.merchantId= $rootScope.user.merchantId;
+		
+		$scope.cnt = JSON.parse($scope.country);
+		$scope.st = JSON.parse($scope.state);
+		$scope.warehouse.address.country = {};
+		$scope.warehouse.address.state = {};
+		$scope.warehouse.address.country.countryId = $scope.cnt.countryId;
+		$scope.warehouse.address.country.name = $scope.cnt.name;
+		$scope.warehouse.address.state.stateId = $scope.st.stateId;
+		$scope.warehouse.address.state.name = $scope.st.name;
+		
+		
 		WarehouseService.updateWarehouse($scope.warehouse).then(function(data) {
 			toastr.success(CONSTANT.UPDATEWAREHOUSE);
 			$state.go('app.warehouse');
@@ -67,7 +103,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 				       .cancel('Cancel');
 				 $mdDialog.show(confirm).then(function() {
 			$scope.warehouse={};
-			$scope.warehouse.storeId = $rootScope.user.storeId;
+			$scope.warehouse.store={};
+			$scope.warehouse.store.storeId = $rootScope.user.storeId;
 			$scope.warehouse.warehouseId = warehouse;
 			WarehouseService.deleteWarehouse($scope.warehouse).then(function(data) {
 			toastr.success(CONSTANT.DELETEWAREHOUSE);
@@ -78,16 +115,16 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 				 });
 	}
 	
-	$scope.deleteStorageBin = function(storageBinId) {
+	$scope.deleteStorageBin = function(storagebinId) {
 		var confirm = $mdDialog.confirm()
 			      .title('Would you like to delete StorageBin?')
 			        .ok('Delete')
 				       .cancel('Cancel');
 				 $mdDialog.show(confirm).then(function() {
-						$scope.storageBin={};
-						$scope.storageBin.storeId = $rootScope.user.storeId;
-						$scope.storageBin.storageBinId = storageBinId;
-						WarehouseService.deleteStorageBin($scope.storageBin).then(function(data) {
+						$scope.storagebin={};
+						$scope.storagebin.store.storeId = $rootScope.user.storeId;
+						$scope.storagebin.storagebinId = storagebinId;
+						WarehouseService.deleteStorageBin($scope.storagebin).then(function(data) {
 						toastr.success(CONSTANT.DELETESTORAGEBIN);
 						$state.go('app.warehouse');
 					});
@@ -100,10 +137,10 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	$scope.getWarehouse = function() {
 		localStorage.removeItem('warehouse');
 		$scope.warehouse = {};
-		$scope.warehouse.storeId = $rootScope.user.storeId;
-		$scope.warehouse.filterType = "ALL";
-		WarehouseService.warehouseList($scope.warehouse ).then(function(data) {
-			$scope.getWarehouseList = data.warehouseList;
+		$scope.warehouse.store={};
+		$scope.warehouse.store.storeId = $rootScope.user.storeId;
+		WarehouseService.warehouseList($scope.warehouse).then(function(data) {
+			$scope.getWarehouseList = data.warehouses;
 			$scope.shopList();
 			
 		});
@@ -113,11 +150,11 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$state.go('app.addStorageBin');
 	}
 	
-	$scope.saveStorageBin = function(storageBin){
-		$scope.storageBin =storageBin;
-		$scope.storageBin.storeId = $rootScope.user.storeId;
-		$scope.storageBin.merchantId = $rootScope.user.merchantId;
-		$scope.storageBin.warehouseId = $scope.warehouse.warehouseId;
+	$scope.saveStorageBin = function(storagebin){
+		$scope.storagebin =storageBin;
+		$scope.storagebin.store.storeId = $rootScope.user.storeId;
+		$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
+		$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
 		WarehouseService.saveStorageBin($scope.storageBin).then(function(data) {
 			toastr.success(CONSTANT.ADDSTORAGEBIN);
 			$state.go('app.warehouse');

@@ -347,7 +347,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};		
 
 		apiClass.Warehouse.warehouseList = function (warehouse, callback) {
-			httpRequest("POST", "inventory/warehouselist", warehouse, function (err, data) {
+			httpRequest("POST", "warehouse/warehouselist", warehouse, function (err, data) {
 				if (err) {
 
 					callback(err, null);

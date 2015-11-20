@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,6 +42,7 @@ public class Warehouse implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
+	private Address address;
 	private List<Movement> movements = new ArrayList<Movement>();
 	private List<Storagebin> storagebins = new ArrayList<Storagebin>();
 
@@ -63,7 +65,7 @@ public class Warehouse implements java.io.Serializable {
 
 	public Warehouse(String warehouseId, String updatedby,
 			String createdby, Merchant merchant, Store store, String name,
-			String description, char isactive, Date created, Date updated,
+			String description, char isactive, Date created, Date updated,Address address,
 			List<Movement> movements, List<Storagebin> storagebins) {
 		this.warehouseId = warehouseId;
 		this.updatedby = updatedby;
@@ -75,6 +77,7 @@ public class Warehouse implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.address = address;
 		this.movements = movements;
 		this.storagebins = storagebins;
 	}
@@ -91,6 +94,7 @@ public class Warehouse implements java.io.Serializable {
 		this.warehouseId = warehouseId;
 	}
 
+	@Column(name = "UPDATEDBY", nullable = false, length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
@@ -99,6 +103,7 @@ public class Warehouse implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
+	@Column(name = "CREATEDBY", nullable = false, length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -183,7 +188,7 @@ public class Warehouse implements java.io.Serializable {
 		this.movements = movements;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "warehouse")
 	public List<Storagebin> getStoragebins() {
 		return this.storagebins;
 	}
@@ -191,5 +196,16 @@ public class Warehouse implements java.io.Serializable {
 	public void setStoragebins(List<Storagebin> storagebins) {
 		this.storagebins = storagebins;
 	}
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ADDRESS_ID")
+	public Address getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 
 }

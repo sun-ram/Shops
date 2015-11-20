@@ -167,6 +167,7 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		if(userVo.getUserId() == null){
 			user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
 			user.setIsactive('Y');
+			user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
 		}else{
 			user = userDao.getUser(userVo.getUserId());
 			user.setUpdated(new Date());
@@ -175,7 +176,6 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		}
 		user.setName(userVo.getName());
 		user.setUserName(userVo.getUserName());
-		user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
 		user.setEmailid(userVo.getEmailid());
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(role);

@@ -47,6 +47,7 @@ public class Address implements java.io.Serializable {
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
 	private List<User>  users =new ArrayList<User>();
 	private List<MerchantRequest>  merchantRequests = new ArrayList<MerchantRequest>();
+	private List<Warehouse>  warehouses =new ArrayList<Warehouse>();
 
 	public Address() {
 	}
@@ -70,7 +71,7 @@ public class Address implements java.io.Serializable {
 			String city, String pinCode, String phoneNo, String latitude,
 			String longitude, Character isactive, String createdby,
 			String updatedby, Date created, Date updated, List<SalesOrder> salesOrders,
-			List<User> users, List<MerchantRequest> merchantRequests) {
+			List<User> users, List<MerchantRequest> merchantRequests,List<Warehouse>  warehouses) {
 		this.addressId = addressId;
 		this.state = state;
 		this.customer = customer;
@@ -91,6 +92,7 @@ public class Address implements java.io.Serializable {
 		this.salesOrders = salesOrders;
 		this.users = users;
 		this.merchantRequests = merchantRequests;
+		this.warehouses = warehouses;
 	}
 
 	@Id
@@ -281,4 +283,12 @@ public class Address implements java.io.Serializable {
 		this.merchantRequests = merchantRequests;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
+	public List<Warehouse> getWarehouses() {
+		return this.warehouses;
+	}
+
+	public void setWarehouses(List<Warehouse> warehouses) {
+		this.warehouses = warehouses;
+	}
 }

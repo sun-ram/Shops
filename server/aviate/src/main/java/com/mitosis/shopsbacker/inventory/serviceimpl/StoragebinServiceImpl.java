@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.serviceimpl;
+package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.admin.service.StoragebinService;
 import com.mitosis.shopsbacker.inventory.dao.StoragebinDao;
+import com.mitosis.shopsbacker.inventory.service.StoragebinService;
 import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Warehouse;
 
@@ -58,4 +58,17 @@ public class StoragebinServiceImpl<T> implements StoragebinService<T>,
 		return storagebinDao.listOfStorageBins(warehouse);
 	}
 
+	@Override
+	@Transactional
+	public  Storagebin  getStoragebinById(String storagebinId){
+		return storagebinDao.getStoragebinById(storagebinId);
+	}
+
+	 
+	@Override
+	public void updateStorageBin(Storagebin storagebin) {
+	 storagebinDao.updateStorageBin(storagebin);
+	}
+	
+	
 }

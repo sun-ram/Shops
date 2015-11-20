@@ -104,6 +104,7 @@ public class Storagebin implements java.io.Serializable {
 		this.storagebinId = storagebinId;
 	}
 
+	@Column(name = "UPDATEDBY", nullable = false, length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
@@ -112,6 +113,7 @@ public class Storagebin implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
+	@Column(name = "CREATEDBY", nullable = false, length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}

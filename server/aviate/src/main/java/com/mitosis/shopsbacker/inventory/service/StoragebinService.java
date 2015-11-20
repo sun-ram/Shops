@@ -1,4 +1,4 @@
-package com.mitosis.shopsbacker.admin.service;
+package com.mitosis.shopsbacker.inventory.service;
 
 import java.util.List;
 
@@ -17,4 +17,8 @@ public interface StoragebinService<T> {
 	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse);
 
 	public List<Storagebin> listOfStorageBins(Warehouse warehouse);
+	
+	public  Storagebin  getStoragebinById(String storagebinId);
+	
+	public void updateStorageBin(Storagebin storagebin);
 }

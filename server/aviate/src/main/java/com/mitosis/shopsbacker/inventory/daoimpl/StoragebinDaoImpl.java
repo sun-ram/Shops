@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.StoragebinDao;
@@ -17,6 +18,7 @@ import com.mitosis.shopsbacker.model.Warehouse;
  * @author fayaz
  */
 @Repository
+@Transactional
 public class StoragebinDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements StoragebinDao<T>, Serializable {
 
@@ -87,6 +89,16 @@ public class StoragebinDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("warehouse", warehouse));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<Storagebin>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+	
+	@Override
+	public void updateStorageBin(Storagebin storagebin) {
+		try {
+			update((T) storagebin);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw (e);
