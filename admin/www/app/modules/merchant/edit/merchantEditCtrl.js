@@ -18,18 +18,42 @@ angular.module('aviateAdmin.controllers')
 			};
 			$scope.getMerchant();
 			
-			$scope.getState = function(country){
-				$scope.cunt = JSON.parse(country);
-				$scope.states = $scope.cunt.states;
+            $scope.countryObjectof = function (countryList, keyId){
+                for(var i=0;i<countryList.length;i++){
+                    if(countryList[i].countryId == keyId){
+                        return countryList[i];
+                    }
+                }
+            }
+            
+            $scope.stateObjectOf = function (stateList, keyId){
+                for(var i=0;i<stateList.length;i++){
+                    if(stateList[i].stateId == keyId){
+                        return stateList[i];
+                    }
+                }
+            }
+            $scope.double = function(value) { return value * 2; };
+             
+			$scope.populateStates = function(country){
+                
+                $scope.merchantDetail.user.address.country = $scope.countryObjectof($scope.countries, $scope.merchantDetail.user.address.country.countryId);
+                $scope.allStates = $scope.merchantDetail.user.address.country.states;
 			}
+            
+            $scope.changeState = function () {
+                $scope.merchantDetail.user.address.state = $scope.stateObjectOf($scope.merchantDetail.user.address.country.states, $scope.merchantDetail.user.address.state.stateId);
+           
+            }
 			
 			$scope.getCountries = function(){
 				CommonServices.getCountries($scope.country).then(function(data){
 					$scope.countries=data;
-					$scope.country = $scope.merchantDetail.user.address.country;
-					$scope.state = $scope.merchantDetail.user.address.state.stateId;
+                    $scope.merchantDetail.user.address.country = $scope.countryObjectof ($scope.countries, $scope.merchantDetail.user.address.country.countryId);
+                    $scope.merchantDetail.user.address.country.state = $scope.stateObjectOf ($scope.merchantDetail.user.address.country.states, $scope.merchantDetail.user.address.state.stateId);
 				});
 			}
+            
 			$scope.getCountries();
 
 			$scope.updateMerchant = function(){
