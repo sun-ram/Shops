@@ -2,6 +2,8 @@ package com.mitosis.shopsbacker.inventory.service;
 
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 
 /**
@@ -18,5 +20,9 @@ public interface ProductTypeService<T> {
 	public ProductType getProductTypeById(String productTypeId);
 
 	public List<ProductType> getAllProductType();
+	
+    public boolean checkProductType(ProductCategory  productCategory);
+    
+	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant);
 
 }

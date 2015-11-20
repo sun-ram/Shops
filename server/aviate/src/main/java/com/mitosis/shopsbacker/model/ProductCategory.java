@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,7 @@ public class ProductCategory implements java.io.Serializable {
 	private String updatedby;
 	private String createdby;
 	private Merchant merchant;
-	private ProductCategory productCategory;
+	private ProductCategory parentCategory;
 	private Store store;
 	private String name;
 	private Integer orderSequence;
@@ -61,14 +62,14 @@ public class ProductCategory implements java.io.Serializable {
 
 	public ProductCategory(String productCategoryId, String updatedby,
 			String createdby, Merchant merchant,
-			ProductCategory productCategory, Store store, String name,
+			ProductCategory parentCategory, Store store, String name,
 			Integer orderSequence, char isactive, Date created, Date updated,
 			List<Product> products, List<ProductCategory> productCategories, List<ProductType> productTypes) {
 		this.productCategoryId = productCategoryId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
 		this.merchant = merchant;
-		this.productCategory = productCategory;
+		this.parentCategory = parentCategory;
 		this.store = store;
 		this.name = name;
 		this.orderSequence = orderSequence;
@@ -118,14 +119,14 @@ public class ProductCategory implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_CATEGORY_ID")
-	public ProductCategory getProductCategory() {
-		return this.productCategory;
+	public ProductCategory getParentCategory() {
+		return this.parentCategory;
 	}
 
-	public void setProductCategory(ProductCategory productCategory) {
-		this.productCategory = productCategory;
+	public void setParentCategory(ProductCategory parentCategory) {
+		this.parentCategory = parentCategory;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -194,7 +195,7 @@ public class ProductCategory implements java.io.Serializable {
 		this.products = products;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productCategory")
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE,mappedBy = "parentCategory")
 	public List<ProductCategory> getProductCategories() {
 		return this.productCategories;
 	}
@@ -203,7 +204,7 @@ public class ProductCategory implements java.io.Serializable {
 		this.productCategories = productCategories;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productCategory")
+	@OneToMany(fetch = FetchType.LAZY,cascade=CascadeType.REMOVE,mappedBy = "productCategory")
 	public List<ProductType> getProductTypes() {
 		return this.productTypes;
 	}

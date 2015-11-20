@@ -23,6 +23,15 @@ public class ProductCategoryServiceImpl<T> implements
 	@Autowired
 	ProductCategoryDao productCategoryDao;
 
+	 
+	public ProductCategoryDao getProductCategoryDao() {
+		return productCategoryDao;
+	}
+
+	public void setProductCategoryDao(ProductCategoryDao productCategoryDao) {
+		this.productCategoryDao = productCategoryDao;
+	}
+
 	@Override
 	@Transactional
 	public List<ProductCategory> getCategoryListByStore(Store store) {
@@ -108,4 +117,8 @@ public class ProductCategoryServiceImpl<T> implements
 		
 	}
 
+	@Override
+	public List<ProductCategory> getRootProductCategoryList(Merchant merchant){
+		 return productCategoryDao.getRootProductCategoryList(merchant);
+	}
 }

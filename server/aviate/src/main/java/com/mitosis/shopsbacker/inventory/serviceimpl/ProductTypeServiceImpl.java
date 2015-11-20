@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.inventory.dao.ProductTypeDao;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
+import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 
 /**
@@ -62,5 +64,17 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 	@Transactional
 	public List<ProductType> getAllProductType() {
 		return productTypeDao.getAllProductType();
+	}
+
+	@Override
+	@Transactional
+	public boolean checkProductType(ProductCategory productCategory) {
+		return productTypeDao.checkProductType(productCategory);
+	}
+
+	@Override
+	@Transactional
+	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant) {
+		return productTypeDao.getAllProductTypeByMerchant(merchant);
 	}
 }

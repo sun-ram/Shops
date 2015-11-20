@@ -31,5 +31,7 @@ public interface ProductCategoryService<T> {
 	public void updateCategory(ProductCategory productCategory);
 	
 	public void deleteCategory(ProductCategory productCategory);
+	
+	public List<ProductCategory> getRootProductCategoryList(Merchant merchant);
 
 }

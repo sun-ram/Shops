@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductTypeDao;
+import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 
 /**
@@ -70,6 +72,42 @@ public class ProductTypeDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(ProductType.class);
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (List<ProductType>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+
+	@Override
+	public boolean checkProductType(ProductCategory productCategory) {
+		boolean flag=false;
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(ProductType.class);
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("productCategory", productCategory));
+			List<ProductType> productType= (List<ProductType>) findAll(criteria);
+			if(productType.size()>0){
+				flag=false;
+			}
+			else{
+				flag=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+		return flag;
+	}
+
+	@Override
+	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(ProductType.class);
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("merchant", merchant));
 			return (List<ProductType>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();

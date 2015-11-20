@@ -114,7 +114,7 @@ public class ProductType implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false)
 	public ProductCategory getProductCategory() {
 		return this.productCategory;
@@ -125,7 +125,7 @@ public class ProductType implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STORE_ID", nullable = false)
+	@JoinColumn(name = "STORE_ID", nullable = true)
 	public Store getStore() {
 		return this.store;
 	}

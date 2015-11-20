@@ -8,6 +8,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductCategoryDao;
@@ -19,6 +20,7 @@ import com.mitosis.shopsbacker.model.Store;
  * @author RiyazKhan.M
  */
 @Repository
+@Transactional
 public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements ProductCategoryDao<T>, Serializable {
 
@@ -56,6 +58,21 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 					.forClass(ProductCategory.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (List<ProductCategory>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+	
+	@Override
+	public List<ProductCategory> getRootProductCategoryList(Merchant merchant) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(ProductCategory.class);
+			criteria.add(Restrictions.eq("merchant", merchant));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNull("parentCategory"));
 			return (List<ProductCategory>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
