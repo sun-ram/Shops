@@ -10,17 +10,17 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			$scope.productStockPagination.order= 'warehouse.warehouseName';
 
 			$scope.getProductStockList = function () {
-				var request = {};
-				if($rootScope.user.role == "MERCHANTADMIN"){
-					request = {
-							"merchantId":$rootScope.user.merchantId
+				var salesOrderVo = {};
+				if(true){
+					salesOrderVo.merchant = {
+							"merchantId":"2c9fa0375119c5c801511a7afeb20088"
 					};
 				}else if($rootScope.user.role == "STOREADMIN"){
 					request = {
 							"storeId":$rootScope.user.storeId
 					};
 				}
-				productStockService.getProductStockList(request).then(function(data) {
+				productStockService.getProductStockList(salesOrderVo).then(function(data) {
 					$scope.productStockList = data;
 					$localStorage.productstocklist = data;
 					$scope.count = data.length;
@@ -42,10 +42,10 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			
 			$scope.getMerchantStore = function () {
 
-				var request = {
-						"merchantId":$rootScope.user.merchantId
+				var merchantVo = {
+						"merchantId":"2c9fa0375119c5c801511a7afeb20088"
 				};
-				SalesOrderServices.getMerchantStore(request).then(function(data) {
+				SalesOrderServices.getMerchantStore(merchantVo).then(function(data) {
 					$scope.merchantStore = data;
 
 				});

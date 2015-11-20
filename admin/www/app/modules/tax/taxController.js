@@ -10,13 +10,12 @@ angular.module('aviateAdmin.controllers')
 				
 				$scope.count = 3;
 				$scope.srch = true;
-				$scope.tax = {};
-				$scope.tax.merchant = {
-						merchantId:"2c9fa0375119c5c801511b14c88200a0"
+				$scope.merchantVo = {
+						merchantId:"ff80818151128155015112824b3a0001"
 				}
 				
 				$scope.getTax=function(){
-					TaxServices.getTax($scope.tax).then(function(data){
+					TaxServices.getTax($scope.merchantVo).then(function(data){
 						$scope.taxList=data;
 					});
 				};

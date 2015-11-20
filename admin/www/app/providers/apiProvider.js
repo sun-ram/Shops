@@ -861,7 +861,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.SalesOrder.getSalesOrder = function (salesorder, callback) {
-			httpRequest("POST", "sales/getorderlist", salesorder, function (err, data) {
+			httpRequest("POST", "sales/getsalesorder", salesorder, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -889,7 +889,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.SalesOrder.getMerchantStore = function (marchant, callback) {
-			httpRequest("POST", "store/getmerchantstore", marchant, function (err, data) {
+			httpRequest("POST", "store/getstorebymerchant", marchant, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -923,7 +923,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductStock.getProductStockList = function (product, callback) {
-			httpRequest("POST", "binproduct/getbinproductlist", product, function (err, data) {
+			httpRequest("POST", "productinventory/getproductinventory", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);

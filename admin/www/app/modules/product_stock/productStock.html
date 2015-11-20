@@ -7,7 +7,7 @@
 	<div ng-hide="user.role == 'STOREADMIN'" layout="row">
 		<md-input-container style="height: 37px; padding: 2px 20px;">
 		<label>Store</label> <md-select name="myModel" ng-model="storesId" ng-change="getStockListByStore()"
-			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.storeName}}</md-option> 
+			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
 	    </md-input-container>
 	</div>
 
@@ -28,18 +28,18 @@
 	md-progress="deferred">
 	<thead md-order="productStockPagination.order" md-trigger="onorderchange">
 		<tr>
-              <th  order-by="warehouse.warehouseName" name="Warehouse"></th>
-              <th  numeric order-by="storageBin.storageBinName" name="Storage Bin"></th>
+              <th  order-by="storagebin.warehouse.name" name="Warehouse"></th>
+              <th  numeric order-by="storagebin.name" name="Storage Bin"></th>
               <th  numeric order-by="product.productName" name="Product"></th>
-              <th  numeric order-by="availableQuantity" name="Available Qty"></th>
+              <th  numeric order-by="product.availableQty" name="Available Qty"></th>
             </tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="product in productStockList | orderBy: productStockPagination.order | limitTo: productStockPagination.limit: (productStockPagination.page - 1) * productStockPagination.limit | filter:search">
-			<td>{{product.warehouse.warehouseName}}</td>
-			<td>{{product.storageBin.storageBinName}}</td>	
+			<td>{{product.storagebin.warehouse.name}}</td>
+			<td>{{product.storagebin.name}}</td>
 			<td>{{product.product.productName}}</td>
-			<td>{{product.availableQuantity}}</td>
+			<td>{{product.availableQty}}</td>
 			
 		</tr>
 	</tbody>

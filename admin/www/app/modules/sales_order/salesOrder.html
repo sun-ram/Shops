@@ -13,7 +13,7 @@
 			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
 		<md-input-container ng-hide="user.role == 'STOREADMIN'" style="height: 37px; padding: 2px 20px;">
 		<label>Store</label> <md-select name="myModel" ng-model="storeId" ng-change="storeFilter()"
-			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.storeName}}</md-option> 
+			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
 	    </md-input-container>
 	</div>
 
@@ -52,16 +52,16 @@
 			<!-- <td><md-select ng-model="dessert.type" placeholder="Other">
 				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
 				</md-select></td> -->
-			<td>{{salesOrder.orderId}}</td>	
-			<td>{{salesOrder.address.address}},{{salesOrder.address.city}},{{salesOrder.address.state}}</td>
+			<td>{{salesOrder.salesOrderId}}</td>	
+			<td>{{salesOrder.address.address1}},{{salesOrder.address.city}},{{salesOrder.address.state}}</td>
 			<td>{{salesOrder.warehouse.warehouseName}}</td>
-			<td>{{salesOrder.orderStatus}}</td>
+			<td>{{salesOrder.status}}</td>
 			<td>{{salesOrder.shippingCharge}}</td>
 			<td>{{salesOrder.created}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>
-			<td>{{salesOrder.store.storeName}}</td>
-			<td>{{salesOrder.totalAmount}}</td>
-			<td>{{salesOrder.orderGrossAmount}}</td>
+			<td>{{salesOrder.store.name}}</td>
+			<td>{{salesOrder.amount}}</td>
+			<td>{{salesOrder.netAmount}}</td>
 			<td><md-button class="md-raised md-primary" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>
 		</tr>
 	</tbody>

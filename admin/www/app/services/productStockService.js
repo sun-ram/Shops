@@ -3,8 +3,8 @@ angular.module('aviateAdmin.services')
 	this.getProductStockList = function(product){
 		var d = $q.defer();
 		api.ProductStock.getProductStockList(product, function(err, result){
-			if (result.binProductList.length>0) {
-				d.resolve(result.binProductList);
+			if (result.status === CONSTANT.STATUS.SUCCESS) {
+				d.resolve(result.productinventory);
 			} else {
 				toastr.error("Stock is Empty");
 				d.resolve(result.binProductList);

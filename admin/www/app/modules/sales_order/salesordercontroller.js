@@ -14,11 +14,11 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			}
 			
-			$scope.getSalesOrderList = function () {
+			/*$scope.getSalesOrderList = function () {
 				var request = {};
 				if($rootScope.user.role == "MERCHANTADMIN"){
 					request = {
-							"merchantId":$rootScope.user.merchantId
+							"merchantId":"2c9fa0375119c5c801511b14c88200a0"
 					};
 				}else if($rootScope.user.role == "STOREADMIN"){
 					request = {
@@ -32,14 +32,34 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 					$scope.count=data.length;
 
 				});
+			};*/
+			
+			$scope.getSalesOrderList = function () {
+				var salesOrderVo = {};
+				if(true){
+					salesOrderVo = {
+							"merchantId":"2c9fa0375119c5c801511b14c88200a0"
+					};
+				}else if($rootScope.user.role == "STOREADMIN"){
+					request = {
+							"storeId":$rootScope.user.storeId
+					};
+				}
+
+				SalesOrderServices.getSalesOrder(salesOrderVo).then(function(data) {
+					$scope.salesOrderList = data;
+					$localStorage.salesorderlist = data;
+					$scope.count=data.length;
+
+				});
 			};
 
 			$scope.getMerchantStore = function () {
 
-				var request = {
-						"merchantId":$rootScope.user.merchantId
+				var merchantVo = {
+						"merchantId":"2c9fa0375119c5c801511a7afeb20088"
 				};
-				SalesOrderServices.getMerchantStore(request).then(function(data) {
+				SalesOrderServices.getMerchantStore(merchantVo).then(function(data) {
 					$scope.merchantStore = data;
 
 				});

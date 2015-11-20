@@ -5,7 +5,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.SalesOrder.getSalesOrder(menuJson, function(err, result){
 			if(result.status === CONSTANT.STATUS.SUCCESS){
-				d.resolve(result.salesOrderModel);
+				d.resolve(result.salesOrderList);
 			}
 			else{
 				toastr.error(result.errorString);
@@ -18,7 +18,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.SalesOrder.getSalesByDate(menuJson, function(err, result){
 			if(result.status === CONSTANT.STATUS.SUCCESS){
-				d.resolve(result.salesOrderModel);
+				d.resolve(result.salesOrderList);
 			}
 			else{
 				toastr.error(result.errorString);
@@ -31,7 +31,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.SalesOrder.getMerchantStore(menuJson, function(err, result){
 			if(result.status === CONSTANT.STATUS.SUCCESS){
-				d.resolve(result.storeList);
+				d.resolve(result.store);
 			}
 			else{
 				toastr.error(result.errorString);
@@ -46,7 +46,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.SalesOrder.getSalesOrderByStore(menuJson, function(err, result){
 			if(result.status === CONSTANT.STATUS.SUCCESS){
-				d.resolve(result.salesOrderModel);
+				d.resolve(result.salesOrderList);
 			}
 			else{
 				toastr.error(result.errorString);
