@@ -30,7 +30,7 @@ angular.module('aviateAdmin.services')
 	this.warehouseList = function(warehouse){
 		var d = $q.defer();
 		api.Warehouse.warehouseList(warehouse, function(err, result){
-			if (result.warehouseList) {
+			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);

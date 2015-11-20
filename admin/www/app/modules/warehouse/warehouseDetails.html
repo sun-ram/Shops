@@ -11,139 +11,80 @@
 	   </span>      
      </div>  
 	</div>
-	<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="warehouse.status=true;editWarehouse(warehouse)">
+	<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editWarehouse(warehouse)">
 		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 	</md-button>
 	</md-toolbar>
 	<md-list>
-			      <div layout layout-sm="column">
-	        <md-item class="md-raised" layout-padding  flex>
-	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.warehouseId}}</span>
-            		 <span class="hash_color ft-14">Warehouse ID</span>
-           	</span> 
-           	</md-item>
-           	        <md-item class="md-raised" layout-padding  flex>
+			 <div layout layout-sm="column">
+			      
+           	  	 <md-item class="md-raised" layout-padding  flex>
            		
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.warehouseName}}</span>
-            		 <span class="hash_color ft-14">Name</span>
-           	</span> 
-           	</md-item>
+           			<span  layout="column" class="detail-list" layout-align="start start">
+            		 	<span class="ft-18 paddtb-8">{{warehouse.name}}</span>
+            		 	<span class="hash_color ft-14">Name</span>
+           			</span> 
+           		</md-item>
+           		<md-item class="md-raised" layout-padding  flex>
+           	
+           			<span  layout="column" class="detail-list" layout-align="start start">
+            		 	<span class="ft-18 paddtb-8">{{warehouse.description}}</span>
+            		 	<span class="hash_color ft-14">Description</span>
+           			</span>       
+           		</md-item>
            	
            	</div>
-           			      <div layout layout-sm="column">
-           	        <md-item class="md-raised" layout-padding  flex>
+           	<div layout layout-sm="column">
            	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.whDescription}}</span>
-            		 <span class="hash_color ft-14">Description</span>
-           	</span>       
-           	</md-item>
-           	        <md-item class="md-raised" layout-padding  flex>
-           	    	            	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.address}}</span>
-            		 <span class="hash_color ft-14">Address-1</span>
-           	</span>
-           	</md-item>
+           		<md-item class="md-raised" layout-padding  flex>
+           			<span  layout="column" class="detail-list" layout-align="start start">
+            		 	<span class="ft-18 paddtb-8">{{warehouse.address.address1}}</span>
+            		 	<span class="hash_color ft-14">Address-1</span>
+           			</span>
+           		</md-item>
+           		<md-item class="md-raised" layout-padding  flex>
+           			<span  layout="column" class="detail-list" layout-align="start start">
+            		 	<span class="ft-18 paddtb-8">{{warehouse.address.address2}}</span>
+            		 	<span class="hash_color ft-14">Address-2</span>
+           			</span>       
+           		</md-item>
            	</div>
-           			      <div layout layout-sm="column">
-           	        <md-item class="md-raised" layout-padding  flex>
-           	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.address1}}</span>
-            		 <span class="hash_color ft-14">Address-2</span>
-           	</span>       
-           	</md-item>
-           	        <md-item class="md-raised" layout-padding  flex>
-           	     	           	                    
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.city}}</span>
-            		 <span class="hash_color ft-14">City</span>
-           	</span> 
-           	</md-item>
+           	<div layout layout-sm="column">
+           	    <md-item class="md-raised" layout-padding  flex>
+           			<span  layout="column" class="detail-list" layout-align="start start">
+            		 	<span class="ft-18 paddtb-8">{{warehouse.address.city}}</span>
+            		 	<span class="hash_color ft-14">City</span>
+           			</span> 
+           		</md-item>
+           		<md-item class="md-raised" layout-padding  flex>
+            		<md-input-container layout-padding flex>
+       				<label>Country<span style="color:red">*</span></label>
+         				<md-select ng-model="country" ng-required="true" ng-change = "getState(country);">
+		            		<md-option ng-repeat="cnt in countries" value="{{cnt}}">
+		              		{{cnt.name}}
+		            		</md-option>
+          				</md-select>
+    				</md-input-container>
+           		</md-item>
            	</div>
-           			      <div layout layout-sm="column">
-           	        <md-item class="md-raised" layout-padding  flex>
-           	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.state}}</span>
-            		 <span class="hash_color ft-14">State</span>
-           	</span>
-           	</md-item>
-           	        <md-item class="md-raised" layout-padding  flex>
-           	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.country}}</span>
-            		 <span class="hash_color ft-14">Country</span>
-           	</span> 
-           	</md-item>
+           	<div layout layout-sm="column">
+           		<md-item class="md-raised" layout-padding  flex>
+           			<md-input-container layout-padding flex>
+       				<label>State<span style="color:red">*</span></label>
+         			<md-select ng-model="state" ng-required="true">
+		            	<md-option ng-repeat="state in states" value="{{state}}">
+		              	{{state.name}}
+		            	</md-option>
+          			</md-select>
+    				</md-input-container>
+           		</md-item>
+           		<md-item class="md-raised" layout-padding  flex>
+           			<span  layout="column" class="detail-list" layout-align="start start">
+            		 	<span class="ft-18 paddtb-8">{{warehouse.address.pinCode}}</span>
+            		 	<span class="hash_color ft-14">Postal Code</span>
+           			</span> 
+           		</md-item>
            	</div>
-           			      <div layout layout-sm="column">
-           	        <md-item class="md-raised" layout-padding  flex>
-           	
-           	<span  layout="column" class="detail-list" layout-align="start start">
-            		 <span class="ft-18 paddtb-8">{{warehouse.postelcode}}</span>
-            		 <span class="hash_color ft-14">Postal Code</span>
-           	</span> 
-           	</md-item>
-</div>         	            	          	        	
-
      </md-list>
-     
-   </md-card-content>
-</md-card>
-
-
-<md-card flex-gt-sm="90" flex-gt-md="80">
- <md-toolbar class=" md-default-theme">
-	<div class="md-toolbar-tools" layout="row">
-  		<h2 layout-align="start">Storage Bin</h2>
-    	<span class="flex"></span>
-	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
-	      <md-input-container md-theme="input" flex>
-	        <label>&nbsp;</label>
-	        <input ng-model="sreach" style="color: white; border-bottom-color: white;" placeholder="enter search">
-	      </md-input-container>
-	  </div>
-	   <md-button aria-label="Eat cake" ng-click="addStorageBin()"><strong>Add Storage Bin</strong>
-	   <ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon></md-button>
-    </div>
-   </md-toolbar>
-   <md-card-content class="nopaddtop">
-		<md-data-table-container>
-     <md-list>
-       <md-item ng-repeat="storageBin in warehouse.returnBin">
-         <md-item-content layout="row" layout-padding>
-            <div layout="row" layout-wrap class="full_wid">
-           		<span flex=5 class="padd-5-3"><ng-md-icon icon="store" size="30"></ng-md-icon></span>
-           
-           	<span flex=30 layout="column" class="padd-lr5" layout-align="start start">
-           		
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{storageBin.storageBinName}}</strong></span>
-                          
-           	</span>
-           	   <span flex=50 layout="row" layout-align="start end">
-           
-              	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{storageBin.xRow}}(X)</strong></span>
-              	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{storageBin.yRow}}(Y)</strong></span>
-              	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{storageBin.zRow}}(Z)</strong></span>
-          
-           	 </span>
-             <span flex=15 layout="row" layout-align="center center">
-            
-                <span layout-padding><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color" ng-click="deleteStorageBin(storageBin.storagebinId)"></ng-md-icon></span>
-             </span>           
-           	        	
-            </div>       	
-           </div>
-         </md-item-content>
-         <md-divider></md-divider>
-       <md-divider></md-divider>
-       </md-item>
-     </md-list>
-	</md-data-table-container>
    </md-card-content>
 </md-card>
