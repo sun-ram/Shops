@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.SalesOrder;
@@ -18,6 +19,7 @@ import com.mitosis.shopsbacker.util.OrderStatus;
  * @author fayaz
  */
 @Repository
+@Transactional
 public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements SalesOrderDao<T>, Serializable {
 
@@ -85,6 +87,25 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			throw (e);
 		}
 	}
+	
+	@Override
+	public List<SalesOrder> salesOrderDetailList(String fromDate,
+			String toDate, String merchantId) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
+			criteria.add(Restrictions.eq("merchantId", merchantId));
+			criteria.add(Restrictions.ge("created",
+					CommonUtil.stringToDate(fromDate)));
+			criteria.add(Restrictions.le("created",
+					CommonUtil.stringToDate(toDate)));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (List<SalesOrder>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
 
 	@Override
 	public SalesOrder salesOrderById(String salesOrderId) {
@@ -117,5 +138,19 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			throw(e);
 		}
 		
+	}
+
+	@Override
+	public List<SalesOrder> getOrderList(String merchantId) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
+			criteria.add(Restrictions.eq("merchantId", merchantId));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (List<SalesOrder>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
 	}
 }
