@@ -65,8 +65,33 @@
              </span>
 
 </md-card>
+<span ng-if="c.categoriesVo.length==0">
+<div ng-repeat="f in productCategoryList" ng-if="f.productCategory.productCategoryId == c.productCategoryId"  ng-include="'productTypeList'">
+</div>
+</span>
 	<span ng-repeat="c in c.categoriesVo" >	
- 	 	<div  style="margin-left: 38px;margin-top: 5px;"  ng-include="'productCategoryList'">
+ 	 	<div  style="margin-left: 38px;margin-top: 5px;"  ng-include="'productCategoryList1'">
+		</div>
+		<div ng-repeat="f in productCategoryList" ng-if="f.productCategory.productCategoryId == c.productCategoryId"  ng-include="'productTypeList'">
+		</div>
+	</span> 
+</script> 
+<script type="text/ng-template" id="productCategoryList1">
+<md-card  ng-drop="true" ng-drop-success="addSubCategory($data,$event,c)" class="ctg" layout >
+				<span layout-align="start center" layout-padding style="width: 100%;">{{c.name}}</span>
+             	<span layout="" layout-align="end center">
+                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.productCategoryId,c.name,$evemt)" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon>
+      			</md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.productCategoryId)" aria-label="Delete">
+             		<ng-md-icon icon="close" style="fill:red" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+             </span>
+
+</md-card>
+</span>
+	<span ng-repeat="c in c.categoriesVo" >	
+ 	 	<div  style="margin-left: 38px;margin-top: 5px;"  ng-include="'productCategoryList1'">
 		</div>
 		<div ng-repeat="f in productCategoryList" ng-if="f.productCategory.productCategoryId == c.productCategoryId"  ng-include="'productTypeList'">
 		</div>
