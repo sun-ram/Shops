@@ -5,6 +5,7 @@ import java.util.List;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.OrderStatus;
+import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 /**
  * @author fayaz
@@ -28,5 +29,13 @@ public interface SalesOrderService<T> {
 
 	public void conformPayment(String salesOrderId, String transactionNo,
 			String paymentMethod);
+	
+	public List<SalesOrder> getOrderList(String merchantId);
+	
+	public List<SalesOrder> salesOrderDetailList(String fromDate,
+			String toDate, String merchantId);
+	
+	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception ;
+
 
 }

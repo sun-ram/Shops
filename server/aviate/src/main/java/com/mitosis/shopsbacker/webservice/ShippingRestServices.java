@@ -17,7 +17,10 @@ import com.mitosis.shopsbacker.order.service.ShippingChargesService;
 import com.mitosis.shopsbacker.responsevo.ShippingChargesResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.order.ShippingChargesVo;
+import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ShippingCharges;
 /**
  * @author JAI BHARATHI
@@ -32,7 +35,10 @@ public class ShippingRestServices<T> {
 
 	@Autowired
 	ShippingChargesService<T> shippingChargeService;
-
+	
+	@Autowired
+	MerchantService<T> merchantService;
+	
 	public ShippingChargesService<T> getShippingChargeService() {
 		return shippingChargeService;
 	}
@@ -41,6 +47,16 @@ public class ShippingRestServices<T> {
 			ShippingChargesService<T> shippingChargeService) {
 		this.shippingChargeService = shippingChargeService;
 	}
+	
+	
+	public MerchantService<T> getMerchantService() {
+		return merchantService;
+	}
+
+	public void setMerchantService(MerchantService<T> merchantService) {
+		this.merchantService = merchantService;
+	}
+
 
 	ResponseModel response = null;
 	ShippingChargesResponseVo shippingchargesResponse = null;
@@ -52,7 +68,7 @@ public class ShippingRestServices<T> {
 	public ResponseModel addShippingCharges(ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
-			ShippingCharges shippingCharges = setShippingCharges(shippingChargesVo);
+			ShippingCharges shippingCharges = getShippingChargeService().setShippingCharges(shippingChargesVo);
 			shippingChargeService.saveShippingCharges(shippingCharges);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,16 +76,6 @@ public class ShippingRestServices<T> {
 			response = CommonUtil.addStatusMessage(e, response);
 		}
 		return response;
-	}
-
-	public ShippingCharges setShippingCharges(ShippingChargesVo shippingChargesVo) throws Exception {
-		ShippingCharges shippingCharges = (ShippingCharges) CommonUtil
-				.setAuditColumnInfo(ShippingCharges.class.getName());
-		shippingCharges.setMerchant(shippingChargesVo.getMerchant());
-		shippingCharges.setAmountRange(shippingChargesVo.getAmountRange());
-		shippingCharges.setChargingAmount(shippingChargesVo.getChargingAmount());
-		shippingCharges.setIsactive('Y');
-		return shippingCharges;
 	}
 
 	@Path("/update")
@@ -95,13 +101,14 @@ public class ShippingRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ShippingChargesResponseVo getShippingCharges(ShippingChargesVo shippingChargesVo) {
+	public ShippingChargesResponseVo getShippingCharges(MerchantVo merchantVo) {
 		response = new ResponseModel();
 		shippingchargesResponse = new ShippingChargesResponseVo();
 		try {
-			List<ShippingCharges> shippingcharges = shippingChargeService.getShippingCharges(shippingChargesVo.getMerchant());
+ 			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
+			List<ShippingCharges> shippingcharges = shippingChargeService.getShippingCharges(merchant);
 			for (ShippingCharges shippingcharge : shippingcharges) {
-				ShippingChargesVo shippingchargeVo = setShippingChargesVo(shippingcharge);
+				ShippingChargesVo shippingchargeVo = getShippingChargeService().setShippingChargesVo(shippingcharge);
 				shippingchargesResponse.getShippingChargesList().add(shippingchargeVo);
 			}
 		} catch (Exception e) {
@@ -109,15 +116,6 @@ public class ShippingRestServices<T> {
 			log.error(e.getMessage());
 		}
 		return shippingchargesResponse;
-	}
-
-	public ShippingChargesVo setShippingChargesVo (ShippingCharges shippingCharge) {
-		ShippingChargesVo shippingChargeVo = new ShippingChargesVo();
-		//shippingChargeVo.setMerchant(shippingCharge.getMerchant());
-		shippingChargeVo.setShippingChargesId(shippingCharge.getShippingChargesId());
-		shippingChargeVo.setAmountRange(shippingCharge.getAmountRange());
-		shippingChargeVo.setChargingAmount(shippingCharge.getChargingAmount());
-		return shippingChargeVo;
 	}
 
 	@Path("/delete")

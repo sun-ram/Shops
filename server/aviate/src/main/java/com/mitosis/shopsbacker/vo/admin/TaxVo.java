@@ -10,7 +10,7 @@ public class TaxVo {
 	private String taxId;
 	private String updatedby;
 	private String createdby;
-	private Merchant merchant;
+	private MerchantVo merchantVo;
 	private String name;
 	private double taxPercentage;
 	private char isactive;
@@ -34,12 +34,6 @@ public class TaxVo {
 	}
 	public void setCreatedby(String createdby) {
 		this.createdby = createdby;
-	}
-	public Merchant getMerchant() {
-		return merchant;
-	}
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
 	}
 	public String getName() {
 		return name;
@@ -71,5 +65,12 @@ public class TaxVo {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
+	public MerchantVo getMerchantVo() {
+		return merchantVo;
+	}
+	public void setMerchantVo(MerchantVo merchantVo) {
+		this.merchantVo = merchantVo;
+	}
+	
 
 }

@@ -103,7 +103,7 @@ public class ProductInventory implements java.io.Serializable {
 		this.storagebin = storagebin;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MERCHANT_ID", nullable = false)
 	public Merchant getMerchant() {
 		return this.merchant;
@@ -113,7 +113,7 @@ public class ProductInventory implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRODUCT_ID", nullable = false)
 	public Product getProduct() {
 		return this.product;
@@ -123,7 +123,7 @@ public class ProductInventory implements java.io.Serializable {
 		this.product = product;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STORE_ID", nullable = false)
 	public Store getStore() {
 		return this.store;

@@ -5,9 +5,7 @@ package com.mitosis.shopsbacker.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,7 +50,7 @@ public class SalesOrder implements java.io.Serializable {
 	private String customerSign;
 	private String merchantId;
 	private Date deliveryTime;
-	private Character deliveryFlag;
+	private char deliveryFlag;
 	private BigDecimal discountAmount;
 	private char isactive;
 	private String createdby;
@@ -99,7 +97,7 @@ public class SalesOrder implements java.io.Serializable {
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
 			String customerSign, String merchantId, Date deliveryTime,
-			Character deliveryFlag, BigDecimal discountAmount, char isactive,
+			char deliveryFlag, BigDecimal discountAmount, char isactive,
 			String createdby, Date created, Date updated, String updatedby,
 			List<OrderTax> orderTaxes, SalesOrderLine salesOrderLine, List<Favourite> favourites) {
 		this.salesOrderId = salesOrderId;
@@ -336,11 +334,11 @@ public class SalesOrder implements java.io.Serializable {
 	}
 
 	@Column(name = "DELIVERY_FLAG", length = 1)
-	public Character getDeliveryFlag() {
+	public char getDeliveryFlag() {
 		return this.deliveryFlag;
 	}
 
-	public void setDeliveryFlag(Character deliveryFlag) {
+	public void setDeliveryFlag(char deliveryFlag) {
 		this.deliveryFlag = deliveryFlag;
 	}
 

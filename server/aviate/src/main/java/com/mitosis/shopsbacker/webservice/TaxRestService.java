@@ -12,13 +12,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.TaxService;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.responsevo.TaxResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.TaxVo;
 
 /**
@@ -34,7 +37,10 @@ public class TaxRestService<T> {
 	
 	@Autowired
 	TaxService<T> taxService;
-
+	
+	@Autowired
+	MerchantService<T> merchantService;
+	
 	public TaxService<T> getTaxService() {
 		return taxService;
 	}
@@ -43,6 +49,16 @@ public class TaxRestService<T> {
 		this.taxService = taxService;
 	}
 	
+	
+	public MerchantService<T> getMerchantService() {
+		return merchantService;
+	}
+
+	public void setMerchantService(MerchantService<T> merchantService) {
+		this.merchantService = merchantService;
+	}
+
+
 	ResponseModel response = null;
 	TaxResponseVo taxResponse = null;
 	
@@ -55,7 +71,7 @@ public class TaxRestService<T> {
 		try {
 			List<Tax> taxList = taxService.getTaxListByName(taxVo.getName());
 			if(taxList.isEmpty()){
-				Tax tax = setTax(taxVo);
+				Tax tax = getTaxService().setTax(taxVo);
 				taxService.addTax(tax);
 				return response;
 			}else{
@@ -74,16 +90,6 @@ public class TaxRestService<T> {
 		return response;
 	}
 
-	public Tax setTax(TaxVo taxVo) throws Exception {
-		Tax tax = (Tax) CommonUtil
-				.setAuditColumnInfo(Tax.class.getName());
-		tax.setName(taxVo.getName());
-		tax.setMerchant(taxVo.getMerchant());
-		tax.setTaxPercentage(taxVo.getTaxPercentage());
-		tax.setIsactive('Y');
-		return tax;
-	}
-	
 	@Path("/updatetax")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -103,25 +109,19 @@ public class TaxRestService<T> {
 		return response;
 	}
 	
-	public TaxVo setTaxVo (Tax tax) {
-		TaxVo taxVo = new TaxVo();
-		taxVo.setTaxId(tax.getTaxId());
-		taxVo.setName(tax.getName());
-		taxVo.setTaxPercentage(tax.getTaxPercentage());
-		return taxVo;
-	}
 	
 	@Path("/gettax")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public TaxResponseVo getTax(TaxVo taxsVo) {
+	public TaxResponseVo getTax(MerchantVo merchantVo) {
 		taxResponse = new TaxResponseVo();
 		response = new ResponseModel();
 		try {
-			List<Tax> taxList = taxService.getTax(taxsVo.getMerchant());
+ 			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
+			List<Tax> taxList = taxService.getTax(merchant);
 			for (Tax tax : taxList) {
-				TaxVo taxVo = setTaxVo(tax);
+				TaxVo taxVo = getTaxService().setTaxVo(tax);
 				taxResponse.getTaxList().add(taxVo);
 			}
 		} catch (Exception e) {

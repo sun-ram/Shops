@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.inventory.daoimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -43,9 +44,11 @@ public class ProductInventoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductInventory> getProductInventoryByMerchant(Merchant merchant) {
+		List<ProductInventory> productInventory = new ArrayList<ProductInventory>();
 		DetachedCriteria criteria = DetachedCriteria.forClass(ProductInventory.class);
 		criteria.add(Restrictions.eq("merchant", merchant));
-		return ((List<ProductInventory>) findAll(criteria));
+		productInventory = ((List<ProductInventory>) findAll(criteria));
+		return null;
 	}
 
 }

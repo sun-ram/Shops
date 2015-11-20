@@ -7,12 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.customer.service.CustomerService;
+import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.SalesOrder;
+import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
+import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
+import com.mitosis.shopsbacker.vo.customer.CustomerVo;
+import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 /**
  * @author fayaz
@@ -25,13 +33,37 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 
 	@Autowired
 	SalesOrderDao<T> salesOrderDao;
-
+	
+	@Autowired
+	StoreService<T> storeService;
+	
+	@Autowired
+	SalesOrderLineService<T> salesOrderLine;
+	
 	public SalesOrderDao<T> getSalesOrderDao() {
 		return salesOrderDao;
 	}
 
 	public void setSalesOrderDao(SalesOrderDao<T> salesOrderDao) {
 		this.salesOrderDao = salesOrderDao;
+	}
+	
+	
+	public StoreService<T> getStoreService() {
+		return storeService;
+	}
+
+	public void setStoreService(StoreService<T> storeService) {
+		this.storeService = storeService;
+	}
+	
+
+	public SalesOrderLineService<T> getSalesOrderLine() {
+		return salesOrderLine;
+	}
+
+	public void setSalesOrderLine(SalesOrderLineService<T> salesOrderLine) {
+		this.salesOrderLine = salesOrderLine;
 	}
 
 	@Override
@@ -93,5 +125,48 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderDao.saveSalesOrder(salesOrder);
 		
 	}
+	
+	@Override
+	@Transactional
+	public List<SalesOrder> getOrderList(String merchantId) {
+		return salesOrderDao.getOrderList(merchantId);
+	}
 
+	@Override
+	public List<SalesOrder> salesOrderDetailList(String fromDate,
+			String toDate, String merchantId) {
+			return salesOrderDao.salesOrderDetailList(fromDate, toDate, merchantId);
+	}
+	
+	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception {
+		SalesOrderVo salesOrderVo = new SalesOrderVo();
+		salesOrderVo.setSalesOrderId(salesOrder.getSalesOrderId());
+		salesOrderVo.setAmount(salesOrder.getAmount());
+		salesOrderVo.setCustomerVo(setCustomerDetails(salesOrder.getCustomer()));
+		salesOrderVo.setDeliveryDate(salesOrder.getDeliveryDate());
+		salesOrderVo.setDeliveryFlag(salesOrder.getDeliveryFlag());
+		salesOrderVo.setDeliveryTime(salesOrder.getDeliveryTime());
+		salesOrderVo.setStoreVo(getStoreService().setStoreVo((salesOrder.getStore())));
+		salesOrderVo.setDiscountAmount(salesOrder.getDiscountAmount());
+		salesOrderVo.setTotalTaxAmount(salesOrder.getTotalTaxAmount());
+		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
+		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
+		salesOrderVo.setMerchantId(salesOrder.getMerchantId());
+		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
+		salesOrderVo.setOrderNo(salesOrder.getOrderNo());
+		salesOrderVo.setSalesOrderLineVo(getSalesOrderLine().setSalesOrderLineVo(salesOrder.getSalesOrderLine()));
+		return salesOrderVo;
+	}
+	
+	public CustomerVo setCustomerDetails(Customer customer) {
+		CustomerVo customerVo = new CustomerVo();
+		customerVo.setCustomerId(customer.getCustomerId());
+		customerVo.setName(customer.getName());
+		customerVo.setEmail(customer.getEmail());
+		customerVo.setImageId(customer.getImageId());
+		customerVo.setDeviceid(customer.getDeviceid());
+		customerVo.setDeviceType(customer.getDeviceType());
+		return customerVo;
+
+	}
 }

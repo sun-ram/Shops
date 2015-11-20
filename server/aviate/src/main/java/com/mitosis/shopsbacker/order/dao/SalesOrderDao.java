@@ -27,5 +27,10 @@ public interface SalesOrderDao<T> {
 	public void updateSalesOrder(SalesOrder salesOrder);
 	
 	public void saveSalesOrder(SalesOrder salesOrder);
+	
+	public List<SalesOrder> getOrderList(String merchantId);
+	
+	public List<SalesOrder> salesOrderDetailList(String fromDate,
+			String toDate, String merchantId);
 
 }

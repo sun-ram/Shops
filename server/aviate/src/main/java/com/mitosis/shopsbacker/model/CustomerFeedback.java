@@ -98,7 +98,8 @@ public class CustomerFeedback implements java.io.Serializable {
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
 	}
- 
+	
+	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -117,6 +118,7 @@ public class CustomerFeedback implements java.io.Serializable {
 		this.customer = customer;
 	}
 
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
 	}
