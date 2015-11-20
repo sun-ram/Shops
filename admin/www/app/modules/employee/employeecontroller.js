@@ -33,11 +33,13 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 	};
 	
 	
-	if($rootScope.user.role == 'MERCHANTADMIN'){
-		$scope.isMerchantAdmin = true;
-		$scope.getStores();
-	}else{
-		$scope.isMerchantAdmin = false;
+	$scope.getStoreList = function(){
+		if($rootScope.user.role == 'MERCHANTADMIN'){
+			$scope.isMerchantAdmin = true;
+			$scope.getStores();
+		}else{
+			$scope.isMerchantAdmin = false;
+		}
 	}
 
 	$scope.count = 3;
