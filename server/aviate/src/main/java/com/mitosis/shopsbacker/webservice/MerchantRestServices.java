@@ -90,13 +90,13 @@ public class MerchantRestServices<T> {
 		this.roleService = roleService;
 	}
 
-	ResponseModel response = new ResponseModel();
 
 	@Path("/addmerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel addMerchantDetails(MerchantVo merchantVo) {
+		ResponseModel response = new ResponseModel();
 		try {
 			List<Merchant> checkUniqueMerchants = getMerchantService()
 					.getMerchantListByName(merchantVo.getName());
@@ -191,6 +191,7 @@ public class MerchantRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel updateMerchantDetails(MerchantVo merchantVo) {
+		ResponseModel response = new ResponseModel();
 		try {
 			JsonNode location = getLatLongByAddress(merchantVo);
 			if (location == null) {
@@ -297,6 +298,7 @@ public class MerchantRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public MerchantResponseVo getMerchant() {
 		MerchantResponseVo merchantResponse = new MerchantResponseVo();
+		ResponseModel response = new ResponseModel();
 		try {
 			List<Merchant> merchants = merchantService.getMerchantList();
 			List<MerchantVo> listOfMerchantVo = new ArrayList<MerchantVo>();
@@ -319,6 +321,7 @@ public class MerchantRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel deleteMerchant(MerchantVo merchant) {
+		ResponseModel response = new ResponseModel();
 		try {
 			merchantService.deleteMerchant(merchant.getMerchantId());
 		} catch (Exception e) {

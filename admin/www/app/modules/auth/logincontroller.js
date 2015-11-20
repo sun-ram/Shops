@@ -18,8 +18,8 @@ angular.module('aviateAdmin.controllers')
 		$scope.saveauth();
 		if($scope.login.$invalid){
 			
-			if($scope.login.emailId.$invalid){
-				$scope.emailRequired = "true"
+			if($scope.login.userName.$invalid){
+				$scope.userNameRequired = "true"
 					return;
 			}
 			if($scope.login.password.$invalid){
@@ -29,7 +29,7 @@ angular.module('aviateAdmin.controllers')
 
 		}
 		var userInfo = {
-				"userName": $scope.user.emailId,
+				"userName": $scope.user.userName,
 				"password": $scope.user.password
 		};
 		AuthService.login(userInfo).then(function(data) {
@@ -49,8 +49,8 @@ angular.module('aviateAdmin.controllers')
 	
 	$scope.saveauth = function() {
 		if($scope.rememberme){
-			if($scope.user.emailId==undefined){
-				toastr.error("Please Enter Email Id");
+			if($scope.user.userName==undefined){
+				toastr.error("Please Enter UserName");
 			}
 			else{
 			$scope.user.rememberme=true;
@@ -65,7 +65,7 @@ angular.module('aviateAdmin.controllers')
 	
 	if(authInfo != undefined || authInfo != null){
 		if(authInfo.rememberme){
-			$scope.user.emailId=authInfo.emailId;
+			$scope.user.userName=authInfo.userName;
 			$scope.user.password = authInfo.password;
 			$scope.rememberme=authInfo.rememberme;
 	}}
