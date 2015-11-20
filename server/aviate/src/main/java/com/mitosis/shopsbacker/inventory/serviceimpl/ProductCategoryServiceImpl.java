@@ -106,19 +106,28 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
+	@Transactional
 	public void updateCategory(ProductCategory productCategory) {
 		productCategoryDao.updateCategory(productCategory);
 		
 	}
 
 	@Override
+	@Transactional
 	public void deleteCategory(ProductCategory productCategory) {
 		productCategoryDao.deleteCategory(productCategory);
 		
 	}
 
 	@Override
+	@Transactional
 	public List<ProductCategory> getRootProductCategoryList(Merchant merchant){
 		 return productCategoryDao.getRootProductCategoryList(merchant);
+	}
+
+	@Override
+	@Transactional
+	public List<ProductCategory> getallleafcategorylist(Merchant merchant) {
+		return productCategoryDao.getallleafcategorylist(merchant);
 	}
 }

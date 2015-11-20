@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.responsevo.CustomerLoginResponseVo;
+import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
@@ -31,12 +32,17 @@ public class CustomerRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public CustomerLoginResponseVo userLogin(CustomerVo customerVo) {
+		boolean flag = false;
 		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
 		CustomerVo customerDetails = new CustomerVo();
 		if (customerVo != null) {
-			Customer customer = customerService.getCustomerInfoByEmail(
-					customerVo.getEmail(), customerVo.getPassword());
+			Customer customer = customerService
+					.getCustomerInfoByEmail(customerVo.getEmail());
 			if (customer != null) {
+				flag = CommonUtil.passwordVerification(
+						customerVo.getPassword(), customer.getPassword());
+			}
+			if (customer != null && flag) {
 				customerDetails = setCustomerDetails(customer);
 				customerLoginResponseVo.setCustomerVo(customerDetails);
 				customerLoginResponseVo.setStatus(SBMessageStatus.SUCCESS

@@ -33,5 +33,7 @@ public interface ProductCategoryService<T> {
 	public void deleteCategory(ProductCategory productCategory);
 	
 	public List<ProductCategory> getRootProductCategoryList(Merchant merchant);
+	
+	public List<ProductCategory> getallleafcategorylist(Merchant merchant);
 
 }

@@ -199,7 +199,7 @@ public class ProductCategoryRestServices<T> {
 		}
 		return productCategoryResponseVo;
 	}
-	
+
 	@Path("/getallcategorylist")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -224,6 +224,36 @@ public class ProductCategoryRestServices<T> {
 			// productCategoryResponseVo=productCategory.
 		}
 		return productCategoryResponseVo;
+	}
+
+	@Path("/getallleafcategorylist")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductCategoryResponseVo getallleafcategorylist(
+			ProductCategoryVo productCategoryVo) {
+		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
+		List<ProductCategory> productCategoryLeafList = new ArrayList<ProductCategory>();
+		List<ProductCategoryVo> productCategoryLeafListVo = new ArrayList<ProductCategoryVo>();
+		Merchant merchant = merchantService.getMerchantById(productCategoryVo
+				.getMerchant().getMerchantId());
+		if (merchant != null) {
+			productCategoryLeafList = productCategoryService
+					.getallleafcategorylist(merchant);
+			for (ProductCategory productSingleLeaf : productCategoryLeafList) {
+				ProductCategoryVo productCategoryLeaf = new ProductCategoryVo();
+				productCategoryLeaf.setProductCategoryId(productSingleLeaf
+						.getProductCategoryId());
+				productCategoryLeaf.setName(productSingleLeaf.getName());
+				productCategoryLeafListVo.add(productCategoryLeaf);
+			}
+			productCategoryResponseVo
+					.setProductCategoryVo(productCategoryLeafListVo);
+			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+					.getValue());
+		}
+		return productCategoryResponseVo;
+
 	}
 
 	private void getHierarchicalProductCategorys(

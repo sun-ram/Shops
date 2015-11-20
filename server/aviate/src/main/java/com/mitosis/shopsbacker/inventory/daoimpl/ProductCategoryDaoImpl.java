@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apache.poi.ss.formula.functions.T;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -64,7 +66,7 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			throw (e);
 		}
 	}
-	
+
 	@Override
 	public List<ProductCategory> getRootProductCategoryList(Merchant merchant) {
 		try {
@@ -88,7 +90,7 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			e.printStackTrace();
 			throw (e);
 		}
-		
+
 	}
 
 	@Override
@@ -99,7 +101,7 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			e.printStackTrace();
 			throw (e);
 		}
-		
+
 	}
 
 	@Override
@@ -110,7 +112,23 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			e.printStackTrace();
 			throw (e);
 		}
-		
+
+	}
+
+	@Override
+	public List<ProductCategory> getallleafcategorylist(Merchant merchant) {
+		try {
+			Criteria crit = getSession().createCriteria(ProductCategory.class);
+			Criteria prdCrit = crit.createCriteria("productTypes");
+			prdCrit.add(Restrictions.eq("merchant", merchant));
+			prdCrit.add(Restrictions.eq("isactive", 'Y'));
+			List results = crit.list();
+			return results;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw (e);
+		}
+
 	}
 
 }
