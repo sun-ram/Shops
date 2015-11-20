@@ -38,6 +38,7 @@ angular.module('aviateAdmin.controllers')
 				$state.go('app.merchants');
 			} else if($rootScope.user.role == 'MERCHANTADMIN') {
 				$state.go('app.store');
+				//$state.go('app.addproducttype');
 			}else if($rootScope.user.role == 'STOREADMIN'){
 				$state.go('app.products');
 			}else {

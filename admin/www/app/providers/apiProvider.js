@@ -955,7 +955,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		apiClass.ProductCategory.getParentCategory = function (product, callback) {
 			console.log("Inside the provider",product);
-			httpRequest("POST", "product/getcategories", product, function (err, data) {
+			httpRequest("POST", "productcategory/getcategories", product, function (err, data) {
 				if (err) {
 					console.log("err",err);
 					callback(err, null);
@@ -981,7 +981,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		apiClass.ProductCategory.getproductTypeList = function (product, callback) {
-			httpRequest("POST", "update/product/getproducttypesbystore", product, function (err, data) {
+			httpRequest("POST", "producttype/getproducttypesbystore", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -995,7 +995,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.removeProductCategory = function (product, callback) {
-			httpRequest("POST", "update/product/removecategory", product, function (err, data) {
+			httpRequest("POST", "productcategory/removecategory", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1009,7 +1009,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.removeProductType = function (product, callback) {
-			httpRequest("POST", "update/product/removeproducttype", product, function (err, data) {
+			httpRequest("POST", "producttype/removeproducttype", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1023,7 +1023,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.addProductCategory = function (product, callback) {
-			httpRequest("POST", "update/product/addparentcategory", product, function (err, data) {
+			httpRequest("POST", "productcategory/addparentcategory", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1037,7 +1037,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.addProductCategory1 = function (product, callback) {
-			httpRequest("POST", "update/product/addcategory", product, function (err, data) {
+			httpRequest("POST", "productcategory/addcategory", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1051,7 +1051,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.addProductType = function (product, callback) {
-			httpRequest("POST", "update/product/addproducttypes", product, function (err, data) {
+			httpRequest("POST", "producttype/addproducttypes", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1065,7 +1065,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.updateproductCategory = function (product, callback) {
-			httpRequest("POST", "update/product/updatecategory", product, function (err, data) {
+			httpRequest("POST", "productcategory/updatecategory", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1078,7 +1078,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.ProductCategory.updateproductType = function (product, callback) {
-			httpRequest("POST", "update/product/updateproducttypes", product, function (err, data) {
+			httpRequest("POST", "producttype/updateproducttypes", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);

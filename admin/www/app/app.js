@@ -15,7 +15,7 @@ var aviateAdmin = angular.module('app', ['toastr',
                                          'ipCookie',
                                          'ngMdIcons',
                                          'md.data.table',
-                                         'as.sortable'
+                                         'ngDraggable'
                                          ]);
 
 

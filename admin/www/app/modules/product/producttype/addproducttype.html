@@ -1,116 +1,74 @@
-<style>
-  /* Put your css in here */
-
-  .as-sortable-item,
-  .as-sortable-placeholder {
-      display: inline-block;
-      width: 124px;
-      height: 110px;
-      float: left;
-  }
-
-  /*.sortable-row:after {
-      content: ".";
-      display: block;
-      height: 0;
-      clear: both;
-      visibility: hidden;
-  }*/
-
-  #sortable-container {
-      display: inline-block;
-  }
-</style>
-
-<div id="sortable-container">
-   <div class="sortable-row" as-sortable="sortableOptions" ng-model="itemsList.items1">
-       <div ng-repeat="item in itemsList.items1" as-sortable-item>
-           <div as-sortable-item-handle>{{item.Label}}</div>
-       </div>
-   </div>
-   <div class="sortable-row" as-sortable="sortableOptions" ng-model="itemsList.items2">
-       <div ng-repeat="item in itemsList.items2" as-sortable-item>
-           <div as-sortable-item-handle>{{item.Label}}</div>
-       </div>
-   </div>
-</div>
-
-
-
 <div layout="row">
-    <div flex="75" layout="" style="border-right: 2px solid lightgrey;" id="sortable-container">
-
-        <div layout="column" layout-padding style="width: 100%;" as-sortable="dragControlListeners" ng-model="parentCategoryList">
-            <h3>Product Categories</h3>
-            <div ng-drop="true" ng-drop-success="addNewCategory($data,$event)" class="droparea" style="height: 52px;padding:25px 0px;">
-                <div class="drop-success" style="text-align:center;">
-                    To create a new category, Drag a category widget and Drop here.
-                </div>
-            </div>
-
-
-            <div ng-repeat="c in parentCategoryList" style="border: 2px dashed lightgrey; margin-top: 5px;" ng-include="'productCategoryList'">
-                <!-- Including html pages here dynamically -->
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-
-<script type="text/ng-template" id="productCategoryList">
-    <md-card ng-drop="true" ng-drop-success="addSubCategory($data,$event,c)" class="ctg" layout style="height:37px; color:#ffffff; cursor:move; background:#8bc34a;">
-        <span layout-align="start center" layout-padding style="width: 100%;">{{c.categoryName}}</span>
-        <span layout="" layout-align="end center">
-                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.categoryId,c.categoryName,$evemt)" aria-label="Edit">
-        			<ng-md-icon icon="mode_edit" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon>
-      			</md-button>
-             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.categoryId)" aria-label="Delete">
-             		<ng-md-icon icon="close" style="fill:red" size="20" class="icons hash_color"></ng-md-icon>
-             	</md-button>
-        </span>
-    </md-card>
-    <span ng-repeat="c in c.category">
-          <!-- <div ng-include="'productCategoryList'" style="margin-left: 38px;margin-top: 5px;"></div> -->
-          <div as-sortable-item ng-if="f.categoryId == c.categoryId" ng-include="'productTypeList'" ng-repeat="f in productCategoryList"></div>
-    </span>
-</script>
-
-<script type="text/ng-template" id="productTypeList">
-    <md-card  ng-drop="false" ng-drop-success="addProductType($data,$event,c)" class="prod-typ" style="background-color:#cddc39; cursor:move; color:#FFFFFF; height:37px;" layout>
-        <span layout-align="start center" layout-padding style="width: 100%;">{{f.productTypeName}}</span>
-        <span layout="" layout-align="end center">
-            <md-button class="md-icon-button md-primary"  ng-click="showConfirmUpdateProduct(f.productTypeId,f.productTypeName,$evemt)" aria-label="Edit">
+  <div flex="75" layout=""  style="border-right: 2px solid lightgrey;">
+  
+ 	<div layout="column" layout-padding style="width: 100%;" >
+ 	
+ 	<div ng-drop="true" ng-drop-success="addNewCategory($data,$event)" class="droparea" style="height: 52px;">
+          <md-card class="drop-success">
+              Drag New Category Here
+          </md-card>
+      </div>
+ 	
+ 	<h3>Product Categories</h3>	
+ 	 <div  ng-repeat="c in parentCategoryList" style="border: 2px dashed lightgrey; margin-top: 5px;" ng-include="'productCategoryList'" >
+		<!-- Including html pages here dynamically -->
+	</div>
+ 	</div> 
+  </div>
+  
+  <div flex="25" layout="" style="background: #F5F6F7; ">
+ 	<div layout="column" style="width: 24%; position: fixed;">
+	 	<h3 style=" text-align: center; color: #A67AB3;">Widgets</h3>
+	 	<div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Category'">
+	 		<md-card  ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#FFFFFF; margin:5px 20px;">
+				{{obj.name}}
+			</md-card>
+			</div>
+			<div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Sub Category'">
+	 		<md-card  ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#FFFFFF; margin:5px 20px;">
+				{{obj.name}}
+			</md-card>
+			</div>
+			<div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Product Type'">
+	 		<md-card  ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#F0ED97; margin:5px 20px;">
+				{{obj.name}}
+			</md-card>
+			</div>
+	 	</div>	   
+  </div>
+ </div>
+ 
+ <script type="text/ng-template" id="productTypeList"> 
+	<md-card  ng-drop="true" ng-drop-success="addProductType($data,$event,c)" class="prod-typ" style="background-color:#F0ED97;"layout>
+				<span layout-align="start center" layout-padding style="width: 100%;">{{f.name}}</span>
+				<span layout="" layout-align="end center">
+                <md-button class="md-icon-button md-primary"  ng-click="showConfirmUpdateProduct(f.productTypeId,f.name,$evemt)" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" style="fill:blue;background-color:#F0ED97;"  size="20" class="icons hash_color"></ng-md-icon>
       			</md-button>
-            <md-button class="md-icon-button md-primary" ng-click="removeProductType(f.productTypeId)" aria-label="Delete">
+             	<md-button class="md-icon-button md-primary" ng-click="removeProductType(f.productTypeId)" aria-label="Delete">
              		<ng-md-icon icon="close" size="20"style="fill:red;"  class="icons hash_color"></ng-md-icon>
-            </md-button>
-        </span>
-    </md-card>
+             	</md-button>
+             </span>
+		</md-card>
 </script>
 
+<script type="text/ng-template" id="productCategoryList">
+<md-card  ng-drop="true" ng-drop-success="addSubCategory($data,$event,c)" class="ctg" layout >
+				<span layout-align="start center" layout-padding style="width: 100%;">{{c.name}}</span>
+             	<span layout="" layout-align="end center">
+                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.productCategoryId,c.name,$evemt)" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon>
+      			</md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.productCategoryId)" aria-label="Delete">
+             		<ng-md-icon icon="close" style="fill:red" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+             </span>
 
-
-
- <div flex="25" layout="" style="background: #F5F6F7; ">
-    <div layout="column" style="width: 24%; position: fixed;">
-        <h3 style=" text-align: center; color: #A67AB3;">Widgets</h3>
-        <div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Category'">
-            <md-card ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#FFFFFF; margin:5px 20px;">
-                {{obj.name}}
-            </md-card>
-        </div>
-        <div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Sub Category'">
-            <md-card ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#FFFFFF; margin:5px 20px;">
-                {{obj.name}}
-            </md-card>
-        </div>
-        <div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Product Type'">
-            <md-card ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#F0ED97; margin:5px 20px;">
-                {{obj.name}}
-            </md-card>
-        </div>
-    </div>
-</div>
+</md-card>
+	<span ng-repeat="c in c.categoriesVo" >	
+ 	 	<div  style="margin-left: 38px;margin-top: 5px;"  ng-include="'productCategoryList'">
+		</div>
+		<div ng-repeat="f in productCategoryList" ng-if="f.productCategory.productCategoryId == c.productCategoryId"  ng-include="'productTypeList'">
+		</div>
+	</span> 
+</script> 

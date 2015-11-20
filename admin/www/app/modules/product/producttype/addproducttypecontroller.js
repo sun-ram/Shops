@@ -1,50 +1,41 @@
-angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
+angular.module('aviateAdmin.controllers').controller("addproducttypecontroller", 
 		['$scope', '$state','$filter','ProductCategoryServices','toastr','$mdDialog','CONSTANT','$rootScope',
 		 function($scope, $state, $filter, ProductCategoryServices, toastr,$mdDialog,CONSTANT,$rootScope) {
-
-			 $scope.dragControlListeners = {
-
-     itemMoved: function(event) {
-         //Do what you want
-         console.log("itemMoved");
-     },
-     orderChanged: function(event) {
-         //Do what you want
-         console.log("orderChanged :",JSON.stringify($scope.parentCategoryList));
-     }
- };
-
+			
+			
+			
 			$scope.getParentCategoryList = function(){
 				ProductCategoryServices.getParentCategory().then(function(data){
 					$scope.parentCategoryList = data;
             	});
 			};
-
-
+			
+			
 			$scope.getProductCategoryList = function(){
 				ProductCategoryServices.getproductTypeList().then(function(data){
 					$scope.productCategoryList = data;
             	});
 			};
-
-
+			
+		
 			$scope.getParentCategoryList();
-
+			
 			$scope.getProductCategoryList();
-
-
+			
+			
 			$rootScope.parentCategoryListValue = function() {
 				ProductCategoryServices.getParentCategory().then(function(data) {
 					$scope.parentCategoryList = data;
 
 				});
 			};
-
+			
 			$rootScope.productCategoryListValue = function() {
+				//$scope.productCategoryList = "";
 				ProductCategoryServices.getproductTypeList().then(function(data) {
 					$scope.productCategoryList = data;
 
-				});
+				})
 			};
 
 
@@ -63,26 +54,25 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 							$scope.productCategory = {};
 							$scope.categoryHeading="Category";
 							$scope.addCategory = function() {
-								var product = {
-										"parentCategoryName":$scope.productCategory.Name,
-										"merchantId": $rootScope.user.merchantId,
-										"categoryId": ""
-								};
-								ProductCategoryServices.addProductCategory(product).then(function(data){
+								$scope.product = { };
+								$scope.product.name = $scope.productCategory.Name;
+								$scope.product.merchant = {};
+								$scope.product.merchant .merchantId = $rootScope.user.merchantId;
+								ProductCategoryServices.addProductCategory($scope.product).then(function(data){
 									toastr.success("Category Added Successfully");
 									$rootScope.parentCategoryListValue();
 									$rootScope.productCategoryListValue();
 									$mdDialog.cancel();
 								});
 							};
-
+	
 							$scope.cancel = function() {
 								$mdDialog.cancel();
 							};
 						}
-
+					
 					})
-					.then(function(answer) {
+					.then(function(answer) {	
 						$scope.status = 'You said the information was "' + answer + '".';
 					}, function() {
 						$scope.status = 'You cancelled the dialog.';
@@ -92,9 +82,9 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 					toastr.error("Wrong Dragging Options, You can drag only category here.");
 				}
 			};
-
-
-
+			
+			
+			
 			$scope.addSubCategory = function(data, ev, cat){
 				$scope.dropObj = data;
 				$rootScope.dropObj = data;
@@ -109,10 +99,12 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 							$scope.categoryHeading="Sub-Category";
 							$scope.addCategory = function() {
 								var product = {
-										"categoryName":$scope.productCategory.Name,
-										"merchantId":$rootScope.user.merchantId,
-										"parentCategoryId": cat.categoryId
+										name:$scope.productCategory.Name,
+										merchant:{},
+										category:{}
 								};
+								product.merchant.merchantId=$rootScope.user.merchantId;
+								product.category.productCategoryId=cat.productCategoryId;
 								ProductCategoryServices.addProductCategory1(product).then(function(data){
 									if($rootScope.dropObj.key=='subcategory'){
 										toastr.success("Product Sub-Category Added Successfully");
@@ -122,13 +114,13 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 									$mdDialog.cancel();
 								});
 							};
-
+	
 							$scope.cancel = function() {
 								$mdDialog.cancel();
 							};
 						}
 					})
-					.then(function(answer) {
+					.then(function(answer) {	
 						$scope.status = 'You said the information was "' + answer + '".';
 					}, function() {
 						$scope.status = 'You cancelled the dialog.';
@@ -144,11 +136,18 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 							$scope.productCategory = {};
 							$scope.categoryHeading="ProductType";
 							$scope.addCategory = function() {
-								var product = {
+								/*var product = {
 										"categoryId": cat.categoryId,
 										"productTypeName": $scope.productCategory.Name,
 										"merchantId":$rootScope.user.merchantId
+								};*/
+								var product = {
+										name:$scope.productCategory.Name,
+										merchant:{},
+										productCategory:{}
 								};
+								product.merchant.merchantId=$rootScope.user.merchantId;
+								product.productCategory.productCategoryId=cat.productCategoryId;
 								ProductCategoryServices.addProductType(product).then(function(data){
 									toastr.success("Product Type added successfully");
 									$rootScope.parentCategoryListValue();
@@ -162,7 +161,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 							};
 						}
 					})
-					.then(function(answer) {
+					.then(function(answer) {	
 						$scope.status = 'You said the information was "' + answer + '".';
 					}, function() {
 						$scope.status = 'You cancelled the dialog.';
@@ -172,7 +171,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 					toastr.error("Wrong Dragging Options, You can drag only subcategory and product-type here.");
 				}
 			};
-
+			
 			$scope.addProductType = function(data, ev, cat){
 				$scope.dropObj = data;
 					if($scope.dropObj=='producttype'){
@@ -185,11 +184,18 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 							$scope.productCategory = {};
 							$scope.categoryHeading="ProductType";
 							$scope.addCategory = function() {
-								var product = {
+								/*var product = {
 										"categoryId": cat.categoryId,
 										"productTypeName": $scope.productCategory.Name,
 										"merchantId":$rootScope.user.merchantId
+								};*/
+								var product = {
+										name:$scope.productCategory.Name,
+										merchant:{},
+										productCategory:{}
 								};
+								product.merchant.merchantId=$rootScope.user.merchantId;
+								product.productCategory.productCategoryId=cat.productCategoryId;
 								ProductCategoryServices.addProductType(product).then(function(data){
 									toastr.success("Product Type added successfully");
 									$rootScope.parentCategoryListValue();
@@ -197,13 +203,13 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 									$mdDialog.cancel();
 								});
 							};
-
+	
 							$scope.cancel = function() {
 								$mdDialog.cancel();
 							};
 						}
 					})
-					.then(function(answer) {
+					.then(function(answer) {	
 						$scope.status = 'You said the information was "' + answer + '".';
 					}, function() {
 						$scope.status = 'You cancelled the dialog.';
@@ -214,7 +220,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 					toastr.error("Wrong Dragging Options,Only You can allow to drag product type here.");
 				}
 			};
-
+			
 			$scope.removeProductCategory= function(Id) {
 				ProductCategoryServices.removeProductCategory(Id).then(function(data){
 					toastr.success("Product Category Deleted Successfully");
@@ -232,8 +238,8 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 			};
 			$scope.updateproductCategory=function(categoryId,name){
 				var product = {
-						categoryId : categoryId,
-						categoryName : name
+						productCategoryId : categoryId,
+						name : name
 				};
 				ProductCategoryServices.updateproductCategory(product).then(function(data){
 					toastr.success("Product Category Updated Successfully");
@@ -246,7 +252,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 			$scope.updateproductType=function(categoryId,name){
 				var product = {
 						productTypeId : categoryId,
-						productTypeName : name
+						name : name
 				};
 				ProductCategoryServices.updateproductType(product).then(function(data){
 					toastr.success("Product Type Updated Successfully");
@@ -256,7 +262,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 
 			};
 
-			$scope.showConfirm = function(categoryId, ev) {
+			$scope.showConfirm = function(categoryId, ev) {				
 				$mdDialog.show({
 					templateUrl: 'app/modules/modals/productCategoryModal.html',
 					parent: angular.element(document.body),
@@ -273,7 +279,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 						};
 					}
 				})
-				.then(function(answer) {
+				.then(function(answer) {	
 					$scope.addProductCategory(categoryId,answer.Name)
 					$scope.status = 'You said the information was "' + answer + '".';
 				}, function() {
@@ -281,7 +287,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				});
 			};
 
-			$scope.showConfirm1 = function(categoryId, ev) {
+			$scope.showConfirm1 = function(categoryId, ev) {				
 				$mdDialog.show({
 					templateUrl: 'app/modules/modals/productCategoryModal.html',
 					parent: angular.element(document.body),
@@ -298,7 +304,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 						};
 					}
 				})
-				.then(function(answer) {
+				.then(function(answer) {	
 					$scope.addProductType(categoryId,answer.Name)
 					$scope.status = 'You said the information was "' + answer + '".';
 				}, function() {
@@ -306,7 +312,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				});
 			};
 
-			$scope.showConfirmUpdate = function(categoryId,name, ev) {
+			$scope.showConfirmUpdate = function(categoryId,name, ev) {				
 				$mdDialog.show({
 					templateUrl: 'app/modules/modals/ProductUpdateCategoryModal.html',
 					parent: angular.element(document.body),
@@ -332,7 +338,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				});
 			};
 
-			$scope.showConfirmUpdateProduct = function(categoryId,name, ev) {
+			$scope.showConfirmUpdateProduct = function(categoryId,name, ev) {				
 				$mdDialog.show({
 					templateUrl: 'app/modules/modals/ProductUpdateCategoryModal.html',
 					parent: angular.element(document.body),

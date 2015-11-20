@@ -23,13 +23,14 @@ angular.module('aviateAdmin.services')
 		console.log("Inside the service checking");
 		var d = $q.defer();
 		var product = {
-				"merchantId": $rootScope.user.merchantId
+				merchant : {}
 		};
+		product.merchant.merchantId= $rootScope.user.merchantId;
 		console.log("Inside the service checking",product);
 		api.ProductCategory.getParentCategory(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.category);
+					d.resolve(result.productCategoryVo);
 				}else{
 					toastr.error(result.errorString);	
 				}
@@ -61,13 +62,17 @@ angular.module('aviateAdmin.services')
 	};
 	this.getproductTypeList = function(){
 		var d = $q.defer();
-		var product = {
+		/*var product = {
 				"merchantId": $rootScope.user.merchantId
+		};*/
+		var product = {
+				merchant : {}
 		};
+		product.merchant.merchantId= $rootScope.user.merchantId;
 		api.ProductCategory.getproductTypeList(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.productTypes);
+					d.resolve(result.productTypeVo);
 				}else{
 					toastr.error(result.errorString);	
 				}
@@ -82,7 +87,7 @@ angular.module('aviateAdmin.services')
 	this.removeProductCategory = function(Id){
 		var d = $q.defer();
 		var product = {
-				"categoryId": Id
+				"productCategoryId": Id
 		};
 		api.ProductCategory.removeProductCategory(product, function(err, result){
 			if(result){
