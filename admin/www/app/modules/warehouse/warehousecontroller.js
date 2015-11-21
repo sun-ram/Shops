@@ -148,6 +148,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	};
 	
 	$scope.addStorageBin = function(){
+		localStorage.setItem('storagebin',null);
 		$state.go('app.addStorageBin');
 	}
 	
@@ -192,7 +193,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 			$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
 			$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
 			WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
-				toastr.success(CONSTANT.ADDSTORAGEBIN);
+				toastr.success(CONSTANT.UPDATESTORAGEBIN);
 				$state.go('app.storagebin');
 			});
 			

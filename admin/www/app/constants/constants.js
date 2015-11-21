@@ -27,6 +27,7 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ADDTAX:'Tax Added successfully',
 	DELETETAX:'Tax Deleted successfully',
 	UPDATETAX:'Tax Updated Successfully',
+	UPDATESTORAGEBIN:'StorageBin Updated Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
