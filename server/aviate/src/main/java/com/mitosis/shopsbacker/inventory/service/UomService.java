@@ -21,5 +21,7 @@ public interface UomService<T> {
 	
 	public Uom getUomByName(String name);
 
+	public UomVo setUomVo(Uom uom);
+
 
 }

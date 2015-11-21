@@ -32,6 +32,7 @@ import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
+import com.mitosis.shopsbacker.vo.inventory.UomVo;
 /**
  * @author RiyazKhan.M
  */
@@ -54,6 +55,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	
 	@Autowired
 	ProductTypeService<T> productTypeService;
+	
 
 	@Override
 	@Transactional
@@ -191,15 +193,18 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setUnit(product.getUnit());
 		productVo.setEdibleType(product.getEdibleType());
 		productVo.setGroupCount(product.getGroupCount());
-		
+		productVo.setProductId(product.getProductId());
+		if(product.getImage() != null){
 		ImageVo image = imageService.setImageVo(product.getImage());
 		productVo.setImage(image);
-		
+		}
 		ProductCategoryVo productCategoryVo = productCategoryService.setProductCategoryVo(product.getProductCategory());
 		productVo.setProductCategory(productCategoryVo);
 		
 		ProductTypeVo productTypeVo = productTypeService.setProductTypeVo(product.getProductType());
 		productVo.setProductType(productTypeVo);
+		
+		UomVo umoVo = uomService.setUomVo(product.getUom());
 		
 		return productVo;
 	}
