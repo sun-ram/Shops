@@ -16,6 +16,6 @@ public interface ImageService<T>  {
 	public boolean deleteImage(Image image) throws IOException,
 	Exception ;
 	
-	
+	public Image getImageById(String id) throws Exception;
 
 }
