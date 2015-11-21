@@ -188,9 +188,19 @@ angular.module('app')
 				templateUrl: 'app/modules/warehouse/addWarehouse.html',
 				controller : 'warehousecontroller'
 			})
+			.state('app.storagebinDetails', {
+				url: '/storagebinDetails',
+				templateUrl: 'app/modules/warehouse/storagebin/storagebinDetails.html',
+				controller : 'warehousecontroller'
+			})
 			.state('app.addStorageBin', {
 				url: '/addStorageBin',
 				templateUrl: 'app/modules/warehouse/storagebin/addStorageBin.html',
+				controller : 'warehousecontroller'
+			})
+			.state('app.storagebin', {
+				url: '/storagebin',
+				templateUrl: 'app/modules/warehouse/storagebin/storagebin.html',
 				controller : 'warehousecontroller'
 			})
 			

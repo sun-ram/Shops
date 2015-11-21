@@ -1,4 +1,4 @@
-aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog','$localStorage','$location','$state','toastr','CONSTANT', '$http','WarehouseService','$location','CommonServices',
+aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog','$localStorage','$location','$state','toastr','CONSTANT', '$http','WarehouseService','$location','CommonServices', 
                                               function($scope,$rootScope,$mdDialog,$localStorage, $location,$state,toastr,CONSTANT,$http,WarehouseService,$localStorage,CommonServices) {
 	
 	
@@ -115,18 +115,19 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 				 });
 	}
 	
-	$scope.deleteStorageBin = function(storagebinId) {
+	$scope.deleteStorageBin = function(storagebin) {
 		var confirm = $mdDialog.confirm()
 			      .title('Would you like to delete StorageBin?')
 			        .ok('Delete')
 				       .cancel('Cancel');
 				 $mdDialog.show(confirm).then(function() {
 						$scope.storagebin={};
+						$scope.storagebin.store={};
 						$scope.storagebin.store.storeId = $rootScope.user.storeId;
-						$scope.storagebin.storagebinId = storagebinId;
+						$scope.storagebin.storagebinId = storagebin.storagebinId;
 						WarehouseService.deleteStorageBin($scope.storagebin).then(function(data) {
 						toastr.success(CONSTANT.DELETESTORAGEBIN);
-						$state.go('app.warehouse');
+						$state.go('app.storagebin');
 					});
 				}, function() {
 				  
@@ -150,20 +151,52 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$state.go('app.addStorageBin');
 	}
 	
-	$scope.saveStorageBin = function(storagebin){
-		$scope.storagebin =storageBin;
+	$scope.saveStorageBin = function(){
+	//	$scope.storagebin =storageBin;
+		$scope.storagebin.store={};
+		$scope.storagebin.merchant={};
+		$scope.storagebin.warehouse={};
 		$scope.storagebin.store.storeId = $rootScope.user.storeId;
 		$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
 		$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
-		WarehouseService.saveStorageBin($scope.storageBin).then(function(data) {
+		WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
 			toastr.success(CONSTANT.ADDSTORAGEBIN);
-			$state.go('app.warehouse');
+			$state.go('app.storagebin');
 		});
 		
 	}
 	
+	$scope.setStoragebin = function(warehouse){
+		$scope.warehouse1 = JSON.parse(warehouse);
+		$scope.storagebins = $scope.warehouse1.storagebins;
+	}
 	
-
+	$scope.storagebinDetails = function(storagebin,whouse){
+		localStorage.setItem('storagebin',JSON.stringify(storagebin));
+		//$scope.storagebin = JSON.parse(localStorage.getItem('storagebin'));
+		$state.go('app.storagebinDetails');
+		
+	}
+	
+	$scope.editStoragebin = function(storagebin,whouse) {
+		localStorage.setItem('storagebin',JSON.stringify(storagebin));
+		//$scope.storagebin = JSON.parse(localStorage.getItem('storagebin'));
+		$state.go('app.addStorageBin');
+	}
+	$scope.storagebin = JSON.parse(localStorage.getItem('storagebin'));
+	$scope.updateStoragebin = function(storagebin){
+			$scope.storagebin.store={};
+			$scope.storagebin.merchant={};
+			$scope.storagebin.warehouse={};
+			$scope.storagebin.store.storeId = $rootScope.user.storeId;
+			$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
+			$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
+			WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
+				toastr.success(CONSTANT.ADDSTORAGEBIN);
+				$state.go('app.storagebin');
+			});
+			
+		}
 }
 ]);
 

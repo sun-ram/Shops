@@ -162,12 +162,39 @@
 	<p layout-padding class="ft-black">SalesOrder</p>
 	</md-list-item>
   </a>
-     <a ui-sref="app.warehouse">
-	     <md-list-item md-ink-ripple="#71A442" layout-align="start center">
-	        <md-icon md-svg-icon="assets/img/icons/warehouse.svg" style="color: white;"></md-icon>
-	        <p layout-padding class="ft-black">Warehouse&Storage Bins</p>
+     <!--  <a ui-sref="app.warehouse">
+ 	     <md-list-item md-ink-ripple="#71A442" layout-align="start center">
+ 	        <md-icon md-svg-icon="assets/img/icons/warehouse.svg" style="color: white;"></md-icon>
+ 	        <p layout-padding class="ft-black">Warehouse&Storage Bins</p>
+ 	     </md-list-item>
+       </a>
+       -->
+       <md-list-item md-ink-ripple="#71A442" layout-align="start center">
+	     	 <md-list >
+	     	 <md-list-item md-ink-ripple="#71A442" layout-align="start center">
+	     	 <md-icon md-svg-icon="assets/img/icons/warehouse.svg" style="color: white;"></md-icon>
+	        <p layout-padding class="ft-black">Warehouse & Storagebins</p>
+	        
+	       </md-list-item>
+	       <ul>
+	       <li>
+	        <a ui-sref="app.warehouse">
+		        <md-list-item md-ink-ripple="#71A442" layout-align="start center">
+			        <md-icon md-svg-icon="assets/img/icons/warehouse.svg" style="color: white;"></md-icon>
+			        <p layout-padding class="ft-black">Warehouse</p>
+		    	</md-list-item>
+		    	</a></li>
+		    	<li>
+		    	<a ui-sref="app.storagebin">
+			    	<md-list-item md-ink-ripple="#71A442"  layout-align="start center">
+				       <md-icon md-svg-icon="assets/img/icons/warehouse.svg" style="color: white;"></md-icon>
+				        <p layout-padding class="ft-black">Storagebins</p>
+			    	</md-list-item>
+			    </a></li>
+			    <li>
+			    </ul>
+	        </md-list>
 	     </md-list-item>
-      </a>
       
     <!--    <a ui-sref="app.store">
 	     <md-list-item md-ink-ripple="#71A442" layout-align="start center">

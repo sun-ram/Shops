@@ -6,6 +6,9 @@
 	   	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.storagebin"></ng-md-icon> 
    </span>
     </div>
+    <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editStoragebin(storagebin,whouse)">
+		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
   </md-toolbar>
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
       <form name="storagebinForm" novalidate>
@@ -40,8 +43,7 @@
       <input ng-model="storagebin.level" ng-required="true">
     </md-input-container>    
     <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50"  ng-click="saveStorageBin(storagebin)" ng-disabled="storagebinForm.$invalid">Create</md-button>
-    	<md-button class="md-raised md-success padd-50"  ng-click="updateStoragebin(storagebin);" ng-disabled="storagebinForm.$invalid">Update</md-button>
+    	<md-button class="md-raised md-success padd-50" ng-hide="storagebin.storagebinId" ng-click="saveStorageBin(storagebin)" ng-disabled="storagebinForm.$invalid">Create</md-button>
     	<md-button class="md-raised md-cancel padd-50" ui-sref="app.storagebin">Cancel</md-button>
     </section>
     </form>
