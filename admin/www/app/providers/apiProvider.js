@@ -586,7 +586,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Product.deleteProduct = function (product, callback) {
-			httpRequest("POST", "update/deleteproduct", product, function (err, data) {
+			httpRequest("POST", "product/deleteproduct", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);

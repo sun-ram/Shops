@@ -204,7 +204,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		ProductTypeVo productTypeVo = productTypeService.setProductTypeVo(product.getProductType());
 		productVo.setProductType(productTypeVo);
 		
-		UomVo umoVo = uomService.setUomVo(product.getUom());
+		UomVo uomVo = uomService.setUomVo(product.getUom());
+		
+		productVo.setUom(uomVo);
 		
 		return productVo;
 	}

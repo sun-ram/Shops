@@ -73,10 +73,10 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 	@SuppressWarnings("null")
 	@Override
 	public UomVo setUomVo(Uom uom) {
-		UomVo uomVo = null;
+		UomVo uomVo = new UomVo();
 		
-		uomVo.setName(uomVo.getName());
-		uomVo.setDescription(uomVo.getDescription());
+		uomVo.setName(uom.getName());
+		uomVo.setDescription(uom.getDescription());
 		return uomVo;
 	}
 
