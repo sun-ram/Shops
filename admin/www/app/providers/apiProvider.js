@@ -1212,6 +1212,68 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		/*Banner Modules*/
+		apiClass.Banner = {
+				name: ""
+		};
+
+		apiClass.Banner.getList = function (store, callback) {
+			httpRequest("POST", "banner/getbannerlist", store, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.Banner.addNewBanner = function (banner, callback) {
+			httpRequest("POST", "banner/addbanner", banner, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.Banner.updateBanner = function (banner, callback) {
+			httpRequest("POST", "banner/update", banner, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.Banner.deleteBanner = function (banner, callback) {
+			httpRequest("POST", "banner/delete", banner, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 
 		return apiClass;
 	}]

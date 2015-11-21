@@ -63,5 +63,9 @@ angular.module('aviateAdmin.controllers')
 					page: 1
 			};
 			
+			$scope.storagebinPagination={
+				limit: 5,
+				page: 1
+			};
 
 		}]);

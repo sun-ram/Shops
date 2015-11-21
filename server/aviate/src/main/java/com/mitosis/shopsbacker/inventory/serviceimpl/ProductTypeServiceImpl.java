@@ -77,4 +77,11 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant) {
 		return productTypeDao.getAllProductTypeByMerchant(merchant);
 	}
+
+	@Override
+	@Transactional
+	public List<ProductType> getProductTypeByCategory(
+			ProductCategory productCategory) {
+		return productTypeDao.getProductTypeByCategory(productCategory);
+	}
 }

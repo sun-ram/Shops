@@ -4,8 +4,7 @@ angular.module('aviateAdmin.controllers')
 	 function($scope, $state, toastr, TaxServices, $rootScope) {
 		$scope.addTax = function(){
 			$scope.tax.merchantVo = {
-					merchantId:"ff80818151128155015112824b3a0001",
-					name:"Jayam"
+					merchantId:$rootScope.user.merchantId
 			}
 			TaxServices.addNewTax($scope.tax).then(function(data){
 				//toastr.success(data.status);

@@ -20,9 +20,12 @@ public interface ProductTypeService<T> {
 	public ProductType getProductTypeById(String productTypeId);
 
 	public List<ProductType> getAllProductType();
-	
-    public boolean checkProductType(ProductCategory  productCategory);
-    
+
+	public boolean checkProductType(ProductCategory productCategory);
+
 	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant);
+
+	public List<ProductType> getProductTypeByCategory(
+			ProductCategory productCategory);
 
 }

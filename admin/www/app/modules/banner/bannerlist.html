@@ -1,0 +1,63 @@
+<a ui-sref="app.uploadbanner" >
+  <md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
+	<ng-md-icon icon="add" size="35" class="icon-white"></ng-md-icon>
+	</md-button>
+</a>
+<div layout="row" ng-init="getBannerList()">
+
+	<div layout="row" flex=35>
+		<h2 layout-padding layout-align="start center">Banner List</h2>
+	</div>
+
+	
+</div>
+<md-card flex-gt-sm="90" flex-gt-md="80">
+<md-card-content style="padding: 0px 0px 16px 0px;">
+<md-data-table-container>
+<table md-data-table class="md-primary"
+	md-progress="deferred">
+	<thead md-order="" md-trigger="onorderchange">
+	
+		<tr>
+			<th name="Banner Image Name"></th>
+			<th name="Title-Large"></th>
+			<th name="Title-Small"></th>
+			<th name="Edit"></th>
+			<th name="Delete"></th>			
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="banner in bannerData">
+			<td><img src="{{banner.image.url}}" style="width: 150px;"/></td>
+			<td>{{banner.tabTitleBold}}</td>
+			<td>{{banner.tabTitleSmall}}</td>
+			<td>
+			<div class="address-edit">
+              <md-button class="md-icon-button" aria-label="More" ng-click="editBanner(banner)">
+                  <ng-md-icon icon="mode_edit" size="25" style="fill: grey" ng-click=""></ng-md-icon>
+                  <md-tooltip md-direction="bottom">Edit</md-tooltip>
+              </md-button>
+          	</div>
+			</td>
+			<td>
+			<div class="address-edit">
+                <md-button class="md-icon-button" aria-label="More" ng-click="removeBanner(banner.bannerId)">
+                    <ng-md-icon icon="delete" size="25" style="fill: grey" ng-click=""></ng-md-icon>
+                    <md-tooltip md-direction="bottom">Delete</md-tooltip>
+                </md-button>
+            </div>
+			</td>			
+		</tr>
+	</tbody>
+</table>
+</md-data-table-container> 
+   </md-card-content>
+
+</md-card>
+<style>
+.close_box {
+  position: absolute;
+  right: 22px;
+  top: 97px;
+}
+</style>

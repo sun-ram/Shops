@@ -4,6 +4,7 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -92,7 +93,7 @@ public class Banner implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "IMAGE_ID")
 	public Image getImage() {
 		return this.image;
@@ -102,7 +103,7 @@ public class Banner implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MERCHANT_ID")
 	public Merchant getMerchant() {
 		return this.merchant;
@@ -112,7 +113,7 @@ public class Banner implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STORE_ID")
 	public Store getStore() {
 		return this.store;

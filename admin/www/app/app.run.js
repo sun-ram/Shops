@@ -12,9 +12,9 @@ angular.module('app')
 		var requireLogin = toState.data.requireLogin;
 		var authenticated = ($rootScope.user != null);
 		console.log(toState.name + ' ' + toState.data.requireLogin);
-		if (requireLogin && !authenticated) {
+		/*if (requireLogin && !authenticated) {
 			event.preventDefault();
 			$state.go('login');
-		}
+		}*/
 	});
 });

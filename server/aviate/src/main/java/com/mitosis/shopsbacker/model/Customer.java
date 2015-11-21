@@ -39,7 +39,7 @@ public class Customer implements java.io.Serializable {
 	private String imageId;
 	private String deviceid;
 	private String deviceType;
-	private Integer phoneNo;
+	private String phoneNo;
 	private Date created;
 	private Date updated;
 	private char isactive;
@@ -70,7 +70,7 @@ public class Customer implements java.io.Serializable {
 	public Customer(String customerId, String createdby,
 			String updatedby, String name, String email,
 			String password, String imageId, String deviceid,
-			String deviceType, Integer phoneNo, Date created, Date updated,
+			String deviceType, String phoneNo, Date created, Date updated,
 			char isactive, List<CustomerFeedback> customerFeedbacksForCreatedby,
 			List<MyCart> myCartsForCreatedby, List<Favourite> favouritesForUpdatedby,
 			List<SalesOrder> salesOrders, List<CustomerFeedback> customerFeedbacksForCustomerId,
@@ -128,7 +128,7 @@ public class Customer implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
-	@Column(name = "NAME", nullable = false, length = 45)
+	@Column(name = "NAME", nullable = true, length = 45)
 	public String getName() {
 		return this.name;
 	}
@@ -137,7 +137,7 @@ public class Customer implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "EMAIL", unique = true, nullable = false, length = 45)
+	@Column(name = "EMAIL", unique = true, nullable = true, length = 45)
 	public String getEmail() {
 		return this.email;
 	}
@@ -146,7 +146,7 @@ public class Customer implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "PASSWORD", nullable = false, length = 45)
+	@Column(name = "PASSWORD", nullable = false, length = 100)
 	public String getPassword() {
 		return this.password;
 	}
@@ -182,12 +182,12 @@ public class Customer implements java.io.Serializable {
 		this.deviceType = deviceType;
 	}
 
-	@Column(name = "PHONE_NO")
-	public Integer getPhoneNo() {
+	@Column(name = "PHONE_NO",unique = true, nullable = true)
+	public String getPhoneNo() {
 		return this.phoneNo;
 	}
 
-	public void setPhoneNo(Integer phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 

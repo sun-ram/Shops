@@ -66,8 +66,23 @@ public class CustomerServiceImpl<T> implements CustomerService<T>, Serializable 
 	}
 
 	@Override
+	@Transactional
 	public Customer getCustomerInfoByEmail(String email, String password) {
 		return getCustomerDao().getCustomerInfoByEmail(email,password);
+	}
+
+	@Override
+	@Transactional
+	public Customer getCustomerInfoByEmailWithPhoneno(String email,
+			String phoneNo) {
+		return getCustomerDao().getCustomerInfoByEmail(email, phoneNo);
+	}
+
+	@Override
+	@Transactional
+	public Customer getCustomerInfoByPhoneNo(String phoneNo) {
+		// TODO Auto-generated method stub
+		return getCustomerDao().getCustomerInfoByPhoneNo(phoneNo);
 	}
 
 }

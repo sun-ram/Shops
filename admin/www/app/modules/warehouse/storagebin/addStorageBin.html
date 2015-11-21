@@ -11,11 +11,11 @@
       <form name="storagebinForm" novalidate>
       
     <md-input-container>
-       <label><span style="color:red">*</span>Name</label>
+       <label>Name<span style="color:red">*</span></label>
       <input ng-model="storagebin.name" ng-required="true">
     </md-input-container>
     <md-input-container>
-       <label><span style="color:red">*</span>Description</label>
+       <label>Description<span style="color:red">*</span></label>
       <input ng-model="storagebin.description" ng-required="true">
     </md-input-container>
     <md-input-container layout-padding flex>
@@ -27,21 +27,21 @@
           		</md-select>
     </md-input-container>
     <md-input-container>
-       <label><span style="color:red">*</span>Row (X)</label>
+       <label>Row (X)<span style="color:red">*</span></label>
       <input ng-model="storagebin.row" ng-required="true">
     </md-input-container>
     
     <md-input-container>
-       <label><span style="color:red">*</span>Stack (Y)</label>
+       <label>Stack (Y)<span style="color:red">*</span></label>
       <input ng-model="storagebin.stack" ng-required="true">
     </md-input-container>
     <md-input-container>
-       <label><span style="color:red">*</span>Level (Z)</label>
+       <label>Level (Z)<span style="color:red">*</span></label>
       <input ng-model="storagebin.level" ng-required="true">
     </md-input-container>    
     <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50"  ng-click="saveStorageBin(storagebin)" ng-disabled="storagebinForm.$invalid">Create</md-button>
-    	<md-button class="md-raised md-success padd-50"  ng-click="updateStoragebin(storagebin);" ng-disabled="storagebinForm.$invalid">Update</md-button>
+    	<md-button class="md-raised md-success padd-50" ng-hide="storagebin.storagebinId" ng-click="saveStorageBin(storagebin)" ng-disabled="storagebinForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-success padd-50" ng-show="storagebin.storagebinId" ng-click="updateStoragebin(storagebin);" ng-disabled="storagebinForm.$invalid">Update</md-button>
     	<md-button class="md-raised md-cancel padd-50" ui-sref="app.storagebin">Cancel</md-button>
     </section>
     </form>

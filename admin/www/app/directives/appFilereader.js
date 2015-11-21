@@ -15,7 +15,7 @@ angular.module('aviateAdmin.directives')
 							'change',
 							function(e) {
 								var element = e.target;
-								if (element.files[0].size < 50000) {
+								if (element.files[0].size < 500000) {
 									if (!element.value)
 										return;
 									element.disabled = true;

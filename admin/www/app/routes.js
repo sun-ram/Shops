@@ -314,7 +314,25 @@ angular.module('app')
 		url: '/tax/edit',
 		templateUrl: 'app/modules/tax/edit/taxEdit.html',
 		controller : 'taxEditCtrl'
-	});
+	})
+	
+
+	//banner module
+		.state('app.banner', {
+			url: '/banner',
+			templateUrl: 'app/modules/banner/bannerlist.html',
+			controller : 'bannerCtrl'
+		})
+		.state('app.uploadbanner', {
+			url: '/banner/uploadbanner',
+			templateUrl: 'app/modules/banner/uploadBanner/bannerupload.html',
+			controller : 'uploadBannerCtrl'
+		})
+		.state('app.editbanner', {
+			url: '/banner/editbanner',
+			templateUrl: 'app/modules/banner/editBanner/editbanner.html',
+			controller : 'editBannerCtrl'
+		});
 	
 	
 	
