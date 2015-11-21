@@ -11,7 +11,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.count = 3;
 				$scope.srch = true;
 				$scope.merchantVo = {
-						merchantId:"2c9fa0375119c5c801511b14c88200a0"
+						merchantId:$rootScope.user.merchantId
 				}
 				
 				$scope.getShippingCharges=function(){

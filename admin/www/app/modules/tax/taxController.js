@@ -11,7 +11,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.count = 3;
 				$scope.srch = true;
 				$scope.merchantVo = {
-						merchantId:"ff80818151128155015112824b3a0001"
+						merchantId:$rootScope.user.merchantId
 				}
 				
 				$scope.getTax=function(){
