@@ -124,8 +124,8 @@ public class ProductTypeRestServices<T> {
 		return productTypeResponseVo;
 
 	}
-	
-	/*@Path("/getProductTypeByCategory")
+
+	@Path("/getProductTypeByCategory")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -134,11 +134,25 @@ public class ProductTypeRestServices<T> {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
 		List<ProductTypeVo> productTypeVoResponse = new ArrayList<ProductTypeVo>();
 		List<ProductType> productType = new ArrayList<ProductType>();
-		productType=productTypeService.g
-				return null;
-		
+		ProductCategory productCategory = new ProductCategory();
+		productCategory = productCategoryService.getCategoryById(productTypeVo
+				.getProductCategory().getProductCategoryId());
+		if (productCategory != null) {
+			productType = productTypeService
+					.getProductTypeByCategory(productCategory);
+			for (ProductType productTypeSet : productType) {
+				ProductTypeVo productTypeVoSet = new ProductTypeVo();
+				productTypeVoSet.setProductTypeId(productTypeSet
+						.getProductTypeId());
+				productTypeVoSet.setName(productTypeSet.getName());
+				productTypeVoResponse.add(productTypeVoSet);
+			}
+			productTypeResponseVo.setProductTypeVo(productTypeVoResponse);
+			productTypeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+		}
+		return productTypeResponseVo;
 	}
-*/
+
 	public ProductType setProductTypeDetails(ProductTypeVo ProductTypeVo)
 			throws Exception {
 		Merchant merchant = new Merchant();

@@ -24,5 +24,7 @@ public interface ProductTypeDao<T> {
 	public List<ProductType> getAllProductType();
 	
 	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant);
+	
+	public List<ProductType> getProductTypeByCategory(ProductCategory productCategory);
 
 }
