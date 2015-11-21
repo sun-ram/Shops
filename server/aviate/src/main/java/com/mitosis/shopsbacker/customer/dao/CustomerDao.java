@@ -20,5 +20,9 @@ public interface CustomerDao<T> {
 	public Customer getCustomerInfoByEmail(String email);
 	
 	public Customer getCustomerInfoByEmail(String email,String password);
+	
+	public Customer getCustomerInfoByEmailWithPhoneno(String email,String phoneNo);
+	
+	public Customer getCustomerInfoByPhoneNo(String phoneNo);
 
 }

@@ -17,7 +17,10 @@ public enum SBErrorMessage {
 	CATEGORY_ALREADY_HAS_PRODUCT_TYPE("E0006","This category already has a product"),
 	PRODUCT_CATEGORY_ALREADY_EXITS("E0007","This product name already exists"),
 	UOM_ALREDY_ASSIGNED_IN_PRODUCT("E0008","You can not able to delete this Unit Of Measurement. Because it is already assigned some product."),
-	TAX_NAME_ALREADY_EXIST("E0009","Tax name already exist.");
+	TAX_NAME_ALREADY_EXIST("E0009","Tax name already exist."),
+	EMAILID_EXISTS("E0010","EmailId already registered."),
+	SIGNUP_SUCCESS("E0011","Registered Successfully"),
+	MOBILNO_EXISTS("E0012","Mobile Number already registered.");
 
 	private final String erroeCode;
 	  private final String errorMessage;

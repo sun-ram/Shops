@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.responsevo.CustomerLoginResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
@@ -60,6 +61,79 @@ public class CustomerRestService<T> {
 		}
 		return customerLoginResponseVo;
 
+	}
+
+	@Path("/signup")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerLoginResponseVo userSignUp(CustomerVo customerVo)
+			throws Exception {
+		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
+		if (customerVo.getEmail() != null) {
+			Customer customerEmailChecking = new Customer();
+			Customer customerPhoneNoChecking = new Customer();
+			customerEmailChecking = customerService
+					.getCustomerInfoByEmail(customerVo.getEmail());
+			customerPhoneNoChecking = customerService
+					.getCustomerInfoByPhoneNo(customerVo.getPhoneNo());
+			if (customerEmailChecking == null
+					&& customerPhoneNoChecking == null) {
+				Customer newCustomer = new Customer();
+				newCustomer = customerDetails(customerVo);
+				newCustomer.setIsactive('Y');
+				customerService.saveCustomer(newCustomer);
+				if (newCustomer.getCustomerId() != null) {
+					CustomerVo customerVoSet = new CustomerVo();
+					customerVoSet.setCustomerId(newCustomer.getCustomerId());
+					customerVoSet.setEmail(newCustomer.getEmail());
+					customerLoginResponseVo.setCustomerVo(customerVoSet);
+					customerLoginResponseVo
+							.setErrorCode(SBErrorMessage.SIGNUP_SUCCESS
+									.getCode());
+					customerLoginResponseVo
+							.setErrorString(SBErrorMessage.SIGNUP_SUCCESS
+									.getMessage());
+					customerLoginResponseVo.setStatus(SBMessageStatus.SUCCESS
+							.getValue());
+					return customerLoginResponseVo;
+				}
+			} else {
+				if (customerEmailChecking != null) {
+					customerLoginResponseVo
+							.setErrorCode(SBErrorMessage.EMAILID_EXISTS
+									.getCode());
+					customerLoginResponseVo
+							.setErrorString(SBErrorMessage.EMAILID_EXISTS
+									.getMessage());
+					customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+					return customerLoginResponseVo;
+				} else {
+					customerLoginResponseVo
+							.setErrorCode(SBErrorMessage.MOBILNO_EXISTS
+									.getCode());
+					customerLoginResponseVo
+							.setErrorString(SBErrorMessage.MOBILNO_EXISTS
+									.getMessage());
+					customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+					return customerLoginResponseVo;
+				}
+			}
+		}
+		return customerLoginResponseVo;
+
+	}
+
+	public Customer customerDetails(CustomerVo customerVo) throws Exception {
+		Customer customer = (Customer) CommonUtil
+				.setAuditColumnInfo(Customer.class.getName());
+		customer.setEmail(customerVo.getEmail());
+		customer.setPhoneNo(customerVo.getPhoneNo());
+		customer.setPassword(CommonUtil.passwordEncoder(customerVo
+				.getPassword()));
+		return customer;
 	}
 
 	public CustomerVo setCustomerDetails(Customer customer) {

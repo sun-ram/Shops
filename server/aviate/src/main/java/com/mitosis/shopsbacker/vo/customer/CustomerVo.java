@@ -9,7 +9,7 @@ public class CustomerVo {
 	private String imageId;
 	private String deviceid;
 	private String deviceType;
-	private Integer phoneNo;
+	private String phoneNo;
 
 	public String getCustomerId() {
 		return customerId;
@@ -67,11 +67,11 @@ public class CustomerVo {
 		this.deviceType = deviceType;
 	}
 
-	public Integer getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(Integer phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 

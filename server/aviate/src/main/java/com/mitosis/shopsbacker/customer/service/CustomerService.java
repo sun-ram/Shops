@@ -19,6 +19,10 @@ public interface CustomerService<T> {
 
 	public Customer getCustomerInfoByEmail(String email);
 	
+	public Customer getCustomerInfoByEmailWithPhoneno(String email,String phoneNo);
+	
 	public Customer getCustomerInfoByEmail(String email, String password);
+	
+	public Customer getCustomerInfoByPhoneNo(String phoneNo);
 
 }

@@ -64,7 +64,7 @@ public class CustomerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public Customer getCustomerInfoByEmail(String email) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
 		criteria.add(Restrictions.eq("email", email));
-		return (Customer) findAll(criteria);
+		return (Customer) findUnique(criteria);
 	}
 
 	@Override
@@ -72,6 +72,22 @@ public class CustomerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
 		criteria.add(Restrictions.eq("email", email));
 		criteria.add(Restrictions.eq("password", password));
+		return (Customer) findUnique(criteria);
+	}
+
+	@Override
+	public Customer getCustomerInfoByEmailWithPhoneno(String email,
+			String phoneNo) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
+		criteria.add(Restrictions.eq("email", email));
+		criteria.add(Restrictions.eq("phoneNo", phoneNo));
+		return (Customer) findUnique(criteria);
+	}
+
+	@Override
+	public Customer getCustomerInfoByPhoneNo(String phoneNo) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
+		criteria.add(Restrictions.eq("phoneNo", phoneNo));
 		return (Customer) findUnique(criteria);
 	}
 
