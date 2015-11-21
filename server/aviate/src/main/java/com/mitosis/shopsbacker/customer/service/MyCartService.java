@@ -14,5 +14,9 @@ public interface MyCartService<T> {
 	
 	public void removeFromCart(MyCart mycart);
 	
+	public void addToCart(MyCart mycart);
+	
+	public MyCart getCartDetailFromId(String myCartId);
+	
 
 }

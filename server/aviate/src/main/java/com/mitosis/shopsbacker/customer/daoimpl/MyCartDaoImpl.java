@@ -58,4 +58,28 @@ MyCartDao<T>, Serializable {
 		
 	}
 
+	@Override
+	public void addToCart(MyCart mycart) {
+		try {
+			save((T) mycart);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+		
+		
+	}
+
+	@Override
+	public MyCart getCartDetailFromId(String myCartId) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Favourite.class);
+			criteria.add(Restrictions.eq("myCartId", myCartId));
+			return (MyCart) findUnique(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
 }

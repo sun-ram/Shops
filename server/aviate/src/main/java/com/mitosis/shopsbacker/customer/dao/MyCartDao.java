@@ -9,10 +9,14 @@ import com.mitosis.shopsbacker.model.Store;
 
 public interface MyCartDao<T> {
 	
+	public void addToCart(MyCart mycart);
+	
 	public void updateCart(MyCart mycart);
 	
 	public List<MyCart> getMyCartList(Customer customer, Store store);
 	
 	public void removeFromCart(MyCart mycart);
+	
+	public MyCart getCartDetailFromId(String myCartId);
 
 }
