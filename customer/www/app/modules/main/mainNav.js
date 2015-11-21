@@ -56,7 +56,7 @@ angular.module('aviate.directives')
 						
 						$scope.isSignUp = true;
 						$scope.signUp = function(user) {
-							user.role = CONSTANT.SUCCESS_CODE.ROLE;
+							//user.role = CONSTANT.SUCCESS_CODE.ROLE;
 							if(user.password !== $scope.confirmPassword){
 								toastr.warning(CONSTANT.WARNING_CODE.MISSMATCHPASSWORD);
 								return;
@@ -127,7 +127,7 @@ angular.module('aviate.directives')
 						
 						if(authInfo != undefined || authInfo != null){
 							if(authInfo.rememberme){
-							$scope.user.emailId=authInfo.emailId;
+							$scope.user.email=authInfo.emailId;
 							$scope.user.password = authInfo.password;
 						}}
 						
@@ -143,12 +143,28 @@ angular.module('aviate.directives')
 							}
 						}
 						
+						
+						/*$scope.validatePhoneNo = function(name) {
+							var number="/^\d+$/";
+							if(number.test(name))
+								return true;
+							else
+								return false;
+						}
+						
+						$scope.validateEmail = function(name) {
+							var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+							if( emailReg.test(name))
+								return true;
+							else
+								return false;
+						}*/
+						
 						$scope.signIn = function(user) {
 							$scope.saveauth();
 							AuthServices.signIn(user).then(function(data){
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
-
 								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
 

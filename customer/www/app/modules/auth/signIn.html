@@ -13,8 +13,8 @@
   <md-dialog-content ng-hide="forgetPass" style="padding:0px;">
 	  <form name="userForm" layout-padding>			
         <md-input-container flex class="padd_btm10">
-          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="user.emailId" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email/MobilNo</label>
+          <input ng-model="user.email" type="text" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
         </md-input-container >
 	      <md-input-container flex class="padd_btm10 ">
 	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
@@ -43,10 +43,10 @@
   
   <!-- Forget Pass -->
   <md-dialog-content ng-show="forgetPass" style="max-width:800px;max-height:810px;">
-	  <form name="userForm">			
+	  <form name="userForm1">			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="user.emailId" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+          <input ng-model="user.email" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
         </md-input-container >
 	      <div layout="row">
 		      <div flex>
