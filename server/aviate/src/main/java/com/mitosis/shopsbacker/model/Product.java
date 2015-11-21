@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,6 +52,7 @@ public class Product implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private char isactive;
+	private String description;
 	private List<ProductOfferLine> productOfferLines = new ArrayList<ProductOfferLine>();
 	private List<MyCart> myCarts = new ArrayList<MyCart>();
 	private List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
@@ -147,7 +149,7 @@ public class Product implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name = "IMAGE_ID")
 	public Image getImage() {
 		return this.image;
@@ -360,6 +362,14 @@ public class Product implements java.io.Serializable {
 
 	public void setProductInventories(List<ProductInventory> productInventories) {
 		this.productInventories = productInventories;
+	}
+	@Column(name = "DESCRIPTION", length = 250)
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

@@ -2,10 +2,13 @@ package com.mitosis.shopsbacker.inventory.service;
 
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.Image;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
  * @author RiyazKhan.M
  */
@@ -24,5 +27,16 @@ public interface ProductService<T> {
 	public void updateProduct(Product product);
 	
 	public List<Product> getProductByUom(Uom uom);
+	
+	public Product setProduct(ProductVo productVo,Image img)throws Exception;
+	
+	public ProductVo setProductVo(Product product)throws Exception;
 
+	public List<Product> getTopProduct(Merchant merchant);
+	
+	public List<Product> getProductByMerchant(Merchant merchant);
+	
+	public void productImageUpload(ProductVo productVo,Merchant merchant) throws Exception ;
+	
+	
 }

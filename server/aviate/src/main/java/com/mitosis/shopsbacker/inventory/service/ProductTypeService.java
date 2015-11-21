@@ -5,6 +5,8 @@ import java.util.List;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 
 /**
  * @author fayaz
@@ -27,5 +29,7 @@ public interface ProductTypeService<T> {
 
 	public List<ProductType> getProductTypeByCategory(
 			ProductCategory productCategory);
+	
+	public ProductTypeVo setProductTypeVo(ProductType productType);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 
 /**
  * @author RiyazKhan.M
@@ -35,5 +36,7 @@ public interface ProductCategoryService<T> {
 	public List<ProductCategory> getRootProductCategoryList(Merchant merchant);
 	
 	public List<ProductCategory> getallleafcategorylist(Merchant merchant);
+	
+	public ProductCategoryVo setProductCategoryVo(ProductCategory productCategory);
 
 }

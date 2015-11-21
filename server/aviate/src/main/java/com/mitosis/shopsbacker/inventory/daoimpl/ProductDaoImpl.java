@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
@@ -25,6 +26,7 @@ ProductDao<T>, Serializable{
   
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProductListByType(ProductType productType) {
 		try {
@@ -49,6 +51,7 @@ ProductDao<T>, Serializable{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProductListByCategoty(ProductCategory productCategory) {
 		try {
@@ -62,6 +65,7 @@ ProductDao<T>, Serializable{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void deleteProduct(Product product) {
 		try {
@@ -73,6 +77,7 @@ ProductDao<T>, Serializable{
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addProduct(Product product) {
 		try {
@@ -84,6 +89,7 @@ ProductDao<T>, Serializable{
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateProduct(Product product) {
 		try {
@@ -95,6 +101,7 @@ ProductDao<T>, Serializable{
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProductByUom(Uom uom) {
 		try {
@@ -103,6 +110,33 @@ ProductDao<T>, Serializable{
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Product> getTopProduct(Merchant merchant) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.eq("merchant",merchant));
+			criteria.add(Restrictions.eq("isYourHot", 'Y'));
+			return ((List<Product>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Product> getProductByMerchant(Merchant merchant) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.eq("merchant",merchant));
+			return ((List<Product>) findAll(criteria));
+		} catch (Throwable e) {
 			e.printStackTrace();
 			throw(e);
 		}

@@ -12,6 +12,7 @@ import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 
 /**
  * @author RiyazKhan.M
@@ -129,5 +130,14 @@ public class ProductCategoryServiceImpl<T> implements
 	@Transactional
 	public List<ProductCategory> getallleafcategorylist(Merchant merchant) {
 		return productCategoryDao.getallleafcategorylist(merchant);
+	}
+
+	@Override
+	public ProductCategoryVo setProductCategoryVo(ProductCategory productCategory) {
+		ProductCategoryVo category = new ProductCategoryVo();
+		category.setProductCategoryId(productCategory
+				.getProductCategoryId());
+		category.setName(productCategory.getName());
+		return category;
 	}
 }
