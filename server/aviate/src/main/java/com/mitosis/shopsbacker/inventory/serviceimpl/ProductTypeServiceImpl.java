@@ -12,6 +12,8 @@ import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 
 /**
  * @author fayaz
@@ -83,5 +85,13 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 	public List<ProductType> getProductTypeByCategory(
 			ProductCategory productCategory) {
 		return productTypeDao.getProductTypeByCategory(productCategory);
+	}
+
+	@Override
+	public ProductTypeVo setProductTypeVo(ProductType productType) {
+		ProductTypeVo productTypeVo = new ProductTypeVo();
+		productTypeVo.setName(productType.getName());
+		productTypeVo.setProductTypeId(productType.getProductTypeId());
+		return productTypeVo;
 	}
 }

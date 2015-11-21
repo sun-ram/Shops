@@ -500,7 +500,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 		apiClass.Product.getMeasureUnit = function (product, callback) {
-			httpRequest("POST", "update/product/merchant/getunits", product, function (err, data) {
+			httpRequest("POST", "uom/getuoms", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -530,7 +530,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 		apiClass.Product.save = function (product, callback) {
-			httpRequest("POST", "update/product", product, function (err, data) {
+			httpRequest("POST", "product/addproduct", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -542,6 +542,34 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Product.getAllProductList = function (product, callback) {
+									httpRequest("POST", "productcategory/getallleafcategorylist", product, function (err, data) {
+										if (err) {
+						
+											callback(err, null);
+						
+										} else {
+						
+											callback(null, data);
+						
+										}
+									});
+								};
+								
+								apiClass.Product.getAllProductListByMerchant = function (product, callback) {
+									httpRequest("POST", "product/getproductlist", product, function (err, data) {
+										if (err) {
+						
+											callback(err, null);
+						
+										} else {
+						
+											callback(null, data);
+						
+										}
+									});
+								};
 		
 		apiClass.Product.updateProduct = function (product, callback) {
 			httpRequest("POST", "update/product/update", product, function (err, data) {
@@ -558,7 +586,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Product.deleteProduct = function (product, callback) {
-			httpRequest("POST", "update/deleteproduct", product, function (err, data) {
+			httpRequest("POST", "product/deleteproduct", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -600,7 +628,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 		};
 		apiClass.Product.getProductCategory = function (product, callback) {
-			httpRequest("POST", "product/getcategories", product, function (err, data) {
+			httpRequest("POST", "productcategory/getcategories", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -641,6 +669,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Product.getProductType = function (product, callback) {
+						httpRequest("POST", "producttype/getProductTypeByCategory", product, function (err, data) {
+							if (err) {
+			
+								callback(err, null);
+			
+							} else {
+			
+								callback(null, data);
+			
+							}
+						});
+					};	
 		
 		apiClass.Product.getAllProductList = function (merchant, callback) {
 			httpRequest("POST", "update/getmerchantproducts", merchant, function (err, data) {

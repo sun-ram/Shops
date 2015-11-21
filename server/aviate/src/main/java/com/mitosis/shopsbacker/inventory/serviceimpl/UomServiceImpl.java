@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.mitosis.shopsbacker.inventory.dao.UomDao;
 import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.vo.inventory.UomVo;
 
 /**
  * @author fayaz
@@ -67,5 +69,16 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 	public Uom getUomByName(String name) {
 		return uomDao.getUomByName(name);
 	}
+
+	@SuppressWarnings("null")
+	@Override
+	public UomVo setUomVo(Uom uom) {
+		UomVo uomVo = new UomVo();
+		
+		uomVo.setName(uom.getName());
+		uomVo.setDescription(uom.getDescription());
+		return uomVo;
+	}
+
 
 }

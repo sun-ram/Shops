@@ -17,5 +17,7 @@ public interface ImageService<T>  {
 	Exception ;
 	
 	public Image getImageById(String id) throws Exception;
+	
+	public ImageVo setImageVo(Image image) throws IOException;
 
 }

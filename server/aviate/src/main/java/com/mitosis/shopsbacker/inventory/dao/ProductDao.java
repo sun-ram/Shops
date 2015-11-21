@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.inventory.dao;
 
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
@@ -26,5 +27,9 @@ public interface ProductDao<T> {
 	public void updateProduct(Product product);
 	
 	public List<Product> getProductByUom(Uom uom);
+
+	public List<Product> getTopProduct(Merchant merchant);
+
+	public List<Product> getProductByMerchant(Merchant merchant);
 
 }

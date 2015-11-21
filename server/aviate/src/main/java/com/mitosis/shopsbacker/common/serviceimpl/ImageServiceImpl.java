@@ -71,6 +71,20 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 		return isDeleted;
 	}
 	
+
+	@Override
+	public ImageVo setImageVo(Image image) throws IOException {
+		ImageVo imageVo = new ImageVo();
+		Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream(
+				"/properties/serverurl.properties"));
+		String imageUrl = properties.getProperty("imageUrl");
+		imageVo.setName(image.getName());
+		imageVo.setType(image.getType());
+		imageVo.setUrl(imageUrl.concat(image.getUrl()));
+		return imageVo;
+	}
+	
 	@Override
 	public Image getImageById(String id) throws Exception {
 	

@@ -36,47 +36,6 @@
          </span>
          </div>
       </md-toolbar>
-     <!--  <md-list>
-      <md-item ng-if="data.length == 0" style="text-align: center;"><h3>There is no Product</h3></md-item>
-         <md-item
-            ng-repeat="products in data | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit">
-            <md-item-content layout="row" layout-padding
-               ng-click="showDetail(products)">
-               <div layout="row" layout-wrap class="full_wid">
-                  <span flex=10 class="padd-5-3">
-                  	<div style="width:100px;">
-                     <img src="{{products.productImages[0].imageUrl}}" style="display: block;width:60px; min-height: 60px;  border-radius: 99%;" />
-                  </div></span>
-                  <span flex=30 layout="column" class="padd-lr5"
-                     layout-align="start start"> <span
-                     layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{products.productName}}</strong></span>
-                  <span class="hash_color padd-l8 ft-14">{{products.measurement}} {{products.productUnitOfMeasure.abbreviation}}</span>
-                  </span> 
-                  <span flex=50 layout="row" layout-align="start end"> <span
-                     class="ft-14 hash_color">Rs.{{products.productPrice.price}}</span>
-                  </span> 
-                  <span flex=10 layout="row" layout-align="end center">
-                     <span
-                        layout-padding
-                        ng-click="editproduct(products);$event.stopPropagation();">
-                        <ng-md-icon
-                           icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
-                     </span>
-                     <span
-                        layout-padding>
-                        <ng-md-icon icon="close" size="20"
-                           class="icons hash_color"
-                           ng-click="deleteProduct(products.productId);$event.stopPropagation();"></ng-md-icon>
-                     </span>
-                  </span>
-               </div>
-               </div>
-            </md-item-content>
-            <md-divider></md-divider>
-            <md-divider></md-divider>
-         </md-item>
-       
-      </md-list>-->
       <div layout="column" style="width:100%;" flex>
       	<div layout="row" flex class="pro-header">
       		<div flex="20">&nbsp;</div>
@@ -87,22 +46,20 @@
       		<div flex="15">Category</div>
       		<div flex="15">Product Type</div>
       	</div>
-      	<div ng-repeat="category in data">
-      	<div ng-repeat="producttype in category.productType">
-      	<div ng-repeat="product in producttype.products" ng-init="editProduct=product">
+      	<div ng-repeat="product in productList">
       	<div layout="row" flex class="pro-lists" layout-align="start center" ng-hide="showDetails">
       		<div flex="20" layout="row" style="">
 				<div flex="20"><ng-md-icon ng-click="showDetails = ! showDetails" icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="40"><img flex style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src="http://54.68.134.166:8080/aviate/ImageServlet?imageName=bb5c8b5665d94137b9d7f42c7d70aeeb" width="40" height="40"/></div>
+				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="deleteProduct(product.productId)"></ng-md-icon></div>
+				<div flex="40"><img 	 style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src="" width="40" height="40"/></div>
 			</div>
-      		<div flex="20">{{product.productName}}</div>
-      		<div flex="10">{{product.measurement}}</div>
-      		<div flex="10">{{product.productUnitOfMeasure.abbreviation}}</div>
-      		<div flex="10">{{product.productPrice.price}}</div>
-      		<div flex="15">{{category.categoryName}}</div>
-      		<div flex="15">{{producttype.productTypeName}}</div>
+      		<div flex="20">{{product.name}}</div>
+      		<div flex="10">{{product.unit}}</div>
+      		<div flex="10">{{product.uom.name}}</div>
+      		<div flex="10">{{product.price}}</div>
+      		<div flex="15">{{product.productCategory.name}}</div>
+      		<div flex="15">{{product.productType.name}}</div>
       	</div>
       	
       	<div ng-show="showDetails" layout="row" flex class="pro-lists" layout-align="start center">
@@ -121,7 +78,7 @@
       		<div flex="15"><input type="text"   value="{{category.categoryName}}"/></div>
       		<div flex="15"><input type="text"   value="{{producttype.productTypeName}}"/></div>
       	</div>
-       </div></div></div>
+       </div>
       </div>
    </md-card-content>
     <div layout layout="row" class="table-pagination-bg" layout-align="center center">
