@@ -30,7 +30,7 @@ import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
  *
  */
 @Controller("storagebinRestService")
-@Path("Storagebin")
+@Path("storagebin")
 public class StoragebinRestService {
 	Logger log = Logger.getLogger(StoragebinRestService.class);
 	@Autowired
@@ -65,6 +65,26 @@ public class StoragebinRestService {
 		return response;
 	}
 
+	
+
+	@Path("/removestoragebin")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public StoragebinResponseVo deletedStorageBin(StoragebinVo storagebinVo) {
+		StoragebinResponseVo response = new StoragebinResponseVo();
+		try {
+			Storagebin storagebin = storagebinService.getStoragebinById(storagebinVo.getStoragebinId());
+			storagebinService.removeStorageBin(storagebin);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue()); 
+			response.setErrorString(e.getMessage());
+		}
+		return response;
+	}
+
 	/**
 	 * @author Anbukkani Gajendran
 	 * @param storagebinVo,isUpdate
@@ -74,7 +94,7 @@ public class StoragebinRestService {
 	private Storagebin setStoragebin(StoragebinVo storagebinVo,boolean isUpdate)
 			throws Exception {
 		Storagebin storagebin = null;
-		if (isUpdate) {
+		if (!isUpdate) {
 			storagebin = (Storagebin) CommonUtil
 					.setAuditColumnInfo(Storagebin.class.getName());
 		} else {
