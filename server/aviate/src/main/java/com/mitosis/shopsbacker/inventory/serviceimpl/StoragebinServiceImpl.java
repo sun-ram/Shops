@@ -48,7 +48,8 @@ public class StoragebinServiceImpl<T> implements StoragebinService<T>,
 
 	@Override
 	@Transactional
-	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse) {
+	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse,
+			String stack, String row, String level) {
 		return storagebinDao.getStoragebin(binName, warehouse);
 	}
 
@@ -60,15 +61,20 @@ public class StoragebinServiceImpl<T> implements StoragebinService<T>,
 
 	@Override
 	@Transactional
-	public  Storagebin  getStoragebinById(String storagebinId){
+	public Storagebin getStoragebinById(String storagebinId) {
 		return storagebinDao.getStoragebinById(storagebinId);
 	}
 
-	 
 	@Override
 	public void updateStorageBin(Storagebin storagebin) {
-	 storagebinDao.updateStorageBin(storagebin);
+		storagebinDao.updateStorageBin(storagebin);
 	}
-	
-	
+
+	@Override
+	public List<Storagebin> getStoragebin(String storagebinId, String binName,
+			Warehouse warehouse, String stack, String row, String level) {
+		return storagebinDao.getStoragebin(storagebinId, binName, warehouse,
+				stack, row, level);
+	}
+
 }

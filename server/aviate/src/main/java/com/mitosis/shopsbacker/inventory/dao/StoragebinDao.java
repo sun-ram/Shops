@@ -21,5 +21,8 @@ public interface StoragebinDao<T> {
 	public List<Storagebin> listOfStorageBins(Warehouse warehouse);
 	
 	public void updateStorageBin(Storagebin storagebin);
+	
+	public List<Storagebin> getStoragebin(String storagebinId, String binName,
+			Warehouse warehouse, String stack, String row, String level);
 
 }

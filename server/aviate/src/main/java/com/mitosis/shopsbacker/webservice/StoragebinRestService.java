@@ -3,6 +3,8 @@
  */
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -50,7 +52,23 @@ public class StoragebinRestService {
 		StoragebinResponseVo response = new StoragebinResponseVo();
 		try {
 			boolean isUpdate=storagebinVo.getStoragebinId()!=null?true:false;
-			Storagebin storagebin = setStoragebin(storagebinVo,isUpdate);
+			
+			Warehouse warehouse = warehouseService.getWarehouse(storagebinVo
+					.getWarehouse().getWarehouseId());
+			List<Storagebin> storagebins =null;
+			if(!isUpdate){
+				 storagebins = storagebinService.getStoragebin(storagebinVo.getName(),warehouse, storagebinVo.getStack(), storagebinVo.getRow(), storagebinVo.getLevel());
+			}else{
+				storagebins = storagebinService.getStoragebin(storagebinVo.getStoragebinId(),storagebinVo.getName(),warehouse, storagebinVo.getStack(), storagebinVo.getRow(), storagebinVo.getLevel());
+			}
+			if(storagebins.size()>0){
+				response.setStatus(SBMessageStatus.FAILURE.getValue()); 
+				//TODO:need to remove hard code.
+				response.setErrorString("The Storagebin name already exits in this form ("+storagebinVo.getName()+" "+ storagebinVo.getStack()+"-"+storagebinVo.getRow()+"-"+ storagebinVo.getLevel()+" . Kindly change the name or position (x-y-z)");	
+			return response;
+			}
+			
+			Storagebin storagebin = setStoragebin(storagebinVo,warehouse,isUpdate);
 			if(isUpdate){
 				storagebinService.updateStorageBin(storagebin);
 			}else{
@@ -91,22 +109,22 @@ public class StoragebinRestService {
 	 * @return
 	 * @throws Exception
 	 */
-	private Storagebin setStoragebin(StoragebinVo storagebinVo,boolean isUpdate)
+	private Storagebin setStoragebin(StoragebinVo storagebinVo,Warehouse warehouse,boolean isUpdate)
 			throws Exception {
 		Storagebin storagebin = null;
 		if (!isUpdate) {
 			storagebin = (Storagebin) CommonUtil
 					.setAuditColumnInfo(Storagebin.class.getName());
+			storagebin.setIsactive('Y');
 		} else {
 			storagebin = storagebinService.getStoragebinById(storagebinVo.getStoragebinId());
 		}
-		storagebin.setIsactive('Y');
+	
 		Store store = storeService.getStoreById(storagebinVo.getStore()
 				.getStoreId());
 		storagebin.setStore(store);
 		storagebin.setName(storagebinVo.getName());
-		Warehouse warehouse = warehouseService.getWarehouse(storagebinVo
-				.getWarehouse().getWarehouseId());
+		
 		storagebin.setWarehouse(warehouse);
 		storagebin.setLevel(storagebinVo.getLevel());
 		storagebin.setRow(storagebinVo.getRow());

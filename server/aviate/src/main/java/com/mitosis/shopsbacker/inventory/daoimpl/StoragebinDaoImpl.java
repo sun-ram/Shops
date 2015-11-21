@@ -105,4 +105,23 @@ public class StoragebinDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
+	@Override
+	public List<Storagebin> getStoragebin(String storagebinId, String binName,
+			Warehouse warehouse, String stack, String row, String level){
+		try {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(Storagebin.class);
+		criteria.add(Restrictions.eq("name", binName));
+		criteria.add(Restrictions.eq("warehouse", warehouse));
+		criteria.add(Restrictions.ne("storagebinId", storagebinId));
+		criteria.add(Restrictions.eq("stack", stack));
+		criteria.add(Restrictions.eq("row", row));
+		criteria.add(Restrictions.eq("level", level));
+		criteria.add(Restrictions.eq("isactive", 'Y'));
+		return (List<Storagebin>) findAll(criteria);
+	} catch (Exception e) {
+		e.printStackTrace();
+		throw (e);
+	}
+	}
 }

@@ -14,11 +14,13 @@ public interface StoragebinService<T> {
 
 	public void removeStorageBin(Storagebin storagebin);
 
-	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse);
+	public List<Storagebin> getStoragebin(String binName, Warehouse warehouse, String stack, String row, String level);
 
 	public List<Storagebin> listOfStorageBins(Warehouse warehouse);
 	
 	public  Storagebin  getStoragebinById(String storagebinId);
 	
 	public void updateStorageBin(Storagebin storagebin);
+	
+	public List<Storagebin> getStoragebin(String storagebinId,String binName, Warehouse warehouse, String stack, String row, String level);
 }
