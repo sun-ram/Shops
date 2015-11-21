@@ -124,14 +124,14 @@ angular.module('app')
 			})			
 		
 			// product module
-			.state('app.products', {
+/*			.state('app.products', {
 				url: '/products',
 				templateUrl: 'app/modules/product/products/productCategoryList.html',
 				controller : 'productCategoryListController'
-			})
+			})*/
 			
-			.state('app.producttype', {
-				url: '/productstype',
+			.state('app.products', {
+				url: '/products',
 				templateUrl: 'app/modules/product/products/products.html',
 				controller : 'productcontroller'
 			})

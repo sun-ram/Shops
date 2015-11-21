@@ -15,7 +15,9 @@ angular.module('aviateAdmin.controllers')
 
 
 	$scope.getAllProductList = function() {
-		$scope.product = {
+		
+		$scope.product = {}
+		$scope.product.merchant = {
 				"merchantId":$rootScope.user.merchantId
 		}
 		ProductService.getAllProductList($scope.product).then(function(data) {
@@ -83,9 +85,9 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.getMeasurementUnit = function (){
 
-		$scope.products ={'merchantId':$rootScope.user.merchantId};
+		$scope.products ={};
 		ProductService.getMeasurementUnit($scope.products).then(function(data) {
-			$scope.measuredUnits = data.units;
+			$scope.measuredUnits = data.uom;
 		})
 	}
 
@@ -151,97 +153,24 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.addproduct = function() {
 
-		if ($scope.OriginalFrontImage == "" || $scope.OriginalFrontImage==undefined) {
+		if ($scope.image.originalFrontImage == "" || $scope.image.originalFrontImage==undefined) {
 			toastr.warning("Please select Original Front Image");
 			return;
-		}  if ($scope.OriginalBackImage == "" || $scope.OriginalBackImage == undefined) {
-			toastr.warning("Please Select Original Back Image");
-			return;
-		} if ($scope.smallFrontImage == "" || $scope.smallFrontImage == undefined) {
-			toastr.warning("Please Select Thumbnail Front Image");
-			return;
-		}
-		if ($scope.smallBackImage == "" || $scope.smallBackImage == undefined) {
-			toastr.warning("Please Select Thumbnail Back Image");
-			return;
-		}
+		} 
 		else {
 
-			console.log($localStorage.product);
-
-
-			console.log($scope.product);
-
-			$localStorage.products.merchantId = $rootScope.user.merchantId;
-			$localStorage.products.productId  =  $scope.product.productId;
-			$localStorage.products.productTypeId = $scope.product.productTypeId;
-			$localStorage.products.productName= $scope.product.productName;
-			$localStorage.products.description =  $scope.product.productUnitOfMeasure.description;
-			$localStorage.products.type =  $scope.product.type;
-			/*  Small Front Image base64 Start*/
-			$localStorage.products.smallFrontImage = $scope.smallFrontImage.split(",")[1];
-
-			/*  Small Front Image base64 End*/
-
-			/* Small Front Small Image Type Start*/
-
-			$localStorage.products.smallFrontImageType = $scope.smallFrontImage ? ($scope.smallFrontImage.substring(11).split(";")[0]) : "";
-
-			/* Small Front Small Image Type End*/
-
-			/*  Small Back Image base64 Start*/
-
-			$localStorage.products.smallBackImage =$scope.smallBackImage.split(",")[1];
-
-			/*  Small Back Image base64 End*/		
-
-			/* Small Small Back Image Type Start*/
-
-			$localStorage.products.smallBackImageType = $scope.smallBackImage ? ($scope.smallBackImage.substring(11).split(";")[0]) : "";
-
-			/* Small Small Back Image Type End*/
-
 			/* Orginal Front Image base64 Start*/
-
-			$localStorage.products.originalFrontImage =$scope.OriginalFrontImage.split(",")[1];
+			$scope.product.image ={};
+			$scope.product.image.image =$scope.image.originalFrontImage.split(",")[1];
 
 			/* Orginal Front Image base64 End*/
 
 			/* Orginal Front Image Type Start*/
-			$localStorage.products.originalFrontImageType= $scope.OriginalFrontImage ? ($scope.OriginalFrontImage.substring(11).split(";")[0]) : "",
-
+			$scope.product.image.type = $scope.product.image ? ($scope.image.originalFrontImage.substring(11).split(";")[0]) : "",
+					$scope.product.image.name ="OriginalImage";
 					/* Orginal Front Image Type End*/
-
-					/* Orginal Back Image base64 Start*/
-
-					$localStorage.products.originalBackImage = $scope.OriginalBackImage.split(",")[1];
-
-					/* Orginal Back Image base64 End*/
-
-					/* Orginal Back Image Type Start*/
-
-					$localStorage.products.originalBackImageType =  $scope.OriginalBackImage ? ($scope.OriginalBackImage.substring(11).split(";")[0]) : "";
-
-					/* Orginal Back Image Type End*/
-
-
-					$localStorage.products.price = $scope.product.productPrice.price;
-					$localStorage.products.measurement=$scope.product.measurement;
-
-					$localStorage.products.productTypeId =  $scope.product.productTypeId;
-
-					$localStorage.products.abbreviation =  $scope.product.productUnitOfMeasure.abbreviation;
-
-					$scope.product = $localStorage.products;
-
-
-					$localStorage.orgfrontimage = $scope.OriginalFrontImage;
-
-
-					$localStorage.orgbackimage = $scope.OriginalBackImage ;
-					$localStorage.smallfrntimage =$scope.smallFrontImage;
-					$localStorage.smallbckimage  = $scope.smallBackImage;
-
+					$scope.product.merchant = {};
+					$scope.product.merchant.merchantId = $rootScope.user.merchantId;
 					ProductService.addProduct($scope.product).then(function(data) {
 						$scope.product = $localStorage.product;
 
@@ -251,7 +180,7 @@ angular.module('aviateAdmin.controllers')
 
 							toastr.success("product details have been updated successfully!!!");
 							$localStorage.product={};
-							$state.go("app.producttype");
+							$state.go("app.products");
 
 						}
 
@@ -338,9 +267,36 @@ angular.module('aviateAdmin.controllers')
 
 			toastr.success("product details have been deleted successfully!!!");
 
+		})
+
+	}
+	
+	$scope.getproductCategory = function(){
+
+		$scope.product= {};
+		$scope.product.merchant = {};
+		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
+
+		ProductService.getProductCategory($scope.product).then(function(data) {
+			
+			$scope.productCategoryVo = data.productCategoryVo;
+
 
 		})
 
+	}
+	
+	$scope.getProductType = function(productCategoryId){
+
+		$scope.product.productCategory = {};
+		$scope.product.productCategory.productCategoryId = productCategoryId;
+
+		ProductService.getProductType($scope.product).then(function(data) {
+			
+			$scope.productTypeVo = data.productTypeVo;
+
+
+		})
 
 	}
 

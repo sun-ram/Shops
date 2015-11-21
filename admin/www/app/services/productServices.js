@@ -68,7 +68,7 @@ angular.module('aviateAdmin.services')
 	
 	this.getAllProductListByCategory = function(product){
 		var d = $q.defer();
-		api.Product.getAllProductListByCategory(product, function(err, result){
+		api.Product.getAllProductList(product, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
@@ -140,7 +140,31 @@ angular.module('aviateAdmin.services')
 	
 	this.getAllProductList = function(merchant){	
 		var d = $q.defer();
-		api.Product.getAllProductList(merchant, function(err, result){
+		api.Product.getAllProductListByMerchant(merchant, function(err, result){
+			if (result.status == 'SUCCESS') {
+				d.resolve(result);
+			} else {
+				toastr.error(result.errorString);
+			}
+		})
+		return d.promise;
+	};
+	
+	this.getProductCategory = function(product){	
+		var d = $q.defer();
+		api.Product.getProductCategory(product, function(err, result){
+			if (result.status == 'SUCCESS') {
+				d.resolve(result);
+			} else {
+				toastr.error(result.errorString);
+			}
+		})
+		return d.promise;
+	};
+	
+	this.getProductType = function(product){	
+		var d = $q.defer();
+		api.Product.getProductType(product, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
