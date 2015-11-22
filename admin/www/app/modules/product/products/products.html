@@ -47,12 +47,12 @@
       		<div flex="15">Product Type</div>
       	</div>
       	<div ng-repeat="product in productList">
-      	<div layout="row" flex class="pro-lists" layout-align="start center" ng-hide="showDetails">
+      	<div layout="row" flex class="pro-lists" layout-align="start center" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
       		<div flex="20" layout="row" style="">
-				<div flex="20"><ng-md-icon ng-click="showDetails = ! showDetails" icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon icon="mode_edit" size="20" style="margin:5px" class="icons hash_color" ng-click="editproduct(product)"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color" ng-click="showInLineEdit=product.productId;productEdit=product;"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="deleteProduct(product.productId)"></ng-md-icon></div>
-				<div flex="40"><img 	 style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src="" width="40" height="40"/></div>
+				<div flex="40"><img 	 style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src={{product.image.url}} width="40" height="40"/></div>
 			</div>
       		<div flex="20">{{product.name}}</div>
       		<div flex="10">{{product.unit}}</div>
@@ -62,21 +62,21 @@
       		<div flex="15">{{product.productType.name}}</div>
       	</div>
       	
-      	<div ng-show="showDetails" layout="row" flex class="pro-lists" layout-align="start center">
+      	<div ng-show="product.productId == showInLineEdit" layout="row" flex class="pro-lists" layout-align="start center">
       		<div flex="20" layout="row" style="">
 				<div flex="20"><ng-md-icon  ng-click="updateProduct(editProduct)" icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon  icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon  icon="close" size="20"  style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="40"><img flex style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src="http://54.68.134.166:8080/aviate/ImageServlet?imageName=bb5c8b5665d94137b9d7f42c7d70aeeb" width="40" height="40"/></div>
+				<div flex="20"><ng-md-icon  icon="tick" size="20"  style="margin:5px" class="icons hash_color" ng-click="showInLineEdit=null;updateProduct(productEdit);"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon  icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="showInLineEdit=null;cancelEdit();"></ng-md-icon></div>
+				<div flex="40"><img flex style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src={{product.image.url}} width="40" height="40"/></div>
 			</div>
       		<div flex="20">
-				 <input type="text"  ng-model="editProduct.productName" value="{{product.productName}}"/>
+				 <input type="text"  ng-model="productEdit.name" />
 			</div>
-      		<div flex="10"><input type="text"   ng-model="editProduct.measurement" value="{{product.measurement}}"/></div>
-      		<div flex="10"><input type="text"   ng-model="editProduct.productUnitOfMeasure.abbreviation" value="{{product.productUnitOfMeasure.abbreviation}}"/></div>
-      		<div flex="10"><input type="text"   ng-model="editProduct.productPrice.price" value="{{product.productPrice.price}}"/></div>
-      		<div flex="15"><input type="text"   value="{{category.categoryName}}"/></div>
-      		<div flex="15"><input type="text"   value="{{producttype.productTypeName}}"/></div>
+      		<div flex="10"><input type="text"   ng-model="productEdit.unit" /></div>
+      		<div flex="10"><input type="text"   ng-model="productEdit.uom.name" /></div>
+      		<div flex="10"><input type="text"   ng-model="productEdit.price" /></div>
+      		<div flex="15"><input type="text"   ng-model="productEdit.productCategory.name"/></div>
+      		<div flex="15"><input type="text"    ng-model="productEdit.productType.name"/></div>
       	</div>
        </div>
       </div>
@@ -88,148 +88,3 @@
       </div>
      
 </md-card> 
-<!-- 
-   <div class="col-sm-12" ng-init="getEmployee()">
-   	<div class="col=xs-1 col-sm-3 col-md-6">
-   		<span class="caption"><h4>Employee</h4></span>
-   	</div>
-   	<div class="col-xs-11 col-sm-9 col-md-6 nopadding" ng-controller="storecontroller">
-   		<div class="col-xs-6 btn-group btn-padd" >
-   			<p class="text-right">
-   				<button type="button" data-target="#employeeDetailPopup" ng-click="getStore()"  data-toggle="modal" class="btn btn-info" aria-label="Left Align">Add Employee</button>
-   			</p>
-   		</div>
-   		<div class="col-xs-6 nopadding">
-   			<form class="navbar-form" role="search">
-   				<div class="input-group">
-   					<input type="text" class="form-control" placeholder="Search"
-   						ng-model="searchText">
-   					<div class="input-group-btn">
-   						<button class="btn btn-default" type="submit">
-   							<i class="glyphicon glyphicon-search"></i>
-   						</button>
-   					</div>
-   				</div>
-   			</form>
-   		</div>
-   
-   	</div>
-   </div>
-   </div>
-   <div class="row nopadding">
-   	<div class="col-sm-3 btn-group">
-   		<button type="button" class="btn btn-info" aria-label="Left Align">
-   			Show All</button>
-   		<button type="button" class="btn btn-info" id="add-filter"
-   			aria-label="Left Align">Filter</button>
-   	</div>
-   	<div class="col-sm-9 block">
-   		<a href="" id="elementId" class=""> </a>
-   	</div>
-   </div>
-   <div class="row nopadding">
-   	<div class="padd">
-   		<div class="table-responsive">
-   			<table ng-table="tableParams" class="table">
-   				<tbody ng-repeat="employee in $data| filter:searchText">
-   					<tr id="tr{{employee.storeId}}" ng-class-odd="'odd'" ng-class-even="'even'">
-   						<td class="rowTd" data-title="'EmployeeName'" sortable="'EmployeeName'">
-   							{{employee.address[0].firstName}}</td>
-   						<td class="rowTd" data-title="'address'" sortable="'address'">
-   							{{employee.address[0].address}}</td>
-   						<td class="rowTd" data-title="'city'" sortable="'city'">
-   							{{employee.address[0].city}}</td>
-   						<td class="rowTd" data-title="'state'" sortable="'state'">
-   							{{employee.address[0].state}}</td>
-   						<td class="rowTd" data-title="'country'" sortable="'country'">
-   							{{employee.address[0].country}}</td>
-   						<td class="rowTd" data-title="'postalCode'"
-   							sortable="'postalCode'">{{employee.address[0].postalCode}}</td>
-   						<td class="rowTd" data-title="'phoneNo'" sortable="'phoneNo'">
-   							{{employee.customerDetails.phoneNo}}</td>
-   						<td class="rowTd"><button type="button" ng-click="editEmployee(employee);" class="btn btn-info" aria-label="Left Align">Edit</button></td>
-   						<td class="rowTd"><button type="button" ng-click="deleteEmployee(employee);" class="btn btn-info" aria-label="Left Align">Delete</button></td>
-   					</tr>
-   				</tbody>
-   			</table>
-   		</div>
-   	</div>
-   	
-   	Add employee Popup
-   <div class="modal fade" id="employeeDetailPopup">
-   								<div class="modal-dialog">
-   									<div class="modal-content">
-   										<div class="modal-header">
-   											<button type="button" ng-click="deliveryAddress = {}" class="close" data-dismiss="modal" aria-label="Close">
-   												<span aria-hidden="true">&times;</span>
-   											</button>
-   											<h4 class="add_head">
-   												<span class="fa fa-plus-circle step"></span> Add New Employee
-   											</h4>
-   										</div>
-   										<div class="modal-body">
-   										<form  name = "delivery"  ng-submit="addEmployee()" >
-   												<div>
-   													<div class="col-sm-12">
-   														<div class="col-sm-6">
-   															<div class="popup_style">
-   																<label for="first_name">Role<em>*</em></label> 
-   																<select class="form-control" ng-model="addemployee.role">
-   																<option>PICKER</option>
-   																<option>DELIVERYBOY</option>
-   																</select>
-   															</div>
-   															<div class="popup_style">
-   																<label for="first_name">Select Store<em>*</em></label> 
-   																<select class="form-control" ng-model="addemployee.storeId" ng-options="store.storeId as store.storeName for store in shoplist">
-   																<option value="">Select Store Name</option>
-   																</select>
-   															</div>
-   															<div class="popup_style">
-   																<label for="last_name">FirstName <em>*</em></label>
-   																<input name="lastname" class="form-control" ng-model="addemployee.firstName" required>
-   															</div>
-   															<div ng-if="!merchantDetail.merchantId" class="popup_style">
-   																<label for="last_name">LastName <em>*</em></label> 
-   																<input type="password" name="lastname" class="form-control" ng-model="addemployee.lastName" required>
-   															</div>
-   															<div class="popup_style">
-   																<label for="last_name">PhoneNumber <em>*</em></label> 
-   																<input name="lastname" class="form-control" ng-model="addemployee.phoneNo" required>
-   															</div>
-   															<div class="popup_style">
-   																<label for="address">EmailID<em>*</em></label> 
-   																<input name="address" class="form-control"ng-model="addemployee.emailId" required>
-   															</div>
-   															<div class="popup_style">
-   																<label for="city">City <em>*</em></label> 
-   																<input name="city" class="form-control" ng-model="addemployee.city" required>
-   															</div>
-   														</div>
-   														<div class="col-sm-6">
-   															<div class="popup_style">
-   																<label for="State">State <em>*</em></label> 
-   																<input name="state" class="form-control" ng-model="addemployee.state" required>
-   															</div>
-   															<div class="popup_style">
-   																<label for="country">Country <em>*</em></label> 
-   																<input name="country" class="form-control" ng-model="addemployee.country" required>
-   															</div>
-   															<div class="popup_style">
-   																<label for="phoneNo">PostalCode <em>*</em></label> 
-   																<input name="phoneNo" class="form-control" ng-model="addemployee.postalCode" required>
-   															</div>
-   															
-   														</div>
-   													</div>
-   													<div class="modal-footer">
-   														<button type="submit" class="btn btn-danger">ADD</button>
-    														<button ng-if = "merchantDetail.merchantId" type="button" ng-click="merchantDetail.updatedBy=user.userId;addMerchantDetails()" class="btn btn-danger">UPDATE</button>
-   													</div>
-   												</div>
-   											</form>
-   										</div>
-   									</div>
-   								</div>
-   							</div> -->
-<!-- end employee popup -->

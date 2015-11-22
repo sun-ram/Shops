@@ -85,23 +85,28 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo.getMerchant().getMerchantId());
 			
+			boolean isUpdateProcess = productVo.getProductId()!=null?true:false;
+			
 			ProductCategory productCategory = productCategoryService.getCategoryById(productVo.getProductCategory().getProductCategoryId());
 			
 			ProductType productType = ProductTypeService.getProductTypeById(productVo.getProductType().getProductTypeId());
 			
 			Uom uom = uomService.getUOMById(productVo.getUom().getUomId());
-			
+			if(productVo.getImage().getImage() != null){
 			productService.productImageUpload(productVo,merchant);
+		    }
 			Image img = null;
-			
 			Product product = productService.setProduct(productVo,img);
 			
 			product.setMerchant(merchant);
 			product.setProductCategory(productCategory);
 			product.setProductType(productType);
 			product.setUom(uom);
-			
+			if(!isUpdateProcess){
 			productService.addProduct(product);
+			}else{
+				productService.updateProduct(product);	
+			}
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();

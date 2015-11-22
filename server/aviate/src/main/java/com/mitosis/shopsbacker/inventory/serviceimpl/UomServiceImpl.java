@@ -73,7 +73,8 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 	@Override
 	public UomVo setUomVo(Uom uom) {
 		UomVo uomVo = new UomVo();
-
+		
+		uomVo.setUomId(uom.getUomId());
 		uomVo.setName(uom.getName());
 		uomVo.setDescription(uom.getDescription());
 		return uomVo;
