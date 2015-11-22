@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 /*import org.springframework.transaction.annotation.Transactional;*/
 
 import com.mitosis.shopsbacker.common.dao.GeneralDao;
+import com.mitosis.shopsbacker.common.service.GeneralService;
+import com.mitosis.shopsbacker.common.service.MutualService;
 /*import com.mitosis.shopsbacker.model.BankBranch;
  import com.mitosis.shopsbacker.model.BankMaster;
  import com.mitosis.shopsbacker.model.BusinessComponent;
@@ -27,14 +29,11 @@ import com.mitosis.shopsbacker.common.dao.GeneralDao;
  import com.mitosis.shopsbacker.model.RulePageMaster;
  import com.mitosis.shopsbacker.model.StateMaster;
  import com.mitosis.shopsbacker.model.StateMasterDesc;*/
-import com.mitosis.shopsbacker.common.service.CommonService;
-import com.mitosis.shopsbacker.common.service.GeneralService;
-import com.mitosis.shopsbacker.common.service.MutualService;
 
 @SuppressWarnings("serial")
 @Service("generalServiceImpl")
 public class GeneralServiceImpl<T> implements GeneralService<T>,
-		CommonService<T>, MutualService<T>, Serializable {
+		MutualService<T>, Serializable {
 
 	@Autowired
 	GeneralDao<T> generalDao;
@@ -58,23 +57,6 @@ public class GeneralServiceImpl<T> implements GeneralService<T>,
 	 * TODO Auto-generated method stub return null; }
 	 */
 
-	@Override
-	public void save(T entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(T entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(T entity) {
-		// TODO Auto-generated method stub
-
-	}
 
 	/*
 	 * @Transactional

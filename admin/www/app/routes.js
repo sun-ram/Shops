@@ -24,6 +24,15 @@ angular.module('app')
 				controller: 'logincontroller'
 			})
 			
+			.state('resetpassword', {
+				url: '/resetpassword/{tokenId}',
+				data: {
+					requireLogin: false
+				},
+				templateUrl: 'app/modules/auth/resetpassword.html',
+				controller: 'logincontroller'
+			})
+			
 			// merchant module
 			.state('app.merchants', {
 				url: '/merchants',

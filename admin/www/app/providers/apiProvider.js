@@ -95,7 +95,36 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.User.forgetpass = function (user, callback) {
-			httpRequest("POST", "customer/forgetpassword", user, function (err, data) {
+			var req = {"user": user, "passwordResetUrl": window.location.origin + "/#/resetpassword"}
+			httpRequest("POST", "user/forgetpassword", req, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.User.verifytoken = function (req, callback) {
+			httpRequest("POST", "user/verifytoken", req, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.User.resetpass = function (req, callback) {
+			httpRequest("POST", "user/resetpassword", req, function (err, data) {
 				if (err) {
 
 					callback(err, null);

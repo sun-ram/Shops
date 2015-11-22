@@ -85,17 +85,16 @@ svg {
 			<div layout-padding>
 				<div layout-padding>
 					<md-input-container class=""> <label><md-icon
-							md-svg-src="images/svg/at5.svg" class="name"></md-icon>Email</label> <input
-						name="emailId" ng-model="user.emailId" type="text"
-						ng-required="true"
-						pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$"> </md-input-container>
+							md-svg-src="images/svg/at5.svg" class="name"></md-icon>Username</label> <input
+						name="userName" ng-model="user.userName" type="text"
+						ng-required="true"> </md-input-container>
 					<div layout layout-row style="padding-top: 15px;">
 						<span flex></span>
 						<md-button flex class="md-raised md-primary  text-white"
 							ng-click="cancel()">Cancel </md-button>
 						<span flex></span> <span flex></span>
 						<md-button flex class="md-raised md-success  text-white"
-							ng-disabled="reset.emailId.$invalid" ng-click="forgetpass(user)">Submit
+							ng-disabled="(user.userName == '' || user.userName == undefined)" ng-click="forgetpass(user)">Submit
 						</md-button>
 						<span flex></span>
 					</div>

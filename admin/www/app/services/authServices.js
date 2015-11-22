@@ -27,7 +27,7 @@ angular.module('aviateAdmin.services')
 	
 	this.forgetpass = function(user){
 				var d = $q.defer();
-				if(!user.emailId){
+				if(!user.userName){
 					toastr.warning(CONSTANT.FORGETPASSWORDNEEDMAILID);
 					return;
 				}
@@ -46,4 +46,37 @@ angular.module('aviateAdmin.services')
 				})
 				return d.promise;
 			};
+			
+			this.verifytoken = function(req){
+				var d = $q.defer();
+				api.User.verifytoken(req, function(err, result){
+					if(result){
+						d.resolve(result);
+					}
+				})
+				return d.promise;
+			};
+			
+			this.resetpass = function(req){
+				var d = $q.defer();
+				if(!req.user.password){
+					//toastr.warning(CONSTANT.FORGETPASSWORDNEEDMAILID);
+					return;
+				}
+				api.User.resetpass(req, function(err, result){
+					if(result){
+						if (result.status === CONSTANT.STATUS.SUCCESS) {
+							toastr.success(CONSTANT.PASSWORDCHANGED);
+							//alert('password sent');
+							d.resolve(result);
+						} else {
+							toastr.error(result.errorString);
+						}
+					}else{
+						toastr.error(err.errorCode);
+					}
+				})
+				return d.promise;
+			};
+			
 }]);

@@ -4,7 +4,15 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 
+import com.mitosis.shopsbacker.model.PasswordResetRequest;
+
 public interface CommonDao<T>   {
+	
+	public PasswordResetRequest savePasswordResetRequest(PasswordResetRequest passwordResetRequest);
+	
+	public PasswordResetRequest getPasswordResetRequestByTokenId(String tokenId);
+	
+	public boolean deletePasswordResetRequest(PasswordResetRequest passwordResetRequest);
 	
 	void save(T entity);
 

@@ -1,6 +1,18 @@
 angular.module('aviateAdmin.controllers')
-.controller("logincontroller", function($rootScope, $localStorage, $scope, $http, $state,$mdToast, toastr, api, ipCookie, AuthService) {
+.controller("logincontroller", function($rootScope, $localStorage, $scope, $http, $state,$mdToast, toastr, api, ipCookie, AuthService, $stateParams, CONSTANT) {
 	$scope.user = {}
+	$scope.tokenId = $stateParams.tokenId;
+	
+	if($scope.tokenId){
+		var req = {"tokenId": $scope.tokenId}
+		AuthService.verifytoken(req).then(function(data){
+			if(data.status === CONSTANT.STATUS.FAILURE){
+				toastr.error(data.errorString);
+				$state.go('login');
+			}
+		});
+	}
+	
 	$scope.forgetpass = function(user) {
 				$scope.forget = false;
 				AuthService.forgetpass(user).then(function(data){
@@ -8,12 +20,26 @@ angular.module('aviateAdmin.controllers')
 					$state.go('login');
 				});
 			};
+			
+			$scope.resetpass = function(user) {
+				if(user.password === $scope.confirmPassword){
+					var req = {"tokenId": $scope.tokenId, "user": user};
+					AuthService.resetpass(req).then(function(data){
+						$scope.user ="";
+						$state.go('login');
+					});
+				}else{
+					toastr.error(CONSTANT.PASSWORDNOTMATCH);
+				}
+			};
+			
 			$scope.cancel=function()
 			{
 				$scope.forget=false;
 				$scope.user ="";
 				$state.go('login');
 			}
+			
 	$scope.signIn = function() {
 		$scope.saveauth();
 		if($scope.login.$invalid){

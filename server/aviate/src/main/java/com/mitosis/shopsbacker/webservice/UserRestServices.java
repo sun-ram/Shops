@@ -7,7 +7,9 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONException;
@@ -20,7 +22,9 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
+import com.mitosis.shopsbacker.common.service.CommonService;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.PasswordResetRequest;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.responsevo.EmployeeResponseVo;
@@ -34,6 +38,7 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.common.PasswordResetRequestVo;
 import com.mitosis.shopsbacker.vo.customer.RoleVo;
 
 @Path("user")
@@ -43,7 +48,13 @@ public class UserRestServices<T> {
 	final static Logger log = Logger.getLogger(UserRestServices.class
 			.getName());
 	
+	@Context
+	private UriInfo uriInfo;
+	
 	ResponseModel response = new ResponseModel();
+	
+	@Autowired
+	CommonService<T> commonService;
 
 	@Autowired
 	UserService<T> userService;
@@ -96,6 +107,136 @@ public class UserRestServices<T> {
 			return userLoginResponseVo;
 		}
 		return userLoginResponseVo;
+	}
+	
+	@Path("/forgetpassword")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel forgetPassword(PasswordResetRequestVo passwordResetRequestVo) {
+		ResponseModel response = new ResponseModel();
+		try {
+			if (passwordResetRequestVo != null) {
+				UserVo userVo = passwordResetRequestVo.getUser();
+				if(userVo != null){
+					User user = userService.getUserByUserName(userVo.getUserName());
+					if (user != null) {
+						String to = user.getEmailid();
+						String subject = "Password Reset Request - ShopsBacker";
+						PasswordResetRequest passwordResetRequest = commonService.savePasswordResetRequest(user.getUserId(),"admin");
+						String body = "http://localhost:8082/#/resetpassword/"+passwordResetRequest.getTokenId();
+					    boolean flag = CommonUtil.sendMail(to, subject, body);
+						if(flag){
+							response.setStatus(SBMessageStatus.SUCCESS
+									.getValue());
+						}else{
+							response
+							.setErrorCode(SBErrorMessage.PROBLEM_IN_SENDING_EMAIL
+									.getCode());
+					response
+							.setErrorString(SBErrorMessage.PROBLEM_IN_SENDING_EMAIL
+									.getMessage());
+					response.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+						}
+					}
+					else {
+						response
+								.setErrorCode(SBErrorMessage.INVALID_USERNAME
+										.getCode());
+						response
+								.setErrorString(SBErrorMessage.INVALID_USERNAME
+										.getMessage());
+						response.setStatus(SBMessageStatus.FAILURE
+								.getValue());
+	
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.toString());
+			return response;
+		}
+		return response;
+	}
+	
+	@Path("/verifytoken")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel verifyTokenId(PasswordResetRequestVo passwordResetRequestVo) {
+		ResponseModel response = new ResponseModel();
+		try {
+			if (passwordResetRequestVo != null) {
+				PasswordResetRequest passwordResetRequest = commonService.getPasswordResetRequestByTokenId(passwordResetRequestVo.getTokenId());
+				if (passwordResetRequest != null) {
+						response.setStatus(SBMessageStatus.SUCCESS
+								.getValue());
+				}else{
+						response
+						.setErrorCode(SBErrorMessage.INVALID_TOKEN
+								.getCode());
+				response
+						.setErrorString(SBErrorMessage.INVALID_TOKEN
+								.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE
+						.getValue());
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.toString());
+			return response;
+		}
+		return response;
+	}
+	
+	@Path("/resetpassword")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel resetPassword(PasswordResetRequestVo passwordResetRequestVo) {
+		ResponseModel response = new ResponseModel();
+		try {
+			if (passwordResetRequestVo != null) {
+				PasswordResetRequest passwordResetRequest = commonService.getPasswordResetRequestByTokenId(passwordResetRequestVo.getTokenId());
+				if (passwordResetRequest != null) {
+					    User user = userService.getUser(passwordResetRequest.getUserId());
+					    UserVo userVo = passwordResetRequestVo.getUser();
+					    
+					    if(userVo!=null){
+					    	user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
+					    	userService.updateUser(user);
+					    	commonService.deletePasswordResetRequest(passwordResetRequest);
+					    	response.setStatus(SBMessageStatus.SUCCESS
+					    			.getValue());
+					    }
+				}else{
+						response
+						.setErrorCode(SBErrorMessage.INVALID_TOKEN
+								.getCode());
+				response
+						.setErrorString(SBErrorMessage.INVALID_TOKEN
+								.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE
+						.getValue());
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.toString());
+			return response;
+		}
+		return response;
 	}
 
 	public UserVo setUserDetails(User user) {

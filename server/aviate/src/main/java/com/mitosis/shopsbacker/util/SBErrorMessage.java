@@ -20,7 +20,9 @@ public enum SBErrorMessage {
 	TAX_NAME_ALREADY_EXIST("E0009","Tax name already exist."),
 	EMAILID_EXISTS("E0010","EmailId already registered."),
 	SIGNUP_SUCCESS("E0011","Registered Successfully"),
-	MOBILNO_EXISTS("E0012","Mobile Number already registered.");
+	MOBILNO_EXISTS("E0012","Mobile Number already registered."),
+	PROBLEM_IN_SENDING_EMAIL("E0010","Problem in sending email."),
+	INVALID_TOKEN("E0011", "Invalid password reset token.");
 
 	private final String erroeCode;
 	  private final String errorMessage;

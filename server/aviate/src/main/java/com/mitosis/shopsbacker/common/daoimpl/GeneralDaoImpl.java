@@ -52,7 +52,6 @@ public class GeneralDaoImpl<T>  extends CustomHibernateDaoSupport<T> implements 
 		return null;
 	}
 
-	@Override
 	public List<T> findAll() {
 		// TODO Auto-generated method stub
 		return null;
