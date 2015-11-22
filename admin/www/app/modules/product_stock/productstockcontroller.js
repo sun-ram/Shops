@@ -11,12 +11,12 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 
 			$scope.getProductStockList = function () {
 				var salesOrderVo = {};
-				if(true){
-					salesOrderVo.merchant = {
-							"merchantId":"2c9fa0375119c5c801511a7afeb20088"
+				if($rootScope.user.role == "MERCHANTADMIN"){
+					salesOrderVo.merchantVo = {
+							"merchantId":$rootScope.user.merchantId
 					};
 				}else if($rootScope.user.role == "STOREADMIN"){
-					request = {
+					salesOrderVo.merchantVo = {
 							"storeId":$rootScope.user.storeId
 					};
 				}
@@ -30,10 +30,10 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			
 			$scope.getStockListByStore = function () {
 
-				var request = {
+				salesOrderVo.merchantVo= {
 						"storeId":$scope.storesId
 				};
-				productStockService.getProductStockList(request).then(function(data) {
+				productStockService.getProductStockList(salesOrderVo).then(function(data) {
 					$scope.productStockList = data;
 					$scope.count = data.length;
 
@@ -43,7 +43,7 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			$scope.getMerchantStore = function () {
 
 				var merchantVo = {
-						"merchantId":"2c9fa0375119c5c801511a7afeb20088"
+						"merchantId":$rootScope.user.merchantId
 				};
 				SalesOrderServices.getMerchantStore(merchantVo).then(function(data) {
 					$scope.merchantStore = data;

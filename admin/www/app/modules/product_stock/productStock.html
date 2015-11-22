@@ -28,17 +28,17 @@
 	md-progress="deferred">
 	<thead md-order="productStockPagination.order" md-trigger="onorderchange">
 		<tr>
-              <th  order-by="storagebin.warehouse.name" name="Warehouse"></th>
-              <th  numeric order-by="storagebin.name" name="Storage Bin"></th>
-              <th  numeric order-by="product.productName" name="Product"></th>
-              <th  numeric order-by="product.availableQty" name="Available Qty"></th>
+              <th  order-by="warehouseName" name="Warehouse"></th>
+              <th  numeric order-by="row" name="Storage Bin"></th>
+              <th  numeric order-by="productName" name="Product"></th>
+              <th  numeric order-by="availableQty" name="Available Qty"></th>
             </tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="product in productStockList | orderBy: productStockPagination.order | limitTo: productStockPagination.limit: (productStockPagination.page - 1) * productStockPagination.limit | filter:search">
-			<td>{{product.storagebin.warehouse.name}}</td>
-			<td>{{product.storagebin.name}}</td>
-			<td>{{product.product.productName}}</td>
+			<td>{{product.warehouseName}}</td>
+			<td>{{product.row}} {{product.stack}} {{product.level}}</td>
+			<td>{{product.productName}}</td>
 			<td>{{product.availableQty}}</td>
 			
 		</tr>
