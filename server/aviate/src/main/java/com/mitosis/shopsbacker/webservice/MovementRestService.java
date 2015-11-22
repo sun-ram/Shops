@@ -80,12 +80,12 @@ public class MovementRestService<T> {
 					: false;
 			Movement movement = setMovement(movementVo, isUpdateProcess);
 
-			if(!isUpdateProcess){
+			if (!isUpdateProcess) {
 				movementService.addMovement(movement);
-			}else{
+			} else {
 				movementService.updateMovement(movement);
 			}
-			List<MovementVo> movementVos= new ArrayList<MovementVo>();
+			List<MovementVo> movementVos = new ArrayList<MovementVo>();
 			MovementVo movementvo = setMovementVo(movement);
 			movementVos.add(movementvo);
 			response.setMovements(movementVos);
@@ -104,41 +104,41 @@ public class MovementRestService<T> {
 	 * @return MovementVo
 	 */
 	private MovementVo setMovementVo(Movement movement) {
-		MovementVo movementvo=new MovementVo();
-		movementvo.setMovementId(movement.getMovementId()); 
+		MovementVo movementvo = new MovementVo();
+		movementvo.setMovementId(movement.getMovementId());
 		movementvo.setIsmoved(movement.getIsmoved());
 		movementvo.setIsupdated(movement.getIsmoved());
 		movementvo.setName(movement.getName());
-		WarehouseVo warehouseVo=new WarehouseVo();
+		WarehouseVo warehouseVo = new WarehouseVo();
 		warehouseVo.setName(movement.getWarehouse().getName());
 		warehouseVo.setWarehouseId(movement.getWarehouse().getWarehouseId());
 		movementvo.setWarehouse(warehouseVo);
 		List<MovementLine> movementLines = movement.getMovementLines();
 		List<MovementLineVo> movementLineVos = new ArrayList<MovementLineVo>();
-		for(MovementLine movementLine:movementLines){
+		for (MovementLine movementLine : movementLines) {
 			MovementLineVo movementLineVo = setMovementVo(movementLine);
 			movementLineVos.add(movementLineVo);
 		}
 		return movementvo;
 	}
 
-	
 	/**
 	 * @author Anbukkani Gajendran
 	 * @param movementLine
 	 * @return MovementLineVo
 	 */
 	private MovementLineVo setMovementVo(MovementLine movementLine) {
-		MovementLineVo movementLineVo=new MovementLineVo();
+		MovementLineVo movementLineVo = new MovementLineVo();
 		movementLineVo.setMovementLineId(movementLine.getMovementLineId());
 		movementLineVo.setQty(movementLine.getQty());
-		ProductVo productVo=new ProductVo();
+		ProductVo productVo = new ProductVo();
 		productVo.setName(movementLine.getProduct().getName());
 		productVo.setProductId(movementLine.getProduct().getProductId());
 		movementLineVo.setProduct(productVo);
-		StoragebinVo storagebinVo= new StoragebinVo();
+		StoragebinVo storagebinVo = new StoragebinVo();
 		storagebinVo.setName(movementLine.getStoragebinByToBinId().getName());
-		storagebinVo.setStoragebinId(movementLine.getStoragebinByToBinId().getStoragebinId());
+		storagebinVo.setStoragebinId(movementLine.getStoragebinByToBinId()
+				.getStoragebinId());
 		storagebinVo.setLevel(movementLine.getStoragebinByToBinId().getLevel());
 		storagebinVo.setStack(movementLine.getStoragebinByToBinId().getStack());
 		storagebinVo.setRow(movementLine.getStoragebinByToBinId().getRow());
@@ -262,24 +262,20 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseModel movementMovement(MovementVo movementVo) {
-		ResponseModel response = new ResponseModel();
+	public MovementResponseVo movementMovement(MovementVo movementVo) {
+		MovementResponseVo response = new MovementResponseVo();
 		try {
 
-			List<Movement> movement = movementService
+			List<Movement> movements = movementService
 					.getMovementListByStore(storeService
 							.getStoreById(movementVo.getStore().getStoreId()));
-			/*
-			 * Warehouse warehouse = warehouseService.getWarehouse(movementVo
-			 * .getWarehouse().getWarehouseId()); Store store =
-			 * storeService.getStoreById(movementVo.getStore() .getStoreId());
-			 */
-			/*
-			 * movement.setMerchant(merchant); movement.setStore(store);
-			 * movement.setWarehouse(warehouse);
-			 */
-
-			// movementService.updateMovement(movement);
+			List<MovementVo> movementVos = new ArrayList<MovementVo>();
+			for (Movement movement : movements) {
+				MovementVo movementvo = setMovementVo(movement);
+				movementVos.add(movementvo);
+			}
+			response.setMovements(movementVos);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setErrorString(e.getMessage());
@@ -295,12 +291,8 @@ public class MovementRestService<T> {
 	public ResponseModel deleteMovement(MovementVo movementVo) {
 		ResponseModel response = new ResponseModel();
 		try {
-			if (false) {
-				// TODO : need to check the movement in processed
-				return response;
-			}
-
 			movementService.deleteMovement(movementVo.getMovementId());
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setErrorString(e.getMessage());
