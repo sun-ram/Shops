@@ -1,16 +1,10 @@
 angular.module('aviateAdmin.controllers').controller("physicalinventorycontroller", 
-		['$scope','$rootScope','$localStorage','$state','PhysicalInventoryServices','physicalinventorys',
-		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryServices, physicalinventorys) {
-
-			/*$scope.query = {
-					limit: 5,
-					page: 1
-			};*/
+		['$scope','$rootScope','$localStorage','$state','PhysicalInventoryServices','movementLists',
+		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryServices, movementLists) {
 
 			$scope.count = 3;
-			$scope.physicalinventoryData = physicalinventorys;
+			$scope.movements = movementLists;
 			$scope.srch = true;
-
 			
 			$scope.redirectGetPhysicalInventory = function(){
 				PhysicalInventoryServices.getInventory({'storeId':$rootScope.user.storeId}).then(function(data){
@@ -18,21 +12,27 @@ angular.module('aviateAdmin.controllers').controller("physicalinventorycontrolle
 				});
 			}
 
-			$scope.redirectToPhysicalinventoryDetails = function(physicalinventory){
+			$scope.redirectToMovementDetails = function(physicalinventory){
 				PhysicalInventoryServices.setPhysicalInventoryObj(physicalinventory);
 				$state.go('app.physicalinventorydetails');
 			}
 
-			$scope.redirectToEditPhysicalinventory = function(physicalinventory){
+			$scope.redirectToEditMovement = function(physicalinventory){
 				PhysicalInventoryServices.setPhysicalInventoryObj(physicalinventory);
 				$state.go('app.editphysicalinventory');
 			}
 
-			$scope.removeInventory= function(inventoryId) {
+			/*$scope.removeInventory= function(inventoryId) {
 				$scope.physicalinventory = {};
 				$scope.physicalinventory.inventoryId = inventoryId;
 				PhysicalInventoryServices.removeInventory({'inventoryId':$scope.physicalinventory.inventoryId}).then(function(data){
 					$scope.redirectGetPhysicalInventory();
+				});
+			};*/
+			
+			$scope.removeMovement = function(movement){
+				PhysicalInventoryServices.removeMovement(movement).then(function(data){
+					$scope.movement = { };
 				});
 			};
 

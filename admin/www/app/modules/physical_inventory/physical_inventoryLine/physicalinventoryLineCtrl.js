@@ -3,7 +3,7 @@ angular.module('aviateAdmin.controllers').controller("physicalinventoryLineCtrl"
 		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryLineServices, UnitService, WarehouseService, PhysicalInventoryServices, toastr) {
 
 
-			$scope.getmeasurementunit = function() {
+/*			$scope.getmeasurementunit = function() {
 				$localStorage.unit = {};
 				var unit ={
 						merchantId:$rootScope.user.merchantId
@@ -13,7 +13,7 @@ angular.module('aviateAdmin.controllers').controller("physicalinventoryLineCtrl"
 				});
 			};
 
-			$scope.getmeasurementunit();
+			$scope.getmeasurementunit();*/
 
 
 			$scope.getProducts = function() {
@@ -23,11 +23,11 @@ angular.module('aviateAdmin.controllers').controller("physicalinventoryLineCtrl"
 				});
 			};
 
-			$scope.productUom = function(productId) {
+			/*$scope.productUom = function(productId) {
 				PhysicalInventoryLineServices.productUom({"productId": productId }).then(function(data){
 					$scope.productUomList = data.productUomList;
 				});
-			};
+			};*/
 
 			$scope.addInventoryLines = function() {
 				$scope.physicalinventorylineDetail.storeId = $rootScope.user.storeId;

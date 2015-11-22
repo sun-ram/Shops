@@ -3,23 +3,31 @@ angular.module('aviateAdmin.controllers')
 		['$scope','$localStorage','$location','$rootScope','$state','toastr','PhysicalInventoryServices','WarehouseService','ProductService',
 		 function($scope,$localStorage,$location,$rootScope, $state, toastr, PhysicalInventoryServices, WarehouseService, ProductService) {
 			
-			$scope.addMovement = function(movement){
+			$scope.addMovement = function(movement, index){
 				movement.merchant = {};
 				movement.store = {};
 				movement.store.storeId = $rootScope.user.storeId;
 				movement.merchant.merchantId = $rootScope.user.merchantId;
 				PhysicalInventoryServices.addMovement(movement).then(function(data){
-					//$state.go('app.physical_inv');
 					$scope.isMovementAdded = true;
+					//#push 0 to position 1
+					$scope.movement.movementLines.splice(index,0,data.movement.movementList)
+					$scope.movement.movementLines.push({});
+				});
+			};
+			
+			$scope.removeMovement = function(movement){
+				PhysicalInventoryServices.removeMovement(movement).then(function(data){
+					$scope.movement = {};
 				});
 			};
 			
 			$scope.addMovementLine = function(){
 				PhysicalInventoryServices.addMovementLine($scope.movement).then(function(data){
-					//$state.go('app.physical_inv');
+					$scope.movement.movementLines.push({});
 				});
 			};
-
+			
 			
 			$scope.getWarehouse = function() {
 				$scope.warehouse = {};
@@ -35,12 +43,12 @@ angular.module('aviateAdmin.controllers')
 			$scope.setStoragebin = function(warehouse){
 				$scope.bins = warehouse.storagebins;
 				$scope.movement.warehouse = warehouse;
-				$scope.movement.movementLines = [{}]
+				$scope.movement.movementLines = [{}];
 			}
 			
 			$scope.getProducts = function() {
 				$scope.merchant = {};
-				$scope.merchant.merchant = {}
+				$scope.merchant.merchant = {};
 				$scope.merchant.merchant.merchantId = $rootScope.user.merchantId;
 				ProductService.getAllProductList($scope.merchant).then(function(data) {
 					$scope.products = data.productList;
@@ -51,15 +59,20 @@ angular.module('aviateAdmin.controllers')
 			
 			$scope.removeMovementLine = function(index){
 				if($scope.movement.movementLines.length == 1){
-					$scope.movement.movementLines = [{}]
+					$scope.removeMovement($scope.movement);
+					$scope.movement.movementLines = [{}];
 				}else{
-					$scope.movement.movementLines.splice(index, 1);
+					if($scope.movement.movementLines[index].movementLineId){
+						PhysicalInventoryServices.removeMovementLine($scope.movement.movementLines[index]).then(function(data){
+							$scope.movement.movementLines.splice(index, 1);
+						});
+					}else{
+						$scope.movement.movementLines.splice(index, 1);
+					}
 				}
 			}
 			
-			$scope.movement = {
-					
-			};
+			$scope.movement = {};
 
 			$scope.addNewRow = function(index){
 				if($scope.movement.movementLines.length-1 != index){
@@ -67,9 +80,10 @@ angular.module('aviateAdmin.controllers')
 				}
 				
 				if($scope.movement.movementLines.length == 1){
-					$scope.addMovement($scope.movement);
+					$scope.addMovement(angular.copy($scope.movement));
+				}else{
+					$scope.addMovementLine($scope.movement.movementLines[index]);
 				}
-				$scope.movement.movementLines.push({});
 			}
 
 			/*$scope.getInventoryWarehouse = function() {

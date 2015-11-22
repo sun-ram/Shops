@@ -6,7 +6,7 @@
 <md-card flex-gt-sm="90" flex-gt-md="80">
  <md-toolbar class=" md-default-theme">
 	<div class="md-toolbar-tools" layout="row">
-  		<h2 layout-align="start">Physical Inventory</h2>
+  		<h2 layout-align="start">Movements</h2>
     	<span class="flex"></span>
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
@@ -26,27 +26,27 @@
    <md-card-content class="nopaddtop">
 		<md-data-table-container>
      <md-list>
-       <md-item md-data-table ng-repeat="physicalinventory in physicalinventoryData | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row"" ng-click="redirectToPhysicalinventoryDetails(physicalinventory);">
+       <md-item md-data-table ng-repeat="movement in movements | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row"" ng-click="redirectToMovementDetails(movement);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid">
          
            	<span flex=50 layout="column" class="padd-lr5" layout-align="start start">
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{physicalinventory.inventoryName}}</strong></span>
-             <span class="hash_color ft-14">{{physicalinventory.warehouseName}}</span>
+             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{movement.name}}</strong></span>
+             <span class="hash_color ft-14">{{movement.warehouse.name}}</span>
            	</span>
         
              <span flex=10 layout="row" layout-align="end center">
                 
              </span>
             <span flex=40 layout="row" layout-align="end center">
-            <md-button ng-hide="physicalinventory.isprocessed" style="z-index:500;" class="md-icon-button md-primary" ng-click="redirectToEditPhysicalinventory(physicalinventory);$event.stopPropagation();" aria-label="Edit">
+            	<md-button ng-hide="movement.isprocessed == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="redirectToEditMovement(movement);$event.stopPropagation();" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
       			</md-button>
-             	<md-button ng-hide="physicalinventory.isprocessed" style="z-index:500;" class="md-icon-button md-primary" ng-click="removeInventory(physicalinventory.inventoryId);$event.stopPropagation();" aria-label="Delete">
+             	<md-button ng-hide="physicalinventory.isprocessed == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="removeInventory(physicalinventory.inventoryId);$event.stopPropagation();" aria-label="Delete">
              		<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
-              <md-button ng-hide="physicalinventory.isprocessed" class="md-raised md-success  prdct-btns" ng-click="conformInventroy(physicalinventory.inventoryId);$event.stopPropagation();">Process</md-button>
-              <md-button class="md-raised md-success  prdct-btns" ng-click="viewLine(physicalinventory);$event.stopPropagation();">View Line</md-button>
+              <md-button ng-hide="physicalinventory.isprocessed == 'Y'" class="md-raised md-success  prdct-btns" ng-click="conformInventroy(physicalinventory.inventoryId);$event.stopPropagation();">Process</md-button>
+              <md-button class="md-raised md-success  prdct-btns" ng-click="viewMovements(physicalinventory);$event.stopPropagation();">View Line</md-button>
              </span>
             </div>
            </div>

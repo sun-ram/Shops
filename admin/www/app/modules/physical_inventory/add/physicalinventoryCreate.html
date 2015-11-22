@@ -29,9 +29,9 @@
 	    	  </md-select>
 		    </md-input-container>
 		    <md-input-container layout-padding  flex>
-		      <md-select ng-model="movementLine1.toStoragebin.storagebinId" style="min-width: 200px;" >
-	     		 <md-option ng-value="{{toStoragebin.storagebinId}}" ng-repeat="toStoragebin in bins">
-	     			 {{toStoragebin.name}}
+		      <md-select ng-model="movementLine.toStoragebin.storagebinId" style="min-width: 200px;" >
+	     		 <md-option ng-repeat="toStoragebin in bins" value="{{toStoragebin.storagebinId}}" >
+	     			 {{toStoragebin.name}} ( {{toStoragebin.stack}} - {{toStoragebin.row}} - {{toStoragebin.level}} )
 	     		 </md-option>
 	    	  </md-select>
 		    </md-input-container>

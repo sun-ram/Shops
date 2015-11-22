@@ -92,9 +92,26 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.removeInventory = function(physicalinventory){
+	this.removeMovement = function(movement){
 		var d = $q.defer();
-		api.PhysicalInventory.removeInventory(physicalinventory, function(err, result){
+		api.PhysicalInventory.removeMovement(movement, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					toastr.success(CONSTANT.DELETEPHYSICALINVENTORY);
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
+	
+	this.removeMovementLine = function(movementLine){
+		var d = $q.defer();
+		api.PhysicalInventory.removeMovementLine(movementLine, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.DELETEPHYSICALINVENTORY);
