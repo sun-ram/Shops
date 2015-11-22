@@ -85,10 +85,8 @@ public class MovementRestService<T> {
 			} else {
 				movementService.updateMovement(movement);
 			}
-			List<MovementVo> movementVos = new ArrayList<MovementVo>();
 			MovementVo movementvo = setMovementVo(movement);
-			movementVos.add(movementvo);
-			response.setMovements(movementVos);
+			response.setMovement(movementVo);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,7 +185,7 @@ public class MovementRestService<T> {
 					: false;
 			MovementLine movementLine = setMovementLine(movementLineVo,
 					isUpdate);
-
+			movementLine.setMovement(movement);
 			movementLines.add(movementLine);
 		}
 		movement.setMovementLines(movementLines);
@@ -350,7 +348,7 @@ public class MovementRestService<T> {
 					.setAuditColumnInfo(MovementLine.class.getName());
 			movementLine.setIsactive('Y');
 			Storagebin storagebin = storeagebinService
-					.getStoragebinById(movementLineVo.getFromStoragebin()
+					.getStoragebinById(movementLineVo.getToStoragebin()
 							.getStoragebinId());
 			movementLine.setStoragebinByToBinId(storagebin);
 			movementLine.setProduct(productService.getProduct(movementLineVo
@@ -382,7 +380,7 @@ public class MovementRestService<T> {
 			// TODO: need to set value from session
 			movementLine.setUpdatedby("123456");
 			Storagebin storagebin = storeagebinService
-					.getStoragebinById(movementLineVo.getFromStoragebin()
+					.getStoragebinById(movementLineVo.getToStoragebin()
 							.getStoragebinId());
 			movementLine.setStoragebinByToBinId(storagebin);
 			movementLine.setProduct(productService.getProduct(movementLineVo

@@ -733,7 +733,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				name:""
 		};
 		apiClass.PhysicalInventory.getInventory = function (physicalinventories, callback) {
-			httpRequest("POST", "inventoryline/inventoryList", physicalinventories, function (err, data) {
+			httpRequest("POST", "movement/getmovement", physicalinventories, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -746,7 +746,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
-		apiClass.PhysicalInventory.getInventoryWarehouse = function (warehouses, callback) {
+		/*apiClass.PhysicalInventory.getInventoryWarehouse = function (warehouses, callback) {
 			httpRequest("POST", "inventory/warehouselist", warehouses, function (err, data) {
 				if (err) {
 
@@ -758,10 +758,10 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 
-		apiClass.PhysicalInventory.removeInventory = function (physicalinventory, callback) {
-			httpRequest("POST", "inventory/removeinventory", physicalinventory, function (err, data) {
+		apiClass.PhysicalInventory.removeMovement = function (movement, callback) {
+			httpRequest("POST", "movement/delete", movement, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -774,8 +774,37 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.PhysicalInventory.addNewPhysicalInventory = function (physicalinventories, callback) {
-			httpRequest("POST", "inventory/addinventory", physicalinventories, function (err, data) {
+		apiClass.PhysicalInventory.addMovement = function (movement, callback) {
+			httpRequest("POST", "movement/save", movement, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.removeMovementLine = function (movementLine, callback) {
+			httpRequest("POST", "movement/delete/line", movementLine, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		
+		apiClass.PhysicalInventory.addMovementLine = function (movementLine, callback) {
+			httpRequest("POST", "movement/save", movementLine, function (err, data) {
 				if (err) {
 
 					callback(err, null);

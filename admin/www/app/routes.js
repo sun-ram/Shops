@@ -219,7 +219,7 @@ angular.module('app')
 				templateUrl: 'app/modules/physical_inventory/physicalinventoryList.html',
 				controller : 'physicalinventorycontroller',
 				 resolve:   {
-					 physicalinventorys:  function(PhysicalInventoryServices, $http, $stateParams, $rootScope){
+					 movementLists:  function(PhysicalInventoryServices, $http, $stateParams, $rootScope){
 	                        return PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 	                        	return data;
 	        				});

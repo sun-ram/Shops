@@ -26,6 +26,7 @@ public class CustomHibernateDaoSupport<T> {
 
 	public void save(T entity) {
 		getSession().save(entity);
+		getSession().flush();
 
 	}
 
@@ -68,6 +69,7 @@ public class CustomHibernateDaoSupport<T> {
 	}
 	
 	public List<T> findAllEh(DetachedCriteria criteria) {
+		criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
 		criteria.getExecutableCriteria(getSession()).setCacheable(true);
 		return ((DetachedCriteria) criteria).getExecutableCriteria(getSession()).list();
 	}

@@ -12,8 +12,18 @@ import com.mitosis.shopsbacker.vo.inventory.MovementVo;
  */
 public class MovementResponseVo extends ResponseModel {
 
-	List<MovementVo> movements=new ArrayList<MovementVo>();
+	public MovementVo getMovement() {
+		return movement;
+	}
 
+	public void setMovement(MovementVo movement) {
+		this.movement = movement;
+	}
+
+	MovementVo movement;
+	
+	List<MovementVo> movements=new ArrayList<MovementVo>();
+	
 	public List<MovementVo> getMovements() {
 		return movements;
 	}
@@ -21,4 +31,5 @@ public class MovementResponseVo extends ResponseModel {
 	public void setMovements(List<MovementVo> movements) {
 		this.movements = movements;
 	} 
+	
 }

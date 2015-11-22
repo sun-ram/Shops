@@ -141,10 +141,14 @@ angular.module('aviateAdmin.services')
 	this.getAllProductList = function(merchant){	
 		var d = $q.defer();
 		api.Product.getAllProductListByMerchant(merchant, function(err, result){
-			if (result.status == 'SUCCESS') {
-				d.resolve(result);
-			} else {
-				toastr.error(result.errorString);
+			if(result){
+				if (result.status == 'SUCCESS') {
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
 			}
 		})
 		return d.promise;
