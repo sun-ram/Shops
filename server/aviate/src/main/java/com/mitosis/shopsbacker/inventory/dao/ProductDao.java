@@ -31,5 +31,7 @@ public interface ProductDao<T> {
 	public List<Product> getTopProduct(Merchant merchant);
 
 	public List<Product> getProductByMerchant(Merchant merchant);
+	
+	public Product getProductByName(String param);
 
 }

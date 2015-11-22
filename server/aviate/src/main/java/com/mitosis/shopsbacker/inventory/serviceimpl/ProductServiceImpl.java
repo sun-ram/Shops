@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -148,7 +149,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
 			product.setIsactive('Y');
 		}else{
-			product = productDao.getProduct(productVo.getProductId());
+			
+				product = productDao.getProduct(productVo.getName());
+			
 			product.setUpdated(new Date());
 			//TODO need to get user from session and set to updatedby
 			product.setUpdatedby("123");
@@ -188,7 +191,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 		productVo.setName(product.getName());
 		productVo.setBrand(product.getBrand());
-		productVo.setDescription(product.getDescription());
+		//productVo.setDescription(product.getDescription());
 		productVo.setPrice(product.getPrice());
 		productVo.setUnit(product.getUnit());
 		productVo.setEdibleType(product.getEdibleType());
@@ -209,6 +212,44 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setUom(uomVo);
 		
 		return productVo;
+	}
+	
+	@Override
+	public Product setProductFromExcel(ProductVo productVo) throws Exception {
+		Product product = null;
+		BigDecimal bg = null;
+		Long l = new Long("12345678");
+        bg = BigDecimal.valueOf(l);
+		if(productVo.getIsYourHot()){
+			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
+			product.setIsactive('Y');
+		}else{
+			product = productDao.getProductByName(productVo.getName());
+			
+			product.setUpdated(new Date());
+			//TODO need to get user from session and set to updatedby
+			product.setUpdatedby("123");
+			
+		}
+		/*product.setName(productVo.getName());
+		product.setPrice(bg);
+		product.setEdibleType(productVo.getEdibleType());
+		product.setGroupCount(productVo.getGroupCount());
+		product.setBrand(productVo.getBrand());
+		product.setUnit(productVo.getUnit());*/
+		product.setDescription("Description");
+		/*if(productVo.getIsYourHot()){
+			product.setIsYourHot('Y');
+		}else{
+			product.setIsYourHot('N');
+		}*/
+		return product;
+	}
+	
+	@Override
+	@Transactional
+	public Product getProductByName(String param) {
+		return productDao.getProductByName(param);
 	}
 
 

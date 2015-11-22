@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -26,6 +28,7 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +49,11 @@ import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.responsevo.ProductResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 /**
@@ -396,5 +401,149 @@ public class ProductRestService {
 		}
 		return productResponse;
 	  }
+	
+	@Path("/excelupload")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductUploadVO excelUpload() {
+		ProductUploadVO response = new ProductUploadVO();
+		String excelPath = "/home/ramya/Documents/BSEE_Documents/Products.xls";
+		try {
+			/*Properties properties = new Properties();
+			properties.load(getClass().getResourceAsStream(
+					"/properties/serverurl.properties"));
+			defaultImagePath = properties.getProperty("imagePath");*/
+			List<Product> productList = new ArrayList<Product>();
+			response =convertXlsToModel(excelPath, 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+		}
+
+		return response;
+
+	}
+
+	public ProductUploadVO convertXlsToModel(String path, int sheetNo){
+		ProductUploadVO response = new ProductUploadVO();
+		Product product = new Product();
+		try {
+			FileInputStream file = new FileInputStream(new File(path));
+			org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(file);
+			org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(sheetNo);
+			List<String> labels = new ArrayList<String>();
+			int count = 0;
+			Iterator<Row> rowIterator = sheet.iterator();
+			while (rowIterator.hasNext()) {
+
+				Row row = rowIterator.next();
+				Iterator<Cell> cellIterator = row.cellIterator();
+				if(count == 0){
+					while (cellIterator.hasNext()) {
+						Cell cell = cellIterator.next();
+						switch (cell.getCellType()) {
+						case Cell.CELL_TYPE_NUMERIC:
+							break;
+						case Cell.CELL_TYPE_STRING:
+							labels.add(cell.getStringCellValue().trim());
+							break;
+						}
+					}
+					count++;
+				}else{
+					int cellPosition = 0;
+					while (cellIterator.hasNext() && cellPosition<row.getLastCellNum()) {
+						Cell cell = row.getCell(cellPosition,Row.RETURN_BLANK_AS_NULL);
+
+						if(cell==null){
+							response.setErrorString(labels.get(cellPosition)+" "+"is Empty");
+							response.setRowNo(cellPosition);
+							response.setStatus(SBMessageStatus.FAILURE.getValue());
+							return response;
+						}else{
+
+							switch (cell.getCellType()) {
+
+							case Cell.CELL_TYPE_NUMERIC:
+								if (labels.get(cellPosition).equalsIgnoreCase("Price")) {
+									if(cell.getNumericCellValue()==0){
+										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_PRICE
+												.getCode());
+										response.setRowNo(cellPosition);
+										return response;
+									}else{
+										product.setPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
+									}
+								}else if (labels.get(cellPosition).equalsIgnoreCase("Unit")) {
+									if(cell.getNumericCellValue()==0){
+										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_UNIT.getCode());
+										response.setRowNo(cellPosition);
+										response.setStatus(SBMessageStatus.FAILURE.getValue());
+										return response;
+									}else{
+										product.setUnit(BigDecimal.valueOf(cell.getNumericCellValue()));
+									}
+								}
+								break; 
+
+							case Cell.CELL_TYPE_STRING:
+								if(labels.get(cellPosition).equalsIgnoreCase("ProductName")){
+									if(cell.getStringCellValue().trim()==null){
+										response.setRowNo(cellPosition);
+										response.setErrorString(SBMessageStatus.FAILURE.getValue());
+										return response;
+									}else{
+										if(product.getProductId()==null){
+											product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
+											product.setIsactive('Y');
+										}else{
+											product = productService.getProductByName(cell.getStringCellValue().trim());
+										}
+										product.setName(cell.getStringCellValue().trim());
+									}
+								}else if (labels.get(cellPosition).equalsIgnoreCase("Description")) {
+									product.setDescription(cell.getStringCellValue().trim());
+								}else if (labels.get(cellPosition).equalsIgnoreCase("Brand")) {
+									product.setBrand(cell.getStringCellValue().trim());
+								}else if (labels.get(cellPosition).equalsIgnoreCase("Edible_Type")) {
+									product.setEdibleType(cell.getStringCellValue().trim());
+								}
+								break;
+
+							case Cell.CELL_TYPE_BLANK:
+								response.setErrorString(labels.get(cellPosition)+""+"is Empty");
+								response.setRowNo(cellPosition);
+								response.setStatus(SBMessageStatus.FAILURE.getValue());
+								break;
+							}
+						}
+						cellPosition++;
+					}
+					if(product.getProductId()==null){
+						productService.addProduct(product);
+					}else{
+						productService.updateProduct(product);
+					}
+				}
+			}
+			file.close();
+		}
+		catch (Exception e) {
+			e.getMessage();
+		}
+		return response;
+	}
+
+	public ProductUploadVO addProduct(Product product){
+		ProductUploadVO productVo =  new ProductUploadVO();
+		productVo.setErrorString(SBErrorMessage.PRODUCT_NOT_AVAILABLE.getMessage());
+		productVo.setStatus(SBMessageStatus.FAILURE.getValue());
+		return productVo;
+
+	}
+
 
 }

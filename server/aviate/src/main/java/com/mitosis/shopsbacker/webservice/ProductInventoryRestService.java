@@ -19,8 +19,10 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.responsevo.ProductInventoryResponseVo;
+import com.mitosis.shopsbacker.responsevo.ProductStockResponseVo;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.ProductInventoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductStockVo;
 
 /**
  * @author JAI BHARATHI
@@ -72,37 +74,30 @@ public class ProductInventoryRestService<T> {
 
 
 	ResponseModel response = null;
-	ProductInventoryResponseVo productInventoryResponse = null;
+	ProductStockResponseVo productStockResponse = null;
 	
 	@Path("/getproductinventory")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ProductInventoryResponseVo getProductInventory(ProductInventoryVo productInventoryVo) {
+	public ProductStockResponseVo getProductInventory(ProductInventoryVo productInventoryVo) {
 		response = new ResponseModel();
-		productInventoryResponse = new ProductInventoryResponseVo();
+		productStockResponse = new ProductStockResponseVo();
 		try {
 			if(productInventoryVo.getMerchantVo().getMerchantId()!=null){
 				Merchant merchant = getMerchantService().getMerchantById(productInventoryVo.getMerchantVo().getMerchantId());
-				List<ProductInventory> productInventoryList = getProductInventoryService().getProductInventoryByMerchant(merchant);
-				for (ProductInventory productInventory : productInventoryList) {
-					productInventoryVo = getProductInventoryService().setProductInventoryVo(productInventory);
-					productInventoryResponse.getProductinventory().add(productInventoryVo);
-				}
+				List productInventoryList = getProductInventoryService().getProductInventoryByMerchant(merchant);
+				productStockResponse = getProductInventoryService().setProductStockVo(productInventoryList);
 			}else if (productInventoryVo.getStorevo().getStoreId()!=null) {
 				Store store = getStoreService().getStoreById(productInventoryVo.getStorevo().getStoreId());
 				List<ProductInventory> productInventoryList = getProductInventoryService().getProductInventoryByStore(store);
-				for (ProductInventory productInventory : productInventoryList) {
-					productInventoryVo = getProductInventoryService().setProductInventoryVo(productInventory);
-					productInventoryResponse.getProductinventory().add(productInventoryVo);
-				}
+				productStockResponse = getProductInventoryService().setProductStockVo(productInventoryList);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		return productInventoryResponse;
+		return productStockResponse;
 	}
 	
 }

@@ -22,7 +22,10 @@ public enum SBErrorMessage {
 	SIGNUP_SUCCESS("E0011","Registered Successfully"),
 	MOBILNO_EXISTS("E0012","Mobile Number already registered."),
 	PROBLEM_IN_SENDING_EMAIL("E0010","Problem in sending email."),
-	INVALID_TOKEN("E0011", "Invalid password reset token.");
+	INVALID_TOKEN("E0011", "Invalid password reset token."),
+	INVALID_PRODUCT_PRICE("E0012","Invalid Product Price."),
+	INVALID_PRODUCT_UNIT("E0013","Invalid Product Unit."),
+	PRODUCT_NOT_AVAILABLE("E0017","Product Not Available");
 
 	private final String erroeCode;
 	  private final String errorMessage;

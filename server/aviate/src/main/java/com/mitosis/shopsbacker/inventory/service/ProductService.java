@@ -38,5 +38,9 @@ public interface ProductService<T> {
 	
 	public void productImageUpload(ProductVo productVo,Merchant merchant) throws Exception ;
 	
+	public Product getProductByName(String param);
+	
+	public Product setProductFromExcel(ProductVo productVo) throws Exception ;
+
 	
 }

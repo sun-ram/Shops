@@ -6,7 +6,7 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.vo.inventory.ProductInventoryVo;
+import com.mitosis.shopsbacker.responsevo.ProductStockResponseVo;
 
 public interface ProductInventoryService<T> {
 	
@@ -16,6 +16,5 @@ public interface ProductInventoryService<T> {
 
 	public List<ProductInventory> getProductInventoryByMerchant(Merchant merchant);
 	
-	public ProductInventoryVo setProductInventoryVo (ProductInventory productInventory) throws Exception;
-
+	public ProductStockResponseVo setProductStockVo (List productInventoryList);
 }

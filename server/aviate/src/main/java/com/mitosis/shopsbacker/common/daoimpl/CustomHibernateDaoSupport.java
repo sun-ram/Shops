@@ -32,10 +32,12 @@ public class CustomHibernateDaoSupport<T> {
 
 	public void update(T entity) {
 		getSession().saveOrUpdate(entity);
+		getSession().flush();
 	}
 
 	public void delete(T entity) {
 		getSession().delete(entity);
+		getSession().flush();
 	}
 	
 	@SuppressWarnings("unchecked")

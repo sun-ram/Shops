@@ -93,7 +93,7 @@ public class ProductInventory implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "STORAGEBIN_ID", nullable = false)
 	public Storagebin getStoragebin() {
 		return this.storagebin;

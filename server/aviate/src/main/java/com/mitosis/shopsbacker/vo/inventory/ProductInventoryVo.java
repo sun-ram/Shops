@@ -8,24 +8,19 @@ import com.mitosis.shopsbacker.vo.admin.StoreVo;
 public class ProductInventoryVo {
 	
 	private String productInventoryId;
-	private Storagebin storagebin;
+	private StoragebinVo storagebinVo;
 	private MerchantVo merchantVo;
 	private Product product;
 	private StoreVo storevo;
 	private int availableQty;
 	private char isactive;
+	private WarehouseVo warehouse;
 	
 	public String getProductInventoryId() {
 		return productInventoryId;
 	}
 	public void setProductInventoryId(String productInventoryId) {
 		this.productInventoryId = productInventoryId;
-	}
-	public Storagebin getStoragebin() {
-		return storagebin;
-	}
-	public void setStoragebin(Storagebin storagebin) {
-		this.storagebin = storagebin;
 	}
 	public Product getProduct() {
 		return product;
@@ -56,6 +51,18 @@ public class ProductInventoryVo {
 	}
 	public void setStorevo(StoreVo storevo) {
 		this.storevo = storevo;
+	}
+	public StoragebinVo getStoragebinVo() {
+		return storagebinVo;
+	}
+	public void setStoragebinVo(StoragebinVo storagebinVo) {
+		this.storagebinVo = storagebinVo;
+	}
+	public WarehouseVo getWarehouse() {
+		return warehouse;
+	}
+	public void setWarehouse(WarehouseVo warehouse) {
+		this.warehouse = warehouse;
 	}
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
+import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Product;
@@ -136,6 +137,19 @@ ProductDao<T>, Serializable{
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("merchant",merchant));
 			return ((List<Product>) findAll(criteria));
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Product getProductByName(String param) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.eq("name", param));
+			return (Product) findUnique(criteria);
 		} catch (Throwable e) {
 			e.printStackTrace();
 			throw(e);

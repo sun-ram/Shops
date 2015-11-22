@@ -14,8 +14,16 @@ import com.mitosis.shopsbacker.inventory.service.ProductInventoryService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductInventory;
+import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.model.Warehouse;
+import com.mitosis.shopsbacker.responsevo.ProductStockResponseVo;
+import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductInventoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductStockVo;
+import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
+import com.mitosis.shopsbacker.vo.inventory.WarehouseVo;
 
 @Service("productInventoryServiceImpl") 
 public class ProductInventoryServiceImpl<T> implements
@@ -80,14 +88,23 @@ public class ProductInventoryServiceImpl<T> implements
 		return getProductInventoryDao().getProductInventoryByMerchant(merchant);
 	}
 	
-	public ProductInventoryVo setProductInventoryVo (ProductInventory productInventory) throws Exception {
-		ProductInventoryVo productInventoryVo = new ProductInventoryVo();
-		productInventoryVo.setStorevo(getStoreService().setStoreVo(productInventory.getStore()));
-		productInventoryVo.setAvailableQty(productInventory.getAvailableQty());
-		productInventoryVo.setMerchantVo(getMerchantService().setMerchantVo(productInventory.getMerchant()));
-		productInventoryVo.setProduct(productInventory.getProduct());
-		productInventoryVo.setStoragebin(productInventory.getStoragebin());
-		return productInventoryVo;
+	public ProductStockResponseVo setProductStockVo (List productInventoryList) {
+		ProductStockResponseVo productResponse = new ProductStockResponseVo();
+		for(Object productInventory : productInventoryList) {
+			ProductStockVo productStockVo = new ProductStockVo();
+			Object[] projection = (Object[]) productInventory;
+			productStockVo.setProductInventoryId((String) projection[0]); 
+			productStockVo.setAvailableQty((int) projection[1]); 
+			productStockVo.setProductName((String) projection[2]); 
+			productStockVo.setProductId((String) projection[3]); 
+			productStockVo.setStoragebinName((String) projection[4]); 
+			productStockVo.setRow((String) projection[5]); 
+			productStockVo.setStack((String) projection[6]); 
+			productStockVo.setLevel((String) projection[7]);
+			productStockVo.setWarehouseName((String) projection[8]);
+			productResponse.getProductListVo().add(productStockVo);
+		}
+		return productResponse;
 	}
-
+	
 }
