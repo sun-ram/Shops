@@ -12,6 +12,16 @@ public class ProductResponseVo extends ResponseModel{
 	public List<ProductVo> productList;
 	
 	public ProductVo product;
+	
+	String fileInByteArrayString;
+
+	public String getFileInByteArrayString() {
+		return fileInByteArrayString;
+	}
+
+	public void setFileInByteArrayString(String fileInByteArrayString) {
+		this.fileInByteArrayString = fileInByteArrayString;
+	}
 
 	public List<ProductVo> getProduct() {
 		return productList;
@@ -24,6 +34,8 @@ public class ProductResponseVo extends ResponseModel{
 	public void setProduct(ProductVo product) {
 		this.product = product;
 	}
+
+
 	
 
 	

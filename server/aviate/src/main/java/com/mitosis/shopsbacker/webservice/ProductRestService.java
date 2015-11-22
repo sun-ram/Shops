@@ -1,16 +1,33 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -307,5 +324,77 @@ public class ProductRestService {
 		return productResponse;
 
 		}
+	
+	@Path("/product/exportExcelFile")
+	 @GET
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces("application/vnd.ms-excel")
+	 public   Response exportExcelFile(String merchantId){
+		Response productResponse = null;
+		
+		try {
+			Merchant merchant = merchantService.getMerchantById(merchantId);
+			List<Product> productList = getProductService().getProductByMerchant(merchant);
+			
+			   //Blank workbook
+			   XSSFWorkbook workbook = new XSSFWorkbook(); 
+			   
+			   //Create a blank sheet
+			   XSSFSheet sheet = workbook.createSheet("Product Data");
+			   
+			   //This data needs to be written (Object[])
+			   Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
+			   data.put(1, new Object[] {"NAME", "PRICE","UNIT","MEASUREMENT","BRAND"});
+			   
+			   for(int i=0;i<productList.size();i++){
+				   
+				   data.put(i+2, new Object[] {productList.get(i).getName(), 
+						      productList.get(i).getPrice(),productList.get(i).getUnit(),productList.get(i).getUom().getName(),
+						      productList.get(i).getBrand()} );
+				   Set<Integer> keyset = data.keySet();
+				   
+				   int rownum = 0;
+				   for (Integer key : keyset)
+				   {
+				       Row row = sheet.createRow(rownum++);
+				       Object [] objArr = data.get(key);
+				       int cellnum = 0;
+				       for (Object obj : objArr)
+				       {
+				          Cell cell = row.createCell(cellnum++);
+				          if(obj instanceof String)
+				               cell.setCellValue((String)obj);
+				           else if(obj instanceof Integer)
+				               cell.setCellValue((Integer)obj);
+				           else if(obj instanceof Long)
+				               cell.setCellValue((Long)obj);
+				           else if(obj instanceof Double)
+				               cell.setCellValue((Double)obj);          
+				       }
+				   }
+			   
+			   }
+			   Properties properties = new Properties();
+				properties.load(getClass().getResourceAsStream(
+						"/properties/serverurl.properties"));
+				String excelPath = properties.getProperty("excelPath");
+			   File file  = new File(excelPath+"storeProductList.xlsx");
+			   if(!file.exists()){
+				   file.getParentFile().mkdir();
+				   file.createNewFile();
+			   }
+			   FileOutputStream out = new FileOutputStream(file);
+			      workbook.write(out);
+			      out.close();
+			   ResponseBuilder response = Response.ok((Object) file);
+			   response.header("Content-Disposition",
+						"attachment; filename=storeProductList.xlsx");
+					return response.build();
+			  
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return productResponse;
+	  }
 
 }

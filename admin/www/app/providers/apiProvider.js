@@ -657,7 +657,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 		};
 		apiClass.Product.getProductCategory = function (product, callback) {
-			httpRequest("POST", "productcategory/getcategories", product, function (err, data) {
+			httpRequest("POST", "productcategory/getallleafcategorylist", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);

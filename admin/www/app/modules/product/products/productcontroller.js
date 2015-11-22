@@ -5,10 +5,10 @@ angular.module('aviateAdmin.controllers')
 
 
 
-	/*$scope.query = {
+	$scope.query = {
 			limit: 5,
 			page: 1
-	};*/
+	};
 
 	$scope.count = 3;
 	$scope.srch = true;
