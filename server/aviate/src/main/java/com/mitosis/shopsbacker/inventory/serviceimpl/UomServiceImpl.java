@@ -42,7 +42,6 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 	@Transactional
 	public void updateUOM(Uom productUnitOfMeasure) {
 		uomDao.updateUOM(productUnitOfMeasure);
-
 	}
 
 	@Override
@@ -61,9 +60,9 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 	@Transactional
 	public void removeUOM(Uom productUnitOfMeasure) {
 		uomDao.removeUOM(productUnitOfMeasure);
-		
+
 	}
-	
+
 	@Override
 	@Transactional
 	public Uom getUomByName(String name) {
@@ -74,11 +73,14 @@ public class UomServiceImpl<T> implements UomService<T>, Serializable {
 	@Override
 	public UomVo setUomVo(Uom uom) {
 		UomVo uomVo = new UomVo();
-		
+
 		uomVo.setName(uom.getName());
 		uomVo.setDescription(uom.getDescription());
 		return uomVo;
 	}
 
+	public Uom getUom(String uomId, String name) {
+		return uomDao.getUom(uomId, name);
+	}
 
 }

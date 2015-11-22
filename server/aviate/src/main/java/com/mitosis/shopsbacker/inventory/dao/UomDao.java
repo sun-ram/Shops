@@ -20,5 +20,7 @@ public interface UomDao<T> {
 	public Uom getUOMById(String uomId);
 	
 	public Uom getUomByName(String name);
+	
+	public Uom getUom(String uomId,String name);
 
 }

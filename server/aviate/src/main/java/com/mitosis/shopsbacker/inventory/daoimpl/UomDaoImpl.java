@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.UomDao;
-import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Uom;
 
 /**
@@ -39,7 +38,7 @@ public class UomDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public void updateUOM(Uom productUnitOfMeasure) {
 		try {
 			update((T) productUnitOfMeasure);
-		} catch (Exception e) {
+		} catch ( Exception  e) {
 			e.printStackTrace();
 			throw (e);
 		}
@@ -90,7 +89,21 @@ public class UomDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Uom.class);
 			criteria.add(Restrictions.eq("name",name));
-			criteria.add(Restrictions.eq("isactive", 'Y'));
+			//criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (Uom) findUnique(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+	
+	@Override
+	public Uom getUom(String uomId,String name) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Uom.class);
+			criteria.add(Restrictions.eq("name",name));
+			criteria.add(Restrictions.ne("uomId",uomId));
+			//criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (Uom) findUnique(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();

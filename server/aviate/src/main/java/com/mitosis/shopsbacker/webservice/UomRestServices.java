@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -61,7 +63,13 @@ public class UomRestServices<T> {
 			log.info("\n******************************************\n"
 					+ "Initializing the add or update uom service");
 
-			/*Uom uom = getUomService().getUomByName(uomVo.getName());
+			boolean isUpdateProcess = uomVo.getUomId()!=null?true:false;
+			Uom uom =null;
+			if(!isUpdateProcess){
+			  uom = getUomService().getUomByName(uomVo.getName());
+			}else{
+				 uom = getUomService().getUom(uomVo.getUomId(), uomVo.getName());
+			}
 			if (uom != null) {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				response.setErrorString(SBErrorMessage.UOM_NAME_ALREADY_EXIST
@@ -69,10 +77,23 @@ public class UomRestServices<T> {
 				response.setErrorCode(SBErrorMessage.UOM_NAME_ALREADY_EXIST
 						.getCode());
 				return response;
-			}*/
-			setUom(uomVo);
+			}
+			saveUom(uomVo);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
-		} catch (Exception e) {
+		} catch (ConstraintViolationException  e) {
+			log.error(e.getMessage());
+			response.setStatus( SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+			
+		}catch (PersistenceException   e) {
+			if(e.getCause() instanceof ConstraintViolationException){
+				e.printStackTrace();
+			}
+			log.error(e.getMessage());
+			response.setStatus( SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+			
+		}catch (Exception e) {
 			log.error(e.getMessage());
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 			response.setErrorString(e.getMessage());
@@ -157,7 +178,7 @@ public class UomRestServices<T> {
 	 * @param uomVo
 	 * @throws Exception
 	 */
-	private void setUom(UomVo uomVo) throws Exception {
+	private void saveUom(UomVo uomVo) throws Exception {
 		Uom productUnitOfMeasure=null;
 		if(uomVo.getUomId()==null){
 		 productUnitOfMeasure = (Uom) CommonUtil
