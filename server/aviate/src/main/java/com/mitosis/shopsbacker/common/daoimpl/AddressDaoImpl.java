@@ -84,7 +84,7 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 	public List<Country> getCountry() {
 		DetachedCriteria  criteria=  DetachedCriteria.forClass(Country.class);
 		criteria.add(Restrictions.eq("isactive", 'Y'));
-		return (List<Country>) findAll(criteria);
+		return (List<Country>) findAllEh(criteria);
 	}
 
 	@SuppressWarnings("unchecked")

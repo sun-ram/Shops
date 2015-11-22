@@ -18,4 +18,6 @@ public interface MovementLineDao<T> {
 
 	public List<MovementLine> getMovementLineList(Movement movement);
 
+	public MovementLine getMovementLine(String id);
+
 }

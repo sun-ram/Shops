@@ -41,9 +41,26 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.addNewPhysicalInventory = function(physicalinventories){
+	this.addMovement = function(movement){
 		var d = $q.defer();
-		api.PhysicalInventory.addNewPhysicalInventory(physicalinventories, function(err, result){
+		api.PhysicalInventory.addMovement(movement, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					toastr.success(CONSTANT.ADDPHYSICALINVENTORY);
+					d.resolve(result);
+				} else {
+					toastr.error(result.message);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
+	
+	this.addMovementLine = function(movementLine){
+		var d = $q.defer();
+		api.PhysicalInventory.addMovementLine(movementLine, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.ADDPHYSICALINVENTORY);

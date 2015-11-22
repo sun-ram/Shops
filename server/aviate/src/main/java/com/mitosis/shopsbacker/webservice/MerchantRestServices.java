@@ -140,6 +140,8 @@ public class MerchantRestServices<T> {
 			Merchant merchant = merchantService.setMerchant(merchantVo, img);
 
 			merchantService.saveMerchant(merchant);
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

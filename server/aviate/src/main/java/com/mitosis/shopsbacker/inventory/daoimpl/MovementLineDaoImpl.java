@@ -75,4 +75,9 @@ public class MovementLineDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
+	@Override
+	public MovementLine getMovementLine(String id) {
+		return(MovementLine) getSession().get(MovementLine.class, id);
+	}
+
 }

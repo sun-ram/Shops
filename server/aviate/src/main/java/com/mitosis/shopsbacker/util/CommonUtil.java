@@ -227,10 +227,10 @@ public final class CommonUtil {
 		return flag;
 	}
 
-	public String dateToString(String date) {
+	public static String dateToString(Date date) {
 		String dateString = null;
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss") ;
 			dateString = sdf.format(date);
 		} catch (Exception e) {
 			e.printStackTrace();

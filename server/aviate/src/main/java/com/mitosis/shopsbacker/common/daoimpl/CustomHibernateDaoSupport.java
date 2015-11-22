@@ -66,5 +66,10 @@ public class CustomHibernateDaoSupport<T> {
 	public List<T> findAll(Criteria criteria) {
 		return criteria.list();
 	}
+	
+	public List<T> findAllEh(DetachedCriteria criteria) {
+		criteria.getExecutableCriteria(getSession()).setCacheable(true);
+		return ((DetachedCriteria) criteria).getExecutableCriteria(getSession()).list();
+	}
 
 }

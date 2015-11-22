@@ -17,7 +17,7 @@ import com.mitosis.shopsbacker.model.MovementLine;
  */
 @Service("movementLineServiceImpl")
 public class MovementLineServiceImpl<T> implements MovementLineService<T>,
-		Serializable {
+Serializable {
 
 	@Autowired
 	MovementLineDao<T> movementLineDao;
@@ -50,6 +50,11 @@ public class MovementLineServiceImpl<T> implements MovementLineService<T>,
 	public void removeMovementLineByMovement(Movement movement) {
 		movementLineDao.removeMovementLineByMovement(movement);
 
+	}
+
+	@Override
+	public MovementLine getMovementLine(String id) {
+		return movementLineDao.getMovementLine(id);
 	}
 
 }

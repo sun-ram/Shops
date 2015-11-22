@@ -42,8 +42,8 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 
 	@Override
 	@Transactional
-	public void deleteMovement(Movement movement) {
-		movementDao.deleteMovement(movement);
+	public void deleteMovement(String movementId) {
+		movementDao.deleteMovement(getMovement(movementId));
 	}
 
 	@Override

@@ -211,7 +211,7 @@ angular.module('app')
 				controller : 'physicalinventorycontroller',
 				 resolve:   {
 					 physicalinventorys:  function(PhysicalInventoryServices, $http, $stateParams, $rootScope){
-	                        return PhysicalInventoryServices.getInventory({'storeId':$rootScope.user.storeId}).then(function(data){
+	                        return PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 	                        	return data;
 	        				});
 	                        

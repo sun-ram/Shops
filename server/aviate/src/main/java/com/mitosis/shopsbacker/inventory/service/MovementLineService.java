@@ -9,6 +9,8 @@ import com.mitosis.shopsbacker.model.MovementLine;
  * @author RiyazKhan.M
  */
 public interface MovementLineService<T> {
+	
+	public MovementLine getMovementLine(String id);
 
 	public void addMovementLine(MovementLine movementLine);
 

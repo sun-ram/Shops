@@ -13,7 +13,7 @@ public interface MovementService<T> {
 	
 	public void addMovement(Movement movement);
 	
-	public void deleteMovement(Movement movement);
+	public void deleteMovement(String movementId);
 	
 	public void updateMovement(Movement movement);
 	
