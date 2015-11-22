@@ -95,10 +95,10 @@
 
 		<div class="padd-lrtb30">
 			<div class="md-layout-row layout-align-start-center pt_relat">
-				<img  style="width: 100px;"  src="{{OriginalFrontImage}}"
+				<img ng-show="originalFrontImage" style="width: 100px;"  src="{{image.originalFrontImage}}"
 					class="img-circle" height="100" ng-required="true" /> 
 					
-				<img  style="width: 100px;" src={{product.image.url}}
+				<img ng-hide="originalFrontImage"  style="width: 100px;" src={{product.image.url}}
 					class="img-circle" height="100" ng-required="true" />
 					
 					<label
@@ -114,6 +114,28 @@
 
 			</div>
 		</div>
+		
+		<div class="padd-lrtb30">
+			<div class="md-layout-row layout-align-start-center pt_relat">
+				<img ng-show="originalBackImage"  style="width: 100px;"  src="{{image.originalBackImage}}"
+					class="img-circle" height="100" ng-required="true" /> 
+					
+				<img ng-hide="originalBackImage"  style="width: 100px;" src={{product.image.url}}
+					class="img-circle" height="100" ng-required="true" />
+					
+					<label
+					id="file-uploadtest"> <ng-md-icon icon="file_upload"
+						size="20"></ng-md-icon> <input id="file-upload1" type="file"
+					ng-model="image.originalBackImage" class="nodisplay"
+					app-filereader ng-change="uploadFile('file-name1','file-upload1')" />
+					
+					<span id="file-name1"></span>
+				</label>
+				<h3 style="padding: 0px 10px;" class="md-layout-column">Original
+					Back Image</h3>
+
+			</div>
+		</div>		
 	</div>
 
 

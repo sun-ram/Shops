@@ -20,11 +20,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -334,66 +338,45 @@ public class ProductRestService {
 	 @GET
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces("application/vnd.ms-excel")
-	 public   Response exportExcelFile(String merchantId){
+	 public   Response exportExcelFile(@QueryParam("merchantId") String merchantId){
 		Response productResponse = null;
 		
 		try {
 			Merchant merchant = merchantService.getMerchantById(merchantId);
 			List<Product> productList = getProductService().getProductByMerchant(merchant);
 			
-			   //Blank workbook
-			   XSSFWorkbook workbook = new XSSFWorkbook(); 
-			   
-			   //Create a blank sheet
-			   XSSFSheet sheet = workbook.createSheet("Product Data");
-			   
-			   //This data needs to be written (Object[])
-			   Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
-			   data.put(1, new Object[] {"NAME", "PRICE","UNIT","MEASUREMENT","BRAND"});
-			   
-			   for(int i=0;i<productList.size();i++){
-				   
-				   data.put(i+2, new Object[] {productList.get(i).getName(), 
-						      productList.get(i).getPrice(),productList.get(i).getUnit(),productList.get(i).getUom().getName(),
-						      productList.get(i).getBrand()} );
-				   Set<Integer> keyset = data.keySet();
-				   
-				   int rownum = 0;
-				   for (Integer key : keyset)
-				   {
-				       Row row = sheet.createRow(rownum++);
-				       Object [] objArr = data.get(key);
-				       int cellnum = 0;
-				       for (Object obj : objArr)
-				       {
-				          Cell cell = row.createCell(cellnum++);
-				          if(obj instanceof String)
-				               cell.setCellValue((String)obj);
-				           else if(obj instanceof Integer)
-				               cell.setCellValue((Integer)obj);
-				           else if(obj instanceof Long)
-				               cell.setCellValue((Long)obj);
-				           else if(obj instanceof Double)
-				               cell.setCellValue((Double)obj);          
-				       }
-				   }
-			   
-			   }
-			   Properties properties = new Properties();
-				properties.load(getClass().getResourceAsStream(
-						"/properties/serverurl.properties"));
-				String excelPath = properties.getProperty("excelPath");
-			   File file  = new File(excelPath+"storeProductList.xlsx");
-			   if(!file.exists()){
-				   file.getParentFile().mkdir();
-				   file.createNewFile();
-			   }
-			   FileOutputStream out = new FileOutputStream(file);
-			      workbook.write(out);
-			      out.close();
+			HSSFWorkbook workbook = new HSSFWorkbook();
+           HSSFSheet sheet = workbook.createSheet("FirstSheet");  
+
+           HSSFRow rowhead = sheet.createRow((short)0);
+           rowhead.createCell(0).setCellValue("Name");
+           rowhead.createCell(1).setCellValue("Price");
+           rowhead.createCell(2).setCellValue("Unit");
+           rowhead.createCell(3).setCellValue("Measure");
+           rowhead.createCell(4).setCellValue("Brand");
+
+           for(int i=0;i<productList.size();i++){
+           HSSFRow row = sheet.createRow((short)i+1);
+           row.createCell(0).setCellValue(productList.get(i).getName());
+           row.createCell(1).setCellValue(productList.get(i).getPrice().toString());
+           row.createCell(2).setCellValue(productList.get(i).getUnit().toString());
+           row.createCell(3).setCellValue(productList.get(i).getUom().getName());
+           row.createCell(4).setCellValue(productList.get(i).getBrand());
+           }
+           Properties properties = new Properties();
+			properties.load(getClass().getResourceAsStream(
+					"/properties/serverurl.properties"));
+			String excelPath = properties.getProperty("excelPaths");
+		   File file  = new File(excelPath+"storeProductList.xls");
+		   
+           FileOutputStream fileOut = new FileOutputStream(file);
+           workbook.write(fileOut);
+           fileOut.close();
+           System.out.println("Your excel file has been generated!");
+
 			   ResponseBuilder response = Response.ok((Object) file);
 			   response.header("Content-Disposition",
-						"attachment; filename=storeProductList.xlsx");
+						"attachment; filename=storeProductList.xls");
 					return response.build();
 			  
 		} catch (Exception e) {
@@ -401,6 +384,7 @@ public class ProductRestService {
 		}
 		return productResponse;
 	  }
+
 	
 	@Path("/excelupload")
 	@POST

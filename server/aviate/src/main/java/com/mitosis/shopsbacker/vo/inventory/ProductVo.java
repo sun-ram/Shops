@@ -1,10 +1,13 @@
 package com.mitosis.shopsbacker.vo.inventory;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.model.Discount;
+import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
@@ -31,6 +34,7 @@ public class ProductVo {
 	private boolean isYourHot;
 	private BigDecimal unit;
 	private String description;
+	private List<ProductImage> productImages = new ArrayList<ProductImage>();
 	public String getProductId() {
 		return productId;
 	}
@@ -120,6 +124,15 @@ public class ProductVo {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public List<ProductImage> getProductImages() {
+		return productImages;
+	}
+	public void setProductImages(List<ProductImage> productImages) {
+		this.productImages = productImages;
+	}
+	public void setYourHot(boolean isYourHot) {
+		this.isYourHot = isYourHot;
 	}
 
 
