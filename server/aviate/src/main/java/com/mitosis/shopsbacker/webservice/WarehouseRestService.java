@@ -106,12 +106,12 @@ public class WarehouseRestService {
 			for(Warehouse warehouse:listOfWarehouses){
 				WarehouseVo warehouseVoObj = setWarehouseVO(warehouse);
 				  List<Storagebin> storagebins = warehouse.getStoragebins();
-				List<StoragebinVo>  listOfstoragebinVO = new ArrayList<StoragebinVo>();
+				List<StoragebinVo>  listOfstoragebinVo = new ArrayList<StoragebinVo>();
 				for(Storagebin storagebin:storagebins){
 					StoragebinVo storagebinVo = setStoragebinVO(storagebin);
-					listOfstoragebinVO.add(storagebinVo);
+					listOfstoragebinVo.add(storagebinVo);
 				}
-				warehouseVoObj.setStoragebins(listOfstoragebinVO);
+				warehouseVoObj.setStoragebins(listOfstoragebinVo);
 				listOFwarehouseVo.add(warehouseVoObj);
 			}
 			response.setWarehouses(listOFwarehouseVo);
@@ -164,7 +164,7 @@ public class WarehouseRestService {
 	 * @param warehouse
 	 * @return
 	 */
-	private WarehouseVo setWarehouseVO(Warehouse warehouse) {
+	public WarehouseVo setWarehouseVO(Warehouse warehouse) {
 		WarehouseVo warehouseVoObj=new WarehouseVo();
 		warehouseVoObj.setName(warehouse.getName());
 		warehouseVoObj.setDescription(warehouse.getDescription());

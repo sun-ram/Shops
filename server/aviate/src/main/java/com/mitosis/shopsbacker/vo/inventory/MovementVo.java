@@ -11,7 +11,7 @@ import com.mitosis.shopsbacker.model.Warehouse;
 public class MovementVo {
 	private String movementId;
 	private Merchant merchant;
-	private Warehouse warehouse;
+	private WarehouseVo warehouse;
 	private Store store;
 	private String name;
 	private char ismoved;
@@ -32,10 +32,10 @@ public class MovementVo {
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
 	}
-	public Warehouse getWarehouse() {
+	public WarehouseVo getWarehouse() {
 		return warehouse;
 	}
-	public void setWarehouse(Warehouse warehouse) {
+	public void setWarehouse(WarehouseVo warehouse) {
 		this.warehouse = warehouse;
 	}
 	public Store getStore() {

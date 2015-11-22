@@ -1,13 +1,11 @@
 package com.mitosis.shopsbacker.vo.inventory;
 
-import com.mitosis.shopsbacker.model.Product;
-import com.mitosis.shopsbacker.model.Storagebin;
 
 public class MovementLineVo {
 	private String movementLineId;
 	private StoragebinVo fromStoragebin;
 	private StoragebinVo toStoragebin;
-	private Product product;
+	private ProductVo product;
 	private int qty;
 
 	public String getMovementLineId() {
@@ -34,11 +32,11 @@ public class MovementLineVo {
 		this.toStoragebin = toStoragebin;
 	}
 
-	public Product getProduct() {
+	public ProductVo getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(ProductVo product) {
 		this.product = product;
 	}
 

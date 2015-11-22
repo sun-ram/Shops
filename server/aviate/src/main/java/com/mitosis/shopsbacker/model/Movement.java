@@ -4,10 +4,9 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -192,7 +191,7 @@ public class Movement implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movement")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "movement", cascade=CascadeType.ALL)
 	public List<MovementLine> getMovementLines() {
 		return this.movementLines;
 	}
