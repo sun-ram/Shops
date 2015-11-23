@@ -147,6 +147,19 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		});
 	};
 	
+	$scope.getListOfStoragebin = function(){
+		localStorage.removeItem('storagebin');
+		$scope.storagebin = {};
+		$scope.storagebin.store={};
+		$scope.storagebin.store.storeId = $rootScope.user.storeId;
+		WarehouseService.getListOfStoragebin($scope.storagebin).then(function(data) {
+			$scope.listOfWarehouse = data.warehouses;
+			$scope.listOfStoragebins = data.storagebins;
+			$scope.shopList();
+			
+		});
+	};
+	
 	$scope.addStorageBin = function(){
 		localStorage.setItem('storagebin',null);
 		$state.go('app.addStorageBin');

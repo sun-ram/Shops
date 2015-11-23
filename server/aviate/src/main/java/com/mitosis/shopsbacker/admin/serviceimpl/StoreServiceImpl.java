@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,19 +13,16 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
-import com.mitosis.shopsbacker.model.Customer;
-import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Role;
-import com.mitosis.shopsbacker.model.SalesOrder;
+import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.RoleName;
-import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
+import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
 
 /**
  * @author JAI BHARATHI
@@ -100,9 +96,11 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional(propagation=Propagation.REQUIRED)
 	public Store getStoreById(String storeId) {
-		return storeDao.getStoreById(storeId);
+		Store store = storeDao.getStoreById(storeId);
+	//	List<Warehouse> warehouses = store.getWarehouses();
+		return store;
 	}
 
 	@Override
@@ -183,5 +181,20 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 		return storeDao.getStoreList();
 	}
 
+	/**
+	 * @author Anbukkani Gajendran
+	 * @param storagebin
+	 * @return StoragebinVo
+	 */
+	public StoragebinVo setStoragebinVO(Storagebin storagebin) {
+		StoragebinVo storagebinVo=new StoragebinVo();
+		storagebinVo.setName(storagebin.getName());
+		storagebinVo.setDescription(storagebin.getDescription());
+		storagebinVo.setLevel(storagebin.getLevel());
+		storagebinVo.setRow(storagebin.getRow());
+		storagebinVo.setStack(storagebin.getStack());
+		storagebinVo.setStoragebinId(storagebin.getStoragebinId());
+		return storagebinVo;
+	}
 
 }

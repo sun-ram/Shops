@@ -6,9 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.inventory.dao.WarehouseDao;
 import com.mitosis.shopsbacker.inventory.service.WarehouseService;
@@ -43,33 +41,27 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>,
 	}
 
 	@Override
-	@Transactional
 	public void addWarehouse(Warehouse warehouse) {
-
 		warehouseDao.addWarehouse(warehouse);
 	}
 
 	@Override
-	@Transactional
 	public void deleteWarehouse(String warehouseId) {
 		Warehouse warehouse = warehouseDao.getWarehouse(warehouseId);
 		warehouseDao.deleteWarehouse(warehouse);
 	}
 
 	@Override
-	@Transactional
 	public Warehouse getWarehouse(String warehouseId) {
 		return warehouseDao.getWarehouse(warehouseId);
 	}
 
 	@Override
-	@Transactional
 	public void updateWarehouse(Warehouse warehouse) {
 		warehouseDao.updateWarehouse(warehouse);
 	}
 
 	@Override
-	@Transactional
 	public List<Warehouse> getWarehouse(String warehouseName, Store store) {
 		
 		return warehouseDao.getWarehouse(warehouseName, store);
@@ -113,7 +105,6 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>,
 	}
 
 	@Override
-	@Transactional
 	public List<Warehouse> getWarehouse(String warehouseId, String warehouseName, Store store) {
 		
 		return warehouseDao.getWarehouse(warehouseId,warehouseName, store);

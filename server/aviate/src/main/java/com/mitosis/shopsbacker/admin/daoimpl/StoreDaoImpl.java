@@ -3,12 +3,14 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
@@ -25,7 +27,7 @@ import com.mitosis.shopsbacker.model.User;
  * 
  */
 @Repository
-@Transactional
+
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		StoreDao<T>, Serializable {
 
@@ -60,7 +62,12 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	@Override
 	public Store getStoreById(String id) {
 		try {
-			return (Store) getSession().get(Store.class, id);
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
+			criteria.add(Restrictions.eq("storeId", id));
+			Store store=(Store)findUnique(criteria);
+		//	Store store=(Store) getSession().get(Store.class, id);
+		//	Hibernate.initialize(store.getWarehouses());
+			return store;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

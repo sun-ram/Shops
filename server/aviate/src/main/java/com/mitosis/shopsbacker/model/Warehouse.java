@@ -4,9 +4,7 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -112,7 +110,7 @@ public class Warehouse implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "MERCHANT_ID", nullable = false)
 	public Merchant getMerchant() {
 		return this.merchant;
@@ -122,7 +120,7 @@ public class Warehouse implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "STORE_ID", nullable = false)
 	public Store getStore() {
 		return this.store;
@@ -188,7 +186,7 @@ public class Warehouse implements java.io.Serializable {
 		this.movements = movements;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "warehouse")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
 	public List<Storagebin> getStoragebins() {
 		return this.storagebins;
 	}
@@ -197,7 +195,7 @@ public class Warehouse implements java.io.Serializable {
 		this.storagebins = storagebins;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ADDRESS_ID")
 	public Address getAddress() {
 		return this.address;

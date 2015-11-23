@@ -3,8 +3,11 @@
  */
 package com.mitosis.shopsbacker.responsevo;
 
+import java.util.List;
+
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
+import com.mitosis.shopsbacker.vo.inventory.WarehouseVo;
 
 /**
  * @author Anbukkani Gajendran
@@ -12,20 +15,19 @@ import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
  */
 public class StoragebinResponseVo extends ResponseModel {
 
-	private StoragebinVo storagebinVo;
-
-	/**
-	 * @return the storagebinVo
-	 */
-	public StoragebinVo getStoragebinVo() {
-		return storagebinVo;
+	private List<StoragebinVo> storagebins;
+	private List<WarehouseVo> Warehouses;
+	
+	public List<StoragebinVo> getStoragebins() {
+		return storagebins;
 	}
-
-	/**
-	 * @param storagebinVo
-	 *            the storagebinVo to set
-	 */
-	public void setStoragebinVo(StoragebinVo storagebinVo) {
-		this.storagebinVo = storagebinVo;
+	public void setStoragebins(List<StoragebinVo> storagebins) {
+		this.storagebins = storagebins;
+	}
+	public List<WarehouseVo> getWarehouses() {
+		return Warehouses;
+	}
+	public void setWarehouses(List<WarehouseVo> warehouses) {
+		Warehouses = warehouses;
 	}
 }

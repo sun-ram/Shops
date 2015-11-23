@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
 
 /**
  * @author JAI BHARATHI
@@ -37,6 +39,8 @@ public interface StoreService<T> {
 	public void setStore(Store store, StoreVo storeVo)throws Exception;
 	
 	public List<Store> getStoreList();
+	
+	public StoragebinVo setStoragebinVO(Storagebin storagebin);
 	
 	
 }

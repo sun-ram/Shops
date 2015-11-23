@@ -430,6 +430,21 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		apiClass.Warehouse.getStoragebins = function (storageBin, callback) {
+			httpRequest("POST", "storagebin/getstoragebins", storageBin, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		
 		apiClass.Warehouse.warehouseBins = function (warehouse, callback) {
 			httpRequest("POST", "inventoryline/storagebinlist", warehouse, function (err, data) {
 				if (err) {

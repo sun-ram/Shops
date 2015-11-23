@@ -1,15 +1,15 @@
 	<md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;"ng-click="addStorageBin()">
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getWarehouse()">
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getListOfStoragebin()">
  <md-toolbar class=" md-default-theme">
 	<div class="md-toolbar-tools" layout="row">
   		<h2 layout-align="start">Storagebin</h2>
     	<span class="flex"></span>
     	 <md-input-container layout-padding flex>
        			<label>Warehouse<span style="color:red">*</span></label>
-         		<md-select ng-model="whouse" ng-required="true" ng-change = "setStoragebin(whouse)">
-		            <md-option ng-repeat="warehouse in getWarehouseList" value="{{warehouse}}">
+         		<md-select ng-model="whouse" ng-required="true">
+		            <md-option ng-repeat="warehouse in listOfWarehouse" value="{{warehouse.warehouseId}}" >
 		              {{warehouse.name}}
 		            </md-option>
           		</md-select>
@@ -31,7 +31,7 @@
    <md-card-content class="nopaddtop">
 		<md-data-table-container>
      <md-list>
-       <md-item ng-repeat="storagebin in storagebins | filter:searchText | orderBy: storagebinPagination.order | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
+       <md-item ng-repeat="storagebin in listOfStoragebins | filter:whouse | orderBy: storagebinPagination.order | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid">
            		<span flex=5 class="padd-5-3"><ng-md-icon icon="store" size="30"></ng-md-icon></span>
@@ -42,7 +42,13 @@
               <span  class="hash_color padd-l8 ft-14">{{storagebin.row}} - {{storagebin.stack}} - {{storagebin.level}}</span>
                           
            	</span>
-           	  <span flex=25 layout="row" layout-align="start end">
+           	<span flex=25 layout="row" layout-align="start end">
+             	<span class="ft-14 hash_color">{{storagebin.warehouse.name}}</span>
+           	 </span>
+           	 <span flex=25 layout="row" ng-hide=true layout-align="start end">
+             	<span class="ft-14 hash_color">{{storagebin.warehouse.warehouseId}}</span>
+           	 </span>
+           	 <span flex=25 layout="row" layout-align="start end">
              	<span class="ft-14 hash_color">{{storagebin.description}}</span>
            	 </span>
              <span flex=15 layout="row" layout-align="center center">

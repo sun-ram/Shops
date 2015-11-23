@@ -3,6 +3,7 @@
  */
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,6 +16,8 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.StoragebinService;
@@ -26,6 +29,7 @@ import com.mitosis.shopsbacker.responsevo.StoragebinResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
+import com.mitosis.shopsbacker.vo.inventory.WarehouseVo;
 
 /**
  * @author Anbukkani Gajendran
@@ -48,6 +52,7 @@ public class StoragebinRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public StoragebinResponseVo addStorageBin(StoragebinVo storagebinVo) {
 		StoragebinResponseVo response = new StoragebinResponseVo();
 		try {
@@ -89,6 +94,7 @@ public class StoragebinRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public StoragebinResponseVo deletedStorageBin(StoragebinVo storagebinVo) {
 		StoragebinResponseVo response = new StoragebinResponseVo();
 		try {
@@ -103,6 +109,43 @@ public class StoragebinRestService {
 		return response;
 	}
 
+	@Path("/getstoragebins")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
+	public StoragebinResponseVo getStorageBins(StoragebinVo storagebinVo) {
+		StoragebinResponseVo response = new StoragebinResponseVo();
+		try {
+			String storeId = storagebinVo.getStore().getStoreId();	
+			Store store = storeService.getStoreById(storeId);
+			List<Warehouse> listOfWarehouses = store.getWarehouses();
+			List<WarehouseVo> listOFwarehouseVo= new ArrayList<WarehouseVo>();
+			List<StoragebinVo>  listOfstoragebinVo = new ArrayList<StoragebinVo>();
+			for(Warehouse warehouse:listOfWarehouses){
+				WarehouseVo warehouseVoObj = new WarehouseVo();
+				warehouseVoObj.setWarehouseId(warehouse.getWarehouseId());
+				warehouseVoObj.setName(warehouse.getName());
+				  List<Storagebin> storagebins = warehouse.getStoragebins();
+				for(Storagebin storagebin:storagebins){
+					StoragebinVo storagebinvo = storeService.setStoragebinVO(storagebin);
+					storagebinvo.setWarehouse(warehouseVoObj);
+					listOfstoragebinVo.add(storagebinvo);
+				}
+				listOFwarehouseVo.add(warehouseVoObj);
+			}
+			response.setStoragebins(listOfstoragebinVo);
+			response.setWarehouses(listOFwarehouseVo);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue()); 
+			response.setErrorString(e.getMessage());
+		}
+		return response;
+	}
+
+	
 	/**
 	 * @author Anbukkani Gajendran
 	 * @param storagebinVo,isUpdate
@@ -134,4 +177,5 @@ public class StoragebinRestService {
 		return storagebin;
 	}
 
+	
 }

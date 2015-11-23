@@ -4,9 +4,7 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -122,7 +120,7 @@ public class Storagebin implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "MERCHANT_ID", nullable = false)
 	public Merchant getMerchant() {
 		return this.merchant;
@@ -132,7 +130,7 @@ public class Storagebin implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "WAREHOUSE_ID", nullable = false)
 	public Warehouse getWarehouse() {
 		return this.warehouse;
@@ -142,7 +140,7 @@ public class Storagebin implements java.io.Serializable {
 		this.warehouse = warehouse;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "STORE_ID", nullable = false)
 	public Store getStore() {
 		return this.store;
