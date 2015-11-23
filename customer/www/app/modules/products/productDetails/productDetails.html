@@ -15,7 +15,7 @@
 			<zoom mark-height="50" mark-width="50"  src="{{image}}" zoom-lvl="{{zoomLvl}}"></zoom>
 			<!-- 	<img src="assets/images/fruit.jpg" height="250px" border="1"> -->
 			</div>
-			<div layout="row" flex="100" layout-align="start center">
+			<div layout="row" flex="100" layout-align="start center"> 
 				
 				<div flex="30" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALFRONT'" style="padding: 5px" ng-init="changeimage(image.imageUrl)">
 					<img  src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
@@ -29,7 +29,7 @@
 			<div>
 				<h1 style="color: green">{{productDetails.name}}</h1>
 				<span style="font-style: italic; font-size: 22px; font-weight: bold; ">{{productDetails.unit}}{{productDetails.uom.name}}}</span>
-				<p style="color: grey;">{{productDetails.uom.name}}}</p>
+				<p style="color: grey;">{{productDetails.uom.name}}</p>
 				<p style="font-size: 22px;"><span style="font-style: italic;">Effective Price: </span> <b style="color: red;"> Rs. {{productDetails.price}}</b></p>
 			</div>
 			<div>
@@ -61,7 +61,7 @@
 									<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white; height: 20px; margin-top: -4px;"></md-icon>Cart</div>
 									<div flex="40" ng-show="productDetails.noOfQuantityInCart > 0" style="text-align:center;font-size:20px" class="md-subhead">{{productDetails.noOfQuantityInCart}}</div>
 
-									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;removeFromMyCart(productDetails,index)">
+									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
 										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
 											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
 									</div>

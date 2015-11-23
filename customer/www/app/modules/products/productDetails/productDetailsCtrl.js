@@ -6,7 +6,7 @@ angular.module('aviate.controllers')
 			$scope.productDetails = $rootScope.productDetails;
 			for(var i=0;i<$scope.productDetails.productImages.length;i++){
 				if($scope.productDetails.productImages[i].imagePosition == "ORIGINALFRONT"){
-					$scope.image = $scope.productDetails.productImages[i].imageUrl;
+					$scope.image = $scope.productDetails.image.url;
 					//$scope.changeimage($rootScope.productDetails.productImages[i].imageUrl);
 				}
 			}
