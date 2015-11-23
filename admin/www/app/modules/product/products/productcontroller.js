@@ -1,9 +1,11 @@
 angular.module('aviateAdmin.controllers')
-.controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices',
-                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices) {
+.controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig',
+                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig) {
 	/*==========Get All Product Details==========*/
 
-
+	$scope.downloadExcel = myConfig.backend;
+	
+	$scope.excelUrl = $scope.downloadExcel +"product/exportExcelFile?merchantId="+ $rootScope.user.merchantId;
 
 	$scope.query = {
 			limit: 5,
@@ -21,7 +23,7 @@ angular.module('aviateAdmin.controllers')
 				"merchantId":$rootScope.user.merchantId
 		}
 		ProductService.getAllProductList($scope.product).then(function(data) {
-
+			
 			$scope.productList = data.productList;
 
 			console.log($scope.productList);
@@ -68,12 +70,7 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.addproduct = function() {
 		
-		if ($scope.product.productId == null && ($scope.image.originalFrontImage == undefined || $scope.image.originalFrontImage=="")) {
-			toastr.warning("Please select Original Front Image");
-			return;
-		} 
-		else {
-			if($scope.image.originalFrontImage){
+			if($scope.image.originalFrontImage || $scope.product.productId){
 			/* Orginal Front Image base64 Start*/
 			$scope.product.image ={};
 			$scope.product.image.image =$scope.image.originalFrontImage.split(",")[1];
@@ -82,9 +79,25 @@ angular.module('aviateAdmin.controllers')
 
 			/* Orginal Front Image Type Start*/
 			$scope.product.image.type = $scope.product.image ? ($scope.image.originalFrontImage.substring(11).split(";")[0]) : "",
-					$scope.product.image.name ="OriginalImage";
+					$scope.product.image.name ="OriginalFrontImage";
 					/* Orginal Front Image Type End*/
 			}
+			
+			if($scope.image.originalBackImage){
+				/* Orginal Front Image base64 Start*/
+				$scope.product.productImages =[];
+				$scope.image ={};
+				$scope.image.image =$scope.image.originalBackImage.split(",")[1];
+
+				/* Orginal Front Image base64 End*/
+
+				/* Orginal Front Image Type Start*/
+				$scope.image.type = $scope.product.image ? ($scope.image.originalBackImage.substring(11).split(";")[0]) : "",
+						$scope.image.name ="OriginalBackImage";
+						/* Orginal Front Image Type End*/
+				
+				$scope.product.productImages.push({image:$scope.image});
+				}
 					$scope.product.merchant = {};
 					$scope.product.merchant.merchantId = $rootScope.user.merchantId;
 					ProductService.addProduct($scope.product).then(function(data) {
@@ -110,7 +123,7 @@ angular.module('aviateAdmin.controllers')
 					})
 
 
-		}
+		
 	}
 
 	$scope.editproduct = function(products) {

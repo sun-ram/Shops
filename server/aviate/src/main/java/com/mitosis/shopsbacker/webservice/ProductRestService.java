@@ -334,7 +334,7 @@ public class ProductRestService {
 
 		}
 	
-	@Path("/product/exportExcelFile")
+	@Path("/exportExcelFile")
 	 @GET
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces("application/vnd.ms-excel")
