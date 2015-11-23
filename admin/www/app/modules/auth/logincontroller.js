@@ -61,12 +61,12 @@ angular.module('aviateAdmin.controllers')
 		AuthService.login(userInfo).then(function(data) {
 			$rootScope.user = data;
 			if ($rootScope.user.role == 'SUPERADMIN') {
-				$state.go('app.merchants');
+				$state.go('app.super_admin_dashboard');
 			} else if($rootScope.user.role == 'MERCHANTADMIN') {
-				$state.go('app.store');
+				$state.go('app.merchant_admin_dashboard');
 				//$state.go('app.addproducttype');
 			}else if($rootScope.user.role == 'STOREADMIN'){
-				$state.go('app.products');
+				$state.go('app.store_admin_dashboard');
 			}else {
 				toastr.error("Invalied User");
 			}
