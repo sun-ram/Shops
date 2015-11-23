@@ -26,7 +26,7 @@ angular.module('aviate.services')
 		api.Location.getStoreByLocation(location, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.shoplist);
+					d.resolve(result.store);
 				} else {
 					toastr.error(result.errorString);
 				}

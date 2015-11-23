@@ -54,15 +54,15 @@ md-ink-bar{top:115px;}
       
    <md-tabs ng-if="((!checked)&&(storeList.length>0))"md-stretch-tabs="auto">
       <md-tab  ng-click = "changeStore(store)" ng-repeat="store in storeList">
-     <img  ng-src="{{store.merchantLogo}}" class="md-avatar chs-img"></br>
-      <label>{{store.storeName}}</label>
+     <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
+      <label>{{store.name}}</label>
       </md-tab>
     </md-tabs>
     
      <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" md-stretch-tabs="auto">
       <md-tab ng-click = "changeStore(store)" ng-repeat="store in filterStoreList">
-      <img  ng-src="{{store.merchantLogo}}" class="md-avatar chs-img"></br>
-      <label>{{store.storeName}}</label>
+      <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
+      <label>{{store.name}}</label>
       </md-tab>
     </md-tabs>
     

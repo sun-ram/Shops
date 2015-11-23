@@ -177,7 +177,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Location.getStoreByLocation = function (location, callback) {
-			httpRequest("POST", "product/getshoplist", location, function (err, data) {
+			httpRequest("POST", "store/getshoplist", location, function (err, data) {
 				if (err) {
 
 					callback(err, null);
