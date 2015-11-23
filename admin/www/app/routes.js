@@ -341,6 +341,23 @@ angular.module('app')
 			url: '/banner/editbanner',
 			templateUrl: 'app/modules/banner/editBanner/editbanner.html',
 			controller : 'editBannerCtrl'
+		})
+		
+		//Dashboard 
+		.state('app.super_admin_dashboard', {
+			url: '/dashboard/superadmin',
+			templateUrl: 'app/modules/dash_board/super_admin/superAdmin.html',
+			controller : 'superDashboardCtrl'
+		})
+		.state('app.merchant_admin_dashboard', {
+			url: '/dashboard/merchantadmin',
+			templateUrl: 'app/modules/dash_board/merchant_admin/merchantAdmin.html',
+			controller : 'merchantDashboardCtrl'
+		})
+		.state('app.store_admin_dashboard', {
+			url: '/dashboard/storeadmin',
+			templateUrl: 'app/modules/dash_board/strore_admin/storeAdmin.html',
+			controller : 'storeDashboardCtrl'
 		});
 	
 	
