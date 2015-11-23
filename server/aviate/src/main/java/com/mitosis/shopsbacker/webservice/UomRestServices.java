@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.PersistenceException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -29,6 +27,7 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 /**
  * @author Anbukkani Gajendran
@@ -80,29 +79,20 @@ public class UomRestServices<T> {
 			}
 			saveUom(uomVo);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
-		} catch (ConstraintViolationException  e) {
-			log.error(e.getMessage());
-			response.setStatus( SBMessageStatus.FAILURE.getValue());
-			response.setErrorString(e.getMessage());
-			
-		}catch (PersistenceException   e) {
-			if(e.getCause() instanceof ConstraintViolationException){
-				e.printStackTrace();
-			}
-			log.error(e.getMessage());
-			response.setStatus( SBMessageStatus.FAILURE.getValue());
-			response.setErrorString(e.getMessage());
 			
 		}catch (Exception e) {
-			log.error(e.getMessage());
+			String errormMessage = CommonUtil.getErrorMessage(e);
+			log.error(errormMessage);
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
-			response.setErrorString(e.getMessage());
+			response.setErrorString(errormMessage);
 			response.setErrorCode("");
 		}
 		log.info("\n******************************************\n"
 				+ "Response of the add or update uom service");
 		return response;
 	}
+
+	
 
 	@Path("getuoms")
 	@POST

@@ -29,6 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 public final class CommonUtil {
@@ -343,4 +344,22 @@ public final class CommonUtil {
 		return flag;
 	}
 
+	/**
+	 * Get proper error message from exception 
+	 * 
+	 * @author Anbukkani Gajendran
+	 * @param Exception
+	 * @return errormMessage
+	 */
+	public static String getErrorMessage(Exception e) {
+		String errormMessage=e.getMessage();
+		while(e != null){
+			if(e instanceof MySQLIntegrityConstraintViolationException ){
+			 errormMessage= e.getLocalizedMessage();
+			 break;
+			}
+			e=(Exception) e.getCause();
+		}
+		return errormMessage;
+	}
 }
