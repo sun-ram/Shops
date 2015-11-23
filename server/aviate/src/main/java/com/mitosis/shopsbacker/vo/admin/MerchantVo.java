@@ -1,10 +1,13 @@
 package com.mitosis.shopsbacker.vo.admin;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class MerchantVo {
 	private String merchantId;
 	private String name;

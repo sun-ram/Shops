@@ -7,7 +7,7 @@ public class StoreVo {
 	
 	private String storeId;
 	private UserVo user;
-	private MerchantVo merchant;
+	private MerchantVo merchant=new MerchantVo();
 	private String name;
 	public String getStoreId() {
 		return storeId;

@@ -15,16 +15,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.responsevo.ProductCategoryResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 
 @Path("productcategory")
 @Controller("productCategoryRestServices")
@@ -38,6 +43,9 @@ public class ProductCategoryRestServices<T> {
 
 	@Autowired
 	ProductTypeService<T> productTypeService;
+
+	@Autowired
+	StoreService<T> storeService;
 
 	@Path("/addparentcategory")
 	@POST
@@ -303,6 +311,61 @@ public class ProductCategoryRestServices<T> {
 		}
 		return productCategory;
 
+	}
+
+	/*
+	 * Based on the store id to taking the product category for customer app
+	 * side navigation functionality api
+	 */
+
+	@Path("store/getallcategorylist")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductCategoryResponseVo getallleafcategorylist1(StoreVo storeVo) {
+		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
+		Store store = storeService.getStoreById(storeVo.getStoreId());
+		if (store != null) {
+			productCategoryResponseVo = getCategoryListDataForStore(store
+					.getMerchant().getMerchantId());
+		}
+		return productCategoryResponseVo;
+	}
+
+	public ProductCategoryResponseVo getCategoryListDataForStore(
+			String merchantId) {
+		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
+		Merchant merchant = merchantService.getMerchantById(merchantId);
+		if (merchant != null) {
+			List<ProductCategory> parentCategories = productCategoryService
+					.getRootProductCategoryList(merchant);
+			List<ProductCategoryVo> rootProductCategoryVoList = new ArrayList<ProductCategoryVo>();
+			Map<String, ProductCategoryVo> productCategoryVoParentMap = new HashMap<String, ProductCategoryVo>();
+			ProductCategoryVo prodCategoryVo = new ProductCategoryVo();
+			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
+					rootProductCategoryVoList, productCategoryVoParentMap);
+
+			List<ProductTypeVo> productTypeVos = productTypeService
+					.prepareProductTypeVoList(merchant);
+
+			for (ProductTypeVo productTypeVo : productTypeVos) {
+
+				String productCategoryId = productTypeVo.getProductCategory()
+						.getProductCategoryId();
+				ProductCategoryVo productCategoryVo = productCategoryVoParentMap
+						.get(productCategoryId);
+				List<ProductTypeVo> productTypes = productCategoryVo
+						.getProductTypes();
+				productTypes.add(productTypeVo);
+
+			}
+			productCategoryResponseVo
+					.setProductCategoryVo(rootProductCategoryVoList);
+			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+					.getValue());
+			// productCategoryResponseVo=productCategory.
+		}
+		return productCategoryResponseVo;
 	}
 
 }

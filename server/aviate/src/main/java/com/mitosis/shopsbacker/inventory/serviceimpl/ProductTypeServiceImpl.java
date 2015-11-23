@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,10 +89,29 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 	}
 
 	@Override
+	@Transactional
 	public ProductTypeVo setProductTypeVo(ProductType productType) {
 		ProductTypeVo productTypeVo = new ProductTypeVo();
 		productTypeVo.setName(productType.getName());
 		productTypeVo.setProductTypeId(productType.getProductTypeId());
 		return productTypeVo;
+	}
+	
+	@Override
+	@Transactional
+	public List<ProductTypeVo> prepareProductTypeVoList(Merchant merchant) {
+		List<ProductTypeVo> productTypeVoResponse = new ArrayList<ProductTypeVo>();
+		List<ProductType> productTypes = getAllProductTypeByMerchant(merchant);
+		for (ProductType productType : productTypes) {
+			ProductTypeVo prodTypeVo = new ProductTypeVo();
+			prodTypeVo.setProductTypeId(productType
+					.getProductTypeId());
+			prodTypeVo.setName(productType.getName());
+			prodTypeVo.getProductCategory().setProductCategoryId(
+					productType.getProductCategory()
+							.getProductCategoryId());
+			productTypeVoResponse.add(prodTypeVo);
+		}
+		return productTypeVoResponse;
 	}
 }

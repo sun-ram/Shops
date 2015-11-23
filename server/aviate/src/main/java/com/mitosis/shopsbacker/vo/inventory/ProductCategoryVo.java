@@ -27,6 +27,8 @@ public class ProductCategoryVo {
 	private ProductCategoryVo category;
 	
 	private List<ProductCategoryVo> categories =new ArrayList<ProductCategoryVo>();
+	
+	private List<ProductTypeVo> productTypes =new ArrayList<ProductTypeVo>();
 
 	public List<ProductCategoryVo> getCategoriesVo() {
 		return categories;
@@ -66,6 +68,14 @@ public class ProductCategoryVo {
 
 	public void setCategory(ProductCategoryVo category) {
 		this.category = category;
+	}
+
+	public List<ProductTypeVo> getProductTypes() {
+		return productTypes;
+	}
+
+	public void setProductTypes(List<ProductTypeVo> productTypes) {
+		this.productTypes = productTypes;
 	}
 	
 

@@ -101,29 +101,21 @@ public class ProductTypeRestServices<T> {
 	public ProductTypeResponseVo getProductTypeByStore(
 			ProductTypeVo productTypeVo) {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
-		List<ProductTypeVo> productTypeVoResponse = new ArrayList<ProductTypeVo>();
-		List<ProductType> productType = new ArrayList<ProductType>();
 		Merchant merchant = merchantService.getMerchantById(productTypeVo
 				.getMerchant().getMerchantId());
-		if (merchant != null) {
-			productType = productTypeService
-					.getAllProductTypeByMerchant(merchant);
-			for (ProductType productTypeSet : productType) {
-				ProductTypeVo productTypeVoSet = new ProductTypeVo();
-				productTypeVoSet.setProductTypeId(productTypeSet
-						.getProductTypeId());
-				productTypeVoSet.setName(productTypeSet.getName());
-				productTypeVoSet.getProductCategory().setProductCategoryId(
-						productTypeSet.getProductCategory()
-								.getProductCategoryId());
-				productTypeVoResponse.add(productTypeVoSet);
-			}
-			productTypeResponseVo.setProductTypeVo(productTypeVoResponse);
+		
+		if (merchant == null) {
+			return productTypeResponseVo;
 		}
+			List<ProductTypeVo> productTypeVoResponse = productTypeService.prepareProductTypeVoList(merchant);
+			productTypeResponseVo.setProductTypeVo(productTypeVoResponse);
+		 
 
 		return productTypeResponseVo;
 
 	}
+	
+
 
 	@Path("/getProductTypeByCategory")
 	@POST

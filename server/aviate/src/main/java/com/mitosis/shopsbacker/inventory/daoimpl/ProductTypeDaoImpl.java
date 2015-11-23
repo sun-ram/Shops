@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductTypeDao;
@@ -17,6 +18,7 @@ import com.mitosis.shopsbacker.model.ProductType;
  * @author fayaz
  */
 @Repository
+@Transactional
 public class ProductTypeDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements ProductTypeDao<T>, Serializable {
 

@@ -133,6 +133,7 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
+	@Transactional
 	public ProductCategoryVo setProductCategoryVo(ProductCategory productCategory) {
 		ProductCategoryVo category = new ProductCategoryVo();
 		category.setProductCategoryId(productCategory
