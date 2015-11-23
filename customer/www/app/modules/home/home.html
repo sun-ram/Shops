@@ -10,463 +10,323 @@
 }*/
 
 </style>
-<div style="width:100%;height:100%;position: relative;">
+<div style="width:100%;height:100%;position: relative; background:#eeeeee;">
         <!-- Products page image scrolling functionality -->
-        <div higgidy-carousel='images' timeout="5000" >
-            <ul higgidy-carousel-images>
-                <li ng-repeat="image in images">
-                    <a href="{{image.link}}">
-                        <img ng-src="{{image.src}}" alt="{{img.alt}}"/>
-                    </a>
-                </li>
-            </ul>
-           
-            
-            
-            <nav class="links">
-                <ul>
-                    <li ng-repeat="image in images">
-                        <a href="" ng-click="show($index)" ng-class="{selected: carousel.current == $index}"> {{$index}} </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <section layout="row">
+        	<div flex="25" class="welcome">
+				<h1>Hi There!</h1>
+				<strong>Welcome to ShopsBacker</strong></br>
+				<md-caption>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</md-caption> 
+				<img src="assets\img\hpy-shoping.png" class="hpy-shop"/>
+					
+				
+			</div>
+	        <div flex="75" higgidy-carousel='images' timeout="5000" style="height:250px; " >
+	            <ul higgidy-carousel-images style="height:200px; overflow:hidden;">
+	                <li ng-repeat="image in images">
+	                    <a href="{{image.link}}">
+	                        <img ng-src="{{image.src}}" alt="{{img.alt}}" height="200"/>
+	                    </a>
+	                </li>
+	            </ul>
+	            <nav class="links mainslider-tab">
+	                <ul layout>
+	                    <li flex ng-repeat="image in images">
+	                        <a href="" layout="column" ng-click="show($index)" ng-class="{selected: carousel.current == $index}">
+	                        <md-subhead flex="100">Heading-{{$index}} </md-subhead>
+	                        <md-caption flex="100" style="font-size:12px;">Text</md-caption>
+	                         
+	                         
+	                        </a>
+	                    </li>
+	                </ul>
+	            </nav>
+	        </div>
+        </section>
         <!-- ------------------ -->
 
-        <section style="background-color:#ddd;">
-        <md-content class="md-padding" style="background-color: #ddd;">
-        <div layout="row" layout-sm="column" class="md-padding">
-          <div flex>
-            <div class="guaranty">
-                <span>
-                <img width="130" height="130" src="http://taylorhooton.org/wp-content/uploads/2011/12/Grocery-Basket.png" />
-                </span>
-                <div class="sample-product">
-                    <span class="sp-top"><b>GMO-Free</b></span></br>
-                    <span class="sp-bottom">Guaranteed</span>
-                </div>
-            </div>
-          </div>
-          <div flex>
-            <div class="quality">
-            <span>
-                <img width="130" height="130" src="https://revelsystems.com.au/wp-content/uploads/sites/2/2015/02/pos-sys-grocery@2x-300x266.png" />
-            </span>
-                        <div class="sample-product">
-                            <span class="sp-top"><b>Premium</b></span></br>
-                            <span class="sp-bottom">Quality</span>
-                        </div>
-            </div>
-          </div>
-          <div flex>
-            <div class="organic">
-                        <span>
-                        <img width="130" height="130" src="http://www.templeofthai.com/images/products/186x165x9100000343_m.png.pagespeed.ic.If6XJ2nlao.png" />
-                        </span>
-                        <div class="sample-product">
-                            <span class="sp-top"><b>Organic</b></span></br>
-                            <span class="sp-bottom">100% Healthy</span>
-                        </div>
-            </div>
-          </div>
-          <div flex>
-            <div class="price">
-                <span>
-                <img width="130" height="130" src="http://www.ozzyexports.com.au/images/slide.png" />
-                </span>
-                <div class="sample-product">
-                    <span class="sp-top"><b>Best Price</b></span></br>
-                    <span class="sp-bottom">Always</span>
-                </div>
-            </div>
-          </div>
-        </div>
-        </md-content>
-        <!-- ------------------------------ -->
-
-
-        <md-content class="md-padding md-whiteframe-1dp" style="margin: 2% 3%;overflow: visible;">
-          <md-toolbar layout="row" layout-sm="column" style="min-height: 24px;background-color: rgb(255, 255, 255);color:#000;top: -10px;z-index:1;">
-               <div layout="" flex></div>
-                 <div class="" layout="row" layout layout-align="center center" flex style="background-color: #ED6663;margin-top: -16px;position:relative;">
-                    <span  class="triangle-bottomright"></span>
-                   <span class="text-white">TOP CATEGORIES</span>
-                   <span class="triangle-bottomleft"></span>
-                </div>
-                <div layout="" flex ></div>
-          </md-toolbar>
-          <md-tabs md-stretch-tabs="auto" class="padd_tb30 category">
-            <md-tab ng-repeat="topproducts in topcategories | limitTo: 20" style="width:130px;">
-             <div class="item wid_120">
-             <img ng-src="{{topproducts.productImages[1].imageUrl}}" class="md-avatar chs-img">
-             </div>
-             <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-             <label class="ttc">{{topproducts.productName}}</label></div>
-           </md-tab>
-            <!--<md-tab>
-            <div class="item wid_120" >
-             <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-            </div>
-            <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-            <label>dfhdfd</label></div>
-          </md-tab>
-            <md-tab>
-            <div class="item wid_120">
-             <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-            </div>
-            <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-            <label>dfhdfd</label></div>
-          </md-tab>
-          <md-tab>
-          <div class="item wid_120">
-           <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-          </div>
-          <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-          <label>dfhdfd</label></div>
-        </md-tab>
-        <md-tab>
-        <div class="item wid_120">
-         <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-        </div>
-        <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-        <label>dfhdfd</label></div>
-        </md-tab>
-        <md-tab>
-        <div class="item wid_120">
-         <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-        </div>
-        <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-        <label>dfhdfd</label></div>
-        </md-tab>
-        <md-tab>
-        <div class="item wid_120">
-         <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-        </div>
-        <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-        <label>dfhdfd</label></div>
-        </md-tab>
-        <md-tab>
-        <div class="item wid_120">
-         <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-        </div>
-        <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-        <label>dfhdfd</label></div>
-        </md-tab>
-        <md-tab>
-        <div class="item wid_120">
-         <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-        </div>
-        <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-        <label>dfhdfd</label></div>
-        </md-tab>
-            <md-tab>
-            <div class="item wid_120">
-             <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-            </div>
-            <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-            <label>dfhdfd</label></div>
-          </md-tab>
-            <md-tab>
-            <div class="item wid_120">
-             <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-            </div>
-            <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-            <label>dfhdfd</label></div>
-          </md-tab>
-            <md-tab>
-             <div class="item wid_120">
-             <img ng-src="assets/images/fruit.jpg" class="md-avatar chs-img"></br>
-            </div>
-            <div layout layout="row" layout-align="center center" layout-padding class="ft_black">
-            <label>dfhdfd</label></div>
-          </md-tab>-->
-        </md-tabs>
-
-        </md-content>
-
-
-
-        <!-- Most popular content -->
-
-        <md-content class="md-padding md-whiteframe-1dp" style="margin: 5% 3% 0;overflow: visible;">
-          <md-toolbar layout="row" style="min-height: 24px;background-color: rgb(255, 255, 255);color:#000;top: -10px;z-index:1;">
-               <div layout="column" flex ></div>
-                 <div class="" layout="row" layout layout-align="center center" flex style="background-color: #72A308; margin-top: -16px;position:relative;">
-                    <span class="triangle-fpright"></span>
-                    <span class="text-white">FEATURE PRODUCTS</span>
-                       <span class="triangle-fpleft"></span>
-
-                </div>
-                <div layout="column" flex ></div>
-          </md-toolbar>
-          <md-tabs md-stretch-tabs="auto" class="padd_tb30 feature">
-            <md-tab layout layout-align="column" ng-repeat="product in futureProducts | limitTo: 20">
-             <div class="item wid_150 viewlarge" >
-             <img  ng-src="{{product.productImages[1].imageUrl}}" class="md-avatar">
-             </div>
-             <h4 class="nomarg_btm ft_black">{{product.productName}}</h4>
-
-             <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> {{product.measurement}} {{product.productUnitOfMeasure.abbreviation}} / </span>
-          <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-           <div class="ft_gray">{{product.productPrice.price}} </div>
-        </div>
-
-           <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm class="ttc">add to
-          <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> -->
-            <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-           </md-tab>
-           </md-tabs>
-           <!-- <md-tab layout layout-align="column">
-            <div class="item wid_150 viewlarge" >
-            <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-            </div>
-            <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-            <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-         <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-         <div class="ft_gray">210</div>
-        </div>
-
-          <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm class="ttc">add to
-         <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-          </md-tab>
-          <md-tab layout layout-align="column">
-           <div class="item wid_150 viewlarge" >
-           <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-           </div>
-           <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-           <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-        <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-        <div class="ft_gray">210</div>
-        </div>
-
-         <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-         </md-tab>
-         <md-tab layout layout-align="column">
-          <div class="item wid_150 viewlarge" >
-          <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-          </div>
-          <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-          <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-        <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-        <div class="ft_gray">210</div>
-        </div>
-
-        <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-        </md-tab>
-        <md-tab layout layout-align="column">
-         <div class="item wid_150 viewlarge" >
-         <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-         </div>
-         <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-         <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-        <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-        <div class="ft_gray">210</div>
-        </div>
-
-        <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-        </md-tab>
-        <md-tab layout layout-align="column">
-         <div class="item wid_150 viewlarge" >
-         <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-         </div>
-         <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-         <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-        <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-        <div class="ft_gray">210</div>
-        </div>
-
-        <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-        </md-tab>
-        <md-tab layout layout-align="column">
-         <div class="item wid_150 viewlarge" >
-         <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-         </div>
-         <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-         <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-        <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-        <div class="ft_gray">210</div>
-        </div>
-
-        <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-        </md-tab>
-        <md-tab layout layout-align="column">
-         <div class="item wid_150 viewlarge" >
-         <img  ng-src="assets/images/fruit.jpg" class="md-avatar">
-         </div>
-         <h4 class="nomarg_btm ft_black">Strawberry</h4>
-
-         <div layout="row" layout-align="center center" layout-padding>
-        <span class="ft_gray"> 1 kg / </span>
-        <div> <md-icon md-svg-icon="assets/img/icon/rupee1.svg" style="color:gray;width: 12px;padding-left:3px;"> </md-icon> </div>
-        <div class="ft_gray">210</div>
-        </div>
-
-        <div layout="row" layout-align="center">
-        <div layout="column" layout-align="start" class="btn-count">
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;">
-        <md-icon md-svg-src="assets/img/icon/navigate6.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        <md-button class="count" aria-label="" style="line-height: inherit; width: 25px; min-height: inherit; margin: 0; padding:0; min-width: inherit;" >
-        <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon>
-        </md-button>
-        </div>
-        <span layout="column" layout-align="center" style="background: #72A308; color: #fff; padding: 0px 8px;">1</span>
-        <div layout="column" layout-align="start" >
-        <md-button class="" aria-label="" style="color: #72A308 ! important; border: 2px solid #72A308; border-radius:0; height: 40px; margin:0;">
-        <span hide show-gt-sm >add to
-        <!-- <md-icon md-svg-src="assets/img/icon/down14.svg" style="color: #fff; height: 15px;"></md-icon> 
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: #72A308;color: #72A308;width: 18px;margin-top: -7px;"></md-icon>
-        </span>
-        </md-button>
-        </div>
-        </div>
-        </md-tab>
-        </md-tabs>-->
-
-        </md-content>
-
-
-             </section>
+        <section  style="background-color:#eeeeee; padding:20px;">
+ 			<div>
+ 				<div class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Hot Products </h2><span style="float:left;     margin: 18px 0px 0px 10px;">(30 Items) <a href="">View More</a></span></div>
+ 				  <div layout="column" style="width:100%; margin:0px auto; ">
+   				 	<div flex layout="row" style="padding:10px 0px;">
+   				 	
+   				 	
+   				 	
+    					<div layout="row" layout-wrap  >
+     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+								<div class="pro-box" flex layout="column">
+									<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+										<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+									</div>
+									<div flex layout-align="center center" layout="row">
+										<span class="sub-head text-primary">ProductName</span>
+									</div>
+									<div flex  layout="row">
+										<span flex class="md-body-2 text-left">2kg</span>
+										<span flex class="md-body-2 text-right">
+											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+											₹ 150
+										</span>
+									</div>
+									<div layout="row" flex>
+																		
+										<div flex="100" layout="row" layout-align="center center"
+											class="button-flex cart-btn">
+											<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+											</div>
+											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+		
+											<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											<div flex="30" ng-hide="product.noOfQuantityInCart > 0" >
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+										</div>
+									</div>
+								</div>				
+							</div>
+						</div>
+						
+						
+					
+						
+						
+						
+						
+						
+						
+						
+						<div layout="row" layout-wrap  >
+     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+								<div class="pro-box" flex layout="column">
+									<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+										<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+									</div>
+									<div flex layout-align="center center" layout="row">
+										<span class="sub-head text-primary">ProductName</span>
+									</div>
+									<div flex  layout="row">
+										<span flex class="md-body-2 text-left">2kg</span>
+										<span flex class="md-body-2 text-right">
+											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+											₹ 150
+										</span>
+									</div>
+									<div layout="row" flex>
+																		
+										<div flex="100" layout="row" layout-align="center center"
+											class="button-flex cart-btn">
+											<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+											</div>
+											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+		
+											<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											<div flex="30" ng-hide="product.noOfQuantityInCart > 0" >
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+										</div>
+									</div>
+								</div>				
+							</div>
+						</div>
+						
+						
+						<div layout="row" layout-wrap  >
+     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+								<div class="pro-box" flex layout="column">
+									<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+										<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+									</div>
+									<div flex layout-align="center center" layout="row">
+										<span class="sub-head text-primary">ProductName</span>
+									</div>
+									<div flex  layout="row">
+										<span flex class="md-body-2 text-left">2kg</span>
+										<span flex class="md-body-2 text-right">
+											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+											₹ 150
+										</span>
+									</div>
+									<div layout="row" flex>
+																		
+										<div flex="100" layout="row" layout-align="center center"
+											class="button-flex cart-btn">
+											<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+											</div>
+											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+		
+											<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											<div flex="30" ng-hide="product.noOfQuantityInCart > 0" >
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+										</div>
+									</div>
+								</div>				
+							</div>
+						</div>
+						
+						
+						<div layout="row" layout-wrap  >
+     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+								<div class="pro-box" flex layout="column">
+									<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+										<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+									</div>
+									<div flex layout-align="center center" layout="row">
+										<span class="sub-head text-primary">ProductName</span>
+									</div>
+									<div flex  layout="row">
+										<span flex class="md-body-2 text-left">2kg</span>
+										<span flex class="md-body-2 text-right">
+											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+											₹ 150
+										</span>
+									</div>
+									<div layout="row" flex>
+																		
+										<div flex="100" layout="row" layout-align="center center"
+											class="button-flex cart-btn">
+											<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+											</div>
+											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+		
+											<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											<div flex="30" ng-hide="product.noOfQuantityInCart > 0" >
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+										</div>
+									</div>
+								</div>				
+							</div>
+						</div>
+						
+						
+						
+					</div>
+    			</div>
+    			
+    			
+    		
+    
+    
+    
+ 			</div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+          <section style="background-color:#eeeeee; padding:20px;">
+ 			<div>
+ 				<div class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Category 1</h2><span style="float:left;     margin: 18px 0px 0px 10px;">(30 Items) <a href="">View More</a></span></div>
+ 				  <div layout="column" style="width:100%; margin:0px auto; ">
+   				 	<div flex layout="row" style="padding:10px 0px;">
+    					<div layout="row" layout-wrap flex >
+     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+								<div class="pro-box" flex layout="column">
+									<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+										<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+									</div>
+									<div flex layout-align="center center" layout="row">
+										<span class="sub-head text-primary">ProductName</span>
+									</div>
+									<div flex  layout="row">
+										<span flex class="md-body-2 text-left">2kg</span>
+										<span flex class="md-body-2 text-right">
+											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+											₹ 150
+										</span>
+									</div>
+									<div layout="row" flex>
+																		
+										<div flex="100" layout="row" layout-align="center center"
+											class="button-flex cart-btn">
+											<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+											</div>
+											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+		
+											<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											<div flex="30" ng-hide="product.noOfQuantityInCart > 0" >
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+										</div>
+									</div>
+								</div>				
+							</div>
+						</div>
+					</div>
+    			</div>
+    
+    
+    
+ 			</div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
 </div>
         <style>
 
         md-ink-bar{top:115px;}
         .chs-img{width:100%; height: 90%;}
         .item{border-radius: 2px; border: 1px solid lightgrey;}
-        </style>
+      
+	body,html{background-color:#eeeeee; width:100%; height:100%; padding:0px; margin:0px;}
+	.pro-box{ background-color:#FFFFFF; box-shadow:0px 0px 2px rgba(0,0,0,0.5); min-height:300px; padding:10px 15px !important;}
+	.text-primary{ color:#72a308}
+	.text-left{ text-align:left;}
+	.text-right{ text-align:right;}
+	.addtocart-btn{ border:2px solid #72a308; height:50px; cursor: pointer;}
+	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
+	.bg-white{ background-color:#ffffff;}
+	.text-primary{color:#72a308;}
+</style>
+        

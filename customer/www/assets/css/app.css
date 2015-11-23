@@ -108,6 +108,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 /* ------------ Height ----------*/
 
 .height50{height:50px !important;min-height: 50px !important;}
+.height30{height:30px !important;min-height:30px !important;}
 .ht55{min-height: 55px !important;height:55px !important;}
 .category md-tabs-canvas {height: 150px;}
 .feature md-tabs-canvas {height: 290px;}
@@ -220,8 +221,8 @@ height: 40px;
 }
 
 
-.nav-bar-subheader{ padding:10px 0px; background-color:rgba(0,0,0,0.3) !important}
-ul.nav-menu{ width:400px; padding:10px; margin-left:120px; display:inline; list-style-type:none;}
+.nav-bar-subheader{ padding:10px 0px; background-color:#4eaf4c !important}
+ul.nav-menu{ width:400px; padding:10px; margin-left:0px; display:inline; list-style-type:none;}
 ul.nav-menu li{ width:auto; display:inline; list-style-type: none; padding:10px; list-style-type:none;}
 
 .triangle ::after {
@@ -288,7 +289,7 @@ right: -8px;
 /* sidenav */
 .side_logo{ height: 120px;}
 .md-sidenav-left{background: #424242 ! important; position: fixed; color:#757575;}
-.md-sidenav-right{position: fixed; top: 50px;}
+.md-sidenav-right{position: fixed; top: 82px;}
 .menu-list{padding: 0; margin: 0;}
 .btn-menu{font-size: 18px ! important; }
 .btn-sub{padding-left: 35px ! important; margin: 0; font-size: 14px ! important;}
@@ -350,4 +351,32 @@ ul.nav-menu1{margin-left: 210px ! important;}
 .menu-item:hover{background: #72a308 ! important; color: #ffffff ! important; }
 /* .top-tool{width: calc(100% - 220px);} */
 .producutItem{min-width:220px;max-width:280px;}
-.customerSideNav{min-width:180px;max-width:220px;}
+.customerSideNav{min-width:180px;max-width:220px; top:82px;}
+
+
+/*  17-11  */
+.sa-logo{ width:auto; height:52px; float:left; background-color:#ffffff ; padding:0px 10px;}
+nav.mainslider-tab ul li{ }
+nav.mainslider-tab ul li a{ width:100% !important; height:100% !important; border:1px solid #999999; border-radius:0px;}
+nav.mainslider-tab ul li a md-subhead,nav.mainslider-tab ul li a md-caption{ width:100%;float:left;}
+.prod-headings a{ color:#ED6663 }
+.footer-nav{ margin:0px; padding:0px; }
+.footer-nav li{ list-style-type:none;display:inline-block;}
+.footer-nav li a{ font-size:12px; color:#FFFFFF; padding:5px; text-decoration:none;}
+
+.welcome{ padding:10px 10px 0px 28px; }
+.welcome h1{ font-size:40px; margin:20px 0px 10px 0px; color:#ED6663; }
+.welcome strong{ font-size:18px; color:#000000;}
+.hpy-shop{ position:relative; top:20px; width:230px; left:20px;}
+
+	
+
+
+
+
+
+
+
+
+
+

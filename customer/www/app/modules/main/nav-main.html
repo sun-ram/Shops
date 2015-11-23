@@ -1,5 +1,5 @@
 <md-toolbar ng-class="topbar"  style="background-color:transparent; position: fixed;">
-<div class="md-toolbar-tools header_color height50 padd_righ8 nomargin ">
+<div class="md-toolbar-tools header_color height30 padd_righ8 nomargin ">
 	<span flex></span>
 	<!-- <md-button class="wid_60 md-icon-button" aria-label="Favorite" >
 	<md-icon md-svg-icon="assets/img/icon/magnifying47.svg" md-ink-ripple="" md-menu-align-target style="color: white;"></md-icon> </md-button> -->
@@ -7,8 +7,77 @@
 		<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
 	</md-button> -->
 	
+
+
+
+
+</div>
+<md-subheader layout layout-align="row"
+	class="nopadd nomargin tran nav-bar-subheader" style="padding:0px 0px !important;">
+	<!-- <md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
+		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+	</md-button> -->
+	
+	<!-- 
+	<md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
+		
+		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+		<md-tooltip md-direction="bottom">Menu</md-tooltip>
+	</md-button>
+	
+	 <div style="position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;" class="bg-yellow">
+		<img src="assets/img/useravat.png"  width="118" height="80" class="md-card-image" alt="Washed Out">
+	</div> 
+	<div >
+	
+	</div>
+	
+	<div ng-if="store.merchantLogo"  class="merch-logo merch-marg bg-yellow" >
+		<img src="{{store.merchantLogo}}"  width="118" height="80" class="md-card-image" alt="Washed Out">
+	</div>
+	<ul  ng-if="store.merchantLogo" class="nav-menu nav-menu1">
+		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
+		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+	</ul>
+	<ul  ng-if="!store.merchantLogo" class="nav-menu">
+		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
+		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+	</ul>
+
+	 -->
+	 
+	<span style=" height: 20px; width: 50px; position:absolute; font-size: 12px; transform: rotate(270deg); -moz-transform: rotate(270deg);     left: -14px;color: #FFFFFF; top: 9px; -webkit-transform: rotate(270deg);">MENU</span>
+	 	<md-button ng-click="toggleLeft('left')" style="float:left;" class="md-icon-button" aria-label="Menu" >
+	 		
+			<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+			<md-tooltip md-direction="bottom">Menu</md-tooltip>
+		</md-button>
+		<div class="sa-logo">
+		<img src="assets/img/useravat.png"  width="200" height="46" class="md-card-image" alt="Washed Out">
+		</div>
+		
+		
+		<div ng-if="store.merchantLogo"  class="merch-logo merch-marg bg-yellow" >
+			<img src="{{store.merchantLogo}}"  width="118" height="80" class="md-card-image" alt="Washed Out">
+		</div>
+		<ul  ng-if="store.merchantLogo" class="nav-menu nav-menu1">
+			<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
+			<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+		</ul>
+		<ul  ng-if="!store.merchantLogo" class="nav-menu">
+			<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
+			<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+		</ul>
+	 </div>
+	
+	 
+	 
+	 
+	 
+	 <div style="float:right; ">
+	 
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
-    <md-button ng-click="toggleRight('right')" class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
+    <md-button ng-click="toggleRight('right')" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
     <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;">{{myCart.cartItem.length}}</div>
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
         <md-tooltip md-direction="bottom">
@@ -71,10 +140,15 @@
                 </md-content>
             </md-menu-content>
         </md-menu>
-
+        
+        
+        
+        
+        
+        
 
 	<md-menu style="margin-top: -8px" md-position-mode="target-right target">
-		<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="height50 wid_60 nomargin bg-green md-icon-button" aria-label="User">
+		<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="height50 wid_60 nomargin  md-icon-button" aria-label="User">
 			<md-icon md-svg-icon="assets/img/icon/hd-user.svg" style="color: white;"></md-icon>
 	    <md-tooltip md-direction="bottom">User</md-tooltip>
 		</md-button>
@@ -117,31 +191,20 @@
 			</md-menu-item>
 		</md-menu-content>
 	</md-menu>
-</div>
-<md-subheader layout layout-align="row"
-	class="nopadd nomargin tran nav-bar-subheader" style="padding:10px 0px !important;">
-	<!-- <md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
-		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
-	</md-button> -->
-	<md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
-		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
-		<md-tooltip md-direction="bottom">Menu</md-tooltip>
-	</md-button>
-	
-	<div style="position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;" class="bg-yellow">
-		<img src="assets/img/useravat.png"  width="118" height="80" class="md-card-image" alt="Washed Out">
-	</div>
-	<div ng-if="store.merchantLogo"  class="merch-logo merch-marg bg-yellow" >
-		<img src="{{store.merchantLogo}}"  width="118" height="80" class="md-card-image" alt="Washed Out">
-	</div>
-	<ul  ng-if="store.merchantLogo" class="nav-menu nav-menu1">
-		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
-		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
-	</ul>
-	<ul  ng-if="!store.merchantLogo" class="nav-menu">
-		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
-		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
-	</ul>
+	 
 
+	 
+</div>
+
+
+
+
+
+
+
+	
+	
+	
+	
 </md-subheader>
  </md-toolbar>
