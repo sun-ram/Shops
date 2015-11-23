@@ -62,7 +62,7 @@ background-color:#fff;}
 
 
 /* btn */
-.md-success{background-color:#71A442 !important;color:#fff !important; }
+.md-success{background-color:#77A20C !important;color:#fff !important; }
 .md-cancel{background-color:#aaa  !important;color:#fff !important;}
 
 /* link  */
@@ -295,3 +295,41 @@ md-select .md-select-value{
 	font-size: 10pt;
 	position: absolute;
 }
+
+
+
+
+
+
+
+/*   23-11-2015  */
+
+.login-box{ background-color:rgba(0,0,0,0.3); color:#FFFFFF; width:400px;}
+.login-box label{ color:#FFFFFF}
+.login-box md-input-container .md-input{ border-color:#FFFFFF !important;}
+.fgt-pwd{ color:#FFFFFF !important; text-transform: capitalize }
+.login-box .md-success{background-color:#F59D00 !important;  border-radius:0px;  float:right;}
+.login-box .md-primary{ border-radius:0px;}
+.login-box md-checkbox{ margin:20px 8px 20px 2px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
