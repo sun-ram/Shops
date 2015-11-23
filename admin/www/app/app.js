@@ -15,7 +15,8 @@ var aviateAdmin = angular.module('app', ['toastr',
                                          'ipCookie',
                                          'ngMdIcons',
                                          'md.data.table',
-                                         'ngDraggable'
+                                         'ngDraggable',
+                                         'nvd3ChartDirectives'
                                          ]);
 
 

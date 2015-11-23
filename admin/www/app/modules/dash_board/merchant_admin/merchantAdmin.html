@@ -1,0 +1,79 @@
+<style>
+h3{text-align: center;}
+#barId{float: left ! important; width: 100%;}
+#pieId{width: 100%;}
+#areaId{float: left ! important; width: 100%;}
+</style>
+<div ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+          <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+        </md-button>
+        <h2>
+          <span>Toolbar with Icon Buttons</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        <md-button ng-click="signUpDialog($event);" class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <br>
+       <div layout="row" layout-md="column" layout-sm="column">
+       <md-card flex layout-padding>
+		<h3>Bar Chart</h3>
+  <nvd3-discrete-bar-chart
+            data="exampleData"
+            id="barId"
+            width="1080"
+            height="600"
+            tooltips="true"
+            showXAxis="true"
+            showYAxis="true"
+            interactive="true"
+            showValues="true">
+      
+        <svg style=""></svg>
+    </nvd3-discrete-bar-chart>
+  </md-card>
+       <md-card flex layout-padding>
+	   <h3>Pie Chart</h3>
+   <nvd3-pie-chart
+            data="exampleData1"
+            id="pieId"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            width="1080"
+            height="600"
+            showLabels="true"
+            interactive="true"
+            pieLabelsOutside="false"
+            showValues="true"
+            labelType="percent">
+        <svg style=" "></svg>
+    </nvd3-pie-chart>
+  </md-card>
+</div>
+         <div layout="row" layout-md="column" layout-sm="column">
+     
+       <md-card flex="50" flex-md="100" flex-sm="100">
+		<h3>Area Chart</h3>
+   <nvd3-stacked-area-chart
+            data="exampleData2"
+            width="1080"
+            height="600"
+            id="areaId"
+            interactive="true"
+            showXAxis="true"
+            showYAxis="true"
+            xAxisTickFormat="xAxisTickFormat()">
+                 <svg style=""></svg>
+            </nvd3-stacked-area-chart>
+		</md-card>
+  </div>
+  </div>
