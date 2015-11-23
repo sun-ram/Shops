@@ -414,6 +414,7 @@ public class ProductRestService {
 	public ProductUploadVO convertXlsToModel(String path, int sheetNo){
 		ProductUploadVO response = new ProductUploadVO();
 		Product product = new Product();
+		boolean isNew = false;
 		try {
 			FileInputStream file = new FileInputStream(new File(path));
 			org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(file);
@@ -452,7 +453,7 @@ public class ProductRestService {
 							switch (cell.getCellType()) {
 
 							case Cell.CELL_TYPE_NUMERIC:
-								if (labels.get(cellPosition).equalsIgnoreCase("Price")) {
+								if (labels.get(cellPosition).equalsIgnoreCase("PRICE")) {
 									if(cell.getNumericCellValue()==0){
 										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_PRICE
 												.getCode());
@@ -461,7 +462,7 @@ public class ProductRestService {
 									}else{
 										product.setPrice(BigDecimal.valueOf(cell.getNumericCellValue()));
 									}
-								}else if (labels.get(cellPosition).equalsIgnoreCase("Unit")) {
+								}else if (labels.get(cellPosition).equalsIgnoreCase("UNIT")) {
 									if(cell.getNumericCellValue()==0){
 										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_UNIT.getCode());
 										response.setRowNo(cellPosition);
@@ -470,17 +471,26 @@ public class ProductRestService {
 									}else{
 										product.setUnit(BigDecimal.valueOf(cell.getNumericCellValue()));
 									}
+								}else if (labels.get(cellPosition).equalsIgnoreCase("MEASUREMENT")) {
+									if(cell.getNumericCellValue()==0){
+										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_UNIT.getCode());
+										response.setRowNo(cellPosition);
+										response.setStatus(SBMessageStatus.FAILURE.getValue());
+										return response;
+									}else{
+										//TODO MEASUREMENT
+									}
 								}
 								break; 
 
 							case Cell.CELL_TYPE_STRING:
-								if(labels.get(cellPosition).equalsIgnoreCase("ProductName")){
+								if(labels.get(cellPosition).equalsIgnoreCase("NAME")){
 									if(cell.getStringCellValue().trim()==null){
 										response.setRowNo(cellPosition);
 										response.setErrorString(SBMessageStatus.FAILURE.getValue());
 										return response;
 									}else{
-										if(product.getProductId()==null){
+										if(isNew){
 											product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
 											product.setIsactive('Y');
 										}else{
@@ -488,12 +498,8 @@ public class ProductRestService {
 										}
 										product.setName(cell.getStringCellValue().trim());
 									}
-								}else if (labels.get(cellPosition).equalsIgnoreCase("Description")) {
-									product.setDescription(cell.getStringCellValue().trim());
-								}else if (labels.get(cellPosition).equalsIgnoreCase("Brand")) {
+								}else if (labels.get(cellPosition).equalsIgnoreCase("BRAND")) {
 									product.setBrand(cell.getStringCellValue().trim());
-								}else if (labels.get(cellPosition).equalsIgnoreCase("Edible_Type")) {
-									product.setEdibleType(cell.getStringCellValue().trim());
 								}
 								break;
 
@@ -506,7 +512,7 @@ public class ProductRestService {
 						}
 						cellPosition++;
 					}
-					if(product.getProductId()==null){
+					if(isNew){
 						productService.addProduct(product);
 					}else{
 						productService.updateProduct(product);
