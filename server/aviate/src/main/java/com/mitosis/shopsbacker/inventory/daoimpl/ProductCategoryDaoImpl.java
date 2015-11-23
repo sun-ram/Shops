@@ -118,7 +118,7 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 	@Override
 	public List<ProductCategory> getallleafcategorylist(Merchant merchant) {
 		try {
-			Criteria crit = getSession().createCriteria(ProductCategory.class);
+			Criteria crit = getSession().createCriteria(ProductCategory.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			Criteria prdCrit = crit.createCriteria("productTypes");
 			prdCrit.add(Restrictions.eq("merchant", merchant));
 			prdCrit.add(Restrictions.eq("isactive", 'Y'));

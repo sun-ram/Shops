@@ -31,5 +31,7 @@ public interface ProductTypeService<T> {
 			ProductCategory productCategory);
 	
 	public ProductTypeVo setProductTypeVo(ProductType productType);
+	
+	public List<ProductTypeVo> prepareProductTypeVoList(Merchant merchant); 
 
 }
