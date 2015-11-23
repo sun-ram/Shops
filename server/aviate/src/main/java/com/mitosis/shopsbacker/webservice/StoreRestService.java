@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import sun.security.action.GetLongAction;
+
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.common.service.AddressService;
+import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Image;
@@ -35,6 +39,8 @@ import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.common.CountryVo;
+import com.mitosis.shopsbacker.vo.common.GeoLocation;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
 
 /**
@@ -45,8 +51,8 @@ import com.mitosis.shopsbacker.vo.common.StateVo;
 @Path("store")
 @Controller("storeRestService")
 public class StoreRestService<T> {
-	final static Logger log = Logger.getLogger(StoreRestService.class
-			.getName());
+	final static Logger log = Logger
+			.getLogger(StoreRestService.class.getName());
 
 	@Autowired
 	StoreService<T> storeService;
@@ -56,9 +62,12 @@ public class StoreRestService<T> {
 
 	@Autowired
 	RoleService<T> roleService;
-	
+
 	@Autowired
 	AddressService<T> addessService;
+	
+	@Autowired
+	ImageService<T> imageService;
 
 	public AddressService<T> getAddessService() {
 		return addessService;
@@ -92,12 +101,7 @@ public class StoreRestService<T> {
 		this.merchantService = merchantService;
 	}
 
-
-
 	ResponseModel response = new ResponseModel();
-
-	
-
 
 	@Path("/addstore")
 	@POST
@@ -106,13 +110,14 @@ public class StoreRestService<T> {
 	public ResponseModel addStoreDetails(StoreVo storeVo) {
 		try {
 
-			Merchant merchant = merchantService.getMerchantById(storeVo.getMerchant().getMerchantId());
-			
+			Merchant merchant = merchantService.getMerchantById(storeVo
+					.getMerchant().getMerchantId());
+
 			MerchantVo merchantVo = merchantService.setMerchantVo(merchant);
 			storeVo.setMerchant(merchantVo);
 
 			List<Store> checkUniqueStore = getStoreService()
-					.getStoreListByName(storeVo.getName(),merchant);
+					.getStoreListByName(storeVo.getName(), merchant);
 
 			if (!checkUniqueStore.isEmpty()) {
 				response.setErrorCode(SBErrorMessage.STORE_NAME_ALREADY_EXIST
@@ -140,20 +145,20 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseModel updateStoreDetails(StoreVo storeVo) {
 		try {
-				
+
 			Store store = storeService.setStore(storeVo);
 
 			storeService.updateStore(store);
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 			response = CommonUtil.addStatusMessage(e, response);
-			
+
 		}
 		return response;
 	}
-	
+
 	@Path("/delete")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -169,7 +174,7 @@ public class StoreRestService<T> {
 		}
 		return response;
 	}
-	
+
 	@Path("/getstorebymerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -177,14 +182,15 @@ public class StoreRestService<T> {
 	public StoreResponseVo getStoreList(MerchantVo merchantVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
-			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
+			Merchant merchant = merchantService.getMerchantById(merchantVo
+					.getMerchantId());
 			List<Store> stores = getStoreService().getStoreByMerchant(merchant);
-			List<StoreVo> storeVoList=new ArrayList<StoreVo>();
+			List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			for (Store store : stores) {
 				StoreVo storeVo = storeService.setStoreVo(store);
 				storeVoList.add(storeVo);
 			}
-			
+
 			storeResponse.setStore(storeVoList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,7 +198,7 @@ public class StoreRestService<T> {
 		}
 		return storeResponse;
 	}
-	
+
 	@Path("/getstorelist")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -211,8 +217,7 @@ public class StoreRestService<T> {
 		}
 		return storeResponse;
 	}
-	
-	
+
 	@Path("/getstorelistbycity")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -220,7 +225,8 @@ public class StoreRestService<T> {
 	public StoreResponseVo getStoreList(AddressVo addressVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
-			List<Store> stores = getStoreService().getShopList(addressVo.getCity());
+			List<Store> stores = getStoreService().getShopList(
+					addressVo.getCity());
 			for (Store store : stores) {
 				StoreVo storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
@@ -231,7 +237,7 @@ public class StoreRestService<T> {
 		}
 		return storeResponse;
 	}
-	
+
 	@Path("/getshoplistbyaddress")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -239,7 +245,8 @@ public class StoreRestService<T> {
 	public StoreResponseVo getShopListByAddress(AddressVo addressVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
-			List<Store> stores = getStoreService().getShopList(addressVo.getCity(),addressVo.getAddress1());
+			List<Store> stores = getStoreService().getShopList(
+					addressVo.getCity(), addressVo.getAddress1());
 			for (Store store : stores) {
 				StoreVo storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
@@ -250,4 +257,53 @@ public class StoreRestService<T> {
 		}
 		return storeResponse;
 	}
+
+	@Path("/getshoplist")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public StoreResponseVo getStoreListBasedOnLoc(GeoLocation geoLocation) throws IOException {
+		StoreResponseVo storeResponseVo = new StoreResponseVo();
+		List<StoreVo> storeVoList = new ArrayList<StoreVo>();
+		if (geoLocation.getLatitude() != null
+				&& geoLocation.getLongitude() != null) {
+			List<Store> storeList = storeService.getStoreList();
+			for (Store store : storeList) {
+				StoreVo storeVo = new StoreVo();
+				double dist = CommonUtil.distance(
+						Double.parseDouble(geoLocation.getLatitude()),
+						Double.parseDouble(geoLocation.getLongitude()),
+						Double.parseDouble(store.getUser().getAddress()
+								.getLatitude()),
+						Double.parseDouble(store.getUser().getAddress()
+								.getLongitude()));
+				if(dist<=40){
+					storeVo.setStoreId(store.getStoreId());
+					storeVo.setName(store.getName());
+					MerchantVo merchant=setMerchantDetails(store);
+					storeVo.setMerchant(merchant);
+					storeVoList.add(storeVo);
+				}
+			}
+			storeResponseVo.setStore(storeVoList);
+			storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			return storeResponseVo;
+			/* based on the geo location search - with getting storeList */
+		} else {
+			/* Based on the city and country search */
+		}
+		return storeResponseVo;
+
+	}
+	public MerchantVo setMerchantDetails(Store store) throws IOException{
+		MerchantVo merchant=new MerchantVo();
+		if(store.getMerchant()!=null){
+		merchant.setMerchantId(store.getMerchant().getMerchantId());
+		ImageVo imagevo=imageService.setImageVo(store.getMerchant());
+		merchant.setLogo(imagevo);
+		}
+		return merchant;
+		
+	}
+
 }
