@@ -16,13 +16,13 @@ angular.module('aviate.directives')
 
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
-				if($rootScope.newclass == "navigate"){
+				/*if($rootScope.newclass == "navigate"){
 					$rootScope.newclass = "remove";
 					$rootScope.topbar = "toptoolrem";
 				}else{
 					$rootScope.newclass = "navigate";
 					$rootScope.topbar = "toptool";	
-				}
+				}*/
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
 					});
