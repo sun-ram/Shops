@@ -83,11 +83,11 @@ angular.module('aviateAdmin.controllers')
 					/* Orginal Front Image Type End*/
 			}
 			
-			if($scope.image.originalBackImage){
+			if($scope.image.originalBackImage || $scope.product.productId){
 				/* Orginal Front Image base64 Start*/
 				$scope.product.productImages =[];
 				$scope.image ={};
-				$scope.image.image =$scope.image.originalBackImage.split(",")[1];
+				$scope.image.image = $scope.images.originalBackImage.split(",")[1];
 
 				/* Orginal Front Image base64 End*/
 
