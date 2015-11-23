@@ -1,7 +1,7 @@
 <div style="width:100%;height:100%;position: relative;" class="bg_gray">
    <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
     <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
-      <h4>{{productDetails.productName}}</h4>
+      <h4>{{productDetails.name}}</h4>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel();">
         <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
@@ -27,10 +27,10 @@
 		</div>
 		<div flex-md="100" flex-lg="60" flex-gt-lg="65">
 			<div>
-				<h1 style="color: green">{{productDetails.productName}}</h1>
-				<span style="font-style: italic; font-size: 22px; font-weight: bold; ">{{productDetails.measurement}} {{productDetails.productUnitOfMeasure.abbreviation}}</span>
-				<p style="color: grey;">{{productDetails.productUnitOfMeasure.description}}</p>
-				<p style="font-size: 22px;"><span style="font-style: italic;">Effective Price: </span> <b style="color: red;"> Rs. {{productDetails.productPrice.price}}</b></p>
+				<h1 style="color: green">{{productDetails.name}}</h1>
+				<span style="font-style: italic; font-size: 22px; font-weight: bold; ">{{productDetails.unit}}{{productDetails.uom.name}}}</span>
+				<p style="color: grey;">{{productDetails.uom.name}}}</p>
+				<p style="font-size: 22px;"><span style="font-style: italic;">Effective Price: </span> <b style="color: red;"> Rs. {{productDetails.price}}</b></p>
 			</div>
 			<div>
 				
@@ -53,7 +53,7 @@
 						</div>
 								<div flex-gt-sm = "40" flex="30" layout="row" layout-align="center center"
 									class="button-flex cart-btn">
-									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)"">
+									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)">
 										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
 											md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
 									</div>
@@ -61,7 +61,7 @@
 									<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white; height: 20px; margin-top: -4px;"></md-icon>Cart</div>
 									<div flex="40" ng-show="productDetails.noOfQuantityInCart > 0" style="text-align:center;font-size:20px" class="md-subhead">{{productDetails.noOfQuantityInCart}}</div>
 
-									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
+									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;removeFromMyCart(productDetails,index)">
 										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
 											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
 									</div>

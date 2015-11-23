@@ -246,7 +246,7 @@ public class ProductRestService {
 			productResponse.setErrorString(e.getMessage());
 		}
 		
-		return response;
+		return productResponse;
 
 		}
 	

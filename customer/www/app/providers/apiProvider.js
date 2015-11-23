@@ -100,7 +100,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Product.getProductsFromCategory = function (product, callback) {
-			httpRequest("POST", "product/getallproductsbycategory", product, function (err, data) {
+			httpRequest("POST", "product/productbycategory", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -143,7 +143,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.Product.getProductsByProductTypeId = function (product, callback) {
-			httpRequest("POST", "product/getproducts", product, function (err, data) {
+			httpRequest("POST", "product/productbytype", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);

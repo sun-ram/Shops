@@ -40,7 +40,7 @@ angular.module('app')
 		controller : 'productCtrl',
 		resolve:   {
 			products:  function(ProductService,$http, $stateParams){
-				return ProductService.getProductsFromCategory({'categoryId':$stateParams.categoryId}).then(function(data){
+				return ProductService.getProductsFromCategory({'productCategory' : {'productCategoryId' : $stateParams.categoryId}}).then(function(data){
 					return data;
 				});
 
@@ -55,7 +55,7 @@ angular.module('app')
 		controller : 'productCtrl',
 		resolve:   {
 			products:  function(ProductService,$http,$stateParams){
-				return ProductService.getProductsByProductTypeId({'productTypeId':$stateParams.productTypeId}).then(function(data){
+				return ProductService.getProductsByProductTypeId({'productType' : {productTypeId : $stateParams.productTypeId}}).then(function(data){
 					return data;
 				});
 			}

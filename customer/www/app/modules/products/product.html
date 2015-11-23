@@ -49,18 +49,18 @@
     <div layout="row" layout-wrap flex >
      <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
-			<div class="pro-box" flex layout="column">
+		<div class="pro-box" flex layout="column"> 
 				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
-					<img style="height:150px;  width: 100%;" src="{{product.productImages[0].imageUrl}}" style="width:100%"/>
+					<img style="height:150px;  width: 100%;" src="{{product.image.url}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
-					<span class="sub-head text-primary">{{product.productName | limitTo: 15}}{{product.productName.length > 15 ? '...' : ''}}</span>
+					<span class="sub-head text-primary">{{product.name | limitTo: 15}}{{product.name.length > 15 ? '...' : ''}}</span>
 				</div>
 				<div flex  layout="row">
-					<span flex class="md-body-2 text-left">{{product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</span>
+					<span flex class="md-body-2 text-left">{{product.unit}}{{product.uom.name}}</span>
 					<span flex class="md-body-2 text-right">
 						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						₹{{product.productPrice.price}}
+						₹{{product.price}}
 					</span>
 				</div>
 							<div layout="row" flex>
@@ -87,7 +87,7 @@
 									<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
 									<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
 
-									<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+									<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;removeFromMyCart(product,index)">
 										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
 											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
 									</div>

@@ -8,7 +8,7 @@ angular.module('aviate.services')
 		api.Product.getProductsFromCategory(category, function(err, result){		
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					MyCartFactory.checkCartProductsQuantity(result.products,function(data){
+					MyCartFactory.checkCartProductsQuantity(result.productList,function(data){
 						MyCartFactory.checkMyListProductsList(data,function(dataInList){
 							d.resolve(dataInList);
 						});
@@ -28,7 +28,7 @@ angular.module('aviate.services')
 		api.Product.getProductsByProductTypeId(productType, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					MyCartFactory.checkCartProductsQuantity(result.products,function(data){
+					MyCartFactory.checkCartProductsQuantity(result.productList,function(data){
 						MyCartFactory.checkMyListProductsList(data,function(dataInList){
 							d.resolve(dataInList);
 						});

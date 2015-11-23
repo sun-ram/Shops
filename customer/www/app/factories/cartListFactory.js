@@ -80,7 +80,7 @@ angular.module('aviate.factories')
 		var  _totalAmount = 0;
 		for(var i=0; i<$rootScope.myCart.cartItem.length; i++){
 			var _subTotal = 0;
-			_subTotal = $rootScope.myCart.cartItem[i].quantity * $rootScope.myCart.cartItem[i].product.productPrice.price;
+			_subTotal = $rootScope.myCart.cartItem[i].quantity * $rootScope.myCart.cartItem[i].product.price;
 			$rootScope.myCart.cartItem[i].product.subTotal = _subTotal;
 			_totalAmount += _subTotal;
 		}
