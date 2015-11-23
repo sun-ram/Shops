@@ -3,8 +3,9 @@ angular.module('aviateAdmin.services')
 	this.getAllCategory = function(){
 		var d = $q.defer();
 		var product = {
-				"merchantId": $rootScope.user.merchantId
+				merchant : {}
 		};
+		product.merchant.merchantId= $rootScope.user.merchantId;
 		api.ProductCategory.getAllCategory(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
