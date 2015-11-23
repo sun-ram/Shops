@@ -7,7 +7,7 @@ angular.module('aviate.services')
 		api.Category.getProductCategory(storeId, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.category);
+					d.resolve(result.productCategoryVo);
 				} else {
 					toastr.error(result.errorString);
 				}

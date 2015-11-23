@@ -43,7 +43,8 @@ angular.module('aviate.directives').directive('sideNav', [
                     
                 	$rootScope.categoryList = function(){
                 		var request={
-                    			storeId:$rootScope.store.storeId
+                    			//storeId:"ff808181512e282b01512e2d2d780000"
+                				storeId:$rootScope.store.storeId
                     	}
                 		CategoryService.getCategoryList(request).then(function(data){
                             $scope.optimizeData(data);

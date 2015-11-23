@@ -228,6 +228,7 @@ angular.module('aviate.directives')
 				$rootScope.user = null;
 				ipCookie('user', null);
 				$rootScope.myCart = {};
+				//$rootScope.categoryList();
 				$rootScope.myCart.cartItem = [];
 				//ipCookie('myCart', $rootScope.myCart);
 				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));

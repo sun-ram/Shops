@@ -210,7 +210,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Category.getProductCategory = function (storeId, callback) {
-			httpRequest("POST", "product/merchant/getcategories", storeId, function (err, data) {
+			httpRequest("POST", "productcategory/store/getallcategorylist", storeId, function (err, data) {
 				if (err) {
 
 					callback(err, null);
