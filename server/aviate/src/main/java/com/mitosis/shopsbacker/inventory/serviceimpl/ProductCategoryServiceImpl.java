@@ -34,7 +34,6 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
-	@Transactional
 	public List<ProductCategory> getCategoryListByStore(Store store) {
 		return productCategoryDao.getCategoryListByStore(store);
 	}
@@ -45,7 +44,6 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
-	@Transactional
 	public void getLeafCategories(List<ProductCategory> productCategoryList,
 			List<ProductCategory> productCategories) {
 		for (ProductCategory productCategory : productCategoryList) {
@@ -64,7 +62,6 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
-	@Transactional
 	public void setCategoryIds(List<ProductCategory> productCategoryList,
 			List<String> ids) {
 		for (ProductCategory productCategory : productCategoryList) {
@@ -76,7 +73,6 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
-	@Transactional
 	public void setParentCategories(List<ProductCategory> productCategoryList,
 			List<ProductCategory> productCategories) {
 		for (ProductCategory productCategory : productCategoryList) {
@@ -93,46 +89,39 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
-	@Transactional
 	public List<ProductCategory> getProductCategoryList(Merchant merchant) {
 		return productCategoryDao.getProductCategoryList(merchant);
 	}
 
 	@Override
-	@Transactional
 	public void addCategory(ProductCategory productCategory) {
 		productCategoryDao.addCategory(productCategory);
 		
 	}
 
 	@Override
-	@Transactional
 	public void updateCategory(ProductCategory productCategory) {
 		productCategoryDao.updateCategory(productCategory);
 		
 	}
 
 	@Override
-	@Transactional
 	public void deleteCategory(ProductCategory productCategory) {
 		productCategoryDao.deleteCategory(productCategory);
 		
 	}
 
 	@Override
-	@Transactional
 	public List<ProductCategory> getRootProductCategoryList(Merchant merchant){
 		 return productCategoryDao.getRootProductCategoryList(merchant);
 	}
 
 	@Override
-	@Transactional
 	public List<ProductCategory> getallleafcategorylist(Merchant merchant) {
 		return productCategoryDao.getallleafcategorylist(merchant);
 	}
 
 	@Override
-	@Transactional
 	public ProductCategoryVo setProductCategoryVo(ProductCategory productCategory) {
 		ProductCategoryVo category = new ProductCategoryVo();
 		category.setProductCategoryId(productCategory

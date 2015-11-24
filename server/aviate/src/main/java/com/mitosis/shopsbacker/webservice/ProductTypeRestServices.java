@@ -42,6 +42,7 @@ public class ProductTypeRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductTypeResponseVo addProductType(ProductTypeVo productTypeVo)
 			throws Exception {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
@@ -66,6 +67,7 @@ public class ProductTypeRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductTypeResponseVo updateProductType(ProductTypeVo productTypeVo) {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
 		ProductType productType = productTypeService
@@ -85,6 +87,7 @@ public class ProductTypeRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductTypeResponseVo removeproducttype(ProductTypeVo productTypeVo) {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
 		ProductType productType = productTypeService
@@ -100,6 +103,7 @@ public class ProductTypeRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductTypeResponseVo getProductTypeByStore(
 			ProductTypeVo productTypeVo) {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
@@ -123,7 +127,7 @@ public class ProductTypeRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductTypeResponseVo getProductTypeByCategory(
 			ProductTypeVo productTypeVo) {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();

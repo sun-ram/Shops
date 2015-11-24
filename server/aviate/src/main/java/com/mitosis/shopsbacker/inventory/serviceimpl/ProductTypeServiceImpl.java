@@ -37,59 +37,50 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 	}
 
 	@Override
-	@Transactional
 	public void addProductType(ProductType productType) {
 		productTypeDao.addProductType(productType);
 
 	}
 
 	@Override
-	@Transactional
 	public void updateProductType(ProductType productType) {
 		productTypeDao.updateProductType(productType);
 
 	}
 
 	@Override
-	@Transactional
 	public void removeProductType(ProductType productType) {
 		productTypeDao.removeProductType(productType);
 
 	}
 
 	@Override
-	@Transactional
 	public ProductType getProductTypeById(String productTypeId) {
 		return productTypeDao.getProductTypeById(productTypeId);
 	}
 
 	@Override
-	@Transactional
 	public List<ProductType> getAllProductType() {
 		return productTypeDao.getAllProductType();
 	}
 
 	@Override
-	@Transactional
 	public boolean checkProductType(ProductCategory productCategory) {
 		return productTypeDao.checkProductType(productCategory);
 	}
 
 	@Override
-	@Transactional
 	public List<ProductType> getAllProductTypeByMerchant(Merchant merchant) {
 		return productTypeDao.getAllProductTypeByMerchant(merchant);
 	}
 
 	@Override
-	@Transactional
 	public List<ProductType> getProductTypeByCategory(
 			ProductCategory productCategory) {
 		return productTypeDao.getProductTypeByCategory(productCategory);
 	}
 
 	@Override
-	@Transactional
 	public ProductTypeVo setProductTypeVo(ProductType productType) {
 		ProductTypeVo productTypeVo = new ProductTypeVo();
 		productTypeVo.setName(productType.getName());
@@ -98,7 +89,6 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 	}
 	
 	@Override
-	@Transactional
 	public List<ProductTypeVo> prepareProductTypeVoList(Merchant merchant) {
 		List<ProductTypeVo> productTypeVoResponse = new ArrayList<ProductTypeVo>();
 		List<ProductType> productTypes = getAllProductTypeByMerchant(merchant);

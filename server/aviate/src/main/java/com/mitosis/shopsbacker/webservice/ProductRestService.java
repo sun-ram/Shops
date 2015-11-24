@@ -104,7 +104,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ResponseModel addProduct(ProductVo productVo) {
 		
 		try {
@@ -164,6 +164,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ResponseModel updateProduct(ProductVo productVo) {
 		
 		try {
@@ -202,6 +203,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ResponseModel deleteProduct(ProductVo productVo) {
 		try {
 			Product product = getProductService().getProduct(productVo.getProductId());
@@ -242,6 +244,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ResponseModel ProductByType(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -270,6 +273,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductResponseVo ProductByCategory(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -298,6 +302,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ResponseModel GetTopProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -326,7 +331,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductResponseVo GetProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -355,6 +360,7 @@ public class ProductRestService {
 	 @GET
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces("application/vnd.ms-excel")
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	 public   Response exportExcelFile(@QueryParam("merchantId") String merchantId){
 		Response productResponse = null;
 		
@@ -407,6 +413,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductUploadVO excelUpload() {
 		ProductUploadVO response = new ProductUploadVO();
 		String excelPath = "/home/ramya/Documents/BSEE_Documents/Products.xls";
@@ -556,7 +563,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductResponseVo imageUpload(ProductVo productVo) throws Exception {
 		
 		ProductResponseVo productResponse = new ProductResponseVo();

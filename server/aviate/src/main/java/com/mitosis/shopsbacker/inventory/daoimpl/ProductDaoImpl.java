@@ -21,7 +21,6 @@ import com.mitosis.shopsbacker.model.Uom;
  * @author RiyazKhan.M
  */
 @Repository
-@Transactional
 public class ProductDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 ProductDao<T>, Serializable{
   

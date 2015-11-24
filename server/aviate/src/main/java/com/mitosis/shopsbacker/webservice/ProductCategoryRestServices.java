@@ -53,6 +53,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo addparentcategory(
 			ProductCategoryVo productCategoryVo) {
 
@@ -86,6 +87,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo addCategory(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -152,6 +154,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo updateCategory(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -171,6 +174,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo removeCategory(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -188,6 +192,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo getCategoryList(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -214,6 +219,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo getCategoryListData(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -240,7 +246,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo getallleafcategorylist(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -325,7 +331,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ProductCategoryResponseVo getallleafcategorylist1(StoreVo storeVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		Store store = storeService.getStoreById(storeVo.getStoreId());
