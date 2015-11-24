@@ -283,6 +283,30 @@ angular.module('aviateAdmin.controllers')
 
 		})
 	}
+	
+	
+	$scope.uploadExcel = function (val1,val2){
+
+		var id =$('#'+val2).val();
+
+		var srs=id.replace("C:\\fakepath\\" ,"" );	
+
+		$('#'+val1).html(srs);
+		
+		$scope.uploadXmls();
+
+	}
+	
+	$scope.uploadXmls = function(){
+		//$scope.product.merchant.merchantId=$rootScope.user.merchantId
+		$scope.product.productId="456"
+		$scope.product.image ={};
+		$scope.product.image.image=$scope.excelFile.split(",")[1];
+		$scope.product.image.type=$scope.excelFile ? ($scope.excelFile.substring(11).split(";")[0]) : "";
+		ProductService.uploadExcelFile($scope.product).then(function(data) {
+			console.log("file imported successfully");
+		})
+	}
 
 }
 ]);

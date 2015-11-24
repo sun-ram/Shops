@@ -87,7 +87,15 @@
       md-trigger="onpagechange"></md-data-table-pagination>
       </div>
      <div>
-     <md-button ng-href={{excelUrl}} >Export ProductList</md-butto n>
+     <div layout="row" layout-padding layout-align="start">
+    <md-button ng-href={{excelUrl}} >Export ProductList</md-button>
+      
+		          	 <label flex="20" class="custom-excel-input" style="margin:10px 10px; height: 30px; padding: 6px;">	
+					    <!-- <ng-md-icon icon="file_upload" size="20"></ng-md-icon> -->
+					    <input id="file-upload1" type="file" ng-model="excelFile" app-filereader ng-change="uploadExcel('file-name1','file-upload1')"/>
+					    <span ng-hide="true" id="file-name1" ></span>
+					</label>
+			</div> 
      <md-button ng-click="#" >Import ProductList</md-button>
      </div>
 </md-card> 

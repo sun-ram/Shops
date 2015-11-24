@@ -4,7 +4,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
-			$scope.salesOrderPagination.order= 'address.firstName';
+			$scope.salesOrderPagination.order= 'customerVo.name';
 			
 			if($localStorage.state){
 				$scope.salesOrderList = $localStorage.salesorderfilter;
@@ -14,34 +14,14 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			}
 			
-			/*$scope.getSalesOrderList = function () {
-				var request = {};
-				if($rootScope.user.role == "MERCHANTADMIN"){
-					request = {
-							"merchantId":"2c9fa0375119c5c801511b14c88200a0"
-					};
-				}else if($rootScope.user.role == "STOREADMIN"){
-					request = {
-							"storeId":$rootScope.user.storeId
-					};
-				}
-
-				SalesOrderServices.getSalesOrder(request).then(function(data) {
-					$scope.salesOrderList = data;
-					$localStorage.salesorderlist = data;
-					$scope.count=data.length;
-
-				});
-			};*/
-			
 			$scope.getSalesOrderList = function () {
 				var salesOrderVo = {};
-				if(true){
+				if($rootScope.user.role == "MERCHANTADMIN"){
 					salesOrderVo = {
-							"merchantId":"2c9fa0375119c5c801511b14c88200a0"
+							"merchantId":$rootScope.user.merchantId
 					};
 				}else if($rootScope.user.role == "STOREADMIN"){
-					request = {
+					salesOrderVo.storeVo = {
 							"storeId":$rootScope.user.storeId
 					};
 				}
@@ -57,7 +37,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 			$scope.getMerchantStore = function () {
 
 				var merchantVo = {
-						"merchantId":"2c9fa0375119c5c801511a7afeb20088"
+						"merchantId":$rootScope.user.merchantId
 				};
 				SalesOrderServices.getMerchantStore(merchantVo).then(function(data) {
 					$scope.merchantStore = data;
@@ -70,11 +50,12 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				var request = {
 						"storeId":$scope.storeId
 				};
-				SalesOrderServices.getSalesOrderByStore(request).then(function(data) {
+				$scope.search=$scope.storeId;
+				/*SalesOrderServices.getSalesOrderByStore(request).then(function(data) {
 					$localStorage.salesorderfilter = data;
 					$scope.salesOrderList = $localStorage.salesorderfilter;
 
-				});
+				});*/
 			};
 
 			$scope.getSalesByDate = function () {
@@ -85,18 +66,20 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 						if($scope.fromDate > $scope.toDate){
 							toastr.error("To date must less than from date");
 						}else{
-							var request = {
+							var salesOrderVo = {
 									"fromDate":$scope.fromDate.toLocaleDateString(),
-									"toDate":$scope.toDate.toLocaleDateString()
+									"deliveryDate":$scope.toDate.toLocaleDateString()
 							};
 							
 							if($rootScope.user.role == "MERCHANTADMIN"){
-								request.merchantId=$rootScope.user.merchantId
+								salesOrderVo.merchantId=$rootScope.user.merchantId
 							}else if($rootScope.user.role == "STOREADMIN"){
-								request.storeId=$rootScope.user.storeId
+								salesOrderVo.storeVo = {
+										"storeId":$rootScope.user.storeId
+								};
 							}
 
-							SalesOrderServices.getSalesByDate(request).then(function(data) {
+							SalesOrderServices.getSalesByDate(salesOrderVo).then(function(data) {
 								$localStorage.salesorderfilter = data;
 								$scope.salesOrderList = $localStorage.salesorderfilter;
 

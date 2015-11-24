@@ -12,7 +12,7 @@
 			layout-align="end center" class="bg-none" ng-model="toDate"
 			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
 		<md-input-container ng-hide="user.role == 'STOREADMIN'" style="height: 37px; padding: 2px 20px;">
-		<label>Store</label> <md-select name="myModel" ng-model="storeId" ng-change="storeFilter()"
+		<label>Store</label> <md-select name="myModel" ng-model="search" 
 			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
 	    </md-input-container>
 	</div>
@@ -31,35 +31,33 @@
 	md-progress="deferred">
 	<thead md-order="salesOrderPagination.order" md-trigger="onorderchange">
 		<tr>
-              <th order-by="address.firstName" name="Customer"></th>
+              <th order-by="customerVo.name" name="Customer"></th>
 <!--               <th order-by="address.firstName" name="Products"></th>
- -->              <th order-by="orderId" name="Ref-no"></th>
-              <th numeric order-by="address.address" name="Delivery Address"></th>
-              <th numeric order-by="warehouse.warehouseName" name="Warehouse"></th>
-              <th numeric order-by="orderStatus" name="Status"></th>
-              <th numeric order-by="shippingCharge" name="Shipping Charge"></th>
-              <th numeric order-by="created" name="Order Date"></th>
+ -->              <th order-by="transactionNo" name="Ref-no"></th>
+              <th numeric order-by="addressVo.address1" name="Delivery Address"></th>
+              <th numeric order-by="status" name="Status"></th>
+              <th numeric order-by="fromDate" name="Order Date"></th>
               <th numeric order-by="deliveryDate" name="Delivery Date"></th>
-              <th numeric order-by="store.storeName" name="Store"></th>
-              <th numeric order-by="totalAmount" name="Net"></th>
-              <th numeric order-by="orderGrossAmount" name="Gross"></th>
+              <th numeric order-by="storeVo.name" name="Store"></th>
+              <th numeric order-by="shippingCharge" name="Shipping Charge"></th>
+              <th numeric order-by="amount" name="Net"></th>
+              <th numeric order-by="netAmount" name="Gross"></th>
               <th name="View Details"></th>
             </tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="salesOrder in salesOrderList | orderBy: salesOrderPagination.order | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:search">
-			<td>{{salesOrder.address.firstName}} {{salesOrder.address.lastName}}</td>
+			<td>{{salesOrder.customerVo.name}}</td>
 			<!-- <td><md-select ng-model="dessert.type" placeholder="Other">
 				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
 				</md-select></td> -->
-			<td>{{salesOrder.salesOrderId}}</td>	
-			<td>{{salesOrder.address.address1}},{{salesOrder.address.city}},{{salesOrder.address.state}}</td>
-			<td>{{salesOrder.warehouse.warehouseName}}</td>
+			<td>{{salesOrder.transactionNo}}</td>	
+			<td>{{salesOrder.addressVo.address1}},{{salesOrder.address.address2}},{{salesOrder.address.city}}</td>
 			<td>{{salesOrder.status}}</td>
-			<td>{{salesOrder.shippingCharge}}</td>
-			<td>{{salesOrder.created}}</td>
+			<td>{{salesOrder.fromDate}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>
-			<td>{{salesOrder.store.name}}</td>
+			<td>{{salesOrder.storeVo.name}}</td>
+			<td>{{salesOrder.shippingCharge}}</td>
 			<td>{{salesOrder.amount}}</td>
 			<td>{{salesOrder.netAmount}}</td>
 			<td><md-button class="md-raised md-primary" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>

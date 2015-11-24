@@ -16,7 +16,7 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 							"merchantId":$rootScope.user.merchantId
 					};
 				}else if($rootScope.user.role == "STOREADMIN"){
-					salesOrderVo.merchantVo = {
+					salesOrderVo.storevo = {
 							"storeId":$rootScope.user.storeId
 					};
 				}
@@ -30,7 +30,7 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			
 			$scope.getStockListByStore = function () {
 
-				salesOrderVo.merchantVo= {
+				salesOrderVo.storevo= {
 						"storeId":$scope.storesId
 				};
 				productStockService.getProductStockList(salesOrderVo).then(function(data) {

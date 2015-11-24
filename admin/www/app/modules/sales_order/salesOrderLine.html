@@ -29,7 +29,7 @@
 	 </span> 
 		<tr>
 			<th order-by="productDetails.productName" name="Product"></th>
-			<th order-by="productId" name="Storage-bin"></th>
+			<th order-by="productId" name="Discount"></th>
 			<th numeric order-by="productDetails.productPrice.tax" name="Tax"></th>
 			<th numeric order-by="productDetails.productPrice.price" name="Price"></th>
 			<th numeric order-by="quantity" name="Quantity"></th>
@@ -38,20 +38,19 @@
 	</thead>
 	<tbody>
 		<tr
-			ng-repeat="product in salesOrderDetails.product | orderBy: salesOrderLinePagination.order | limitTo: salesOrderLinePagination.limit: (salesOrderLinePagination.page - 1) * salesOrderLinePagination.limit | filter:search">
-			<td>{{product.product.name}}</td>
-			<td>{{product.product.storagebin}}</td>
+			ng-repeat="product in salesOrderDetails.salesOrderLineVo | orderBy: salesOrderLinePagination.order | limitTo: salesOrderLinePagination.limit: (salesOrderLinePagination.page - 1) * salesOrderLinePagination.limit | filter:search">
+			<td>{{product.productVo.name}}</td>
+			<td>{{product.discount}}</td>
 			<td>{{product.productDetails.productPrice.tax}}</td>
 			<td>{{product.price}}</td>
 			<td>{{product.qty}}</td>
-			<td>{{netAmount}}</td>
+			<td>{{product.netAmount}}</td>
 		</tr>
 	</tbody>
 </table>
 </md-data-table-container> <md-data-table-pagination md-limit="salesOrderLinePagination.limit" md-page="salesOrderLinePagination.page"
 	md-total="{{desserts.count}}" md-trigger="onpagechange"></md-data-table-pagination>
    </md-card-content>
-
 </md-card>
 <style>
 .close_box {

@@ -128,6 +128,17 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
+	this.uploadExcelFile = function(file){
+		var d = $q.defer();
+		api.Product.uploadExcelFile(file, function(err, result){
+			if (result.status == 'SUCCESS') {
+				toastr.success("Excel updated Successfully");
+			} else {
+				toastr.error(result.errorString);
+			}
+		})
+		return d.promise;
+	};
 	
 
 	this.setProductObj = function(product){
