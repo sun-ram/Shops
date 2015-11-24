@@ -17,9 +17,9 @@
 }
 
 
-body,html{font-family:'titilium-regular'}
+body,html{font-family:'titilium-regular'; background-color:#f5f5f5;}
 h1,h2,h3,h4,h5,h6{font-family:'titilium-semibold'}
-
+h2{ font-size:26px !important;color:#023904;}
 
 
 
@@ -84,10 +84,10 @@ h1,h2,h3,h4,h5,h6{font-family:'titilium-semibold'}
 .ft-12{font-size:12px;}
 
 /* Font-color */
-.hash_color{fill:#aaa;color:#aaa;}
+.hash_color{fill:#666666;color:#666666;}
 .hash_color:hover{fill:color:#aaa;;color:color:#aaa;}
 .ft-black{color:#000;}
-.icon-white{fill:#fff;}
+.icon-white{fill:#023904;}
 
 /* bg-color  */
 .bg_white{
@@ -123,7 +123,7 @@ md-backdrop.md-opaque{
 }
 
 md-content.md-default-theme {
-  background-color: #eee;
+  background-color: #f5f5f5;
 }
 
 md-card {
@@ -153,7 +153,7 @@ md-sidenav ng-md-icon {
   top: 5px;
 }
 md-content.md-default-theme {
-  background-color: #eee;
+  background-color: #f5f5f5; 
 }
 
 md-card {
@@ -351,9 +351,10 @@ md-select .md-select-value{
 .login-box md-checkbox{ margin:20px 8px 20px 2px;}
 
 .md-sidenav-left, md-sidenav{top:66px;}
-.data-table-list:nth-child(odd)  md-item-content{ background-color:#f1f1f1;}
+.data-table-list:nth-child(odd)  md-item-content{ background-color:#eeeeee;}
+md-list{ padding:0px;}
 
-
+md-data-table-pagination div{font-size:16px !important; color:#023904 !important;}
 
 
 

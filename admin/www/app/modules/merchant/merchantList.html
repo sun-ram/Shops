@@ -11,7 +11,7 @@
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
 	        <label>&nbsp;</label>
-	        <input ng-model="search" style="color: white; border-bottom-color: white;" placeholder="enter search">
+	        <input ng-model="search" style="color: #023904; border-bottom-color: #023904;" placeholder="Search">
 	      </md-input-container>
 	      <md-button aria-label="Search" style="line-height: inherit; min-width: inherit;" ng-click="showSearch = !showSearch;srch = true;">
 	        <ng-md-icon icon="search" class="icon-white"></ng-md-icon>
@@ -59,6 +59,6 @@
   
 </md-card>
 
- <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+ <div style="font-size:16px;"layout layout="row" class="table-pagination-bg" layout-align="end end">
 		<md-data-table-pagination md-limit="merchantPagination.limit" md-page="merchantPagination.page" md-total="{{merchantData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
