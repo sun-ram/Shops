@@ -1,6 +1,5 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getMerchantDetails()">
-   <md-card-content style="padding: 0px 0px 16px 0px;">
-     <md-toolbar class="md-whiteframe-4dp">
+<div  ng-init="getMerchantDetails()">
+     <md-toolbar class="" style="background-color:transparent;">
 	<div class="md-toolbar-tools ">
 	<div layout="row" layout-align="start center">	 
 	 <img src="{{merchant.logo.url}}" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
@@ -11,10 +10,15 @@
 	<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMerchant(merchant)">
 		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 	</md-button>
-	<span class="close_box">
+	<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.merchants">
+		<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
+	<!-- <span class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.merchants"></ng-md-icon>
-	 </span>      	
+	 </span>  -->     	
 	</md-toolbar>
+	<md-card flex-gt-sm="90" flex-gt-md="80">
+   <md-card-content style="padding: 0px 0px 16px 0px;">
 	<md-list>
 	   <div layout layout-sm="column">
 	
@@ -94,3 +98,4 @@
      </md-list>
    </md-card-content>
 </md-card>
+</div>

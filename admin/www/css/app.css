@@ -23,6 +23,7 @@ h2{ font-size:26px !important;color:#023904;}
 
 input{
   text-overflow: ellipsis;
+  font-family:'titilium-regular' !important;
 }
 
 
@@ -48,7 +49,7 @@ input{
 
 /* width style */
 	.wid-50{width:50%;}
-	.full_wid{width:100%;}
+	.full_wid{width:100%; outline:0;}
 
 /* Floating */
 .pull-left{float: left;}
@@ -233,7 +234,7 @@ top: 0px;}
 border-radius: 50px;left: 32px;top: -5px;position: absolute;fill:crimson;padding: 0px 3px 0px 2px;}
 .custom-file-upload svg{width:15px; height:15px;}
 .detail-list{padding: 10px 0px; margin: 0% 35px; border-bottom: 2px solid #ddd;}
-.edit-btn{position: absolute; width: 45px ! important; height: 45px ! important; right: 25px; margin-top: -25px;}
+.edit-btn{position: absolute; width: 45px ! important; height: 45px ! important; right: 25px; margin-top: -15px;}
 .md-toolbar-tools{
 	/*background: #a7a6a7 ! important;*/
 	color:#000000;
@@ -355,7 +356,7 @@ md-select .md-select-value{
 .login-box md-checkbox{ margin:20px 8px 20px 2px;}
 
 .md-sidenav-left, md-sidenav{top:66px;}
-.data-table-list{ cursor:pointer;}
+.data-table-list{ cursor:pointer; outline:0;}
 .data-table-list:nth-child(odd)  md-item-content{ background-color:#eeeeee;}
 md-list{ padding:0px;}
 
@@ -363,16 +364,23 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 .md-fab ng-md-icon{ color:#FFFFFF; fill:#FFFFFF;} 
 
 
+/* MEDIA */
+@media screen and (max-width: 560px) {
+  .merch-addr{width: 100px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
+    
+}
+@media screen and (min-width: 561px) and (max-width: 767px) {
+  .merch-addr{width: 200px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
+    
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
 
-
-
-
-
-
-
-
-
-
-
+  
+    .merch-addr{width: 300px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
+}
+@media screen and (min-width: 1025px) {
+  
+    .merch-addr{width: 500px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
+}
 
 
