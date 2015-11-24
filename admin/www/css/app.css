@@ -351,11 +351,11 @@ md-select .md-select-value{
 .login-box md-checkbox{ margin:20px 8px 20px 2px;}
 
 .md-sidenav-left, md-sidenav{top:66px;}
+.data-table-list{ cursor:pointer;}
 .data-table-list:nth-child(odd)  md-item-content{ background-color:#eeeeee;}
 md-list{ padding:0px;}
 
 md-data-table-pagination div{font-size:16px !important; color:#023904 !important;}
-
 
 
 
