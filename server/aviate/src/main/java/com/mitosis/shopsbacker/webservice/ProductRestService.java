@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,6 +61,7 @@ import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
+import com.sun.jersey.core.util.Base64;
 
 /**
  * @author RiyazKhan
@@ -440,15 +442,18 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
-	public ProductUploadVO excelUpload() {
+	public ProductUploadVO excelUpload(ProductVo file) {
 		ProductUploadVO response = new ProductUploadVO();
-		String excelPath = "/home/ramya/Documents/BSEE_Documents/Products.xls";
+		String excelPath = null;
 		try {
-			/*Properties properties = new Properties();
+			Properties properties = new Properties();
 			properties.load(getClass().getResourceAsStream(
 					"/properties/serverurl.properties"));
-			defaultImagePath = properties.getProperty("imagePath");*/
+			excelPath = properties.getProperty("excelPath");
+			byte[] data = Base64.decode(file.getImage().getImage());
+			try (OutputStream stream = new FileOutputStream(excelPath)) {
+			    stream.write(data);
+			}
 			List<Product> productList = new ArrayList<Product>();
 			response =convertXlsToModel(excelPath, 0);
 		} catch (Exception e) {
@@ -546,6 +551,12 @@ public class ProductRestService {
 											product.setIsactive('Y');
 										}else{
 											product = productService.getProductByName(cell.getStringCellValue().trim());
+											if(product==null){
+												response.setStatus(SBMessageStatus.FAILURE.getValue());
+												response.setErrorString(SBErrorMessage.PRODUCT_NOT_AVAILABLE.getMessage());
+												response.setRowNo(cellPosition);
+												return response;
+											}
 										}
 										product.setName(cell.getStringCellValue().trim());
 									}
