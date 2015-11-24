@@ -19,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
+import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Store;
@@ -32,6 +34,7 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 @Path("productcategory")
 @Controller("productCategoryRestServices")
@@ -49,11 +52,14 @@ public class ProductCategoryRestServices<T> {
 	@Autowired
 	StoreService<T> storeService;
 
+	@Autowired
+	ProductService<T> productService;
+
 	@Path("/addparentcategory")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo addparentcategory(
 			ProductCategoryVo productCategoryVo) {
 
@@ -87,7 +93,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo addCategory(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -154,7 +160,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo updateCategory(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -174,7 +180,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo removeCategory(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -192,7 +198,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo getCategoryList(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -219,7 +225,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo getCategoryListData(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -246,7 +252,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo getallleafcategorylist(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -262,6 +268,47 @@ public class ProductCategoryRestServices<T> {
 				productCategoryLeaf.setProductCategoryId(productSingleLeaf
 						.getProductCategoryId());
 				productCategoryLeaf.setName(productSingleLeaf.getName());
+				productCategoryLeafListVo.add(productCategoryLeaf);
+			}
+			productCategoryResponseVo
+					.setProductCategoryVo(productCategoryLeafListVo);
+			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+					.getValue());
+		}
+		return productCategoryResponseVo;
+
+	}
+
+	@Path("/getallleafcategorylistWithProducts")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ProductCategoryResponseVo getallleafcategorylistWithProducts(
+			ProductCategoryVo productCategoryVo) throws Exception {
+		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
+		List<ProductCategory> productCategoryLeafList = new ArrayList<ProductCategory>();
+		List<ProductCategoryVo> productCategoryLeafListVo = new ArrayList<ProductCategoryVo>();
+		Merchant merchant = merchantService.getMerchantById(productCategoryVo
+				.getMerchant().getMerchantId());
+		if (merchant != null) {
+			productCategoryLeafList = productCategoryService
+					.getallleafcategorylist(merchant);
+			for (ProductCategory productSingleLeaf : productCategoryLeafList) {
+				ProductCategoryVo productCategoryLeaf = new ProductCategoryVo();
+				productCategoryLeaf.setProductCategoryId(productSingleLeaf
+						.getProductCategoryId());
+				productCategoryLeaf.setName(productSingleLeaf.getName());
+				List<Product> productList = productSingleLeaf.getProducts();
+				if (!productList.isEmpty()) {
+					List<ProductVo> producVoList = new ArrayList<ProductVo>();
+					for (int i = 0; i < productList.size(); i++) {
+						ProductVo product = productService
+								.setProductVo(productList.get(i));
+						producVoList.add(product);
+					}
+					productCategoryLeaf.setProducts(producVoList);
+				}
 				productCategoryLeafListVo.add(productCategoryLeaf);
 			}
 			productCategoryResponseVo
@@ -331,7 +378,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo getallleafcategorylist1(StoreVo storeVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		Store store = storeService.getStoreById(storeVo.getStoreId());
