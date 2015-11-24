@@ -1,10 +1,9 @@
 package com.mitosis.shopsbacker.vo.order;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.mitosis.shopsbacker.model.Product;
-import com.mitosis.shopsbacker.model.SalesOrder;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 public class SalesOrderLineVo {
 	private String salesOrderLineId;
@@ -15,6 +14,8 @@ public class SalesOrderLineVo {
 	private BigDecimal grossAmount;
 	private BigDecimal netAmount;
 	private BigDecimal discount;
+	private ProductVo productVo;
+	
 	private char isactive;
 	public String getSalesOrderLineId() {
 		return salesOrderLineId;
@@ -69,6 +70,12 @@ public class SalesOrderLineVo {
 	}
 	public void setSalesOrderVo(SalesOrderVo salesOrderVo) {
 		this.salesOrderVo = salesOrderVo;
+	}
+	public ProductVo getProductVo() {
+		return productVo;
+	}
+	public void setProductVo(ProductVo productVo) {
+		this.productVo = productVo;
 	}
 	
 	

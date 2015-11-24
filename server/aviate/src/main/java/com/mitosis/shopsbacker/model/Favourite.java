@@ -91,7 +91,7 @@ public class Favourite implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	public SalesOrder getSalesOrder() {
 		return this.salesOrder;

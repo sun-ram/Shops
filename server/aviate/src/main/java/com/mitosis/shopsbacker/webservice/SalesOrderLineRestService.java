@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
@@ -55,7 +57,7 @@ public class SalesOrderLineRestService<T> {
 		try {
 			List<SalesOrderLine> saleslineList = salesOrderLineService.getSalesOrderLineById(salesOrderLineVo.getSalesOrderId());
 			for (SalesOrderLine salesOrderLine : saleslineList) {
-				salesOrderLineVo = salesOrderLineService.setSalesOrderLineVo(salesOrderLine);
+				//salesOrderLineVo = salesOrderLineService.setSalesOrderLineVo(salesOrderLine);
 				salesOrderLineResponse.getSaleslistListVo().add(salesOrderLineVo);
 			}
 		} catch (Exception e) {

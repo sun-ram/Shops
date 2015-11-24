@@ -84,7 +84,7 @@ public class ProductInventoryRestService<T> {
 		response = new ResponseModel();
 		productStockResponse = new ProductStockResponseVo();
 		try {
-			if(productInventoryVo.getMerchantVo().getMerchantId()!=null){
+			if(productInventoryVo.getMerchantVo()!=null){
 				Merchant merchant = getMerchantService().getMerchantById(productInventoryVo.getMerchantVo().getMerchantId());
 				List productInventoryList = getProductInventoryService().getProductInventoryByMerchant(merchant);
 				productStockResponse = getProductInventoryService().setProductStockVo(productInventoryList);

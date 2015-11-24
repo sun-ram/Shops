@@ -30,7 +30,7 @@ public class PasswordResetRequest implements java.io.Serializable {
 	private String tokenId;
 	private String userId;
 	private String userType;
-	private Character isactive;
+	private char isactive;
 	private String createdby;
 	private String updatedby;
 	private Date created;
@@ -40,7 +40,7 @@ public class PasswordResetRequest implements java.io.Serializable {
 	}
 
 	public PasswordResetRequest(String requestId, String tokenId, String userId,  String userType, String createdby,
-			String updatedby, Date created, Date updated) {
+			String updatedby, Date created, Date updated, char isactive) {
 		this.requestId = requestId;
 		this.tokenId = tokenId;
 		this.userId = userId;
@@ -49,6 +49,7 @@ public class PasswordResetRequest implements java.io.Serializable {
 		this.updatedby = updatedby;
 		this.created = created;
 		this.updated = updated;
+		this.isactive = isactive;
 	}
 	
 	@Id
@@ -91,11 +92,11 @@ public class PasswordResetRequest implements java.io.Serializable {
 	}
 
 	@Column(name = "ISACTIVE", length = 1)
-	public Character getIsactive() {
+	public char getIsactive() {
 		return this.isactive;
 	}
 
-	public void setIsactive(Character isactive) {
+	public void setIsactive(char isactive) {
 		this.isactive = isactive;
 	}
 
