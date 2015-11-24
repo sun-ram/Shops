@@ -9,7 +9,7 @@
   		<h2 layout-align="start">Movements</h2>
     	<span class="flex"></span>
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
-	      <md-input-container md-theme="input" flex>
+	      <md-input-container flex>
 	        <label>&nbsp;</label>
 	        <input ng-model="sreach" style="color: white; border-bottom-color: white;" placeholder="enter search">
 	      </md-input-container>
@@ -24,7 +24,7 @@
    </md-toolbar>
 
    <md-card-content class="nopaddtop">
-		<md-data-table-container>
+	<md-data-table-container>
      <md-list>
        <md-item md-data-table ng-repeat="movement in movements | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row"" ng-click="redirectToMovementDetails(movement);">
          <md-item-content layout="row" layout-padding>
@@ -39,25 +39,27 @@
                 
              </span>
             <span flex=40 layout="row" layout-align="end center">
-            	<md-button ng-hide="movement.isprocessed == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="redirectToEditMovement(movement);$event.stopPropagation();" aria-label="Edit">
+            	<md-button ng-hide="movement.ismoved == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="redirectToEditMovement(movement);$event.stopPropagation();" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
       			</md-button>
-             	<md-button ng-hide="physicalinventory.isprocessed == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="removeInventory(physicalinventory.inventoryId);$event.stopPropagation();" aria-label="Delete">
+             	<md-button ng-hide="movement.ismoved == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="removeMovement(movement);$event.stopPropagation();" aria-label="Delete">
              		<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
-              <md-button ng-hide="physicalinventory.isprocessed == 'Y'" class="md-raised md-success  prdct-btns" ng-click="conformInventroy(physicalinventory.inventoryId);$event.stopPropagation();">Process</md-button>
-              <md-button class="md-raised md-success  prdct-btns" ng-click="viewMovements(physicalinventory);$event.stopPropagation();">View Line</md-button>
+              <md-button ng-hide="movement.ismoved == 'Y'" class="md-raised md-success  prdct-btns" ng-click="processMovement(movement);$event.stopPropagation();">Process</md-button>
+              <md-button class="md-raised md-success  prdct-btns" ng-click="redirectToMovementDetails(movement);$event.stopPropagation();">View Line</md-button>
              </span>
             </div>
            </div>
          </md-item-content>
-         <md-divider></md-divider>
        <md-divider></md-divider>
        </md-item>
      </md-list>
 	</md-data-table-container>
    </md-card-content>
     <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{physicalinventoryData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{movements.length}}" md-trigger="onpagechange">
+	
+	
+	</md-data-table-pagination>
 	</div>
 </md-card>

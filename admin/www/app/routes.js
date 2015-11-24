@@ -221,6 +221,7 @@ angular.module('app')
 				 resolve:   {
 					 movementLists:  function(PhysicalInventoryServices, $http, $stateParams, $rootScope){
 	                        return PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+	                        	localStorage.removeItem('physicalinventoryDetails');
 	                        	return data;
 	        				});
 	                        

@@ -12,27 +12,28 @@ angular.module('aviateAdmin.controllers').controller("physicalinventorycontrolle
 				});
 			}
 
-			$scope.redirectToMovementDetails = function(physicalinventory){
-				PhysicalInventoryServices.setPhysicalInventoryObj(physicalinventory);
+			$scope.redirectToMovementDetails = function(movement){
+				PhysicalInventoryServices.setMovementObj(movement);
 				$state.go('app.physicalinventorydetails');
 			}
 
-			$scope.redirectToEditMovement = function(physicalinventory){
-				PhysicalInventoryServices.setPhysicalInventoryObj(physicalinventory);
-				$state.go('app.editphysicalinventory');
+			$scope.redirectToEditMovement = function(movement){
+				PhysicalInventoryServices.setMovementObj(movement);
+				$state.go('app.newphysicalinventory');
 			}
 
-			/*$scope.removeInventory= function(inventoryId) {
-				$scope.physicalinventory = {};
-				$scope.physicalinventory.inventoryId = inventoryId;
-				PhysicalInventoryServices.removeInventory({'inventoryId':$scope.physicalinventory.inventoryId}).then(function(data){
-					$scope.redirectGetPhysicalInventory();
+			$scope.processMovement = function(movement) {
+				$scope.warehouseData = {};
+				PhysicalInventoryServices.processMovement({'movementId': movement.movementId}).then(function(data){
+					$state.go('app.newphysicalinventory');
 				});
-			};*/
+			};
 			
 			$scope.removeMovement = function(movement){
 				PhysicalInventoryServices.removeMovement(movement).then(function(data){
-					$scope.movement = { };
+					PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+						$scope.movements = data;
+    				});
 				});
 			};
 

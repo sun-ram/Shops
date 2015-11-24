@@ -20,7 +20,7 @@ public class MovementResponseVo extends ResponseModel {
 		this.movement = movement;
 	}
 
-	MovementVo movement;
+	MovementVo movement = new  MovementVo();
 	
 	List<MovementVo> movements=new ArrayList<MovementVo>();
 	

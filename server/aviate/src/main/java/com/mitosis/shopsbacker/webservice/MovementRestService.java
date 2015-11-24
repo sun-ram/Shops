@@ -14,12 +14,15 @@ import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.MovementLineService;
 import com.mitosis.shopsbacker.inventory.service.MovementService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.inventory.service.StoragebinService;
 import com.mitosis.shopsbacker.inventory.service.WarehouseService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
@@ -27,6 +30,7 @@ import com.mitosis.shopsbacker.model.MovementLine;
 import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
+import com.mitosis.shopsbacker.responsevo.MovementLineResponseVo;
 import com.mitosis.shopsbacker.responsevo.MovementResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
@@ -67,12 +71,13 @@ public class MovementRestService<T> {
 	MovementLineService<T> movementLineService;
 
 	@Autowired
-	com.mitosis.shopsbacker.inventory.service.StoragebinService<T> storeagebinService;
+	StoragebinService<T> storeagebinService;
 
 	@Path("/save")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public MovementResponseVo saveMovement(MovementVo movementVo) {
 		MovementResponseVo response = new MovementResponseVo();
 		try {
@@ -86,7 +91,7 @@ public class MovementRestService<T> {
 				movementService.updateMovement(movement);
 			}
 			MovementVo movementvo = setMovementVo(movement);
-			response.setMovement(movementVo);
+			response.setMovement(movementvo);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,15 +113,17 @@ public class MovementRestService<T> {
 		movementvo.setIsupdated(movement.getIsmoved());
 		movementvo.setName(movement.getName());
 		WarehouseVo warehouseVo = new WarehouseVo();
-		warehouseVo.setName(movement.getWarehouse().getName());
+		Warehouse warehouse = movement.getWarehouse();
+		warehouseVo.setName(warehouse.getName());
 		warehouseVo.setWarehouseId(movement.getWarehouse().getWarehouseId());
 		movementvo.setWarehouse(warehouseVo);
 		List<MovementLine> movementLines = movement.getMovementLines();
 		List<MovementLineVo> movementLineVos = new ArrayList<MovementLineVo>();
 		for (MovementLine movementLine : movementLines) {
-			MovementLineVo movementLineVo = setMovementVo(movementLine);
+			MovementLineVo movementLineVo = setMovementLineVo(movementLine);
 			movementLineVos.add(movementLineVo);
 		}
+		movementvo.setMovementLines(movementLineVos);
 		return movementvo;
 	}
 
@@ -125,7 +132,7 @@ public class MovementRestService<T> {
 	 * @param movementLine
 	 * @return MovementLineVo
 	 */
-	private MovementLineVo setMovementVo(MovementLine movementLine) {
+	private MovementLineVo setMovementLineVo(MovementLine movementLine) {
 		MovementLineVo movementLineVo = new MovementLineVo();
 		movementLineVo.setMovementLineId(movementLine.getMovementLineId());
 		movementLineVo.setQty(movementLine.getQty());
@@ -207,7 +214,7 @@ public class MovementRestService<T> {
 					.setAuditColumnInfo(MovementLine.class.getName());
 			movementLine.setIsactive('Y');
 		} else {
-			movementLineService.getMovementLine(movementLineVo
+			movementLine = movementLineService.getMovementLine(movementLineVo
 					.getMovementLineId());
 			movementLine.setCreated(new Date());
 			// TODO: Need to get user from session and set to updated by.
@@ -228,24 +235,25 @@ public class MovementRestService<T> {
 		return movementLine;
 	}
 
-	@Path("/update")
+	/*@Path("/update")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel updateMovement(MovementVo movementVo) {
 		ResponseModel response = new ResponseModel();
 		try {
 			Movement movement = movementService.getMovement(movementVo
 					.getMovementId());
-			/*
+			
 			 * Warehouse warehouse = warehouseService.getWarehouse(movementVo
 			 * .getWarehouse().getWarehouseId()); Store store =
 			 * storeService.getStoreById(movementVo.getStore() .getStoreId());
-			 */
-			/*
+			 
+			
 			 * movement.setMerchant(merchant); movement.setStore(store);
 			 * movement.setWarehouse(warehouse);
-			 */
+			 
 
 			movementService.updateMovement(movement);
 		} catch (Exception e) {
@@ -254,19 +262,18 @@ public class MovementRestService<T> {
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
 		return response;
-	}
+	}*/
 
 	@Path("/getmovement")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public MovementResponseVo movementMovement(MovementVo movementVo) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public MovementResponseVo getMovements(MovementVo movementVo) {
 		MovementResponseVo response = new MovementResponseVo();
 		try {
-
-			List<Movement> movements = movementService
-					.getMovementListByStore(storeService
-							.getStoreById(movementVo.getStore().getStoreId()));
+			Store store =storeService.getStoreById(movementVo.getStore().getStoreId());
+			List<Movement> movements = store.getMovements();
 			List<MovementVo> movementVos = new ArrayList<MovementVo>();
 			for (Movement movement : movements) {
 				MovementVo movementvo = setMovementVo(movement);
@@ -286,6 +293,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel deleteMovement(MovementVo movementVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -303,6 +311,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel conformMovement(JSONObject inventoryId) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -322,12 +331,13 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel updateMovement(JSONObject inventory) {
 		ResponseModel response = new ResponseModel();
 		try {
 			Movement movement = movementService.getMovement(inventory
 					.getString("movementId"));
-			movement.setIsmoved('Y');
+			movement.setIsupdated('Y');
 			movementService.updateMovement(movement);
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -341,24 +351,34 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseModel saveMovementLine(MovementLineVo movementLineVo) {
-		ResponseModel response = new ResponseModel();
+	@Transactional(propagation=Propagation.REQUIRED)
+	public MovementLineResponseVo saveMovementLine(MovementLineVo movementLineVo) {
+		MovementLineResponseVo response = new MovementLineResponseVo();
 		try {
-			MovementLine movementLine = (MovementLine) CommonUtil
-					.setAuditColumnInfo(MovementLine.class.getName());
-			movementLine.setIsactive('Y');
-			Storagebin storagebin = storeagebinService
+			
+			
+			boolean isUpdateProcess = movementLineVo.getMovementLineId() != null ? true
+					: false;
+			MovementLine movementLine = setMovementLine(movementLineVo, isUpdateProcess);
+			Movement movement = movementService.getMovement(movementLineVo.getMovementId());
+			movementLine.setMovement(movement);
+			if (!isUpdateProcess) {
+				movementLineService.addMovementLine(movementLine);
+			} else {
+				movementLineService.updateMovementLine(movementLine);
+			}
+			
+			
+			/*Storagebin storagebin = storeagebinService
 					.getStoragebinById(movementLineVo.getToStoragebin()
 							.getStoragebinId());
 			movementLine.setStoragebinByToBinId(storagebin);
 			movementLine.setProduct(productService.getProduct(movementLineVo
 					.getProduct().getProductId()));
-			;
 			movementLine.setQty(movementLineVo.getQty());
-			movementLine.setStoragebinByToBinId(storeagebinService
-					.getStoragebinById(movementLineVo.getToStoragebin()
-							.getStoragebinId()));
-			movementLineService.addMovementLine(movementLine);
+			*/
+			
+			response.setMovementLine(setMovementLineVo(movementLine));
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setErrorString(e.getMessage());
@@ -367,10 +387,11 @@ public class MovementRestService<T> {
 		return response;
 	}
 
-	@Path("/update/line")
+	/*@Path("/update/line")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel updateMovementLine(MovementLineVo movementLineVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -397,12 +418,13 @@ public class MovementRestService<T> {
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
 		return response;
-	}
+	}*/
 
 	@Path("/delete/line")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel deleteMovementLine(MovementLineVo movementLineVo) {
 		ResponseModel response = new ResponseModel();
 		try {

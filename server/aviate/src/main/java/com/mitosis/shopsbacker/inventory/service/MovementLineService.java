@@ -13,6 +13,8 @@ public interface MovementLineService<T> {
 	public MovementLine getMovementLine(String id);
 
 	public void addMovementLine(MovementLine movementLine);
+	
+	public void updateMovementLine(MovementLine movementLine);
 
 	public void removeMovementLine(MovementLine movementLine);
 

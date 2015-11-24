@@ -20,4 +20,6 @@ public interface MovementLineDao<T> {
 
 	public MovementLine getMovementLine(String id);
 
+	public void updateMovementLine(MovementLine movementLine);
+
 }

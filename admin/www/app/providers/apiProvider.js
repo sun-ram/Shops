@@ -819,7 +819,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 		
 		apiClass.PhysicalInventory.addMovementLine = function (movementLine, callback) {
-			httpRequest("POST", "movement/save", movementLine, function (err, data) {
+			httpRequest("POST", "movement/save/line", movementLine, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -846,8 +846,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
-		apiClass.PhysicalInventory.conformInventroy = function (physicalinventories, callback) {
-			httpRequest("POST", "inventory/conforminventroylinedata", physicalinventories, function (err, data) {
+		apiClass.PhysicalInventory.processMovement = function (movement, callback) {
+			httpRequest("POST", "movement/process", movement, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -927,7 +927,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 
-		apiClass.PhysicalInventoryLine.addInventoryLines = function (physicalinventoryline, callback) {
+		/*apiClass.PhysicalInventoryLine.addInventoryLines = function (physicalinventoryline, callback) {
 			httpRequest("POST", "inventoryline/addinventoryline", physicalinventoryline, function (err, data) {
 				if (err) {
 
@@ -939,9 +939,9 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 		
-		apiClass.PhysicalInventoryLine.removeInventoryLines = function (physicalinventoryline, callback) {
+		/*apiClass.PhysicalInventoryLine.removeInventoryLines = function (physicalinventoryline, callback) {
 			httpRequest("POST", "inventoryline/removeinventoryline", physicalinventoryline, function (err, data) {
 				if (err) {
 
@@ -953,9 +953,9 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 		
-		apiClass.PhysicalInventoryLine.getInventoryLines = function (physicalinventoryline, callback) {
+		/*apiClass.PhysicalInventoryLine.getInventoryLines = function (physicalinventoryline, callback) {
 			httpRequest("POST", "inventoryline/inventorylinelist", physicalinventoryline, function (err, data) {
 				if (err) {
 
@@ -967,7 +967,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 
 		/*Sales Order*/
 

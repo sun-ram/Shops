@@ -80,4 +80,10 @@ public class MovementLineDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		return(MovementLine) getSession().get(MovementLine.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public void updateMovementLine(MovementLine movementLine) {
+		update((T) movementLine);
+	}
+
 }

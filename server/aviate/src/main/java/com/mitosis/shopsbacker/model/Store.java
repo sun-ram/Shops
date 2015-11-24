@@ -133,7 +133,7 @@ public class Store implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_ID")
 	public User getUser() {
 		return this.user;
@@ -143,7 +143,7 @@ public class Store implements java.io.Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "MERCHANT_ID", nullable = false)
 	public Merchant getMerchant() {
 		return this.merchant;

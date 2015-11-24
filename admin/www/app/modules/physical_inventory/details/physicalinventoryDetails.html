@@ -5,40 +5,22 @@
 	  		<h2 layout-align="start">Movement</h2>
 	    	<span class="flex"></span>
 	    	<span hd-show="isMovementAdded">{{movement.name}} {{movement.warehouse.name}}</span>
-	      	<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditPhysicalinventory(physicalinventory);">
+	      	<md-button ng-hide="movement.ismoved == 'Y'" class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMovement(movement);$event.stopPropagation();">
 				<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 			</md-button>   
 	    </div>
+	    <span class="close_box" ui-sref="app.physical_inv">
+		   <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon> 
+		</span> 
     </md-toolbar>
-       	<md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-				<form name="physicalinventoryForm" novalidate>
-				  <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines">
-				  <div layout-padding  flex><span>{{movementLine.product.name}}</span></div>
-				    <!-- <md-input-container layout-padding  flex>
-				      <md-select ng-model="movementLine.product.productId" style="min-width: 200px;" ng-required="true">
-			     		 <md-option ng-repeat="product in products" value="{{product.productId}}">
-			     			 {{product.name}}
-			     		 </md-option>
-			    	  </md-select>
-				    </md-input-container> -->
-				    <!-- <md-input-container layout-padding  flex>
-				      <md-select ng-model="movementLine.toStoragebin.storagebinId" style="min-width: 200px;" >
-			     		 <md-option ng-repeat="toStoragebin in bins" value="{{toStoragebin.storagebinId}}" >
-			     			 {{toStoragebin.name}} ( {{toStoragebin.stack}} - {{toStoragebin.row}} - {{toStoragebin.level}} )
-			     		 </md-option>
-			    	  </md-select>
-				    </md-input-container> -->
-				     <div layout-padding  flex><span>{{movementLine.product.name}}</span></div>
-				     <div layout-padding  flex><span>{{movementLine.qty}}</span></div>
-				    <!-- <md-input-container layout-padding  flex>
-				      <input ng-model="movementLine.qty" ng-required="true" ng-enter="addNewRow($index);">
-				    </md-input-container> -->
-				   <!--  <div flex="5" style="">
-						<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-						<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="removeMovementLine($index)"></ng-md-icon></div>
-					</div> -->
-				  </div>
-		    </form>
+       	<md-content layout-padding layout="column" layout-sm="column" class="edit-container">
+			<form name="physicalinventoryForm" novalidate>
+			  <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines">
+			  <div layout-padding  flex><span>{{movementLine.product.name}}</span></div>
+			     <div layout-padding  flex><span>{{movementLine.toStoragebin.name}} ({{movementLine.toStoragebin.stack}} - {{movementLine.toStoragebin.row}} - {{movementLine.toStoragebin.level}})</span></div>
+			     <div layout-padding  flex><span>{{movementLine.qty}}</span></div>
+			  </div>
+	    	</form>
     	</md-content>
   </md-card-content>
 </md-card>

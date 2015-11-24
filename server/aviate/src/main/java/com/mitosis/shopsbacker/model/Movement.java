@@ -191,7 +191,7 @@ public class Movement implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "movement", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "movement", cascade=CascadeType.ALL)
 	public List<MovementLine> getMovementLines() {
 		return this.movementLines;
 	}

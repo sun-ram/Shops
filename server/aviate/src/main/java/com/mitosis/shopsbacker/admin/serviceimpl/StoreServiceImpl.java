@@ -96,10 +96,8 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	}
 
 	@Override
-	//@Transactional(propagation=Propagation.REQUIRED)
 	public Store getStoreById(String storeId) {
 		Store store = storeDao.getStoreById(storeId);
-	//	List<Warehouse> warehouses = store.getWarehouses();
 		return store;
 	}
 

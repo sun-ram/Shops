@@ -4,14 +4,12 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.PhysicalInventory.getInventory(physicalinventories, function(err, result){
 			if(result){
-				d.resolve(result.inventoryList);
-				/*
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.physicalinventorylist);
+					d.resolve(result.movements);
 				}else{
 					toastr.error(result.errorString);	
 				}
-			*/}
+			}
 			else{
 				toastr.error(err.errorCode);
 			}
@@ -126,9 +124,9 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.conformInventroy = function(physicalinventory){
+	this.processMovement = function(movement){
 		var d = $q.defer();
-		api.PhysicalInventory.conformInventroy(physicalinventory, function(err, result){
+		api.PhysicalInventory.processMovement(movement, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.INV_PROCESSED);
@@ -144,11 +142,11 @@ angular.module('aviateAdmin.services')
 	};
 
 
-	this.setPhysicalInventoryObj = function(physicalinventory){
-		this.obj = physicalinventory;
+	this.setMovementObj = function(movement){
+		this.obj = movement;
 	};
 
-	this.getPhysicalInventoryObj = function(){
+	this.getMovementObj = function(){
 		return this.obj;
 	};
 

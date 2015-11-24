@@ -25,28 +25,30 @@ Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	@Transactional
 	public void addMovementLine(MovementLine movementLine) {
 		movementLineDao.addMovementLine(movementLine);
 
 	}
+	
+	@Override
+	public void updateMovementLine(MovementLine movementLine) {
+		movementLineDao.updateMovementLine(movementLine);
+
+	}
 
 	@Override
-	@Transactional
 	public void removeMovementLine(MovementLine movementLine) {
 		movementLineDao.removeMovementLine(movementLine);
 
 	}
 
 	@Override
-	@Transactional
 	public List<MovementLine> getMovementLineList(Movement movement) {
 		return movementLineDao.getMovementLineList(movement);
 
 	}
 
 	@Override
-	@Transactional
 	public void removeMovementLineByMovement(Movement movement) {
 		movementLineDao.removeMovementLineByMovement(movement);
 

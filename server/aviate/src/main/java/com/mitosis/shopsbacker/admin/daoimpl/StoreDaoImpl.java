@@ -27,7 +27,6 @@ import com.mitosis.shopsbacker.model.User;
  * 
  */
 @Repository
-
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		StoreDao<T>, Serializable {
 

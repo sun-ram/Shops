@@ -3,9 +3,9 @@
 		<div class="md-toolbar-tools" layout="row">
 	  		<h2 layout-align="start">Add Movement</h2>
 	    	<span class="flex"></span>
-	    	<span hd-show="isMovementAdded">{{movement.name}} {{movement.warehouse.name}}</span>
+	    	<span ng-show="movement.movementId">{{movement.name}} {{movement.warehouse.name}}</span>
 	    	
-	    	<md-input-container flex class="padd-50" hd-hide="isMovementAdded">
+	    	<md-input-container flex class="padd-50" ng-hide="movement.movementId">
 	          <label>Warehouse</label>
 	          <md-select ng-model="warehouse" style="min-width: 200px;" ng-change = "setStoragebin(warehouse)">
 	     		 <md-option ng-value="{{warehouse}}" ng-repeat="warehouse in warehouseData">
@@ -18,57 +18,39 @@
 		  	</span>   
 	    </div>
     </md-toolbar>
-       <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-		  <form name="physicalinventoryForm" novalidate>
-		  <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines">
-		    <md-input-container layout-padding  flex>
-		      <md-select ng-model="movementLine.product.productId" style="min-width: 200px;" ng-required="true">
+     <md-content layout-padding layout="column" layout-sm="column" class="edit-container">
+	  <form name="physicalinventoryForm" novalidate>
+		  <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines" ng-dblClick="editMovementLine = movementLine">
+		    <md-input-container flex style="padding: 0px 0px 0px;">
+		      <md-select ng-model="movementLine.product.productId" style="min-width: 200px;" aria-label="Movement product id" ng-disabled="movementLine.movementLineId && editMovementLine.movementLineId != movementLine.movementLineId">
 	     		 <md-option ng-repeat="product in products" value="{{product.productId}}">
 	     			 {{product.name}}
 	     		 </md-option>
 	    	  </md-select>
 		    </md-input-container>
-		    <md-input-container layout-padding  flex>
-		      <md-select ng-model="movementLine.toStoragebin.storagebinId" style="min-width: 200px;" >
+		    <md-input-container flex style="padding: 0px 0px 0px;">
+		      <md-select ng-model="movementLine.toStoragebin.storagebinId" style="min-width: 200px;" aria-label="To storage bin id" ng-disabled="movementLine.movementLineId && editMovementLine.movementLineId != movementLine.movementLineId">
 	     		 <md-option ng-repeat="toStoragebin in bins" value="{{toStoragebin.storagebinId}}" >
 	     			 {{toStoragebin.name}} ( {{toStoragebin.stack}} - {{toStoragebin.row}} - {{toStoragebin.level}} )
 	     		 </md-option>
 	    	  </md-select>
 		    </md-input-container>
-		    <md-input-container layout-padding  flex>
-		      <input ng-model="movementLine.qty" ng-required="true" ng-enter="addNewRow($index);">
+		    <md-input-container flex style="padding: 0px 0px 0px;">
+		      	<input ng-model="movementLine.qty" ng-enter="addNewRow($index);" aria-label="Product Quantity" ng-disabled="movementLine.movementLineId && editMovementLine.movementLineId != movementLine.movementLineId">
 		    </md-input-container>
-		    <div flex="5" style="">
-				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="removeMovementLine($index)"></ng-md-icon></div>
+		    <div flex="10" >
+				<div flex="20"><ng-md-icon ng-hide="movementLine.movementLineId" icon="done" size="20" style="margin:5px" class="icons hash_color" ng-click="addNewRow($index);"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon ng-show="movementLine.movementLineId" icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="removeMovementLine($index);"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon ng-show="editMovementLine" icon="done" size="20" style="margin:5px" class="icons hash_color" ng-click="updateMovementLine($index, editMovementLine);"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon ng-hide="movementLine.movementLineId" icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="removeMovementLine($index);"></ng-md-icon></div>
+				<div flex="20"><ng-md-icon ng-show="editMovementLine" icon="plus_one" size="20"  style="margin:5px" class="icons hash_color" ng-click="addNewRow($index);"></ng-md-icon></div>
 			</div>
-		    
 		  </div>
-		  
-		  
-		  
-		  
-			<!-- <div layout layout-sm="column">
-		        <md-input-container flex class="padd-50">
-		          <label><span style="color:red">*</span>Name</label>
-		          <input type="text" ng-model="physicalinventoryDetail.inventoryName" ng-required="true"/>
-		        </md-input-container>
-		               
-			</div>
-			
-			<label class="padd-50 marg-t50" style="color: rgba(0,0,0,0.26);padding:18px 50px;">Description</label>
-			<div layout layout-sm="row">	
-			<md-input-container flex class="padd-50">
-				    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="physicalinventoryDetail.description" ng-required="true"></textarea>
-			</div>-->
-			
-			<section layout="row" layout-align="start center" layout-wrap class="padd-50 padd-t30">
-		    	<md-button class="md-raised md-success  prdct-btns" ng-click="addmovement();" >Create</md-button>
-		    	<md-button class="md-raised md-cancel prdct-btns" ui-sref="app.physical_inv">Cancel</md-button>
-		    </section> 
-		    </form>
-		
-    	</md-content>
-
+		<section layout="row" layout-align="start center" layout-wrap class="padd-50 padd-t30">
+	    	<md-button class="md-raised md-success  prdct-btns" ng-click="processMovement();" >Process</md-button>
+	    	<md-button class="md-raised md-cancel prdct-btns" ui-sref="app.physical_inv">Cancel</md-button>
+	    </section> 
+	  </form>
+   	</md-content>
 </md-card>
 

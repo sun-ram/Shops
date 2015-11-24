@@ -34,41 +34,35 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	@Transactional
 	public void addMovement(Movement movement) {
 		movementDao.addMovement(movement); 
 		
 	}
 
 	@Override
-	@Transactional
 	public void deleteMovement(String movementId) {
 		movementDao.deleteMovement(getMovement(movementId));
 	}
 
 	@Override
-	@Transactional
 	public void updateMovement(Movement movement) {
 		movementDao.updateMovement(movement);
 		
 	}
 
 	@Override
-	@Transactional
 	public boolean uniqueNameChecking(Store store, Warehouse warehouse,
 			String movementName, Merchant merchant) {
 		return movementDao.uniqueNameChecking(store,warehouse,movementName, merchant);
 	}
 
 	@Override
-	@Transactional
 	public Movement getMovement(String movementId) {
 
 		return movementDao.getMovement(movementId);
 	}
 
 	@Override
-	@Transactional
 	public List<Movement> getMovementListByStore(Store store) {
 		return movementDao.getMovementListByStore(store);
 	}

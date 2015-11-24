@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.vo.inventory;
 
 public class MovementLineVo {
 	private String movementLineId;
+	private String movementId;
 	private StoragebinVo fromStoragebin;
 	private StoragebinVo toStoragebin;
 	private ProductVo product;
@@ -46,6 +47,14 @@ public class MovementLineVo {
 
 	public void setQty(int qty) {
 		this.qty = qty;
+	}
+
+	public String getMovementId() {
+		return movementId;
+	}
+
+	public void setMovementId(String movementId) {
+		this.movementId = movementId;
 	}
 
 }
