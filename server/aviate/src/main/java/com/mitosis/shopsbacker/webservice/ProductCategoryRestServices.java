@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
@@ -238,6 +240,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductCategoryResponseVo getallleafcategorylist(
 			ProductCategoryVo productCategoryVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
@@ -322,6 +325,7 @@ public class ProductCategoryRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductCategoryResponseVo getallleafcategorylist1(StoreVo storeVo) {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		Store store = storeService.getStoreById(storeVo.getStoreId());

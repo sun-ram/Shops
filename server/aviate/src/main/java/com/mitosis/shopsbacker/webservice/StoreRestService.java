@@ -2,9 +2,12 @@ package com.mitosis.shopsbacker.webservice;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import sun.security.action.GetLongAction;
 
@@ -65,7 +70,7 @@ public class StoreRestService<T> {
 
 	@Autowired
 	AddressService<T> addessService;
-	
+
 	@Autowired
 	ImageService<T> imageService;
 
@@ -242,6 +247,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public StoreResponseVo getShopListByAddress(AddressVo addressVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
@@ -262,7 +268,9 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public StoreResponseVo getStoreListBasedOnLoc(GeoLocation geoLocation) throws IOException {
+	@Transactional(propagation = Propagation.REQUIRED)
+	public StoreResponseVo getStoreListBasedOnLoc(GeoLocation geoLocation)
+			throws IOException {
 		StoreResponseVo storeResponseVo = new StoreResponseVo();
 		List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 		if (geoLocation.getLatitude() != null
@@ -270,20 +278,25 @@ public class StoreRestService<T> {
 			List<Store> storeList = storeService.getStoreList();
 			for (Store store : storeList) {
 				StoreVo storeVo = new StoreVo();
-				double dist = CommonUtil.distance(
-						Double.parseDouble(geoLocation.getLatitude()),
-						Double.parseDouble(geoLocation.getLongitude()),
-						Double.parseDouble(store.getUser().getAddress()
-								.getLatitude()),
-						Double.parseDouble(store.getUser().getAddress()
-								.getLongitude()));
-				if(dist<=40){
-					storeVo.setStoreId(store.getStoreId());
-					storeVo.setName(store.getName());
-					MerchantVo merchant=setMerchantDetails(store);
-					storeVo.setMerchant(merchant);
-					storeVoList.add(storeVo);
+				double dist;
+				if (store.getUser().getAddress().getLatitude() != null
+						&& store.getUser().getAddress().getLongitude() != null) {
+					dist = CommonUtil.distance(
+							Double.parseDouble(geoLocation.getLatitude()),
+							Double.parseDouble(geoLocation.getLongitude()),
+							Double.parseDouble(store.getUser().getAddress()
+									.getLatitude()),
+							Double.parseDouble(store.getUser().getAddress()
+									.getLongitude()));
+					if (dist <= 40) {
+						storeVo.setStoreId(store.getStoreId());
+						storeVo.setName(store.getName());
+						MerchantVo merchant = setMerchantDetails(store);
+						storeVo.setMerchant(merchant);
+						storeVoList.add(storeVo);
+					}
 				}
+
 			}
 			storeResponseVo.setStore(storeVoList);
 			storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
@@ -291,19 +304,86 @@ public class StoreRestService<T> {
 			/* based on the geo location search - with getting storeList */
 		} else {
 			/* Based on the city and country search */
+			if (geoLocation.getCity() != null && geoLocation.getArea() == null) {
+				List<Store> storeList = storeService.getShopList(geoLocation
+						.getCity());
+				for (Store store : storeList) {
+					StoreVo storeVo = new StoreVo();
+					System.out.println(store);
+					storeVo.setStoreId(store.getStoreId());
+					storeVo.setName(store.getName());
+					MerchantVo merchant = setMerchantDetails(store);
+					UserVo user = setUserDetails(store);
+					storeVo.setMerchant(merchant);
+					storeVo.setUser(user);
+					storeVoList.add(storeVo);
+				}
+				storeResponseVo.setStore(storeVoList);
+				storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+				return storeResponseVo;
+			} else {
+				List<Store> storeList = storeService.getShopList(
+						geoLocation.getCity(), geoLocation.getArea());
+				for (Store store : storeList) {
+					StoreVo storeVo = new StoreVo();
+					System.out.println(store);
+					storeVo.setStoreId(store.getStoreId());
+					storeVo.setName(store.getName());
+					MerchantVo merchant = setMerchantDetails(store);
+					UserVo user = setUserDetails(store);
+					storeVo.setMerchant(merchant);
+					storeVo.setUser(user);
+					storeVoList.add(storeVo);
+				}
+				storeResponseVo.setStore(storeVoList);
+				storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+				return storeResponseVo;
+			}
 		}
-		return storeResponseVo;
 
 	}
-	public MerchantVo setMerchantDetails(Store store) throws IOException{
-		MerchantVo merchant=new MerchantVo();
-		if(store.getMerchant()!=null){
-		merchant.setMerchantId(store.getMerchant().getMerchantId());
-		ImageVo imagevo=imageService.setImageVo(store.getMerchant());
-		merchant.setLogo(imagevo);
+
+	@Path("/getcity")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Set<String> getStoreByCity() {
+		Set<String> cityList = null;
+		try {
+			cityList = new HashSet<String>(storeService.getShopCityList());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return cityList;
+
+	}
+
+	public MerchantVo setMerchantDetails(Store store) throws IOException {
+		MerchantVo merchant = new MerchantVo();
+		if (store.getMerchant() != null) {
+			merchant.setMerchantId(store.getMerchant().getMerchantId());
+			ImageVo imagevo = imageService.setImageVo(store.getMerchant());
+			merchant.setLogo(imagevo);
 		}
 		return merchant;
-		
+
+	}
+
+	public UserVo setUserDetails(Store store) throws IOException {
+		UserVo user = new UserVo();
+		if (store.getUser() != null) {
+			user.setName(store.getUser().getName());
+			if (store.getUser().getAddress() != null) {
+				AddressVo address = new AddressVo();
+				address.setAddress1(store.getUser().getAddress().getAddress1());
+				address.setAddress2(store.getUser().getAddress().getAddress2());
+				address.setCity(store.getUser().getAddress().getCity());
+				user.setAddress(address);
+			}
+		}
+		return user;
+
 	}
 
 }

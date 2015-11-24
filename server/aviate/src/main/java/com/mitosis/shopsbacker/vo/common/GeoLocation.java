@@ -5,6 +5,10 @@ public class GeoLocation {
 	private String latitude;
 	
 	private String longitude;
+	
+	private String city;
+	
+	private String area;
 
 	public String getLatitude() {
 		return latitude;
@@ -20,6 +24,22 @@ public class GeoLocation {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	
