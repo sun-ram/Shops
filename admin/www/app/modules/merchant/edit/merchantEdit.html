@@ -1,5 +1,5 @@
-<md-card flex-gt-sm="90" flex-gt-md="80">
-   <md-toolbar class=" md-default-theme">
+
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
       <div class="md-layout-row layout-align-start-center pt_relat">	 
 			<img src="{{merchantLogo}}" ng-show="merchantLogo" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
@@ -11,11 +11,12 @@
 					</label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Merchants</h3>     	
 		    </div>  
-     <span class="close_box">
+     <!-- <span class="close_box">
     	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="redirectToMerchantDetails(merchantDetail)"></ng-md-icon> 
-    </span> 
+    </span>  -->
     </div>
   </md-toolbar>
+ <md-card flex-gt-sm="90" flex-gt-md="80"> 
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
     <form name="merchant" novalidate>
     <div layout layout-sm="column">
