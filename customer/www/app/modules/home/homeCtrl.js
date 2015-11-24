@@ -40,17 +40,11 @@ angular.module('aviate.controllers')
 
 			$scope.getBannerList = function(){
 				$scope.banner = {};
-				/*if($rootScope.user != null){
-					$scope.banner.store = {};
-					$scope.banner.store.storeId = $rootScope.user.storeId;
-					homePageServices.getBannerList($scope.banner).then(function(data){
+				$scope.banner.isShopsbackerBanner = 'Y';
+					
+				homePageServices.getBannerList($scope.banner).then(function(data){
 						$scope.images=data;
-					});
-				}else{*/
-					$scope.banner.isShopsbackerBanner = 'Y';
-					homePageServices.getBannerList($scope.banner).then(function(data){
-						$rootScope.images=data;
-					});
+				});
 			}
 
 				var timeout;
