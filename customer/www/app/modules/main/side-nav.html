@@ -1,47 +1,52 @@
-<md-sidenav flex class="md-sidenav-left md-whiteframe-z2 customerSideNav" md-component-id="left"> 
-	<md-toolbar md-scroll-shrink style="border-bottom:1px solid #757575;">
-<!-- <div class="md-toolbar-tools">My Messages</div> -->
-		<div ng-if="!store.merchantLogo" layout="column" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #424242; height: 120px;">
-       <div style="width:80px; height:80px; margin:0px auto; overflow:hidden; border-radius:50px;"><img style="width:100%; background-color:#FFFFFF;" src="assets/images/logo5.jpg"/></div>
-       <div class="md-subhead" style="text-align:center; width:100%;">G Mart
-       </div>
-      </div>
-      <div ng-if="store.merchantLogo" layout="column" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #424242; height: 120px;">
-       <div style="width:80px; height:80px; margin:0px auto; overflow:hidden; border-radius:50px;"><img style="width:100%; background-color:#FFFFFF;" src="{{store.merchantLogo}}"/></div>
-       <div class="md-subhead" style="text-align:center; width:100%;">{{store.merchantName}}
-       </div>
-      </div>
-	</md-toolbar> 
+<md-sidenav flex class="md-sidenav-left md-whiteframe-z2 customerSideNav" md-component-id="left">
+    <md-toolbar md-scroll-shrink style="border-bottom:1px solid #757575;">
+        <!-- <div class="md-toolbar-tools">My Messages</div> -->
+        <div ng-if="!store.merchantLogo" layout="column" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #424242; height: 120px;">
+            <div style="width:80px; height:80px; margin:0px auto; overflow:hidden; border-radius:50px;"><img style="width:100%; background-color:#FFFFFF;" src="assets/images/logo5.jpg" /></div>
+            <div class="md-subhead" style="text-align:center; width:100%;">G Mart
+            </div>
+        </div>
+        <div ng-if="store.merchantLogo" layout="column" class="md-toolbar-tools-bottom inset slideuser_img" layout-align="center" style="background: #424242; height: 120px;">
+            <div style="width:80px; height:80px; margin:0px auto; overflow:hidden; border-radius:50px;"><img style="width:100%; background-color:#FFFFFF;" src="{{store.merchantLogo}}" /></div>
+            <div class="md-subhead" style="text-align:center; width:100%;">{{store.merchantName}}
+            </div>
+        </div>
+    </md-toolbar>
 
-<script type="text/ng-template" id="productTypeList"> 
-	<md-menu-item>
-	<md-button ng-class="pt.selectionClass" class="btn-sub2"><div layout="row">{{pt.name}}</div></md-button>
-	</md-menu-item>
-</script> 
-	
-<script type="text/ng-template" id="productCategoryList">
-	<md-menu-item ng-class="c.selectionClass" ng-hide="c.hide" ng-if="c.categoriesVo.length > 0" ng-click="getProductsByCategoryId(c.productCategoryId);">
-		<md-button ng-class="c.selectionClass" class="btn-menu" ><div layout="row">{{c.name}}</div>
-		</md-button> </md-menu-item>
+    <script type="text/ng-template" id="productTypeList">
+        <md-menu-item>
+            <md-button ng-class="pt.selectionClass" class="btn-sub2">
+                <div layout="row">{{pt.name}}</div>
+            </md-button>
+        </md-menu-item>
+    </script>
 
-	<md-menu-item ng-class="c.selectionClass" ng-hide="c.hide" ng-if="c.categoriesVo.length == 0" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId);">
-		<md-button ng-class="c.selectionClass" class="btn-sub">{{c.name}}
-		</md-button> </md-menu-item>
+    <script type="text/ng-template" id="productCategoryList">
+        <md-menu-item ng-class="c.selectionClass" ng-hide="c.hide" ng-if="(c.rootParent>=0)" ng-click="getProductsByCategoryId(c.productCategoryId);">
+            <md-button ng-class="c.selectionClass" class="btn-menu">
+                <div layout="row">{{c.name}}</div>
+            </md-button>
+        </md-menu-item>
 
-	 		<ul ng-hide="c.hide" ng-if="c.categoriesVo.length == 0" style="padding-left: 0px;">
- 			<li ng-class="c.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productTypes" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
- 		</ul>
+        <md-menu-item ng-class="c.selectionClass" ng-hide="c.hide" ng-if="(!c.rootParent && c.rootParent!=0)" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId);">
+            <md-button ng-class="c.selectionClass" class="btn-sub">{{c.name}}
+            </md-button>
+        </md-menu-item>
 
-		<ul ng-hide="c.hide" ng-if="c.categoriesVo.length> 0" style="padding-left: 0px;">
-       		<li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.categoriesVo"  ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
-     	</ul>
-</script>
-	
-<div id='cssmenu' style="color: #f2f2f2;">
-	<ul ng-repeat="c in categoryList" class="menu-list">
- 		<li class='has-sub ' ng-include="'productCategoryList'"></li>
- 		
- 	</ul>
-</div>
+        <ul ng-hide="c.hide" ng-if="c.categoriesVo.length == 0" style="padding-left: 0px;">
+            <li ng-class="c.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productTypes" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
+        </ul>
+
+        <ul ng-hide="c.hide" ng-if="c.categoriesVo.length> 0" style="padding-left: 0px;">
+            <li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.categoriesVo" ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
+        </ul>
+    </script>
+
+    <div id='cssmenu' style="color: #f2f2f2;">
+        <ul ng-repeat="c in categoryList" class="menu-list">
+            <li class='has-sub ' ng-include="'productCategoryList'"></li>
+
+        </ul>
+    </div>
 
 </md-sidenav>

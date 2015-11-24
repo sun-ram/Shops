@@ -45,8 +45,8 @@ md-ink-bar{top:115px;}
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select Area<span style="color:red">*</span></label>
              <md-select ng-model="selectedaddress" ng-required="true" ng-change="searchByAddress(selectedaddress)">
-                <md-option ng-repeat="address in addressList track by $index" value="{{address.address}}">
-                  {{address.address}}
+                <md-option ng-repeat="address in addressList track by $index" value="{{address.user.address.address1}}">
+                  {{address.user.address.address1}}
                 </md-option>
               </md-select>
         </md-input-container>

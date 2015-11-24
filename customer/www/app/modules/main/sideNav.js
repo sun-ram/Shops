@@ -12,18 +12,26 @@ angular.module('aviate.directives').directive('sideNav', [
                 	/*$scope.toggleSidenav = function(menuId) {
                 		$mdSidenav(menuId).toggle();
                 	};*/
+                	var directParent;
                     var currentRootCatagoryIndex="";
                 	$scope.optimizeInnerData = function (data){
-                        if(data.parentCategory){
+//                		console.log("Data --->",data);
+                        if(typeof data.rootParent == 'undefined'){
                             data.hide = true;
                         }
-                        for(var j=0;data.category && data.category[j];j++){
-                            $scope.optimizeData(data.category[j]);
-                           if(data.category[j].productType && data.category[j].productType.length>0){
-                                for(var k=0; data.category[j].productType[k]; k++){
-                                    data.category[j].productType[k].hide=true;
+                        for(var j=0;data.categoriesVo && data.categoriesVo[j];j++){
+                        	data.categoriesVo[j].parentCategoryId = data.productCategoryId;
+                            $scope.optimizeData(data.categoriesVo[j]);
+                           if(data.categoriesVo[j].productTypes && data.categoriesVo[j].productTypes.length>0){
+                                for(var k=0; data.categoriesVo[j].productTypes[k]; k++){
+                                    data.categoriesVo[j].productTypes[k].hide=true;
                                 }
                             }
+                        }
+                        if(data.productTypes && data.productTypes.length>0){
+                                for(var k=0; data.productTypes[k]; k++){
+                                    data.productTypes[k].hide=true;
+                                }
                         }
                     }
                     
@@ -47,8 +55,13 @@ angular.module('aviate.directives').directive('sideNav', [
                 				storeId:$rootScope.store.storeId
                     	}
                 		CategoryService.getCategoryList(request).then(function(data){
+                			console.log("Data --->",data);
+                			for(var i=0;i<data.length;i++){
+                				data[i].rootParent = i;
+                			}
                             $scope.optimizeData(data);
                 			$scope.categoryList=data;
+                            console.log("Manipulated data --->",data);
                            });
                       }
                     $rootScope.categoryList();
@@ -72,9 +85,9 @@ angular.module('aviate.directives').directive('sideNav', [
                     
                     $scope.manipulateSubtree = function (newData, parentId, parentchanged){
                          newData.selectionClass="";
-                            if(newData.categoryId && newData.categoryId == parentId){
+                            if(newData.productCategoryId && newData.productCategoryId == parentId){
                                      newData.selectionClass="selectedField";
-                                    if((!newData.category || newData.category.length <= 0) && (!newData.productType || newData.productType.length <= 0)){
+                                    if((!newData.categoriesVo || newData.categoriesVo.length <= 0) && (!newData.productTypes || newData.productTypes.length <= 0)){
                                             newData.hide=false;
                                     }
                             }
@@ -82,22 +95,22 @@ angular.module('aviate.directives').directive('sideNav', [
                                   newData.hide = !newData.hide;
                                   parentchanged=true;
                             }
-                            if(newData.productType && newData.productType.length>0){
-                                for(var j=0;newData.productType[j];j++){
-                                    if( newData.categoryId ==  parentId){
-                                        newData.productType[j].hide = !newData.productType[j].hide;
+                            if(newData.productTypes && newData.productTypes.length>0){
+                                for(var j=0;newData.productTypes[j];j++){
+                                    if( newData.productCategoryId ==  parentId){
+                                        newData.productTypes[j].hide = !newData.productTypes[j].hide;
                                     }
-                                   newData.productType[j].selectionClass = "";
-                                    if(newData.productType[j].productTypeId == parentId){
-                                        newData.productType[j].selectionClass = "selectedField";
+                                   newData.productTypes[j].selectionClass = "";
+                                    if(newData.productTypes[j].productTypeId == parentId){
+                                        newData.productTypes[j].selectionClass = "selectedField";
                                     }
                                 }
                             }
-                            for(var j=0;newData.category && newData.category[j];j++){
-                                if(parentchanged && !newData.category[j].hide){
-                                    newData.category[j].hide = newData.hide;
+                            for(var j=0;newData.categoriesVo && newData.categoriesVo[j];j++){
+                                if(parentchanged && !newData.categoriesVo[j].hide){
+                                    newData.categoriesVo[j].hide = newData.hide;
                                 }
-                                $scope.findSubtree(newData.category[j],parentId,parentchanged);
+                                $scope.findSubtree(newData.categoriesVo[j],parentId,parentchanged);
                             }
                     };
                         
@@ -113,15 +126,15 @@ angular.module('aviate.directives').directive('sideNav', [
                         
                     }
                     $scope.executeGetRoot = function (data, keyCatId, currentRoot){
-                        if(data.categoryId == keyCatId){
+                        if(data.productCategoryId == keyCatId){
                             currentRootCatagoryIndex = currentRoot;
                         }
-                        for(var j=0;data.category && data.category[j];j++){
-                            $scope.executeGetRoot(data.category[j], keyCatId, currentRoot);
+                        for(var j=0;data.categoriesVo && data.categoriesVo[j];j++){
+                            $scope.executeGetRoot(data.categoriesVo[j], keyCatId, currentRoot);
                         }
-                        if(data.productType && data.productType.length>0){
-                            for(var j=0;data.productType[j];j++){
-                                if(data.productType[j].productTypeId == keyCatId){
+                        if(data.productTypes && data.productTypes.length>0){
+                            for(var j=0;data.productTypes[j];j++){
+                                if(data.productTypes[j].productTypeId == keyCatId){
                                     currentRootCatagoryIndex = currentRoot;
                                 }
                             
