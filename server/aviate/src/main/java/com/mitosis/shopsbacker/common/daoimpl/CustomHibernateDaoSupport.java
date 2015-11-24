@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.common.daoimpl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;

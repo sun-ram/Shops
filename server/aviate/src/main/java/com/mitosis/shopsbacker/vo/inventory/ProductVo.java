@@ -34,7 +34,7 @@ public class ProductVo {
 	private boolean isYourHot;
 	private BigDecimal unit;
 	private String description;
-	private List<ImageVo> productImages = new ArrayList<ImageVo>();
+	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	public String getProductId() {
 		return productId;
 	}
@@ -125,10 +125,10 @@ public class ProductVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<ImageVo> getProductImages() {
+	public List<ProductImageVo> getProductImages() {
 		return productImages;
 	}
-	public void setProductImages(List<ImageVo> productImages) {
+	public void setProductImages(List<ProductImageVo> productImages) {
 		this.productImages = productImages;
 	}
 	public void setYourHot(boolean isYourHot) {

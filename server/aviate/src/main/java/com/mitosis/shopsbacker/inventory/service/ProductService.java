@@ -8,6 +8,7 @@ import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
  * @author RiyazKhan.M
@@ -36,7 +37,7 @@ public interface ProductService<T> {
 	
 	public List<Product> getProductByMerchant(Merchant merchant);
 	
-	public void productImageUpload(ProductVo productVo,Merchant merchant) throws Exception ;
+	public void productImageUpload(ImageVo imageVo,Merchant merchant) throws Exception ;
 	
 	public Product getProductByName(String param);
 	

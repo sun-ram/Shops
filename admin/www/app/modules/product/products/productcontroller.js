@@ -70,7 +70,7 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.addproduct = function() {
 		
-			if($scope.image.originalFrontImage || $scope.product.productId){
+			if($scope.image.originalFrontImage != undefined || $scope.product.productId){
 			/* Orginal Front Image base64 Start*/
 			$scope.product.image ={};
 			$scope.product.image.image =$scope.image.originalFrontImage.split(",")[1];
@@ -81,9 +81,12 @@ angular.module('aviateAdmin.controllers')
 			$scope.product.image.type = $scope.product.image ? ($scope.image.originalFrontImage.substring(11).split(";")[0]) : "",
 					$scope.product.image.name ="OriginalFrontImage";
 					/* Orginal Front Image Type End*/
+			}else{
+				
+				toastr.warring("Please select originalFrontImage");
 			}
 			
-			if($scope.image.originalBackImage || $scope.product.productId){
+			if($scope.images.originalBackImage != undefined || $scope.product.productId){
 				/* Orginal Front Image base64 Start*/
 				$scope.product.productImages =[];
 				$scope.image ={};
@@ -92,12 +95,16 @@ angular.module('aviateAdmin.controllers')
 				/* Orginal Front Image base64 End*/
 
 				/* Orginal Front Image Type Start*/
-				$scope.image.type = $scope.product.image ? ($scope.image.originalBackImage.substring(11).split(";")[0]) : "",
+				$scope.image.type = $scope.product.image ? ($scope.images.originalBackImage.substring(11).split(";")[0]) : "",
 						$scope.image.name ="OriginalBackImage";
 						/* Orginal Front Image Type End*/
 				
-				$scope.product.productImages.push({image:$scope.image});
+				$scope.product.productImages.push( {'image': $scope.image});
+				}else{
+					
+					toastr.warring("Please select originalBackImage");
 				}
+			
 					$scope.product.merchant = {};
 					$scope.product.merchant.merchantId = $rootScope.user.merchantId;
 					ProductService.addProduct($scope.product).then(function(data) {

@@ -42,5 +42,9 @@ ImageDao<T>, Serializable  {
 
 	}
 	
+		public void addImage(Image image){
+				save((T)image);
+			}
+	
 
 }

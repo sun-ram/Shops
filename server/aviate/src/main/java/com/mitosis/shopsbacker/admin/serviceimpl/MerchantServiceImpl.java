@@ -98,7 +98,6 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 	}
 
 	@Override
-	@Transactional
 	public Merchant getMerchantById(String id) {
 		return getMerchantDao().getMerchantById(id);
 	}

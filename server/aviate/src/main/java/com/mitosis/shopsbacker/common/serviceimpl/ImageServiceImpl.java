@@ -92,5 +92,9 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 		
 		return image;
 	}
+	
+	public void addImage(Image image){
+		imageDao.addImage(image);
+	}
 
 }

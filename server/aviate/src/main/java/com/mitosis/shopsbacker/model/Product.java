@@ -149,7 +149,7 @@ public class Product implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "IMAGE_ID")
 	public Image getImage() {
 		return this.image;
@@ -179,7 +179,7 @@ public class Product implements java.io.Serializable {
 		this.discount = discount;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false)
 	public ProductCategory getProductCategory() {
 		return this.productCategory;
@@ -189,7 +189,7 @@ public class Product implements java.io.Serializable {
 		this.productCategory = productCategory;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "UOM_ID", nullable = false)
 	public Uom getUom() {
 		return this.uom;
@@ -199,7 +199,7 @@ public class Product implements java.io.Serializable {
 		this.uom = uom;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "PRODUCT_TYPE_ID", nullable = false)
 	public ProductType getProductType() {
 		return this.productType;
@@ -337,7 +337,7 @@ public class Product implements java.io.Serializable {
 		this.movementLines = movementLines;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade=CascadeType.ALL)
 	public List<ProductImage> getProductImages() {
 		return this.productImages;
 	}

@@ -8,4 +8,5 @@ public interface ImageDao<T> {
 
 	public Image getImageById(String id);
 
+	public void addImage(Image image);
 }

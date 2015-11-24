@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
@@ -121,6 +123,7 @@ public class ProductTypeRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductTypeResponseVo getProductTypeByCategory(
 			ProductTypeVo productTypeVo) {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();

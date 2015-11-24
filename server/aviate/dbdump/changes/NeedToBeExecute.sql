@@ -44,3 +44,8 @@ ADD COLUMN `DESCRIPTION` VARCHAR(250) NULL;
   PRIMARY KEY (`REQUEST_ID`));
   
   --
+  
+ -- 24/11/2015 -----------  Riyaz  -----------  isactive is chnaged string to char  product_image -------  
+ ALTER TABLE `shopsbacker`.`product_image` 
+CHANGE COLUMN `ISACTIVE` `ISACTIVE` CHAR NOT NULL DEFAULT 'Y' COMMENT '' ;
+  

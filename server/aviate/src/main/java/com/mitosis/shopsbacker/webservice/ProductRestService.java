@@ -1,19 +1,13 @@
 package com.mitosis.shopsbacker.webservice;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -33,10 +27,10 @@ import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.common.service.ImageService;
@@ -48,15 +42,15 @@ import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
+import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductType;
-import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.responsevo.ProductResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
-import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
@@ -106,6 +100,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel addProduct(ProductVo productVo) {
 		
 		try {
@@ -119,15 +114,32 @@ public class ProductRestService {
 			
 			Uom uom = uomService.getUOMById(productVo.getUom().getUomId());
 			if(productVo.getImage().getImage() != null){
-			productService.productImageUpload(productVo,merchant);
+			productService.productImageUpload(productVo.getImage(),merchant);
 		    }
 			Image img = null;
 			Product product = productService.setProduct(productVo,img);
 			
+			
+			List <ProductImage> productImages = new ArrayList<ProductImage>();
+			List<ProductImageVo> productImageVos = productVo.getProductImages();
+			
+				for(ProductImageVo productImageVo:productImageVos){
+						productService.productImageUpload(productImageVo.getImage(),merchant);
+						Image image = imageService.setImage(productImageVo.getImage());
+						imageService.addImage(image);
+						ProductImage productimage = (ProductImage) CommonUtil.setAuditColumnInfo(ProductImage.class.getName());
+						productimage.setIsactive('Y');
+						productimage.setImage(image);
+						productimage.setProduct(product);
+						productImages.add(productimage);
+			}
+			product.setProductImages(productImages);
 			product.setMerchant(merchant);
 			product.setProductCategory(productCategory);
 			product.setProductType(productType);
 			product.setUom(uom);
+			ProductImage productImage = new ProductImage();
+			
 			if(!isUpdateProcess){
 			productService.addProduct(product);
 			}else{
@@ -310,11 +322,12 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductResponseVo GetProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo.getMerchant().getMerchantId());
-			List<Product> productList = getProductService().getProductByMerchant(merchant);
+			List<Product> productList = merchant.getProducts();
 			List<ProductVo> productVoList=new ArrayList<ProductVo>();
 			for (Product product : productList) {
 				ProductVo productVos = productService.setProductVo(product);
@@ -534,6 +547,6 @@ public class ProductRestService {
 		return productVo;
 
 	}
-
+	
 
 }

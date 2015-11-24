@@ -40,7 +40,6 @@ public class ProductCategoryServiceImpl<T> implements
 	}
 
 	@Override
-	@Transactional
 	public ProductCategory getCategoryById(String categoryId) {
 		return productCategoryDao.getCategoryById(categoryId);
 	}

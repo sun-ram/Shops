@@ -1,8 +1,8 @@
 package com.mitosis.shopsbacker.inventory.serviceimpl;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -22,15 +22,13 @@ import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
+import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductType;
-import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.vo.admin.MerchantVo;
-import com.mitosis.shopsbacker.vo.admin.StoreVo;
-import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
@@ -117,9 +115,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	}
 	@Override
 	@Transactional
-	public void productImageUpload(ProductVo productVo,Merchant merchant) throws Exception {
+	public void productImageUpload(ImageVo imageVo,Merchant merchant) throws Exception {
 		
-		if (productVo.getImage().getImage() == null) {
+		if (imageVo.getImage() == null) {
 			return;
 		}
 
@@ -132,13 +130,13 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productImagePath = "merchant/" + merchant.getName() + "/" + "product" + "/" ;
 
 		String imageName = UUID.randomUUID().toString().replace("-", "");
-		if (CommonUtil.uploadImage(productVo.getImage().getImage(), productVo
-				.getImage().getType(), defaultImagePath + productImagePath,
+		if (CommonUtil.uploadImage(imageVo.getImage(), imageVo
+				.getType(), defaultImagePath + productImagePath,
 				imageName)) {
-			productVo.getImage().setName(imageName);
-			productVo.getImage().setUrl(
+			imageVo.setName(imageName);
+			imageVo.setUrl(
 					productImagePath + imageName + "."
-							+ productVo.getImage().getType());
+							+ imageVo.getType());
 		}
 	}
 
@@ -211,6 +209,20 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 		productVo.setUom(uomVo);
 		
+		List<ProductImage> productImages = product.getProductImages();
+		List<ProductImageVo> productImageVos=new  ArrayList<ProductImageVo>();
+		for(ProductImage productImage:productImages){
+			ProductImageVo productImageVo= new  ProductImageVo();
+			ImageVo image = imageService.setImageVo(productImage.getImage());
+			productImageVo.setImage(image);
+			ProductVo productvo = new ProductVo();
+			productvo.setProductId(product.getProductId());
+			productvo.setName(product.getName());
+			productImageVo.setProduct(productvo);
+			productImageVo.setProductImageId(productImage.getProductImageId());
+			productImageVos.add(productImageVo);
+		}
+		productVo.setProductImages(productImageVos);
 		return productVo;
 	}
 	

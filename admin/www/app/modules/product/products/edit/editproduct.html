@@ -1,139 +1,113 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getproductTypeList();getMeasurementUnit();">
-   
-   <md-toolbar class=" md-default-theme">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex">Edit Products</h2>
-    </div>
-    <span class="close_box">
-	    <ng-md-icon class="icon-white svgstyle" size="35"  ng-if="product.status==null" icon="close" ui-sref="app.producttype"></ng-md-icon>
-	 	<ng-md-icon class="icon-white svgstyle" size="35" ng-if="product.status=='true'"  icon="close" ui-sref="app.productdetailsview"></ng-md-icon> 
-	 
-	 </span> 
-  </md-toolbar>
-    
-  <md-content md-theme="docs-dark" layout-padding>
-  
-  <form name="addProductForm" layout="row" >
-  
-   <div flex="50" class="padd-50 padd-b30" layout-padding layout="column" layout-sm="column">
-    <md-input-container>
-      <label>Product Name</label>
-      <input type="text" ng-model="productDetails.productName" ng-required="true"/>
-    </md-input-container>
- 	   
-    <md-input-container>
-    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="productDetails.productUnitOfMeasure.description" ng-required="true"></textarea>
-    </md-input-container>
-    
-    
-    <md-input-container>
-      <label>Product Measurement</label>
-      <input type="text" ng-model="productDetails.measurement" valid-number ng-required="true"/>
-    </md-input-container>
-    
-    <md-input-container>
-      <label>Type</label>
+<md-card flex-gt-sm="90" flex-gt-md="80"
+	ng-init="getMeasurementUnit();getproductCategory();"> <md-toolbar
+	class=" md-default-theme">
+<div class="md-toolbar-tools">
+	<h2 class="md-flex">Products</h2>
+</div>
+<span class="close_box"> <ng-md-icon class="icon-white svgstyle"
+		size="35" icon="close" ui-sref="app.producttype"></ng-md-icon>
+</span> </md-toolbar> <md-content md-theme="docs-dark" layout-padding>
 
-      <md-select placeholder="Select Type" ng-model="productDetails.type" ng-required="true">
-   		 <md-option ng-value="item.Name" ng-repeat="item in typeList">    
-      		{{item.Name}}  
-    	</md-option>
-	</md-select>
-    </md-input-container>
-    
-    <md-input-container>
-      <label>Price</label>
-       <input type="text" name="price" ng-model="productDetails.productPrice.price" pattern="^\d*(\.\d{2}$)?" ng-required="true"/>
-          <span ng-message="required" ng-show="addProductForm.price.$error.price || (!addProductForm.price.$error.required && !addProductForm.price.$valid)"  style="color:red;">Price Should be Number and upto 2 digits decimal point.</span>
-       
-    </md-input-container>
-        
+<div layout="row" class="addprdct-title">
+	<h3 layout-align="start center">Create Product</h3>
+</div>
 
-    <md-input-container>
-      <label>Type</label>
+<form name="addProductForm" layout="row" novalidate>
 
-      <md-select placeholder="Select Product Type" ng-model="productDetails.productTypeId" ng-required="true">
-   		 <md-option ng-value="item1.productTypeId" ng-repeat="item1 in productTypes">    
-      		{{item1.productTypeName}}  
-    	</md-option>
-	</md-select>
-    </md-input-container>
-    <md-input-container>
-      <label>Measurement Unit</label>
-      <md-select name="myModel" ng-model="productDetails.productUnitOfMeasure.abbreviation" ng-required="true">
-        <md-option ng-value="item.abbreviation" ng-repeat="item in measuredUnits"> 
-           {{item.description}}   	
-      		</md-option>
-      </md-select>  
-  
-    </md-input-container>
-    
-    <section layout="row" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success  prdct-btns" ng-click="editproduct(productDetails);" ng-disabled="addProductForm.$invalid">Update</md-button>
-    	<md-button ui-sref="app.producttype" class="md-raised md-cancel prdct-btns">Cancel</md-button>
-    </section>
-    </div>
-    
-    <div flex="50" class="padd-50" layout-padding layout="column" layout-sm="column">
-    
-	    <div class="padd-lrtb30">
-	     <div class="md-layout-row layout-align-start-center pt_relat">	
-		    	  <img style="width: 100px;"  ng-show="originalFrontImage" src="{{originalFrontImage}}" class="img-circle" /> 
-		    	  	  <!-- <img style="width: 100px;"  ng-show="!showorgfront" src="{{orginalfrontimage}}" class="img-circle" /> -->
-		    	  	  <img ng-hide="originalFrontImage" style="width: 100px;"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALFRONT'"  src="{{image.imageUrl}}" class="img-circle" />
-		    	 	
-					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
-                       <input id="file-upload1" type="file" ng-model="originalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
-                    	<span id="file-name1" ></span>
-                    </label>
-		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Original Front Image</h3> 
-		     	    	
-		    </div>	   
-	    </div>
-	    <div class="padd-lrtb30">
-	     <div class="md-layout-row layout-align-start-center pt_relat">	 
-		    	<img ng-show="originalBackImage" src="{{originalBackImage}}" class="img-circle" style="width: 100px;" /> 
-					 <img ng-hide="originalBackImage" style="width: 100px;"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'ORIGINALBACK'"  src="{{image.imageUrl}}" class="img-circle" />	
-					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
-                       <input id="file-upload2" type="file" ng-model="originalBackImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name2','file-upload2')"/>
-                    	<span id="file-name2"></span>
-                    </label>
-		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Original Back Image</h3> 
-	    </div>
-	    </div>
-	    <div class="padd-lrtb30">
-	     <div class="md-layout-row layout-align-start-center pt_relat">	 
-		    	<img style="width: 100px;" ng-show="smallFrontImage"  src="{{smallFrontImage}}" class="img-circle" /> 
-		    	 <img style="width: 100px;" ng-hide="smallFrontImage"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'SMALLFRONT'"  src="{{image.imageUrl}}" class="img-circle" />
-					
-					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20" ng-click="showsmallfront = true"></ng-md-icon>
-                       <input id="file-upload3" type="file" ng-model="smallFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name3','file-upload3')"/>
-                    	<span id="file-name3" ></span>
-                    </label>
-		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Thumbnail Front Image</h3> 
-		     	    	
-		    </div>	  
-	    </div>
-	    <div class="padd-lrtb30">	    
-	    <div class="md-layout-row layout-align-start-center pt_relat">	 
-		    	 <img style="width: 100px;"  ng-show="smallBackImage" src="{{smallBackImage}}" class="img-circle" /> 
-		    	  <img style="width: 100px;" ng-hide="smallBackImage"  ng-repeat="image in productDetails.productImages" ng-if="image.imagePosition == 'SMALLBACK'"  src="{{image.imageUrl}}" class="img-circle" /> 
-					<label id="file-uploadtest" >
-                       <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
-                       <input id="file-upload4" type="file" ng-model="smallBackImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name4','file-upload4')"/>
-                    	<span id="file-name4" ></span>
-                    </label>
-		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Thumbnail Back Image</h3> 
-		  </div>	
-	    </div>
-    
-    </div>
-    
-    
-    
-    </form>
-    </md-content>
-</md-card>
+	<div flex="50" class="padd-50 padd-b30" layout-padding layout="column"
+		layout-sm="column">
+		<md-input-container> <label>Product Name</label>
+		<input type="text" ng-model="products.name" ng-required="true" /> </md-input-container>
+
+		<md-input-container> <label>Product
+			Category</label> <md-select placeholder="Select Product Category"
+			ng-change="getProductType(products.productCategory.productCategoryId)"
+			ng-model="products.productCategory.productCategoryId"
+			ng-required="true"> <md-option
+			ng-value="item.productCategoryId"
+			ng-repeat="item in productCategoryVo"> {{item.name}} </md-option> </md-select> </md-input-container>
+
+		<md-input-container> <label>Product Type</label>
+
+		<md-select placeholder="Select Product Type"
+			ng-model="products.productType.productTypeId" ng-required="true">
+		<md-option ng-value="item.productTypeId"
+			ng-repeat="item in productTypeVo">
+		{{item.name}} </md-option> </md-select> </md-input-container>
+		<md-input-container> <label>Product
+			Description</label> <textarea id="textarea1" rows="4"
+			style="border: 1px solid #ddd;" class="materialize-textarea"
+			ng-model="products.description"></textarea> </md-input-container>
+
+
+		<md-input-container> <label>Product
+			Measurement</label> <input type="text" ng-model="products.unit" valid-number
+			ng-required="true" /> </md-input-container>
+
+		<md-input-container> <label>Measurement
+			Unit</label> <md-select name="myModel" ng-model="products.uom.uomId"
+			ng-required="true"> <md-option ng-value="item.uomId"
+			ng-repeat="item in measuredUnits"> {{item.name}} </md-option> </md-select> </md-input-container>
+
+		<md-input-container> <label>Edible Type</label> <md-select
+			placeholder="Select Type" ng-model="products.edibleType">
+		<md-option ng-value="item.Name" ng-repeat="item in typeList"
+			ng-required="true"> {{item.Name}} </md-option> </md-select> </md-input-container>
+
+		<md-input-container> <label>Price</label> <!--    <input type="text" class="decimalnumber" ng-model="products.productPrice.price" />  -->
+		<input type="text" name="price" ng-model="products.price"
+			pattern="^\d*(\.\d{2}$)?" ng-required="true" /> <span
+			ng-message="required"
+			ng-show="addProductForm.price.$error.price || (!addProductForm.price.$error.required && !addProductForm.price.$valid)"
+			style="color: red;">Price Should be Number and upto 2 digits
+			decimal point.</span> </md-input-container>
+
+		<section layout="row" layout-align="start center" layout-wrap>
+			<md-button class="md-raised md-success  prdct-btns"
+				ng-click="addproduct();">Create</md-button>
+			<md-button ui-sref="app.producttype"
+				class="md-raised md-cancel prdct-btns">Cancel</md-button>
+			<!-- <md-button class="md-raised md-cancel prdct-btns" ui-sref="app.producttype">Cancel</md-button> -->
+		</section>
+	</div>
+
+	<div flex="50" class="padd-50" layout-padding layout="column"
+		layout-sm="column">
+
+
+		<md-input-container>
+		<h4 style="padding: 0px 10px;" class="md-layout-column">
+			<label>IsYourHot Product</label>
+		</h4>
+		<input type="checkBox" ng-model="products.isYourHot" ng-required="true" />
+		</md-input-container>
+
+
+		<md-input-container> <label>Brand</label> <input
+			type="text" ng-model="products.brand" ng-required="true" /> </md-input-container>
+
+
+		<md-input-container> <label>Group Count</label> <input
+			type="text" ng-model="products.groupCount" valid-number
+			ng-required="true" /> </md-input-container>
+
+		<div class="padd-lrtb30">
+			<div class="md-layout-row layout-align-start-center pt_relat">
+				<img style="width: 100px;" src="{{OriginalFrontImage}}"
+					class="img-circle" height="100" ng-required="true" /> <label
+					id="file-uploadtest"> <ng-md-icon icon="file_upload"
+						size="20"></ng-md-icon> <input id="file-upload1" type="file"
+					ng-model="image.originalFrontImage" class="nodisplay"
+					app-filereader ng-change="uploadFile('file-name1','file-upload1')" />
+					<span id="file-name1"></span>
+				</label>
+				<h3 style="padding: 0px 10px;" class="md-layout-column">Original
+					Front Image</h3>
+
+			</div>
+		</div>
+	</div>
+
+
+</form>
+</md-content> </md-card>

@@ -31,7 +31,7 @@ public class ProductImage implements java.io.Serializable {
 	private String updatedby;
 	private Image image;
 	private Product product;
-	private String isactive;
+	private char isactive;
 	private Date created;
 	private Date updated;
 
@@ -40,7 +40,7 @@ public class ProductImage implements java.io.Serializable {
 
 	public ProductImage(String productImageId, String createdby,
 			String updatedby, Image image, Product product,
-			String isactive, Date created, Date updated) {
+			char isactive, Date created, Date updated) {
 		this.productImageId = productImageId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -100,11 +100,11 @@ public class ProductImage implements java.io.Serializable {
 	}
 
 	@Column(name = "ISACTIVE", nullable = false, length = 45)
-	public String getIsactive() {
+	public char getIsactive() {
 		return this.isactive;
 	}
 
-	public void setIsactive(String isactive) {
+	public void setIsactive(char isactive) {
 		this.isactive = isactive;
 	}
 
