@@ -138,6 +138,18 @@ angular.module('aviate.controllers')
 							$log.debug(storedetails);
 							$mdDialog.cancel();
 							$state.go('app.home',{},{reload: true});
+							$scope.banner = {};
+							if($rootScope.store != null){
+								$scope.banner.store = {};
+								$scope.banner.store.storeId = $rootScope.store.storeId;
+								homePageServices.getBannerList($scope.banner).then(function(data){
+									$rootScope.images=data;
+								});
+							}else{
+								$scope.banner.isShopsbackerBanner = 'Y';
+								homePageServices.getBannerList($scope.banner).then(function(data){
+									$rootScope.images=data;
+							    });
 						}
 
 					}
