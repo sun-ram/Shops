@@ -50,9 +50,13 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductImageVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
+import com.mitosis.shopsbacker.vo.inventory.UomVo;
 
 /**
  * @author RiyazKhan
@@ -216,7 +220,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseModel ProductById(ProductVo productVo) {
+	public ProductResponseVo ProductById(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			Product product = getProductService().getProduct(productVo.getProductId());
@@ -230,7 +234,7 @@ public class ProductRestService {
 			productResponse.setErrorString(e.getMessage());
 		}
 		
-		return response;
+		return productResponse;
 
 		}
 	
@@ -553,7 +557,10 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public ProductUploadVO imageUpload(ProductVo productVo) throws Exception {
+	public ProductResponseVo imageUpload(ProductVo productVo) throws Exception {
+		
+		ProductResponseVo productResponse = new ProductResponseVo();
+		
 		Product product = getProductService().getProduct(productVo.getProductId());
 		
 		if(productVo.getImage().getImage() != null){
@@ -579,8 +586,34 @@ public class ProductRestService {
 					productImages.add(productimage);
 		}
 		product.setProductImages(productImages);
+		productService.updateProduct(product);
+		
 
-		return null;
+		productVo.setName(product.getName());
+
+		if(product.getImage() != null){
+		ImageVo image = imageService.setImageVo(product.getImage());
+		productVo.setImage(image);
+		}
+
+
+		List<ProductImage> productImageList = product.getProductImages();
+		List<ProductImageVo> productImageVoList  =new  ArrayList<ProductImageVo>();
+		for(ProductImage productImage:productImageList){
+			ProductImageVo productImageVo= new  ProductImageVo();
+			ImageVo image = imageService.setImageVo(productImage.getImage());
+			productImageVo.setImage(image);
+			ProductVo productvo = new ProductVo();
+			productvo.setProductId(product.getProductId());
+			productvo.setName(product.getName());
+			productImageVo.setProduct(productvo);
+			productImageVo.setProductImageId(productImage.getProductImageId());
+			productImageVoList.add(productImageVo);
+		}
+		productVo.setProductImages(productImageVoList);
+		productResponse.setProduct(productVo);
+		productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+		return productResponse;
 		
 	}
 }
