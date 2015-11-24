@@ -133,6 +133,7 @@ public class StoreRestService<T> {
 				return response;
 			}
 			Store store = storeService.setStore(storeVo);
+			store.getUser().setMerchant(merchant);
 			store.setMerchant(merchant);
 			storeService.saveStore(store);
 

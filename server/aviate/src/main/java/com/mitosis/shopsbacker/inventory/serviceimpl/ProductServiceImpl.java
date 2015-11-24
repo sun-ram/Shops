@@ -189,7 +189,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 		productVo.setName(product.getName());
 		productVo.setBrand(product.getBrand());
-		//productVo.setDescription(product.getDescription());
+		productVo.setDescription(product.getDescription());
 		productVo.setPrice(product.getPrice());
 		productVo.setUnit(product.getUnit());
 		productVo.setEdibleType(product.getEdibleType());

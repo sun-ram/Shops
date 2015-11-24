@@ -548,5 +548,39 @@ public class ProductRestService {
 
 	}
 	
+	@Path("/mobileImageUpload")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public ProductUploadVO imageUpload(ProductVo productVo) throws Exception {
+		Product product = getProductService().getProduct(productVo.getProductId());
+		
+		if(productVo.getImage().getImage() != null){
+		productService.productImageUpload(productVo.getImage(),product.getMerchant());
+	    }
+		Image img = null;
+		if (productVo.getImage().getImage() != null) {
+			Image image = imageService.setImage(productVo.getImage());
+			product.setImage(image);
+		}
+		
+		List <ProductImage> productImages = new ArrayList<ProductImage>();
+		List<ProductImageVo> productImageVos = productVo.getProductImages();
+		
+			for(ProductImageVo productImageVo:productImageVos){
+					productService.productImageUpload(productImageVo.getImage(),product.getMerchant());
+					Image image = imageService.setImage(productImageVo.getImage());
+					imageService.addImage(image);
+					ProductImage productimage = (ProductImage) CommonUtil.setAuditColumnInfo(ProductImage.class.getName());
+					productimage.setIsactive('Y');
+					productimage.setImage(image);
+					productimage.setProduct(product);
+					productImages.add(productimage);
+		}
+		product.setProductImages(productImages);
 
+		return null;
+		
+	}
 }
