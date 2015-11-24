@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.webservice;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,8 +34,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.common.dao.ImageDao;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
+import com.mitosis.shopsbacker.inventory.service.ProductImageService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
@@ -89,6 +92,9 @@ public class ProductRestService {
 	@Autowired
 	ImageService<T> imageService;
 	
+	@Autowired
+	ProductImageService<T> productImageService;
+	
 	public ProductService<T> getProductService() {
 		return productService;
 	}
@@ -104,7 +110,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel addProduct(ProductVo productVo) {
 		
 		try {
@@ -122,22 +128,9 @@ public class ProductRestService {
 		    }
 			Image img = null;
 			Product product = productService.setProduct(productVo,img);
+			List<String> productImageIds = new ArrayList<String>();
 			
-			
-			List <ProductImage> productImages = new ArrayList<ProductImage>();
-			List<ProductImageVo> productImageVos = productVo.getProductImages();
-			
-				for(ProductImageVo productImageVo:productImageVos){
-						productService.productImageUpload(productImageVo.getImage(),merchant);
-						Image image = imageService.setImage(productImageVo.getImage());
-						imageService.addImage(image);
-						ProductImage productimage = (ProductImage) CommonUtil.setAuditColumnInfo(ProductImage.class.getName());
-						productimage.setIsactive('Y');
-						productimage.setImage(image);
-						productimage.setProduct(product);
-						productImages.add(productimage);
-			}
-			product.setProductImages(productImages);
+			setProductImages(productVo, merchant, product, productImageIds);
 			product.setMerchant(merchant);
 			product.setProductCategory(productCategory);
 			product.setProductType(productType);
@@ -149,6 +142,17 @@ public class ProductRestService {
 			}else{
 				productService.updateProduct(product);	
 			}
+			if(productVo.getProductId() != null && img != null){
+				imageService.deleteImage(img);
+			}
+			for(String productImageId:productImageIds){
+				
+				ProductImage productImages = productImageService.getProductImage(productImageId);
+				imageService.deleteImage(productImages.getImage());
+				productImageService.deleteProductImage(productImages);
+				
+				
+			}
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,12 +163,34 @@ public class ProductRestService {
 
 		return response;
 	}
+
+	private void setProductImages(ProductVo productVo, Merchant merchant,
+			Product product, List<String> productImageIds) throws Exception {
+		List <ProductImage> productImages = new ArrayList<ProductImage>();
+		List<ProductImageVo> productImageVos = productVo.getProductImages();
+		
+			for(ProductImageVo productImageVo:productImageVos){
+				if(productImageVo.getImage().getImage()==null){
+					productImageIds.add(productImageVo.getProductImageId());
+					continue;
+				}
+					productService.productImageUpload(productImageVo.getImage(),merchant);
+					Image image = imageService.setImage(productImageVo.getImage());
+					imageService.addImage(image);
+					ProductImage productimage = (ProductImage) CommonUtil.setAuditColumnInfo(ProductImage.class.getName());
+					productimage.setIsactive('Y');
+					productimage.setImage(image);
+					productimage.setProduct(product);
+					productImages.add(productimage);
+		}
+		product.setProductImages(productImages);
+	}
 	
 	@Path("/updateproduct")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel updateProduct(ProductVo productVo) {
 		
 		try {
@@ -203,7 +229,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel deleteProduct(ProductVo productVo) {
 		try {
 			Product product = getProductService().getProduct(productVo.getProductId());
@@ -222,6 +248,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductResponseVo ProductById(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -244,7 +271,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel ProductByType(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -273,7 +300,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductResponseVo ProductByCategory(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -302,7 +329,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel GetTopProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -331,7 +358,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductResponseVo GetProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -360,7 +387,7 @@ public class ProductRestService {
 	 @GET
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces("application/vnd.ms-excel")
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	 public   Response exportExcelFile(@QueryParam("merchantId") String merchantId){
 		Response productResponse = null;
 		
@@ -413,7 +440,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductUploadVO excelUpload() {
 		ProductUploadVO response = new ProductUploadVO();
 		String excelPath = "/home/ramya/Documents/BSEE_Documents/Products.xls";
@@ -559,11 +586,11 @@ public class ProductRestService {
 
 	}
 	
-	@Path("/mobileImageUpload")
+	@Path("/mobileimageupload")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public ProductResponseVo imageUpload(ProductVo productVo) throws Exception {
 		
 		ProductResponseVo productResponse = new ProductResponseVo();
@@ -595,7 +622,16 @@ public class ProductRestService {
 		product.setProductImages(productImages);
 		productService.updateProduct(product);
 		
+		ProductVo productvo = new ProductVo();
+		setProductVoForMobile(productvo, product);
+		productResponse.setProduct(productvo);
+		productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+		return productResponse;
+		
+	}
 
+	private void setProductVoForMobile(ProductVo productVo, Product product)
+			throws IOException {
 		productVo.setName(product.getName());
 
 		if(product.getImage() != null){
@@ -618,9 +654,35 @@ public class ProductRestService {
 			productImageVoList.add(productImageVo);
 		}
 		productVo.setProductImages(productImageVoList);
-		productResponse.setProduct(productVo);
-		productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
-		return productResponse;
+	}
+	
+	@Path("/mobilegetproduct")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public ProductResponseVo getProdutsFromMobile(ProductVo productVo) throws Exception {
+		ProductResponseVo productResponse = new ProductResponseVo();
+		try {
+			
+				ProductType productType = ProductTypeService.getProductTypeById(productVo.getProductType().getProductTypeId());
+				
+				List<Product> productList = productType.getProducts();
+				List<ProductVo> productVoList = new ArrayList<ProductVo>();
+				for(Product product:productList){
+					ProductVo productvo= new  ProductVo();
+					setProductVoForMobile(productvo, product);
+					productVoList.add(productvo);
+				}
+				productResponse.setProduct(productVoList);
+				productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			productResponse.setErrorString(e.getMessage());
+		}
 		
+		return productResponse;
 	}
 }
