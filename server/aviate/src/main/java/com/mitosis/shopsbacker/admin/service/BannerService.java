@@ -13,13 +13,15 @@ public interface BannerService<T> {
 	
 	public void saveBanner(Banner banner);
 	public void updateBanner(Banner banner);
-	public List<Banner> getBannerList(Store store);
+	public List<Banner> getBannerListByStore(Store store);
+	public List<Banner> getBannerListByFlag(char isShopsbackerBanner);
 	public void deleteBanner(String id) throws Exception;
 	public Banner getBannerById(String id);
-	public Banner setBanner(BannerVo bannerVo) throws Exception;
+	public Banner setBanner(BannerVo bannerVo,Banner bannerval) throws Exception;
 	public BannerVo setBannerVo (Banner bannerList) throws Exception;
 	public ImageVo setImageVo(Banner bannerList) throws Exception;
 	public MerchantVo setMerchantVo(Banner bannerList) throws Exception;
 	public StoreVo setStoreVo(Banner bannerList) throws Exception;
+	
 
 }

@@ -25,6 +25,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "banner", catalog = "shopsbacker")
 public class Banner implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String bannerId;
 	private String updatedby;
 	private String createdby;
@@ -93,7 +98,7 @@ public class Banner implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "IMAGE_ID")
 	public Image getImage() {
 		return this.image;
@@ -103,7 +108,7 @@ public class Banner implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MERCHANT_ID")
 	public Merchant getMerchant() {
 		return this.merchant;
@@ -113,7 +118,7 @@ public class Banner implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STORE_ID")
 	public Store getStore() {
 		return this.store;

@@ -1333,8 +1333,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				name: ""
 		};
 
-		apiClass.Banner.getList = function (store, callback) {
-			httpRequest("POST", "banner/getbannerlist", store, function (err, data) {
+		apiClass.Banner.getList = function (banner, callback) {
+			httpRequest("POST", "banner/getbannerlist", banner, function (err, data) {
 				if (err) {
 
 					callback(err, null);

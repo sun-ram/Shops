@@ -6,11 +6,19 @@ angular.module('aviateAdmin.controllers')
 			$scope.banner = {};
 
 			$scope.getBannerList = function(){
-				var store = {};
-				store.storeId = $rootScope.user.storeId;
-				BannerServices.getBanner(store).then(function(data){
-					$scope.bannerData=data;
-				});
+
+				if($rootScope.user.role != "SUPERADMIN"){
+					$scope.banner.store = {};
+					$scope.banner.store.storeId = $rootScope.user.storeId;
+					BannerServices.getBanner($scope.banner).then(function(data){
+						$scope.bannerData=data;
+					});
+				}else{
+					$scope.banner.isShopsbackerBanner = 'Y';
+					BannerServices.getBanner($scope.banner).then(function(data){
+						$scope.bannerData=data;
+					});
+				}
 			}
 
 			$scope.removeBanner = function(bannerId) {

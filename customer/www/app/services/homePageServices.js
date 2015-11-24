@@ -40,5 +40,18 @@ angular.module('aviate.services')
 		})
 		return d.promise;
 	};
+	
+	this.getBannerList = function(banner){
+		var d = $q.defer();
+		api.Banner.getBannerList(banner, function(err, result){
+			if(result){
+				d.resolve(result.bannerList);
+			}
+			else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 
 }]);

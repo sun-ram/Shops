@@ -1,9 +1,9 @@
 angular.module('aviateAdmin.services')
 .service('BannerServices',['$q','api','toastr','CONSTANT', function($q, api, toastr,CONSTANT) {
 
-	this.getBanner = function(store){
+	this.getBanner = function(banner){
 		var d = $q.defer();
-		api.Banner.getList(store, function(err, result){
+		api.Banner.getList(banner, function(err, result){
 			if(result){
 				d.resolve(result.bannerList);
 			}

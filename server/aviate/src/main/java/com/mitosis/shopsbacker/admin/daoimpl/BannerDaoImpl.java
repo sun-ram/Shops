@@ -6,15 +6,12 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mitosis.shopsbacker.admin.dao.BannerDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Banner;
 import com.mitosis.shopsbacker.model.Store;
 
 @Repository
-@Transactional
 public class BannerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 BannerDao<T>, Serializable  {
 	
@@ -42,9 +39,17 @@ BannerDao<T>, Serializable  {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Banner> getBannerList(Store store) {
+	public List<Banner> getBannerListByStore(Store store) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Banner.class);
 		criteria.add(Restrictions.eq("store", store));
+		return (List<Banner>) findAll(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Banner> getBannerListByFlag(char isShopsbackerBanner) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Banner.class);
+		criteria.add(Restrictions.eq("isShopsbackerBanner", isShopsbackerBanner));
 		return (List<Banner>) findAll(criteria);
 	}
 

@@ -394,6 +394,26 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		/*Home Page Banners*/
+				
+				apiClass.Banner = {
+						name: ""
+				};
+		
+				apiClass.Banner.getBannerList = function (banner, callback) {
+					httpRequest("POST", "banner/getbannerlist", banner, function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				};
 
 		return apiClass;
 	}]

@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.BannerService;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -29,7 +31,7 @@ import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.BannerVo;
 
 /**
- * @author kathir
+ * @author kathir reviewed by sundaram 24-11-2015
  *
  */
 @Path("banner")
@@ -52,18 +54,23 @@ public class BannerRestServices {
 
 	Merchant merchant = null;
 
+	Store store = null;
+
+	Banner banner,bannerVal = null;
+
 	ResponseModel response = new ResponseModel();
 
 	@Path("/addbanner")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
 	public ResponseModel addBanner(BannerVo bannerVo) {
 
 		try {
-
+			bannerVal = new Banner();
 			bannerImageUpload(bannerVo);
-			Banner banner = bannerService.setBanner(bannerVo);
+			banner = bannerService.setBanner(bannerVo, bannerVal);
 			bannerService.saveBanner(banner);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,10 +93,17 @@ public class BannerRestServices {
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		defaultImagePath = properties.getProperty("imagePath");
-		merchant = merchantService.getMerchantById(bannerVo.getMerchant()
-				.getMerchantId());
-		bannerImagePath = "store/banner/" + merchant.getName() + "/";
-
+		if (bannerVo.getStore() != null) {
+			if (bannerVo.getStore().getStoreId() != null) {
+				store = storeService.getStoreById(bannerVo.getStore()
+						.getStoreId());
+				bannerImagePath = "Banner/Store/" + store.getName() + "/";
+			} else {
+				bannerImagePath = "Banner/SuperAdmin/";
+			}
+		} else {
+			bannerImagePath = "Banner/SuperAdmin/";
+		}
 		String imageName = UUID.randomUUID().toString().replace("-", "");
 		if (CommonUtil.uploadImage(bannerVo.getImage().getImage(), bannerVo
 				.getImage().getType(), defaultImagePath + bannerImagePath,
@@ -105,14 +119,19 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
 	public ResponseModel updateBanner(BannerVo bannerVo) {
 		try {
-
+			bannerVal = new Banner();
 			bannerImageUpload(bannerVo);
 
-			Banner banner = bannerService.setBanner(bannerVo);
+			banner = bannerService.setBanner(bannerVo, bannerVal);
 
 			bannerService.updateBanner(banner);
+
+			if (banner.getBannerId() != null && bannerVal.getImage() != null) {
+				imageService.deleteImage(bannerVal.getImage());
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,11 +145,19 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public BannerResponseVo getBannerList(Store store) {
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+	public BannerResponseVo getBannerList(BannerVo banners) {
 		BannerResponseVo bannerResponse = new BannerResponseVo();
 		try {
-
-			List<Banner> bannerList = bannerService.getBannerList(store);
+			List<Banner> bannerList = null;
+			if (banners.getStore() != null) {
+				store = storeService.getStoreById(banners.getStore()
+						.getStoreId());
+				bannerList = bannerService.getBannerListByStore(store);
+			} else {
+				bannerList = bannerService.getBannerListByFlag(banners
+						.getIsShopsbackerBanner());
+			}
 			for (Banner banner : bannerList) {
 				BannerVo bannerVo = bannerService.setBannerVo(banner);
 				bannerResponse.getBannerList().add(bannerVo);
@@ -147,6 +174,7 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
 	public ResponseModel deleteBanner(BannerVo bannerVo) {
 		try {
 			bannerService.deleteBanner(bannerVo.getBannerId());

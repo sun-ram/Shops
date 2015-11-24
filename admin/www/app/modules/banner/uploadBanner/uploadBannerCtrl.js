@@ -17,10 +17,23 @@ angular.module('aviateAdmin.controllers')
 				$scope.bannerDetail.merchant = {} ;
 				$scope.bannerDetail.store = {};
 				$scope.bannerDetail.image = {};
-				$scope.bannerDetail.store.storeId = $rootScope.user.storeId;
-				$scope.bannerDetail.merchant.merchantId = $rootScope.user.merchantId;
-				$scope.bannerDetail.image.image=$scope.bannerImage.split(",")[1];
-				$scope.bannerDetail.image.type=$scope.bannerImage ? ($scope.bannerImage.substring(11).split(";")[0]) : "";
+				if($rootScope.user){
+					$scope.bannerDetail.isShopsbackerBanner = 'Y';
+				}else{
+					$scope.bannerDetail.isShopsbackerBanner = 'N';
+					$scope.bannerDetail.store.storeId = 2;
+					$scope.bannerDetail.merchant.merchantId = 1;
+				}
+				/*if($rootScope.user.storeId != null || $rootScope.user.storeId != undefined){
+				   $scope.bannerDetail.store.storeId = $rootScope.user.storeId;
+					$scope.bannerDetail.store.storeId = 2;
+				}
+				if($rootScope.user.merchantId != null || $rootScope.user.merchantId != undefined){
+					$scope.bannerDetail.merchant.merchantId = $rootScope.user.merchantId;
+					$scope.bannerDetail.merchant.merchantId = 1;
+				}*/
+				$scope.bannerDetail.image.image = $scope.bannerImage.split(",")[1];
+				$scope.bannerDetail.image.type = $scope.bannerImage ? ($scope.bannerImage.substring(11).split(";")[0]) : "";
 				BannerServices.addNewBanner($scope.bannerDetail).then(function(data){
 					$scope.bannerDetail = null;
 					$state.go('app.banner');

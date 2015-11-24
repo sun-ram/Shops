@@ -10,7 +10,7 @@
 }*/
 
 </style>
-<div style="width:100%;height:100%;position: relative; background:#eeeeee;">
+<div style="width:100%;height:100%;position: relative; background:#eeeeee;" ng-init="getBannerList()">
         <!-- Products page image scrolling functionality -->
         <section layout="row">
         	<div flex="25" class="welcome">
@@ -25,7 +25,7 @@
 	            <ul higgidy-carousel-images style="height:200px; overflow:hidden;">
 	                <li ng-repeat="image in images">
 	                    <a href="{{image.link}}">
-	                        <img ng-src="{{image.src}}" alt="{{img.alt}}" height="200"/>
+	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" height="200" style="width: 787px;"/>
 	                    </a>
 	                </li>
 	            </ul>
@@ -33,10 +33,8 @@
 	                <ul layout>
 	                    <li flex ng-repeat="image in images">
 	                        <a href="" layout="column" ng-click="show($index)" ng-class="{selected: carousel.current == $index}">
-	                        <md-subhead flex="100">Heading-{{$index}} </md-subhead>
-	                        <md-caption flex="100" style="font-size:12px;">Text</md-caption>
-	                         
-	                         
+	                        <md-subhead flex="100">{{image.tabTitleBold}} </md-subhead>
+	                        <md-caption flex="100" style="font-size:12px;">{{image.tabTitleSmall}}</md-caption>
 	                        </a>
 	                    </li>
 	                </ul>

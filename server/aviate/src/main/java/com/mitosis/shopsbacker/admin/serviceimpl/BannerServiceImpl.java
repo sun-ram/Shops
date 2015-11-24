@@ -12,6 +12,7 @@ import com.mitosis.shopsbacker.admin.dao.BannerDao;
 import com.mitosis.shopsbacker.admin.service.BannerService;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.model.Banner;
 import com.mitosis.shopsbacker.model.Image;
@@ -33,6 +34,9 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 
 	@Autowired
 	ImageService<T> imageService;
+
+	@Autowired
+	UserService<T> userService;
 
 	@Autowired
 	BannerDao<T> bannerDao;
@@ -64,17 +68,31 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 
 	@Override
 	@Transactional
-	public List<Banner> getBannerList(Store store) {
-		return getBannerDao().getBannerList(store);
+	public List<Banner> getBannerListByStore(Store store) {
+		return getBannerDao().getBannerListByStore(store);
+	}
+
+	@Override
+	@Transactional
+	public List<Banner> getBannerListByFlag(char isShopsbackerBanner) {
+		return getBannerDao().getBannerListByFlag(isShopsbackerBanner);
 	}
 
 	@Override
 	@Transactional
 	public void deleteBanner(String id) throws Exception {
+		
 		Banner banner = bannerDao.getBannerById(id);
 		Image image = imageService.getImageById(banner.getImage().getImageId());
+		
 		getBannerDao().deleteBanner(banner);
-		imageService.deleteImage(image);
+		
+		String defaultImagePath = "";
+		Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream(
+				"/properties/serverurl.properties"));
+		defaultImagePath = properties.getProperty("imagePath");
+		CommonUtil.removeImage(defaultImagePath.concat(image.getUrl()));
 	}
 
 	@Override
@@ -85,15 +103,14 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 
 	@Override
 	@Transactional
-	public Banner setBanner(BannerVo bannerVo) throws Exception {
+	public Banner setBanner(BannerVo bannerVo,Banner bannerval) throws Exception {
 		Banner banner = null;
-		Image img = null;
 
 		if (bannerVo.getBannerId() == null) {
 			banner = (Banner) CommonUtil.setAuditColumnInfo(Banner.class
 					.getName());
 			banner.setIsactive('Y');
-			banner.setIsShopsbackerBanner('N');
+			banner.setIsShopsbackerBanner(bannerVo.getIsShopsbackerBanner());
 			banner.setTabTitleBold(bannerVo.getTabTitleBold());
 			banner.setTabTitleSmall(bannerVo.getTabTitleSmall());
 		} else {
@@ -105,16 +122,19 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 
 			if (bannerVo.getImage().getImage() != null
 					&& bannerVo.getImage().getType() != null) {
-				img = banner.getImage();
-				imageService.deleteImage(img);
+				bannerval.setImage(banner.getImage());
 			}
 		}
 
-		banner.setMerchant(merchantService.getMerchantById(bannerVo
-				.getMerchant().getMerchantId()));
-		banner.setStore(storeService.getStoreById(bannerVo.getStore()
-				.getStoreId()));
-
+		if(bannerVo.getIsShopsbackerBanner() != 'Y'){
+			banner.setMerchant(merchantService.getMerchantById(bannerVo
+					.getMerchant().getMerchantId()));
+			banner.setStore(storeService.getStoreById(bannerVo.getStore()
+					.getStoreId()));
+			banner.setIsShopsbackerBanner('N');
+		}else{
+			banner.setIsShopsbackerBanner('Y');
+		}
 		if (bannerVo.getImage().getImage() != null) {
 			banner.setImage(imageService.setImage(bannerVo.getImage()));
 		}
@@ -128,10 +148,14 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 		bannerVo = new BannerVo();
 		imageVo = setImageVo(banner);
 		bannerVo.setImage(imageVo);
-		merchantVo = setMerchantVo(banner);
-		bannerVo.setMerchant(merchantVo);
-		storeVo = setStoreVo(banner);
-		bannerVo.setStore(storeVo);
+		if(banner.getMerchant()!= null){
+			merchantVo = setMerchantVo(banner);
+			bannerVo.setMerchant(merchantVo);
+		}
+		if(banner.getStore() != null){
+			storeVo = setStoreVo(banner);
+			bannerVo.setStore(storeVo);
+		}
 		bannerVo.setIsactive(banner.getIsactive());
 		bannerVo.setIsShopsbackerBanner(banner.getIsShopsbackerBanner());
 		bannerVo.setBannerId(banner.getBannerId());

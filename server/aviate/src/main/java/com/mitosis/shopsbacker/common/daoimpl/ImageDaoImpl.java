@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.dao.ImageDao;
-import com.mitosis.shopsbacker.model.Banner;
 import com.mitosis.shopsbacker.model.Image;
 
 /**
@@ -21,6 +20,11 @@ import com.mitosis.shopsbacker.model.Image;
 @Transactional
 public class ImageDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 ImageDao<T>, Serializable  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
 	@Override
