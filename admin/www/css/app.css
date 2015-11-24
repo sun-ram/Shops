@@ -340,7 +340,23 @@ md-select .md-select-value{
 }
 
 
-
+.custom-excel-input {
+	display: inline-block;
+	position: relative;
+	color: #000 ! important;
+	outline: none ! important;
+}
+.custom-excel-input input {
+	visibility: hidden;
+}
+.custom-excel-input:before {
+	content: 'IMPORT PRODUCTLIST';
+	display: block;
+	outline: none ! important;
+	cursor: pointer;
+	font-size: 15px;
+	position: absolute;
+}
 
 
 
