@@ -14,6 +14,12 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.count = 3;
 	$scope.srch = true;
+	
+	$scope.image={};
+	$scope.image.originalFrontImage;
+	
+	$scope.images={};
+	$scope.images.originalBackImage;
 
 
 	$scope.getAllProductList = function() {
@@ -30,8 +36,63 @@ angular.module('aviateAdmin.controllers')
 
 		})
 	}
+	
+	$scope.update = function(){
+		if($scope.image.originalFrontImage != undefined ){
+			/* Orginal Front Image base64 Start*/
+			$scope.product.image ={};
+			$scope.product.image.image =$scope.image.originalFrontImage.split(",")[1];
+
+			/* Orginal Front Image base64 End*/
+
+			/* Orginal Front Image Type Start*/
+			$scope.product.image.type = $scope.product.image ? ($scope.image.originalFrontImage.substring(11).split(";")[0]) : "",
+					$scope.product.image.name ="OriginalFrontImage";
+					/* Orginal Front Image Type End*/
+			}
+		if($scope.images.originalBackImage != undefined ){
+			/* Orginal Front Image base64 Start*/
+			$scope.product.productImages =[];
+			$scope.image ={};
+			$scope.image.image = $scope.images.originalBackImage.split(",")[1];
+
+			/* Orginal Front Image base64 End*/
+
+			/* Orginal Front Image Type Start*/
+			$scope.image.type = $scope.product.image ? ($scope.images.originalBackImage.substring(11).split(";")[0]) : "",
+					$scope.image.name ="OriginalBackImage";
+					/* Orginal Front Image Type End*/
+			
+			$scope.product.productImages.push( {'image': $scope.image});
+			}
+		
+		$scope.product.merchant = {};
+		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
+		ProductService.addProduct($scope.product).then(function(data) {
+			$scope.product = $localStorage.product;
+
+			console.log($localStorage.products);
+
+			if($scope.product.productId){
+
+				toastr.success("product details have been updated successfully!!!");
+				$localStorage.product={};
+				$state.go("app.products");
+
+			}
+
+			else{
+
+				toastr.success("product details have been added successfully!!!");
+				$localStorage.product={};
+				$state.go("app.products");
+			}
+
+		})
+	}
 
 	$scope.updateProduct = function(product) {
+				
 		$scope.product = product;
 		$scope.product.merchant = {};
 		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
@@ -65,12 +126,11 @@ angular.module('aviateAdmin.controllers')
 
 
 	}
-	$scope.image={};
-	$scope.image.originalFrontImage;
+	
 
 	$scope.addproduct = function() {
 		
-			if($scope.image.originalFrontImage != undefined || $scope.product.productId){
+			if($scope.image.originalFrontImage != undefined ){
 			/* Orginal Front Image base64 Start*/
 			$scope.product.image ={};
 			$scope.product.image.image =$scope.image.originalFrontImage.split(",")[1];
@@ -83,10 +143,11 @@ angular.module('aviateAdmin.controllers')
 					/* Orginal Front Image Type End*/
 			}else{
 				
-				toastr.warring("Please select originalFrontImage");
+				toastr.warning("Please select originalFrontImage");
+				return;
 			}
 			
-			if($scope.images.originalBackImage != undefined || $scope.product.productId){
+			if($scope.images.originalBackImage != undefined ){
 				/* Orginal Front Image base64 Start*/
 				$scope.product.productImages =[];
 				$scope.image ={};
@@ -100,9 +161,6 @@ angular.module('aviateAdmin.controllers')
 						/* Orginal Front Image Type End*/
 				
 				$scope.product.productImages.push( {'image': $scope.image});
-				}else{
-					
-					toastr.warring("Please select originalBackImage");
 				}
 			
 					$scope.product.merchant = {};

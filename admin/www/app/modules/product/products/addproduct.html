@@ -66,7 +66,7 @@
 			<md-button ng-hide="product.productId" class="md-raised md-success  prdct-btns"
 				ng-click="addproduct();">Create</md-button>
 			<md-button ng-show="product.productId" class="md-raised md-success  prdct-btns"
-				ng-click="addproduct();">Update</md-button>
+				ng-click="update();">Update</md-button>
 			<md-button ui-sref="app.producttype"
 				class="md-raised md-cancel prdct-btns">Cancel</md-button>
 			<!-- <md-button class="md-raised md-cancel prdct-btns" ui-sref="app.producttype">Cancel</md-button> -->
@@ -95,10 +95,10 @@
 
 		<div class="padd-lrtb30">
 			<div class="md-layout-row layout-align-start-center pt_relat">
-				<img ng-show="originalFrontImage" style="width: 100px;"  src="{{image.originalFrontImage}}"
+				<img ng-show="image.originalFrontImage" style="width: 100px;"  src="{{image.originalFrontImage}}"
 					class="img-circle" height="100" ng-required="true" /> 
 					
-				<img ng-hide="originalFrontImage"  style="width: 100px;" src={{product.image.url}}
+				<img ng-hide="image.originalFrontImage"  style="width: 100px;" src={{product.image.url}}
 					class="img-circle" height="100" ng-required="true" />
 					
 					<label
@@ -117,10 +117,10 @@
 		
 		<div class="padd-lrtb30">
 			<div class="md-layout-row layout-align-start-center pt_relat">
-				<img ng-show="originalBackImage" style="width: 100px;"  src="{{images.originalBackImage}}"
+				<img ng-show="images.originalBackImage" style="width: 100px;"  src="{{images.originalBackImage}}"
 					class="img-circle" height="100" ng-required="true" /> 
 					
-				<img ng-hide="originalBackImage"  style="width: 100px;" src={{product.image.url}}
+				<img ng-hide="images.originalBackImage"  style="width: 100px;" src={{product.productImages[0].image.url}}
 					class="img-circle" height="100" ng-required="true" />
 					
 					<label

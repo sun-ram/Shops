@@ -49,7 +49,7 @@ angular.module('aviate.controllers')
 				}else{*/
 					$scope.banner.isShopsbackerBanner = 'Y';
 					homePageServices.getBannerList($scope.banner).then(function(data){
-						$scope.images=data;
+						$rootScope.images=data;
 					});
 			}
 
