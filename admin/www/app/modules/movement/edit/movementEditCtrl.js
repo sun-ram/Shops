@@ -1,10 +1,10 @@
 angular.module('aviateAdmin.controllers')
 .controller("movementEditCtrl", 
-		['$scope', '$state','toastr','PhysicalInventoryServices','$rootScope','$rootScope',
-		 function($scope, $state,  toastr, PhysicalInventoryServices, $rootScope, $rootScope) {
+		['$scope', '$state','toastr','movementServices','$rootScope','$rootScope',
+		 function($scope, $state,  toastr, movementServices, $rootScope, $rootScope) {
 
 			$scope.getInventory = function(){
-				$scope.physicalinventory = PhysicalInventoryServices.getPhysicalInventoryObj();
+				$scope.physicalinventory = movementServices.getPhysicalInventoryObj();
 				$scope.temp = localStorage.getItem('physicalinventoryDetails');
 				if($scope.physicalinventory){
 					localStorage.setItem('physicalinventoryDetails',JSON.stringify($scope.physicalinventory));
@@ -21,7 +21,7 @@ angular.module('aviateAdmin.controllers')
 			{
 				$scope.warehouseData = {};
 
-				PhysicalInventoryServices.getInventoryWarehouse({'filterType': 'ALL','storeId':$rootScope.user.storeId}).then(function(data){
+				movementServices.getInventoryWarehouse({'filterType': 'ALL','storeId':$rootScope.user.storeId}).then(function(data){
 			
 						//$localStorage.warehouseData = {};
 						//$localStorage.warehouseData = data.warehouseList;
@@ -34,7 +34,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.updatePhysicalInventory = function(){
 				$scope.physicalinventory.storeId = $rootScope.user.storeId;
 				$scope.physicalinventory.merchantId=$rootScope.user.merchantId;
-				PhysicalInventoryServices.updatePhysicalInventory($scope.physicalinventory).then(function(data){
+				movementServices.updatePhysicalInventory($scope.physicalinventory).then(function(data){
 					localStorage.removeItem('physicalinventoryDetails');
 					$state.go('app.physical_inv');
 				});

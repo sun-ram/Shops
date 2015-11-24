@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers').controller("movementLineCtrl", 
-		['$scope','$rootScope','$localStorage','$state','PhysicalInventoryLineServices','UnitService','WarehouseService','PhysicalInventoryServices','toastr',
-		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryLineServices, UnitService, WarehouseService, PhysicalInventoryServices, toastr) {
+		['$scope','$rootScope','$localStorage','$state','movementLineServices','UnitService','WarehouseService','movementServices','toastr',
+		 function($scope,$rootScope,$localStorage,$state, movementLineServices, UnitService, WarehouseService, movementServices, toastr) {
 
 
 /*			$scope.getmeasurementunit = function() {
@@ -18,13 +18,13 @@ angular.module('aviateAdmin.controllers').controller("movementLineCtrl",
 
 			$scope.getProducts = function() {
 				$scope.productData = {};
-				PhysicalInventoryLineServices.getProducts({'filterType': 'ALL','merchantId':$rootScope.user.merchantId}).then(function(data){
+				movementLineServices.getProducts({'filterType': 'ALL','merchantId':$rootScope.user.merchantId}).then(function(data){
 					$scope.productData = data.productList;
 				});
 			};
 
 			/*$scope.productUom = function(productId) {
-				PhysicalInventoryLineServices.productUom({"productId": productId }).then(function(data){
+				movementLineServices.productUom({"productId": productId }).then(function(data){
 					$scope.productUomList = data.productUomList;
 				});
 			};*/
@@ -33,21 +33,21 @@ angular.module('aviateAdmin.controllers').controller("movementLineCtrl",
 				$scope.physicalinventorylineDetail.storeId = $rootScope.user.storeId;
 				$scope.physicalinventorylineDetail.merchantId = $rootScope.user.merchantId;
 				$scope.physicalinventorylineDetail.inventoryId = $scope.warehouse.inventoryId;
-				PhysicalInventoryLineServices.addInventoryLines($scope.physicalinventorylineDetail).then(function(data){
+				movementLineServices.addInventoryLines($scope.physicalinventorylineDetail).then(function(data){
 					$scope.physicalinventorylineDetail = {};
 					$scope.getInventroyLineList();
 				});
 			};
 
 			$scope.getInventroyLineList = function() {
-				PhysicalInventoryLineServices.getPhysicalInvemntoryLines({"inventoryId":$scope.warehouse.inventoryId }).then(function(data){
+				movementLineServices.getPhysicalInvemntoryLines({"inventoryId":$scope.warehouse.inventoryId }).then(function(data){
 					$scope.listOfInventroyLine = data.listOfInventroyLine;
 					console.log($scope.listOfInventroyLine)
 				});
 			}
 
 			$scope.getWareStorageBins = function(){
-				$scope.warehouse = PhysicalInventoryServices.getPhysicalInventoryObj();
+				$scope.warehouse = movementServices.getPhysicalInventoryObj();
 				$scope.temp = localStorage.getItem('physicalinventory');
 				if($scope.warehouse){
 					localStorage.setItem('physicalinventory',JSON.stringify($scope.warehouse));
@@ -72,7 +72,7 @@ angular.module('aviateAdmin.controllers').controller("movementLineCtrl",
 
 			$scope.warehouseBin = function(warehouseId) {
 				$scope.binData = {};
-				PhysicalInventoryLineServices.warehouseBin({'warehouseId':warehouseId}).then(function(data){
+				movementLineServices.warehouseBin({'warehouseId':warehouseId}).then(function(data){
 					$scope.binData = data.binList;
 				});
 			};
@@ -102,7 +102,7 @@ angular.module('aviateAdmin.controllers').controller("movementLineCtrl",
 
 			$scope.removeInventoryLine = function(inventoryLineId) {
 
-				PhysicalInventoryLineServices.removeInventoryLines({"inventoryLineId": inventoryLineId}).then(function(data){
+				movementLineServices.removeInventoryLines({"inventoryLineId": inventoryLineId}).then(function(data){
 					$scope.getInventroyLineList();
 				});
 			};

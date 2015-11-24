@@ -219,8 +219,8 @@ angular.module('app')
 				templateUrl: 'app/modules/movement/movementList.html',
 				controller : 'movementcontroller',
 				 resolve:   {
-					 movementLists:  function(PhysicalInventoryServices, $http, $stateParams, $rootScope){
-	                        return PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+					 movementLists:  function(movementServices, $http, $stateParams, $rootScope){
+	                        return movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 	                        	localStorage.removeItem('physicalinventoryDetails');
 	                        	return data;
 	        				});

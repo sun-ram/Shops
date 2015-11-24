@@ -1,5 +1,5 @@
 angular.module('aviateAdmin.services')
-.service('PhysicalInventoryServices',['$q','api','toastr','CONSTANT', function($q,api, toastr,CONSTANT) {
+.service('movementServices',['$q','api','toastr','CONSTANT', function($q,api, toastr,CONSTANT) {
 	this.getInventory = function(physicalinventories){
 		var d = $q.defer();
 		api.PhysicalInventory.getInventory(physicalinventories, function(err, result){

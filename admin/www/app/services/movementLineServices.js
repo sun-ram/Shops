@@ -1,5 +1,5 @@
 angular.module('aviateAdmin.services')
-.service('PhysicalInventoryLineServices',['$q','api','toastr','CONSTANT', function($q,api, toastr,CONSTANT) {
+.service('movementLineServices',['$q','api','toastr','CONSTANT', function($q,api, toastr,CONSTANT) {
 
 
 	this.getProducts = function(products){

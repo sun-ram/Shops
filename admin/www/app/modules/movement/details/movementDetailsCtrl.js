@@ -1,10 +1,10 @@
 angular.module('aviateAdmin.controllers')
 .controller("movementDetailsCtrl", 
-		['$scope', '$rootScope','$state','$filter','$window', 'ngTableParams','PhysicalInventoryServices',
-		 function($scope, $rootScope, $state, $filter,$window, ngTableParams,PhysicalInventoryServices) {
+		['$scope', '$rootScope','$state','$filter','$window', 'ngTableParams','movementServices',
+		 function($scope, $rootScope, $state, $filter,$window, ngTableParams,movementServices) {
 			
 			$scope.getMovement = function(){
-				$scope.movement = PhysicalInventoryServices.getMovementObj();
+				$scope.movement = movementServices.getMovementObj();
 				$scope.temp = localStorage.getItem('physicalinventoryDetails');
 				if($scope.movement){
 					localStorage.setItem('physicalinventoryDetails',JSON.stringify($scope.movement));
@@ -19,7 +19,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.getMovement();
 
 			$scope.redirectToEditMovement = function(movement){
-				PhysicalInventoryServices.setMovementObj(movement);
+				movementServices.setMovementObj(movement);
 				$rootScope.fromDetails = true;
 				$state.go('app.newphysicalinventory');
 			}
