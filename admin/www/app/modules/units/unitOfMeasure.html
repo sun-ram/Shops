@@ -1,15 +1,15 @@
 	<md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;" ng-click="addUnit()">
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getmeasurementunit()">
- <md-toolbar class=" md-default-theme">
+<div ng-init="getmeasurementunit()">
+ <md-toolbar class=" md-default-theme"  style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row">
-  		<h2 layout-align="start">Units Of Measurement</h2>
+  		<h2 layout-align="start" style="margin-left:-10px;">Units Of Measurement</h2>
     	<span class="flex"></span>
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
 	        <label>&nbsp;</label>
-	        <input ng-model="searchText" style="color: white; border-bottom-color: white;" placeholder="enter search">
+	        <input ng-model="searchText" style="color:#023904; border-bottom-color:#023904;" placeholder="Search">
 	      </md-input-container>
 	      <md-button aria-label="Search" style="line-height: inherit; min-width: inherit;" ng-click="showSearch = !showSearch;srch = true;">
 	        <ng-md-icon icon="search" class="icon-white"></ng-md-icon>
@@ -20,24 +20,24 @@
       </md-button>
     </div>
    </md-toolbar>
-
-   <md-card-content class="nopaddtop">
+<md-card flex-gt-sm="90" flex-gt-md="80">
+   <md-card-content class="nopadd">
 		<md-data-table-container>
 		
 		
      <md-list>
-       <md-item ng-repeat="uom in uoms | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit" class="md-table-content-row">
+       <md-item class="data-table-list" ng-repeat="uom in uoms | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid" ng-click="unitDetails(uom)">
-            <span layout-padding><ng-md-icon icon="arrow_forward" size="30"></ng-md-icon></span>
+            <span layout-padding><ng-md-icon icon="arrow_forward" size="20"></ng-md-icon></span>
            	<span flex=30 layout="column" class="padd-lr5 ft-18" layout-align="start start">
            		
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{uom.description}}</strong></span>
+             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18">{{uom.description}}</span>
                           
            	</span>
            	   <span flex=30 layout="row" layout-align="start end">
            
-              	<span class="padd-tr5-lb8 ft-18" ><strong>{{uom.name}}</strong></span>
+              	<span class="padd-tr5-lb8 ft-18" >{{uom.name}}</span>
           
            	 </span>
              <span flex=30 layout="row" layout-align="end center">
@@ -50,14 +50,15 @@
             </div>       	
            </div>
          </md-item-content>
-         <md-divider></md-divider>
-       <md-divider></md-divider>
+         
        </md-item>
      </md-list>
      </md-data-table-container>
    </md-card-content>
-   <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-   	<md-data-table-pagination md-limit="unitsPagination.limit" md-page="unitsPagination.page" md-total="{{measureType.length}}" md-trigger="onpagechange"></md-data-table-pagination>
-   	</div>
+   
    
 </md-card>
+<div layout layout="row"  class="table-pagination-bg" layout-align="end end">
+   	<md-data-table-pagination md-limit="unitsPagination.limit" md-page="unitsPagination.page" md-total="{{measureType.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+   	</div>
+</div>

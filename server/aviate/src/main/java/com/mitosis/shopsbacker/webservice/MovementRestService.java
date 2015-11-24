@@ -116,6 +116,20 @@ public class MovementRestService<T> {
 		Warehouse warehouse = movement.getWarehouse();
 		warehouseVo.setName(warehouse.getName());
 		warehouseVo.setWarehouseId(movement.getWarehouse().getWarehouseId());
+		
+		List<Storagebin> bins = new ArrayList<Storagebin>();
+		List<StoragebinVo> binsVo = new ArrayList<StoragebinVo>();
+		bins = warehouse.getStoragebins();
+		for(Storagebin bin : bins){
+			StoragebinVo binVo = new StoragebinVo();
+			binVo.setStoragebinId(bin.getStoragebinId());
+			binVo.setName(bin.getName());
+			binVo.setLevel(bin.getLevel());
+			binVo.setRow(bin.getRow());
+			binVo.setStack(bin.getStack());
+			binsVo.add(binVo);
+		}
+		warehouseVo.setStoragebins(binsVo);
 		movementvo.setWarehouse(warehouseVo);
 		List<MovementLine> movementLines = movement.getMovementLines();
 		List<MovementLineVo> movementLineVos = new ArrayList<MovementLineVo>();
