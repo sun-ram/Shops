@@ -215,9 +215,9 @@ angular.module('app')
 			
 			// physical inventory module
 			.state('app.physical_inv', {
-				url: '/physical_inv',
-				templateUrl: 'app/modules/physical_inventory/physicalinventoryList.html',
-				controller : 'physicalinventorycontroller',
+				url: '/movement',
+				templateUrl: 'app/modules/movement/movementList.html',
+				controller : 'movementcontroller',
 				 resolve:   {
 					 movementLists:  function(PhysicalInventoryServices, $http, $stateParams, $rootScope){
 	                        return PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
@@ -230,26 +230,26 @@ angular.module('app')
 
 			})
 			.state('app.newphysicalinventory', {
-				url: '/physicalinventory/new',
-				templateUrl: 'app/modules/physical_inventory/add/physicalinventoryCreate.html',
-				controller : 'physicalinventoryCreateCtrl'
+				url: '/movement/new',
+				templateUrl: 'app/modules/movement/add/movementCreate.html',
+				controller : 'movementCreateCtrl'
 			})
 			.state('app.physicalinventorydetails', {
-				url: '/physicalinventory/details',
-				templateUrl: 'app/modules/physical_inventory/details/physicalinventoryDetails.html',
-				controller : 'physicalinventoryDetailsCtrl'
+				url: '/movement/details',
+				templateUrl: 'app/modules/movement/details/movementDetails.html',
+				controller : 'movementDetailsCtrl'
 			})
 			.state('app.editphysicalinventory', {
-				url: '/physicalinventory/edit',
-				templateUrl: 'app/modules/physical_inventory/edit/physicalinventoryEdit.html',
-				controller : 'physicalinventoryEditCtrl'
+				url: '/movement/edit',
+				templateUrl: 'app/modules/movement/edit/movementEdit.html',
+				controller : 'movementEditCtrl'
 			})
 			
 			
 			.state('app.addInventoryLines', {
-				url: '/addInventoryLines',
-				templateUrl: 'app/modules/physical_inventory/physical_inventoryLine/physicalinventoryLine.html',
-				controller : 'physicalinventoryLineCtrl'
+				url: '/movementLines',
+				templateUrl: 'app/modules/movement/movementLine/movementLine.html',
+				controller : 'movementLineCtrl'
 			})
 			
 			.state('app.viewproductstock', {

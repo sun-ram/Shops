@@ -7,7 +7,7 @@
     </div>       
 	</div>
 	<span class="close_box">
-		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.physical_inv"></ng-md-icon>
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="backToDetails();"></ng-md-icon>
 	 </span>      	
 	</md-toolbar>
 	
@@ -52,7 +52,7 @@
 	
 	<section layout="row" layout-align="start center" layout-wrap class="padd-50 padd-t30">
     	<md-button class="md-raised md-success  prdct-btns" ng-click="updatePhysicalInventory();" ng-disabled="physicalinventoryForm.$invalid">Update</md-button>
-    	<md-button class="md-raised md-cancel prdct-btns" ui-sref="app.physical_inv">Cancel</md-button>
+    	<md-button class="md-raised md-cancel prdct-btns" ng-click="backToDetails();">Cancel</md-button>
     </section>
 		
 		</md-card-content>

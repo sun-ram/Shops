@@ -1,5 +1,5 @@
 angular.module('aviateAdmin.controllers')
-.controller("physicalinventoryCreateCtrl", 
+.controller("movementCreateCtrl", 
 		['$scope','$localStorage','$location','$rootScope','$state','toastr','PhysicalInventoryServices','WarehouseService','ProductService',
 		 function($scope,$localStorage,$location,$rootScope, $state, toastr, PhysicalInventoryServices, WarehouseService, ProductService) {
 			$scope.isMovementEdit = false;
@@ -23,11 +23,13 @@ angular.module('aviateAdmin.controllers')
 				$scope.movement = PhysicalInventoryServices.getMovementObj();
 				$scope.temp = localStorage.getItem('physicalinventoryDetails');
 				if($scope.movement){
+					$scope.bins = $scope.movement.warehouse.storagebins;
 					localStorage.setItem('physicalinventoryDetails',JSON.stringify($scope.movement));
 				}else if($scope.temp && $scope.temp != 'undefined'){
 					$scope.movement = JSON.parse($scope.temp);
 					$scope.isMovementEdit = true;
-					$scope.setStoragebin($scope.movement.warehouse);
+					$scope.bins = $scope.movement.warehouse.storagebins;
+					/*$scope.movement.warehouse = $scope.movement.warehouse;*/
 				}else{
 					$scope.movement = {};
 					$scope.getWarehouse();
@@ -51,19 +53,37 @@ angular.module('aviateAdmin.controllers')
 			};
 			
 			$scope.updateMovementLine= function(index, editMovementLine){
-				PhysicalInventoryServices.addMovementLine($scope.editMovementLine).then(function(data){
-					$scope.movement.movementLines[index] = data.movement.movementList;
+				editMovementLine.movementId = $scope.movement.movementId;
+				PhysicalInventoryServices.addMovementLine(editMovementLine).then(function(data){
+					localStorage.setItem('physicalinventoryDetails',JSON.stringify($scope.movement));
 					$scope.editMovementLine = null;
 				});
 			};
 			
-			$scope.removeMovement = function(movement){
+			$scope.checkAddNew = function(index){
+				if(!($scope.movement.movementLines[index].qty && $scope.movement.movementLines[index].toStoragebin && $scope.movement.movementLines[index].product)){
+					return true;
+				} else { 
+					return false;
+				}
+			};
+			
+			$scope.showClearButton = function(index){
+				if(!($scope.movement.movementLines[index].qty || $scope.movement.movementLines[index].toStoragebin || $scope.movement.movementLines[index].product)){
+					return false;
+				} else { 
+					return true;
+				}
+			};
+			
+			$scope.deleteMovement = function(movement){
 				PhysicalInventoryServices.removeMovement(movement).then(function(data){
 					$scope.movement = {};
+					localStorage.removeItem('physicalinventoryDetails');
 				});
 			};
 			
-			$scope.removeMovementLine = function(index){
+			$scope.deleteMovementLine = function(index){
 				PhysicalInventoryServices.removeMovementLine($scope.movement.movementLines[index]).then(function(data){
 					$scope.movement.movementLines.splice(index, 1);
 				});
@@ -87,26 +107,28 @@ angular.module('aviateAdmin.controllers')
 			
 			$scope.getProducts();
 			
-			$scope.removeMovementLine = function(index){
+			$scope.removeMovementLine = function(index,edit){
 				if($scope.movement.movementLines.length == 1){
 					if($scope.movement.movementLines[index].movementLineId){
-						$scope.removeMovement($scope.movement);
+						$scope.deleteMovement($scope.movement);
 					}
 					$scope.movement.movementLines = [{}];
 				}else{
 					if($scope.movement.movementLines[index].movementLineId){
-						$scope.removeMovementLine(index);
+							$scope.deleteMovementLine(index);
 					}else{
-						$scope.movement.movementLines[index] = {};
+						if(edit == true){
+							$scope.movement.movementLines.splice(index,1);
+						} else {
+							$scope.movement.movementLines[index] = {};
+						}
 					}
 				}
 			}
 			
 			$scope.addNewRow = function(index){
 				
-				if(!$scope.movement.movementLines[index].qty && 
-						!$scope.movement.movementLines[index].toStoragebin.storagebinId && 
-						!$scope.movement.movementLines[index].product.productId){
+				if(!($scope.movement.movementLines[index].qty && $scope.movement.movementLines[index].toStoragebin && $scope.movement.movementLines[index].product)){
 					return;
 				}
 				
@@ -136,4 +158,14 @@ angular.module('aviateAdmin.controllers')
 					$state.go('app.physical_inv');
 				});
 			};
+			
+			$scope.backToDetails = function(){
+				if($rootScope.fromDetails){
+					$state.go('app.physicalinventorydetails');
+					$rootScope.fromDetails = false;
+				} else {
+					$state.go('app.physical_inv');
+				}
+			}
+			
 		}]);

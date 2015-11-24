@@ -1,61 +1,111 @@
-angular.module('aviateAdmin.controllers').controller("physicalinventorycontroller", 
-		['$scope','$rootScope','$localStorage','$state','PhysicalInventoryServices','movementLists',
-		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryServices, movementLists) {
+angular.module('aviateAdmin.controllers').controller("movementLineCtrl", 
+		['$scope','$rootScope','$localStorage','$state','PhysicalInventoryLineServices','UnitService','WarehouseService','PhysicalInventoryServices','toastr',
+		 function($scope,$rootScope,$localStorage,$state, PhysicalInventoryLineServices, UnitService, WarehouseService, PhysicalInventoryServices, toastr) {
 
-			$scope.count = 3;
-			$scope.movements = movementLists;
-			$scope.srch = true;
-			
-			$scope.redirectGetPhysicalInventory = function(){
-				PhysicalInventoryServices.getInventory({'storeId':$rootScope.user.storeId}).then(function(data){
-					$scope.physicalinventoryData=data;
-				});
-			}
 
-			$scope.redirectToMovementDetails = function(movement){
-				PhysicalInventoryServices.setMovementObj(movement);
-				$state.go('app.physicalinventorydetails');
-			}
-
-			$scope.redirectToEditMovement = function(movement){
-				PhysicalInventoryServices.setMovementObj(movement);
-				$state.go('app.newphysicalinventory');
-			}
-
-			$scope.processMovement = function(movement) {
-				$scope.warehouseData = {};
-				PhysicalInventoryServices.processMovement({'movementId': movement.movementId}).then(function(data){
-					$state.go('app.newphysicalinventory');
-				});
-			};
-			
-			$scope.removeMovement = function(movement){
-				PhysicalInventoryServices.removeMovement(movement).then(function(data){
-					PhysicalInventoryServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
-						$scope.movements = data;
-    				});
+/*			$scope.getmeasurementunit = function() {
+				$localStorage.unit = {};
+				var unit ={
+						merchantId:$rootScope.user.merchantId
+				}
+				UnitService.UnitList(unit).then(function(data) {
+					$scope.uomData = data.units;
 				});
 			};
 
-			$rootScope.conformInventroy = function(inventoryId) {
-				PhysicalInventoryServices.conformInventroy({"inventoryId": inventoryId}).then(function(data){
-					console.log(data);
-					//$scope.getPhysicalinventoryDetails();
-					$scope.redirectGetPhysicalInventory();
+			$scope.getmeasurementunit();*/
+
+
+			$scope.getProducts = function() {
+				$scope.productData = {};
+				PhysicalInventoryLineServices.getProducts({'filterType': 'ALL','merchantId':$rootScope.user.merchantId}).then(function(data){
+					$scope.productData = data.productList;
+				});
+			};
+
+			/*$scope.productUom = function(productId) {
+				PhysicalInventoryLineServices.productUom({"productId": productId }).then(function(data){
+					$scope.productUomList = data.productUomList;
+				});
+			};*/
+
+			$scope.addInventoryLines = function() {
+				$scope.physicalinventorylineDetail.storeId = $rootScope.user.storeId;
+				$scope.physicalinventorylineDetail.merchantId = $rootScope.user.merchantId;
+				$scope.physicalinventorylineDetail.inventoryId = $scope.warehouse.inventoryId;
+				PhysicalInventoryLineServices.addInventoryLines($scope.physicalinventorylineDetail).then(function(data){
+					$scope.physicalinventorylineDetail = {};
+					$scope.getInventroyLineList();
+				});
+			};
+
+			$scope.getInventroyLineList = function() {
+				PhysicalInventoryLineServices.getPhysicalInvemntoryLines({"inventoryId":$scope.warehouse.inventoryId }).then(function(data){
+					$scope.listOfInventroyLine = data.listOfInventroyLine;
+					console.log($scope.listOfInventroyLine)
 				});
 			}
+
+			$scope.getWareStorageBins = function(){
+				$scope.warehouse = PhysicalInventoryServices.getPhysicalInventoryObj();
+				$scope.temp = localStorage.getItem('physicalinventory');
+				if($scope.warehouse){
+					localStorage.setItem('physicalinventory',JSON.stringify($scope.warehouse));
+				}else if($scope.temp && $scope.temp != 'undefined'){
+					$scope.warehouse = JSON.parse($scope.temp);
+				}else{
+					localStorage.removeItem('physicalinventory');
+					$state.go('app.physical_inv');
+				}
+				$scope.warehouseBinId = {};
+				$scope.warehouseBinId.warehouseId = $scope.warehouse.warehouseId;
+				WarehouseService.warehouseBins($scope.warehouseBinId).then(function(data){
+					$scope.binData = data;
+				})
+				$scope.getInventroyLineList();
+				console.log('inventoryDetails',$scope.warehouse);
+
+			};
+			$scope.getWareStorageBins();
+
+
+
+			$scope.warehouseBin = function(warehouseId) {
+				$scope.binData = {};
+				PhysicalInventoryLineServices.warehouseBin({'warehouseId':warehouseId}).then(function(data){
+					$scope.binData = data.binList;
+				});
+			};
+
 
 			$scope.viewLine = function(physicalinventory) {
-				PhysicalInventoryServices.setPhysicalInventoryObj(physicalinventory);
-				console.log(physicalinventory);
-				/*$rootScope.inventoryId = physicalinventory.inventoryId;
-				$localStorage.inventorDetails.inventoryId = $rootScope.inventoryId ;
+				$scope.inventoryId = physicalinventory.inventoryId;
+				$localStorage.inventorDetails.inventoryId = $scope.inventoryId ;
 				$rootScope.inventoryName = physicalinventory.inventoryName;
-				$localStorage.inventorDetails.inventoryName = $rootScope.inventoryName ;*/
+				$localStorage.inventorDetails.inventoryName = $rootScope.inventoryName ;
 				$state.go('app.addInventoryLines');
+			};
+
+			$scope.isEditInventoryLines = false;
+			$scope.editObjectTransfer = function(invs){
+				$scope.isEditInventoryLines = true;
+				$scope.physicalinventorylineDetail = invs;
+				$scope.physicalinventorylineDetail.sbDesc = invs.description;
+				$scope.physicalinventorylineDetail.totalQuantity = invs.quantity;
+				$scope.productUom(invs.productDetails.productId);
 			}
 
+			$scope.editCancel = function(){
+				$scope.physicalinventorylineDetail  = {};
+				$scope.isEditInventoryLines = false;
+			}
 
+			$scope.removeInventoryLine = function(inventoryLineId) {
+
+				PhysicalInventoryLineServices.removeInventoryLines({"inventoryLineId": inventoryLineId}).then(function(data){
+					$scope.getInventroyLineList();
+				});
+			};
 		}]);
 
 

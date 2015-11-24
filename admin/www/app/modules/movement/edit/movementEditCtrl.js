@@ -1,5 +1,5 @@
 angular.module('aviateAdmin.controllers')
-.controller("physicalinventoryEditCtrl", 
+.controller("movementEditCtrl", 
 		['$scope', '$state','toastr','PhysicalInventoryServices','$rootScope','$rootScope',
 		 function($scope, $state,  toastr, PhysicalInventoryServices, $rootScope, $rootScope) {
 
