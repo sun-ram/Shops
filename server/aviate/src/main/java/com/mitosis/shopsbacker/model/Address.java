@@ -39,7 +39,7 @@ public class Address implements java.io.Serializable {
 	private String phoneNo;
 	private String latitude;
 	private String longitude;
-	private Character isactive;
+	private char isactive;
 	private String createdby;
 	private String updatedby;
 	private Date created;
@@ -69,7 +69,7 @@ public class Address implements java.io.Serializable {
 	public Address(String addressId, State state, Customer customer,
 			Country country, String landmark, String address1, String address2,
 			String city, String pinCode, String phoneNo, String latitude,
-			String longitude, Character isactive, String createdby,
+			String longitude, char isactive, String createdby,
 			String updatedby, Date created, Date updated, List<SalesOrder> salesOrders,
 			List<User> users, List<MerchantRequest> merchantRequests,List<Warehouse>  warehouses) {
 		this.addressId = addressId;
@@ -210,11 +210,11 @@ public class Address implements java.io.Serializable {
 	}
 
 	@Column(name = "ISACTIVE", length = 1)
-	public Character getIsactive() {
+	public char getIsactive() {
 		return this.isactive;
 	}
 
-	public void setIsactive(Character isactive) {
+	public void setIsactive(char isactive) {
 		this.isactive = isactive;
 	}
 

@@ -19,7 +19,6 @@ import com.mitosis.shopsbacker.util.OrderStatus;
  * @author fayaz
  */
 @Repository
-@Transactional
 public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		implements SalesOrderDao<T>, Serializable {
 
@@ -45,8 +44,8 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(SalesOrder.class);
-			criteria.add(Restrictions.eq("store", store));
-			criteria.add(Restrictions.eq("isactive", 'Y'));
+			//criteria.add(Restrictions.eq("store", store));
+			//criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,7 +77,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.ge("created",
 					CommonUtil.stringToDate(fromDate)));
-			criteria.add(Restrictions.le("created",
+			criteria.add(Restrictions.le("deliveryDate",
 					CommonUtil.stringToDate(toDate)));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
@@ -97,7 +96,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("merchantId", merchantId));
 			criteria.add(Restrictions.ge("created",
 					CommonUtil.stringToDate(fromDate)));
-			criteria.add(Restrictions.le("created",
+			criteria.add(Restrictions.le("deliveryDate",
 					CommonUtil.stringToDate(toDate)));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);

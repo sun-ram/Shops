@@ -1,6 +1,5 @@
-package com.mitosis.shopsbacker.model;
-
-// Generated Nov 12, 2015 6:16:19 PM 
+package com.mitosis.shopsbacker.model;	
+// Generated Nov 23, 2015 5:56:32 PM 
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * SalesOrder Created by Sundaram C.
+ * SalesOrder generated 
  */
 @Entity
 @Table(name = "sales_order", catalog = "shopsbacker")
@@ -58,7 +57,7 @@ public class SalesOrder implements java.io.Serializable {
 	private Date updated;
 	private String updatedby;
 	private List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
-	private SalesOrderLine salesOrderLine;
+	private List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 	private List<Favourite> favourites = new ArrayList<Favourite>();
 
 	public SalesOrder() {
@@ -98,8 +97,7 @@ public class SalesOrder implements java.io.Serializable {
 			BigDecimal shippingCharge, BigDecimal netAmount,
 			String customerSign, String merchantId, Date deliveryTime,
 			char deliveryFlag, BigDecimal discountAmount, char isactive,
-			String createdby, Date created, Date updated, String updatedby,
-			List<OrderTax> orderTaxes, SalesOrderLine salesOrderLine, List<Favourite> favourites) {
+			String createdby, Date created, Date updated, String updatedby) {
 		this.salesOrderId = salesOrderId;
 		this.backer = backer;
 		this.customer = customer;
@@ -128,13 +126,11 @@ public class SalesOrder implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.updatedby = updatedby;
-		this.orderTaxes = orderTaxes;
-		this.salesOrderLine = salesOrderLine;
-		this.favourites = favourites;
+		
 	}
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
+	@GeneratedValue(generator = "system-uuid")		
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(name = "SALES_ORDER_ID", unique = true, nullable = false, length = 32)
 	public String getSalesOrderId() {
@@ -143,66 +139,6 @@ public class SalesOrder implements java.io.Serializable {
 
 	public void setSalesOrderId(String salesOrderId) {
 		this.salesOrderId = salesOrderId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BACKER_ID")
-	public User getBacker() {
-		return this.backer;
-	}
-
-	public void setBacker(User backer) {
-		this.backer = backer;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CUSTOMER_FEEDBACK_ID")
-	public CustomerFeedback getCustomerFeedback() {
-		return this.customerFeedback;
-	}
-
-	public void setCustomerFeedback(CustomerFeedback customerFeedback) {
-		this.customerFeedback = customerFeedback;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ADDRESS_ID", nullable = false)
-	public Address getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SHOPPER_ID")
-	public User getShopper() {
-		return this.shopper;
-	}
-
-	public void setShopper(User shopper) {
-		this.shopper = shopper;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STORE_ID", nullable = false)
-	public Store getStore() {
-		return this.store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
 	}
 
 	@Column(name = "ORDER_NO", nullable = false, length = 45)
@@ -215,7 +151,7 @@ public class SalesOrder implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELIVERY _DATE", nullable = false, length = 19)
+	@Column(name = "DELIVERY_DATE", nullable = false, length = 19)
 	public Date getDeliveryDate() {
 		return this.deliveryDate;
 	}
@@ -224,7 +160,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.deliveryDate = deliveryDate;
 	}
 
-	@Column(name = "DELIVERY _TIME_SLOT_ID", nullable = false, length = 32)
+	@Column(name = "DELIVERY_TIME_SLOT_ID", nullable = false, length = 32)
 	public String getDeliveryTimeSlotId() {
 		return this.deliveryTimeSlotId;
 	}
@@ -333,7 +269,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.deliveryTime = deliveryTime;
 	}
 
-	@Column(name = "DELIVERY_FLAG", length = 1)
+	@Column(name = "DELIVERYFLAG", length = 1)
 	public char getDeliveryFlag() {
 		return this.deliveryFlag;
 	}
@@ -397,8 +333,69 @@ public class SalesOrder implements java.io.Serializable {
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "BACKER_ID")
+	public User getBacker() {
+		return backer;
+	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")
+	public void setBacker(User backer) {
+		this.backer = backer;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "CUSTOMER_FEEDBACK_ID")
+	public CustomerFeedback getCustomerFeedback() {
+		return customerFeedback;
+	}
+
+	public void setCustomerFeedback(CustomerFeedback customerFeedback) {
+		this.customerFeedback = customerFeedback;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "ADDRESS_ID", nullable = false)
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "SHOPPER_ID")
+	public User getShopper() {
+		return shopper;
+	}
+
+	public void setShopper(User shopper) {
+		this.shopper = shopper;
+	}
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "STORE_ID")
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+	
+	@OneToMany(mappedBy = "salesOrder")
 	public List<OrderTax> getOrderTaxes() {
 		return this.orderTaxes;
 	}
@@ -407,16 +404,16 @@ public class SalesOrder implements java.io.Serializable {
 		this.orderTaxes = orderTaxes;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "salesOrder")
-	public SalesOrderLine getSalesOrderLine() {
-		return this.salesOrderLine;
+	@OneToMany(mappedBy = "salesOrder")
+	public List<SalesOrderLine> getSalesOrderLines() {
+		return this.salesOrderLines;
 	}
 
-	public void setSalesOrderLine(SalesOrderLine salesOrderLine) {
-		this.salesOrderLine = salesOrderLine;
+	public void setSalesOrderLines(List<SalesOrderLine> salesOrderLines) {
+		this.salesOrderLines = salesOrderLines;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrder")
+	@OneToMany(mappedBy = "salesOrder")
 	public List<Favourite> getFavourites() {
 		return this.favourites;
 	}
@@ -424,5 +421,5 @@ public class SalesOrder implements java.io.Serializable {
 	public void setFavourites(List<Favourite> favourites) {
 		this.favourites = favourites;
 	}
-
+	
 }

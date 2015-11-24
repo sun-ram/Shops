@@ -1,11 +1,15 @@
 package com.mitosis.shopsbacker.order.serviceimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.inventory.serviceimpl.ProductServiceImpl;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.order.dao.SalesOrderLineDao;
@@ -22,6 +26,8 @@ public class SalesOrderLineServiceImpl<T> implements
 	@Autowired
 	SalesOrderLineDao<T> salesOrderLineDao;
 	
+	@Autowired
+	ProductService<T> productService;
 	
 	public SalesOrderLineDao<T> getSalesOrderLineDao() {
 		return salesOrderLineDao;
@@ -32,22 +38,34 @@ public class SalesOrderLineServiceImpl<T> implements
 		this.salesOrderLineDao = salesOrderLineDao;
 	}
 
-
 	@Override
 	public List<SalesOrderLine> getSalesOrderLineById(String id) {
 		return salesOrderLineDao.getSalesOrderLineById(id);
 	}
 	
-	public SalesOrderLineVo setSalesOrderLineVo (SalesOrderLine salesOrderLine) {
-		SalesOrderLineVo salesOrderLineVo = new SalesOrderLineVo();
-		salesOrderLineVo.setSalesOrderLineId(salesOrderLine.getSalesOrderId());
-		salesOrderLineVo.setSalesOrderId(salesOrderLine.getSalesOrderId());
-		salesOrderLineVo.setQty(salesOrderLine.getQty());
-		salesOrderLine.setGrossAmount(salesOrderLine.getGrossAmount());
-		salesOrderLine.setNetAmount(salesOrderLine.getNetAmount());
-		salesOrderLine.setPrice(salesOrderLine.getPrice());
-		salesOrderLine.setProduct(salesOrderLine.getProduct());
-		return salesOrderLineVo;
+	public ProductService<T> getProductService() {
+		return productService;
+	}
+
+
+	public void setProductService(ProductService<T> productService) {
+		this.productService = productService;
+	}
+
+	@Override
+	public List<SalesOrderLineVo> setSalesOrderLineVo(List<SalesOrderLine> salesOrderLines) throws Exception {
+		List<SalesOrderLineVo> salesOrderLineList = new ArrayList<SalesOrderLineVo>();
+		for(SalesOrderLine salesOrderLine:salesOrderLines){
+			SalesOrderLineVo salesOrderLineVo = new SalesOrderLineVo();
+			salesOrderLineVo.setSalesOrderLineId(salesOrderLine.getSalesOrderLineId());
+			salesOrderLineVo.setQty(salesOrderLine.getQty());
+			salesOrderLineVo.setGrossAmount(salesOrderLine.getGrossAmount());
+			salesOrderLineVo.setNetAmount(salesOrderLine.getNetAmount());
+			salesOrderLineVo.setPrice(salesOrderLine.getPrice());
+			salesOrderLineVo.setProductVo(productService.setProductVo(salesOrderLine.getProduct()));
+			salesOrderLineList.add(salesOrderLineVo);
+		}
+		return salesOrderLineList;
 	}
 
 

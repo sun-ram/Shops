@@ -29,7 +29,6 @@ public class SalesOrderLine implements java.io.Serializable {
 	private String salesOrderLineId;
 	private SalesOrder salesOrder;
 	private Product product;
-	private String salesOrderId;
 	private int qty;
 	private BigDecimal price;
 	private BigDecimal grossAmount;
@@ -45,12 +44,11 @@ public class SalesOrderLine implements java.io.Serializable {
 	}
 
 	public SalesOrderLine(SalesOrder salesOrder, Product product,
-			String salesOrderId, int qty, BigDecimal price,
+			int qty, BigDecimal price,
 			BigDecimal grossAmount, BigDecimal netAmount, BigDecimal discount,
 			char isactive, Date created, Date updated) {
 		this.salesOrder = salesOrder;
 		this.product = product;
-		this.salesOrderId = salesOrderId;
 		this.qty = qty;
 		this.price = price;
 		this.grossAmount = grossAmount;
@@ -62,13 +60,12 @@ public class SalesOrderLine implements java.io.Serializable {
 	}
 
 	public SalesOrderLine(SalesOrder salesOrder, Product product,
-			String salesOrderId, int qty, BigDecimal price,
+			int qty, BigDecimal price,
 			BigDecimal grossAmount, BigDecimal netAmount, BigDecimal discount,
 			char isactive, Date created, String createdby, Date updated,
 			String updatedby) {
 		this.salesOrder = salesOrder;
 		this.product = product;
-		this.salesOrderId = salesOrderId;
 		this.qty = qty;
 		this.price = price;
 		this.grossAmount = grossAmount;
@@ -93,8 +90,8 @@ public class SalesOrderLine implements java.io.Serializable {
 		this.salesOrderLineId = salesOrderLineId;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@ManyToOne
+	@JoinColumn(name = "SALES_ORDER_ID")
 	public SalesOrder getSalesOrder() {
 		return this.salesOrder;
 	}
@@ -111,15 +108,6 @@ public class SalesOrderLine implements java.io.Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	@Column(name = "SALES_ORDER_ID", nullable = false, length = 32)
-	public String getSalesOrderId() {
-		return this.salesOrderId;
-	}
-
-	public void setSalesOrderId(String salesOrderId) {
-		this.salesOrderId = salesOrderId;
 	}
 
 	@Column(name = "QTY", nullable = false)

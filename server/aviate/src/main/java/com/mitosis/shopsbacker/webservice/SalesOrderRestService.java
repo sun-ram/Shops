@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -11,14 +12,18 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.responsevo.SalesOrderResponseVo;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 /**
@@ -75,6 +80,7 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public SalesOrderResponseVo getSalesOrderByStore(SalesOrderVo salesOrderVo) {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
@@ -87,6 +93,13 @@ public class SalesOrderRestService<T> {
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
 			}else if (salesOrderVo.getMerchantId()!=null) {
+				/*Merchant merchant = merchantService.getMerchantById(salesOrderVo.getMerchantId());
+				List<Store> stores = getStoreService().getStoreByMerchant(merchant);
+				for (Store store : stores) {
+					StoreVo storeVo = storeService.setStoreVo(store);
+					salesOrderVo.getStoreList().add(storeVo);
+				}*/
+
 				List<SalesOrder> salesOrderList = salesOrderService.getOrderList(salesOrderVo.getMerchantId());
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
@@ -104,19 +117,20 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public SalesOrderResponseVo getSalesOrderByDate(SalesOrderVo salesOrderVo) {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
 		try {
 			if(salesOrderVo.getStoreVo()!=null){
 				Store store = getStoreService().getStoreById(salesOrderVo.getStoreVo().getStoreId());
-				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getToDate(),store);
+				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getDeliveryDate(),store);
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
 			}else if(salesOrderVo.getMerchantId()!=null) {
-				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getToDate(),salesOrderVo.getMerchantId());
+				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getDeliveryDate(),salesOrderVo.getMerchantId());
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);

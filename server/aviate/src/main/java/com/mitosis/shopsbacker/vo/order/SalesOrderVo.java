@@ -1,12 +1,16 @@
 package com.mitosis.shopsbacker.vo.order;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 public class SalesOrderVo {
@@ -14,7 +18,7 @@ public class SalesOrderVo {
 	private CustomerVo customerVo;
 	private StoreVo storeVo;
 	private String orderNo;
-	private Date deliveryDate;
+	private String deliveryDate;
 	private String deliveryTimeSlotId;
 	private char ispaid;
 	private BigDecimal amount;
@@ -29,9 +33,11 @@ public class SalesOrderVo {
 	private Date deliveryTime;
 	private Character deliveryFlag;
 	private BigDecimal discountAmount;
-	private SalesOrderLineVo salesOrderLineVo;
+	private List<SalesOrderLineVo> salesOrderLineVo;
+	private List<StoreVo> storeList = new ArrayList<StoreVo>();
+	private AddressVo addressVo;
 	private String fromDate;
-	private String toDate;
+
 	
 	public String getSalesOrderId() {
 		return salesOrderId;
@@ -45,10 +51,10 @@ public class SalesOrderVo {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	public Date getDeliveryDate() {
+	public String getDeliveryDate() {
 		return deliveryDate;
 	}
-	public void setDeliveryDate(Date deliveryDate) {
+	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 	public String getDeliveryTimeSlotId() {
@@ -135,18 +141,6 @@ public class SalesOrderVo {
 	public void setDiscountAmount(BigDecimal discountAmount) {
 		this.discountAmount = discountAmount;
 	}
-	public String getFromDate() {
-		return fromDate;
-	}
-	public void setFromDate(String fromDate) {
-		this.fromDate = fromDate;
-	}
-	public String getToDate() {
-		return toDate;
-	}
-	public void setToDate(String toDate) {
-		this.toDate = toDate;
-	}
 	public CustomerVo getCustomerVo() {
 		return customerVo;
 	}
@@ -159,11 +153,29 @@ public class SalesOrderVo {
 	public void setStoreVo(StoreVo storeVo) {
 		this.storeVo = storeVo;
 	}
-	public SalesOrderLineVo getSalesOrderLineVo() {
+	public List<SalesOrderLineVo> getSalesOrderLineVo() {
 		return salesOrderLineVo;
 	}
-	public void setSalesOrderLineVo(SalesOrderLineVo salesOrderLineVo) {
+	public void setSalesOrderLineVo(List<SalesOrderLineVo> salesOrderLineVo) {
 		this.salesOrderLineVo = salesOrderLineVo;
+	}
+	public AddressVo getAddressVo() {
+		return addressVo;
+	}
+	public void setAddressVo(AddressVo addressVo) {
+		this.addressVo = addressVo;
+	}
+	public String getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+	public List<StoreVo> getStoreList() {
+		return storeList;
+	}
+	public void setStoreList(List<StoreVo> storeList) {
+		this.storeList = storeList;
 	}
 	
 }

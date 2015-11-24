@@ -96,7 +96,7 @@ public class OrderTax implements java.io.Serializable {
 		this.tax = tax;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "SALES_ORDER_ID", nullable = false)
 	public SalesOrder getSalesOrder() {
 		return this.salesOrder;
