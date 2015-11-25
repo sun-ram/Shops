@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory','$filter',
-                             function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter) {
+.controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory','$filter','CommonServices',
+                             function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter,CommonServices) {
 
 	MyCartFactory.myCartTotalPriceCalculation();
 
@@ -12,7 +12,7 @@ angular.module('aviate.controllers')
 	};
 	$scope.currentOrder = CheckOutServices.currentOrder;
 	$scope.timeLineStatus = CheckOutServices.timeLineStatus;
-
+	
 	$scope.selectAddress = function(addressId) {
 		var seletecdAddress = _.filter($scope.addresses, function(add) {
 			return add.selected == true;
@@ -26,7 +26,7 @@ angular.module('aviate.controllers')
 		address.selected = true;
 		$scope.currentOrder.address = address;
 	};
-
+	
 	$scope.openAddressDialog = function(event) {
 		$mdDialog.show({
 			controller: addressDialogController,
@@ -52,7 +52,9 @@ angular.module('aviate.controllers')
 	};
 
 	var addAddress = function(address) {
-		address.customerId = $rootScope.user.userId;
+		address.customer={
+				"customerId":$rootScope.user.userId
+		}
 		delete address.selected;
 		//address.addressId = "";
 		console.log("data", address);
@@ -169,9 +171,16 @@ angular.module('aviate.controllers')
 		$scope.cancel = function() {
 			$mdDialog.cancel();
 		};
-		
 
 		$scope.addAddress = function(address) {
+			$scope.address.country = {};
+			$scope.address.state = {};
+			$scope.cnt = JSON.parse($scope.country);
+			$scope.address.country.countryId = $scope.cnt.countryId;
+			$scope.address.country.name = $scope.cnt.name;
+			$scope.sta = JSON.parse($scope.state);
+			$scope.address.state.stateId = $scope.sta.stateId;
+			$scope.address.state.name = $scope.sta.name;
 			addAddress(address);
 			$mdDialog.cancel();
 		};
@@ -180,6 +189,20 @@ angular.module('aviate.controllers')
 			removeAddress(address);
 			$mdDialog.cancel();
 		};
+		
+		$scope.getState = function(country){
+			$scope.cunt = JSON.parse(country);
+			$scope.states = $scope.cunt.states;
+		};
+		
+		$scope.getCountries = function(){
+			CommonServices.getCountries($scope.country).then(function(data){
+				$scope.countries=data;
+			});
+		};
+		
+		$scope.getCountries();
+		
 	};
 
 	//restoring checkout template based on timeline status 
@@ -304,7 +327,7 @@ angular.module('aviate.controllers')
 			$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 		}
 	}
-
+	
 	$scope.getAddressList({
 		"customerId": $rootScope.user.userId
 	});
@@ -354,6 +377,5 @@ angular.module('aviate.controllers')
 		else	
 			$scope.delivery.endTime = $scope.delivery.endTime + 2;
 	};
-	
 }
 ]);

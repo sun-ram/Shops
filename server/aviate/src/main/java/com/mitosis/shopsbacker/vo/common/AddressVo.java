@@ -2,6 +2,8 @@ package com.mitosis.shopsbacker.vo.common;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.vo.customer.CustomerVo;
+
 @XmlRootElement
 public class AddressVo {
 	private String addressId;
@@ -15,6 +17,7 @@ public class AddressVo {
 	private String phoneNo;
 	private String latitude;
 	private String longitude;
+	private CustomerVo customer;
 	
 	public CountryVo getCountry() {
 		return country;
@@ -82,7 +85,11 @@ public class AddressVo {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-
-	
+	public CustomerVo getCustomer() {
+		return customer;
+	}
+	public void setCustomer(CustomerVo customer) {
+		this.customer = customer;
+	}
 
 }

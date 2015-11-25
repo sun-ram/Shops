@@ -121,6 +121,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	@Override
 	public AddressVo setAddressVo(Address address) {
 		AddressVo addressVo = new AddressVo();
+		addressVo.setAddressId(address.getAddressId());
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
 		addressVo.setCity(address.getCity());

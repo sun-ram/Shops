@@ -15,24 +15,24 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>First name<span style="color:red">*</span></label>
-                    <input type="text" ng-model="address.firstName" ng-required="true">
+                    <input type="text" ng-model="firstName" ng-required="true">
                 </md-input-container>
                 <md-input-container flex>
                     <label>Last Name<span style="color:red">*</span></label>
-                    <input type="text" ng-model="address.lastName" ng-required="true">
+                    <input type="text" ng-model="lastName" ng-required="true">
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container flex>
                     <label>Address<span style="color:red">*</span></label>
-                    <input type="text" ng-model="address.address" ng-required="true">
+                    <input type="text" ng-model="address.address1" ng-required="true">
                 </md-input-container>
-<!--
+
                 <md-input-container flex>
                     <label>Address Line 2</label>
-                    <input type="text" ng-model="address.address.line2">
+                    <input type="text" ng-model="address.address2">
                 </md-input-container>
--->
+
             </div>
             <div layout layout-sm="column">
                 <md-input-container flex>
@@ -40,24 +40,33 @@
                     <input type="text" ng-model="address.city" ng-required="true">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>State<span style="color:red">*</span></label>
-                    <input type="text" ng-model="address.state" ng-required="true">
+                    <label>Country<span style="color:red">*</span></label>
+                    <!-- <input type="text" ng-model="address.state" ng-required="true"> -->
+                    <md-select ng-model="country" ng-required="true" ng-change = "getState(country);">
+		            <md-option ng-repeat="cnt in countries" value="{{cnt}}">
+		              {{cnt.name}}
+		            </md-option>
+          		</md-select>
                 </md-input-container>
             </div>
             <div layout="row">
                
                 <md-input-container flex>
-                    <label>Country<span style="color:red">*</span></label>
-                    <input type="text" ng-model="address.country" ng-required="true">
+                    <label>State<span style="color:red">*</span></label>
+                    <md-select ng-model="state" ng-required="true">
+		            <md-option ng-repeat="state in states" value="{{state}}">
+		              {{state.name}}
+		            </md-option>
+          		</md-select>
                 </md-input-container>
                  <md-input-container flex>
                     <label>Postal Code<span style="color:red">*</span></label>
-                    <input type="text" valid-number ng-model="address.postalCode" >
+                    <input type="text" valid-number ng-model="address.pinCode" >
                 </md-input-container>
             </div>
             <md-input-container>
                 <label>Address specific information(Optional)</label>
-                <textarea ng-model="address.addressSpecificInstruction" columns="1" md-maxlength="150"></textarea>
+                <textarea ng-model="addressSpecificInstruction" columns="1" md-maxlength="150"></textarea>
             </md-input-container>
             <div layout="row" layout-align="end">
             <div layout="" layout-align="center">

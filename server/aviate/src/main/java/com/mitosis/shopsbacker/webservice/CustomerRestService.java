@@ -1,5 +1,9 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -9,14 +13,26 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
+import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.Image;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductCategory;
+import com.mitosis.shopsbacker.model.Role;
+import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.responsevo.AddressResponseVo;
 import com.mitosis.shopsbacker.responsevo.CustomerLoginResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+import com.mitosis.shopsbacker.vo.admin.UserVo;
+import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 @Path("customer")
@@ -27,7 +43,10 @@ public class CustomerRestService<T> {
 
 	@Autowired
 	CustomerService<T> customerService;
-
+	
+	@Autowired
+	AddressService<T> addressService;
+	
 	@Path("/login")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -125,6 +144,60 @@ public class CustomerRestService<T> {
 		return customerLoginResponseVo;
 
 	}
+	
+	@Path("/addAddress")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel addAddress(AddressVo addressVo) throws Exception {
+		if (addressVo.getCustomer().getCustomerId() != null) {
+			String full_address = addressVo.getAddress1()+","+addressVo.getAddress2()+","+
+								  addressVo.getCity()+","+addressVo.getCountry();	
+			JsonNode location = CommonUtil.getLatLong(full_address);
+			Customer customer = customerService
+					.getCustomerInfoById(addressVo.getCustomer().getCustomerId());
+			Address address = addressService.setAddress(addressVo);
+			address.setCustomer(customer);
+			if(addressVo.getAddressId()==null){
+				addressService.saveAddress(address);
+			}else{
+				addressService.updateAddress(address);
+			}
+		}
+		return response;
+
+	}
+	
+	@Path("/getaddress")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public AddressResponseVo getCustomerAddress(CustomerVo customerVo) throws Exception {
+		AddressResponseVo addressResponseList = new AddressResponseVo();
+			Customer customer = customerService
+					.getCustomerInfoById(customerVo.getCustomerId());
+			List<Address> addressList = addressService.getAddress(customer);
+			for(Address address: addressList){
+				AddressVo addresVo = addressService.setAddressVo(address);
+				addressResponseList.getAddressList().add(addresVo);
+			}
+			return addressResponseList;
+			
+		}
+	
+	@Path("/deleteaddress")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseModel deleteAddress(AddressVo addressVo) throws Exception {
+		if (addressVo.getAddressId() != null) {
+			Address address = addressService.getAddress(addressVo.getAddressId());
+			addressService.deleteAddress(address);
+		}
+		return response;
+
+	}
+
 
 	public Customer customerDetails(CustomerVo customerVo) throws Exception {
 		Customer customer = (Customer) CommonUtil
@@ -145,6 +218,6 @@ public class CustomerRestService<T> {
 		customerVo.setDeviceid(customer.getDeviceid());
 		customerVo.setDeviceType(customer.getDeviceType());
 		return customerVo;
-
 	}
+
 }
