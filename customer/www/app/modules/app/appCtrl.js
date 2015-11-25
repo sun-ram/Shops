@@ -30,7 +30,7 @@ angular.module('aviate.controllers')
 
 		$scope.getCartList = function(){
 			if($rootScope.user){
-				MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+				MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}},  function(data){
 					MyCartFactory.checkCartProductsQuantity($scope.productList,function(data){
 							MyCartFactory.checkMyListProductsList(dataInList,function(productList){
 									$scope.productList = productList;

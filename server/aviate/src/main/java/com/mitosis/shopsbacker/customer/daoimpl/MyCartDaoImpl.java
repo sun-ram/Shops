@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.customer.dao.MyCartDao;
 import com.mitosis.shopsbacker.model.Customer;
-import com.mitosis.shopsbacker.model.Favourite;
 import com.mitosis.shopsbacker.model.MyCart;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
 
 @Repository
@@ -40,10 +40,16 @@ MyCartDao<T>, Serializable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MyCart> getMyCartList(Customer customer, Store store) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Favourite.class);
+		try {
+		DetachedCriteria criteria = DetachedCriteria.forClass(MyCart.class);
 		criteria.add(Restrictions.eq("customer", customer));
 		criteria.add(Restrictions.eq("store", store));
 		return (List<MyCart>) findAll(criteria);
+		}  catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw(e);
+		}
 	}
 
 	@Override
@@ -73,13 +79,28 @@ MyCartDao<T>, Serializable {
 	@Override
 	public MyCart getCartDetailFromId(String myCartId) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Favourite.class);
+			DetachedCriteria criteria = DetachedCriteria.forClass(MyCart.class);
 			criteria.add(Restrictions.eq("myCartId", myCartId));
 			return (MyCart) findUnique(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw(e);
 		}
+	}
+
+	@Override
+	public MyCart getCartByCustomerStoreanProductId(Customer customer,
+			Product product, Store store) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(MyCart.class);
+			criteria.add(Restrictions.eq("customer", customer));
+			criteria.add(Restrictions.eq("store", store));
+			criteria.add(Restrictions.eq("product", product));
+			return (MyCart) findUnique(criteria);
+			}  catch (Exception e) {
+				e.printStackTrace();
+				throw(e);
+			}
 	}
 
 }

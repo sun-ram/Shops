@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.MyCart;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
 
 
@@ -18,5 +19,7 @@ public interface MyCartDao<T> {
 	public void removeFromCart(MyCart mycart);
 	
 	public MyCart getCartDetailFromId(String myCartId);
+	
+	public MyCart getCartByCustomerStoreanProductId(Customer customer, Product product, Store store);
 
 }

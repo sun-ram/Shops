@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.MyCart;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
 
 public interface MyCartService<T> {
@@ -17,6 +18,8 @@ public interface MyCartService<T> {
 	public void addToCart(MyCart mycart);
 	
 	public MyCart getCartDetailFromId(String myCartId);
+	
+	public MyCart getCartByCustomerStoreanProductId(Customer customer, Product product, Store store);
 	
 
 }
