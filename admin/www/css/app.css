@@ -411,7 +411,7 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 	transition: 0.3s ease-in all;
 }
 .dumpedSideContainer {
-	width:60px !important;
+	width:56px !important;
 	min-width:15px !important;
 	top:0px;
 	height:1000px;
@@ -420,7 +420,9 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 }
 
 .extractSideContainer{
-	whidth:300px;
+	width:260px;
+	max-width: 260px !important;
+	min-width: 260px !important;
 	transition: 0.3s ease-in all;
 }
 
@@ -446,12 +448,12 @@ md-sidenav.md-locked-open{position: fixed ! important; z-index: 100; top:0;}
 }
 .bodyContentFloatLeft {
 	top: 60px;
-	padding-left : 60px;
+	padding-left : 56px;
 	transition: 0.3s ease-in all;
 }
 .bodyContentFloatRight {
 	top: 60px;
-	padding-left : 300px;
+	padding-left : 260px;
 	transition: 0.3s ease-in all;
 }
 
