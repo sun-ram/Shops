@@ -3,19 +3,19 @@
 	layout="column" flex class="md-sidenav-left md-whiteframe-z1 "
 	md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
 	style="paddingL0px !important">
-    <md-toolbar
-	ng-class="{dumpedSideContainer : sidebarHidden}"
-	class="md-tall md-hue-2"
-	style="background:url(assets/svgicon/user-bg.jpg)">
-        <div layout="row" class="md-toolbar-tools-bottom inset slideuser_img"
-	layout-align="end center ">
-            <img ng-src="assets/svgicon/profile.jpg" class="md-avatar"
-		style="border-radius: 50px; width: 75px" />
-        </div>
-    </md-toolbar>
+	<div style="background-color: #4EAF4C">
+	    <md-toolbar
+		ng-class="{dumpedSideContainer : sidebarHidden}"
+		class="md-tall md-hue-2 cust-md-tool">
+		        <div layout="row" class="md-toolbar-tools-bottom inset">
+		             <img ng-src="assets/svgicon/profile.jpg" class="md-avatar" style="border-radius:50px;width:40px; height: 40px;" />
+		      	 <h1 ng-hide="sidebarHidden" class="tool-h1">ShopsBacker</h1>
+		        </div>
+	    </md-toolbar>
+    </div>
     <md-list class="slide-hover">
-        <a
-	ui-sref="app.super_admin_dashboard">
+    	<!-- <md-subheader class="textOnMenu">Super Admin</md-subheader> -->
+        <a ui-sref="app.super_admin_dashboard">
             <md-list-item>
                 <div style="float: left; margin: 10px">
                     <!-- <md-icon md-svg-icon="assets/svgicon/dashboard.svg"></md-icon> -->
