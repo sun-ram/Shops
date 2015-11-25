@@ -12,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.common.service.AddressService;
@@ -149,6 +151,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel addAddress(AddressVo addressVo) throws Exception {
 		if (addressVo.getCustomer().getCustomerId() != null) {
 			String full_address = addressVo.getAddress1()+","+addressVo.getAddress2()+","+
@@ -172,6 +175,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public AddressResponseVo getCustomerAddress(CustomerVo customerVo) throws Exception {
 		AddressResponseVo addressResponseList = new AddressResponseVo();
 			Customer customer = customerService
@@ -189,6 +193,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ResponseModel deleteAddress(AddressVo addressVo) throws Exception {
 		if (addressVo.getAddressId() != null) {
 			Address address = addressService.getAddress(addressVo.getAddressId());

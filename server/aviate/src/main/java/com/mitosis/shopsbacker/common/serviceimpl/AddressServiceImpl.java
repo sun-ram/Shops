@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
+import com.mitosis.shopsbacker.customer.dao.CustomerDao;
+import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
@@ -18,12 +20,16 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
+import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 @Service("addressServiceImpl")
 public class AddressServiceImpl<T> implements AddressService<T> {
 
 	@Autowired
 	AddressDao<T> addressDao;
+	
+	@Autowired
+	CustomerService<T> customerService;
 
 	public AddressDao<T> getAddressDao() {
 		return addressDao;
@@ -131,6 +137,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		addressVo.setLongitude(address.getLongitude());
 		addressVo.setCountry(setCountryVo(address.getCountry()));
 		addressVo.setState(setCountryVo(address.getState()));
+		addressVo.setCustomer(setCustomerVo(address.getCustomer()));
 		return addressVo;
 	}
 	
@@ -149,5 +156,13 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		stateVo.setStateId(state.getStateId());
 		return stateVo;
 	}
+	
+	public CustomerVo setCustomerVo(Customer customer) {
+		CustomerVo customerVo = new CustomerVo();
+		customerVo.setCustomerId(customer.getCustomerId());
+		customerVo.setName(customer.getName());
+		return customerVo;
+	}
+
 
 }

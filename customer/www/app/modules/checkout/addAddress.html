@@ -15,11 +15,11 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>First name<span style="color:red">*</span></label>
-                    <input type="text" ng-model="firstName" ng-required="true">
+                    <input type="text" ng-model="address.customer.name" ng-required="true">
                 </md-input-container>
                 <md-input-container flex>
                     <label>Last Name<span style="color:red">*</span></label>
-                    <input type="text" ng-model="lastName" ng-required="true">
+                    <input type="text" ng-model="address.customer.name" ng-required="true">
                 </md-input-container>
             </div>
             <div layout="row">
@@ -30,7 +30,7 @@
 
                 <md-input-container flex>
                     <label>Address Line 2</label>
-                    <input type="text" ng-model="address.address2">
+                    <input type="text" ng-model="address.address2" ng-required="true">
                 </md-input-container>
 
             </div>
