@@ -15,7 +15,8 @@ angular.module('aviateAdmin.controllers')
 	
 	$scope.forgetpass = function(user) {
 				$scope.forget = false;
-				AuthService.forgetpass(user).then(function(data){
+				var req = {"user":user, "passwordResetUrl": window.location.origin + "/#/resetpassword/", "userType": "admin"};
+				AuthService.forgetpass(req).then(function(data){
 					$scope.user ="";
 					$state.go('login');
 				});

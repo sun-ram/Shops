@@ -21,11 +21,13 @@ public enum SBErrorMessage {
 	EMAILID_EXISTS("E0010","EmailId already registered."),
 	SIGNUP_SUCCESS("E0011","Registered Successfully"),
 	MOBILNO_EXISTS("E0012","Mobile Number already registered."),
-	PROBLEM_IN_SENDING_EMAIL("E0010","Problem in sending email."),
-	INVALID_TOKEN("E0011", "Invalid password reset token."),
-	INVALID_PRODUCT_PRICE("E0012","Invalid Product Price."),
-	INVALID_PRODUCT_UNIT("E0013","Invalid Product Unit."),
-	PRODUCT_NOT_AVAILABLE("E0017","Product Not Available");
+	PROBLEM_IN_SENDING_EMAIL("E0013","Problem in sending email."),
+	INVALID_TOKEN("E0014", "Invalid password reset token."),
+	INVALID_PRODUCT_PRICE("E0015","Invalid Product Price."),
+	INVALID_PRODUCT_UNIT("E0016","Invalid Product Unit."),
+	PRODUCT_NOT_AVAILABLE("E0017","Product Not Available."),
+	INVALID_USER_ACCOUNT("E0018","No user found with that username."),
+	INVALID_CUSTOMER_ACCOUNT("E0019", "No customer found with that email address.");
 
 	private final String erroeCode;
 	  private final String errorMessage;

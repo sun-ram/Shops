@@ -79,8 +79,36 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.User.forGetPassword = function (user, callback) {
-			httpRequest("POST", "customer/forgetpassword", user, function (err, data) {
+		apiClass.User.forGetPassword = function (req, callback) {
+			httpRequest("POST", "common/forgetpassword", req, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.User.verifyToken = function (user, callback) {
+			httpRequest("POST", "common/verifytoken", user, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.User.resetPassword = function (user, callback) {
+			httpRequest("POST", "common/resetpassword", user, function (err, data) {
 				if (err) {
 
 					callback(err, null);

@@ -94,9 +94,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.User.forgetpass = function (user, callback) {
-			var req = {"user": user, "passwordResetUrl": window.location.origin + "/#/resetpassword"}
-			httpRequest("POST", "user/forgetpassword", req, function (err, data) {
+		apiClass.User.forgetpass = function (req, callback) {
+			httpRequest("POST", "common/forgetpassword", req, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -110,7 +109,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.User.verifytoken = function (req, callback) {
-			httpRequest("POST", "user/verifytoken", req, function (err, data) {
+			httpRequest("POST", "common/verifytoken", req, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -124,7 +123,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.User.resetpass = function (req, callback) {
-			httpRequest("POST", "user/resetpassword", req, function (err, data) {
+			httpRequest("POST", "common/resetpassword", req, function (err, data) {
 				if (err) {
 
 					callback(err, null);
