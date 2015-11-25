@@ -399,4 +399,61 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
     .merch-addr{width: 500px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
 }
 
+.toolbarOnDumped {
+	position: fixed;
+	padding-left:60px;
+	top:1px;
+	transition: 0.3s ease-in all;
+}
+.toolbarOnExtract{
+	position: fixed;
+	padding-left:304px;
+	transition: 0.3s ease-in all;
+}
+.dumpedSideContainer {
+	width:60px !important;
+	min-width:15px !important;
+	top:0px;
+	height:1000px;
+	transition: 0.3s ease-in all;
+	
+}
+
+.extractSideContainer{
+	whidth:300px;
+	transition: 0.3s ease-in all;
+}
+
+.boxOnExtracted {
+  padding-top: 130px;
+  padding-left: 61px;
+  transition: 0.3s ease-in all;
+}
+
+.boxOnDumped {
+  padding-top: 60px;
+  padding-left: 61px;
+  transition: 0.3s ease-in all;
+}
+.md-sidenav-left{background: #424242 ! important; position: absolute; color:#757575; }
+md-sidenav.md-locked-open{position: fixed ! important; z-index: 100; top:0;}
+
+.moveFabRight {
+	left: 300px !important; transition: 0.3s ease-in all;
+}
+.moveFabLeft {
+	left: 65px !important; transition: 0.3s ease-in all;
+}
+.bodyContentFloatLeft {
+	top: 60px;
+	padding-left : 60px;
+	transition: 0.3s ease-in all;
+}
+.bodyContentFloatRight {
+	top: 60px;
+	padding-left : 300px;
+	transition: 0.3s ease-in all;
+}
+
+
 

@@ -8,7 +8,7 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                 templateUrl: './app/modules/main/nav-main.html',
                 replace: true,
                 link: function($scope, iElm, iAttrs, controller) {
-
+                	 $scope.sidebarHidden = false;
                 	 $scope.toggleSidenav = buildToggler('left');
                 	 
                 	  function buildToggler(navID) {
@@ -19,6 +19,9 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                 	          },200);
                 	      return debounceFn;
                 	    };
+                	$scope.dumpSidebar = function(){
+                	  	$scope.sidebarHidden = !$scope.sidebarHidden;
+                	}
                     
  	        	   $scope.logout = function() {
                      $rootScope.user = null;

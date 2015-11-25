@@ -1,6 +1,6 @@
-<md-toolbar class="md-whiteframe-4dp" style="z-index: 3;">
-<div class="md-toolbar-tools md-toolbar-tools-fixed-position" style="background-color:#4eaf4c !important;">
-	<md-button aria-label="Open demo menu" class="md-icon-button" layout="column" layout-align="center" ng-click="toggleSidenav('left')"> 
+<md-toolbar class="md-whiteframe-4dp" style="z-index: 3; background-color:#4eaf4c !important; position: fixed; top: 0;">
+ <div class="md-toolbar-tools md-toolbar-tools-fixed-position" >
+	<md-button ng-class="{moveFabRight : !sidebarHidden, moveFabLeft : sidebarHidden, }" aria-label="Open demo menu" class="md-icon-button" layout="column" layout-align="center" ng-click="toggleSidenav('left');dumpSidebar();">  
 		<!-- <ng-md-icon class="icon-white svgmarg-t5" size="35" icon="menu"></ng-md-icon>  -->
 	 <md-icon md-svg-icon="assets/img/icons/menu.svg" style="color: white;"></md-icon>
 	</md-button>
