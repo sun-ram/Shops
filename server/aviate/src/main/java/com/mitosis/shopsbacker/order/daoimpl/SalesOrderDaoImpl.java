@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
@@ -89,11 +90,11 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 	
 	@Override
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
-			String toDate, String merchantId) {
+			String toDate, Merchant merchant) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(SalesOrder.class);
-			criteria.add(Restrictions.eq("merchantId", merchantId));
+			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.ge("created",
 					CommonUtil.stringToDate(fromDate)));
 			criteria.add(Restrictions.le("deliveryDate",
@@ -140,11 +141,11 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 	}
 
 	@Override
-	public List<SalesOrder> getOrderList(String merchantId) {
+	public List<SalesOrder> getOrderList(Merchant merchant) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(SalesOrder.class);
-			criteria.add(Restrictions.eq("merchantId", merchantId));
+			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {

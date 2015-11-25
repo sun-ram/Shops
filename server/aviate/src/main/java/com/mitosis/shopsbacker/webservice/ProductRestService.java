@@ -442,6 +442,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ProductUploadVO excelUpload(ProductVo file) {
 		ProductUploadVO response = new ProductUploadVO();
 		String excelPath = null;

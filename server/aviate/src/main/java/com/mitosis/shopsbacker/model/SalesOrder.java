@@ -270,7 +270,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.deliveryTime = deliveryTime;
 	}
 
-	@Column(name = "DELIVERYFLAG", length = 1)
+	@Column(name = "DELIVERY_FLAG", length = 1)
 	public char getDeliveryFlag() {
 		return this.deliveryFlag;
 	}

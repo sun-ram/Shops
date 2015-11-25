@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.OrderStatus;
@@ -28,9 +29,9 @@ public interface SalesOrderDao<T> {
 	
 	public void saveSalesOrder(SalesOrder salesOrder);
 	
-	public List<SalesOrder> getOrderList(String merchantId);
+	public List<SalesOrder> getOrderList(Merchant merchant);
 	
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
-			String toDate, String merchantId);
+			String toDate, Merchant merchant);
 
 }

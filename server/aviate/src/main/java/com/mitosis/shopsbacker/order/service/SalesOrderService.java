@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.order.service;
 
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.OrderStatus;
@@ -30,10 +31,10 @@ public interface SalesOrderService<T> {
 	public void conformPayment(String salesOrderId, String transactionNo,
 			String paymentMethod);
 	
-	public List<SalesOrder> getOrderList(String merchantId);
+	public List<SalesOrder> getOrderList(Merchant merchant);
 	
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
-			String toDate, String merchantId);
+			String toDate, Merchant merchant);
 	
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception ;
 

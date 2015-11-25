@@ -119,14 +119,14 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	}
 	
 	@Override
-	public List<SalesOrder> getOrderList(String merchantId) {
-		return salesOrderDao.getOrderList(merchantId);
+	public List<SalesOrder> getOrderList(Merchant merchant) {
+		return salesOrderDao.getOrderList(merchant);
 	}
 
 	@Override
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
-			String toDate, String merchantId) {
-			return salesOrderDao.salesOrderDetailList(fromDate, toDate, merchantId);
+			String toDate, Merchant merchant) {
+			return salesOrderDao.salesOrderDetailList(fromDate, toDate, merchant);
 	}
 	
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception {
