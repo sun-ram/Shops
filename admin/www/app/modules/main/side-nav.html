@@ -7,35 +7,36 @@
     
    </md-toolbar>
     <md-list class="slide-hover">
-
-	<md-list-item>
-		<a ui-sref="app.super_admin_dashboard">
+	
+	<a ui-sref="app.super_admin_dashboard">
+		<md-list-item>
 		   <div style="float:left;margin:10px">
-		        <md-icon md-svg-icon="assets/svgicon/dashboard.svg"></md-icon>
-		        <span style="margin:10px" ng-hide="sidebarHidden">DashBoard</span>
+		        <!-- <md-icon md-svg-icon="assets/svgicon/dashboard.svg"></md-icon> -->
+		        <ng-md-icon icon="dashboard" style="fill:#ffffff"></ng-md-icon> 
+		        <span class="textOnMenu" ng-hide="sidebarHidden">DashBoard</span>
 		    </div>
-		 </a>
-	</md-list-item>
-<md-divider></md-divider>
-<md-list-item>
-	<a ui-sref="app.merchants">
-	   <div style="float:left;margin:10px">
-	        <md-icon md-svg-icon="assets/svgicon/merchant.svg"></md-icon>
-	        
-	         <span style="margin:10px" ng-hide="sidebarHidden">Merchant</span>
-	    </div>
+		</md-list-item>
 	</a>
-</md-list-item>
 <md-divider></md-divider>
-<md-list-item>
-   <a ui-sref="app.units">
-   <div style="float:left;margin:10px">
-        <md-icon md-svg-icon="assets/svgicon/unitofmeasurement.svg"></md-icon>
+<a ui-sref="app.merchants">
+	<md-list-item>
+	   <div style="float:left;margin:10px">
+	        <ng-md-icon icon="store" style="fill:#ffffff;"></ng-md-icon> 
+	        <span class="textOnMenu" ng-hide="sidebarHidden">Merchant</span>
+	    </div>
+	</md-list-item>
+</a>
+<md-divider></md-divider>
+
+<a ui-sref="app.units">
+	<md-list-item>
+   		<div style="float:left;margin:10px">
+        	<md-icon md-svg-icon="assets/svgicon/unitofmeasurement.svg"></md-icon>
        
-         <span style="margin:10px" ng-hide="sidebarHidden"> Unit Of Measurement</span>
-    </div>
-    </a>
-</md-list-item>
+         <span class="textOnMenu" ng-hide="sidebarHidden"> Unit Of Measurement</span>
+    	</div>
+	</md-list-item>
+</a>
 <md-divider></md-divider>
 <!-- Unwanted -->
 
