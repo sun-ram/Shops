@@ -3,7 +3,11 @@ package com.mitosis.shopsbacker.order.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Movement;
+import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.ShippingCharges;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
@@ -81,6 +86,18 @@ implements ShippingChargesDao<T>, Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Double getShippingCharges(Double orderAmount, Merchant merchant) {
+		Criteria criteria = getSession().createCriteria(ShippingCharges.class);
+		ProjectionList proList = Projections.projectionList();
+		proList.add(Projections.property("chargingAmount"), "chargingAmount");
+        criteria.setProjection(proList);
+		criteria.add(Restrictions.eq("merchant", merchant));
+		criteria.add(Restrictions.and(Restrictions.ge("amountRange", orderAmount)));
+		criteria.addOrder(Order.asc("amountRange"));
+		return (Double) criteria.list().get(0);
 	}
 
 

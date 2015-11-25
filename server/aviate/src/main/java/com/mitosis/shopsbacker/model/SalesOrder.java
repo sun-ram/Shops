@@ -37,7 +37,7 @@ public class SalesOrder implements java.io.Serializable {
 	private Store store;
 	private String orderNo;
 	private Date deliveryDate;
-	private String deliveryTimeSlotId;
+	private String deliveryTimeSlot;
 	private char ispaid;
 	private BigDecimal amount;
 	private String paymentMethod;
@@ -65,7 +65,7 @@ public class SalesOrder implements java.io.Serializable {
 
 	public SalesOrder(String salesOrderId, Customer customer, Address address,
 			Store store, String orderNo, Date deliveryDate,
-			String deliveryTimeSlotId, char ispaid, BigDecimal amount,
+			String deliveryTimeSlot, char ispaid, BigDecimal amount,
 			BigDecimal totalTaxAmount, BigDecimal shippingCharge,
 			BigDecimal netAmount, Merchant merchant, BigDecimal discountAmount,
 			char isactive, Date created, Date updated) {
@@ -75,7 +75,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.store = store;
 		this.orderNo = orderNo;
 		this.deliveryDate = deliveryDate;
-		this.deliveryTimeSlotId = deliveryTimeSlotId;
+		this.deliveryTimeSlot = deliveryTimeSlot;
 		this.ispaid = ispaid;
 		this.amount = amount;
 		this.totalTaxAmount = totalTaxAmount;
@@ -91,7 +91,7 @@ public class SalesOrder implements java.io.Serializable {
 	public SalesOrder(String salesOrderId, User backer,
 			Customer customer, CustomerFeedback customerFeedback,
 			Address address, User shopper, Store store, String orderNo,
-			Date deliveryDate, String deliveryTimeSlotId, char ispaid,
+			Date deliveryDate, String deliveryTimeSlot, char ispaid,
 			BigDecimal amount, String paymentMethod, String transactionNo,
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
@@ -107,7 +107,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.store = store;
 		this.orderNo = orderNo;
 		this.deliveryDate = deliveryDate;
-		this.deliveryTimeSlotId = deliveryTimeSlotId;
+		this.deliveryTimeSlot = deliveryTimeSlot;
 		this.ispaid = ispaid;
 		this.amount = amount;
 		this.paymentMethod = paymentMethod;
@@ -160,13 +160,13 @@ public class SalesOrder implements java.io.Serializable {
 		this.deliveryDate = deliveryDate;
 	}
 
-	@Column(name = "DELIVERY_TIME_SLOT_ID", nullable = false, length = 32)
-	public String getDeliveryTimeSlotId() {
-		return this.deliveryTimeSlotId;
+	@Column(name = "DELIVERY_TIME_SLOT", nullable = false, length = 32)
+	public String getDeliveryTimeSlot() {
+		return this.deliveryTimeSlot;
 	}
 
-	public void setDeliveryTimeSlotId(String deliveryTimeSlotId) {
-		this.deliveryTimeSlotId = deliveryTimeSlotId;
+	public void setDeliveryTimeSlot(String deliveryTimeSlot) {
+		this.deliveryTimeSlot = deliveryTimeSlot;
 	}
 
 	@Column(name = "ISPAID", nullable = false, length = 1)

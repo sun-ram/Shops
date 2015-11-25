@@ -12,6 +12,8 @@ import com.mitosis.shopsbacker.vo.order.ShippingChargesVo;
 public interface ShippingChargesService<T> {
 
 	public List<ShippingCharges> getShippingCharges(Merchant merchant);
+	
+	public Double getShippingCharge(Double orderAmount, Merchant merchant);
 
 	public void saveShippingCharges(ShippingCharges shippingCharges);
 

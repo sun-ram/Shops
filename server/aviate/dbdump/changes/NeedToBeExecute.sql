@@ -59,4 +59,23 @@ ADD CONSTRAINT `FK_SO_MERCHANT`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+  -- prabakaran ---------------------------- Sales order column name changes  --------------------
+  
+  ALTER TABLE `shopsbacker`.`sales_order` 
+CHANGE COLUMN `DELIVERY _DATE` `DELIVERY_DATE` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+CHANGE COLUMN `DELIVERY _TIME_SLOT_ID` `DELIVERY_TIME_SLOT` VARCHAR(60) NOT NULL ;
+
+
+ALTER TABLE `shopsbacker`.`sales_order_line` 
+DROP FOREIGN KEY `FK_SOL_SALES_ORDER`;
+ALTER TABLE `shopsbacker`.`sales_order_line` 
+ADD INDEX `FK_SOL_SALES_ORDER_idx` (`SALES_ORDER_ID` ASC);
+ALTER TABLE `shopsbacker`.`sales_order_line` 
+ADD CONSTRAINT `FK_SOL_SALES_ORDER`
+  FOREIGN KEY (`SALES_ORDER_ID`)
+  REFERENCES `shopsbacker`.`sales_order` (`SALES_ORDER_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
   

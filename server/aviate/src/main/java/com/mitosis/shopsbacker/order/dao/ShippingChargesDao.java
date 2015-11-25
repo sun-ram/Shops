@@ -21,4 +21,6 @@ public interface ShippingChargesDao<T> {
 
 	public void deleteShippingCharges(String id);
 
+	public Double getShippingCharges(Double orderAmount, Merchant merchant);
+
 }

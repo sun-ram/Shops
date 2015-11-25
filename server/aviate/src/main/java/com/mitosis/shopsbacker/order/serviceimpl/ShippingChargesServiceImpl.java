@@ -79,6 +79,11 @@ ShippingChargesService<T>, Serializable {
 	}
 	
 	@Override
+	public Double getShippingCharge(Double orderAmount, Merchant merchant) {
+		return shippingChargesDao.getShippingCharges(orderAmount, merchant);
+	}
+	
+	@Override
 	public ShippingChargesVo setShippingChargesVo (ShippingCharges shippingCharge) {
 		ShippingChargesVo shippingChargeVo = new ShippingChargesVo();
 		//shippingChargeVo.setMerchant(shippingCharge.getMerchant());
@@ -98,6 +103,8 @@ ShippingChargesService<T>, Serializable {
 		shippingCharges.setIsactive('Y');
 		return shippingCharges;
 	}
+
+
 
 
 }

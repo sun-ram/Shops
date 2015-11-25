@@ -14,6 +14,8 @@ public class SalesOrderVo {
 	private String salesOrderId;
 	private CustomerVo customerVo;
 	private StoreVo storeVo;
+	private CustomerVo customer;
+	private AddressVo address;
 	private String orderNo;
 	private String deliveryDate;
 	private String deliveryTimeSlotId;
@@ -35,6 +37,7 @@ public class SalesOrderVo {
 	private AddressVo addressVo;
 	private String fromDate;
 
+	private List<OrderTaxVo> orderTax;
 	
 	public String getSalesOrderId() {
 		return salesOrderId;
@@ -173,6 +176,24 @@ public class SalesOrderVo {
 	}
 	public void setStoreList(List<StoreVo> storeList) {
 		this.storeList = storeList;
+	}
+	public CustomerVo getCustomer() {
+		return customer;
+	}
+	public void setCustomer(CustomerVo customer) {
+		this.customer = customer;
+	}
+	public AddressVo getAddress() {
+		return address;
+	}
+	public void setAddress(AddressVo address) {
+		this.address = address;
+	}
+	public List<OrderTaxVo> getOrderTax() {
+		return orderTax;
+	}
+	public void setOrderTax(List<OrderTaxVo> orderTax) {
+		this.orderTax = orderTax;
 	}
 	
 }
