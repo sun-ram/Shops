@@ -202,16 +202,37 @@ angular.module('aviate.directives')
 							});
 						};
 
-						$scope.forGetPassword = function(user) {
-							$scope.forgetPass = false;
-							if(!user.emailId){
-								toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
-								return;
-							}
-							AuthServices.forGetPassword(user).then(function(data){
+						/*$scope.forGetPassword = function(user) {
+						$scope.forgetPass = false;
+						if(!user.emailId){
+							toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
+							return;
+						}
+						AuthServices.forGetPassword(user).then(function(data){
 
+						});
+					};*/
+					
+					$scope.forGetPassword = function(user) {
+						$scope.forgetPass = false;
+						var req = {"user":user, "passwordResetUrl": window.location.origin + "/#/resetpassword/", "userType": "customer"};
+						AuthServices.forGetPassword(req).then(function(data){
+							//$scope.user ="";
+							//$state.go('login');
+						});
+					};
+					
+					$scope.resetpass = function(user) {
+						if(user.password === $scope.confirmPassword){
+							var req = {"tokenId": $scope.tokenId, "user": user};
+							AuthService.resetpass(req).then(function(data){
+								$scope.user ="";
+								$state.go('login');
 							});
-						};
+						}else{
+							toastr.error(CONSTANT.PASSWORDNOTMATCH);
+						}
+					};
 
 						$scope.cancel = function() {
 							$mdDialog.cancel();

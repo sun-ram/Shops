@@ -79,8 +79,36 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.User.forGetPassword = function (user, callback) {
-			httpRequest("POST", "customer/forgetpassword", user, function (err, data) {
+		apiClass.User.forGetPassword = function (req, callback) {
+			httpRequest("POST", "common/forgetpassword", req, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.User.verifyToken = function (user, callback) {
+			httpRequest("POST", "common/verifytoken", user, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.User.resetPassword = function (user, callback) {
+			httpRequest("POST", "common/resetpassword", user, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -340,7 +368,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.CheckOut.addAddress = function (address, callback) {
-			httpRequest("POST", "checkout/updateaddress", address, function (err, data) {
+			httpRequest("POST", "customer/addAddress", address, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -354,7 +382,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.CheckOut.getAddressList = function (address, callback) {
-			httpRequest("POST", "checkout/getlistofaddress", address, function (err, data) {
+			httpRequest("POST", "customer/getaddress", address, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -368,7 +396,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.CheckOut.removeAddress = function (address, callback) {
-			httpRequest("POST", "checkout/deleteaddress", address, function (err, data) {
+			httpRequest("POST", "customer/deleteaddress", address, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -428,6 +456,26 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 						}
 					});
 				};
+				
+
+				/*Country and State List */
+							apiClass.Region = {
+									name: ""
+							};
+
+							apiClass.Region.getCountries = function (country, callback) {
+								httpRequest("POST", "common/country", country, function (err, data) {
+									if (err) {
+
+										callback(err, null);
+
+									} else {
+
+										callback(null, data);
+
+									}
+								});
+							};
 
 		return apiClass;
 	}]

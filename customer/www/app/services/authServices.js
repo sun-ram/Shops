@@ -47,12 +47,44 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 
-	this.forGetPassword = function(user){
+	this.forGetPassword = function(req){
 		var d = $q.defer();
-		api.User.forGetPassword(user, function(err, result){
+		api.User.forGetPassword(req, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.SUCCESS_CODE.FORGETPASSWORDCONFIRMATION);
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+	
+	this.verifytoken = function(req){
+		var d = $q.defer();
+		api.User.verifyToken(req, function(err, result){
+			if(result){
+				d.resolve(result);
+			}
+		})
+		return d.promise;
+	};
+	
+	this.resetpass = function(req){
+		var d = $q.defer();
+		if(!req.user.password){
+			//toastr.warning(CONSTANT.FORGETPASSWORDNEEDMAILID);
+			return;
+		}
+		api.User.resetPassword(req, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					toastr.success(CONSTANT.PASSWORDCHANGED);
+					//alert('password sent');
 					d.resolve(result);
 				} else {
 					toastr.error(result.errorString);

@@ -32,6 +32,14 @@ angular.module('app')
 		templateUrl: 'app/modules/cart/cart.html',
 		controller : 'signInCtrl'
 	})
+	
+	// Reset Password
+	.state('app.resetPassword', {
+		url: '/resetpassword/{tokenId}',
+		templateUrl: 'app/modules/auth/cart.html',
+		controller : 'signInCtrl'
+	})
+
 
 	// Product module
 	.state('app.products', {

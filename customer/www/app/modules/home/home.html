@@ -106,11 +106,12 @@
         
           <section style="background-color:#eeeeee; padding:20px;" ng-repeat="category in categoriesWithProduct">
  			<div>
- 				<div class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">{{category.name}}</h2><span style="float:left;     margin: 18px 0px 0px 10px;">({{category.products.length}}) Items<a href="">View More</a></span></div>
+ 				<div class="prod-headings" ng-hide="category.products.length ==0" ><h2 style="margin:10px 0px 0px 6px; float:left;">{{category.name}}</h2><span style="float:left;     margin: 18px 0px 0px 10px;">
+ 				({{category.products.length}}) Items<a href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a></span></div>
  				  <div layout="column" style="width:100%; margin:0px auto;">
    				 	<div flex layout="row" style="padding:10px 0px;">
-    					<div layout="row" layout-wrap flex ng-repeat="product in category.products">
-     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+    					<div layout="row" layout-wrap flex ng-repeat="product in category.products | orderBy:groupCount | limitTo:4">
+     						<div  class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
 								<div class="pro-box" flex layout="column">
 									<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
