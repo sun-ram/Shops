@@ -138,20 +138,20 @@ angular.module('aviate.controllers')
 							$rootScope.categoryList();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
-							$state.go('app.home',{},{reload: true});
 							$scope.banner = {};
 							if($rootScope.store != null){
 								$scope.banner.store = {};
 								$scope.banner.store.storeId = $rootScope.store.storeId;
 								homePageServices.getBannerList($scope.banner).then(function(data){
-									$scope.images=data;
+									$rootScope.images=data;
 								});
 							}else{
 								$scope.banner.isShopsbackerBanner = 'Y';
 								homePageServices.getBannerList($scope.banner).then(function(data){
-									$scope.images=data;
+									$rootScope.images=data;
 							    });
 							}
+							$state.go('app.home',{},{reload: true});
 						}
 
 					}

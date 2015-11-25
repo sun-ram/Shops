@@ -37,47 +37,52 @@ angular.module('aviate.controllers')
 
 
 			/*------------------------------------------------*/
-
+			if($rootScope.images != undefined){
+				$scope.images = $rootScope.images ;
+			}
 			$scope.getBannerList = function(){
-				$scope.banner = {};
-				$scope.banner.isShopsbackerBanner = 'Y';
-					
-				homePageServices.getBannerList($scope.banner).then(function(data){
+				
+				if($rootScope.store == null){
+					$scope.banner = {};
+					$scope.banner.isShopsbackerBanner = 'Y';
+
+					homePageServices.getBannerList($scope.banner).then(function(data){
 						$scope.images=data;
-				});
+					});
+				}
 			}
 
-				var timeout;
-				$scope.carousel = {
-						current: 0,
-						max: 0
-				};
-				$scope.setMax = function() {
-					if ($scope.images){
-						$scope.carousel.max = $scope.images.length;
-					} else {
-						$scope.carousel.max = 1;
-					}
-				};
-				$scope.show = function(i) {
-					$scope.resetTimeout();
-					$scope.carousel.current = i;
-				};
-				$scope.moveOn = function() {
-					$scope.carousel.current++;
-					if ($scope.carousel.current >= $scope.carousel.max) {
-						$scope.carousel.current = 0;
-					}
-				};
-				$scope.initTimeout = function() {
-					timeout = $interval($scope.moveOn, $scope.carousel.timeout);
-				};
-				$scope.resetTimeout = function() {
-					$interval.cancel(timeout);
-					$scope.initTimeout();
-				};
-				$scope.$watch('carousel.timeout', $scope.initTimeout);
-				$scope.$watch('images', $scope.setMax);
+			var timeout;
+			$scope.carousel = {
+					current: 0,
+					max: 0
+			};
+			$scope.setMax = function() {
+				if ($scope.images){
+					$scope.carousel.max = $scope.images.length;
+				} else {
+					$scope.carousel.max = 1;
+				}
+			};
+			$scope.show = function(i) {
+				$scope.resetTimeout();
+				$scope.carousel.current = i;
+			};
+			$scope.moveOn = function() {
+				$scope.carousel.current++;
+				if ($scope.carousel.current >= $scope.carousel.max) {
+					$scope.carousel.current = 0;
+				}
+			};
+			$scope.initTimeout = function() {
+				timeout = $interval($scope.moveOn, $scope.carousel.timeout);
+			};
+			$scope.resetTimeout = function() {
+				$interval.cancel(timeout);
+				$scope.initTimeout();
+			};
+			$scope.$watch('carousel.timeout', $scope.initTimeout);
+			$scope.$watch('images', $scope.setMax);
 
-			}]);
+		}]);
 
