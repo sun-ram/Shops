@@ -291,6 +291,44 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
+		
+		/*Delivery Time Slot*/
+				apiClass.DeliveryTimeSlot = {
+						name: ""
+				};
+				
+				apiClass.DeliveryTimeSlot.getList = function (deliveryTimeSlot,callback){
+		
+					httpRequest("POST", "deliverytimeslot/get", deliveryTimeSlot, function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				
+				}
+				
+				apiClass.DeliveryTimeSlot.save = function (deliveryTimeSlot,callback){
+		
+					httpRequest("POST", "deliverytimeslot/add", deliveryTimeSlot, function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				
+				}
+		
 
 		/* UnitOfMeasure Modules*/
 		apiClass.Unit = {

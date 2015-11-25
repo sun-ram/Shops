@@ -67,5 +67,10 @@ angular.module('aviateAdmin.controllers')
 				limit: 5,
 				page: 1
 			};
-
+			
+			$scope.deliveryTimeSlotsPagination={
+					limit: 5,
+					page: 1
+				};
+			
 		}]);

@@ -4,9 +4,7 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -125,7 +123,7 @@ public class ProductType implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STORE_ID", nullable = true)
+	@JoinColumn(name = "STORE_ID")
 	public Store getStore() {
 		return this.store;
 	}

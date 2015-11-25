@@ -1,0 +1,64 @@
+	<md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;" ng-click="addDeliveryTimeSlot()">
+		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
+	</md-button>
+<div ng-init="getDeliveryTimeSlots()">
+ <md-toolbar class=" md-default-theme"  style="background-color:transparent;">
+	<div class="md-toolbar-tools" layout="row">
+  		<h2 layout-align="start" style="margin-left:-10px;">Delivery Time Slot</h2>
+    	<span class="flex"></span>
+	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
+	      <md-input-container md-theme="input" flex>
+	        <label>&nbsp;</label>
+	        <input ng-model="searchText" style="color:#023904; border-bottom-color:#023904;" placeholder="Search">
+	      </md-input-container>
+	      <md-button aria-label="Search" style="line-height: inherit; min-width: inherit;" ng-click="showSearch = !showSearch;srch = true;">
+	        <ng-md-icon icon="search" class="icon-white"></ng-md-icon>
+	      </md-button>
+	  </div>
+      <md-button ng-show="srch" layout-align="end" style="line-height: inherit; min-width: inherit;" aria-label="Search" ng-click="showSearch = !showSearch; srch = false;">
+       <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+      </md-button>
+    </div>
+   </md-toolbar>
+<md-card flex-gt-sm="90" flex-gt-md="80">
+   <md-card-content class="nopadd">
+		<md-data-table-container>
+		
+		
+     <md-list>
+       <md-item class="data-table-list" ng-repeat="deliveryTimeSlot in listOfDeliveryTimeSlot | filter:searchText | orderBy: deliveryTimeSlotsPagination.order | limitTo: deliveryTimeSlotsPagination.limit: (deliveryTimeSlotsPagination.page - 1) * deliveryTimeSlotsPagination.limit" class="md-table-content-row">
+         <md-item-content layout="row" layout-padding>
+            <div layout="row" layout-wrap class="full_wid" ng-click="deliveryTimeSlotDetails(deliveryTimeSlot)">
+            <span layout-padding><ng-md-icon icon="arrow_forward" size="20"></ng-md-icon></span>
+           	<span flex=30 layout="column" class="padd-lr5 ft-18" layout-align="start start">
+           		
+             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18">{{deliveryTimeSlot.fromTime}}</span>
+                          
+           	</span>
+           	   <span flex=30 layout="row" layout-align="start end">
+           
+              	<span class="padd-tr5-lb8 ft-18" >{{deliveryTimeSlot.toTime}}</span>
+          
+           	 </span>
+             <span flex=30 layout="row" layout-align="end center">
+            
+             	<span layout-padding><ng-md-icon  style="z-index:500;" icon="mode_edit" size="20" class="icons hash_color" ng-click="editDeliveryTimeSlot(deliveryTimeSlot);$event.stopPropagation();"></ng-md-icon></span>
+             	<span layout-padding><ng-md-icon  style="z-index:500;" icon="close" size="20" class="icons hash_color" ng-click="deleteDeliveryTimeSlot(deliveryTimeSlot);$event.stopPropagation();"></ng-md-icon></span>
+          
+             </span>           
+           	        	
+            </div>       	
+           </div>
+         </md-item-content>
+         
+       </md-item>
+     </md-list>
+     </md-data-table-container>
+   </md-card-content>
+   
+   
+</md-card>
+<div layout layout="row"  class="table-pagination-bg" layout-align="end end">
+   	<md-data-table-pagination md-limit="deliveryTimeSlotsPagination.limit" md-page="deliveryTimeSlotsPagination.page" md-total="{{listOfDeliveryTimeSlot.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+   	</div>
+</div>
