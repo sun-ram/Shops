@@ -28,19 +28,19 @@
 			
 			<div ng-repeat="product in myCart.cartItem" flex layout="row" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
 				<div flex="15">
-					<img src="{{product.product.productImages[0].imageUrl}}" style="width:120px; padding:5px;"/>
+					<img src="{{product.product.image.url}}" style="width:120px; padding:5px;"/>
 				</div>
 				<div flex="30" layout="column">
-					<div  class="md-title">{{product.product.productName}}</div>
+					<div  class="md-title">{{product.product.name}}</div>
 					<div  class="md-caption">{{product.product.measurement}}{{item.product.productUnitOfMeasure.abbreviation}}</div>
-					<div  class="md-subhead" style="margin-top:10px;">Rs.{{product.product.productPrice.price }}</div>
+					<div  class="md-subhead" style="margin-top:10px;">Rs.{{product.product.price }}</div>
 				</div>
 				<div flex="20" layout="row" layout-align="center center">
-				 <md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.quantity + 1;addToCart(product.product)">
+				 <md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty + 1;addToCart(product.product)">
                                 <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon>
                             </md-button>
-					<span>{{product.quantity}}</span>
-					<md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.quantity - 1;addToCart(product.product)">
+					<span>{{product.qty}}</span>
+					<md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty - 1;addToCart(product.product)">
                                 <md-icon md-svg-icon="assets/img/checkout/subtract.svg"></md-icon>
                             </md-button>
                            	</div>
@@ -49,7 +49,7 @@
                                 <md-icon md-svg-icon="assets/img/checkout/close1.svg"></md-icon>
                             </md-button>				</div>
 				<div flex="20" layout="row" layout-align="center center">
-					<span>Rs.{{product.product.productPrice.price * product.quantity}}</span>
+					<span>Rs.{{product.product.price * product.qty}}</span>
 				</div>
 				
 			</div>
@@ -112,8 +112,8 @@
 			
 			
 		</md-card-content>
-		<div class="md-actions">
-			<div flex layout="row" style=" padding:16px  ">
+		<div class="md-actions" >
+			<div flex layout="row" style=" padding:16px  " ng-show="myCart.cartItem.length > 0">
 				
 				<div flex layout="row"  >
 					<div flex="30" layout="column" >
@@ -135,8 +135,7 @@
 					<md-button class="md-raised" ui-sref="app.home">Continue Shopping</md-button>
 					
 				</div>
-				<div flex layout="row" layout-align="end start">
-					
+				<div flex layout="row" layout-align="end start" ng-show="myCart.cartItem.length > 0">
 					<md-button class="md-raised md-primary" ng-click="checkOutfromcart();">Proceed To Checkout</md-button>
 				</div>
 			</div>

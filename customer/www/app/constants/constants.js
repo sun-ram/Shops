@@ -19,7 +19,9 @@ angular.module('aviate.constant').constant('CONSTANT', {
 				UPDATEADDRESS:'Address Updated Successfully',
 				REMOVEADDRESS:'Address Removed Successfully',
 				PRODUCTINCRCREASED:'Product Increased Successfully',
-				PRODUCTDECREASED:'Product Decreased Successfully'
+				PRODUCTDECREASED:'Product Decreased Successfully',
+				PASSWORDNOTMATCH: 'Password and Confirm Password did not match',
+				PASSWORDCHANGED: 'Password changed successfully'
 		},
 
 		ERROR_CODE:{

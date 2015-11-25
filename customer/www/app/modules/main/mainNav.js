@@ -98,8 +98,10 @@ angular.module('aviate.directives')
 				});
 			}
 
-			$scope.removeFromMyCart = function(product, index) {
-				MyCartFactory.removeFromCart(product, index);
+			$scope.removeFromMyCart = function(item, index) {
+				MyCartFactory.removeFromCart(item.product.productId, index,function(data){
+					$rootScope.updateProductQuantity(item);
+				});
 			};
 
 			/*			$scope.checkOutPage = function() {
@@ -185,7 +187,7 @@ angular.module('aviate.directives')
 
 								}
 
-								MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId}).then(function(data){
+								MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 									MyCartFactory.myCartTotalPriceCalculation();
 									console.log('get MyCartlist success in Main Nav');
 								});
@@ -200,16 +202,37 @@ angular.module('aviate.directives')
 							});
 						};
 
-						$scope.forGetPassword = function(user) {
-							$scope.forgetPass = false;
-							if(!user.emailId){
-								toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
-								return;
-							}
-							AuthServices.forGetPassword(user).then(function(data){
+						/*$scope.forGetPassword = function(user) {
+						$scope.forgetPass = false;
+						if(!user.emailId){
+							toastr.warning(CONSTANT.WARNING_CODE.FORGETPASSWORDNEEDMAILID);
+							return;
+						}
+						AuthServices.forGetPassword(user).then(function(data){
 
+						});
+					};*/
+					
+					$scope.forGetPassword = function(user) {
+						$scope.forgetPass = false;
+						var req = {"user":user, "passwordResetUrl": window.location.origin + "/#/resetpassword/", "userType": "customer"};
+						AuthServices.forGetPassword(req).then(function(data){
+							//$scope.user ="";
+							//$state.go('login');
+						});
+					};
+					
+					$scope.resetpass = function(user) {
+						if(user.password === $scope.confirmPassword){
+							var req = {"tokenId": $scope.tokenId, "user": user};
+							AuthService.resetpass(req).then(function(data){
+								$scope.user ="";
+								$state.go('login');
 							});
-						};
+						}else{
+							toastr.error(CONSTANT.PASSWORDNOTMATCH);
+						}
+					};
 
 						$scope.cancel = function() {
 							$mdDialog.cancel();
@@ -228,7 +251,7 @@ angular.module('aviate.directives')
 				$rootScope.user = null;
 				ipCookie('user', null);
 				$rootScope.myCart = {};
-				//$rootScope.categoryList();
+				$rootScope.categoryList();
 				$rootScope.myCart.cartItem = [];
 				//ipCookie('myCart', $rootScope.myCart);
 				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));

@@ -25,13 +25,13 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.forgetpass = function(user){
+	this.forgetpass = function(req){
 				var d = $q.defer();
-				if(!user.userName){
+				if(!req.user.userName){
 					toastr.warning(CONSTANT.FORGETPASSWORDNEEDMAILID);
 					return;
 				}
-				api.User.forgetpass(user, function(err, result){
+				api.User.forgetpass(req, function(err, result){
 					if(result){
 						if (result.status === CONSTANT.STATUS.SUCCESS) {
 							toastr.success(CONSTANT.FORGETPASSWORDCONFIRMATION);

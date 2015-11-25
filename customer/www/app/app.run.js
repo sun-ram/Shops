@@ -44,7 +44,7 @@ angular.module('app')
 
 	if ((user != undefined && user != null) && (store != undefined && store != null)) {
 
-		MyCartServices.getCartList({"customerId" : $rootScope.user.userId, "storeId" : $rootScope.store.storeId},  function(data){
+		MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}},  function(data){
 			console.log('Get To My Cart in factory');
 			MyCartFactory.myCartTotalPriceCalculation();
 		});

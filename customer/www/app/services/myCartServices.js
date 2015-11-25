@@ -26,7 +26,7 @@ angular.module('aviate.services')
 		api.MyCart.getCartList(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					$rootScope.myCart.cartItem = result.myCartList;
+					$rootScope.myCart.cartItem = result.myCart;
 					//ipCookie("myCart", $rootScope.myCart);
 					localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 					d.resolve($rootScope.myCart );

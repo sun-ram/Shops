@@ -12,6 +12,7 @@ import com.mitosis.shopsbacker.customer.dao.MyCartDao;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.MyCart;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
 
 @Service("myCartServiceImpl")
@@ -39,7 +40,7 @@ implements MyCartService<T>, Serializable {
 	@Override
 	@Transactional
 	public void removeFromCart(MyCart mycart) {
-		myCartDao.updateCart(mycart);
+		myCartDao.removeFromCart(mycart);
 		
 	}
 
@@ -55,6 +56,13 @@ implements MyCartService<T>, Serializable {
 	public MyCart getCartDetailFromId(String myCartId) {
 		// TODO Auto-generated method stub
 		return myCartDao.getCartDetailFromId(myCartId);
+	}
+
+	@Override
+	public MyCart getCartByCustomerStoreanProductId(Customer customer,
+			Product product, Store store) {
+		// TODO Auto-generated method stub
+		return myCartDao.getCartByCustomerStoreanProductId(customer, product, store);
 	}
 
 }

@@ -35,6 +35,18 @@ angular.module('aviate.controllers')
 					});
 			};
 			
+			$scope.getCartList = function(){
+				if($rootScope.user){
+					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+						MyCartFactory.checkCartProductsQuantity($scope.productList,function(data){
+							$scope.productList = data;
+						});
+					});
+				}
+			};
+			
+			$scope.getCartList();
+			
 			$scope.productDetails = function(ev,products){
 				$rootScope.productDetails = products;
 				$mdDialog.show({
@@ -50,6 +62,14 @@ angular.module('aviate.controllers')
 
 				});
 			}
+			
+			$rootScope.updateProductQuantity = function(item){
+				angular.forEach($scope.productList,function(p){
+					if(p.productId == item.product.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			};
 
 		}]);
 

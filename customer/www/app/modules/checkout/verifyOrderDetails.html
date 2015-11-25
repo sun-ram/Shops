@@ -10,7 +10,7 @@
                     <h3 style="color:#8bb617">ADDRESS</h3>
                     <p>{{currentOrder.address.address}}</p>
                     <p></p>
-                    <p>{{currentOrder.address.city}} &nbsp;&nbsp;{{currentOrder.address.state}}&nbsp;&nbsp;{{currentOrder.address.country}} &nbsp;&nbsp;{{currentOrder.address.postalCode}}
+                    <p>{{currentOrder.address.city}} &nbsp;&nbsp;{{currentOrder.address.state.name}}&nbsp;&nbsp;{{currentOrder.address.country.name}} &nbsp;&nbsp;{{currentOrder.address.postalCode}}
                     </p>
                 </div>
                 <div flex></div>
@@ -110,17 +110,17 @@
         <div layout="row">
             <div flex="65" layout="column">
                 <div layout="row" ng-repeat="product in myCart.cartItem" class="item-divider">
-                    <img src="{{product.product.productImages[0].imageUrl}}" height="100px" width="100px">
+                    <img src="{{product.product.image.url}}" height="100px" width="100px">
                     <div flex="10"></div>
                     <div class="item-details">
-                        <h4>{{product.product.productName}}</h4>
-                        <p>{{product.product.measurement}}{{item.product.productUnitOfMeasure.abbreviation}}</p>
+                        <h4>{{product.product.name}}</h4>
+                        <p>{{product.product.unit}}{{product.product.uom.name}}</p>
                         <p></p>
-                        <p>{{product.quantity}}&nbsp;x {{product.product.productPrice.price}}</p>
+                        <p>{{product.qty}}&nbsp;x {{product.product.price}}</p>
                     </div>
                     <div flex></div>
                     <div class="price">
-                        Rs.{{product.product.productPrice.price * product.quantity}}
+                        Rs.{{product.product.price * product.qty}}
                     </div>
                 </div>
             </div>
