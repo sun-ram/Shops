@@ -199,7 +199,7 @@ top: 0px;}
 
 .slide-hover md-list-item{padding-left:0px !important;border-left:3px inset transparent;}
 
-.slide-hover md-list-item:hover {color:#71A442 !important; fill:#71A442 !important;background-color: #282D33; border-left:3px inset #71A442;
+.slide-hover md-list-item:hover {color:#71A442 !important; fill:#71A442 !important;background-color: #282D33; border-left:5px inset #3b5c87;
 }
 
 .icons{
@@ -501,6 +501,17 @@ md-icon {
 }
 ::-webkit-scrollbar-thumb:hover {
 	background:#7d7d7d;
+}
+
+.menuSubHeading {
+	background: #30363E;
+  	color: #3b5c87;
+  	font-family: sans-serif;
+  	font-size: 17px;
+}
+
+.sideNavIconsHighlight {
+	fill : #4a89dc;
 }
 
 
