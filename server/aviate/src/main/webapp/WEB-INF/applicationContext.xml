@@ -17,13 +17,14 @@
         http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.2.xsd">
 
 	<context:component-scan base-package="com.mitosis.shopsbacker" />
+	<context:property-placeholder location="classpath*:database.properties"/>
 	<context:annotation-config />
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/shopsbacker" />		
-		<property name="username" value="root"/>
-		<property name="password" value="root"/>
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.driver}" />		
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
 	</bean>
 	
 	<!-- Hibernate session factory -->
@@ -64,21 +65,7 @@
             class="org.springframework.orm.hibernate4.HibernateTransactionManager">
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    
-    <!-- <bean id="merchantRestService" class="com.mitosis.shopsbacker.webservice.MerchantRestServices"/> -->
-   <!--  <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-		<property name="classesToBeBound">
-			<list>
-				<value></value>
-				<value>com.matson.ml.cv.vo.CountryVo</value>
-				<value>com.matson.ml.cv.vo.StateVo</value>			
-				<value>com.matson.ml.cv.cas.user.profile.MatsonPortalUser</value>
-				
-			</list>
-
-		</property>
-	</bean> -->
-  
+      
     <tx:annotation-driven/>
 	
 </beans>
