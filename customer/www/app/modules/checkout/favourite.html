@@ -1,0 +1,71 @@
+<section class="address-section" layout="column">
+    <p class="address-title md-headline">You Transaction has completed</p>
+    <div class="address-container" layout="row" layout-wrap layout-align="center">
+        <!-- <div flex="40"> -->
+            <md-card flex="45" ng-repeat="address in addresses track by $index" class="address"  ng-class="{selected:address.selected}">
+                <md-card-content>
+                    <div layout="row" class="address-header">
+                        <img ng-click="selectAddress(address.addressId)" src="assets/img/checkout/address.svg" height="40px" width="40px">
+                        <div flex></div>
+                        <p ng-click="selectAddress(address.addressId)">{{address.firstName }}&nbsp;{{ address.lastName}}</p>
+                        <div flex></div>
+                        <div class="address-edit">
+                            <md-button class="md-icon-button" aria-label="More" ng-click="editAddress(address,$event)">
+                                <md-icon md-svg-icon="assets/img/checkout/edit.svg"></md-icon>
+                            </md-button>
+                        </div>
+                        <div class="address-edit">
+                            <md-button class="md-icon-button" aria-label="More" ng-click="removeAddress(address);">
+                                <md-icon md-svg-icon="assets/img/checkout/close.svg"></md-icon>
+                            </md-button>
+                        </div>                        
+                    </div>
+                    <div ng-click="selectAddress(address.addressId)">
+                        <ul>
+                            <li>{{address.address}}</li>
+                            <li>{{address.city}}</li>
+                            <li>{{address.state}}</li>
+                            <li>{{address.country}}</li>
+                            <li>{{address.postalCode}}</li>
+                        </ul>
+                    </div>
+                </md-card-content>
+            </md-card>
+        <!-- </div> -->
+        <!-- <div flex="10">
+
+        </div> -->
+        <!-- <div flex="40"> -->
+            <md-card flex="45" layout-align="center center" ng-click="openAddressDialog($event,'add')" style="cursor:pointer;">
+                <div layout="column">
+                    <div flex></div>
+                    <p></p>
+                    <p></p>
+                    <img src="assets/img/checkout/add-address.svg" height="50px" width="50px">
+                    <p style="text-align:center" class=".md-title">ADD NEW ADDRESS</p>
+                    <p></p>
+                    <p></p>
+                    <div flex></div>
+                </div>
+            </md-card>
+       <!--  </div> -->
+    </div>
+</section>
+<section class="contact-details md-action" layout="row">
+	<div flex></div>
+    <div style="float:right">
+        <md-input-container flex layout-padding>
+            <label style="color: green;">Contact Number <span style="color:red">*</span></label>   
+            <input ng-model="currentOrder.contactNumber" valid-number ng-required="true">
+        </md-input-container>
+    </div>    
+    <div layout="row" layout-align="end center">
+        <span ng-hide="change">
+        <md-button class="md-raised" ng-click="cancel1()">Back</md-button>
+      </span>
+       <span ng-show="change">
+        <md-button class="md-raised" ng-click="back()">Back</md-button>
+       </span>
+        <md-button class="md-primary md-raised" ng-click="goNext('address')" >Next</md-button>
+    </div>
+</section>

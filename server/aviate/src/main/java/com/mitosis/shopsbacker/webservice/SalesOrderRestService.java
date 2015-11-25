@@ -117,8 +117,8 @@ public class SalesOrderRestService<T> {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
 		try {
-			if(salesOrderVo.getStoreVo()!=null){
-				Store store = getStoreService().getStoreById(salesOrderVo.getStoreVo().getStoreId());
+			if(salesOrderVo.getStore()!=null){
+				Store store = getStoreService().getStoreById(salesOrderVo.getStore().getStoreId());
 				List<SalesOrder> salesOrderList = salesOrderService.getOrderList(store);
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
@@ -154,8 +154,8 @@ public class SalesOrderRestService<T> {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
 		try {
-			if(salesOrderVo.getStoreVo()!=null){
-				Store store = getStoreService().getStoreById(salesOrderVo.getStoreVo().getStoreId());
+			if(salesOrderVo.getStore()!=null){
+				Store store = getStoreService().getStoreById(salesOrderVo.getStore().getStoreId());
 				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getDeliveryDate(),store);
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
@@ -184,19 +184,20 @@ public class SalesOrderRestService<T> {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil.setAuditColumnInfo(SalesOrder.class.getName());
-
+			salesOrder.setIsactive('Y');
 			Customer customer = customerService.getCustomerInfoById(salesOrderVo.getCustomer().getCustomerId());
-			Store store = storeService.getStoreById(salesOrderVo.getStoreVo().getStoreId());
-			String orderNo = orderNumber.getSalesOrderNumber(storeService.getStoreById(salesOrderVo.getStoreVo().getStoreId()));
+			Store store = storeService.getStoreById(salesOrderVo.getStore().getStoreId());
+			String orderNo = orderNumber.getSalesOrderNumber(storeService.getStoreById(salesOrderVo.getStore().getStoreId()));
 			Address address = addressService.getAddress(salesOrderVo.getAddress().getAddressId());
 			
 			salesOrder.setCustomer(customer);
 			salesOrder.setAddress(address);
 			salesOrder.setOrderNo(orderNo);
 			salesOrder.setDeliveryDate(CommonUtil.stringToDate(salesOrderVo.getDeliveryDate()));
-			//TODO: Delivery time slot need to set here
+			salesOrder.setDeliveryTimeSlot(salesOrderVo.getDeliveryTimeSlot());
 			salesOrder.setIspaid('N');
 			salesOrder.setStore(store);
+			salesOrder.setDiscountAmount(new BigDecimal(0));
 			
 			Double totalTaxAmount = 0.0;
 			Double orderGrossAmount = 0.0;
@@ -239,14 +240,14 @@ public class SalesOrderRestService<T> {
 			}
 			salesOrder.setOrderTaxes(orderTaxes);
 			salesOrder.setAmount(new BigDecimal(orderGrossAmount));
+			salesOrder.setNetAmount(new BigDecimal(orderGrossAmount));
 			salesOrder.setTotalTaxAmount(new BigDecimal(totalTaxAmount));
-			Double ShippingCharge = shippingChargesService.getShippingCharge(orderGrossAmount,store.getMerchant());
-		salesOrder.setShippingCharge(new BigDecimal(ShippingCharge));
-			
-			//TODO: Need to set Merchant
-			//salesOrder.setMerchant(store.getMerchant());
+			BigDecimal ShippingCharge = shippingChargesService.getShippingCharge(new BigDecimal(totalTaxAmount),store.getMerchant());
+			salesOrder.setShippingCharge(ShippingCharge);
+			salesOrder.setMerchant(store.getMerchant());
 			
 			salesOrderService.saveSalesOrder(salesOrder);
+			response.setOrderNo(salesOrder.getOrderNo());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

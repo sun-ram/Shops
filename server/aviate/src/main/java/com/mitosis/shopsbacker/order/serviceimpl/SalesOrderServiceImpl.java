@@ -11,6 +11,7 @@ import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
+import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
@@ -129,6 +130,22 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 			return salesOrderDao.salesOrderDetailList(fromDate, toDate, merchant);
 	}
 	
+	@Override
+	public void paymentConfimation(String orderNo, String transactionNo,
+			String paymentMethod) {
+		SalesOrder salesOrder = salesOrderDao.getSalesOrder(orderNo);
+		
+		for(SalesOrderLine sol : salesOrder.getSalesOrderLines());
+		
+		
+		
+		
+		
+		
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception {
 		SalesOrderVo salesOrderVo = new SalesOrderVo();
 		salesOrderVo.setSalesOrderId(salesOrder.getSalesOrderId());
@@ -137,7 +154,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setDeliveryDate(CommonUtil.dateToString(salesOrder.getDeliveryDate()));
 		salesOrderVo.setDeliveryFlag(salesOrder.getDeliveryFlag());
 		salesOrderVo.setDeliveryTime(salesOrder.getDeliveryTime());
-		salesOrderVo.setStoreVo(getStoreService().setStoreVo((salesOrder.getStore())));
+		salesOrderVo.setStore(getStoreService().setStoreVo((salesOrder.getStore())));
 		salesOrderVo.setDiscountAmount(salesOrder.getDiscountAmount());
 		salesOrderVo.setTotalTaxAmount(salesOrder.getTotalTaxAmount());
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
@@ -178,5 +195,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		return addressVo;
 
 	}
+
+
 
 }

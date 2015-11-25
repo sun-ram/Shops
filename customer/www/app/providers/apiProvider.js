@@ -312,9 +312,27 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		/*Favourite*/
+		apiClass.Favourite = {
+				name: ""
+		};
+		
+		apiClass.Favourite.getFavourite = function (user, callback) {
+			httpRequest("POST", "customer/addmylist", user, function (err, data) {
+				if (err) {
 
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+						
 		/*My List*/
-
 		apiClass.MyList = {
 				name: ""
 		};
@@ -410,7 +428,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.CheckOut.confirmOrder = function (order, callback) {
-			httpRequest("POST", "checkout/conformorder", order, function (err, data) {
+			httpRequest("POST", "sales/confirmorder", order, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -423,8 +441,22 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		apiClass.CheckOut.getTimeSlot = function (store, callback) {
+			httpRequest("POST", "deliverytimeslot/get", store, function (err, data) {
+				if (err) {
+		
+					callback(err, null);
+		
+				} else {
+		
+					callback(null, data);
+				}
+			});
+		};
+					
+		
 		apiClass.CheckOut.payment = function (payment, callback) {
-			httpRequest("POST", "get/payment", payment, function (err, data) {
+			httpRequest("POST", "payment/gatewaydetails", payment, function (err, data) {
 				if (err) {
 
 					callback(err, null);

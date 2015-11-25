@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.order.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.mitosis.shopsbacker.model.Merchant;
@@ -13,7 +14,7 @@ public interface ShippingChargesService<T> {
 
 	public List<ShippingCharges> getShippingCharges(Merchant merchant);
 	
-	public Double getShippingCharge(Double orderAmount, Merchant merchant);
+	public BigDecimal getShippingCharge(BigDecimal orderAmount, Merchant merchant);
 
 	public void saveShippingCharges(ShippingCharges shippingCharges);
 

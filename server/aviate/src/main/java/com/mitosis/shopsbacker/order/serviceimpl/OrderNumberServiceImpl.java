@@ -72,7 +72,12 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 						.getNextNumber() : "")
 				+ (orderNumber.getSuffix() != null ? orderNumber.getSuffix()
 						: "");
-		orderNumber.setNextNumber(orderNumber.getNextNumber() + 1);
+		if(orderNumber.getNextNumber() == null){
+			orderNumber.setNextNumber(orderNumber.getStartingNumber() + 1);
+		}else{
+			orderNumber.setNextNumber(orderNumber.getNextNumber() + 1);
+		}
+		
 		getOrderNumberDao().updateOrderNumber(orderNumber);
 		return salesOrderNumber;
 	}

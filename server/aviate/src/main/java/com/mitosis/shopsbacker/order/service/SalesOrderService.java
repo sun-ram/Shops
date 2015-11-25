@@ -38,5 +38,8 @@ public interface SalesOrderService<T> {
 	
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception ;
 
+	public void paymentConfimation(String orderNo, String transactionNo,
+			String paymentMethod);
+
 
 }

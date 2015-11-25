@@ -153,4 +153,18 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			throw (e);
 		}
 	}
+
+	@Override
+	public SalesOrder getSalesOrder(String orderNo) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
+			criteria.add(Restrictions.eq("orderNo", orderNo));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (SalesOrder) findUnique(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
 }

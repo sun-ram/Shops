@@ -12,13 +12,12 @@ import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 public class SalesOrderVo {
 	private String salesOrderId;
-	private CustomerVo customerVo;
-	private StoreVo storeVo;
+	private StoreVo store;
 	private CustomerVo customer;
 	private AddressVo address;
 	private String orderNo;
 	private String deliveryDate;
-	private String deliveryTimeSlotId;
+	private String deliveryTimeSlot;
 	private char ispaid;
 	private BigDecimal amount;
 	private String paymentMethod;
@@ -57,11 +56,11 @@ public class SalesOrderVo {
 	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
-	public String getDeliveryTimeSlotId() {
-		return deliveryTimeSlotId;
+	public String getDeliveryTimeSlot() {
+		return deliveryTimeSlot;
 	}
-	public void setDeliveryTimeSlotId(String deliveryTimeSlotId) {
-		this.deliveryTimeSlotId = deliveryTimeSlotId;
+	public void setDeliveryTimeSlot(String deliveryTimeSlot) {
+		this.deliveryTimeSlot = deliveryTimeSlot;
 	}
 	public char getIspaid() {
 		return ispaid;
@@ -141,17 +140,11 @@ public class SalesOrderVo {
 	public void setDiscountAmount(BigDecimal discountAmount) {
 		this.discountAmount = discountAmount;
 	}
-	public CustomerVo getCustomerVo() {
-		return customerVo;
+	public StoreVo getStore() {
+		return store;
 	}
-	public void setCustomerVo(CustomerVo customerVo) {
-		this.customerVo = customerVo;
-	}
-	public StoreVo getStoreVo() {
-		return storeVo;
-	}
-	public void setStoreVo(StoreVo storeVo) {
-		this.storeVo = storeVo;
+	public void setStore(StoreVo storeVo) {
+		this.store = storeVo;
 	}
 	public List<SalesOrderLineVo> getSalesOrderLineVo() {
 		return salesOrderLineVo;

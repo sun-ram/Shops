@@ -1,9 +1,9 @@
 package com.mitosis.shopsbacker.order.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.ShippingCharges;
 
 /**
@@ -21,6 +21,6 @@ public interface ShippingChargesDao<T> {
 
 	public void deleteShippingCharges(String id);
 
-	public Double getShippingCharges(Double orderAmount, Merchant merchant);
+	public BigDecimal getShippingCharges(BigDecimal orderAmount, Merchant merchant);
 
 }

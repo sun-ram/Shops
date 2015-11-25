@@ -81,7 +81,7 @@ angular.module('aviate.services')
 		api.CheckOut.confirmOrder(order, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.orderId);
+					d.resolve(result);
 				} else {
 					toastr.error(result.errorString);
 				}
@@ -108,5 +108,20 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 	
+	this.getTimeSlot = function(store){
+		var d = $q.defer();
+		api.CheckOut.getTimeSlot(store, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result.deliveryTimeSlots);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
 
 }]);

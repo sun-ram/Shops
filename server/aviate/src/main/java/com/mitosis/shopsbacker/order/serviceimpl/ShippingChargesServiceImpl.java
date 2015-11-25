@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.order.serviceimpl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ ShippingChargesService<T>, Serializable {
 	}
 	
 	@Override
-	public Double getShippingCharge(Double orderAmount, Merchant merchant) {
+	public BigDecimal getShippingCharge(BigDecimal orderAmount, Merchant merchant) {
 		return shippingChargesDao.getShippingCharges(orderAmount, merchant);
 	}
 	

@@ -27,7 +27,7 @@
                 </div>
                 <div class="address-holder">
                     <h3 style="color:#FB8C00">DELIVERY</h3>
-                    <p>{{currentOrder.delivery.startTime}}:00<span><span ng-show="delivery.startTime == 10"> AM</span><span ng-show="delivery.startTime != 10"> PM</span></span> - {{currentOrder.delivery.endTime}}:00 PM &nbsp;&nbsp;{{currentOrder.delivery.date}}</p>
+                    <p>{{currentOrder.delivery.fromTime}}<span></span> - {{currentOrder.delivery.toTime}} &nbsp;&nbsp;{{currentOrder.delivery.date}}</p>
                     <p></p>
                 </div>
                 <div flex></div>
@@ -97,7 +97,7 @@
 
 				<input name="enable_level3_processing" type="hidden" value="TRUE" /> 
 				<input name="x_po_num" value="purchaseorder1" type="hidden"> 
-				<input name="x_invoice_num" ng-value="orderId" type="hidden">
+				<input name="x_invoice_num" ng-value="orderNo" type="hidden">
 				<input name="x_cust_id" value="customerid1" type="hidden"> 
 				<input name="x_email_customer" value="TRUE" type="hidden"> 
 				<input name="x_method" value="CC" type="hidden"> 

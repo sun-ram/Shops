@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.order.daoimpl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -14,11 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.Movement;
-import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.ShippingCharges;
-import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.order.dao.ShippingChargesDao;
 
 /**
@@ -89,7 +86,7 @@ implements ShippingChargesDao<T>, Serializable {
 	}
 
 	@Override
-	public Double getShippingCharges(Double orderAmount, Merchant merchant) {
+	public BigDecimal getShippingCharges(BigDecimal orderAmount, Merchant merchant) {
 		Criteria criteria = getSession().createCriteria(ShippingCharges.class);
 		ProjectionList proList = Projections.projectionList();
 		proList.add(Projections.property("chargingAmount"), "chargingAmount");
@@ -97,7 +94,7 @@ implements ShippingChargesDao<T>, Serializable {
 		criteria.add(Restrictions.eq("merchant", merchant));
 		criteria.add(Restrictions.and(Restrictions.ge("amountRange", orderAmount)));
 		criteria.addOrder(Order.asc("amountRange"));
-		return (Double) criteria.list().get(0);
+		return (BigDecimal) criteria.list().get(0);
 	}
 
 

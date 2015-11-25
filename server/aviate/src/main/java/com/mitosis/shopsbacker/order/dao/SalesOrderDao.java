@@ -34,4 +34,6 @@ public interface SalesOrderDao<T> {
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
 			String toDate, Merchant merchant);
 
+	public SalesOrder getSalesOrder(String orderNo);
+
 }

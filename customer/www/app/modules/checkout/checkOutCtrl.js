@@ -6,9 +6,7 @@ angular.module('aviate.controllers')
 
 	$scope.addresses = [];
 	$scope.delivery = {
-			date: new Date(),
-			startTime : 10,
-			endTime : 12
+			date: new Date()
 	};
 	$scope.currentOrder = CheckOutServices.currentOrder;
 	$scope.timeLineStatus = CheckOutServices.timeLineStatus;
@@ -77,25 +75,42 @@ angular.module('aviate.controllers')
 
 
 	};
+	
 
+	$scope.getTimeSlot = function(){
+		CheckOutServices.getTimeSlot({'merchant':{'merchantId':'ff80818151243f11015124626cfc0010'}}).then(function(data) {
+			$scope.deliveryTimeSlots = data;
+			$scope.deliveryTime = $scope.deliveryTimeSlots[0];
+			$scope.deliveryTime.index = 0;
+		});
+	}
+	
 	$scope.confirmOrder = function() {
+		$scope.customer
 		var menuJson = {
-				"customerId":$rootScope.user.userId,
-				"addressId":$scope.currentOrder.address.addressId,
-				"storeId":$rootScope.store.storeId,
+				"customer":{
+					"customerId":$rootScope.user.userId
+					},
+				"address":{
+					"addressId":$scope.currentOrder.address.addressId
+				},
+				"store":{
+					"storeId":$rootScope.store.storeId
+				},
 				"deliveryDate":$scope.currentOrder.delivery.date,
-				"deliveryTime":$scope.currentOrder.delivery.time,
-				"contactNo":$scope.currentOrder.contactNumber,
-				"totalAmount":$rootScope.myCart.cartTotalAmount,
-				"orderGrossAmount":$rootScope.myCart.grossAmount,
-				"totalTaxAmount":$rootScope.myCart.taxAmount,
-				"shippingCharge":$rootScope.myCart.shippingCharges,
-				"merchantId":$rootScope.store.merchantId
+				"deliveryTimeSlot":$scope.currentOrder.delivery.fromTime +" "+ $scope.currentOrder.delivery.toTime
+				//"deliveryTime":$scope.currentOrder.delivery.time,
+				//"contactNo":$scope.currentOrder.contactNumber,
+				//"totalAmount":$rootScope.myCart.cartTotalAmount,
+				//"orderGrossAmount":$rootScope.myCart.grossAmount,
+				//"totalTaxAmount":$rootScope.myCart.taxAmount,
+				//"shippingCharge":$rootScope.myCart.shippingCharges,
+				//"merchantId":$rootScope.store.merchantId
 		}
 
 		CheckOutServices.confirmOrder(menuJson).then(function(data) {
-			console.log("OrderId", data);
-			$scope.orderId = data;
+			console.log("OrderNo", data);
+			$scope.orderNo = data.orderNo;
 			$scope.payment();
 		});
 	};
@@ -270,9 +285,9 @@ angular.module('aviate.controllers')
 			break;
 		case "deliverySchedule":
 			//if ($scope.delivery.time && $scope.delivery.date) {
-				$scope.currentOrder.delivery.startTime = $scope.delivery.startTime;
-				$scope.currentOrder.delivery.endTime = $scope.delivery.endTime;
-				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd-MM-yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
+				$scope.currentOrder.delivery.fromTime = $scope.deliveryTime.fromTime;
+				$scope.currentOrder.delivery.toTime = $scope.deliveryTime.toTime;
+				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'MM/dd/yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
  				$scope.currentOrder.items = $rootScope.myCard;
 				$scope.timeLineStatus.deliveryDate = true;
 				$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
@@ -348,34 +363,21 @@ angular.module('aviate.controllers')
     
 	console.log("card items",$rootScope.myCard);
 	
-	$scope.decrementTime = function(){
-		if($scope.delivery.startTime == 10){
+	$scope.decrementTime = function(index){
+		if(index < 0){
 			return;
+		}else{
+			$scope.deliveryTime = $scope.deliveryTimeSlots[index];
 		}
-		if($scope.delivery.startTime == 2)
-			$scope.delivery.startTime = 12;
-		else
-			$scope.delivery.startTime = $scope.delivery.startTime - 2;
-		
-		if($scope.delivery.endTime == 2)
-				 $scope.delivery.endTime = 12;
-		else	
-			$scope.delivery.endTime = $scope.delivery.endTime - 2;
 	};
 	
-	$scope.incrementTime = function(){
-		if($scope.delivery.endTime == 10){
+	$scope.incrementTime = function(index){
+		if($scope.deliveryTimeSlots.length == index){
 			return;
+		}else{
+			$scope.deliveryTime = $scope.deliveryTimeSlots[index];
+			$scope.deliveryTime.index = index;
 		}
-		if($scope.delivery.startTime == 12)
-				$scope.delivery.startTime = 2;
-		else
-			$scope.delivery.startTime = $scope.delivery.startTime + 2;
-		
-		if($scope.delivery.endTime == 12)
-				 $scope.delivery.endTime = 2;
-		else	
-			$scope.delivery.endTime = $scope.delivery.endTime + 2;
 	};
 }
 ]);

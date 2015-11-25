@@ -12,7 +12,7 @@ height: 20px;}
 .time_slot{min-width: 200px;background: #141E2D;color: #4F535A;}
 .time_slot md-option:hover{background: #F3BD29;color: #fff;}
 </style>
-<section class="deliverySlot-section" layout="column" layout-align="start center">
+<section class="deliverySlot-section" layout="column" layout-align="start center" ng-init="getTimeSlot();">
     <md-card style="width:90%;">
         <md-card-content>
             <div layout="column" layout-align="space-between center">
@@ -34,15 +34,15 @@ height: 20px;}
 					<md-card layout  style="width: 250px;height: 200px;position: relative;background-color: #2ECD71;color: #FFF;">
  					  <md-card-content layout="column" layout-align="center center" style="width: 100%;" ng-model="date">
  					<p class="slot_day">Delivery Time</p>
- 					<p style="margin:35px 0px 5px;font-size: 35px;">{{delivery.startTime}}:00<span style="font-size:14px"><span ng-show="delivery.startTime == 10">AM</span><span ng-show="delivery.startTime != 10">PM</span></span> </p>
+ 					<p style="margin:35px 0px 5px;font-size: 35px;">{{deliveryTime.fromTime}}<span style="font-size:14px"><span ng-show="delivery.startTime == 10">AM</span><span ng-show="delivery.startTime != 10">PM</span></span> </p>
 	 					
 	 					<div layout layout="row" layout-align="space-between center" style="width:100%;margin: 5px 0px;">
 	 					<md-button class="wid_60 md-icon-button" aria-label="Favorite">
-							<md-icon md-svg-icon="assets/img/icon/direction196.svg" md-ink-ripple="" min="1" max="12"  ng-click="decrementTime();" ng-class="delivery.startTime == 10 ? 'text-black' : 'text-white'"></md-icon> </md-button>
+							<md-icon md-svg-icon="assets/img/icon/direction196.svg" md-ink-ripple="" min="1" max="12"  ng-click="decrementTime(deliveryTime.index-1);" ng-class="delivery.startTime == 10 ? 'text-black' : 'text-white'"></md-icon> </md-button>
 	 					<span>To</span><md-button class="wid_60 md-icon-button" aria-label="Favorite" >
-							<md-icon md-svg-icon="assets/img/icon/right-arrow49.svg" md-ink-ripple=""  ng-click="incrementTime();"  ng-class="delivery.endTime == 10 ? 'text-black' : 'text-white'"></md-icon> </md-button>
+							<md-icon md-svg-icon="assets/img/icon/right-arrow49.svg" md-ink-ripple=""  ng-click="incrementTime(deliveryTime.index+1);"  ng-class="delivery.endTime == 10 ? 'text-black' : 'text-white'"></md-icon> </md-button>
 	 					</div>
- 					<p style="margin: 5px 0px;font-size: 35px;">{{delivery.endTime}}:00 <span style="font-size:14px">PM</span></p>
+ 					<p style="margin: 5px 0px;font-size: 35px;">{{deliveryTime.toTime}} <span style="font-size:14px">PM</span></p>
  					
 					</md-card-content> 
 					</md-card>	
