@@ -33,6 +33,9 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	UPDATEBANNER:'Banner Updated Successfully',
 	PASSWORDNOTMATCH: 'Password and Confirm Password did not match',
 	PASSWORDCHANGED: 'Password changed successfully',
+	ADDDELIVERYTIMESLOT:'Delivery Time Slot Added Successfully',
+	UPDATEDELIVERYTIMESLOT:'Delivery Time Slot Updated Successfully',
+	DELETEDELIVERYTIMESLOT:'Delivery Time Slot Deleted Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'

@@ -33,9 +33,9 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.deleteUnit = function(uom){
+	this.deleteDeliveryTimeSlot = function(deliveryTimeSlot){
 		var d = $q.defer();
-		api.Unit.Delete(uom, function(err, result){
+		api.DeliveryTimeSlot.deleteDeliveryTimeSlot(deliveryTimeSlot, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {

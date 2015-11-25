@@ -50,4 +50,13 @@ public class DeliveryTimeSlotServiceImpl implements DeliveryTimeSlotService<T>, 
 		  deliveryTimeSlotDao.saveDeliveryTimeSlot(deliveryTimeSlot);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.mitosis.shopsbacker.order.service.DeliveryTimeSlotService#delete(java.lang.String)
+	 */
+	@Override
+	public void delete(String deliveryTimeSlotId) {
+		  DeliveryTimeSlot deliveryTimeSlot = deliveryTimeSlotDao.getDeliveryTimeSlot(deliveryTimeSlotId);
+		deliveryTimeSlotDao.deteteDeliveryTimeSlot(deliveryTimeSlot);
+	}
+
 }

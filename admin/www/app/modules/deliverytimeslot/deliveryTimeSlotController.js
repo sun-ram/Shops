@@ -24,7 +24,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 	
 		$scope.updateDeliveryTimeSlot = function(deliveryTimeSlot) {
 			deliveryTimeSlotService.UpdateUnit(deliveryTimeSlot).then(function(data) {
-				toastr.success(CONSTANT.UPDATEUNIT);
+				toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
 				$state.go('app.deliveryTimeSlot');
 			});
 		};		
@@ -34,15 +34,16 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			deliveryTimeSlot.merchant={};
 			deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
 			deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
-				toastr.success(CONSTANT.ADDUNIT);
+				toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
 				$state.go('app.deliveryTimeSlot');
 			});
 		};
 		
-		$scope.deleteDeliveryTimeSlot = function(uom) {
-				UnitService.deleteUnit(uom).then(function(data) {
-					$scope.getmeasurementunit();
-				toastr.success(CONSTANT.DELETEUNIT);
+		$scope.deleteDeliveryTimeSlot = function(deliveryTimeSlot) {
+		 
+			deliveryTimeSlotService.deleteDeliveryTimeSlot({'deliveryTimeSlotId':deliveryTimeSlot.deliveryTimeSlotId}).then(function(data) {
+				$scope.getDeliveryTimeSlots();
+				toastr.success(CONSTANT.DELETEDELIVERYTIMESLOT);
 			});
 		}		
 			

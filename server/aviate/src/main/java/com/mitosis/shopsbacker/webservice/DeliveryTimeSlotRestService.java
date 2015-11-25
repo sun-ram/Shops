@@ -122,7 +122,30 @@ public class DeliveryTimeSlotRestService {
 		return response;
 
 	}
-	
+	@Path("/delete")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ResponseModel deleteDeliveryTimeSlot(DeliveryTimeSlotVo deliveryTimeSlotVo) {
+		ResponseModel response = new ResponseModel();
+		try {
+			log.info("\n******************************************\n"
+					+ "Initializing the delete deliveryTimeSlot service");
+			 deliveryTimeSlotService.delete(deliveryTimeSlotVo.getDeliveryTimeSlotId());
+			 
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+			response.setErrorCode("");
+		}
+		log.info("\n******************************************\n"
+				+ "Response of the delete deliveryTimeSlot service");
+		return response;
+	}
+
 	private void setDeliveryTimeSlot(DeliveryTimeSlotVo deliveryTimeSlotVo,
 			Merchant merchant, DeliveryTimeSlot deliveryTimeSlot) {
 		deliveryTimeSlot.setFromTime(deliveryTimeSlotVo.getFromTime());

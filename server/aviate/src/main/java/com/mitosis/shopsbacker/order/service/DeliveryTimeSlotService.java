@@ -17,4 +17,6 @@ public interface DeliveryTimeSlotService<T> {
 	
 	public void save(DeliveryTimeSlot deliveryTimeSlot);
 	
+	public void delete(String deliveryTimeSlotId);
+	
 }

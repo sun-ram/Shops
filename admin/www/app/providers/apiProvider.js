@@ -328,6 +328,21 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 					});
 				
 				}
+				apiClass.DeliveryTimeSlot.deleteDeliveryTimeSlot = function (deliveryTimeSlot,callback){
+					
+					httpRequest("POST", "deliverytimeslot/delete", deliveryTimeSlot, function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				
+				}
 		
 
 		/* UnitOfMeasure Modules*/
