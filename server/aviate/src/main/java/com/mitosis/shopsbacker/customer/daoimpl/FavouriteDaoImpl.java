@@ -69,4 +69,21 @@ public class FavouriteDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (List<Favourite>) findAll(criteria);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public void saveFavourite(Favourite favourite) {
+		try {
+			save((T) favourite);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	public Favourite getFavouriteBtName(String favouriteName) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Favourite.class);
+		criteria.add(Restrictions.eq("name", favouriteName));
+		return (Favourite) findUnique(criteria);
+	}
+
 }

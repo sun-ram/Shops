@@ -1,26 +1,23 @@
 package com.mitosis.shopsbacker.order.serviceimpl;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
-import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
-import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
@@ -91,7 +88,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	}
 
 	@Override
-	public SalesOrder salesOrderById(String salesOrderId) {
+	public SalesOrder getSalesOrderById(String salesOrderId) {
 		return salesOrderDao.salesOrderById(salesOrderId);
 	}
 
@@ -145,7 +142,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setTotalTaxAmount(salesOrder.getTotalTaxAmount());
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
-		salesOrderVo.setMerchantId(salesOrder.getMerchantId());
+		MerchantVo merchantVo=new MerchantVo();
+		Merchant merchant = salesOrder.getMerchant();
+		merchantVo.setMerchantId(merchant.getMerchantId()); 
+		merchantVo.setName(merchant.getName());
+		salesOrderVo.setMerchant(merchantVo);
 		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
 		salesOrderVo.setOrderNo(salesOrder.getOrderNo());
 		salesOrderVo.setAddressVo(setAddress(salesOrder.getAddress()));

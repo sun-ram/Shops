@@ -47,7 +47,7 @@ public class SalesOrder implements java.io.Serializable {
 	private BigDecimal shippingCharge;
 	private BigDecimal netAmount;
 	private String customerSign;
-	private String merchantId;
+	private Merchant merchant;
 	private Date deliveryTime;
 	private char deliveryFlag;
 	private BigDecimal discountAmount;
@@ -67,7 +67,7 @@ public class SalesOrder implements java.io.Serializable {
 			Store store, String orderNo, Date deliveryDate,
 			String deliveryTimeSlotId, char ispaid, BigDecimal amount,
 			BigDecimal totalTaxAmount, BigDecimal shippingCharge,
-			BigDecimal netAmount, String merchantId, BigDecimal discountAmount,
+			BigDecimal netAmount, Merchant merchant, BigDecimal discountAmount,
 			char isactive, Date created, Date updated) {
 		this.salesOrderId = salesOrderId;
 		this.customer = customer;
@@ -81,7 +81,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.totalTaxAmount = totalTaxAmount;
 		this.shippingCharge = shippingCharge;
 		this.netAmount = netAmount;
-		this.merchantId = merchantId;
+		this.merchant = merchant;
 		this.discountAmount = discountAmount;
 		this.isactive = isactive;
 		this.created = created;
@@ -95,7 +95,7 @@ public class SalesOrder implements java.io.Serializable {
 			BigDecimal amount, String paymentMethod, String transactionNo,
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
-			String customerSign, String merchantId, Date deliveryTime,
+			String customerSign, Merchant merchant, Date deliveryTime,
 			char deliveryFlag, BigDecimal discountAmount, char isactive,
 			String createdby, Date created, Date updated, String updatedby) {
 		this.salesOrderId = salesOrderId;
@@ -117,7 +117,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.shippingCharge = shippingCharge;
 		this.netAmount = netAmount;
 		this.customerSign = customerSign;
-		this.merchantId = merchantId;
+		this.merchant = merchant;
 		this.deliveryTime = deliveryTime;
 		this.deliveryFlag = deliveryFlag;
 		this.discountAmount = discountAmount;
@@ -250,13 +250,14 @@ public class SalesOrder implements java.io.Serializable {
 		this.customerSign = customerSign;
 	}
 
-	@Column(name = "MERCHANT_ID", nullable = false, length = 32)
-	public String getMerchantId() {
-		return this.merchantId;
+	@ManyToOne
+	@JoinColumn(name = "MERCHANT_ID", nullable = false)
+	public Merchant getMerchant() {
+		return this.merchant;
 	}
 
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

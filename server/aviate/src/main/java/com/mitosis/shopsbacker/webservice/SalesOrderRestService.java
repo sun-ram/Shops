@@ -92,7 +92,7 @@ public class SalesOrderRestService<T> {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
-			}else if (salesOrderVo.getMerchantId()!=null) {
+			}else if (salesOrderVo.getMerchant()!=null) {
 				/*Merchant merchant = merchantService.getMerchantById(salesOrderVo.getMerchantId());
 				List<Store> stores = getStoreService().getStoreByMerchant(merchant);
 				for (Store store : stores) {
@@ -100,7 +100,7 @@ public class SalesOrderRestService<T> {
 					salesOrderVo.getStoreList().add(storeVo);
 				}*/
 
-				List<SalesOrder> salesOrderList = salesOrderService.getOrderList(salesOrderVo.getMerchantId());
+				List<SalesOrder> salesOrderList = salesOrderService.getOrderList(salesOrderVo.getMerchant().getMerchantId());
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
@@ -129,8 +129,8 @@ public class SalesOrderRestService<T> {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
-			}else if(salesOrderVo.getMerchantId()!=null) {
-				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getDeliveryDate(),salesOrderVo.getMerchantId());
+			}else if(salesOrderVo.getMerchant()!=null) {
+				List<SalesOrder> salesOrderList = salesOrderService.salesOrderDetailList(salesOrderVo.getFromDate(),salesOrderVo.getDeliveryDate(),salesOrderVo.getMerchant().getMerchantId());
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(salesOrder);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);

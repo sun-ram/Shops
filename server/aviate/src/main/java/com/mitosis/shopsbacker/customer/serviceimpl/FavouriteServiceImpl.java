@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.customer.dao.FavouriteDao;
@@ -18,6 +20,7 @@ import com.mitosis.shopsbacker.model.Store;
  *
  * @param <T>
  */
+@Service("favouriteServiceImpl")
 public class FavouriteServiceImpl<T> extends CustomHibernateDaoSupport<T>
 		implements FavouriteService<T>, Serializable {
 
@@ -56,6 +59,17 @@ public class FavouriteServiceImpl<T> extends CustomHibernateDaoSupport<T>
 	public List<Favourite> getFavourites(Customer customer, Product product,
 			Store store) {
 		return getFavourite().getFavourites(customer, product, store);
+	}
+
+	@Override
+	@Transactional
+	public void saveFavourite(Favourite favourite) {
+		getFavourite().saveFavourite(favourite);
+	}
+
+	@Override
+	public Favourite getFavouriteBtName(String favouriteName) {
+		return getFavourite().getFavouriteBtName(favouriteName);
 	}
 
 }

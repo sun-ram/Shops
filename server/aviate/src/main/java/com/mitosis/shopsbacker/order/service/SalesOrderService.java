@@ -21,7 +21,7 @@ public interface SalesOrderService<T> {
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
 			String toDate, Store store);
 
-	public SalesOrder salesOrderById(String salesOrderId);
+	public SalesOrder getSalesOrderById(String salesOrderId);
 
 	public void updateSalesOrder(SalesOrder salesOrder);
 	

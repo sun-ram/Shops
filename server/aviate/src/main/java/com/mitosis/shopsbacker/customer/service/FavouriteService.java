@@ -13,6 +13,8 @@ import com.mitosis.shopsbacker.model.Store;
  * @param <T>
  */
 public interface FavouriteService<T> {
+	
+	public void saveFavourite(Favourite favourite);
 
 	public void updateFavourite(Favourite favourite);
 
@@ -22,4 +24,6 @@ public interface FavouriteService<T> {
 
 	public List<Favourite> getFavourites(Customer customer, Product product,
 			Store store);
+	
+	public Favourite getFavouriteBtName(String favouriteName);
 }

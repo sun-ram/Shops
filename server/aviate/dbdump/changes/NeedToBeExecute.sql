@@ -48,4 +48,15 @@ ADD COLUMN `DESCRIPTION` VARCHAR(250) NULL;
  -- 24/11/2015 -----------  Riyaz  -----------  isactive is chnaged string to char  product_image -------  
  ALTER TABLE `shopsbacker`.`product_image` 
 CHANGE COLUMN `ISACTIVE` `ISACTIVE` CHAR NOT NULL DEFAULT 'Y' COMMENT '' ;
+
+ -- 24/11/2015 -----------  Srini  -----------  Merchant ForeignKey Added in SalesOrder Table -------  
+ALTER TABLE `shopsbacker`.`sales_order` 
+ADD INDEX `FK_SO_MERCHANT_idx` (`MERCHANT_ID` ASC)  COMMENT '';
+ALTER TABLE `shopsbacker`.`sales_order` 
+ADD CONSTRAINT `FK_SO_MERCHANT`
+  FOREIGN KEY (`MERCHANT_ID`)
+  REFERENCES `shopsbacker`.`merchant` (`MERCHANT_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
   

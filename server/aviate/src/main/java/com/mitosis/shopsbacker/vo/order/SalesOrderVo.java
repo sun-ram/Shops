@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mitosis.shopsbacker.model.Address;
-import com.mitosis.shopsbacker.model.Customer;
-import com.mitosis.shopsbacker.model.SalesOrderLine;
-import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
@@ -29,7 +26,7 @@ public class SalesOrderVo {
 	private BigDecimal shippingCharge;
 	private BigDecimal netAmount;
 	private String customerSign;
-	private String merchantId;
+	private MerchantVo merchant;
 	private Date deliveryTime;
 	private Character deliveryFlag;
 	private BigDecimal discountAmount;
@@ -117,11 +114,11 @@ public class SalesOrderVo {
 	public void setCustomerSign(String customerSign) {
 		this.customerSign = customerSign;
 	}
-	public String getMerchantId() {
-		return merchantId;
+	public MerchantVo getMerchant() {
+		return merchant;
 	}
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
 	}
 	public Date getDeliveryTime() {
 		return deliveryTime;
