@@ -132,8 +132,9 @@ angular.module('aviate.controllers')
 							localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 							$rootScope.store = storedetails;
 							ipCookie("store", storedetails);
-							$rootScope.getFutureProducts();
+						//	$rootScope.getFutureProducts();
 							$rootScope.getTopCategories(); 
+							$rootScope.getAllCategoryWithProduct();
 							$rootScope.categoryList();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
@@ -213,8 +214,20 @@ angular.module('aviate.controllers')
 			}
             
 			$rootScope.getTopCategories = function(){
-            homePageServices.topCategories($rootScope.store.storeId).then(function(data){
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+            homePageServices.topCategories($scope.product).then(function(data){
                 $rootScope.topcategories = data;
+            })
+			}
+			
+			$rootScope.getAllCategoryWithProduct = function() {
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+            homePageServices.allCategoriesWithProduct($scope.product).then(function(data){
+                $rootScope.categoriesWithProduct = data.productCategoryVo;
             })
 			}
 

@@ -157,7 +157,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};		
 
 		apiClass.Product.getTopCategory = function (product, callback) {
-			httpRequest("POST", "product/gettopproducts", product, function (err, data) {
+			httpRequest("POST", "product/gettopproduct", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -169,6 +169,20 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Product.allCategoriesWithProduct = function (product, callback) {
+			httpRequest("POST", "productcategory/getallleafcategorylistWithProducts", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};		
 
 		/*Location Api*/
 

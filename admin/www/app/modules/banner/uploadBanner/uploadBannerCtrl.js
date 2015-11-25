@@ -17,12 +17,12 @@ angular.module('aviateAdmin.controllers')
 				$scope.bannerDetail.merchant = {} ;
 				$scope.bannerDetail.store = {};
 				$scope.bannerDetail.image = {};
-				if($rootScope.user){
+				if($rootScope.user.role =="SUPERADMIN"){
 					$scope.bannerDetail.isShopsbackerBanner = 'Y';
 				}else{
 					$scope.bannerDetail.isShopsbackerBanner = 'N';
-					$scope.bannerDetail.store.storeId = 2;
-					$scope.bannerDetail.merchant.merchantId = 1;
+					$scope.bannerDetail.store.storeId = $rootScope.user.storeId;
+					$scope.bannerDetail.merchant.merchantId = $rootScope.user.merchantId;
 				}
 				/*if($rootScope.user.storeId != null || $rootScope.user.storeId != undefined){
 				   $scope.bannerDetail.store.storeId = $rootScope.user.storeId;
