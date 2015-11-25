@@ -1,29 +1,60 @@
 <style>
-h3{text-align: center;}
+h3{margin:0; color:#fff;}
 #barId{float: left ! important; width: 100%;}
 #pieId{width: 100%;}
-#areaId{float: left ! important; width: 100%;}
+#areaId{width: 100%;}
+span{color: grey; font-size: 20px; font-weight: bold}
+.card {
+color:#fff;
+position: relative;
+overflow: hidden;
+margin: 5px;
+border-radius: 2px;
+text-align: center;
+}
+
+.grey{background-color: #607d8b !important;}
+.green{background: #4CAF50 !important}
+.purple{background: #9c27b0 !important}
+.pink{background: #f06292 !important}
+.white-text{color:#fff ! important;}
+
 </style>
 <div ng-cloak>
-   <div layout="row" layout-md="column" layout-sm="column">
-       <md-card flex layout-padding>
-		<h3>Bar Chart</h3>
-  <nvd3-discrete-bar-chart
-            data="exampleData"
-            id="barId"
+
+       <div layout="row" layout-md="column" layout-sm="column">
+       <md-card flex="60" flex-md="100" flex-sm="100">
+	   <div style="background: #00acc1;">
+           
+           <h3 layout-padding>Area Chart</h3>
+   <nvd3-stacked-area-chart
+            data="exampleData2"
             width="1080"
             height="600"
-            tooltips="true"
+            id="areaId"
+            interactive="true"
             showXAxis="true"
             showYAxis="true"
-            interactive="true"
-            showValues="true">
-      
-        <svg style=""></svg>
-    </nvd3-discrete-bar-chart>
+            xAxisTickFormat="xAxisTickFormat()">
+                 <svg style=""></svg>
+            </nvd3-stacked-area-chart>
+           
+           
+           
+		
+	<md-button class="md-fab" aria-label="Eat cake" style=" right: 10px; margin-bottom: -20px; z-index: 998; float: right; line-height: inherit; width: 40px; height: 40px;">
+		<ng-md-icon icon="add" size="25" class="icon-white" ></ng-md-icon>
+	</md-button>
+	</div>
+	<div layout="row" layout-padding>
+		<span flex="30" layout-padding height="120">Sample Text	</span>
+		<span flex="30" layout-padding height="120">Sample Text</span>
+		<span flex="40" layout-padding height="120">Sample Text Length</span>		
+	</div>
   </md-card>
-       <md-card flex layout-padding>
-	   <h3>Pie Chart</h3>
+       <md-card flex="35" flex-md="100" flex-sm="100">
+	   <div layout="column" layout-sm="row" style="background: #009688;">
+	   <h3 layout-padding>Pie Chart</h3>
    <nvd3-pie-chart
             data="exampleData1"
             id="pieId"
@@ -39,23 +70,79 @@ h3{text-align: center;}
             labelType="percent">
         <svg style=" "></svg>
     </nvd3-pie-chart>
-  </md-card>
-</div>
-         <div layout="row" layout-md="column" layout-sm="column">
-     
-       <md-card flex="50" flex-md="100" flex-sm="100">
-		<h3>Area Chart</h3>
-   <nvd3-stacked-area-chart
-            data="exampleData2"
+	<md-button class="md-fab" aria-label="Eat cake" style="margin-left: 90%; margin-bottom: -20px; z-index: 998; line-height: inherit; width: 40px; height: 40px;">
+		<ng-md-icon icon="add" size="25" class="icon-white" ></ng-md-icon>
+	</md-button>
+	</div>
+	
+	<div layout="column" layout-sm="row" style="background: #00796b;">
+		<h3 layout-padding>Revenue</h3>
+  <nvd3-discrete-bar-chart
+            data="exampleData"
+            id="barId"
             width="1080"
             height="600"
-            id="areaId"
-            interactive="true"
+            tooltips="true"
             showXAxis="true"
             showYAxis="true"
-            xAxisTickFormat="xAxisTickFormat()">
-                 <svg style=""></svg>
-            </nvd3-stacked-area-chart>
-		</md-card>
+            interactive="true"
+            showValues="true">
+      
+        <svg style=""></svg>
+    </nvd3-discrete-bar-chart>
+			</div>
+  </md-card>
+</div>
+
+<div layout="row" layout-sm="column">
+<div class="card green" flex flex-sm="100">
+	<div class="card-content  green white-text">
+	<p class="card-stats-title"><i class="mdi-social-group-add"></i> New Clients</p>
+	<h4 class="card-stats-number">566</h4>
+	<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
+	</p>
+	</div>
+	
+</div>
+<div class="card purple" flex flex-sm="100">
+	<div class="card-content white-text">
+	<p class="card-stats-title"><i class="mdi-social-group-add"></i> New Clients</p>
+	<h4 class="card-stats-number">566</h4>
+	<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
+	</p>
+	</div>
+	
+</div>
+<div class="card grey" flex flex-sm="100">
+	<div class="card-content white-text">
+	<p class="card-stats-title"><i class="mdi-social-group-add"></i> New Clients</p>
+	<h4 class="card-stats-number">566</h4>
+	<p class="card-stats-compare" style="line-height: 3; background: #455a64; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
+	</p>
+	</div>
+	
+</div>
+<div class="card pink" flex flex-sm="100">
+	<div class="card-content white-text">
+	<p class="card-stats-title"><i class="mdi-social-group-add"></i> New Clients</p>
+	<h4 class="card-stats-number">566</h4>
+	<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
+	</p>
+	</div>
+	
+</div>
+</div>
+
+<md-card layout="row" layout-sm="column" layout-md="column" style="background: #00bcd4;">
+<div flex="60" flex-sm="100" flex-md="100" class="white-text" style="">
+<h2 layout-padding>World Market</h2>
+</div>
+<div flex="40" flex-sm="100" flex-md="100"class="white-text"style="">
+<h2 layout-padding>Sales By Country</h2>
+</div>
+</md-card>
+
   </div>
-  </div>
+
+     
+   
