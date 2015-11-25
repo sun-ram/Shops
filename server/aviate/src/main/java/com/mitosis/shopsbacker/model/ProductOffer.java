@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  * ProductOffer Created by Sundaram C.
  */
 @Entity
-@Table(name = "product_offer", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "product_offer", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"NAME", "MERCHANT_ID" }))
 public class ProductOffer implements java.io.Serializable {
 

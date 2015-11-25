@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
  * MyCart Created by Sundaram C.
  */
 @Entity
-@Table(name = "my_cart", catalog = "shopsbacker")
+@Table(name = "my_cart")
 public class MyCart implements java.io.Serializable {
 
 	private String myCartId;

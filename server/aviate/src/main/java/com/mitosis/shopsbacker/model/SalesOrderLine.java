@@ -23,7 +23,7 @@ import org.hibernate.annotations.Parameter;
  * SalesOrderLine Created by Sundaram C.
  */
 @Entity
-@Table(name = "sales_order_line", catalog = "shopsbacker")
+@Table(name = "sales_order_line")
 public class SalesOrderLine implements java.io.Serializable {
 
 	private String salesOrderLineId;

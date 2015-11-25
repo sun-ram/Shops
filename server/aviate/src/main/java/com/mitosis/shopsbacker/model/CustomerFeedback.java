@@ -26,7 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
  * CustomerFeedback Created by Sundaram C.
  */
 @Entity
-@Table(name = "customer_feedback", catalog = "shopsbacker")
+@Table(name = "customer_feedback")
 public class CustomerFeedback implements java.io.Serializable {
 
 	private String customerFeedbackId;

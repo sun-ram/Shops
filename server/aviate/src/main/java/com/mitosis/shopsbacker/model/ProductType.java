@@ -26,7 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
  * ProductType Created by Sundaram C.
  */
 @Entity
-@Table(name = "product_type", catalog = "shopsbacker")
+@Table(name = "product_type")
 public class ProductType implements java.io.Serializable {
 
 	private String productTypeId;

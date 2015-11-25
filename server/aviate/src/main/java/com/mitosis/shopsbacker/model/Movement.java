@@ -25,7 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Movement Created by Sundaram C.
  */
 @Entity
-@Table(name = "movement", catalog = "shopsbacker")
+@Table(name = "movement")
 public class Movement implements java.io.Serializable {
 
 	private String movementId;

@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * OrderNumber Created by Sundaram C.
  */
 @Entity
-@Table(name = "order_number", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "order_number", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"STORE_ID", "MERCHANT_ID" }))
 public class OrderNumber implements java.io.Serializable {
 

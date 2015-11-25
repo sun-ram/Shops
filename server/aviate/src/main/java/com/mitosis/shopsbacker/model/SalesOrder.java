@@ -25,7 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
  * SalesOrder generated 
  */
 @Entity
-@Table(name = "sales_order", catalog = "shopsbacker")
+@Table(name = "sales_order")
 public class SalesOrder implements java.io.Serializable {
 
 	private String salesOrderId;

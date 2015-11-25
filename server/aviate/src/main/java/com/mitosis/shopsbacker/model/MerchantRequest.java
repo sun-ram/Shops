@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
  * MerchantRequest Created by Sundaram C.
  */
 @Entity
-@Table(name = "merchant_request", catalog = "shopsbacker")
+@Table(name = "merchant_request")
 public class MerchantRequest implements java.io.Serializable {
 
 	private String merchantRequestId;

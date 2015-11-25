@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Banner Created by Sundaram C.
  */
 @Entity
-@Table(name = "banner", catalog = "shopsbacker")
+@Table(name = "banner")
 public class Banner implements java.io.Serializable {
 
 	/**

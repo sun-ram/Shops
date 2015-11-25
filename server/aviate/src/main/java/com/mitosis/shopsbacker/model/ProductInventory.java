@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * ProductInventory Created by Sundaram C.
  */
 @Entity
-@Table(name = "product_inventory", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "product_inventory", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"MERCHANT_ID", "STORE_ID", "STORAGEBIN_ID", "PRODUCT_ID" }))
 public class ProductInventory implements java.io.Serializable {
 

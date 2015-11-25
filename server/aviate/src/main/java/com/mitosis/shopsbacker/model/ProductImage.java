@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * ProductImage Created by Sundaram C.
  */
 @Entity
-@Table(name = "product_image", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "product_image", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"PRODUCT_ID", "IMAGE_ID" }))
 public class ProductImage implements java.io.Serializable {
 

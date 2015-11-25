@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Customer Created by Sundaram C.
  */
 @Entity
-@Table(name = "customer", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "EMAIL"))
+@Table(name = "customer", uniqueConstraints = @UniqueConstraint(columnNames = "EMAIL"))
 public class Customer implements java.io.Serializable {
 
 	private String customerId;

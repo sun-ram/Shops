@@ -24,7 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Address Created by Sundaram C.
  */
 @Entity
-@Table(name = "address", catalog = "shopsbacker")
+@Table(name = "address")
 public class Address implements java.io.Serializable {
 
 	private String addressId;

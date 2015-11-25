@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Country Created by Sundaram C.
  */
 @Entity
-@Table(name = "country", catalog = "shopsbacker", uniqueConstraints = {
+@Table(name = "country", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "CODE"),
 		@UniqueConstraint(columnNames = "NAME") })
 public class Country implements java.io.Serializable {

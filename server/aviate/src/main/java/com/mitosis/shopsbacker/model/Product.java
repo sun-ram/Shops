@@ -29,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Product Created by Sundaram C.
  */
 @Entity
-@Table(name = "product", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"NAME", "MERCHANT_ID", "UOM_ID", "UNIT" }))
 public class Product implements java.io.Serializable {
 

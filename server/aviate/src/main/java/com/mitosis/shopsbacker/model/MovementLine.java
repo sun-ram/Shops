@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
  * MovementLine Created by Sundaram C.
  */
 @Entity
-@Table(name = "movement_line", catalog = "shopsbacker")
+@Table(name = "movement_line")
 public class MovementLine implements java.io.Serializable {
 
 	private String movementLineId;

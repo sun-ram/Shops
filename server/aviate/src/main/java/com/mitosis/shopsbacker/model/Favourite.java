@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Favourite Created by Sundaram C.
  */
 @Entity
-@Table(name = "favourite", catalog = "shopsbacker", uniqueConstraints = {
+@Table(name = "favourite", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "NAME", "CUSTOMER_ID", "MERCHANT_ID",
 				"STORE_ID" }),
 		@UniqueConstraint(columnNames = { "NAME", "CUSTOMER_ID" }) })

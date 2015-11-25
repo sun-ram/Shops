@@ -26,7 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Warehouse Created by Sundaram C.
  */
 @Entity
-@Table(name = "warehouse", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "warehouse", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"NAME", "STORE_ID" }))
 public class Warehouse implements java.io.Serializable {
 

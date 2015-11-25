@@ -30,7 +30,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Merchant Created by Sundaram C.
  */
 @Entity
-@Table(name = "merchant", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "merchant", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class Merchant implements java.io.Serializable {
 
 	private String merchantId;

@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * DeliveryTimeSlot Created by Sundaram C.
  */
 @Entity
-@Table(name = "delivery_time_slot", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "delivery_time_slot", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"FROM_TIME", "TO_TIME", "MERCHNAT_ID" }))
 public class DeliveryTimeSlot implements java.io.Serializable {
 

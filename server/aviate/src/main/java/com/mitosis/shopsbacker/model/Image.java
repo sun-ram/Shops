@@ -29,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Image Created by Sundaram C.
  */
 @Entity
-@Table(name = "image", catalog = "shopsbacker")
+@Table(name = "image")
 public class Image implements java.io.Serializable {
 
 	private String imageId;

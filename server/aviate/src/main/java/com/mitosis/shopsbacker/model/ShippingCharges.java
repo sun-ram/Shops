@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * ShippingCharges Created by Sundaram C.
  */
 @Entity
-@Table(name = "shipping_charges", catalog = "shopsbacker")
+@Table(name = "shipping_charges")
 public class ShippingCharges implements java.io.Serializable {
 
 	private String shippingChargesId;

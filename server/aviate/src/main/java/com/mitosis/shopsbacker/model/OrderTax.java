@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
  * OrderTax Created by Sundaram C.
  */
 @Entity
-@Table(name = "order_tax", catalog = "shopsbacker")
+@Table(name = "order_tax")
 public class OrderTax implements java.io.Serializable {
 
 	private String orderTaxId;

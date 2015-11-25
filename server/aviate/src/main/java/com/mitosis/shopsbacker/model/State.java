@@ -23,7 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
  * State Created by Sundaram C.
  */
 @Entity
-@Table(name = "state", catalog = "shopsbacker")
+@Table(name = "state")
 public class State implements java.io.Serializable {
 
 	private String stateId;

@@ -25,7 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Storagebin Created by Sundaram C.
  */
 @Entity
-@Table(name = "storagebin", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "storagebin", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"NAME", "ROW", "STACK", "LEVEL", "WAREHOUSE_ID" }))
 public class Storagebin implements java.io.Serializable {
 

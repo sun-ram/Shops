@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 * PasswordResetRequest Created by Kartheeswaran R.
 */
 @Entity
-@Table(name = "password_reset_request", catalog = "shopsbacker")
+@Table(name = "password_reset_request")
 public class PasswordResetRequest implements java.io.Serializable {
 
 	/**

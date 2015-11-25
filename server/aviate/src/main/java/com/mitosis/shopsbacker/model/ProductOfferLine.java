@@ -26,7 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
  * ProductOfferLine Created by Sundaram C.
  */
 @Entity
-@Table(name = "product_offer_line", catalog = "shopsbacker")
+@Table(name = "product_offer_line")
 public class ProductOfferLine implements java.io.Serializable {
 
 	private String productOfferLineId;

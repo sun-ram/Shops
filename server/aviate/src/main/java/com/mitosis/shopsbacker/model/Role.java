@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Role Created by Sundaram C.
  */
 @Entity
-@Table(name = "role", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "role", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class Role implements java.io.Serializable {
 
 	private String roleId;

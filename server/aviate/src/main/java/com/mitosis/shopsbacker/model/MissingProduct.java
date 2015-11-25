@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
  * MissingProduct Created by Sundaram C.
  */
 @Entity
-@Table(name = "missing_product", catalog = "shopsbacker")
+@Table(name = "missing_product")
 public class MissingProduct implements java.io.Serializable {
 
 	private String missingProductId;

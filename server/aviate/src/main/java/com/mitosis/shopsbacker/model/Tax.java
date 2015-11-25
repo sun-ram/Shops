@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Tax Created by Sundaram C.
  */
 @Entity
-@Table(name = "tax", catalog = "shopsbacker", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "tax", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"MERCHANT_ID", "NAME" }))
 public class Tax implements java.io.Serializable {
 
