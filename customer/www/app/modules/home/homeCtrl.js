@@ -83,6 +83,33 @@ angular.module('aviate.controllers')
 			};
 			$scope.$watch('carousel.timeout', $scope.initTimeout);
 			$scope.$watch('images', $scope.setMax);
+			
+			$scope.productDetails = function(ev,products){
+				$rootScope.productDetails = products;
+				$mdDialog.show({
+					templateUrl: 'app/modules/products/productDetails/productDetails.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					clickOutsideToClose:true,
+					controller: "productDetailsCtrl"
+				})
+				.then(function() {
+					
+				}, function() {
+
+				});
+			}
+			
+        	$scope.getProductsByCategoryId = function(categoryId){
+        		if(categoryId){
+                    currentRootCatagoryIndex = -1;
+                    $scope.getRootCatagory($scope.categoryList,categoryId, null);
+                    $scope.optimizeData ($scope.categoryList, currentRootCatagoryIndex);
+                    $scope.findSubtree($scope.categoryList, categoryId,false);
+            		$state.go('app.products',{'categoryId': categoryId});
+        		}
+        		
+        	}
 
 		}]);
 
