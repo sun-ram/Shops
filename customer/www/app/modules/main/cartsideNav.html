@@ -97,7 +97,7 @@
             	<div style="height:55px; width:100%;" >
 					<md-toolbar layout="row" class="bg-black ht55">
 		                <div  class="md-toolbar-tools ht55" layout-align="start">
-		                    <h1 class="text-white" >{{myCart.cartItem.length}} Items, 
+		                    <h1 class="text-white" >{{myCart.cartItem.length}}<span ng-show="myCart.cartItem.length == 1"></span> Item<span ng-show="myCart.cartItem.length > 1">Items</span>, 
 		                        <span class="ft_yellow" >Rs {{myCart.cartTotalAmount }}</span>
 		                    </h1>
 		                    <span flex></span>
@@ -110,16 +110,16 @@
             	<div flex layout="column" style="">
 			         <div flex style=" overflow-y:scroll;   " class="scroll-cart">
 			       		<md-list-item layout="row" class="md-3-line" ng-repeat="item in myCart.cartItem">
-					      <span class="mg-tb25">{{ item.quantity}} X </span>
+					      <span class="mg-tb25">{{ item.qty}} X </span>
 					      <div class="cartsliderlist_img">
-					      	<img ng-src="{{item.product.productImages[0].imageUrl}}" class="md-avatar" alt="{{item.who}}" />
+					      	<img ng-src="{{item.product.image.url}}" class="md-avatar" alt="{{item.who}}" />
 					      </div>
 					        
 					        <div class="md-list-item-text mg_t15" layout="column">
-					        <h4 class="marg-5">{{ item.product.productName }}</h4>
-							<p class="marg-5"><span>{{item.product.measurement}}{{item.product.productUnitOfMeasure.abbreviation}}</span></p>
+					        <h4 class="marg-5">{{ item.product.name }}</h4>
+							<p class="marg-5"><span>{{item.product.unit}}{{item.product.uom.name}}</span></p>
 					        </div>
-					        <span style="margin: 25px;">Rs {{item.product.productPrice.price}}</span>
+					        <span style="margin: 25px;">Rs {{item.product.price}}</span>
 					         <md-icon aria-label="Menu" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 20px;"></md-icon>
 					         <md-divider ></md-divider>
 					      </md-list-item> 

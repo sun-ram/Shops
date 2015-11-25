@@ -43,7 +43,6 @@ ProductDao<T>, Serializable{
 	@Override
 	public Product getProduct(String productId) {
 		try {
-			
 			return (Product) getSession().get(Product.class, productId);
 		} catch (Exception e) {
 			e.printStackTrace();

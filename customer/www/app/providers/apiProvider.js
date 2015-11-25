@@ -244,7 +244,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.MyCart.addToCart = function (user, callback) {
-			httpRequest("POST", "product/addtocart", user, function (err, data) {
+			httpRequest("POST", "mycart/addtocart", user, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -258,7 +258,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.MyCart.getCartList = function (user, callback) {
-			httpRequest("POST", "product/getmycartlist", user, function (err, data) {
+			httpRequest("POST", "mycart/getMyCartList", user, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -272,7 +272,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.MyCart.removeCartProduct = function (user, callback) {
-			httpRequest("POST", "product/deletefromcart", user, function (err, data) {
+			httpRequest("POST", "mycart/removefromcart", user, function (err, data) {
 				if (err) {
 
 					callback(err, null);

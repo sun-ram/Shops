@@ -133,6 +133,7 @@ public class CustomerRestService<T> {
 		customer.setPhoneNo(customerVo.getPhoneNo());
 		customer.setPassword(CommonUtil.passwordEncoder(customerVo
 				.getPassword()));
+		customer.setName(customerVo.getEmail());
 		return customer;
 	}
 
