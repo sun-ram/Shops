@@ -1,5 +1,5 @@
-<md-card flex-gt-sm="90" flex-gt-md="80">
-  <md-toolbar class=" md-default-theme">
+
+  <!-- <md-toolbar class=" md-default-theme">
     <div class="md-toolbar-tools">
       <h2 class="md-flex">Store</h2>
     </div>
@@ -9,10 +9,24 @@
      <span ng-show="fromDetailsPage" class="close_box">
     	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="redirectToStoreDetails(store)"></ng-md-icon> 
     </span> 
-  </md-toolbar>
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+  </md-toolbar> -->
+  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+   		<div class="md-toolbar-tools ">	
+			<div class="md-layout-row layout-align-start-center pt_relat">	 
+		     	<h3 style="margin-left:-10px;" class="md-layout-column">Store</h3>     	
+		    </div>  
+		    <!-- <span class="close_box">
+		    	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.merchants"></ng-md-icon> 
+		    </span> -->   
+		</div> 
+</md-toolbar>
+<md-card flex-gt-sm="90" flex-gt-md="80">
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
     <form name="storeForm" novalidate>
-    	    <div layout layout-sm="column">
+ 	
+ 	<div layout="row" layout-sm="column">
+	<div flex>
+	<div layout-padding>
     
     <md-input-container layout-padding flex>
       <label>Store Name<span style="color:red">*</span></label>
@@ -23,21 +37,17 @@
       <label>User Name</label>
       <input ng-model="store.user.userName" >
     </md-input-container>
-    </div>
-    	    <div layout layout-sm="column">
-    
+       
     <md-input-container layout-padding flex>
       <label>Contact Name<span style="color:red">*</span></label>
       <input ng-model="store.user.name">
     </md-input-container>
     
-        <md-input-container layout-padding flex>
+    <md-input-container layout-padding flex>
       <label>Email</label>
       <input ng-model="store.user.emailid" >
     </md-input-container>
-    </div>
-    	    <div layout layout-sm="column">
-    
+       
     <md-input-container layout-padding flex>
       <label>Phone<span style="color:red">*</span></label>
    <input ng-model="store.user.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
@@ -52,9 +62,11 @@
       Enter address within 150 characters</span>
     </md-input-container>
     </div>
+    </div>
     
     
-    	    <div layout layout-sm="column">
+    <div flex>
+	<div layout-padding>
     
     <md-input-container layout-padding flex>
       <label>City<span style="color:red">*</span></label>
@@ -68,9 +80,7 @@
 		            </md-option>
           		</md-select>
     		</md-input-container>
-    </div>
-    	    <div layout layout-sm="column">
-    
+        
 		    <md-input-container layout-padding flex>
        			<label>State<span style="color:red">*</span></label>
          		<md-select ng-model="state" ng-required="true">
@@ -84,10 +94,23 @@
       <input ng-model="store.user.address.pinCode" valid-number ng-required="true">
     </md-input-container>
     </div>
-    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    </div>
+    </div>
+    
+    <!-- <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
     	<md-button class="md-raised md-success padd-50" ng-click="updateStore();" ng-disabled="storeForm.$invalid">Update</md-button>
     	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button>
-    </section>
+    </section> -->
+    
+    <div layout="row" layout-sm="column">
+		  	<div flex>
+		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
+			    	<md-button class="md-raised md-success padd-50" ng-click="updateStore();" ng-disabled="storeForm.$invalid">Update</md-button>
+			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button>
+			    </section>
+		  	</div>
+		  </div>	
+		  
     </form>
     </md-content>
 </md-card>
