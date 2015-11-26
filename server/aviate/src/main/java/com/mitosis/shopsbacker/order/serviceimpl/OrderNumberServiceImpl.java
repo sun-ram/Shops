@@ -152,6 +152,24 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 		return storeVo;
 	}
 
-	
+	public String getSalesOrderNumber(Store store) {
+		String salesOrderNumber = "";
+		OrderNumber orderNumber = getOrderNumberDao().getOrderNumber(store);
+		salesOrderNumber = salesOrderNumber
+				+ (orderNumber.getPrefix() != null ? orderNumber.getPrefix()
+						: "")
+				+ (orderNumber.getNextNumber() != null ? orderNumber
+						.getNextNumber() : "")
+				+ (orderNumber.getSuffix() != null ? orderNumber.getSuffix()
+						: "");
+		if(orderNumber.getNextNumber() == null){
+			orderNumber.setNextNumber(orderNumber.getStartingNumber() + 1);
+		}else{
+			orderNumber.setNextNumber(orderNumber.getNextNumber() + 1);
+		}
+		
+		getOrderNumberDao().updateOrderNumber(orderNumber);
+		return salesOrderNumber;
+	}
 	
 }

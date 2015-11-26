@@ -29,4 +29,6 @@ public interface OrderNumberService<T> {
 
 	public StoreVo setStoreVo(OrderNumber orderNumber) throws Exception;
 
+	public String getSalesOrderNumber(Store store);
+
 }

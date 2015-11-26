@@ -37,6 +37,15 @@ angular.module('aviateAdmin.controllers')
 
 				});		
 			}
+			
+			$scope.redirectToAddBanner = function(){
+				var length = $scope.bannerData.length;
+				if(length >= 4){
+					toastr.error
+				}else{
+					$state.go('app.uploadbanner')
+				}
+			}
 
 			$scope.editBanner = function(banner){
 				BannerServices.setBannerObj(banner);
