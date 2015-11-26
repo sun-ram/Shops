@@ -3,7 +3,7 @@
 	<ng-md-icon icon="add" size="35" class="icon-white"></ng-md-icon>
 	</md-button>
 </a>
-<div layout="row" ng-init="getBannerList()">
+<!-- <div layout="row" ng-init="getBannerList()">
 
 	<div layout="row" flex=35>
 		<h2 layout-padding layout-align="start center">Banner List</h2>
@@ -11,7 +11,8 @@
 
 	
 </div>
-<md-card flex-gt-sm="90" flex-gt-md="80">
+
+ <md-card flex-gt-sm="90" flex-gt-md="80">
 <md-card-content style="padding: 0px 0px 16px 0px;">
 <md-data-table-container>
 <table md-data-table class="md-primary"
@@ -53,6 +54,74 @@
 </md-data-table-container> 
    </md-card-content>
 
+</md-card> -->
+
+
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body" ng-init="getBannerList()">
+ 	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+		<div class="md-toolbar-tools" layout="row" >
+	  		<h3 layout-align="start" >Banner List</h3>
+	    </div>
+    </md-toolbar>
+
+   <md-card-content class="nopadd">
+	<md-data-table-container>
+     <md-list>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header " md-progress="deferred">
+          <div layout="row" layout-wrap class="full_wid tbl-header " md-order="" md-trigger="onorderchange">
+         	<span flex=10 layout-align="center center" layout>
+	         	Banner
+            </span>
+           	<span flex=25>
+             	Title-Large
+           	</span>
+           	<span flex=25>
+             	Title-Small
+           	</span>
+           	<span flex=40 layout-align="center center" layout>
+             	Actions
+           	</span>
+            	
+            </div>
+           </div>
+         </md-item-content>
+        
+       </md-item>
+       
+       
+       <md-item class="data-table-list" md-data-table ng-repeat="banner in bannerData" class="md-table-content-row">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+         	<span flex=10 layout-align="center center" layout >
+                <img src="{{banner.image.url}}" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
+            </span>
+           	<span flex=25 layout-align="start center" layout>
+             	<span flex  class="shopname ">{{banner.tabTitleBold}}</span>
+           	</span>
+           	<span flex=25 layout-align="start center" layout>
+             	<span flex class="hash_color merch-addr">{{banner.tabTitleSmall}}</span>
+           	</span>
+           	<span flex=40 layout-align="center center" layout>
+             	<md-button class="md-icon-button" aria-label="More" ng-click="editBanner(banner)">
+                  <ng-md-icon icon="mode_edit" size="25"  class="btn-success" ng-click=""></ng-md-icon>
+                  <md-tooltip md-direction="bottom">Edit</md-tooltip>
+              	</md-button>
+              	 <md-button class="md-icon-button" aria-label="More" ng-click="removeBanner(banner.bannerId)">
+                    <ng-md-icon icon="close" size="25"  class="btn-danger" ng-click=""></ng-md-icon>
+                    <md-tooltip md-direction="bottom">Delete</md-tooltip>
+                </md-button>
+           	</span>
+            
+            </div>
+           </div>
+         </md-item-content>
+        
+       </md-item>
+     </md-list>
+	</md-data-table-container>
+   </md-card-content>
+  
 </md-card>
 <style>
 .close_box {

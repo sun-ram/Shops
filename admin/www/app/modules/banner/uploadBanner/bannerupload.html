@@ -1,19 +1,18 @@
 <md-card flex-gt-sm="90" flex-gt-md="80">
-   <md-toolbar class=" md-default-theme">
+   <md-toolbar class=" md-default-theme"  style="background-color:transparent;">
    		<div class="md-toolbar-tools ">	
 			<div class="md-layout-row layout-align-start-center pt_relat">	 
 			   	<h3 style="padding: 0px 10px;" class="md-layout-column">Add Banner</h3>     	
 		    </div>  
-		    <span class="close_box">
+		    <!-- <span class="close_box">
 		    	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.merchants"></ng-md-icon> 
-		    </span>   
+		    </span>  -->  
 		</div> 
    </md-toolbar>
  
  
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-	    <form name="merchantForm" novalidate>
-	    <div layout="column" class="wid-50 wid-100">
+    
+	   <!--  <div layout="column" class="wid-50 wid-100">
 		    <md-input-container layout-padding>
 		      <label>Banner Title-1<span style="color:red">*</span></label>
 		      <input ng-model="bannerDetail.tabTitleBold" ng-required="true">
@@ -30,7 +29,7 @@
 		   
 					<button class="md-success" style="margin:0px 10px; height: 30px; padding: 6px;" flex="35">
 		          	 <label class="custom-file-input">	
-					    <!-- <ng-md-icon icon="file_upload" size="20"></ng-md-icon> -->
+					    <ng-md-icon icon="file_upload" size="20"></ng-md-icon>
 					    <input id="file-upload1" type="file" ng-model="bannerImage" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
 					    <span ng-hide="true" id="file-name1" ></span>
 					</label></button>
@@ -40,9 +39,46 @@
 		    	<md-button class="md-raised md-success padd-50" ng-click="addBanner(bannerDetail)" ng-disabled="">Add</md-button>
 		    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.banner">Cancel</md-button>
 		    </section>
-		    </div>
-		    		    
-		    
+		    </div> -->
+	<md-content md-theme="docs-dark" style="padding:0px 20px;">
+	    <form name="merchantForm" novalidate>    		    
+		   <div layout="row" layout-sm="column">
+		   		<div flex layout="column">
+		   			<div flex>
+			   			<md-input-container>
+					      <label>Banner Title-1<span style="color:red">*</span></label>
+					      <input ng-model="bannerDetail.tabTitleBold" ng-required="true">
+					    </md-input-container>
+				    </div>
+				    <div flex>
+					    <md-input-container>
+					      <label>Banner Title-2<span style="color:red">*</span></label>
+					      <input  ng-model="bannerDetail.tabTitleSmall" ng-required="true" >
+				        </md-input-container>
+			        </div>
+			        
+		   		</div>
+		   		<div flex layout="column">
+		   			
+						<div flex style=" width:300px; position:relative; height:auto; margin:0px auto;  ">
+							<img  src="{{bannerImage}}" ng-show="bannerImage" style="display: block;width:300px; border:4px solid rgba(0,0,0,0.1); padding:2px; height:auto;" />
+							
+							<button  style=" position:absolute; top:30px;  left:50px; height: 60px; width:200px;border-radius:50px; margin:0px auto;">
+				          	 	<label class="custom-file-input" style="width:0px; height:0px;">	
+								   
+								    <input id="file-upload1" style="width:0px; height:0px;" type="file" ng-model="bannerImage" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
+								    <span ng-hide="true" id="file-name1" ></span>
+								</label>
+							</button>
+					    </div>      	
+						
+					
+		   		</div>
+		   </div> 
+		   <section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
+		    	<md-button class="md-raised md-success padd-50" ng-click="addBanner(bannerDetail)" ng-disabled="">Add</md-button>
+		    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.banner">Cancel</md-button>
+		    </section>
 	    </form>
     </md-content>
 </md-card>

@@ -115,7 +115,7 @@ a:link {
 
 .nodisplay{display:none;}
 
-.edit-container{padding:10px 40px 40px 40px;}
+.edit-container{padding:10px 20px 20px 24px;}
 .edit-container label{color:grey;}
 
 /* position */
@@ -335,8 +335,14 @@ md-select .md-select-value{
 	display: block;
 	outline: none ! important;
 	cursor: pointer;
-	font-size: 10pt;
+	font-size: 14px;
 	position: absolute;
+    width: 200px;
+    height: 40px;
+    left: -100px;
+    top: -19px;
+    padding-top:20px;
+    border-radius:50px; background-color:rgba(0,0,0,0.2);
 }
 
 
