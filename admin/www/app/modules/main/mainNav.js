@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.directives').directive('mainNav', [
-        '$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log',
-        function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ) {
+        '$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log', '$window',
+        function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log, $window ) {
 
             return {
                 // scope: false,
@@ -22,6 +22,16 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                 	$scope.dumpSidebar = function(){
                 	  	$scope.sidebarHidden = !$scope.sidebarHidden;
                 	}
+                    
+                    $scope.$watch(
+                                function () {
+                                    return $window.innerWidth 
+                                }, function(newVal, oldVal){
+                                    if(newVal < 1000){
+                                        $scope.sidebarHidden = true;
+                                    }
+                                }
+                    );
                     
  	        	   $scope.logout = function() {
                      $rootScope.user = null;

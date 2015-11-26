@@ -387,7 +387,7 @@ md-select .md-select-value{
 
 .cursor{ cursor:pointer;}
 
-.md-sidenav-left, md-sidenav{top:66px;}
+.md-sidenav-left, md-sidenav{top:66px;overflow: hidden;}
 .data-table-list{ cursor:pointer; outline:0;}
 .data-table-list:nth-child(odd)  md-item-content{ background-color:#f5f6f8;}
 md-list{ padding:0px;}
