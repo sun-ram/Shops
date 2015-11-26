@@ -7,5 +7,5 @@ package com.mitosis.shopsbacker.util;
  *
  */
 public enum OrderStatus {
-	Initialized, Inprogress, Readytoship, Shipping, Completed 
+	Initialized, Shoper_Assigned,Inprogress, Readytoship,Backer_Assigned,Shipping, Completed
 }

@@ -16,6 +16,8 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -43,30 +45,30 @@ import com.mitosis.shopsbacker.vo.customer.RoleVo;
 @Path("user")
 @Controller("userRestServices")
 public class UserRestServices<T> {
-	
-	final static Logger log = Logger.getLogger(UserRestServices.class
-			.getName());
-	
+
+	final static Logger log = Logger
+			.getLogger(UserRestServices.class.getName());
+
 	@Context
 	private UriInfo uriInfo;
-	
+
 	ResponseModel response = new ResponseModel();
-	
+
 	@Autowired
 	CommonService<T> commonService;
 
 	@Autowired
 	UserService<T> userService;
-	
+
 	@Autowired
 	CustomerService<T> customerService;
-	
+
 	@Autowired
 	StoreService<T> storeService;
-	
+
 	@Autowired
 	RoleService<T> roleService;
-	
+
 	@Autowired
 	MerchantService<T> merchantService;
 
@@ -172,9 +174,10 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public ResponseModel saveUser(UserVo userVo) {
 		try {
-			
+
 			JsonNode location = getLatLongByAddress(userVo);
 
 			if (location == null) {
@@ -189,9 +192,12 @@ public class UserRestServices<T> {
 			userVo.getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
 			userVo.getAddress().setLongitude(loc.toString());
-			Store store = storeService.getStoreById(userVo.getStore().getStoreId());
-			Merchant merchant = merchantService.getMerchantById(userVo.getMerchant().getMerchantId());
-			User user = userService.setUser(userVo, roleService.getRole(userVo.getRole().getName()));
+			Store store = storeService.getStoreById(userVo.getStore()
+					.getStoreId());
+			Merchant merchant = merchantService.getMerchantById(userVo
+					.getMerchant().getMerchantId());
+			User user = userService.setUser(userVo,
+					roleService.getRole(userVo.getRole().getName()));
 			user.setStore(store);
 			user.setMerchant(merchant);
 			userService.saveUser(user);
@@ -202,14 +208,14 @@ public class UserRestServices<T> {
 		}
 		return response;
 	}
-	
+
 	public JsonNode getLatLongByAddress(UserVo userVo) {
-		String full_address = userVo.getAddress().getAddress1()
-				+ "," + userVo.getAddress().getAddress2() + ","
+		String full_address = userVo.getAddress().getAddress1() + ","
+				+ userVo.getAddress().getAddress2() + ","
 				+ userVo.getAddress().getCity() + ","
 				+ userVo.getAddress().getState().getName() + ","
-				+ userVo.getAddress().getCountry().getName()
-				+ "," + userVo.getAddress().getPinCode();
+				+ userVo.getAddress().getCountry().getName() + ","
+				+ userVo.getAddress().getPinCode();
 		JsonNode location = CommonUtil.getLatLong(full_address);
 		return location;
 	}
@@ -218,9 +224,10 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public ResponseModel updateUser(UserVo userVo) {
 		try {
-			
+
 			JsonNode location = getLatLongByAddress(userVo);
 
 			if (location == null) {
@@ -234,7 +241,8 @@ public class UserRestServices<T> {
 			userVo.getAddress().setLatitude(loc.toString());
 			loc = location.findValue("lng".toString());
 			userVo.getAddress().setLongitude(loc.toString());
-			User user = userService.setUser(userVo, roleService.getRole(userVo.getRole().getName()));
+			User user = userService.setUser(userVo,
+					roleService.getRole(userVo.getRole().getName()));
 			userService.updateUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -248,20 +256,20 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public EmployeeResponseVo getUser(JSONObject req) {
 		EmployeeResponseVo response = new EmployeeResponseVo();
 		try {
 			List<String> roles = new ArrayList<String>();
 			roles.add(RoleName.BACKER.toString());
 			roles.add(RoleName.SHOPPER.toString());
-			
+
 			List<User> users = new ArrayList<User>();
-			if(CommonUtil.isValidProperty(req, "storeId")){
-				users = userService.getUsers(roles,
-						req.getString("storeId"));
-			}else if(CommonUtil.isValidProperty(req, "merchantId")){
-				 users = userService.getUsersByMerchantId(roles,
-							req.getString("merchantId"));
+			if (CommonUtil.isValidProperty(req, "storeId")) {
+				users = userService.getUsers(roles, req.getString("storeId"));
+			} else if (CommonUtil.isValidProperty(req, "merchantId")) {
+				users = userService.getUsersByMerchantId(roles,
+						req.getString("merchantId"));
 			}
 			List<UserVo> usersVo = new ArrayList<UserVo>();
 			for (User usr : users) {
@@ -281,6 +289,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public ResponseModel deleteUser(JSONObject req) {
 		try {
 			userService.deleteUser(req.getString("userId"));
@@ -291,5 +300,115 @@ public class UserRestServices<T> {
 		}
 		return response;
 	}
+
+	@Path("/getShoperDetails")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
+	public UserLoginResponseVo getShopperDetails(UserVo userVo) {
+		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
+		List<UserVo> userVoList = new ArrayList<UserVo>();
+		if (userVo.getMerchant()!=null) {
+			Merchant merchant = merchantService.getMerchantById(userVo
+					.getMerchant().getMerchantId());
+			if (merchant != null) {
+				List<User> userList = userService.getUser(merchant);
+				for (User user : userList) {
+					if (user.getRole().getName()
+							.equalsIgnoreCase(RoleName.SHOPPER.toString())) {
+						UserVo userVoObj = new UserVo();
+						userVoObj.setUserId(user.getUserId());
+						userVoObj.setName(user.getName());
+						userVoList.add(userVoObj);
+					}
+
+				}
+			}
+			userLoginResponseVo.setUserVoList(userVoList);
+			userLoginResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			return userLoginResponseVo;
+		} else if(userVo.getStore()!=null){
+			Store store = storeService.getStoreById(userVo.getStore()
+					.getStoreId());
+			if (store != null) {
+				List<User> userList = userService.getUser(store);
+				for (User user : userList) {
+					if (user.getRole().getName()
+							.equalsIgnoreCase(RoleName.SHOPPER.toString())) {
+						UserVo userVoObj = new UserVo();
+						userVoObj.setUserId(user.getUserId());
+						userVoObj.setName(user.getName());
+						userVoList.add(userVoObj);
+					}
+
+				}
+			}
+			userLoginResponseVo.setUserVoList(userVoList);
+			userLoginResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			return userLoginResponseVo;
+		}
+		else{
+			userLoginResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+			return userLoginResponseVo;
+		}
+
+	}
+	
+	
+	@Path("/getBackerDetails")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED)
+	public UserLoginResponseVo getBackerDetails(UserVo userVo) {
+		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
+		List<UserVo> userVoList = new ArrayList<UserVo>();
+		if (userVo.getMerchant()!=null) {
+			Merchant merchant = merchantService.getMerchantById(userVo
+					.getMerchant().getMerchantId());
+			if (merchant != null) {
+				List<User> userList = userService.getUser(merchant);
+				for (User user : userList) {
+					if (user.getRole().getName()
+							.equalsIgnoreCase(RoleName.BACKER.toString())) {
+						UserVo userVoObj = new UserVo();
+						userVoObj.setUserId(user.getUserId());
+						userVoObj.setName(user.getName());
+						userVoList.add(userVoObj);
+					}
+
+				}
+			}
+			userLoginResponseVo.setUserVoList(userVoList);
+			userLoginResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			return userLoginResponseVo;
+		} else if(userVo.getStore()!=null){
+			Store store = storeService.getStoreById(userVo.getStore()
+					.getStoreId());
+			if (store != null) {
+				List<User> userList = userService.getUser(store);
+				for (User user : userList) {
+					if (user.getRole().getName()
+							.equalsIgnoreCase(RoleName.BACKER.toString())) {
+						UserVo userVoObj = new UserVo();
+						userVoObj.setUserId(user.getUserId());
+						userVoObj.setName(user.getName());
+						userVoList.add(userVoObj);
+					}
+
+				}
+			}
+			userLoginResponseVo.setUserVoList(userVoList);
+			userLoginResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			return userLoginResponseVo;
+		}
+		else{
+			userLoginResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+			return userLoginResponseVo;
+		}
+
+	}
+	
 
 }

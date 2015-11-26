@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
@@ -35,6 +36,7 @@ public class SalesOrderVo {
 	private List<StoreVo> storeList = new ArrayList<StoreVo>();
 	private AddressVo addressVo;
 	private String fromDate;
+	private User user;
 
 	private List<OrderTaxVo> orderTax;
 	
@@ -188,5 +190,12 @@ public class SalesOrderVo {
 	public void setOrderTax(List<OrderTaxVo> orderTax) {
 		this.orderTax = orderTax;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.TaxService;
+import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
@@ -30,12 +31,14 @@ import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Tax;
+import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.order.service.OrderNumberService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.order.service.ShippingChargesService;
 import com.mitosis.shopsbacker.responsevo.ConfirmOrderResponseVo;
 import com.mitosis.shopsbacker.responsevo.SalesOrderResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.OrderStatus;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
@@ -78,6 +81,9 @@ public class SalesOrderRestService<T> {
 		
 	@Autowired
 	ShippingChargesService<T> shippingChargesService;
+	
+	@Autowired
+	UserService<T> userService;
 	
 	public SalesOrderService<T> getSalesOrderService() {
 		return salesOrderService;
@@ -144,6 +150,50 @@ public class SalesOrderRestService<T> {
 		}
 		return salesOrderResponse;
 	}
+	
+	@Path("/updateShoperIntoSalesOrder")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
+	public SalesOrderResponseVo updateShoperIntoSalesOrder(SalesOrderVo salesOrderVo) {
+		SalesOrderResponseVo salesOrderResponseVo=new SalesOrderResponseVo();
+		if(salesOrderVo.getSalesOrderId()!=null){
+             SalesOrder salesOrder=salesOrderService.getSalesOrderById(salesOrderVo.getSalesOrderId());
+             if(salesOrder!=null){
+            	 User user=userService.getUser(salesOrderVo.getUser().getUserId());
+            	 salesOrder.setStatus(OrderStatus.Shoper_Assigned.toString());
+            	 salesOrder.setShopper(user);
+            	 salesOrderService.updateSalesOrder(salesOrder);
+            	 salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+             }
+		}
+		return salesOrderResponseVo;
+		
+	}
+	
+	@Path("/updateBackerIntoSalesOrder")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
+	public SalesOrderResponseVo updateBackerIntoSalesOrder(SalesOrderVo salesOrderVo) {
+		SalesOrderResponseVo salesOrderResponseVo=new SalesOrderResponseVo();
+		if(salesOrderVo.getSalesOrderId()!=null){
+             SalesOrder salesOrder=salesOrderService.getSalesOrderById(salesOrderVo.getSalesOrderId());
+             if(salesOrder!=null){
+            	 User user=userService.getUser(salesOrderVo.getUser().getUserId());
+            	 salesOrder.setStatus(OrderStatus.Backer_Assigned.toString());
+            	 salesOrder.setBacker(user);
+            	 salesOrderService.updateSalesOrder(salesOrder);
+            	 salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+             }
+		}
+		return salesOrderResponseVo;
+		
+	}
+	
+	
 
 	@Path("/getorderlistbydate")
 	@POST
