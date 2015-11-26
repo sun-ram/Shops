@@ -204,6 +204,8 @@ top: 0px;}
 
 md-list-item {
     width: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .icons{
