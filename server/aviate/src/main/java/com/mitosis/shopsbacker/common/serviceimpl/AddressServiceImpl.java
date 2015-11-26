@@ -137,7 +137,10 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		addressVo.setLongitude(address.getLongitude());
 		addressVo.setCountry(setCountryVo(address.getCountry()));
 		addressVo.setState(setCountryVo(address.getState()));
-		addressVo.setCustomer(setCustomerVo(address.getCustomer()));
+		Customer customer=address.getCustomer();
+		if(customer!=null){
+		addressVo.setCustomer(setCustomerVo(customer));
+		}
 		return addressVo;
 	}
 	
