@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("bannerCtrl", 
-		['$scope', '$rootScope', '$state','toastr','CommonServices','$mdDialog','BannerServices',
-		 function($scope, $rootScope, $state, toastr, CommonServices, $mdDialog, BannerServices) {
+		['$scope', '$rootScope', '$state','toastr','CommonServices','$mdDialog','BannerServices','CONSTANT',
+		 function($scope, $rootScope, $state, toastr, CommonServices, $mdDialog, BannerServices, CONSTANT) {
 
 			$scope.banner = {};
 
@@ -41,7 +41,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.redirectToAddBanner = function(){
 				var length = $scope.bannerData.length;
 				if(length >= 4){
-					toastr.error
+					toastr.error(CONSTANT.BANNERERROR);
 				}else{
 					$state.go('app.uploadbanner')
 				}

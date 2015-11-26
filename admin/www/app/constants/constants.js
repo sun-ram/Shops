@@ -31,6 +31,7 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	UPLOADBANNER:'Banner Uploaded Successfully',
 	DELETEBANNER:'Banner Deleted Successfully',
 	UPDATEBANNER:'Banner Updated Successfully',
+	BANNERERROR:'You Cant Add More Than Four Banners',
 	PASSWORDNOTMATCH: 'Password and Confirm Password did not match',
 	PASSWORDCHANGED: 'Password changed successfully',
 	ADDDELIVERYTIMESLOT:'Delivery Time Slot Added Successfully',
