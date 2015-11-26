@@ -3,12 +3,16 @@
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
 </a>
-
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row" >
-  		<h2 layout-align="start" style="margin-left:-10px;">Merchants</h2>
-    	<span class="flex"></span>
-	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
+  		<h3 layout-align="start" >Merchants</h3>
+  		<div class="tbl-search">
+  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+  			<input ng-model="search" type="text"  placeholder="Search">
+  		</div>	
+    	
+	<!--  <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
 	        <label>&nbsp;</label>
 	        <input ng-model="search" style="color: #023904; border-bottom-color: #023904;" placeholder="Search">
@@ -16,36 +20,62 @@
 	      <md-button aria-label="Search" style="line-height: inherit; min-width: inherit;" ng-click="showSearch = !showSearch;srch = true;">
 	        <ng-md-icon icon="search" class="icon-white"></ng-md-icon>
 	      </md-button>
-	  </div>
+	  </div> 
       <md-button ng-show="srch" layout-align="end" style="line-height: inherit; min-width: inherit;" aria-label="Search" ng-click="showSearch = !showSearch; srch = false;">
        <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-      </md-button>
+      </md-button>-->
     </div>
    </md-toolbar>
-<md-card flex-gt-sm="90" flex-gt-md="80">
+
    <md-card-content class="nopadd">
-		<md-data-table-container>
+	<md-data-table-container>
      <md-list>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header ">
+          <div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex=10 layout-align="center center" layout>
+	         	Merchant Logo
+            </span>
+           	<span flex=25>
+             	Merchant Name
+           	</span>
+           	<span flex=25>
+             	Merchant Address
+           	</span>
+           	<span flex=25 layout-align="center center" layout>
+             	Contact Number
+           	</span>
+            <span flex=15 layout-align="center center" layout>
+                Actions
+             </span>	
+            </div>
+           </div>
+         </md-item-content>
+        
+       </md-item>
+       
+       
        <md-item class="data-table-list" md-data-table ng-repeat="merchant in merchantData | filter:search | orderBy: merchantPagination.order | limitTo: merchantPagination.limit: (merchantPagination.page - 1) * merchantPagination.limit" class="md-table-content-row"" ng-click="redirectToMerchantDetails(merchant);">
          <md-item-content layout="row" layout-padding>
-          <div layout="row" layout-wrap class="full_wid">
-         	<span flex=10  class="padd-5-3">
-         	<div style="width:100px;">
-                     <img src="{{merchant.logo.url}}" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
-                  </div></span>
-           	<span flex=50 layout="column" class="padd-lr5" layout-align="start start">
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{merchant.name}}</strong></span>
-             <span class="hash_color padd-l8 ft-14 merch-addr">{{merchant.user.address.address1}}</span>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+         	<span flex=10 layout-align="center center" layout >
+                <img src="{{merchant.logo.url}}" style="display: block;width:45px; height: 45px;  border-radius: 99%;" />
+            </span>
+           	<span flex=25 layout-align="start center" layout>
+             	<span flex  class="shopname ">{{merchant.name}}</span>
            	</span>
-           	   <span flex=25 layout="row" layout-align="start end">
-             	<span class="ft-14 hash_color"><ng-md-icon layout-padding icon="call" size="15"></ng-md-icon>{{merchant.user.phoneNo}}</span>
-           	 </span>
-             <span flex=15 layout="row" layout-align="end center">
+           	<span flex=25 layout-align="start center" layout>
+             	<span flex class="hash_color merch-addr">{{merchant.user.address.address1}}</span>
+           	</span>
+           	<span flex=25 layout-align="center center" layout>
+             	<span class="hash_color text-primary">{{merchant.user.phoneNo}}</span>
+           	</span>
+            <span flex=15 layout-align="center center" layout>
                 <md-button class="md-icon-button md-primary" ng-click="redirectToEditMerchant(merchant);$event.stopPropagation();" aria-label="Edit">
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
       			</md-button>
-             	<md-button class="md-icon-button md-primary" ng-click="deleteMerchant(merchant.merchantId);$event.stopPropagation();" aria-label="Delete">
-             		<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
+             	<md-button class="md-icon-button md-primary " ng-click="deleteMerchant(merchant.merchantId);$event.stopPropagation();" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
             </div>
