@@ -526,8 +526,9 @@ md-icon {
   	font-size: 17px;
 }
 
-.sideNavIconsHighlight {
+.optionSelected {
 	fill : #4a89dc;
+    background-color: #282D33;
 }
 
 
