@@ -493,7 +493,7 @@ md-sidenav.md-locked-open{position: fixed ! important; z-index: 100; top:0;}
   	font-weight: 600;
 }
 
-md-icon {
+md-sidenav md-icon {
 	color: #ffffff;
 }
 
