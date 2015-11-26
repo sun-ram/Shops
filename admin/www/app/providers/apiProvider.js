@@ -1457,6 +1457,67 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
+		/*Order Number Modules*/
+		apiClass.OrderNumber = {
+				name: ""
+		};
+
+		apiClass.OrderNumber.getOrderNumber = function (store, callback) {
+			httpRequest("POST", "ordernumber/getordernumber",store, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.OrderNumber.addOrderNumber = function (orderNumber, callback) {
+			httpRequest("POST", "ordernumber/addordernumber", orderNumber, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.OrderNumber.updateOrderNumber = function (orderNumber, callback) {
+			httpRequest("POST", "ordernumber/update", orderNumber, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.OrderNumber.deleteOrderNumber = function (orderNumber, callback) {
+			httpRequest("POST", "ordernumber/delete", orderNumber, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 
 		return apiClass;
 	}]

@@ -1,11 +1,11 @@
 package com.mitosis.shopsbacker.order.daoimpl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.OrderNumber;
 import com.mitosis.shopsbacker.model.Store;
@@ -62,5 +62,16 @@ public class OrderNumberDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			throw e;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public OrderNumber getOrderNumberById(String id) {
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(OrderNumber.class);
+		criteria.add(Restrictions.eq("orderNumberId", id));
+		return ((List<OrderNumber>) findAll(criteria)).get(0);
+
+	}
+
 
 }

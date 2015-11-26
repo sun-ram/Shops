@@ -27,6 +27,7 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.responsevo.BannerResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.BannerVo;
 
@@ -56,7 +57,7 @@ public class BannerRestServices {
 
 	Store store = null;
 
-	Banner banner,bannerVal = null;
+	Banner banner, bannerVal = null;
 
 	ResponseModel response = new ResponseModel();
 
@@ -64,14 +65,14 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addBanner(BannerVo bannerVo) {
-
 		try {
 			bannerVal = new Banner();
 			bannerImageUpload(bannerVo);
 			banner = bannerService.setBanner(bannerVo, bannerVal);
 			bannerService.saveBanner(banner);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -119,7 +120,7 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateBanner(BannerVo bannerVo) {
 		try {
 			bannerVal = new Banner();
@@ -132,7 +133,7 @@ public class BannerRestServices {
 			if (banner.getBannerId() != null && bannerVal.getImage() != null) {
 				imageService.deleteImage(bannerVal.getImage());
 			}
-
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -145,8 +146,9 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public BannerResponseVo getBannerList(BannerVo banners) {
+
 		BannerResponseVo bannerResponse = new BannerResponseVo();
 		try {
 			List<Banner> bannerList = null;
@@ -162,10 +164,12 @@ public class BannerRestServices {
 				BannerVo bannerVo = bannerService.setBannerVo(banner);
 				bannerResponse.getBannerList().add(bannerVo);
 			}
-
+			bannerResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
+			bannerResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			bannerResponse.setErrorString(CommonUtil.getErrorMessage(e));
 		}
 		return bannerResponse;
 	}
@@ -174,10 +178,11 @@ public class BannerRestServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteBanner(BannerVo bannerVo) {
 		try {
 			bannerService.deleteBanner(bannerVo.getBannerId());
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

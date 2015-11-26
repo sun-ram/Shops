@@ -26,6 +26,11 @@ import org.hibernate.annotations.GenericGenerator;
 		"STORE_ID", "MERCHANT_ID" }))
 public class OrderNumber implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String orderNumberId;
 	private String updatedby;
 	private String createdby;
@@ -112,7 +117,7 @@ public class OrderNumber implements java.io.Serializable {
 		this.merchant = merchant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "STORE_ID", nullable = false)
 	public Store getStore() {
 		return this.store;

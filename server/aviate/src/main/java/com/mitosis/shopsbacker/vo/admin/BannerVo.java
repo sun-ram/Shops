@@ -4,39 +4,24 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.mitosis.shopsbacker.model.Image;
-import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
+/**
+ * @author kathir
+ *
+ */
 @XmlRootElement
 public class BannerVo {
 
 	private String bannerId;
-	private String updatedby;
-	private String createdby;
 	private ImageVo image;
 	private MerchantVo merchant;
 	private StoreVo store;
 	private String tabTitleSmall;
 	private String tabTitleBold;
 	private char isShopsbackerBanner;
-	private char isactive;
-	private Date created;
 	
-	public String getUpdatedby() {
-		return updatedby;
-	}
-	public void setUpdatedby(String updatedby) {
-		this.updatedby = updatedby;
-	}
-	public String getCreatedby() {
-		return createdby;
-	}
-	public void setCreatedby(String createdby) {
-		this.createdby = createdby;
-	}
-	
+ 
 	public StoreVo getStore() {
 		return store;
 	}
@@ -61,18 +46,7 @@ public class BannerVo {
 	public void setIsShopsbackerBanner(char isShopsbackerBanner) {
 		this.isShopsbackerBanner = isShopsbackerBanner;
 	}
-	public char getIsactive() {
-		return isactive;
-	}
-	public void setIsactive(char isactive) {
-		this.isactive = isactive;
-	}
-	public Date getCreated() {
-		return created;
-	}
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+	
 	public Date getUpdated() {
 		return updated;
 	}

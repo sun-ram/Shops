@@ -4,10 +4,7 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -191,7 +188,7 @@ public class Store implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+	@OneToMany(mappedBy = "store")
 	public List<Warehouse> getWarehouses() {
 		return this.warehouses;
 	}

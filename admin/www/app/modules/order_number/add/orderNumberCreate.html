@@ -1,0 +1,41 @@
+<md-card flex-gt-sm="90" flex-gt-md="80">
+   <md-toolbar class=" md-default-theme">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Add Order Number</h2>
+      <span class="close_box">
+	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon> </span>
+    </div>
+    <span class="close_box">
+		 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon>
+	 </span>
+  </md-toolbar>
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+    <form name="storeForm" novalidate>
+    	   
+    <div layout layout-sm="column">
+        <md-input-container layout-padding flex>
+      <label>Starting Number<span style="color:red">*</span></label>
+      <input ng-model="orderNumber.startingNumber" ng-trim="false" >
+    </md-input-container>
+     <md-input-container layout-padding flex>
+      <label>Next Number<span style="color:red">*</span></label>
+      <input ng-model="orderNumber.nextNumber" ng-required="true">
+       </md-input-container>
+    </div>
+    <div layout layout-sm="column">
+        <md-input-container layout-padding flex>
+      <label>Prefix<span style="color:red">*</span></label>
+      <input ng-model="orderNumber.prefix" ng-trim="false" >
+    </md-input-container>
+     <md-input-container layout-padding flex>
+      <label>Suffix<span style="color:red">*</span></label>
+      <input ng-model="orderNumber.suffix" ng-required="true" >
+       </md-input-container>
+    </div>
+    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    	<md-button class="md-raised md-success padd-50" ng-click="addOrderNumber();" ng-disabled="storeForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.ordernumber">Cancel</md-button>
+    </section>
+    </form>
+    </md-content>
+</md-card>

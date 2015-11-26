@@ -18,4 +18,6 @@ public interface OrderNumberDao<T> {
 
 	public void deleteOrderNumber(OrderNumber orderNumber);
 
+	public OrderNumber getOrderNumberById(String orderNumberId);
+
 }

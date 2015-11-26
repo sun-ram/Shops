@@ -1,16 +1,21 @@
 angular.module('aviateAdmin.controllers')
-	.controller("uploadBannerCtrl", 
-	['$scope', '$rootScope', '$state','toastr','CommonServices','BannerServices',
-	 function($scope, $rootScope, $state, toastr, CommonServices, BannerServices) {
-				
-		$scope.uploadFile = function (val1,val2){
-			var id =$('#'+val2).val();
-			var srs=id.replace("C:\\fakepath\\" ,"" );	
-			$('#'+val1).html(srs);
-		}
-		
-		$scope.addBanner = function(bannerDetail){
-			if ($scope.bannerImage == "" || $scope.bannerImage==undefined) {
+.controller("uploadBannerCtrl", 
+		['$scope', '$rootScope', '$state','toastr','CommonServices','BannerServices',
+		 function($scope, $rootScope, $state, toastr, CommonServices, BannerServices) {
+
+			$scope.uploadFile = function (val1,val2){
+				var id =$('#'+val2).val();
+				var srs=id.replace("C:\\fakepath\\" ,"" );	
+				$('#'+val1).html(srs);
+			}
+
+			$scope.addBanner = function(bannerDetail){
+				if ($scope.bannerDetail.tabTitleBold == "" || $scope.bannerDetail.tabTitleBold==undefined) {
+					toastr.warning("Please Enter Banner Title 1");
+					return;
+				}else if ($scope.bannerDetail.tabTitleSmall == "" || $scope.bannerDetail.tabTitleSmall==undefined) {
+					toastr.warning("Please Enter Banner Title 2");					return;
+				}else if ($scope.bannerImage == "" || $scope.bannerImage==undefined) {
 					toastr.warning("Please select banner Image");
 					return;
 				} 
@@ -39,5 +44,5 @@ angular.module('aviateAdmin.controllers')
 					$state.go('app.banner');
 				});
 			}
-						
-	}]);
+
+		}]);

@@ -1,9 +1,9 @@
 angular.module('aviateAdmin.controllers')
 .controller("editBannerCtrl", 
-		['$scope', '$rootScope', '$state','toastr','CommonServices','BannerServices',
-		 function($scope, $rootScope, $state, toastr, CommonServices, BannerServices) {
+		['$scope', '$state','toastr','CommonServices','BannerServices',
+		 function($scope, $state, toastr, CommonServices, BannerServices) {
 
-			$scope.bannerDetail = $rootScope.currentBanner;
+			$scope.bannerDetail = BannerServices.getBannerObj();
 
 			if($scope.bannerDetail != undefined){
 				$scope.bannerImage = $scope.bannerDetail.image.url;

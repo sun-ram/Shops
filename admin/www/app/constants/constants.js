@@ -36,6 +36,9 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ADDDELIVERYTIMESLOT:'Delivery Time Slot Added Successfully',
 	UPDATEDELIVERYTIMESLOT:'Delivery Time Slot Updated Successfully',
 	DELETEDELIVERYTIMESLOT:'Delivery Time Slot Deleted Successfully',
+	ADDORDERNUMBER:'Order Number Added successfully',
+	DELETEORDERNUMBER:'Order Number Deleted successfully',
+	UPDATEORDERNUMBER:'Order Number Updated Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
