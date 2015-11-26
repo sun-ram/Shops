@@ -144,13 +144,13 @@ angular.module('aviate.controllers')
 								$scope.banner.store.storeId = $rootScope.store.storeId;
 								homePageServices.getBannerList($scope.banner).then(function(data){
 									$rootScope.images=data;
+									/*$scope.banner.isShopsbackerBanner = 'Y';
+									homePageServices.getBannerList($scope.banner).then(function(data){
+										$rootScope.images=data;
+									});*/
 								});
-							}else{
-								$scope.banner.isShopsbackerBanner = 'Y';
-								homePageServices.getBannerList($scope.banner).then(function(data){
-									$rootScope.images=data;
-							    });
 							}
+							
 							$state.go('app.home',{},{reload: true});
 						}
 

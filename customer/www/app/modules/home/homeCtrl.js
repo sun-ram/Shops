@@ -3,25 +3,7 @@ angular.module('aviate.controllers')
 		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService','ipCookie',
 		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService, ipCookie) {
 
-			$scope.images = [
-			                 {
-			                	 src: "assets/images/banner1.png",
-			                	 alt: "image 1"
-			                 },
-			                 {
-			                	 src: "assets/images/higgidy_2.jpg",
-			                	 alt: "image 2"
-			                 },
-			                 {
-			                	 src: "assets/images/higgidy_3.jpg",
-			                	 alt: "image 3"
-			                 },
-			                 {
-			                	 src: "assets/images/higgidy_3.jpg",
-			                	 alt: "image 3"
-			                 }
-			                 ]
-
+			
 			$scope.topCategoryList = [
 			                          { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
 			                          { title: 'Two', content: "You can swipe left and right on a mobile device to change tabs."},

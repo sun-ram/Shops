@@ -39,7 +39,7 @@ angular.module('aviateAdmin.controllers')
 			}
 
 			$scope.editBanner = function(banner){
-				BannerServices.setBannerObj = banner;
+				BannerServices.setBannerObj(banner);
 				$state.go('app.editbanner')
 			}
 		}]);

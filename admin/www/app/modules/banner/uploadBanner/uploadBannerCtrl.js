@@ -29,14 +29,6 @@ angular.module('aviateAdmin.controllers')
 					$scope.bannerDetail.store.storeId = $rootScope.user.storeId;
 					$scope.bannerDetail.merchant.merchantId = $rootScope.user.merchantId;
 				}
-				/*if($rootScope.user.storeId != null || $rootScope.user.storeId != undefined){
-				   $scope.bannerDetail.store.storeId = $rootScope.user.storeId;
-					$scope.bannerDetail.store.storeId = 2;
-				}
-				if($rootScope.user.merchantId != null || $rootScope.user.merchantId != undefined){
-					$scope.bannerDetail.merchant.merchantId = $rootScope.user.merchantId;
-					$scope.bannerDetail.merchant.merchantId = 1;
-				}*/
 				$scope.bannerDetail.image.image = $scope.bannerImage.split(",")[1];
 				$scope.bannerDetail.image.type = $scope.bannerImage ? ($scope.bannerImage.substring(11).split(";")[0]) : "";
 				BannerServices.addNewBanner($scope.bannerDetail).then(function(data){

@@ -11,7 +11,8 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.getOrderNumber = function(){
 		$scope.store = {};
-		$scope.store.storeId = $rootScope.user.storeId;
+		/*$scope.store.storeId = $rootScope.user.storeId;*/
+		$scope.store.storeId =2;
 		OrderNumberServices.getOrderNumber($scope.store).then(function(data){
 			$scope.orderNumber=data;
 		});

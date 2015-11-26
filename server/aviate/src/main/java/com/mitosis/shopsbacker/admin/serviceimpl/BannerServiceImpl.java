@@ -156,7 +156,6 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 			storeVo = setStoreVo(banner);
 			bannerVo.setStore(storeVo);
 		}
-		bannerVo.setIsactive(banner.getIsactive());
 		bannerVo.setIsShopsbackerBanner(banner.getIsShopsbackerBanner());
 		bannerVo.setBannerId(banner.getBannerId());
 		bannerVo.setTabTitleBold(banner.getTabTitleBold());
