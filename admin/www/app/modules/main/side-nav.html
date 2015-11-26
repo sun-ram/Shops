@@ -74,7 +74,7 @@
         </a>
         
         <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><!-- <ng-md-icon icon="dashboard" style="fill:#ffffff"> --></ng-md-icon><span class="menuSubHeading" style="padding-left: 10px;">Product</span></md-subheader>
-        	<md-list style="padding-left: 15px !important;">
+        	<md-list style="padding-left: 15px !important;"  ng-hide="sidebarHidden">
 	           <a ui-sref="app.addproducttype">
 		            <md-list-item>
 		           		<div style="float: left; margin: 10px">
@@ -202,8 +202,33 @@
                 </div>
             </md-list-item>
         </a>
-        
-        
+        <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"></ng-md-icon><span class="menuSubHeading" style="padding-left: 10px;">Warehouse & Storagebins</span></md-subheader>
+        	<md-list style="padding-left: 15px !important;"  ng-hide="sidebarHidden">
+	           <a ui-sref="app.warehouse">
+		            <md-list-item>
+		           		<div style="float: left; margin: 10px">
+		               		<ng-md-icon icon="dashboard" style="fill:#ffffff"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Warehouse</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+	       		<a ui-sref="app.storagebin">
+		            <md-list-item>
+		           		<div style="float: left; margin: 10px">
+		               		<ng-md-icon icon="dashboard" style="fill:#ffffff"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Storagebins</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+	         </md-list>
+        <a ui-sref="app.aviateemployees">
+            <md-list-item>
+                <div style="float: left; margin: 10px">
+                    <ng-md-icon icon="dashboard" style="fill:#ffffff"></ng-md-icon>
+                    <span class="textOnMenu" ng-hide="sidebarHidden">Employee</span>
+                </div>
+            </md-list-item>
+        </a>
         
  
         <md-divider></md-divider>
