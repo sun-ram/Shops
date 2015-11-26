@@ -34,7 +34,25 @@ public class ProductVo {
 	private boolean isYourHot;
 	private BigDecimal unit;
 	private String description;
+	private String productTypeId;
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
+	private List<ImageVo> images = new ArrayList<ImageVo>();
+	
+	
+	public List<ImageVo> getImages() {
+		return images;
+	}
+	public void setImages(List<ImageVo> images) {
+		this.images = images;
+	}
+	
+	public String getProductTypeId() {
+		return productTypeId;
+	}
+	public void setProductTypeId(String productTypeId) {
+		this.productTypeId = productTypeId;
+	}
+	
 	public String getProductId() {
 		return productId;
 	}

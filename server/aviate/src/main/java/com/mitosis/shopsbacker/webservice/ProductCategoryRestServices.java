@@ -258,8 +258,15 @@ public class ProductCategoryRestServices<T> {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		List<ProductCategory> productCategoryLeafList = new ArrayList<ProductCategory>();
 		List<ProductCategoryVo> productCategoryLeafListVo = new ArrayList<ProductCategoryVo>();
-		Merchant merchant = merchantService.getMerchantById(productCategoryVo
-				.getMerchant().getMerchantId());
+		Merchant merchant = null;
+		if(productCategoryVo.getMerchant()!=null && productCategoryVo.getMerchant().getMerchantId()!=null ){
+			merchant = merchantService.getMerchantById(productCategoryVo.getMerchant().getMerchantId());
+		}else if(productCategoryVo.getMerchantId()!=null){
+			merchant=  merchantService.getMerchantById(productCategoryVo.getMerchantId());
+		}else if(productCategoryVo.getStoreId()!=null){
+			Store store = storeService.getStoreById(productCategoryVo.getStoreId());
+			merchant =store.getMerchant();
+		}
 		if (merchant != null) {
 			productCategoryLeafList = productCategoryService
 					.getallleafcategorylist(merchant);
@@ -268,6 +275,19 @@ public class ProductCategoryRestServices<T> {
 				productCategoryLeaf.setProductCategoryId(productSingleLeaf
 						.getProductCategoryId());
 				productCategoryLeaf.setName(productSingleLeaf.getName());
+				
+				List<ProductType> productTypes = productSingleLeaf.getProductTypes();
+				List<ProductTypeVo> productTypeVos = new ArrayList<ProductTypeVo>();
+				for(ProductType productType:productTypes){
+					ProductTypeVo productTypeVo= new ProductTypeVo();
+					productTypeVo.setProductTypeId(productType.getProductTypeId());
+					productTypeVo.setName(productType.getName());
+					productTypeVo.setProductCategory(null);
+					productTypeVos.add(productTypeVo);
+				}
+				productCategoryLeaf.setProductTypes(productTypeVos);
+				productCategoryLeaf.setProducts(null);
+				productCategoryLeaf.setCategoriesVo(null);
 				productCategoryLeafListVo.add(productCategoryLeaf);
 			}
 			productCategoryResponseVo

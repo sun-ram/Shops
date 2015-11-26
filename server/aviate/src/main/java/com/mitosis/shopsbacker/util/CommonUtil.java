@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.util;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -28,6 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.sun.jersey.api.client.Client;

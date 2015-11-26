@@ -24,6 +24,10 @@ public class ProductCategoryVo {
 	
 	private MerchantVo merchant;
 	
+	private String merchantId;
+		
+	private String storeId;
+	
 	private ProductCategoryVo category;
 	
 	private List<ProductCategoryVo> categories =new ArrayList<ProductCategoryVo>();
@@ -31,6 +35,23 @@ public class ProductCategoryVo {
 	private List<ProductTypeVo> productTypes =new ArrayList<ProductTypeVo>();
 	
 	private List<ProductVo> products=new ArrayList<ProductVo>();
+	
+	public String getMerchantId() {
+				return merchantId;
+			}
+		
+			public void setMerchantId(String merchantId) {
+				this.merchantId = merchantId;
+			}
+		
+		public String getStoreId() {
+				return storeId;
+			}
+		
+			public void setStoreId(String storeId) {
+				this.storeId = storeId;
+			}
+		
 
 	public List<ProductCategoryVo> getCategoriesVo() {
 		return categories;

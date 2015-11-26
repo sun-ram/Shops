@@ -21,4 +21,7 @@ public interface ImageService<T>  {
 	public ImageVo setImageVo(Image image) throws IOException;
 
 	public void addImage(Image image);
+	
+	public String generateMerchantImageUrl(String url)
+			throws IOException;
 }

@@ -6,13 +6,17 @@ angular.module('aviateAdmin.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					var userDetails = {};
-					userDetails.userId= result.userVo.userId;
-					userDetails.role = result.userVo.role.name;
-					userDetails.storeId = result.userVo.store.storeId;
-					userDetails.merchantId = result.userVo.merchant.merchantId;
-					userDetails.emailId = result.userVo.emailid;
-					userDetails.userName = result.userVo.userName;
-					userDetails.logoUrl = result.userVo.image.url;
+					userDetails.userId= result.user.userId;
+					userDetails.role = result.user.role.name;
+					if(result.user.store){
+					userDetails.storeId = result.user.store.storeId;
+					}
+					userDetails.merchantId = result.user.merchant.merchantId;
+					userDetails.emailId = result.user.emailid;
+					userDetails.userName = result.user.userName;
+					if(result.user.image){
+						userDetails.logoUrl = result.user.image.url;
+					}
 					ipCookie("user",userDetails);
 					d.resolve(userDetails);
 				} else {

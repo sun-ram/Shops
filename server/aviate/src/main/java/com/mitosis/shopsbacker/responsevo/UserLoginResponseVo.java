@@ -7,17 +7,17 @@ import com.mitosis.shopsbacker.vo.admin.UserVo;
 
 public class UserLoginResponseVo extends ResponseModel {
 
-	public UserVo userVo;
+	public UserVo user;
 
 	private List<UserVo> userVoList;
 
-	public UserVo getUserVo() {
-		return userVo;
-	}
+	public UserVo getUser() {
+		 	return user;
+		 	}
 
-	public void setUserVo(UserVo userVo) {
-		this.userVo = userVo;
-	}
+	public void setUser(UserVo user) {
+		 		this.user = user;
+		 	}
 
 	public List<UserVo> getUserVoList() {
 		return userVoList;

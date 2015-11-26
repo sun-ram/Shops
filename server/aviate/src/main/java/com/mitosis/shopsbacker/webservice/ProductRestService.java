@@ -34,8 +34,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
-import com.mitosis.shopsbacker.common.dao.ImageDao;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductImageService;
@@ -55,12 +57,9 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
-import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductImageVo;
-import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
-import com.mitosis.shopsbacker.vo.inventory.UomVo;
 import com.sun.jersey.core.util.Base64;
 
 /**
@@ -285,7 +284,7 @@ public class ProductRestService {
 				productVoList.add(productVos);
 			}
 			
-			productResponse.setProduct(productVoList);
+			productResponse.setProducts(productVoList);
 			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -314,7 +313,7 @@ public class ProductRestService {
 				productVoList.add(productVos);
 			}
 			
-			productResponse.setProduct(productVoList);
+			productResponse.setProducts(productVoList);
 			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -343,7 +342,7 @@ public class ProductRestService {
 				productVoList.add(productVos);
 			}
 			
-			productResponse.setProduct(productVoList);
+			productResponse.setProducts(productVoList);
 			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -372,7 +371,7 @@ public class ProductRestService {
 				productVoList.add(productVos);
 			}
 			
-			productResponse.setProduct(productVoList);
+			productResponse.setProducts(productVoList);
 			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -645,7 +644,7 @@ public class ProductRestService {
 	private void setProductVoForMobile(ProductVo productVo, Product product)
 			throws IOException {
 		productVo.setName(product.getName());
-
+		productVo.setProductId(product.getProductId());
 		if(product.getImage() != null){
 		ImageVo image = imageService.setImageVo(product.getImage());
 		productVo.setImage(image);
@@ -653,31 +652,29 @@ public class ProductRestService {
 
 
 		List<ProductImage> productImageList = product.getProductImages();
-		List<ProductImageVo> productImageVoList  =new  ArrayList<ProductImageVo>();
+		List<ImageVo> imageVoList  =new  ArrayList<ImageVo>();
 		for(ProductImage productImage:productImageList){
-			ProductImageVo productImageVo= new  ProductImageVo();
 			ImageVo image = imageService.setImageVo(productImage.getImage());
-			productImageVo.setImage(image);
-			ProductVo productvo = new ProductVo();
-			productvo.setProductId(product.getProductId());
-			productvo.setName(product.getName());
-			productImageVo.setProduct(productvo);
-			productImageVo.setProductImageId(productImage.getProductImageId());
-			productImageVoList.add(productImageVo);
+			imageVoList.add(image);
 		}
-		productVo.setProductImages(productImageVoList);
+		productVo.setImages(imageVoList);
 	}
 	
-	@Path("/mobilegetproduct")
+	@Path("/getproducts")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public ProductResponseVo getProdutsFromMobile(ProductVo productVo) throws Exception {
+	public String getProdutsFromMobile(ProductVo productVo) throws Exception {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
-			
-				ProductType productType = ProductTypeService.getProductTypeById(productVo.getProductType().getProductTypeId());
+			String productTypeId =null;
+			if(productVo.getProductType()!=null && productVo.getProductType().getProductTypeId()!=null){
+				productTypeId=productVo.getProductType().getProductTypeId();
+			}else if(productVo.getProductTypeId()!=null){
+				productTypeId=productVo.getProductTypeId();
+			}
+				ProductType productType = ProductTypeService.getProductTypeById(productTypeId);
 				
 				List<Product> productList = productType.getProducts();
 				List<ProductVo> productVoList = new ArrayList<ProductVo>();
@@ -686,7 +683,7 @@ public class ProductRestService {
 					setProductVoForMobile(productvo, product);
 					productVoList.add(productvo);
 				}
-				productResponse.setProduct(productVoList);
+				productResponse.setProducts(productVoList);
 				productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 			
 		} catch (Exception e) {
@@ -694,7 +691,20 @@ public class ProductRestService {
 			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			productResponse.setErrorString(e.getMessage());
 		}
-		
-		return productResponse;
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Include.NON_NULL);
+		mapper.setSerializationInclusion(Include.NON_EMPTY);
+		//mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		String responseString = null;
+		try {
+			responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			 throw e;
+			
+		}
+		return responseString;
 	}
 }

@@ -25,7 +25,9 @@ import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.CommonService;
+import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
+import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
@@ -71,6 +73,9 @@ public class UserRestServices<T> {
 
 	@Autowired
 	MerchantService<T> merchantService;
+	
+	@Autowired
+    ImageService<T> imageService;
 
 	@Path("/login")
 	@POST
@@ -89,7 +94,7 @@ public class UserRestServices<T> {
 				}
 				if (user != null && flag) {
 					userDetails = setUserDetails(user);
-					userLoginResponseVo.setUserVo(userDetails);
+					userLoginResponseVo.setUser(userDetails);
 				} else {
 					userLoginResponseVo
 							.setErrorCode(SBErrorMessage.INVALID_USERNAME
@@ -113,7 +118,7 @@ public class UserRestServices<T> {
 		return userLoginResponseVo;
 	}
 
-	public UserVo setUserDetails(User user) {
+	public UserVo setUserDetails(User user) throws Exception {  
 		UserVo userDetails = new UserVo();
 		userDetails.setUserId(user.getUserId());
 		userDetails.setName(user.getName());
@@ -129,7 +134,7 @@ public class UserRestServices<T> {
 	}
 
 	public ImageVo setUserImageDetails(User user) {
-		ImageVo image = new ImageVo();
+		ImageVo image = null;
 		if (user.getImage() != null) {
 			image.setName(user.getImage().getName());
 			image.setType(user.getImage().getType());
@@ -150,19 +155,27 @@ public class UserRestServices<T> {
 
 	}
 
-	public MerchantVo setMerchant(User user) {
+	public MerchantVo setMerchant(User user) throws Exception {
 		MerchantVo merchantVo = new MerchantVo();
-		if (user.getMerchant() != null) {
-			merchantVo.setMerchantId(user.getMerchant().getMerchantId());
-			merchantVo.setName(user.getMerchant().getName());
+		Merchant merchant = user.getMerchant();
+				if ( merchant!= null) {
+					merchantVo.setMerchantId(merchant.getMerchantId());
+					merchantVo.setName(merchant.getName());
+					Image logo = merchant.getLogo();
+					if(logo!=null){
+					ImageVo logoVo=new ImageVo();
+					logoVo.setUrl(imageService.generateMerchantImageUrl(logo.getUrl()));
+					merchantVo.setLogo(logoVo);
+					}
 		}
 		return merchantVo;
 
 	}
 
 	public StoreVo setStore(User user) {
-		StoreVo storeVo = new StoreVo();
+		StoreVo storeVo = null;
 		if (user.getStore() != null) {
+			storeVo = new StoreVo();
 			storeVo.setStoreId(user.getStore().getStoreId());
 			storeVo.setName(user.getStore().getName());
 		}

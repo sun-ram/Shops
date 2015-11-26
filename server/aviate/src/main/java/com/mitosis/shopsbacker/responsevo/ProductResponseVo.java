@@ -9,7 +9,7 @@ import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 public class ProductResponseVo extends ResponseModel{
 	
-	public List<ProductVo> productList;
+	public List<ProductVo> products;
 	
 	public ProductVo product;
 	
@@ -23,17 +23,22 @@ public class ProductResponseVo extends ResponseModel{
 		this.fileInByteArrayString = fileInByteArrayString;
 	}
 
-	public List<ProductVo> getProduct() {
-		return productList;
+	public List<ProductVo> getProducts() {
+		return products;
 	}
 
-	public void setProduct(List<ProductVo> product) {
-		this.productList = product;
+	public void setProducts(List<ProductVo> product) {
+		this.products = product;
 	}
 
 	public void setProduct(ProductVo product) {
 		this.product = product;
 	}
+	
+	public  ProductVo getProduct() {
+		return product;
+	}
+
 
 
 	

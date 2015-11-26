@@ -4,6 +4,8 @@ package com.mitosis.shopsbacker.vo.admin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.customer.RoleVo;
@@ -12,6 +14,7 @@ import com.mitosis.shopsbacker.vo.customer.RoleVo;
  * User Created by Sundaram C.
  */
 @XmlRootElement
+@JsonInclude(Include.NON_EMPTY)
 public class UserVo  {
 
 	private String userId;
