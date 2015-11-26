@@ -209,16 +209,22 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public StoreResponseVo getStoreList() {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getStoreList();
+			List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			for (Store store : stores) {
 				StoreVo storeVo = storeService.setStoreVo(store);
-				storeResponse.getStore().add(storeVo);
+				storeVo.setMerchant(null);
+				storeVoList.add(storeVo);
 			}
+			storeResponse.setStore(storeVoList);
 		} catch (Exception e) {
 			e.printStackTrace();
+			storeResponse.setErrorString(e.getMessage());
+			storeResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			log.error(e.getMessage());
 		}
 		return storeResponse;

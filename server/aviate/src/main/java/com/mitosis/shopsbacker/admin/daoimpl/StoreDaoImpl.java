@@ -152,11 +152,11 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Store> getStoreList() {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
-					"store");
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {
