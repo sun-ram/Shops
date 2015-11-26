@@ -1056,7 +1056,63 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.SalesOrder.getShoperDetails = function (userVo, callback) {
+			httpRequest("POST", "user/getShoperDetails", userVo, function (err, data) {
+				if (err) {
 
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.SalesOrder.getBackerDetails = function (userVo, callback) {
+			httpRequest("POST", "user/getBackerDetails", userVo, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.SalesOrder.updateShoperIntoSalesOrder = function (salesOrder, callback) {
+			httpRequest("POST", "sales/updateShoperIntoSalesOrder", salesOrder, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.SalesOrder.updateBackerIntoSalesOrder = function (salesOrder, callback) {
+			httpRequest("POST", "sales/updateBackerIntoSalesOrder", salesOrder, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		apiClass.SalesOrder.getSalesByDate = function (salesorder, callback) {
 			httpRequest("POST", "sales/getorderlistbydate", salesorder, function (err, data) {
 				if (err) {

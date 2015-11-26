@@ -1,0 +1,35 @@
+
+<md-dialog aria-label="Category"  ng-cloak>
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{heading}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+   
+   
+   
+    <md-select ng-model="shoper"
+			ng-required="true" placeholder="Choose Shopper"> <md-option
+			ng-repeat="user in userList1" value="{{user.userId}}">
+		{{user.name}} </md-option> </md-select> 
+   <!-- <md-input-container flex> <input type="text" ng-model="productCategory.Name"/></md-input-container> -->
+   
+   
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()" >
+    Cancel
+    </md-button>
+    <md-button ng-click="assignShopper()" style="margin-right:20px;" >
+     Assign
+    </md-button>
+  </div>
+  </form>
+</md-dialog>
