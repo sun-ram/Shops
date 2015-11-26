@@ -14,7 +14,7 @@
 	    </md-toolbar>
     </div>
     <md-list class="slide-hover" ng-if="user.role == 'SUPERADMIN'">
-    	<md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Super Admin</span></md-subheader>
+    	<md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Menu</span></md-subheader>
         <a ui-sref="app.super_admin_dashboard" ng-click="tabChoosen('dashboard');">
             <md-list-item ng-class="{optionSelected : (currentOption == 'dashboard')}">
                 <div style="float: left; margin: 10px">
@@ -55,7 +55,7 @@
         <!--        <ul class="padd-0"><li><a ui-sref="app.super_admin_dashboard"><md-list-item md-ink-ripple="#71A442" layout-align="start center"><ng-md-icon layout-padding icon="book"></ng-md-icon><p layout-padding class="ft-black">Dashboard</p></md-list-item></a></li><li><a ui-sref="app.merchants"><md-list-item md-ink-ripple="#71A442" layout-align="start center"><ng-md-icon layout-padding icon="book"></ng-md-icon><p layout-padding class="ft-black">Merchant</p></md-list-item></a></li><li><a ui-sref="app.units"><md-list-item md-ink-ripple="#71A442" layout-align="start center"><ng-md-icon layout-padding icon="face"></ng-md-icon><p layout-padding class="ft-black">Unit Of Measurement</p></md-list-item></a></li></ul>   -->
     </md-list>
     <md-list class="slide-hover" ng-if="user.role == 'MERCHANTADMIN'">
-    <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Merchant Admin</span></md-subheader>
+    <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Menu</span></md-subheader>
         <a ui-sref="app.merchant_admin_dashboard" ng-click="tabChoosen('dashboard');">
             <md-list-item ng-class="{optionSelected : (currentOption == 'dashboard')}">
                 <div style="float: left; margin: 10px">
@@ -72,43 +72,7 @@
                 </div>
             </md-list-item>
         </a>
-        
-        <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><!-- <ng-md-icon icon="dashboard" style="fill:#ffffff"> --></ng-md-icon><span class="menuSubHeading" style="padding-left: 10px;">Product</span></md-subheader>
-        	<md-list style="padding-left: 15px !important;"  ng-hide="sidebarHidden">
-	           <a ui-sref="app.addproducttype" ng-click="tabChoosen('productcategory');">
-		            <md-list-item ng-class="{optionSelected : (currentOption == 'productcategory')}">
-		           		<div style="float: left; margin: 10px">
-		               		<ng-md-icon icon="shopping_cart" style="fill:#ffffff"></ng-md-icon>
-		               		<span class="textOnMenu" ng-hide="sidebarHidden">Product Category</span>
-		              	</div>
-		           	</md-list-item>
-	       		</a>
-	       		<a ui-sref="app.products" ng-click="tabChoosen('products');">
-		            <md-list-item ng-class="{optionSelected : (currentOption == 'products')}">
-		           		<div style="float: left; margin: 10px">
-		               		<ng-md-icon icon="shopping_basket" style="fill:#ffffff"></ng-md-icon>
-		               		<span class="textOnMenu" ng-hide="sidebarHidden">Products</span>
-		              	</div>
-		           	</md-list-item>
-	       		</a>
-	       		<a ui-sref="app.units" ng-click="tabChoosen('unitofmeasure');">
-		            <md-list-item ng-class="{optionSelected : (currentOption == 'unitofmeasure')}">
-		           		<div style="float: left; margin: 10px">
-		               		<md-icon md-svg-icon="assets/svgicon/unitofmeasurement.svg"></md-icon>
-		               		<span class="textOnMenu" ng-hide="sidebarHidden">Unit Of Measure</span>
-		              	</div>
-		           	</md-list-item>
-	       		</a>
-	       		<a ui-sref="app.deliveryTimeSlot" ng-click="tabChoosen('deliverytimeslots');">
-		            <md-list-item ng-class="{optionSelected : (currentOption == 'deliverytimeslots')}">
-		           		<div style="float: left; margin: 10px">
-		               		<ng-md-icon icon="access_time" style="fill:#ffffff"></ng-md-icon>
-		               		<span class="textOnMenu" ng-hide="sidebarHidden">Delivery Time Slots</span>
-		              	</div>
-		           	</md-list-item>
-	       		</a>
-	         </md-list>
-         <a ui-sref="app.salesorder" ng-click="tabChoosen('salesorder');">
+        <a ui-sref="app.salesorder" ng-click="tabChoosen('salesorder');">
             <md-list-item ng-class="{optionSelected : (currentOption == 'salesorder')}">
                 <div style="float: left; margin: 10px">
                     <ng-md-icon icon="description" style="fill:#ffffff"></ng-md-icon>
@@ -149,11 +113,46 @@
                 </div>
             </md-list-item>
         </a>
+        
+    <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Product</span></md-subheader>
+	           <a ui-sref="app.addproducttype" ng-click="tabChoosen('productcategory');">
+		            <md-list-item ng-class="{optionSelected : (currentOption == 'productcategory')}">
+		           		<div style="float: left; margin: 10px">
+		               		<ng-md-icon icon="shopping_cart" style="fill:#ffffff"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Product Category</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+	       		<a ui-sref="app.products" ng-click="tabChoosen('products');">
+		            <md-list-item ng-class="{optionSelected : (currentOption == 'products')}">
+		           		<div style="float: left; margin: 10px">
+		               		<ng-md-icon icon="shopping_basket" style="fill:#ffffff"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Products</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+	       		<a ui-sref="app.units" ng-click="tabChoosen('unitofmeasure');">
+		            <md-list-item ng-class="{optionSelected : (currentOption == 'unitofmeasure')}">
+		           		<div style="float: left; margin: 10px">
+		               		<md-icon md-svg-icon="assets/svgicon/unitofmeasurement.svg"></md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Unit Of Measure</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+	       		<a ui-sref="app.deliveryTimeSlot" ng-click="tabChoosen('deliverytimeslots');">
+		            <md-list-item ng-class="{optionSelected : (currentOption == 'deliverytimeslots')}">
+		           		<div style="float: left; margin: 10px">
+		               		<ng-md-icon icon="access_time" style="fill:#ffffff"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Delivery Time Slots</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+         
  
         <md-divider></md-divider>
     </md-list>
     <md-list class="slide-hover" ng-if="user.role == 'STOREADMIN'">
-    <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Store Admin</span></md-subheader>
+    <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Menu</span></md-subheader>
         <a ui-sref="app.store_admin_dashboard" ng-click="tabChoosen('dashboard');">
             <md-list-item ng-class="{optionSelected : (currentOption == 'DashBoard')}">
                 <div style="float: left; margin: 10px">
@@ -210,8 +209,15 @@
                 </div>
             </md-list-item>
         </a>
+         <a ui-sref="app.aviateemployees" ng-click="tabChoosen('employee');">
+            <md-list-item ng-class="{optionSelected : (currentOption == 'employee')}">
+                <div style="float: left; margin: 10px">
+                    <ng-md-icon icon="person" style="fill:#ffffff"></ng-md-icon>
+                    <span class="textOnMenu" ng-hide="sidebarHidden">Employee</span>
+                </div>
+            </md-list-item>
+        </a>
         <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"></ng-md-icon><span class="menuSubHeading" style="padding-left: 10px;">Warehouse & Storagebins</span></md-subheader>
-        	<md-list style="padding-left: 15px !important;"  ng-hide="sidebarHidden">
 	           <a ui-sref="app.warehouse" ng-click="tabChoosen('warehouse');">
 		            <md-list-item ng-class="{optionSelected : (currentOption == 'warehouse')}">
 		           		<div style="float: left; margin: 10px">
@@ -228,15 +234,7 @@
 		              	</div>
 		           	</md-list-item>
 	       		</a>
-	         </md-list>
-        <a ui-sref="app.aviateemployees" ng-click="tabChoosen('employee');">
-            <md-list-item ng-class="{optionSelected : (currentOption == 'employee')}">
-                <div style="float: left; margin: 10px">
-                    <ng-md-icon icon="person" style="fill:#ffffff"></ng-md-icon>
-                    <span class="textOnMenu" ng-hide="sidebarHidden">Employee</span>
-                </div>
-            </md-list-item>
-        </a>
+       
         
  
         <md-divider></md-divider>
