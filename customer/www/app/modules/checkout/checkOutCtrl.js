@@ -78,7 +78,7 @@ angular.module('aviate.controllers')
 	
 
 	$scope.getTimeSlot = function(){
-		CheckOutServices.getTimeSlot({'merchant':{'merchantId':'ff80818151243f11015124626cfc0010'}}).then(function(data) {
+		CheckOutServices.getTimeSlot({'merchant':{'merchantId':$rootScope.store.merchant.merchantId}}).then(function(data) {
 			$scope.deliveryTimeSlots = data;
 			$scope.deliveryTime = $scope.deliveryTimeSlots[0];
 			$scope.deliveryTime.index = 0;
