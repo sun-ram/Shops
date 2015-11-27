@@ -271,7 +271,7 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel ProductByType(ProductVo productVo) {
+	public String ProductByType(ProductVo productVo) throws Exception {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			ProductType productType = ProductTypeService.getProductTypeById(productVo.getProductType().getProductTypeId());
@@ -291,7 +291,7 @@ public class ProductRestService {
 			productResponse.setErrorString(e.getMessage());
 		}
 		
-		return productResponse;
+		return CommonUtil.getObjectMapper(productResponse);
 
 		}
 	

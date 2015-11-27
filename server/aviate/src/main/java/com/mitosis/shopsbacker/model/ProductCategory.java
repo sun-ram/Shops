@@ -197,7 +197,7 @@ public class ProductCategory implements java.io.Serializable {
 		this.products = products;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE,mappedBy = "parentCategory")
+	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.REMOVE,mappedBy = "parentCategory")
 	public List<ProductCategory> getProductCategories() {
 		return this.productCategories;
 	}

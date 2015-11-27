@@ -1,27 +1,28 @@
-<md-card flex-gt-sm="90" flex-gt-md="80">
-   <md-toolbar class=" md-default-theme">
+
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Add Tax</h2>
-      <span class="close_box">
-	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon> </span>
+      <h3 class="md-flex" style="margin-left:-10px;">Add Tax</h3>
+     <!--  <span class="close_box">
+	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon> </span>-->
     </div>
-    <span class="close_box">
+    <!-- <span class="close_box">
 		 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon>
-	 </span>
+	 </span> -->
   </md-toolbar>
+ <md-card flex-gt-sm="90" flex-gt-md="80"> 
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
     <form name="storeForm" novalidate>
     	    <div layout layout-sm="column">
     
         <md-input-container layout-padding flex>
       <label>Tax Name<span style="color:red">*</span></label>
-      <input ng-model="tax.name" ng-trim="false"  ng-maxlength="19">
+      <input ng-model="tax.name" ng-trim="false"  ng-maxlength="100">
     </md-input-container>
      <md-input-container layout-padding flex>
       <label>Tax Percentage<span style="color:red">*</span></label>
       <input ng-model="tax.taxPercentage" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
       <span ng-message="required" ng-show="storeForm.phoneNo.$error.maxlength" style="color:red;">
-       Enter phoneNo within 20 digit</span>
+       Enter Tax Percentage within 20 digit</span>
 		      
     </md-input-container>
     </div>
