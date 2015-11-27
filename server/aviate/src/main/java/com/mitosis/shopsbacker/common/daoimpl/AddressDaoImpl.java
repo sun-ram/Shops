@@ -19,9 +19,10 @@ import com.mitosis.shopsbacker.model.User;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 27/11/2015
  */
 @Repository
-@Transactional
 public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements AddressDao<T>, Serializable {
 
 	/**

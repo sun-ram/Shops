@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ShippingCharges;
@@ -48,33 +46,28 @@ ShippingChargesService<T>, Serializable {
 	}
 
 	@Override
-	@Transactional
 	public List<ShippingCharges> getShippingCharges(Merchant merchant) {
 		return shippingChargesDao.getShippingCharges(merchant);
 	}
 
 	@Override
-	@Transactional
 	public void saveShippingCharges(ShippingCharges shippingCharges) {
 		shippingChargesDao.saveShippingCharges(shippingCharges);
 
 	}
 
 	@Override
-	@Transactional
 	public void updateShippingCharges(ShippingCharges shippingCharges) {
 		shippingChargesDao.updateShippingCharges(shippingCharges);
 
 	}
 
 	@Override
-	@Transactional
 	public ShippingCharges getShippingChargesById(String id) {
 		return shippingChargesDao.getShippingChargesById(id);
 	}
 
 	@Override
-	@Transactional
 	public void deleteShippingCharges(String id) {
 		shippingChargesDao.deleteShippingCharges(id);
 	}
@@ -105,6 +98,10 @@ ShippingChargesService<T>, Serializable {
 		return shippingCharges;
 	}
 
+	public List<ShippingCharges> getShippingChargesList(String id,BigDecimal amountRange,
+			Merchant merchant){
+		return shippingChargesDao.getShippingChargesList(id,amountRange,merchant);
+	}
 
 
 

@@ -1,16 +1,19 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="shopList()">
-   <md-toolbar class=" md-default-theme">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex">Warehouse</h2>
-     <span class="close_box">
-     <ng-md-icon class="icon-white svgstyle" size="35" ng-if="warehouse.status==true" icon="close" ui-sref="app.warehouseDetails"></ng-md-icon>
-	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-if="warehouse.status==null" icon="close" ui-sref="app.warehouse"></ng-md-icon> 
-    </span>
-    </div>
+<div ng-init="shopList()">
+     
+  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+   		<div class="md-toolbar-tools ">	
+			 	<h3 style="margin-left:-10px;" class="md-layout-column">Warehouse</h3>     	
+		</div> 
   </md-toolbar>
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+
+  <md-card flex-gt-sm="90" flex-gt-md="80">
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
       <form name="warehouseForm" novalidate>
-      <div layout layout-sm="column">
+      
+      <div layout="row" layout-sm="column">
+      
+      <div flex>
+		<div layout-padding>
 	    <md-input-container layout-padding  flex>
 	       <label>Name<span style="color:red">*</span></label>
 	      <input ng-model="warehouse.name" ng-required="true">
@@ -19,24 +22,25 @@
 	       <label>Description<span style="color:red">*</span></label>
 	      <input ng-model="warehouse.description" ng-required="true">
 	    </md-input-container>
-    </div>
-    <div layout layout-sm="column">
-	    <md-input-container layout-padding  flex>
+        <md-input-container layout-padding  flex>
 	       <label>Address-1<span style="color:red">*</span></label>
 	    
 	       <input name="address1" ng-model="warehouse.address.address1" ng-required="true" ng-maxlength="150">
 		      <span ng-message="required" ng-show="warehouseForm.address1.$error.maxlength" style="color:red;">
-      Enter address within 150 characters</span>
+     		 Enter address within 150 characters</span>
 	    </md-input-container>
 	    <md-input-container layout-padding  flex>
 	       <label>Address-2<span style="color:red">*</span></label>
 	      
 	       <input name="address2" ng-model="warehouse.address.address2" ng-required="true" ng-maxlength="150">
 		      <span ng-message="required" ng-show="warehouseForm.address2.$error.maxlength" style="color:red;">
-      Enter address within 150 characters</span>
+      		Enter address within 150 characters</span>
 	    </md-input-container>  
 	  </div>
-	  <div layout layout-sm="column">  
+	  </div>
+	  
+	  <div flex>
+		<div layout-padding>  
 		    <md-input-container layout-padding  flex>
 		       <label>City<span style="color:red">*</span></label>
 		      <input ng-model="warehouse.address.city" ng-required="true">
@@ -49,9 +53,7 @@
 		            </md-option>
           		</md-select>
     		</md-input-container>
-	    </div>
-	   <div layout layout-sm="column"> 
-	      <md-input-container layout-padding flex>
+	        <md-input-container layout-padding flex>
        			<label>State<span style="color:red">*</span></label>
          		<md-select ng-model="state" ng-required="true">
 		            <md-option ng-repeat="state in states" value="{{state}}">
@@ -59,17 +61,32 @@
 		            </md-option>
           		</md-select>
     		</md-input-container>
-	    <md-input-container layout-padding  flex>
-	       <label>Postal Code<span style="color:red">*</span></label>
-	      <input ng-model="warehouse.address.pinCode" valid-number ng-required="true">
-	    </md-input-container>
+	    	<md-input-container layout-padding  flex>
+		       <label>Postal Code<span style="color:red">*</span></label>
+		      <input ng-model="warehouse.address.pinCode" valid-number ng-required="true">
+		    </md-input-container>
     </div>
-    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    </div>
+    </div>
+    <!-- <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
     	<md-button class="md-raised md-success padd-50" ng-show="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Update</md-button>
     	<md-button class="md-raised md-success padd-50" ng-hide="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Create</md-button>
     	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==true"  ng-click="warehouseDetails(warehouse)">Cancel</md-button>
     	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==null"  ui-sref="app.warehouse">Cancel</md-button>
-    </section>
+    </section> -->
+    
+    <div layout="row" layout-sm="column">
+		  	<div flex>
+		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
+			    	<md-button class="md-raised md-success padd-50" ng-show="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Update</md-button>
+			    	<md-button class="md-raised md-success padd-50" ng-hide="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Create</md-button>
+			    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==null"  ui-sref="app.warehouse">Cancel</md-button>
+			    	<!-- <md-button class="md-raised md-success padd-50" ng-click="addStore();" ng-disabled="storeForm.$invalid">Create</md-button>
+			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button> -->
+			    </section>
+		  	</div>
+		  </div>	
     </form>
     </md-content>
 </md-card>
+</div>

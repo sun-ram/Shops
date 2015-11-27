@@ -1,7 +1,5 @@
 package com.mitosis.shopsbacker.webservice;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,41 +13,45 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
-import com.mitosis.shopsbacker.model.Image;
-import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.ProductCategory;
-import com.mitosis.shopsbacker.model.Role;
-import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.responsevo.AddressResponseVo;
 import com.mitosis.shopsbacker.responsevo.CustomerLoginResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
-import com.mitosis.shopsbacker.vo.admin.MerchantVo;
-import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
+
+/**
+ * @author Fayaz
+ *
+ * @param <T>
+ * 
+ *  Reviewed by Sundaram 27/11/2015
+ */
 
 @Path("customer")
 @Controller("customerRestService")
 public class CustomerRestService<T> {
-
-	ResponseModel response = new ResponseModel();
 
 	@Autowired
 	CustomerService<T> customerService;
 	
 	@Autowired
 	AddressService<T> addressService;
+	
+	ResponseModel response = null;
+	CustomerLoginResponseVo customerLoginResponseVo=null;
+	CustomerVo customerDetails,customerVoSet=null;
+	Customer customer,customerEmailChecking,customerPhoneNoChecking,newCustomer = null;
+	Address address =null;
+	AddressResponseVo addressResponseList = null;
+	CustomerVo customerVo = null;
 	
 	@Path("/login")
 	@POST
@@ -58,10 +60,10 @@ public class CustomerRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userLogin(CustomerVo customerVo) throws Exception {
 		boolean flag = false;
-		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
-		CustomerVo customerDetails = new CustomerVo();
+		customerLoginResponseVo = new CustomerLoginResponseVo();
+		customerDetails = new CustomerVo();
 		if (customerVo != null) {
-			Customer customer = customerService
+			customer = customerService
 					.getCustomerInfoByEmail(customerVo.getEmail());
 			if (customer != null) {
 				flag = CommonUtil.passwordVerification(
@@ -93,22 +95,22 @@ public class CustomerRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userSignUp(CustomerVo customerVo)
 			throws Exception {
-		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
+		customerLoginResponseVo = new CustomerLoginResponseVo();
 		if (customerVo.getEmail() != null) {
-			Customer customerEmailChecking = new Customer();
-			Customer customerPhoneNoChecking = new Customer();
+			customerEmailChecking = new Customer();
+			customerPhoneNoChecking = new Customer();
 			customerEmailChecking = customerService
 					.getCustomerInfoByEmail(customerVo.getEmail());
 			customerPhoneNoChecking = customerService
 					.getCustomerInfoByPhoneNo(customerVo.getPhoneNo());
 			if (customerEmailChecking == null
 					&& customerPhoneNoChecking == null) {
-				Customer newCustomer = new Customer();
+				newCustomer = new Customer();
 				newCustomer = customerDetails(customerVo);
 				newCustomer.setIsactive('Y');
 				customerService.saveCustomer(newCustomer);
 				if (newCustomer.getCustomerId() != null) {
-					CustomerVo customerVoSet = new CustomerVo();
+					customerVoSet = new CustomerVo();
 					customerVoSet.setCustomerId(newCustomer.getCustomerId());
 					customerVoSet.setEmail(newCustomer.getEmail());
 					customerLoginResponseVo.setCustomer(customerVoSet);
@@ -156,13 +158,14 @@ public class CustomerRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addAddress(AddressVo addressVo) throws Exception {
+		response=new ResponseModel();
 		if (addressVo.getCustomer().getCustomerId() != null) {
 			String full_address = addressVo.getAddress1()+","+addressVo.getAddress2()+","+
 								  addressVo.getCity()+","+addressVo.getCountry();	
 			JsonNode location = CommonUtil.getLatLong(full_address);
-			Customer customer = customerService
+			customer = customerService
 					.getCustomerInfoById(addressVo.getCustomer().getCustomerId());
-			Address address = addressService.setAddress(addressVo);
+			address = addressService.setAddress(addressVo);
 			address.setCustomer(customer);
 			if(addressVo.getAddressId()==null){
 				addressService.saveAddress(address);
@@ -180,8 +183,8 @@ public class CustomerRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public AddressResponseVo getCustomerAddress(CustomerVo customerVo) throws Exception {
-		AddressResponseVo addressResponseList = new AddressResponseVo();
-			Customer customer = customerService
+		addressResponseList = new AddressResponseVo();
+			customer = customerService
 					.getCustomerInfoById(customerVo.getCustomerId());
 			List<Address> addressList = addressService.getAddress(customer);
 			for(Address address: addressList){
@@ -198,6 +201,7 @@ public class CustomerRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteAddress(AddressVo addressVo) throws Exception {
+		response=new ResponseModel();
 		if (addressVo.getAddressId() != null) {
 			Address address = addressService.getAddress(addressVo.getAddressId());
 			addressService.deleteAddress(address);
@@ -208,7 +212,7 @@ public class CustomerRestService<T> {
 
 
 	public Customer customerDetails(CustomerVo customerVo) throws Exception {
-		Customer customer = (Customer) CommonUtil
+		customer = (Customer) CommonUtil
 				.setAuditColumnInfo(Customer.class.getName());
 		customer.setEmail(customerVo.getEmail());
 		customer.setPhoneNo(customerVo.getPhoneNo());
@@ -219,7 +223,7 @@ public class CustomerRestService<T> {
 	}
 
 	public CustomerVo setCustomerDetails(Customer customer) {
-		CustomerVo customerVo = new CustomerVo();
+		customerVo = new CustomerVo();
 		customerVo.setCustomerId(customer.getCustomerId());
 		customerVo.setName(customer.getName());
 		customerVo.setEmail(customer.getEmail());

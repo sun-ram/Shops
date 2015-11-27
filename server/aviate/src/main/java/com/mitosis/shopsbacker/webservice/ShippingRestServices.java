@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mitosis.shopsbacker.order.service.ShippingChargesService;
 import com.mitosis.shopsbacker.responsevo.ShippingChargesResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
+import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.order.ShippingChargesVo;
@@ -71,8 +72,22 @@ public class ShippingRestServices<T> {
 	public ResponseModel addShippingCharges(ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
-			ShippingCharges shippingCharges = getShippingChargeService().setShippingCharges(shippingChargesVo);
-			shippingChargeService.saveShippingCharges(shippingCharges);
+			String id = null;
+			Merchant merchat = merchantService.getMerchantById(shippingChargesVo.getMerchantVo().getMerchantId());
+			List<ShippingCharges> shippingChargeList = shippingChargeService.getShippingChargesList(id,shippingChargesVo.getAmountRange(),merchat);
+			if(shippingChargeList.isEmpty()){
+				ShippingCharges shippingCharges = getShippingChargeService().setShippingCharges(shippingChargesVo);
+				shippingChargeService.saveShippingCharges(shippingCharges);
+				return response;
+			}else{
+				response.setErrorCode(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
+						.getCode());
+				response.setErrorString(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -89,10 +104,25 @@ public class ShippingRestServices<T> {
 	public ResponseModel updateShippingCharges(ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
+			
+			String id = shippingChargesVo.getShippingChargesId();
 			ShippingCharges shippingCharge = shippingChargeService.getShippingChargesById(shippingChargesVo.getShippingChargesId());
-			shippingCharge.setChargingAmount(shippingChargesVo.getChargingAmount());
-			shippingCharge.setAmountRange(shippingChargesVo.getAmountRange());
-			shippingChargeService.updateShippingCharges(shippingCharge);
+			Merchant merchat = shippingCharge.getMerchant();
+			List<ShippingCharges> shippingChargeList = shippingChargeService.getShippingChargesList(id,shippingChargesVo.getAmountRange(),merchat);
+			if(shippingChargeList.isEmpty()){
+				shippingCharge.setChargingAmount(shippingChargesVo.getChargingAmount());
+				shippingCharge.setAmountRange(shippingChargesVo.getAmountRange());
+				shippingChargeService.updateShippingCharges(shippingCharge);
+				return response;
+			}else{
+				response.setErrorCode(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
+						.getCode());
+				response.setErrorString(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

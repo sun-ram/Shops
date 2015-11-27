@@ -146,7 +146,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product.setIsactive('Y');
 		}else{
 			
-				product = productDao.getProduct(productVo.getName());
+				product = productDao.getProductByName(productVo.getName());
 			
 			product.setUpdated(new Date());
 			//TODO need to get user from session and set to updatedby

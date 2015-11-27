@@ -72,7 +72,10 @@ public class TaxRestService<T> {
 	public ResponseModel addTax(TaxVo taxVo) {
 		response = new ResponseModel();
 		try {
-			List<Tax> taxList = taxService.getTaxListByName(taxVo.getName());
+			String texId = null;
+			String name = taxVo.getName();
+			Merchant merchat = merchantService.getMerchantById(taxVo.getMerchantVo().getMerchantId());
+			List<Tax> taxList = taxService.getTaxListByName(texId,name,merchat);
 			if(taxList.isEmpty()){
 				Tax tax = getTaxService().setTax(taxVo);
 				taxService.addTax(tax);
@@ -101,10 +104,25 @@ public class TaxRestService<T> {
 	public ResponseModel updateTax(TaxVo taxVo) {
 		response = new ResponseModel();
 		try {
+			String texId = taxVo.getTaxId();
+			String name = taxVo.getName();
 			Tax tax = taxService.getTaxById(taxVo.getTaxId());
-			tax.setTaxPercentage(taxVo.getTaxPercentage());
-			tax.setName(taxVo.getName());
-			taxService.updateTax(tax);
+			Merchant merchat = tax.getMerchant();
+			List<Tax> taxList = taxService.getTaxListByName(texId,name,merchat);
+			if(taxList.isEmpty()){
+				tax.setTaxPercentage(taxVo.getTaxPercentage());
+				tax.setName(taxVo.getName());
+				taxService.updateTax(tax);
+				return response;
+			}else{
+				response.setErrorCode(SBErrorMessage.TAX_NAME_ALREADY_EXIST
+						.getCode());
+				response.setErrorString(SBErrorMessage.TAX_NAME_ALREADY_EXIST
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

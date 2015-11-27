@@ -1,36 +1,45 @@
-<md-card flex-gt-sm="90" flex-gt-md="80">
-  <md-toolbar class=" md-default-theme">
+
+  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Update Order Number</h2>
+      <h3 style="margin-left:-10px;" class="md-flex">Update Order Number</h3>
     </div>
-     <span ng-hide="fromDetailsPage" class="close_box">
+    <!--  <span ng-hide="fromDetailsPage" class="close_box">
     	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon> 
     </span> 
      <span ng-show="fromDetailsPage" class="close_box">
     	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="redirectToTax(tax)"></ng-md-icon> 
-    </span> 
+    </span>  -->
   </md-toolbar>
+ <md-card flex-gt-sm="90" flex-gt-md="80"> 
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
     <form name="storeForm" novalidate>
  
     	 <div layout layout-sm="column">
         <md-input-container layout-padding flex>
       <label>Starting Number<span style="color:red">*</span></label>
-      <input ng-model="orderNumber.startingNumber" ng-maxlength="10" valid-number>
+      <input ng-model="orderNumber.startingNumber" name="snum" ng-maxlength="10" valid-number>
+    <span ng-message="required" ng-show="storeForm.snum.$error.maxlength" style="color:red;">
+       Enter Starting Number within 10 digit</span>
     </md-input-container>
      <md-input-container layout-padding flex>
       <label>Next Number<span style="color:red">*</span></label>
-      <input ng-model="orderNumber.nextNumber" ng-required="true" ng-maxlength="10" valid-number>
+      <input ng-model="orderNumber.nextNumber" name="nnum" ng-required="true" ng-maxlength="10" valid-number>
+      <span ng-message="required" ng-show="storeForm.nnum.$error.maxlength" style="color:red;">
+       Enter Next Number within 10 digit</span>
        </md-input-container>
     </div>
     <div layout layout-sm="column">
         <md-input-container layout-padding flex>
       <label>Prefix<span style="color:red">*</span></label>
-      <input ng-model="orderNumber.prefix" ng-trim="false" ng-maxlength="10">
+      <input ng-model="orderNumber.prefix" name="pre" ng-trim="false" ng-maxlength="10">
+   <span ng-message="required" ng-show="storeForm.pre.$error.maxlength" style="color:red;">
+       Enter Prefix within 10 digit</span>
     </md-input-container>
      <md-input-container layout-padding flex>
       <label>Suffix<span style="color:red">*</span></label>
-      <input ng-model="orderNumber.suffix" ng-required="true" ng-maxlength="10">
+      <input ng-model="orderNumber.suffix" name="suf" ng-required="true" ng-maxlength="10">
+      <span ng-message="required" ng-show="storeForm.suf.$error.maxlength" style="color:red;">
+       Enter Suffix within 10 digit</span>
        </md-input-container>
     </div>
     	  

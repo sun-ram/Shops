@@ -4,6 +4,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 
+/**
+ * @author Kartheeswaran
+ *
+ * @param <T>
+ * 
+ *  Reviewed by Sundaram 27/11/2015
+ */
+
 @XmlRootElement
 public class PasswordResetRequestVo {
 	private String requestId;

@@ -6,6 +6,8 @@ import com.mitosis.shopsbacker.model.Customer;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ *  Reviewed by Sundaram 27/11/2015
  */
 public interface CustomerService<T> {
 

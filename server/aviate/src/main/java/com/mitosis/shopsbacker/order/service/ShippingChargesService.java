@@ -28,4 +28,7 @@ public interface ShippingChargesService<T> {
 	
 	public ShippingCharges setShippingCharges(ShippingChargesVo shippingChargesVo) throws Exception;
 
+	public List<ShippingCharges> getShippingChargesList(String id,BigDecimal amountRange,
+			Merchant merchant);
+
 }

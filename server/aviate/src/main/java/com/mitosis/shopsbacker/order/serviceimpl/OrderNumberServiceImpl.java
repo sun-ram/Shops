@@ -5,8 +5,6 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mitosis.shopsbacker.admin.service.BannerService;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
@@ -62,34 +60,28 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 	}
 
 	@Override
-	@Transactional
 	public void saveOrderNumber(OrderNumber orderNumber) {
 		getOrderNumberDao().saveOrderNumber(orderNumber);
 	}
 
 	@Override
-	@Transactional
 	public void updateOrderNumber(OrderNumber orderNumber) {
 		getOrderNumberDao().updateOrderNumber(orderNumber);
 	}
 
 	@Override
-	@Transactional
 	public OrderNumber getOrderNumber(Store store) {
 		return getOrderNumberDao().getOrderNumber(store);
 	}
 
 	@Override
- 	@Transactional
-	/*public void deleteOrderNumber(OrderNumber orderNumber) {*/
-	public void deleteOrderNumber(String orderNumberId) {
+ 	public void deleteOrderNumber(String orderNumberId) {
 		orderNumber = orderNumberDao.getOrderNumberById(orderNumberId);
  		getOrderNumberDao().deleteOrderNumber(orderNumber);
  	}
 	
 
 	@Override
-	@Transactional
 	public OrderNumber setOrderNumber(OrderNumberVo orderNumberVo) throws Exception {
 		 
 		if(orderNumberVo.getOrderNumberId() == null){
@@ -118,7 +110,6 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 	}
 	
 	@Override
-	@Transactional
 	public OrderNumberVo setOrderNumberVo(OrderNumber orderNumber) throws Exception{
 		merchantVo = null;
 		storeVo =null;

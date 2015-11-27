@@ -51,32 +51,38 @@ public class MyCartRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel addToCart(MyCartVo myCartVo) throws Exception {
+	public String addToCart(MyCartVo myCartVo) throws Exception {
 		ResponseModel response = new ResponseModel();
-		Product product = productService.getProduct(myCartVo.getProduct().getProductId());
-		Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
-		Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
-		MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
-		if(myCart == null){
-			myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
-			myCart.setProduct(product);
-			myCart.setStore(store);
-			myCart.setCustomer(customer);
-			myCart.setMerchant(product.getMerchant());
-			myCart.setQty(myCartVo.getQty());
-			myCart.setIsactive('Y');
-			myCartService.addToCart(myCart);
-		} else {
-			myCart.setQty(myCartVo.getQty());
-			myCart.setUpdated(new Date());
-			myCartService.updateCart(myCart);
-		}
-		if (myCart.getMyCartId() != null) {
-			response.setStatus(SBMessageStatus.SUCCESS.getValue());
-		} else {
+		try{
+			Product product = productService.getProduct(myCartVo.getProduct().getProductId());
+			Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
+			Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
+			MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
+			if(myCart == null){
+				myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
+				myCart.setProduct(product);
+				myCart.setStore(store);
+				myCart.setCustomer(customer);
+				myCart.setMerchant(product.getMerchant());
+				myCart.setQty(myCartVo.getQty());
+				myCart.setIsactive('Y');
+				myCartService.addToCart(myCart);
+			} else {
+				myCart.setQty(myCartVo.getQty());
+				myCart.setUpdated(new Date());
+				myCartService.updateCart(myCart);
+			}
+			if (myCart.getMyCartId() != null) {
+				response.setStatus(SBMessageStatus.SUCCESS.getValue());
+			} else {
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
 		}
-		return response;
+		return CommonUtil.getObjectMapper(response);
 	}
 
 	@Path("/removefromcart")
@@ -84,21 +90,26 @@ public class MyCartRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public MyCartResponseVo deletefromcart(MyCartVo myCartVo) {
-		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
-		Product product = productService.getProduct(myCartVo.getProduct().getProductId());
-		Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
-		Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
-		MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
-		if (myCart != null) {
-			myCartService.removeFromCart(myCart);
-			myCartResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
-		} else {
-			myCartResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+	public String deletefromcart(MyCartVo myCartVo) throws Exception {
+		ResponseModel response = new ResponseModel();
+		try{
+			Product product = productService.getProduct(myCartVo.getProduct().getProductId());
+			Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
+			Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
+			MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
+			if (myCart != null) {
+				myCartService.removeFromCart(myCart);
+				response.setStatus(SBMessageStatus.SUCCESS.getValue());
+			} else {
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
 		}
 		
-		return myCartResponseVo;
-
+		return CommonUtil.getObjectMapper(response);
 	}
 
 	@Path("/getMyCartList")
@@ -106,7 +117,7 @@ public class MyCartRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public MyCartResponseVo getMyCartList(MyCartVo myCartVo) {
+	public String getMyCartList(MyCartVo myCartVo) throws Exception {
 		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
 		List<MyCart> myCart = new ArrayList<MyCart>();
 		List<MyCartVo> myCartVoList = new ArrayList<MyCartVo>();
@@ -129,10 +140,11 @@ public class MyCartRestServices<T> {
 			}
 			myCartResponseVo.setMyCart(myCartVoList);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			myCartResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+			myCartResponseVo.setErrorString(e.getMessage());
 		}
-		return myCartResponseVo;
+		return CommonUtil.getObjectMapper(myCartResponseVo);
 
 	}
 
