@@ -29,7 +29,7 @@ angular.module('aviate.services')
 
 
 					//If You Want, Need to write logics
-					d.resolve(result.productList);
+					d.resolve(result.products);
 				} else {
 					toastr.error(result.errorString);
 				}

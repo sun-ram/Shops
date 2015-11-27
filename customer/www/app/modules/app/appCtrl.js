@@ -227,7 +227,7 @@ angular.module('aviate.controllers')
 				$scope.product.merchant = {};
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.allCategoriesWithProduct($scope.product).then(function(data){
-                $rootScope.categoriesWithProduct = data.productCategoryVo;
+                $rootScope.categoriesWithProduct = data.productCategories;
             })
 			}
 

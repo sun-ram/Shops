@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices) {
 
 	return {
 		// scope: false,
@@ -80,10 +80,10 @@ angular.module('aviate.directives')
 										});
 
 									}
-
 								}
 							});
 						};
+						
 
 						$scope.cancel = function() {
 							$mdDialog.cancel();
@@ -168,6 +168,7 @@ angular.module('aviate.directives')
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
+								$scope.getFavourite();
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -212,7 +213,16 @@ angular.module('aviate.directives')
 
 						});
 					};*/
-					
+					   	$scope.getFavourite = function(){
+					   		$scope.favourite ={};
+							$scope.favourite.customerId = $rootScope.user.userId;
+							$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+							$scope.favourite.storeId = $rootScope.store.storeId;
+							CheckOutServices.getFavourite($scope.favourite).then(function(data){
+								$scope.favouriteName = data;
+							});	
+					   	};
+					   	
 					$scope.forGetPassword = function(user) {
 						$scope.forgetPass = false;
 						var req = {"user":user, "passwordResetUrl": window.location.origin + "/#/resetpassword/", "userType": "customer"};
