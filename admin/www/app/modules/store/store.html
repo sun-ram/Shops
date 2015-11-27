@@ -9,7 +9,7 @@
   		<h3 layout-align="start">Store</h3>
   		<div class="tbl-search">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-  			<input ng-model="search" type="text"  placeholder="Search">
+  			<input ng-model="searchTxt" type="text"  placeholder="Search">
   		</div>	
     	<!-- <span class="flex"></span>
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
@@ -48,11 +48,10 @@
                 Actions
              </span>	
             </div>
-           </div>
          </md-item-content>
         
        </md-item>
-       <md-item class="data-table-list" md-data-table ng-repeat="store in storeData | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
+       <md-item class="data-table-list" md-data-table ng-repeat="store in storeData | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row" ng-click="redirectToStoreDetails(store);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
          	<span flex=10 layout-align="center center" layout>
@@ -71,9 +70,9 @@
           	<span class="hash_color text-primary">{{store.user.phoneNo}}</span>
         	</span>
         	
+       
         	
-        	
-        	<span flex=15 layout-align="center center" layout>
+        	 	<span flex=15 layout-align="center center" layout>
                 <md-button class="md-icon-button md-primary" ng-click="redirectToEditStore(store);$event.stopPropagation();" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
       			</md-button>
