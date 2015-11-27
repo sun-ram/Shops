@@ -20,6 +20,7 @@ import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
@@ -205,6 +206,16 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
 		MerchantVo merchantVo=new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
+		if(salesOrder.getShopper()!=null){
+			UserVo userVo=new UserVo();
+			userVo.setName(salesOrder.getShopper().getName());
+			salesOrderVo.setShoper(userVo);
+		}
+		if(salesOrder.getBacker()!=null){
+			UserVo userVo=new UserVo();
+			userVo.setName(salesOrder.getBacker().getName());
+			salesOrderVo.setBacker(userVo);
+		}
 		merchantVo.setMerchantId(merchant.getMerchantId()); 
 		merchantVo.setName(merchant.getName());
 		salesOrderVo.setMerchant(merchantVo);
