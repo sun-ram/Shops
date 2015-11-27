@@ -23,4 +23,7 @@ public interface ShippingChargesDao<T> {
 
 	public BigDecimal getShippingCharges(BigDecimal orderAmount, Merchant merchant);
 
+	public List<ShippingCharges> getShippingChargesList(String id,
+			BigDecimal amountRange, Merchant merchant);
+
 }

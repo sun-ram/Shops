@@ -97,5 +97,18 @@ implements ShippingChargesDao<T>, Serializable {
 		return (BigDecimal) criteria.list().get(0);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShippingCharges> getShippingChargesList(String id,
+			BigDecimal amountRange, Merchant merchant) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ShippingCharges.class);
+		if(id != null){
+			criteria.add(Restrictions.ne("shippingChargesId", id));
+		}
+		criteria.add(Restrictions.eq("amountRange", amountRange));
+		criteria.add(Restrictions.eq("merchant", merchant));
+		return (List<ShippingCharges>) findAll(criteria);
+	}
+
 
 }

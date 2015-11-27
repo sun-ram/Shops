@@ -1,7 +1,7 @@
 
   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h3 class="md-flex" style="margin-left:-10px;">Shipping Charges</h3>
+      <h3 class="md-flex" style="margin-left:-10px;">Update Shipping Charges</h3>
     </div>
      <!-- <span ng-hide="fromDetailsPage" class="close_box">
     	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon> 
@@ -18,11 +18,15 @@
     
     <md-input-container layout-padding flex>
       <label>Charging Amount<span style="color:red">*</span></label>
-      <input ng-model="shippingCharge.chargingAmount" ng-required="true" valid-number ng-required="true" ng-maxlength="19">
+      <input ng-model="shippingCharge.chargingAmount" name="amt" ng-required="true" valid-number ng-required="true" ng-maxlength="13">
+    <span ng-message="required" ng-show="storeForm.amt.$error.maxlength" style="color:red;">
+       Enter Charging Amount within 13 digit</span>
     </md-input-container>
     <md-input-container layout-padding flex>
       <label>Amount Range<span style="color:red">*</span></label>
-      <input ng-model="shippingCharge.amountRange" ng-required="true" valid-number ng-required="true" ng-maxlength="19">
+      <input ng-model="shippingCharge.amountRange" name="rag" ng-required="true" valid-number ng-required="true" ng-maxlength="13">
+    <span ng-message="required" ng-show="storeForm.rag.$error.maxlength" style="color:red;">
+       Enter Amount Range within 13 digit</span>
     </md-input-container>
     </div>
     	  

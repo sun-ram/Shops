@@ -27,7 +27,8 @@ public enum SBErrorMessage {
 	INVALID_PRODUCT_UNIT("E0016","Invalid Product Unit."),
 	PRODUCT_NOT_AVAILABLE("E0017","Product Not Available."),
 	INVALID_USER_ACCOUNT("E0018","No user found with that username."),
-	INVALID_CUSTOMER_ACCOUNT("E0019", "No customer found with that email address.");
+	INVALID_CUSTOMER_ACCOUNT("E0019", "No customer found with that email address."), 
+	AMOUNT_RANGE_ALREADY_EXIST("E0020", "Amount Range Already Exist.");
 
 	private final String erroeCode;
 	  private final String errorMessage;

@@ -6,8 +6,6 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mitosis.shopsbacker.admin.dao.BannerDao;
 import com.mitosis.shopsbacker.admin.service.BannerService;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -55,31 +53,26 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 	}
 
 	@Override
-	@Transactional
 	public void saveBanner(Banner banner) {
 		getBannerDao().saveBanner(banner);
 	}
 
 	@Override
-	@Transactional
 	public void updateBanner(Banner banner) {
 		getBannerDao().updateBanner(banner);
 	}
 
 	@Override
-	@Transactional
 	public List<Banner> getBannerListByStore(Store store) {
 		return getBannerDao().getBannerListByStore(store);
 	}
 
 	@Override
-	@Transactional
 	public List<Banner> getBannerListByFlag(char isShopsbackerBanner) {
 		return getBannerDao().getBannerListByFlag(isShopsbackerBanner);
 	}
 
 	@Override
-	@Transactional
 	public void deleteBanner(String id) throws Exception {
 		
 		Banner banner = bannerDao.getBannerById(id);
@@ -96,13 +89,11 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 	}
 
 	@Override
-	@Transactional
 	public Banner getBannerById(String id) {
 		return getBannerDao().getBannerById(id);
 	}
 
 	@Override
-	@Transactional
 	public Banner setBanner(BannerVo bannerVo,Banner bannerval) throws Exception {
 		Banner banner = null;
 
@@ -143,7 +134,6 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 	}
 
 	@Override
-	@Transactional
 	public BannerVo setBannerVo(Banner banner) throws Exception {
 		bannerVo = new BannerVo();
 		imageVo = setImageVo(banner);
