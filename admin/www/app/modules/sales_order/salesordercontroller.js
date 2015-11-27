@@ -113,7 +113,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 										});
 									}
 								else{
-									alert("Choose the Shoper");
+									alert("Choose the Backer");
 								}
 							};
 							$scope.cancel = function() {
