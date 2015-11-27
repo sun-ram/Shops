@@ -20,10 +20,11 @@ public interface TaxService<T> {
 	
 	public Tax getTaxById(String id);
 
-	public List<Tax> getTaxListByName(String param);
-	
 	public Tax setTax(TaxVo taxVo) throws Exception ;
 	
 	public TaxVo setTaxVo (Tax tax);
+
+	public List<Tax> getTaxListByName(String texId, String name,
+			Merchant merchant);
 
 }
