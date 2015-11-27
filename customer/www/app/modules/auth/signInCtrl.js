@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("signInCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT',
-		 function($scope, $state, toastr, CONSTANT) {
+		['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices',
+		 function($scope, $state, toastr, CONSTANT,CheckOutServices) {
 
        toastr.info('SIGN IN CTRL');
        
@@ -16,5 +16,6 @@ angular.module('aviate.controllers')
 	   			}
 	   		});
 	   	}
+	   	
 
 }]);
