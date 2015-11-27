@@ -27,6 +27,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "address")
 public class Address implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String addressId;
 	private State state;
 	private Customer customer;

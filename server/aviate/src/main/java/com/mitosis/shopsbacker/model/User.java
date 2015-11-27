@@ -31,6 +31,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "USER_NAME"))
 public class User implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userId;
 	private String updatedby;
 	private String createdby;

@@ -4,6 +4,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 
+/**
+ * @author prabakaran
+ *
+ * @param <T>
+ * Reviewed by Sundaram  27/11/2015
+ */
 @XmlRootElement
 public class ResponseModel {
 

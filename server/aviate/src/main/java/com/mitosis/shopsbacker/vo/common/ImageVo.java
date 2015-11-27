@@ -5,7 +5,8 @@ package com.mitosis.shopsbacker.vo.common;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Image Created by Sundaram C.
+ *  Created by Prabakaran.15/11/2015
+ *  Reviewed by Sundaram  27/11/2015
  */
 @XmlRootElement
 public class ImageVo {

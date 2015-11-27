@@ -1,6 +1,5 @@
 package com.mitosis.shopsbacker.common.daoimpl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author prabakaran
  *
  * @param <T>
+ * Reviewed by Sundaram  27/11/2015
  */
 @Repository
 public class CustomHibernateDaoSupport<T> {

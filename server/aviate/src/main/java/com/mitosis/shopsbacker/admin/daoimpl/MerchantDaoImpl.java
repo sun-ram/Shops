@@ -10,11 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
-import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Merchant;
 
+/**
+ *  Created by Prabakaran.15/11/2015
+ *  Reviewed by Sundaram  27/11/2015
+ */
+
 @Repository
-@Transactional
 public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		MerchantDao<T>, Serializable {
 

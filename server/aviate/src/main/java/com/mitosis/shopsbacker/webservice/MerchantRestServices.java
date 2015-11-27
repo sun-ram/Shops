@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -36,6 +38,8 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 27/11/2015
  */
 @Path("merchant")
 @Controller("merchantRestServices")
@@ -51,9 +55,19 @@ public class MerchantRestServices<T> {
 
 	@Autowired
 	AddressService<T> addessService;
-	
+
 	@Autowired
 	ImageService<T> imageService;
+
+	@Autowired
+	RoleService<T> roleService;
+
+	ResponseModel response = null;
+	User checkUniqueUser = null;
+	Merchant merchant = null;
+	MerchantVo merchantVo = null;
+	MerchantResponseVo merchantResponse = null;
+	Image img = null;
 
 	public AddressService<T> getAddessService() {
 		return addessService;
@@ -79,9 +93,6 @@ public class MerchantRestServices<T> {
 		this.merchantService = merchantService;
 	}
 
-	@Autowired
-	RoleService<T> roleService;
-
 	public RoleService<T> getRoleService() {
 		return roleService;
 	}
@@ -90,13 +101,13 @@ public class MerchantRestServices<T> {
 		this.roleService = roleService;
 	}
 
-
 	@Path("/addmerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addMerchantDetails(MerchantVo merchantVo) {
-		ResponseModel response = new ResponseModel();
+		response = new ResponseModel();
 		try {
 			List<Merchant> checkUniqueMerchants = getMerchantService()
 					.getMerchantListByName(merchantVo.getName());
@@ -108,7 +119,7 @@ public class MerchantRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			User checkUniqueUser = getUserService().getUserByUserName(
+			checkUniqueUser = getUserService().getUserByUserName(
 					merchantVo.getUser().getUserName());
 			if (checkUniqueUser != null) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
@@ -137,11 +148,9 @@ public class MerchantRestServices<T> {
 			merchantImageUpload(merchantVo);
 			Image img = null;
 
-			Merchant merchant = merchantService.setMerchant(merchantVo, img);
+			merchant = merchantService.setMerchant(merchantVo, img);
 
 			merchantService.saveMerchant(merchant);
-			
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,8 +201,9 @@ public class MerchantRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateMerchantDetails(MerchantVo merchantVo) {
-		ResponseModel response = new ResponseModel();
+		response = new ResponseModel();
 		try {
 			JsonNode location = getLatLongByAddress(merchantVo);
 			if (location == null) {
@@ -209,98 +219,99 @@ public class MerchantRestServices<T> {
 			loc = location.findValue("lng".toString());
 			merchantVo.getUser().getAddress().setLongitude(loc.toString());
 
-			/*if(merchantVo.getLogo() != null && merchantVo.getLogo().getImage() != null){
-				Merchant merchant = getMerchantService().getMerchantById(
-						merchantVo.getMerchantId());
-				
-			}*/
-			
-			/*Merchant merchant = getMerchantService().getMerchantById(
-					merchantVo.getMerchantId());*/
+			/*
+			 * if(merchantVo.getLogo() != null &&
+			 * merchantVo.getLogo().getImage() != null){ Merchant merchant =
+			 * getMerchantService().getMerchantById(
+			 * merchantVo.getMerchantId());
+			 * 
+			 * }
+			 */
+
+			/*
+			 * Merchant merchant = getMerchantService().getMerchantById(
+			 * merchantVo.getMerchantId());
+			 */
 			Image img = null;
-			
-			
+
 			merchantImageUpload(merchantVo);
 
-			Merchant merchant = merchantService.setMerchant(merchantVo, img);
+			merchant = merchantService.setMerchant(merchantVo, img);
 
 			getMerchantService().updateMerchant(merchant);
-			
-			if(merchant.getMerchantId() != null && img != null){
-				
+
+			if (merchant.getMerchantId() != null && img != null) {
+
 				imageService.deleteImage(img);
-				 
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 			response = CommonUtil.addStatusMessage(e, response);
 		}
+
 		return response;
 	}
 
-	/*public void setMerchantForUpdate(Merchant merchant, MerchantVo merchantVo)
-			throws Exception {
-		merchant.setName(merchantVo.getName());
+	/*
+	 * public void setMerchantForUpdate(Merchant merchant, MerchantVo
+	 * merchantVo) throws Exception { merchant.setName(merchantVo.getName());
+	 * 
+	 * setImageForUpdate(merchant, merchantVo);
+	 * 
+	 * setUserForUpdate(merchantVo, merchant); }
+	 */
 
-		setImageForUpdate(merchant, merchantVo);
+	/*
+	 * public void setImageForUpdate(Merchant merchant, MerchantVo merchantVo)
+	 * throws Exception { Image image = merchant.getLogo();
+	 * image.setName(merchantVo.getLogo().getName());
+	 * image.setType(merchantVo.getLogo().getType());
+	 * image.setUrl(merchantVo.getLogo().getUrl()); }
+	 */
 
-		setUserForUpdate(merchantVo, merchant);
-	}*/
+	/*
+	 * public void setUserForUpdate(MerchantVo merchantVo, Merchant merchant)
+	 * throws Exception { User user = merchant.getUser(); UserVo userVo =
+	 * merchantVo.getUser(); user.setName(userVo.getName());
+	 * user.setUserName(userVo.getUserName());
+	 * user.setPassword(userVo.getPassword());
+	 * user.setEmailid(userVo.getEmailid());
+	 * user.setPhoneNo(userVo.getPhoneNo());
+	 * 
+	 * user.setRole(getRoleService()
+	 * .getRole(RoleName.MerchantAdmin.toString()));
+	 * 
+	 * user.setMerchant(merchant); merchant.setUser(user); AddressVo addressVo =
+	 * userVo.getAddress(); Address address = setAddressForUpdate(addressVo,
+	 * user); user.setAddress(address); }
+	 */
 
-	/*public void setImageForUpdate(Merchant merchant, MerchantVo merchantVo)
-			throws Exception {
-		Image image = merchant.getLogo();
-		image.setName(merchantVo.getLogo().getName());
-		image.setType(merchantVo.getLogo().getType());
-		image.setUrl(merchantVo.getLogo().getUrl());
-	}*/
-	
-
-	/*public void setUserForUpdate(MerchantVo merchantVo, Merchant merchant)
-			throws Exception {
-		User user = merchant.getUser();
-		UserVo userVo = merchantVo.getUser();
-		user.setName(userVo.getName());
-		user.setUserName(userVo.getUserName());
-		user.setPassword(userVo.getPassword());
-		user.setEmailid(userVo.getEmailid());
-		user.setPhoneNo(userVo.getPhoneNo());
-		
-		 * user.setRole(getRoleService()
-		 * .getRole(RoleName.MerchantAdmin.toString()));
-		 
-		user.setMerchant(merchant);
-		merchant.setUser(user);
-		AddressVo addressVo = userVo.getAddress();
-		Address address = setAddressForUpdate(addressVo, user);
-		user.setAddress(address);
-	}*/
-
-	/*public Address setAddressForUpdate(AddressVo addressVo, User user)
-			throws Exception {
-		Address address = user.getAddress();
-		address.setAddress1(addressVo.getAddress1());
-		address.setAddress2(addressVo.getAddress2());
-		address.setCity(addressVo.getCity());
-		address.setPhoneNo(addressVo.getPhoneNo());
-		address.setPinCode(addressVo.getPinCode());
-		address.setLatitude(addressVo.getLatitude());
-		address.setLongitude(addressVo.getLongitude());
-		address.setCountry(addessService.getCountry(addressVo.getCountry()
-				.getCountryId()));
-		address.setState(addessService.getStateById(addressVo.getState()
-				.getStateId()));
-		return address;
-	}*/
+	/*
+	 * public Address setAddressForUpdate(AddressVo addressVo, User user) throws
+	 * Exception { Address address = user.getAddress();
+	 * address.setAddress1(addressVo.getAddress1());
+	 * address.setAddress2(addressVo.getAddress2());
+	 * address.setCity(addressVo.getCity());
+	 * address.setPhoneNo(addressVo.getPhoneNo());
+	 * address.setPinCode(addressVo.getPinCode());
+	 * address.setLatitude(addressVo.getLatitude());
+	 * address.setLongitude(addressVo.getLongitude());
+	 * address.setCountry(addessService.getCountry(addressVo.getCountry()
+	 * .getCountryId()));
+	 * address.setState(addessService.getStateById(addressVo.getState()
+	 * .getStateId())); return address; }
+	 */
 
 	@Path("/getmerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public MerchantResponseVo getMerchant() {
-		MerchantResponseVo merchantResponse = new MerchantResponseVo();
-		ResponseModel response = new ResponseModel();
+		merchantResponse = new MerchantResponseVo();
+		response = new ResponseModel();
 		try {
 			List<Merchant> merchants = merchantService.getMerchantList();
 			List<MerchantVo> listOfMerchantVo = new ArrayList<MerchantVo>();
@@ -322,8 +333,9 @@ public class MerchantRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteMerchant(MerchantVo merchant) {
-		ResponseModel response = new ResponseModel();
+		response = new ResponseModel();
 		try {
 			merchantService.deleteMerchant(merchant.getMerchantId());
 		} catch (Exception e) {

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -22,6 +21,14 @@ import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+
+/**
+ * @author prabakaran
+ *
+ * @param <T>
+ * 
+ * Reviewed by Sundaram 27/11/2015
+ */
 
 @Service("merchantServiceImpl")
 public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable {
@@ -42,7 +49,14 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 	@Autowired
 	RoleService<T> roleService;
-	
+
+	Merchant merchant = null;
+	UserVo userVo = null;
+	Role role = null;
+	User user = null;
+	MerchantVo merchantVo = null;
+	Image image = null;
+
 	public ImageService<T> getImageService() {
 		return imageService;
 	}
@@ -68,31 +82,26 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 	}
 
 	@Override
-	@Transactional
 	public void saveMerchant(Merchant merchant) {
 		getMerchantDao().saveMerchant(merchant);
 	}
 
 	@Override
-	@Transactional
 	public void updateMerchant(Merchant merchant) {
 		getMerchantDao().updateMerchant(merchant);
 	}
 
 	@Override
-	@Transactional
 	public List<Merchant> getMerchantList() {
 		return getMerchantDao().getMerchantList();
 	}
 
 	@Override
-	@Transactional
 	public void deleteMerchant(String id) {
 		getMerchantDao().deleteMerchant(getMerchantById(id));
 	}
 
 	@Override
-	@Transactional
 	public List<Merchant> getMerchantListByName(String name) {
 		return getMerchantDao().getMerchantListByName(name);
 	}
@@ -103,9 +112,8 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 	}
 
 	@Override
-	@Transactional
-	public Merchant setMerchant(MerchantVo merchantVo, Image img) throws Exception {
-		Merchant merchant = null;
+	public Merchant setMerchant(MerchantVo merchantVo, Image img)
+			throws Exception {
 
 		if (merchantVo.getMerchantId() == null) {
 			merchant = (Merchant) CommonUtil.setAuditColumnInfo(Merchant.class
@@ -121,21 +129,19 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 					&& merchantVo.getLogo().getType() != null) {
 				img = merchant.getLogo();
 			}
-			
-			
+
 		}
 		merchant.setName(merchantVo.getName());
-		
+
 		if (merchantVo.getLogo().getImage() != null) {
 			Image image = imageService.setImage(merchantVo.getLogo());
-			merchant.setLogo(image);;
+			merchant.setLogo(image);
+			;
 		}
-		
-		
-		
-		UserVo userVo = merchantVo.getUser();
-		Role role = roleService.getRole(RoleName.MERCHANTADMIN.toString());
-		User user = userService.setUser(userVo, role);
+
+		userVo = merchantVo.getUser();
+		role = roleService.getRole(RoleName.MERCHANTADMIN.toString());
+		user = userService.setUser(userVo, role);
 		user.setMerchant(merchant);
 		merchant.setUser(user);
 		return merchant;
@@ -143,14 +149,14 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 	@Override
 	public MerchantVo setMerchantVo(Merchant merchant) throws Exception {
-		MerchantVo merchantVo = new MerchantVo();
+		merchantVo = new MerchantVo();
 		merchantVo.setName(merchant.getName());
 		merchantVo.setMerchantId(merchant.getMerchantId());
 		ImageVo imageVo = imageService.setImageVo(merchant);
 		merchantVo.setLogo(imageVo);
 		User user = merchant.getUser();
 		UserVo userVo = userService.setUserVo(user);
-		//userVo.setMerchant(merchantVo);
+		// userVo.setMerchant(merchantVo);
 		merchantVo.setUser(userVo);
 		return merchantVo;
 	}

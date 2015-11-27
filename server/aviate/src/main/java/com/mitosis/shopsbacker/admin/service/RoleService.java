@@ -7,6 +7,7 @@ import com.mitosis.shopsbacker.vo.customer.RoleVo;
  * @author prabakaran
  *
  * @param <T>
+ * Reviewed by Sundaram  27/11/2015
  */
 public interface RoleService<T> {
 	public Role getRole(String name);

@@ -6,6 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
+/**
+ *  Created by Prabakaran.15/11/2015
+ *  Reviewed by Sundaram  27/11/2015
+ */
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class MerchantVo {

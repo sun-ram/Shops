@@ -4,17 +4,13 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "customer", uniqueConstraints = @UniqueConstraint(columnNames = "EMAIL"))
 public class Customer implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String customerId;
 	private String createdby;
 	private String updatedby;
@@ -53,9 +53,9 @@ public class Customer implements java.io.Serializable {
 	public Customer() {
 	}
 
-	public Customer(String customerId, String createdby,
-			String updatedby, String name, String email,
-			String password, Date created, Date updated, char isactive) {
+	public Customer(String customerId, String createdby, String updatedby,
+			String name, String email, String password, Date created,
+			Date updated, char isactive) {
 		this.customerId = customerId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -67,18 +67,22 @@ public class Customer implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	public Customer(String customerId, String createdby,
-			String updatedby, String name, String email,
-			String password, String imageId, String deviceid,
-			String deviceType, String phoneNo, Date created, Date updated,
-			char isactive, List<CustomerFeedback> customerFeedbacksForCreatedby,
-			List<MyCart> myCartsForCreatedby, List<Favourite> favouritesForUpdatedby,
-			List<SalesOrder> salesOrders, List<CustomerFeedback> customerFeedbacksForCustomerId,
-			List<Favourite> favouritesForCustomerId, List<Favourite> favouritesForCreatedby,
-			List<CustomerFeedback> customerFeedbacksForUpdatedby, List<MissingProduct> missingProducts,
+	public Customer(String customerId, String createdby, String updatedby,
+			String name, String email, String password, String imageId,
+			String deviceid, String deviceType, String phoneNo, Date created,
+			Date updated, char isactive,
+			List<CustomerFeedback> customerFeedbacksForCreatedby,
+			List<MyCart> myCartsForCreatedby,
+			List<Favourite> favouritesForUpdatedby,
+			List<SalesOrder> salesOrders,
+			List<CustomerFeedback> customerFeedbacksForCustomerId,
+			List<Favourite> favouritesForCustomerId,
+			List<Favourite> favouritesForCreatedby,
+			List<CustomerFeedback> customerFeedbacksForUpdatedby,
+			List<MissingProduct> missingProducts,
 			List<Customer> customersForUpdatedby, List<Address> addresses,
-			List<Customer> customersForCreatedby, List<MyCart> myCartsForUpdatedby,
-			List<MyCart> myCartsForCustomerId) {
+			List<Customer> customersForCreatedby,
+			List<MyCart> myCartsForUpdatedby, List<MyCart> myCartsForCustomerId) {
 		this.customerId = customerId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -111,7 +115,7 @@ public class Customer implements java.io.Serializable {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
- 
+
 	public String getCreatedby() {
 		return this.createdby;
 	}
@@ -182,7 +186,7 @@ public class Customer implements java.io.Serializable {
 		this.deviceType = deviceType;
 	}
 
-	@Column(name = "PHONE_NO",unique = true, nullable = true)
+	@Column(name = "PHONE_NO", unique = true, nullable = true)
 	public String getPhoneNo() {
 		return this.phoneNo;
 	}
@@ -220,10 +224,6 @@ public class Customer implements java.io.Serializable {
 		this.isactive = isactive;
 	}
 
-	  
-
-	 
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	public List<SalesOrder> getSalesOrders() {
 		return this.salesOrders;
@@ -248,10 +248,11 @@ public class Customer implements java.io.Serializable {
 		return this.favouritesForCustomerId;
 	}
 
-	public void setFavouritesForCustomerId(List<Favourite> favouritesForCustomerId) {
+	public void setFavouritesForCustomerId(
+			List<Favourite> favouritesForCustomerId) {
 		this.favouritesForCustomerId = favouritesForCustomerId;
 	}
- 
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	public List<MissingProduct> getMissingProducts() {
 		return this.missingProducts;
@@ -260,8 +261,6 @@ public class Customer implements java.io.Serializable {
 	public void setMissingProducts(List<MissingProduct> missingProducts) {
 		this.missingProducts = missingProducts;
 	}
-
-	 
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	public List<Address> getAddresses() {
