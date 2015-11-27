@@ -300,7 +300,7 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED)
-	public ProductResponseVo ProductByCategory(ProductVo productVo) {
+	public String ProductByCategory(ProductVo productVo) throws Exception {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			ProductCategory productCategory = productCategoryService.getCategoryById(productVo.getProductCategory().getProductCategoryId());
@@ -320,7 +320,7 @@ public class ProductRestService {
 			productResponse.setErrorString(e.getMessage());
 		}
 		
-		return productResponse;
+		return CommonUtil.getObjectMapper(productResponse);
 
 		}
 	

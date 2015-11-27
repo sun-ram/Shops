@@ -403,14 +403,14 @@ public class ProductCategoryRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ProductCategoryResponseVo getallleafcategorylist1(StoreVo storeVo) {
+	public String getallleafcategorylist1(StoreVo storeVo) throws Exception {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		Store store = storeService.getStoreById(storeVo.getStoreId());
 		if (store != null) {
 			productCategoryResponseVo = getCategoryListDataForStore(store
 					.getMerchant().getMerchantId());
 		}
-		return productCategoryResponseVo;
+		return CommonUtil.getObjectMapper(productCategoryResponseVo);
 	}
 
 	public ProductCategoryResponseVo getCategoryListDataForStore(
