@@ -77,7 +77,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public MovementResponseVo saveMovement(MovementVo movementVo) {
 		MovementResponseVo response = new MovementResponseVo();
 		try {
@@ -282,7 +282,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public MovementResponseVo getMovements(MovementVo movementVo) {
 		MovementResponseVo response = new MovementResponseVo();
 		try {
@@ -307,7 +307,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteMovement(MovementVo movementVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -325,7 +325,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel conformMovement(JSONObject inventoryId) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -345,7 +345,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateMovement(JSONObject inventory) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -365,7 +365,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public MovementLineResponseVo saveMovementLine(MovementLineVo movementLineVo) {
 		MovementLineResponseVo response = new MovementLineResponseVo();
 		try {
@@ -438,7 +438,7 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteMovementLine(MovementLineVo movementLineVo) {
 		ResponseModel response = new ResponseModel();
 		try {

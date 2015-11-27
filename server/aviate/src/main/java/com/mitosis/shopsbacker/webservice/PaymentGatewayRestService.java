@@ -28,7 +28,7 @@ public class PaymentGatewayRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public JSONObject getGatewayDetails(JSONObject payment) throws JSONException {
 		JSONObject payList = new JSONObject();
 		try {

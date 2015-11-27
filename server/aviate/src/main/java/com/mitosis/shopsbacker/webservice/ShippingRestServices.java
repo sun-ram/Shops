@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.order.service.ShippingChargesService;
 import com.mitosis.shopsbacker.responsevo.ShippingChargesResponseVo;
@@ -65,6 +67,7 @@ public class ShippingRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addShippingCharges(ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
@@ -82,6 +85,7 @@ public class ShippingRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateShippingCharges(ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
@@ -101,6 +105,7 @@ public class ShippingRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ShippingChargesResponseVo getShippingCharges(MerchantVo merchantVo) {
 		response = new ResponseModel();
 		shippingchargesResponse = new ShippingChargesResponseVo();
@@ -122,6 +127,7 @@ public class ShippingRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteShippingCharges(ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {

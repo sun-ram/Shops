@@ -112,6 +112,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addStoreDetails(StoreVo storeVo) {
 		try {
 
@@ -149,6 +150,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateStoreDetails(StoreVo storeVo) {
 		try {
 
@@ -169,6 +171,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteStore(StoreVo storeVo) {
 		try {
 			Store store = getStoreService().getStoreById(storeVo.getStoreId());
@@ -185,6 +188,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreList(MerchantVo merchantVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
@@ -209,7 +213,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreList() {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
@@ -234,6 +238,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreList(AddressVo addressVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
@@ -254,7 +259,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getShopListByAddress(AddressVo addressVo) {
 		StoreResponseVo storeResponse = new StoreResponseVo();
 		try {
@@ -275,7 +280,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreListBasedOnLoc(GeoLocation geoLocation)
 			throws IOException {
 		StoreResponseVo storeResponseVo = new StoreResponseVo();
@@ -354,7 +359,7 @@ public class StoreRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Set<String> getStoreByCity() {
 		Set<String> cityList = null;
 		try {

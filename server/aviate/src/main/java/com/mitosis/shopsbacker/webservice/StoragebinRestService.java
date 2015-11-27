@@ -52,7 +52,7 @@ public class StoragebinRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoragebinResponseVo addStorageBin(StoragebinVo storagebinVo) {
 		StoragebinResponseVo response = new StoragebinResponseVo();
 		try {
@@ -94,7 +94,7 @@ public class StoragebinRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoragebinResponseVo deletedStorageBin(StoragebinVo storagebinVo) {
 		StoragebinResponseVo response = new StoragebinResponseVo();
 		try {
@@ -113,7 +113,7 @@ public class StoragebinRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoragebinResponseVo getStorageBins(StoragebinVo storagebinVo) {
 		StoragebinResponseVo response = new StoragebinResponseVo();
 		try {
