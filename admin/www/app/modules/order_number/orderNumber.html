@@ -3,10 +3,10 @@
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
 </a>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getOrderNumber()">
- <md-toolbar class=" md-default-theme">
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getOrderNumber()" class="tbl-body">
+ <md-toolbar class=" md-default-theme" style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row">
-  		<h2 layout-align="start">Order Number</h2>
+  		<h3 layout-align="start" style="border:none">Order Number</h3>
     	<span class="flex"></span>
 	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
@@ -22,39 +22,64 @@
       </md-button>
     </div>
    </md-toolbar>
-   <div layout="row" flex class="pro-header">
+  <!--  <div layout="row" flex class="pro-header">
       		<div flex="10">&nbsp;</div>
       		<div flex="20">Starting Number</div>
       		<div flex="20">Prefix</div>
       		<div flex="20">Suffix</div>
       		<div flex="20">Next Number</div>
-      	</div>
+      	</div> -->
    
-   <md-card-content class="nopaddtop">
+   <md-card-content class="nopadd">
 	<md-data-table-container>
      <md-list>
+     	<md-item md-data-table class="md-table-content-row">
+         <md-item-content layout="row" layout-padding  class="tbl-header ">
+          <div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex=25 layout="row" style="padding-left:10px;"  layout-align="start center">
+             	Starting Number
+           	</span>
+           	 <span flex=25 layout="row" layout-align="start center">
+             	Prefix
+           	 </span>
+           	 <span flex=20 layout="row" layout-align="start center">
+             	Suffix
+           	 </span>
+           	 <span flex=20 layout="row" layout-align="start center">
+             	Next Number
+           	 </span>
+             <span flex=10 layout="row" layout-align="center center">
+                 Actions
+             </span>
+            </div>
+         </md-item-content>
+         <md-divider></md-divider>
+       <md-divider></md-divider>
+       </md-item>
+       
+       
        <md-item md-data-table class="md-table-content-row">
          <md-item-content layout="row" layout-padding ng-show="orderNumber != null">
-          <div layout="row" layout-wrap class="full_wid">
-         	<span flex=10  class="padd-5-3" ></span>
-           	<span flex=20 layout="column" class="padd-lr5" layout-align="start start">
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{orderNumber.startingNumber}}</strong></span>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+         	
+           	<span flex=25 layout="row"  layout-align="start center">
+             	{{orderNumber.startingNumber}}
            	</span>
-           	 <span flex=20 layout="row">
-             	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{orderNumber.prefix}}</strong></span>
+           	 <span flex=25 layout="row" layout-align="start center">
+             	{{orderNumber.prefix}}
            	 </span>
-           	 <span flex=20 layout="row">
-             	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{orderNumber.suffix}}</strong></span>
+           	 <span flex=20 layout="row" layout-align="start center">
+             	{{orderNumber.suffix}}
            	 </span>
-           	 <span flex=20 layout="row">
-             	<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{orderNumber.nextNumber}}</strong></span>
+           	 <span flex=20 layout="row" layout-align="start center">
+             	{{orderNumber.nextNumber}}
            	 </span>
-             <span flex=10 layout="row" layout-align="end center">
+             <span flex=10 layout="row" layout-align="center center">
                  <md-button class="md-icon-button md-primary" ng-click="redirectToEditOrderNumber(orderNumber);$event.stopPropagation();" aria-label="Edit">
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
       			</md-button>
              	<md-button class="md-icon-button md-primary" ng-click="deleteOrderNumber(orderNumber);$event.stopPropagation();" aria-label="Delete">
-             		<ng-md-icon icon="close" size="20" class="icons hash_color"></ng-md-icon>
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
             </div>
@@ -65,8 +90,9 @@
      </md-list>
 	</md-data-table-container>
    </md-card-content>
-   <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="5" md-page="1" md-total="1" md-trigger="onpagechange"></md-data-table-pagination>
-	</div>
+  
 </md-card>
 
+ <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+	<md-data-table-pagination md-limit="5" md-page="1" md-total="1" md-trigger="onpagechange"></md-data-table-pagination>
+	</div>
