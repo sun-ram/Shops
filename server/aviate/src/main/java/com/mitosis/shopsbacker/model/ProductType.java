@@ -27,6 +27,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "product_type")
 public class ProductType implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productTypeId;
 	private String updatedby;
 	private String createdby;

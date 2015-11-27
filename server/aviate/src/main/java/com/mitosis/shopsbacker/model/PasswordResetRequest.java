@@ -24,8 +24,7 @@ public class PasswordResetRequest implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3083525396394215877L;
-	
+	private static final long serialVersionUID = 1L;
 	private String requestId;
 	private String tokenId;
 	private String userId;

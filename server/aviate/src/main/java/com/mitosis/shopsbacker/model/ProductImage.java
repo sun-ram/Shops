@@ -26,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 		"PRODUCT_ID", "IMAGE_ID" }))
 public class ProductImage implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productImageId;
 	private String createdby;
 	private String updatedby;

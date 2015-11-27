@@ -24,6 +24,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "missing_product")
 public class MissingProduct implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String missingProductId;
 	private Merchant merchant;
 	private Customer customer;

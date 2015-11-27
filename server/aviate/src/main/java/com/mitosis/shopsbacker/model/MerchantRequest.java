@@ -24,6 +24,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "merchant_request")
 public class MerchantRequest implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String merchantRequestId;
 	private Address address;
 	private String name;

@@ -26,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 		"MERCHANT_ID", "STORE_ID", "STORAGEBIN_ID", "PRODUCT_ID" }))
 public class ProductInventory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productInventoryId;
 	private String createdby;
 	private String updatedby;
