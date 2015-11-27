@@ -15,9 +15,10 @@ import com.mitosis.shopsbacker.model.PasswordResetRequest;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 27/11/2015
  */
 @Repository
-@Transactional
 public class CommonDaoImpl<T> extends CustomHibernateDaoSupport<T> implements CommonDao<T>, Serializable {
 
 

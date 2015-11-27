@@ -5,11 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
-import com.mitosis.shopsbacker.customer.dao.CustomerDao;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Country;
@@ -22,6 +20,14 @@ import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
+/**
+ * @author prabakaran
+ *
+ * @param <T>
+ * 
+ * Reviewed by Sundaram 27/11/2015
+ */
+
 @Service("addressServiceImpl")
 public class AddressServiceImpl<T> implements AddressService<T> {
 
@@ -30,6 +36,12 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	
 	@Autowired
 	CustomerService<T> customerService;
+	
+	CustomerVo customerVo =null;
+	Address address = null;
+	AddressVo addressVo=null;
+	CountryVo countryVo=null;
+	StateVo stateVo =null;
 
 	public AddressDao<T> getAddressDao() {
 		return addressDao;
@@ -40,50 +52,42 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	}
 
 	@Override
-	@Transactional
 	public void saveAddress(Address address) {
 		getAddressDao().saveAddress(address);
 
 	}
 
 	@Override
-	@Transactional
 	public void updateAddress(Address address) {
 		getAddressDao().updateAddress(address);
 	}
 
 	@Override
-	@Transactional
 	public void deleteAddress(Address address) {
 		getAddressDao().deleteAddress(address);
 	}
 
 	@Override
-	@Transactional
 	public Address getAddress(String id) {
 		return getAddressDao().getAddress(id);
 	}
 
 	@Override
-	@Transactional
 	public List<Address> getAddress(Customer customer) {
 		return getAddressDao().getAddress(customer);
 	}
 
 	@Override
-	@Transactional
 	public Address getAddress(User user) {
 		return getAddressDao().getAddress(user);
 	}
 
 	@Override
-	@Transactional
 	public List<Country> getCountry() {
 		return getAddressDao().getCountry();
 	}
 
 	@Override
-	@Transactional
 	public List<State> getState(String countryId) {
 		return getAddressDao().getState(getAddressDao().getCountry(countryId));
 	}
@@ -100,7 +104,6 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 
 	@Override
 	public Address setAddress(AddressVo addressVo) throws Exception {
-		Address address = null;
 		if (addressVo.getAddressId() == null) {
 			address = (Address) CommonUtil.setAuditColumnInfo(Address.class
 					.getName());
@@ -126,7 +129,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 
 	@Override
 	public AddressVo setAddressVo(Address address) {
-		AddressVo addressVo = new AddressVo();
+		addressVo = new AddressVo();
 		addressVo.setAddressId(address.getAddressId());
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
@@ -145,7 +148,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	}
 	
 	public CountryVo setCountryVo(Country country) {
-		CountryVo countryVo = new CountryVo();
+		countryVo = new CountryVo();
 		countryVo.setName(country.getName());
 		countryVo.setCountryId(country.getCountryId());
 		countryVo.setCurrencyCode(country.getCurrencyCode());
@@ -154,14 +157,14 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	}
 
 	public StateVo setCountryVo(State state) {
-		StateVo stateVo = new StateVo();
+		stateVo = new StateVo();
 		stateVo.setName(state.getName());
 		stateVo.setStateId(state.getStateId());
 		return stateVo;
 	}
 	
 	public CustomerVo setCustomerVo(Customer customer) {
-		CustomerVo customerVo = new CustomerVo();
+		customerVo = new CustomerVo();
 		customerVo.setCustomerId(customer.getCustomerId());
 		customerVo.setName(customer.getName());
 		return customerVo;

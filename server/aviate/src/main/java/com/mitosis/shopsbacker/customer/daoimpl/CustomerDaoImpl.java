@@ -15,6 +15,8 @@ import com.mitosis.shopsbacker.model.Merchant;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ *  Reviewed by Sundaram 27/11/2015
  */
 @Repository
 public class CustomerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements

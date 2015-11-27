@@ -34,6 +34,13 @@ import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.PasswordResetRequestVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
 
+/**
+ * @author prabakaran
+ *
+ * @param <T>
+ * 
+ *  Reviewed by Sundaram 27/11/2015
+ */
 @Path("/common")
 @Controller("commonRestServices")
 public class CommonRestServices<T> {
@@ -50,6 +57,16 @@ public class CommonRestServices<T> {
 	
 	@Autowired
 	CustomerService<T> customerService;
+	
+	CountryVo countryVo = null;
+	StateVo stateVo = null;
+	ResponseModel response =null;
+	UserVo userVo =null;
+	User user =null;
+	Customer customer=null;
+	PasswordResetRequest passwordResetRequest = null;
+	
+	
 
 	public AddressService<T> getAddressService() {
 		return addressService;
@@ -69,7 +86,7 @@ public class CommonRestServices<T> {
 			List<Country> countries = getAddressService().getCountry();
 			List<CountryVo> countryList = new ArrayList<CountryVo>();
 			for (Country country : countries) {
-				CountryVo countryVo = new CountryVo();
+				countryVo = new CountryVo();
 				countryVo.setCode(country.getCode());
 				countryVo.setCountryId(country.getCountryId());
 				countryVo.setCurrencyCode(country.getCurrencyCode());
@@ -78,7 +95,7 @@ public class CommonRestServices<T> {
 				//List<State> states = getAddressService().getState(country.getCountryId());
 				List<StateVo> stateList = new ArrayList<StateVo>();
 				for (State state : country.getStates()) {
-					StateVo stateVo = new StateVo();
+					stateVo = new StateVo();
 					stateVo.setName(state.getName());
 					stateVo.setStateId(state.getStateId());
 					stateList.add(stateVo);
@@ -128,16 +145,16 @@ public class CommonRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel forgetPassword(PasswordResetRequestVo passwordResetRequestVo) {
-		ResponseModel response = new ResponseModel();
+		response = new ResponseModel();
 		try {
 			if (passwordResetRequestVo != null) {
 				String userType = passwordResetRequestVo.getUserType();
-				UserVo userVo = passwordResetRequestVo.getUser();
+				userVo = passwordResetRequestVo.getUser();
 				if(userVo != null){
 					String userId = null;
 					String emailId = null;
 					if(userType.equals("admin")){
-						User user = userService.getUserByUserName(userVo.getUserName());
+						user = userService.getUserByUserName(userVo.getUserName());
 						if (user != null) {
 							userId = user.getUserId();
 							emailId = user.getEmailid();
@@ -153,7 +170,7 @@ public class CommonRestServices<T> {
 
 						}
 					}else if(userType.equals("customer")){
-						Customer customer = customerService.getCustomerInfoByEmail(userVo.getEmailid());
+						customer = customerService.getCustomerInfoByEmail(userVo.getEmailid());
 						if(customer!=null){
 							userId = customer.getCustomerId();
 							emailId = customer.getEmail();
@@ -171,7 +188,7 @@ public class CommonRestServices<T> {
 					
 					if(emailId!=null){
 							String subject = "Password Reset Request - ShopsBacker";
-							PasswordResetRequest passwordResetRequest = commonService.savePasswordResetRequest(userId,userType);
+							passwordResetRequest = commonService.savePasswordResetRequest(userId,userType);
 							String body = passwordResetRequestVo.getPasswordResetUrl()+passwordResetRequest.getTokenId();
 						    boolean flag = CommonUtil.sendMail(emailId, subject, body);
 							if(flag){
@@ -206,10 +223,10 @@ public class CommonRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel verifyTokenId(PasswordResetRequestVo passwordResetRequestVo) {
-		ResponseModel response = new ResponseModel();
+		response = new ResponseModel();
 		try {
 			if (passwordResetRequestVo != null) {
-				PasswordResetRequest passwordResetRequest = commonService.getPasswordResetRequestByTokenId(passwordResetRequestVo.getTokenId());
+				passwordResetRequest = commonService.getPasswordResetRequestByTokenId(passwordResetRequestVo.getTokenId());
 				if (passwordResetRequest != null) {
 						response.setStatus(SBMessageStatus.SUCCESS
 								.getValue());
@@ -241,23 +258,23 @@ public class CommonRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel resetPassword(PasswordResetRequestVo passwordResetRequestVo) {
-		ResponseModel response = new ResponseModel();
+		 response = new ResponseModel();
 		try {
 			if (passwordResetRequestVo != null && passwordResetRequestVo.getUser()!=null) {
-				PasswordResetRequest passwordResetRequest = commonService.getPasswordResetRequestByTokenId(passwordResetRequestVo.getTokenId());
-				UserVo userVo = passwordResetRequestVo.getUser();
+				passwordResetRequest = commonService.getPasswordResetRequestByTokenId(passwordResetRequestVo.getTokenId());
+				userVo = passwordResetRequestVo.getUser();
 				if (passwordResetRequest != null) {
 						String userType = passwordResetRequest.getUserType();
 						String userId = passwordResetRequest.getUserId();
 						String encPassword = CommonUtil.passwordEncoder(userVo.getPassword());
 						if(userType.equals("admin")){
-						    User user = userService.getUser(userId);
+						    user = userService.getUser(userId);
 						    if(user!=null){
 						    	user.setPassword(encPassword);
 						    	userService.updateUser(user);
 						    }
 						}else if(userType.equals("customer")){
-							Customer customer = customerService.getCustomerInfoById(userId);
+							customer = customerService.getCustomerInfoById(userId);
 							if(customer!=null){
 								customer.setPassword(encPassword);
 						    	customerService.updateCustomer(customer);
