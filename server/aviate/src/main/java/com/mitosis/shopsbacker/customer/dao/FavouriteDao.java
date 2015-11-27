@@ -24,6 +24,6 @@ public interface FavouriteDao<T> {
 	
 	public List<Favourite> getFavourites(Customer customer,Product product, Store store);
 	
-	public Favourite getFavouriteBtName(String favouriteName);
+	public Favourite getFavouriteByName(String favouriteName);
 
 }

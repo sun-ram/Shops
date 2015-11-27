@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("productDetailsCtrl", ['$scope','$http','$stateParams','ProductService', 'MyListServices', '$rootScope','$state','MyCartFactory', 'MyCartServices','$mdDialog',
-                                   function($scope,$http,$stateParams,ProductService, MyListServices, $rootScope,$state, MyCartFactory, MyCartServices, $mdDialog) {
+.controller("productDetailsCtrl", ['$scope','$http','$stateParams','ProductService', 'MyListServices', '$rootScope','$state','MyCartFactory', 'MyCartServices','$mdDialog','$localStorage',
+                                   function($scope,$http,$stateParams,ProductService, MyListServices, $rootScope,$state, MyCartFactory, MyCartServices, $mdDialog,$localStorage) {
 
 	$scope.getProducts = function(){
 			$scope.productDetails = $rootScope.productDetails;

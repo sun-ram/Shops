@@ -68,8 +68,8 @@ public class FavouriteServiceImpl<T> extends CustomHibernateDaoSupport<T>
 	}
 
 	@Override
-	public Favourite getFavouriteBtName(String favouriteName) {
-		return getFavourite().getFavouriteBtName(favouriteName);
+	public Favourite getFavouriteByName(String favouriteName) {
+		return getFavourite().getFavouriteByName(favouriteName);
 	}
 
 }

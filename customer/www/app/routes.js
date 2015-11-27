@@ -87,7 +87,7 @@ angular.module('app')
 
 	// Check Out module
 	.state('app.checkout', {
-		url: '/checkout',
+		url: '/checkout/:orderNo',
 		templateUrl: 'app/modules/checkout/checkOut.html',
 		controller : 'checkOutCtrl'
 	})
@@ -104,6 +104,14 @@ angular.module('app')
 		url: '/location',
 		templateUrl: 'app/modules/location/location.html',
 		controller : 'locationcontroller'
+	})
+	
+	//Favourite Module
+	
+	.state('app.favourite', {
+		url: '/favourite/:orderNo',
+		templateUrl: 'app/modules/favourite/favourite.html',
+		controller : 'favouriteCtrl'
 	})
 
 	$httpProvider.defaults.useXDomain = true;

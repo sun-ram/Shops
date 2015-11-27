@@ -1,0 +1,22 @@
+<section class="address-section" layout="column">
+    <p class="address-title md-headline">Make This Order as Favourite</p>
+    <div class="address-container" layout="row" layout-wrap layout-align="center">
+
+            <div layout layout-sm="column">
+  			<label>Favourite Name</label>
+                <md-input-container flex>
+					<select ng-model="favouritName">
+ 						  <option value="monthlyList">Monthly List</option>
+ 						  <option value="quartelyList">Quarterly List</option>
+ 						  <option value="partyList">Party List</option>
+ 						  <option value="weeklyList">Weekly List</option>
+					</select>
+                </md-input-container>
+            </div>
+            
+           <div layout="" layout-align="center" ng-click="addFavourite();">
+                <md-button class="md-raised">Add Favourite</md-button>
+            </div>
+    </div>
+</section>
+<div layout layout-sm="column">Skip it</div>

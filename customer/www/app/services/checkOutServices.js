@@ -123,5 +123,21 @@ angular.module('aviate.services')
 		})
 		return d.promise;
 	};
+	
+	this.addFavourite = function(favourite){
+		var d = $q.defer();
+		api.CheckOut.addFavourite(favourite, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
 
 }]);

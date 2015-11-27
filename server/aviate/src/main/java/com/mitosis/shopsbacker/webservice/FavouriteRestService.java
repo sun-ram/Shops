@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
@@ -49,11 +51,12 @@ public class FavouriteRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public FavouriteResponseVo addFavourite(FavouriteVo favouriteVo) {
 		FavouriteResponseVo favouriteResponseVo = new FavouriteResponseVo();
 		Favourite favourite;
 		try {
-			favourite = favouriteService.getFavouriteBtName(favouriteVo.getName());
+			favourite = favouriteService.getFavouriteByName(favouriteVo.getName());
 			if(favourite == null){
 				favourite = (Favourite) CommonUtil.setAuditColumnInfo(Favourite.class.getName());
 				favourite.setIsactive('Y');

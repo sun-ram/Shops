@@ -12,7 +12,8 @@ var aviateAdmin = angular.module('app', ['toastr',
                                          'ngMaterial',
                                          'ipCookie',
                                          'ngMdIcons',
-                                         'md.data.table'
+                                         'md.data.table',
+                                         'ngStorage'
                                          ]);
 
 
