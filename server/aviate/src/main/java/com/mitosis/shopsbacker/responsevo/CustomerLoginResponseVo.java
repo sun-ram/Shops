@@ -5,14 +5,14 @@ import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 public class CustomerLoginResponseVo extends ResponseModel {
 
-	public CustomerVo customerVo;
+	public CustomerVo customer;
 
-	public CustomerVo getCustomerVo() {
-		return customerVo;
+	public CustomerVo getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerVo(CustomerVo customerVo) {
-		this.customerVo = customerVo;
+	public void setCustomer(CustomerVo customerVo) {
+		this.customer = customerVo;
 	}
 
 }

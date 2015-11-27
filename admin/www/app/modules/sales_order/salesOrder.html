@@ -33,7 +33,7 @@
 		<tr>
 		<th name="Shoper"></th>
 		<th name="Backer"></th>
-              <th order-by="customerVo.name" name="Customer"></th>
+              <th order-by="customer.name" name="Customer"></th>
 <!--               <th order-by="address.firstName" name="Products"></th>
  -->              <th order-by="transactionNo" name="Ref-no"></th>
               <th numeric order-by="addressVo.address1" name="Delivery Address"></th>
@@ -51,7 +51,7 @@
 		<tr ng-repeat="salesOrder in salesOrderList | orderBy: salesOrderPagination.order | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:search">
 		<td><md-button class="md-icon-button md-primary" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="cast-connected" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button></td>
 		<td><md-button class="md-icon-button md-primary" ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="cast-connected" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button></td>
-			<td>{{salesOrder.customerVo.name}}</td>
+			<td>{{salesOrder.customer.name}}</td>
 			<!-- <td><md-select ng-model="dessert.type" placeholder="Other">
 				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
 				</md-select></td> -->

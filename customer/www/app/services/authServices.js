@@ -7,10 +7,10 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					var userDetails = {};
-					userDetails.userId= result.customerVo.customerId;
+					userDetails.userId= result.customer.customerId;
 					userDetails.role = "CUSTOMER"
-					userDetails.emailId = result.customerVo.email;
-					userDetails.userName = result.customerVo.email.split('@')[0];
+					userDetails.emailId = result.customer.email;
+					userDetails.userName = result.customer.email.split('@')[0];
 					ipCookie("user",userDetails);
 					$rootScope.user = ipCookie("user");
 					d.resolve(userDetails);
@@ -30,10 +30,10 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					var userDetails = {};
-					userDetails.userId= result.customerVo.customerId;
+					userDetails.userId= result.customer.customerId;
 					userDetails.role = "CUSTOMER"
-					userDetails.emailId = result.customerVo.email;
-					userDetails.userName = result.customerVo.email.split('@')[0];
+					userDetails.emailId = result.customer.email;
+					userDetails.userName = result.customer.email.split('@')[0];
 					ipCookie("user",userDetails);
 					$rootScope.user = ipCookie("user");
 					d.resolve(userDetails);

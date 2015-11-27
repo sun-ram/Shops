@@ -20,6 +20,8 @@ public interface MyCartService<T> {
 	public MyCart getCartDetailFromId(String myCartId);
 	
 	public MyCart getCartByCustomerStoreanProductId(Customer customer, Product product, Store store);
+
+	public int deleteCartProduct(String customerId, String storeId);
 	
 
 }

@@ -20,7 +20,7 @@ public class MyCartServiceImpl<T> extends CustomHibernateDaoSupport<T>
 implements MyCartService<T>, Serializable {
 
 	@Autowired
-	MyCartDao myCartDao;
+	MyCartDao<T> myCartDao;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -52,17 +52,19 @@ implements MyCartService<T>, Serializable {
 	}
 
 	@Override
-	@Transactional
 	public MyCart getCartDetailFromId(String myCartId) {
-		// TODO Auto-generated method stub
 		return myCartDao.getCartDetailFromId(myCartId);
 	}
 
 	@Override
 	public MyCart getCartByCustomerStoreanProductId(Customer customer,
 			Product product, Store store) {
-		// TODO Auto-generated method stub
 		return myCartDao.getCartByCustomerStoreanProductId(customer, product, store);
+	}
+
+	@Override
+	public int deleteCartProduct(String customerId, String storeId) {
+		return myCartDao.deleteFromCart(customerId,storeId);
 	}
 
 }

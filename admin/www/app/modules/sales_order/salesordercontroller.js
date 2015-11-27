@@ -4,7 +4,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
-			$scope.salesOrderPagination.order= 'customerVo.name';
+			$scope.salesOrderPagination.order= 'customer.name';
 			
 			if($localStorage.state){
 				$scope.salesOrderList = $localStorage.salesorderfilter;

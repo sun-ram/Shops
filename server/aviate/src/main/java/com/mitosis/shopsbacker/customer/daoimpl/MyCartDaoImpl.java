@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.customer.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -29,7 +30,6 @@ MyCartDao<T>, Serializable {
 		try {
 			update((T) mycart);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
@@ -46,24 +46,24 @@ MyCartDao<T>, Serializable {
 		criteria.add(Restrictions.eq("store", store));
 		return (List<MyCart>) findAll(criteria);
 		}  catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void removeFromCart(MyCart mycart) {
 		try {
 			delete((T) mycart);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(e);
 		}
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addToCart(MyCart mycart) {
 		try {
@@ -101,6 +101,20 @@ MyCartDao<T>, Serializable {
 				e.printStackTrace();
 				throw(e);
 			}
+	}
+
+	/**
+	 * 
+	 * @author Prabakaran
+	 * 
+	 * @Return This method will return number of record can be deleted
+	 * 
+	 */
+	public int deleteFromCart(String customerId, String storeId) {
+		Query deleteQuery = getSession().createQuery("delete from my_cart where STORE_ID = ? and CUSTOMER_ID = ?");
+		deleteQuery.setString(0, storeId);
+		deleteQuery.setString(1, customerId);
+		return deleteQuery.executeUpdate();
 	}
 
 }

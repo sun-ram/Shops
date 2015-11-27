@@ -66,7 +66,7 @@ public class CustomerRestService<T> {
 			}
 			if (customer != null && flag) {
 				customerDetails = setCustomerDetails(customer);
-				customerLoginResponseVo.setCustomerVo(customerDetails);
+				customerLoginResponseVo.setCustomer(customerDetails);
 				customerLoginResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
 			} else {
@@ -108,7 +108,7 @@ public class CustomerRestService<T> {
 					CustomerVo customerVoSet = new CustomerVo();
 					customerVoSet.setCustomerId(newCustomer.getCustomerId());
 					customerVoSet.setEmail(newCustomer.getEmail());
-					customerLoginResponseVo.setCustomerVo(customerVoSet);
+					customerLoginResponseVo.setCustomer(customerVoSet);
 					customerLoginResponseVo
 							.setErrorCode(SBErrorMessage.SIGNUP_SUCCESS
 									.getCode());

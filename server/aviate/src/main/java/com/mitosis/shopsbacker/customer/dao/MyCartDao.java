@@ -22,4 +22,6 @@ public interface MyCartDao<T> {
 	
 	public MyCart getCartByCustomerStoreanProductId(Customer customer, Product product, Store store);
 
+	public int deleteFromCart(String customerId, String storeId);
+
 }

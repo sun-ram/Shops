@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.customer.service.MyCartService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -40,6 +41,9 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	
 	@Autowired
 	SalesOrderLineService<T> salesOrderLine;
+	
+	@Autowired
+	MyCartService<T> mycartService;
 	
 	public SalesOrderDao<T> getSalesOrderDao() {
 		return salesOrderDao;
@@ -133,15 +137,55 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	@Override
 	public void paymentConfimation(String orderNo, String transactionNo,
 			String paymentMethod) {
-		SalesOrder salesOrder = salesOrderDao.getSalesOrder(orderNo);
-		
-		for(SalesOrderLine sol : salesOrder.getSalesOrderLines());
-		
-		
-		
-		
-		
-		
+		try{
+			SalesOrder salesOrder = salesOrderDao.getSalesOrder(orderNo);
+			
+			salesOrder.setIspaid('Y');
+			salesOrder.setStatus(OrderStatus.Placed.toString());
+			salesOrder.setTransactionNo(transactionNo);
+			salesOrder.setPaymentMethod(paymentMethod);
+			updateSalesOrder(salesOrder);
+			int numberOfEntityDeleted = mycartService.deleteCartProduct(salesOrder.getCustomer().getCustomerId(),salesOrder.getStore().getStoreId());
+
+			
+			/*Set<WarehouseModel> warehouseModelSet=new HashSet<WarehouseModel>();
+			Map<WarehouseModel,Map<BinProductModel,Long>> warehouseModelMap=new HashMap<WarehouseModel,Map<BinProductModel,Long>>();
+			//Map<Long,Long> productQtyMap=new HashMap<Long, Long>();
+
+			//Select Stocked product with warehouse based on sales order's store and product
+			getStockedProductWithStorageBin(salesOrder, warehouseModelSet,
+					warehouseModelMap);
+			
+			//Create Inventory and inventory lines based on available products 
+			creatInventoryAndInventoryLines(salesOrder, warehouseModelSet,
+					warehouseModelMap);
+			CustomerDao customerDao = new CustomerDaoImpl();
+			JSONObject pickerSearch = new JSONObject();
+			pickerSearch.put("storeId",salesOrder.getStoreId());
+			pickerSearch.put("role","PICKER");
+			List<CustomerDetailsModel> customerList =	customerDao.getPickerDeviceId(pickerSearch);
+			for(CustomerDetailsModel customer : customerList ){
+				if(customer.getDeviceType() != null 
+						&& customer.getDeviceType().equals("ANDROID")){
+					try{
+						commonDao.androidPushNotification(orderId, customer.getDeviceId());
+					}catch(Exception e){
+					}
+				}else if(customer.getDeviceType() != null 
+						&& customer.getDeviceType().equals("IOS")){
+					try{
+						commonDao.applePushNotification(orderId, customer.getDeviceId());
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}else{
+
+				}
+			}*/
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
 		// TODO Auto-generated method stub
 		
 	}
