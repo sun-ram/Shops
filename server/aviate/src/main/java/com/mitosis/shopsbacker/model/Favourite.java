@@ -28,6 +28,10 @@ import org.hibernate.annotations.GenericGenerator;
 		@UniqueConstraint(columnNames = { "NAME", "CUSTOMER_ID" }) })
 public class Favourite implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String favouriteId;
 	private Merchant merchant;
 	private String createdby;

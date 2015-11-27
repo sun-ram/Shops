@@ -24,6 +24,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "my_cart")
 public class MyCart implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String myCartId;
 	private Merchant merchant;
 	private Product product;

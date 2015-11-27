@@ -30,6 +30,10 @@ import org.hibernate.annotations.GenericGenerator;
 		"NAME", "STORE_ID" }))
 public class Warehouse implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String warehouseId;
 	private String updatedby;
 	private String createdby;

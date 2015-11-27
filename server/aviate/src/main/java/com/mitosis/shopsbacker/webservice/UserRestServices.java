@@ -83,6 +83,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userLogin(UserVo userVo) throws Exception {
 		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
 		boolean flag = false;
@@ -203,7 +204,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel saveUser(UserVo userVo) {
 		try {
 
@@ -253,7 +254,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateUser(UserVo userVo) {
 		try {
 
@@ -285,7 +286,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public EmployeeResponseVo getUser(JSONObject req) {
 		EmployeeResponseVo response = new EmployeeResponseVo();
 		try {
@@ -318,7 +319,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteUser(JSONObject req) {
 		try {
 			userService.deleteUser(req.getString("userId"));
@@ -334,7 +335,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public UserLoginResponseVo getShopperDetails(UserVo userVo) {
 		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
 		List<UserVo> userVoList = new ArrayList<UserVo>();
@@ -389,7 +390,7 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public UserLoginResponseVo getBackerDetails(UserVo userVo) {
 		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
 		List<UserVo> userVoList = new ArrayList<UserVo>();

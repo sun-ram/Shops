@@ -109,7 +109,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addProduct(ProductVo productVo) {
 		
 		try {
@@ -189,7 +189,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateProduct(ProductVo productVo) {
 		
 		try {
@@ -228,7 +228,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteProduct(ProductVo productVo) {
 		try {
 			Product product = getProductService().getProduct(productVo.getProductId());
@@ -247,7 +247,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductResponseVo ProductById(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -270,8 +270,8 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
-	public ResponseModel ProductByType(ProductVo productVo) {
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String ProductByType(ProductVo productVo) throws Exception {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			ProductType productType = ProductTypeService.getProductTypeById(productVo.getProductType().getProductTypeId());
@@ -291,7 +291,7 @@ public class ProductRestService {
 			productResponse.setErrorString(e.getMessage());
 		}
 		
-		return productResponse;
+		return CommonUtil.getObjectMapper(productResponse);
 
 		}
 	
@@ -299,7 +299,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String ProductByCategory(ProductVo productVo) throws Exception {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -328,7 +328,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel GetTopProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -357,7 +357,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductResponseVo GetProduct(ProductVo productVo) {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
@@ -386,7 +386,7 @@ public class ProductRestService {
 	 @GET
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces("application/vnd.ms-excel")
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	 public   Response exportExcelFile(@QueryParam("merchantId") String merchantId){
 		Response productResponse = null;
 		
@@ -439,7 +439,7 @@ public class ProductRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductUploadVO excelUpload(ProductVo file) {
 		ProductUploadVO response = new ProductUploadVO();
 		String excelPath = null;

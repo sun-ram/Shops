@@ -25,6 +25,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "order_tax")
 public class OrderTax implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String orderTaxId;
 	private Merchant merchant;
 	private Tax tax;

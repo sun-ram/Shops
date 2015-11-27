@@ -26,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "state")
 public class State implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String stateId;
 	private Country country;
 	private String name;

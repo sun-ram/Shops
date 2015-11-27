@@ -50,7 +50,7 @@ public class MyCartRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addToCart(MyCartVo myCartVo) throws Exception {
 		ResponseModel response = new ResponseModel();
 		Product product = productService.getProduct(myCartVo.getProduct().getProductId());
@@ -83,7 +83,7 @@ public class MyCartRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public MyCartResponseVo deletefromcart(MyCartVo myCartVo) {
 		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
 		Product product = productService.getProduct(myCartVo.getProduct().getProductId());
@@ -105,7 +105,7 @@ public class MyCartRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public MyCartResponseVo getMyCartList(MyCartVo myCartVo) {
 		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
 		List<MyCart> myCart = new ArrayList<MyCart>();

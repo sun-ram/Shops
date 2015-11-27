@@ -12,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
@@ -60,7 +62,7 @@ public class CommonRestServices<T> {
 	@Path("/country")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)	
 	public CountryResponse getCountry() {
 		CountryResponse countryResponse = new CountryResponse();
 		try {
@@ -124,6 +126,7 @@ public class CommonRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel forgetPassword(PasswordResetRequestVo passwordResetRequestVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -201,6 +204,7 @@ public class CommonRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel verifyTokenId(PasswordResetRequestVo passwordResetRequestVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -235,6 +239,7 @@ public class CommonRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel resetPassword(PasswordResetRequestVo passwordResetRequestVo) {
 		ResponseModel response = new ResponseModel();
 		try {

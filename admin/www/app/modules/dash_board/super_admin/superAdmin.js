@@ -123,6 +123,20 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             .attr('width', width)
             .attr('height', height)
             .call(chart);
+            
+            d3.select("#test11")
+            .datum(testdata1)
+            .transition().duration(1200)
+            .attr('width', width)
+            .attr('height', height)
+            .call(chart);
+            
+            d3.select("#test12")
+            .datum(testdata1)
+            .transition().duration(1200)
+            .attr('width', width)
+            .attr('height', height)
+            .call(chart);
 
             // update chart data values randomly
             setInterval(function () {
@@ -136,7 +150,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 }
                 chart.title(testdata1[0].y + "%");
                 chart.update();
-            }, 4000);
+            }, 200);
 
             return chart;
 

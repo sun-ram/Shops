@@ -26,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 		"FROM_TIME", "TO_TIME", "MERCHNAT_ID" }))
 public class DeliveryTimeSlot implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String deliveryTimeSlotId;
 	private String createdby;
 	private String updatedby;
