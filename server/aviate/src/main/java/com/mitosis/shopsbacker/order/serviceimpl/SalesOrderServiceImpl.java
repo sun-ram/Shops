@@ -105,7 +105,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		SalesOrder salesOrder = salesOrderDao.salesOrderById(salesOrderId);
 		if (salesOrder != null) {
 			salesOrder.setIspaid('Y');
-			salesOrder.setStatus(OrderStatus.Initialized.toString());
+			salesOrder.setStatus(OrderStatus.Placed.toString());
 			salesOrder.setPaymentMethod(paymentMethod);
 			salesOrder.setTransactionNo(transactionNo);
 			salesOrderDao.updateSalesOrder(salesOrder);
