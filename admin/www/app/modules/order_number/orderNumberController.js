@@ -1,13 +1,12 @@
 angular.module('aviateAdmin.controllers')
-.controller("orderNumberController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','OrderNumberServices',
-                                     function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,OrderNumberServices) {
+.controller("orderNumberController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','OrderNumberServices','CONSTANT','toastr',
+                                     function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,OrderNumberServices,CONSTANT,toastr) {
 
 
 	/* $scope.query = {
 					    limit: 5,
 					    page: 1
 					  };*/
-
 
 	$scope.getOrderNumber = function(){
 		$scope.store = {};
@@ -26,7 +25,7 @@ angular.module('aviateAdmin.controllers')
 	$scope.deleteOrderNumber= function(orderNumber) {
 
 		var confirm = $mdDialog.confirm()
-		.title('Would you like to delete Tax?')
+		.title('Would you like to delete Order Number?')
 		.ok('Delete')
 		.cancel('Cancel');
 		$mdDialog.show(confirm).then(function() {
@@ -39,6 +38,13 @@ angular.module('aviateAdmin.controllers')
 
 		});				};
 
-
+		$scope.redirectToCreate = function(){
+			
+			if($scope.orderNumber){
+				toastr.error(CONSTANT.ORDERNUMBERERROR);
+			}else{
+				$state.go('app.newordernumber')
+			}
+		}
 
 }]);

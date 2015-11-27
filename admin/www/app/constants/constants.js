@@ -40,6 +40,7 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ADDORDERNUMBER:'Order Number Added successfully',
 	DELETEORDERNUMBER:'Order Number Deleted successfully',
 	UPDATEORDERNUMBER:'Order Number Updated Successfully',
+	ORDERNUMBERERROR:'You Cant Add More Than One Order Number',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
