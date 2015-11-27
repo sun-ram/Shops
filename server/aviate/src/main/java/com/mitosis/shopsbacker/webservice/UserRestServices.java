@@ -134,7 +134,7 @@ public class UserRestServices<T> {
 	}
 
 	public ImageVo setUserImageDetails(User user) {
-		ImageVo image = null;
+		ImageVo image = new ImageVo();
 		if (user.getImage() != null) {
 			image.setName(user.getImage().getName());
 			image.setType(user.getImage().getType());
