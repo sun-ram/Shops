@@ -691,9 +691,7 @@ public class ProductRestService {
 			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			productResponse.setErrorString(e.getMessage());
 		}
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(Include.NON_NULL);
-		mapper.setSerializationInclusion(Include.NON_EMPTY);
+		ObjectMapper mapper = CommonUtil.getObjectMapper();
 		//mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
 		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		String responseString = null;
@@ -707,4 +705,6 @@ public class ProductRestService {
 		}
 		return responseString;
 	}
+
+	
 }

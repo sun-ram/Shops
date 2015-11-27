@@ -19,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
@@ -81,9 +83,11 @@ public class UserRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserLoginResponseVo userLogin(UserVo userVo) {
+	public String userLogin(UserVo userVo) throws Exception {
 		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
 		boolean flag = false;
+		String responseString = null;
+		ObjectMapper mapper = CommonUtil.getObjectMapper();
 		try {
 			UserVo userDetails = new UserVo();
 			if (userVo.getUserName() != null) {
@@ -104,7 +108,8 @@ public class UserRestServices<T> {
 									.getMessage());
 					userLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
-					return userLoginResponseVo;
+					
+					return responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLoginResponseVo);
 
 				}
 			}
@@ -113,9 +118,20 @@ public class UserRestServices<T> {
 			log.error(e.getMessage());
 			userLoginResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
 			userLoginResponseVo.setErrorString(e.toString());
-			return userLoginResponseVo;
+			return   responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLoginResponseVo);
 		}
-		return userLoginResponseVo;
+		
+		//mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+		try {
+			responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLoginResponseVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			 throw e;
+		}
+		return responseString;
 	}
 
 	public UserVo setUserDetails(User user) throws Exception {  

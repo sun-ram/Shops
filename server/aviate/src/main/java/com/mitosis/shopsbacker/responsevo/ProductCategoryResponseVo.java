@@ -7,14 +7,14 @@ import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 
 public class ProductCategoryResponseVo extends ResponseModel{
 	
-	public List<ProductCategoryVo> productCategoryVo;
+	public List<ProductCategoryVo> productCategories;
 
-	public List<ProductCategoryVo> getProductCategoryVo() {
-		return productCategoryVo;
+	public List<ProductCategoryVo> getProductCategories() {
+		return productCategories;
 	}
 
-	public void setProductCategoryVo(List<ProductCategoryVo> productCategoryVo) {
-		this.productCategoryVo = productCategoryVo;
+	public void setProductCategories(List<ProductCategoryVo> productCategories) {
+		this.productCategories = productCategories;
 	}
 	
 	

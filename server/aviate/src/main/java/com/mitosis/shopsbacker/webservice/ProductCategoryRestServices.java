@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
@@ -30,7 +32,6 @@ import com.mitosis.shopsbacker.responsevo.ProductCategoryResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
-import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
@@ -213,7 +214,7 @@ public class ProductCategoryRestServices<T> {
 			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
 					rootProductCategoryVoList, productCategoryVoParentMap);
 			productCategoryResponseVo
-					.setProductCategoryVo(rootProductCategoryVoList);
+					.setProductCategories(rootProductCategoryVoList);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 			// productCategoryResponseVo=productCategory.
@@ -240,7 +241,7 @@ public class ProductCategoryRestServices<T> {
 			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
 					rootProductCategoryVoList, productCategoryVoParentMap);
 			productCategoryResponseVo
-					.setProductCategoryVo(rootProductCategoryVoList);
+					.setProductCategories(rootProductCategoryVoList);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 			// productCategoryResponseVo=productCategory.
@@ -253,8 +254,10 @@ public class ProductCategoryRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ProductCategoryResponseVo getallleafcategorylist(
-			ProductCategoryVo productCategoryVo) {
+	public String getallleafcategorylist(
+			ProductCategoryVo productCategoryVo) throws Exception {
+		ObjectMapper mapper =CommonUtil.getObjectMapper();
+		String responseString=null;
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		List<ProductCategory> productCategoryLeafList = new ArrayList<ProductCategory>();
 		List<ProductCategoryVo> productCategoryLeafListVo = new ArrayList<ProductCategoryVo>();
@@ -291,11 +294,12 @@ public class ProductCategoryRestServices<T> {
 				productCategoryLeafListVo.add(productCategoryLeaf);
 			}
 			productCategoryResponseVo
-					.setProductCategoryVo(productCategoryLeafListVo);
+					.setProductCategories(productCategoryLeafListVo);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 		}
-		return productCategoryResponseVo;
+		responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productCategoryResponseVo);
+		return responseString;
 
 	}
 
@@ -332,7 +336,7 @@ public class ProductCategoryRestServices<T> {
 				productCategoryLeafListVo.add(productCategoryLeaf);
 			}
 			productCategoryResponseVo
-					.setProductCategoryVo(productCategoryLeafListVo);
+					.setProductCategories(productCategoryLeafListVo);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 		}
@@ -437,7 +441,7 @@ public class ProductCategoryRestServices<T> {
 
 			}
 			productCategoryResponseVo
-					.setProductCategoryVo(rootProductCategoryVoList);
+					.setProductCategories(rootProductCategoryVoList);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 			// productCategoryResponseVo=productCategory.

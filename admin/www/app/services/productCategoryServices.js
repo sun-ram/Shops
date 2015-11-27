@@ -31,7 +31,7 @@ angular.module('aviateAdmin.services')
 		api.ProductCategory.getParentCategory(product, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result.productCategoryVo);
+					d.resolve(result.productCategories);
 				}else{
 					toastr.error(result.errorString);	
 				}

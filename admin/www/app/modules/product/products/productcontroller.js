@@ -221,7 +221,7 @@ angular.module('aviateAdmin.controllers')
 
 		ProductService.getProductCategory($scope.products).then(function(data) {
 			
-			$scope.productCategoryVo = data.productCategoryVo;
+			$scope.productCategoryVo = data.productCategories;
 
 
 		})

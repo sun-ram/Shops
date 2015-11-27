@@ -27,6 +27,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -363,5 +364,17 @@ public final class CommonUtil {
 			e=(Exception) e.getCause();
 		}
 		return errormMessage;
+	}
+	
+	/**
+	 * This method used for removed null and empty value objects.
+	 * @author Anbukkani Gajendran
+	 * @return ObjectMapper
+	 */
+	public static ObjectMapper getObjectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Include.NON_NULL);
+		mapper.setSerializationInclusion(Include.NON_EMPTY);
+		return mapper;
 	}
 }
