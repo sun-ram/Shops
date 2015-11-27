@@ -4,9 +4,7 @@ package com.mitosis.shopsbacker.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +27,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "product_offer_line")
 public class ProductOfferLine implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productOfferLineId;
 	private String createdby;
 	private String updatedby;

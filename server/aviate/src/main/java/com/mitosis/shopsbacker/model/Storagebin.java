@@ -29,6 +29,10 @@ import org.hibernate.annotations.GenericGenerator;
 		"NAME", "ROW", "STACK", "LEVEL", "WAREHOUSE_ID" }))
 public class Storagebin implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String storagebinId;
 	private String updatedby;
 	private String createdby;

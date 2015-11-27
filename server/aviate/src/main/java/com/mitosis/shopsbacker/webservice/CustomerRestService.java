@@ -55,6 +55,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userLogin(CustomerVo customerVo) throws Exception {
 		boolean flag = false;
 		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
@@ -89,6 +90,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userSignUp(CustomerVo customerVo)
 			throws Exception {
 		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
@@ -152,7 +154,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addAddress(AddressVo addressVo) throws Exception {
 		if (addressVo.getCustomer().getCustomerId() != null) {
 			String full_address = addressVo.getAddress1()+","+addressVo.getAddress2()+","+
@@ -176,7 +178,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public AddressResponseVo getCustomerAddress(CustomerVo customerVo) throws Exception {
 		AddressResponseVo addressResponseList = new AddressResponseVo();
 			Customer customer = customerService
@@ -194,7 +196,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteAddress(AddressVo addressVo) throws Exception {
 		if (addressVo.getAddressId() != null) {
 			Address address = addressService.getAddress(addressVo.getAddressId());

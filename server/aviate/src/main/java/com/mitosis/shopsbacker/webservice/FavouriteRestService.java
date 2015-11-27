@@ -51,7 +51,7 @@ public class FavouriteRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public FavouriteResponseVo addFavourite(FavouriteVo favouriteVo) {
 		FavouriteResponseVo favouriteResponseVo = new FavouriteResponseVo();
 		Favourite favourite;
@@ -82,6 +82,7 @@ public class FavouriteRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public FavouriteResponseVo userLogin(FavouriteVo favouriteVo) {
 		FavouriteResponseVo favouriteResponseVo = new FavouriteResponseVo();
 		try {

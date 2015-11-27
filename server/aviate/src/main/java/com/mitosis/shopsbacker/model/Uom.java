@@ -26,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "uom", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class Uom implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String uomId;
 	private String updatedby;
 	private String createdby;

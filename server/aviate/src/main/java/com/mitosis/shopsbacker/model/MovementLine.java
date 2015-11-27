@@ -24,6 +24,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "movement_line")
 public class MovementLine implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String movementLineId;
 	private String updatedby;
 	private String createdby;

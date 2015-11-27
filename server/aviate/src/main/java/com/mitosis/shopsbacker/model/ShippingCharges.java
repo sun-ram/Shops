@@ -25,6 +25,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "shipping_charges")
 public class ShippingCharges implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String shippingChargesId;
 	private Merchant merchant;
 	private BigDecimal chargingAmount;

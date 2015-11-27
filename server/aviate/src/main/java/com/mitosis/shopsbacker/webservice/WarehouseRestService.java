@@ -52,7 +52,7 @@ public class WarehouseRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public WarehouseResponseVo addWarehouse(WarehouseVo warehouseVo) {
 		WarehouseResponseVo warehouseResponseVo = new WarehouseResponseVo();
 		try {
@@ -97,7 +97,7 @@ public class WarehouseRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public WarehouseResponseVo warehouseList(WarehouseVo warehouseVo){
 		WarehouseResponseVo response=new WarehouseResponseVo();
 		//List<WarehouseVo> listOfWarehouses=new ArrayList<WarehouseVo>();
@@ -133,7 +133,7 @@ public class WarehouseRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public WarehouseResponseVo deleteWarehouse(WarehouseVo warehouseVo) {
 		WarehouseResponseVo warehouseResponseVo = new WarehouseResponseVo();
 		try {

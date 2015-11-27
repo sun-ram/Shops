@@ -118,7 +118,7 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SalesOrderResponseVo getSalesOrderByStore(SalesOrderVo salesOrderVo) {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
@@ -155,7 +155,7 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SalesOrderResponseVo updateShoperIntoSalesOrder(SalesOrderVo salesOrderVo) {
 		SalesOrderResponseVo salesOrderResponseVo=new SalesOrderResponseVo();
 		if(salesOrderVo.getSalesOrderId()!=null){
@@ -176,7 +176,7 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SalesOrderResponseVo updateBackerIntoSalesOrder(SalesOrderVo salesOrderVo) {
 		SalesOrderResponseVo salesOrderResponseVo=new SalesOrderResponseVo();
 		if(salesOrderVo.getSalesOrderId()!=null){
@@ -199,7 +199,7 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SalesOrderResponseVo getSalesOrderByDate(SalesOrderVo salesOrderVo) {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
@@ -229,7 +229,7 @@ public class SalesOrderRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ConfirmOrderResponseVo confirmOrder(SalesOrderVo salesOrderVo) {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		try {

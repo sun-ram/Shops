@@ -33,6 +33,10 @@ import org.hibernate.annotations.GenericGenerator;
 		"NAME", "MERCHANT_ID", "UOM_ID", "UNIT" }))
 public class Product implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productId;
 	private String createdby;
 	private String updatedby;

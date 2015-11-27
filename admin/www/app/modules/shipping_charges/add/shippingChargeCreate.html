@@ -1,14 +1,15 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getStoreDetails()">
-   <md-toolbar class=" md-default-theme">
+ <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Shipping Charges</h2>
-      <span class="close_box">
-	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon> </span>
+      <h3 class="md-flex" style="margin-left:-10px;">Shipping Charges</h3>
+     <!--  <span class="close_box">
+	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon> </span> -->
     </div>
-    <span class="close_box">
+    <!-- <span class="close_box">
 		 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon>
-	 </span>
+	 </span> -->
   </md-toolbar>
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getStoreDetails()">
+  
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
     <form name="storeForm" novalidate>
     	    <div layout layout-sm="column">

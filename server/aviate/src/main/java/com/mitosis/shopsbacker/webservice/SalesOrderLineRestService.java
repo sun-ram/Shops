@@ -51,6 +51,7 @@ public class SalesOrderLineRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SalesOrderLineResponseVo getSalesOrderLineByStore(SalesOrderLineVo salesOrderLineVo) {
 		response = new ResponseModel();
 		salesOrderLineResponse = new SalesOrderLineResponseVo();
