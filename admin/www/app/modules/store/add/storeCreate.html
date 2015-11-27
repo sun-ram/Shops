@@ -28,9 +28,9 @@
 			Store Admin Name<span style="color: red">*</span>
 		</label> <input ng-model="store.user.name" ng-required="true"> </md-input-container>
 	
-		<md-input-container layout-padding flex> <label>User
+		<md-input-container layout-padding flex > <label>User
 			Name<span style="color: red">*</span>
-		</label> <input ng-model="store.user.userName" ng-required="true"> </md-input-container>
+		</label> <input ng-model="store.user.userName" ng-required="true" ng-maxlength="45"  maxlength="45"> </md-input-container>
 		<md-input-container layout-padding flex> <label>Email<span
 			style="color: red">*</span></label> <input type="email" name="emailId"
 			ng-model="store.user.emailid" ng-required="true"

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,23 +18,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import sun.security.action.GetLongAction;
-
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.common.service.ImageService;
-import com.mitosis.shopsbacker.model.Address;
-import com.mitosis.shopsbacker.model.Country;
-import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.State;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.responsevo.StoreResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
@@ -43,10 +36,8 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
-import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.GeoLocation;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
-import com.mitosis.shopsbacker.vo.common.StateVo;
 
 /**
  * @author RiyazKhan
@@ -73,6 +64,9 @@ public class StoreRestService<T> {
 
 	@Autowired
 	ImageService<T> imageService;
+	
+	@Autowired
+	UserService userService;
 
 	public AddressService<T> getAddessService() {
 		return addessService;
@@ -106,7 +100,7 @@ public class StoreRestService<T> {
 		this.merchantService = merchantService;
 	}
 
-	ResponseModel response = new ResponseModel();
+	ResponseModel response = null;
 
 	@Path("/addstore")
 	@POST
@@ -115,12 +109,9 @@ public class StoreRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addStoreDetails(StoreVo storeVo) {
 		try {
-
+			response=new ResponseModel();
 			Merchant merchant = merchantService.getMerchantById(storeVo
 					.getMerchant().getMerchantId());
-
-			MerchantVo merchantVo = merchantService.setMerchantVo(merchant);
-			storeVo.setMerchant(merchantVo);
 
 			List<Store> checkUniqueStore = getStoreService()
 					.getStoreListByName(storeVo.getName(), merchant);
@@ -133,11 +124,20 @@ public class StoreRestService<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
+			User user = userService.getUserByUserName(storeVo.getUser().getUserName());
+						if(user!=null){
+							response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
+									.getCode());
+							response.setErrorString(SBErrorMessage.USER_NAME_ALREADY_EXIST
+									.getMessage());
+							response.setStatus(SBMessageStatus.FAILURE.getValue());
+							return response;
+						}
 			Store store = storeService.setStore(storeVo);
 			store.getUser().setMerchant(merchant);
 			store.setMerchant(merchant);
 			storeService.saveStore(store);
-
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -152,12 +152,11 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateStoreDetails(StoreVo storeVo) {
+		response=new ResponseModel();
 		try {
-
 			Store store = storeService.setStore(storeVo);
-
 			storeService.updateStore(store);
-
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -173,9 +172,11 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteStore(StoreVo storeVo) {
+		response=new ResponseModel();
 		try {
 			Store store = getStoreService().getStoreById(storeVo.getStoreId());
 			getStoreService().removeStore(store);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
