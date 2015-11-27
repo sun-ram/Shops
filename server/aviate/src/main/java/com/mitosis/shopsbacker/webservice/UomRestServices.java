@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
@@ -56,6 +58,7 @@ public class UomRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addUom(UomVo uomVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -98,6 +101,7 @@ public class UomRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public UomResponseVo getUoms() {
 		UomResponseVo response=new UomResponseVo();
 		try {
@@ -125,6 +129,7 @@ public class UomRestServices<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteUom(UomVo uomVo) {
 		ResponseModel response = new ResponseModel();
 		try {
@@ -136,6 +141,7 @@ public class UomRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				response.setErrorString(SBErrorMessage.UOM_ALREDY_ASSIGNED_IN_PRODUCT.getMessage());
 				response.setErrorCode(SBErrorMessage.UOM_ALREDY_ASSIGNED_IN_PRODUCT.getCode());
+				return response;
 			}
 			uomService.removeUOM(uom);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());

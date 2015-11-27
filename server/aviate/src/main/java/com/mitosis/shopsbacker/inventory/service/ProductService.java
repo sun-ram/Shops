@@ -21,7 +21,7 @@ public interface ProductService<T> {
 	
 	public List<Product> getProductListByCategoty(ProductCategory productCategory);
 	
-	public void deleteProduct(Product product);
+	public void deleteProduct(Product product) throws Exception;
 	
 	public void addProduct(Product product);
 	

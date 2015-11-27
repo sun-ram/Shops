@@ -30,7 +30,7 @@ angular.module('aviateAdmin.controllers')
 		}
 		ProductService.getAllProductList($scope.product).then(function(data) {
 			
-			$scope.productList = data.productList;
+			$scope.productList = data.products;
 
 			console.log($scope.productList);
 
