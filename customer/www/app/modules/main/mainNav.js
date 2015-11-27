@@ -168,7 +168,6 @@ angular.module('aviate.directives')
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
-								$scope.getFavourite();
 								if($scope.myCart != undefined || $scope.myCart != null){
 
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
@@ -213,15 +212,6 @@ angular.module('aviate.directives')
 
 						});
 					};*/
-					   	$scope.getFavourite = function(){
-					   		$scope.favourite ={};
-							$scope.favourite.customerId = $rootScope.user.userId;
-							$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
-							$scope.favourite.storeId = $rootScope.store.storeId;
-							CheckOutServices.getFavourite($scope.favourite).then(function(data){
-								$scope.favouriteName = data;
-							});	
-					   	};
 					   	
 					$scope.forGetPassword = function(user) {
 						$scope.forgetPass = false;

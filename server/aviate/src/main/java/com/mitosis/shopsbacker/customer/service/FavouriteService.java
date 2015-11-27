@@ -6,6 +6,7 @@ import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Favourite;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.vo.customer.FavouriteVo;
 
 /**
  * @author prabakaran
@@ -26,4 +27,6 @@ public interface FavouriteService<T> {
 			Store store);
 	
 	public Favourite getFavouriteByName(String favouriteName);
+
+	public FavouriteVo setFavouriteVo(Favourite favourite);
 }

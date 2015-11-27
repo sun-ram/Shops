@@ -78,12 +78,7 @@ angular.module('app')
 		controller : 'productDetailsCtrl'
 	})
 
-	// MyList module
-	.state('app.mylist', {
-		url: '/mylist',
-		templateUrl: 'app/modules/mylist/myList.html',
-		controller : 'myListCtrl'
-	})
+
 
 	// Check Out module
 	.state('app.checkout', {
@@ -111,6 +106,12 @@ angular.module('app')
 	.state('app.favourite', {
 		url: '/favourite/:orderNo',
 		templateUrl: 'app/modules/favourite/favourite.html',
+		controller : 'favouriteCtrl'
+	})
+	
+	.state('app.favouriteList', {
+		url: '/mylist',
+		templateUrl: 'app/modules/favourite/favouriteList.html',
 		controller : 'favouriteCtrl'
 	})
 

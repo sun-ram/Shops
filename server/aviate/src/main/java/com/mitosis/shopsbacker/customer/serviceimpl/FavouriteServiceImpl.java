@@ -14,6 +14,7 @@ import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Favourite;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.vo.customer.FavouriteVo;
 
 /**
  * @author prabakaran
@@ -70,6 +71,16 @@ public class FavouriteServiceImpl<T> extends CustomHibernateDaoSupport<T>
 	@Override
 	public Favourite getFavouriteByName(String favouriteName) {
 		return getFavourite().getFavouriteByName(favouriteName);
+	}
+
+	@Override
+	public FavouriteVo setFavouriteVo(Favourite favourite) {
+		
+		FavouriteVo favouriteVo = new FavouriteVo();
+		
+		favouriteVo.setName(favourite.getName());
+		favouriteVo.setSalesOrderId(favourite.getSalesOrder().getSalesOrderId());
+		return favouriteVo;
 	}
 
 }

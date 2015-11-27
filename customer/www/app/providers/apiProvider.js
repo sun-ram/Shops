@@ -313,24 +313,6 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
-		/*Favourite*/
-		apiClass.Favourite = {
-				name: ""
-		};
-		
-		apiClass.Favourite.getFavourite = function (user, callback) {
-			httpRequest("POST", "customer/addmylist", user, function (err, data) {
-				if (err) {
-
-					callback(err, null);
-
-				} else {
-
-					callback(null, data);
-
-				}
-			});
-		};
 						
 		/*My List*/
 		apiClass.MyList = {
@@ -453,7 +435,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+		/*Favourite*/
 		apiClass.CheckOut.addFavourite = function (favourite, callback) {
 			httpRequest("POST", "favourite/addfavourite", favourite, function (err, data) {
 				if (err) {

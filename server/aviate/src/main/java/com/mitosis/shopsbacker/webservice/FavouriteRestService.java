@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -20,6 +21,7 @@ import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.FavouriteService;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Favourite;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
@@ -27,6 +29,7 @@ import com.mitosis.shopsbacker.responsevo.FavouriteResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.customer.FavouriteVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 @Path("favourite")
 @Controller("favouriteRestServices")
@@ -89,7 +92,14 @@ public class FavouriteRestService {
 			Customer customer = customerService.getCustomerInfoById(favouriteVo.getCustomerId());
 			Store store = storeService.getStoreById(favouriteVo.getStoreId());
 			List<Favourite> favourites = favouriteService.getFavourites(customer, store);
-			favouriteResponseVo.setFavourites(favourites);
+			
+			List<FavouriteVo> favouriteVoList=new ArrayList<FavouriteVo>();
+			for (Favourite favourite : favourites) {
+				FavouriteVo favouriteVos = favouriteService.setFavouriteVo(favourite);
+				favouriteVoList.add(favouriteVos);
+			}
+			
+			favouriteResponseVo.setFavourites(favouriteVoList);
 			favouriteResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 		} catch (Exception e) {
@@ -109,6 +119,7 @@ public class FavouriteRestService {
 		favourite.setStore(salesOrder.getStore());
 		favourite.setCustomer(salesOrder.getCustomer());;
 		favourite.setMerchant(salesOrder.getMerchant());
+		favourite.setName(favouriteVo.getName());
 		return favourite;
 	}
 }

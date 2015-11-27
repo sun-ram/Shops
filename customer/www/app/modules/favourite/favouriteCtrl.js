@@ -14,8 +14,18 @@ angular.module('aviate.controllers')
 		$scope.favourite.storeId = $rootScope.store.storeId;
 		
 		CheckOutServices.addFavourite($scope.favourite).then(function(data){
-			$scope.productDetails.isProductMyList = true;
+			
 		});	
 	}
+	
+   	$scope.getFavourite = function(){
+   		$scope.favourite ={};
+		$scope.favourite.customerId = $rootScope.user.userId;
+		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+		$scope.favourite.storeId = $rootScope.store.storeId;
+		CheckOutServices.getFavourite($scope.favourite).then(function(data){
+			$scope.favouriteList = data.favourites;
+		});	
+   	};
 	
 }]);
