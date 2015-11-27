@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.common.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -24,4 +25,6 @@ public interface ImageService<T>  {
 	
 	public String generateMerchantImageUrl(String url)
 			throws IOException;
+	
+	public List<Image> getImages(List<String> ids) throws Exception;
 }

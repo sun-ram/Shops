@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.common.serviceimpl;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,6 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 	
 	@Override
 	public Image setImage(ImageVo imageVo) throws Exception {
-
 
 		Image image = (Image) CommonUtil
 				.setAuditColumnInfo(Image.class.getName());
@@ -113,4 +113,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 		return imageUrl;
 	}
 	
+	public List<Image> getImages(List<String> ids) throws Exception{
+		return imageDao.getImages(ids);
+	}
 }

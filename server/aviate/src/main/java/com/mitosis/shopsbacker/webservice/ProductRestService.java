@@ -34,9 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
@@ -602,10 +600,12 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public ProductResponseVo imageUpload(ProductVo productVo) throws Exception {
-		
+	public String imageUpload(ProductVo productVo) throws Exception {
+	
+		ObjectMapper mapper = CommonUtil.getObjectMapper();
+		List<String> imageIds = new ArrayList<String>();
 		ProductResponseVo productResponse = new ProductResponseVo();
-		
+		try{
 		Product product = getProductService().getProduct(productVo.getProductId());
 		
 		if(productVo.getImage().getImage() != null){
@@ -613,31 +613,53 @@ public class ProductRestService {
 	    }
 		Image img = null;
 		if (productVo.getImage().getImage() != null) {
+			if(productVo.getImage().getImageId()!=null){
+				imageIds.add(productVo.getImage().getImageId());
+			}
 			Image image = imageService.setImage(productVo.getImage());
 			product.setImage(image);
 		}
 		
 		List <ProductImage> productImages = new ArrayList<ProductImage>();
-		List<ProductImageVo> productImageVos = productVo.getProductImages();
+		List<ImageVo> imageVos = productVo.getImages();
 		
-			for(ProductImageVo productImageVo:productImageVos){
-					productService.productImageUpload(productImageVo.getImage(),product.getMerchant());
-					Image image = imageService.setImage(productImageVo.getImage());
-					imageService.addImage(image);
-					ProductImage productimage = (ProductImage) CommonUtil.setAuditColumnInfo(ProductImage.class.getName());
-					productimage.setIsactive('Y');
-					productimage.setImage(image);
-					productimage.setProduct(product);
-					productImages.add(productimage);
+			for(ImageVo imageVo:imageVos){
+					productService.productImageUpload(imageVo,product.getMerchant());
+					if(imageVo.getImage()!=null){
+						if(imageVo.getImageId()!=null){
+							imageIds.add(imageVo.getImageId());
+						}
+						Image image = imageService.setImage(imageVo);
+						imageService.addImage(image);
+						ProductImage productimage = (ProductImage) CommonUtil.setAuditColumnInfo(ProductImage.class.getName());
+						productimage.setIsactive('Y');
+						productimage.setImage(image);
+						productimage.setProduct(product);
+						productImages.add(productimage);
+					}
 		}
 		product.setProductImages(productImages);
 		productService.updateProduct(product);
 		
 		ProductVo productvo = new ProductVo();
 		setProductVoForMobile(productvo, product);
+		
+		List<Image> images=imageService.getImages(imageIds);
+		
+		//delete images and product images 
+		for(Image image:images){
+			if(image.getProductImages()!=null && image.getProductImages().size()>0){
+				productImageService.deleteProductImage(image.getProductImages().get(0));
+			}
+			imageService.deleteImage(image);
+		}
 		productResponse.setProduct(productvo);
 		productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
-		return productResponse;
+		}catch(Exception e){
+			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			productResponse.setErrorString(CommonUtil.getErrorMessage(e));
+		}
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productResponse);
 		
 	}
 
@@ -692,8 +714,6 @@ public class ProductRestService {
 			productResponse.setErrorString(e.getMessage());
 		}
 		ObjectMapper mapper = CommonUtil.getObjectMapper();
-		//mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
-		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		String responseString = null;
 		try {
 			responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productResponse);
@@ -705,6 +725,5 @@ public class ProductRestService {
 		}
 		return responseString;
 	}
-
 	
 }
