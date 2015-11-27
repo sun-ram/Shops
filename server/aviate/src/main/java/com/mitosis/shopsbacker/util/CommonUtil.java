@@ -377,4 +377,16 @@ public final class CommonUtil {
 		mapper.setSerializationInclusion(Include.NON_EMPTY);
 		return mapper;
 	}
+	
+	/**
+	 * This method used for removed null and empty value objects.
+	 * @author Prabakaran
+	 * @return json string
+	 */
+	public static String getObjectMapper(Object obj) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Include.NON_NULL);
+		mapper.setSerializationInclusion(Include.NON_EMPTY);
+		return mapper.writeValueAsString(obj);
+	}
 }

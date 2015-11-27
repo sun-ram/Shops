@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
@@ -53,7 +55,7 @@ public class CustomerRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public CustomerLoginResponseVo userLogin(CustomerVo customerVo) {
+	public String userLogin(CustomerVo customerVo) throws Exception {
 		boolean flag = false;
 		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
 		CustomerVo customerDetails = new CustomerVo();
@@ -77,18 +79,17 @@ public class CustomerRestService<T> {
 								.getMessage());
 				customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 						.getValue());
-				return customerLoginResponseVo;
+				return CommonUtil.getObjectMapper(customerLoginResponseVo);
 			}
 		}
-		return customerLoginResponseVo;
-
+		return CommonUtil.getObjectMapper(customerLoginResponseVo);
 	}
 
 	@Path("/signup")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public CustomerLoginResponseVo userSignUp(CustomerVo customerVo)
+	public String userSignUp(CustomerVo customerVo)
 			throws Exception {
 		CustomerLoginResponseVo customerLoginResponseVo = new CustomerLoginResponseVo();
 		if (customerVo.getEmail() != null) {
@@ -117,7 +118,7 @@ public class CustomerRestService<T> {
 									.getMessage());
 					customerLoginResponseVo.setStatus(SBMessageStatus.SUCCESS
 							.getValue());
-					return customerLoginResponseVo;
+					return  CommonUtil.getObjectMapper(customerLoginResponseVo);
 				}
 			} else {
 				if (customerEmailChecking != null) {
@@ -129,7 +130,7 @@ public class CustomerRestService<T> {
 									.getMessage());
 					customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
-					return customerLoginResponseVo;
+					return  CommonUtil.getObjectMapper(customerLoginResponseVo);
 				} else {
 					customerLoginResponseVo
 							.setErrorCode(SBErrorMessage.MOBILNO_EXISTS
@@ -139,11 +140,11 @@ public class CustomerRestService<T> {
 									.getMessage());
 					customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
-					return customerLoginResponseVo;
+					return  CommonUtil.getObjectMapper(customerLoginResponseVo);
 				}
 			}
 		}
-		return customerLoginResponseVo;
+		return  CommonUtil.getObjectMapper(customerLoginResponseVo);
 
 	}
 	
