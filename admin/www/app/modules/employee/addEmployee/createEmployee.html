@@ -1,14 +1,15 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="shopList();getStoreList();">
-   <md-toolbar class=" md-default-theme">
+<div ng-init="shopList();getStoreList();">
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Employee</h2> 
-   	<span class="close_box">
-   	<!-- <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="close()"></ng-md-icon>  -->
-   	 <ng-md-icon class="icon-white svgstyle" size="35" ng-show="user.userId" icon="close" ng-click="redirectToEmployeeDetails();"></ng-md-icon>
+      <h3 class="md-flex" style="margin-left:-10px;">Employee</h3> 
+   	<!--<span class="close_box">
+   	 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="close()"></ng-md-icon>  -->
+   	<!--  <ng-md-icon class="icon-white svgstyle" size="35" ng-show="user.userId" icon="close" ng-click="redirectToEmployeeDetails();"></ng-md-icon>
 	   	<ng-md-icon class="icon-white svgstyle" size="35" ng-hide="user.userId"  icon="close" ui-sref="app.aviateemployees"></ng-md-icon> 
-   </span> 
+   </span>  -->
     </div>
   </md-toolbar>
+  <md-card flex-gt-sm="90" flex-gt-md="80">
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
       <form name="employeeForm" novalidate>
       	<div layout layout-sm="column">
@@ -103,3 +104,4 @@
     </form>
     </md-content>
 </md-card>
+</div>
