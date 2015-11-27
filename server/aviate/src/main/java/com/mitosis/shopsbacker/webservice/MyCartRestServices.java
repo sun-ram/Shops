@@ -26,6 +26,7 @@ import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.responsevo.MyCartResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
+import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
@@ -50,8 +51,8 @@ public class MyCartRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED)
-	public MyCartResponseVo addToCart(MyCartVo myCartVo) throws Exception {
-		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
+	public ResponseModel addToCart(MyCartVo myCartVo) throws Exception {
+		ResponseModel response = new ResponseModel();
 		Product product = productService.getProduct(myCartVo.getProduct().getProductId());
 		Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
 		Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
@@ -71,12 +72,11 @@ public class MyCartRestServices<T> {
 			myCartService.updateCart(myCart);
 		}
 		if (myCart.getMyCartId() != null) {
-			myCartResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} else {
-			myCartResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
-		return myCartResponseVo;
-
+		return response;
 	}
 
 	@Path("/removefromcart")
