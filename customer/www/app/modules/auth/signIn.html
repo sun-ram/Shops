@@ -1,7 +1,7 @@
 <md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:450px;border-radius:0px;">
   <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
     <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
-      <h2 class="text-center wid_100">{{title}}</h2>
+      <h2 class="text-center wid_100">SIGN UP | SIGN IN</h2>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel()">
         <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
@@ -11,7 +11,38 @@
   
 <!-- Signin -->
   <md-dialog-content ng-hide="forgetPass" style="padding:0px;">
-	  <form name="userForm" layout-padding>			
+  	<md-radio-group ng-model="isSignUp">
+         <md-radio-button ng-value="true" class="md-primary">I'm a new customer</md-radio-button>
+         <md-radio-button ng-value="false" class="md-primary">I'm returning customer</md-radio-button>
+    </md-radio-group>
+   <form name="userForm" layout-padding ng-show="isSignUp">			
+        <md-input-container flex class="padd_btm10">
+          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
+          <input ng-model="user.email" type="email" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+        </md-input-container >
+         <md-input-container flex class="padd_btm10">
+          <label><md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>Mobile No</label>
+          <input ng-model="user.phoneNo"valid-number ng-required="true">
+        </md-input-container >
+	      <md-input-container flex class="padd_btm10 ">
+	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
+	        <input ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')" ng-required="true" >
+	      </md-input-container>
+	      <md-input-container flex class="padd_btm10 ">
+	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Confirm Password</label>
+	        <input ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
+	      </md-input-container>
+	       <div class="md-actions" layout="row">
+		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user);">
+		      SIGN UP
+		    </md-button>
+		    <md-button  type="button" class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
+		      CANCEL
+		    </md-button>
+		  </div>
+	  </form>
+  
+	  <form name="userForm" layout-padding ng-hide="isSignUp">			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email/MobilNo</label>
           <input ng-model="user.email" type="text" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">

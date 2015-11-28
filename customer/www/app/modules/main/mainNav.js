@@ -48,7 +48,7 @@ angular.module('aviate.directives')
 //			console.info('cart-------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
 				$mdDialog.show({
-					templateUrl: 'app/modules/auth/signUp.html',
+					templateUrl: 'app/modules/auth/signIn.html',
 					parent: angular.element(document.body),
 					targetEvent: ev,
 					clickOutsideToClose:true,
@@ -113,7 +113,7 @@ angular.module('aviate.directives')
 				}
 			};*/
 
-
+			$scope.isSignIn = true;
 			$rootScope.signInPopup = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',
