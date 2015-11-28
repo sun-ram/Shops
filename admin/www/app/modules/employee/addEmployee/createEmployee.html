@@ -1,7 +1,9 @@
 <div ng-init="shopList();getStoreList();">
    <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h3 class="md-flex" style="margin-left:-10px;">Employee</h3> 
+      <h3 ng-show="user.userId" class="md-flex" style="margin-left:-10px;">Update Employee</h3> 
+      <h3 ng-hide="user.userId" class="md-flex" style="margin-left:-10px;">Create Employee</h3> 
+      
    	<!--<span class="close_box">
    	 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ng-click="close()"></ng-md-icon>  -->
    	<!--  <ng-md-icon class="icon-white svgstyle" size="35" ng-show="user.userId" icon="close" ng-click="redirectToEmployeeDetails();"></ng-md-icon>

@@ -5,7 +5,6 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.user = $localStorage.userDetails;
 	}	
 
-	
 	$scope.getStores=function(){
 		StoreServices.getStore({'merchantId':$rootScope.user.merchantId}).then(function(data){
 			$scope.stores=data;
@@ -29,9 +28,9 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		//$scope.shopList();
 		EmployeeService.employeeList($scope.employee).then(function(data) {
 			$scope.data = data;
+
 		});
 	};
-	
 	
 	$scope.getStoreList = function(){
 		if($rootScope.user.role == 'MERCHANTADMIN'){
@@ -50,6 +49,7 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 	};
 
 	$scope.getState = function(country){
+		$scope.state=null;
 		$scope.cunt = JSON.parse(country);
 		$scope.states = $scope.cunt.states;
 	}

@@ -13,6 +13,7 @@ import com.mitosis.shopsbacker.admin.dao.RoleDao;
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.admin.dao.UserDao;
 import com.mitosis.shopsbacker.admin.service.RoleService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.model.Address;
@@ -21,6 +22,7 @@ import com.mitosis.shopsbacker.model.Role;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 
@@ -54,7 +56,6 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	
 	@Autowired
 	MerchantDao<T> merchantDao;
-
 	
 	public RoleDao<T> getRoleDao() {
 		return roleDao;
@@ -187,7 +188,7 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		return user;
 	}
 
-	public UserVo setUserVo(User user) {
+	public UserVo setUserVo(User user) throws Exception {
 		UserVo userVo = new UserVo();
 		userVo.setName(user.getName());
 		userVo.setUserName(user.getUserName());
@@ -197,9 +198,16 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		userVo.setUserId(user.getUserId());
 		userVo.setRole(roleService.setRoleVo(user.getRole()));
 		userVo.setAddress(addressService.setAddressVo(user.getAddress()));
+		userVo.setStore(setStoreVo(user.getStore()));
 		return userVo;
 	}
-
+	
+	public StoreVo setStoreVo(Store store) throws Exception {
+		StoreVo storeVo = new StoreVo();
+		storeVo.setName(store.getName());
+		storeVo.setStoreId(store.getStoreId());
+		return storeVo;
+	}
 	
 
 }

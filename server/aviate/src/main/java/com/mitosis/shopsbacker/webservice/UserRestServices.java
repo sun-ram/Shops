@@ -206,8 +206,18 @@ public class UserRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel saveUser(UserVo userVo) {
+		response = new ResponseModel();
 		try {
-
+			
+			User uniqueUser = userService.getUserByUserName(userVo.getUserName());
+			if (uniqueUser!=null) {
+				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST.getCode());
+				response.setErrorString(SBErrorMessage.USER_NAME_ALREADY_EXIST
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+			
 			JsonNode location = getLatLongByAddress(userVo);
 
 			if (location == null) {
@@ -256,6 +266,7 @@ public class UserRestServices<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateUser(UserVo userVo) {
+		response = new ResponseModel();
 		try {
 
 			JsonNode location = getLatLongByAddress(userVo);

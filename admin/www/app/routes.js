@@ -69,7 +69,7 @@ angular.module('app')
 
 	// employee module
 	.state('app.aviateemployees', {
-		url: '/aviateemployees',
+		url: '/employees',
 		templateUrl: 'app/modules/employee/employees.html',
 		controller : 'employeecontroller'
 	})
