@@ -17,8 +17,14 @@ public class DeliveryTimeSlotVo {
 	private MerchantVo merchant;
 	private Date fromTime;
 	private Date toTime;
+	private String storeId;
 	
-
+	public String getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
 	public String getDeliveryTimeSlotId() {
 		return deliveryTimeSlotId;
 	}
