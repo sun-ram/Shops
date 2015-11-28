@@ -10,10 +10,7 @@ svg {
 .text-white {
 	color: #fff !important;
 }
-.log_btn{margin: 0px;
-margin-top: 20px;
-margin-bottom: 20px;
-border-radius: 20px !important}
+
 .check_xwhite .md-icon{border-color:#fff !important;}
 </style>
 
@@ -62,20 +59,23 @@ border-radius: 20px !important}
 					</md-input-container>
 					
 					<div layout="row">
-							<md-button flex class="md-raised md-success log_btn text-white"
-							ng-disabled="(user.userName == '' || user.userName == undefined) || login.password.$invalid"
-							ng-click="signIn()">Login </md-button>
 						
-						</div>
-					<div layout="row" layout-align="space-between center">
-						<div>
 							<md-checkbox class="md-green check_xwhite" ng-change="saveauth()"
 								ng-model="rememberme" aria-label="Checkbox 1"> <span class="ft-14">Remember
 								me</span> </md-checkbox>
+						
+							
 						</div>
+					<div layout="row" layout-align="space-between center" class="mgn-b10">
+						
 						<div>						
 							<md-button class="md-primary fgt-pwd ft-14" ng-click="forget=true">Forgot
 							Password?</md-button>											
+						</div>
+						<div>
+						<md-button flex class="md-raised md-success text-white"
+							ng-disabled="(user.userName == '' || user.userName == undefined) || login.password.$invalid"
+							ng-click="signIn()">Login </md-button>
 						</div>
 					</div>
 					
