@@ -152,11 +152,6 @@ angular.module('app')
 	})			
 
 	// product module
-	/*			.state('app.products', {
-				url: '/products',
-				templateUrl: 'app/modules/product/products/productCategoryList.html',
-				controller : 'productCategoryListController'
-			})*/
 
 	.state('app.products', {
 		url: '/products',
@@ -167,11 +162,6 @@ angular.module('app')
 		url: '/productsDetail',
 		templateUrl: 'app/modules/product/products/details/productDetailsView.html',
 		controller : 'productDetailController'
-	})
-	.state('app.addcategory', {
-		url: '/addcategory',
-		templateUrl: 'app/modules/product/category/addcategory.html',
-		controller : 'productcontroller'
 	})
 	.state('app.addproduct', {
 		url: '/addproduct',
@@ -189,17 +179,7 @@ angular.module('app')
 		templateUrl: 'app/modules/product/producttype/addproducttype.html',
 		controller : 'addproducttypecontroller'
 	})
-	.state('app.productprice', {
-		url: '/productprice',
-		templateUrl: 'app/modules/product/productPrice.html',
-		controller : 'productpricecontroller'
-	})
 
-	.state('app.productupload', {
-		url: '/productupload',
-		templateUrl: 'app/modules/product/productUpload.html',
-		controller : 'productcontroller'
-	})
 	// warehouse module
 	.state('app.warehouse', {
 		url: '/warehouse',

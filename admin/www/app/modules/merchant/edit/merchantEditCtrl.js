@@ -46,7 +46,7 @@ angular.module('aviateAdmin.controllers')
            
             }
 			
-			$scope.getCountries = function(){
+			/*$scope.getCountries = function(){
 				CommonServices.getCountries($scope.country).then(function(data){
 					$scope.countries=data;
                     $scope.merchantDetail.user.address.country = $scope.countryObjectof ($scope.countries, $scope.merchantDetail.user.address.country.countryId);
@@ -54,7 +54,7 @@ angular.module('aviateAdmin.controllers')
 				});
 			}
             
-			$scope.getCountries();
+			$scope.getCountries();*/
 
 			$scope.updateMerchant = function(){
 				
