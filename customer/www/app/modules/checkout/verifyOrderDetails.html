@@ -63,7 +63,16 @@
                     <p>{{myCart.grossAmount | number:2}}</p>
                 </div>
             </div>
+            <h3>
+            	Payment Method
+            	<md-radio-group ng-model="data.group1">
+			      <md-radio-button value="Apple" class="md-primary">Cash on delivery</md-radio-button>
+			      <md-radio-button value="Banana" class="md-primary">Credit / Debit / Netbanking</md-radio-button>
+			    </md-radio-group>
+            </h3>
+            
             <md-button class="md-raised md-primary" style="with:100% !important; background-color: #6EAB10 !important;" ng-click="confirmOrder();">CONFIRM MY ORDER</md-button>
+            
             <form action="https://demo.globalgatewaye4.firstdata.com/payment" method="post" name="FirstData" style="display:none;">
 				<input name="x_login" value="WSP-MITOS-E2mIIgBi3g"
 					type="hidden">
