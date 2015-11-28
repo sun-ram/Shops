@@ -35,17 +35,17 @@
     
         <md-input-container layout-padding flex>
       <label>User Name</label>
-      <input ng-model="store.user.userName" >
+      <input ng-model="store.user.userName" ng-disabled="true">
     </md-input-container>
        
     <md-input-container layout-padding flex>
       <label>Store Admin Name<span style="color:red">*</span></label>
-      <input ng-model="store.user.name">
+      <input ng-model="store.user.name" maxlength="45">
     </md-input-container>
     
     <md-input-container layout-padding flex>
       <label>Email</label>
-      <input ng-model="store.user.emailid" >
+      <input ng-model="store.user.emailid" maxlength="45">
     </md-input-container>
        
     <md-input-container layout-padding flex>
