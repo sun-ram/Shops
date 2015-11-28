@@ -43,7 +43,7 @@ input{
 	width: 48px;
 	margin: 16px;
 	border-radius: 48px;
-	border: 1px solid #ddd;
+	border: 1px solid #ddd;1 - 1 of 1
 	position: fixed;
 }
 
@@ -73,7 +73,7 @@ input{
 .marg-t10{margin-top: 10px;}
 .mgn-b10{margin-bottom:10px;}
 .svgstyle svg{margin-top:5px;height: 20px;width: 20px;}
-.marg-l-10{margin-left: -10px;}
+
 /* linkstyle */
 .fgt-link a{text-decoration: none ! important; color: lightblue;}
 
@@ -97,14 +97,13 @@ input{
 /* bg-color  */
 .bg_white{
 background-color:#fff;}
-.bg_trans{background-color:transparent !important;}
-.bg-hash{background-color:#F4F5F9;}
+
 
 /* bg-img  */
 .slide-bg{background:url("images/bg.png");}
 
 
-/* btn */
+/* btn */1 - 1 of 1
 .md-success{background-color:#77A20C !important;color:#fff !important; }
 .md-cancel{background-color:#aaa  !important;color:#fff !important;}
 
@@ -120,7 +119,7 @@ a:link {
 .edit-container label{color:grey;}
 
 /* position */
-.toolbarposition {position: fixed;}
+.toolbarposition {position: fixed;}1 - 1 of 1
 .pt_relat{position: relative;}
 .slideuser_img{position: absolute;top: 0;right: 0;}
 
@@ -135,7 +134,7 @@ md-content.md-default-theme {
 md-card {
   background-color: #fff;
 }
-md-card h2:first-of-type {
+md-card h2:first-of-type {1 - 1 of 1
   margin-top: 0;
 }
 
@@ -154,9 +153,9 @@ h2 {
   opacity: 0.8;
 }
 
-md-sidenav, ng-md-icon, md-icon{
+md-sidenav ng-md-icon {
   position: relative;
-  top: 0px;
+  top: 5px;
 }
 md-content.md-default-theme {
   background-color: #fafafa; 
@@ -268,9 +267,16 @@ box-sizing: border-box;
 
 /* sales order */
 table[md-data-table] > thead:not([md-table-progress]) > tr > th{
-	background: #448ECB ! important;
+	/* background: #448ECB ! important;
 	font-size: 17px ! important;
-	color: #fff ! important;
+	color: #fff ! important; */
+	background: #EEEEEE !important;
+	font-size: 18px ! important;
+	color: #333333 ! important;
+	font-weight: normal;
+}
+table[md-data-table] > thead:not([md-table-progress]) > tr > th[numeric] > div{
+	justify-content: flex-start ! important;	
 }
 table[md-data-table] > tbody > tr > td{
 	font-size: 15px ! important;	
@@ -279,13 +285,13 @@ table[md-data-table] > tbody > tr > td{
 	width: 28px ! important;
 }
 table[md-data-table] > thead:not([md-table-progress])[md-order] > tr > th[order-by] > div > md-icon.down{
-	fill: #fff ! important;
+	fill: #333333 ! important;
 }
 table[md-data-table] > thead:not([md-table-progress])[md-order] > tr > th[order-by] > div > md-icon.up{
-	fill: #fff ! important;
+	fill: #333333 ! important;
 }
 table[md-data-table] > thead:not([md-table-progress])[md-order] > tr > th[order-by].md-active > div > md-icon{
-	fill: #fff ! important;
+	fill: #333333 ! important;
 }
 md-select .md-select-value{
 	border: 1px solid #ddd ! important;
@@ -369,8 +375,8 @@ md-select .md-select-value{
 	display: block;
 	outline: none ! important;
 	cursor: pointer;
-	font-size: 15px;
-	position: absolute;
+	/* font-size: 15px;
+	position: absolute; */
 }
 
 
@@ -407,7 +413,7 @@ md-select .md-select-value{
 .data-table-list:nth-child(odd)  md-item-content{ background-color:#f5f6f8;}
 md-list{ padding:0px;}
 
-md-data-table-pagination div{font-size:16px !important; color:#023904 !important;}
+md-data-table-pagination div{font-size:16px !important; color:#023904 !important; border: none;}
 .md-fab ng-md-icon{ color:#FFFFFF; fill:#FFFFFF;} 
 
 
@@ -489,7 +495,7 @@ md-sidenav.md-locked-open{position: fixed ! important; z-index: 100; top:0;}
 }
 
 .textOnMenu {
-	margin: 15px 20px;
+	margin: 15px;
   	color: #ffffff;
   	font-family: sans-serif;
   	font-size: 12px;
@@ -542,6 +548,17 @@ md-sidenav md-icon {
     padding-left: 0px;
     padding-bottom: 3px;
     font-size: 12px;
+    
+}
+
+.optionSelected {
+	fill : #4a89dc;
+    background-color: #282D33;
+}
+
+
+
+x;
     
 }
 

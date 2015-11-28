@@ -1,8 +1,6 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getWarehouse()">
-   <md-card-content style="padding: 0px 0px 16px 0px;">
-     <md-toolbar class="md-whiteframe-4dp">
-	<div class="md-toolbar-tools">
-	
+<div ng-init="getWarehouse()">
+<!-- <md-toolbar style="background-color:transparent !important;">
+	<div class="md-toolbar-tools">	
 	<div layout="row" layout-align="start center">	 
      <ng-md-icon icon="store" size="30"></ng-md-icon>
      	<h3 layout="column" style="padding: 0px 10px;">Storage Bin</h3>     	
@@ -14,7 +12,30 @@
 	<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editStoragebin(storagebin,whouse)">
 		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 	</md-button>
+</md-toolbar> -->
+
+<md-toolbar style="background-color:transparent !important;" >
+	<div class="md-toolbar-tools ">
+	
+	<div layout="row" layout-align="start center">		 
+     	<h3 layout="column" style="margin-left:-10px">Storage Bin</h3>   
+     	<!--  <span class="close_box">
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span> 	 -->
+    </div>       
+	</div>
+	
+	<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editStoragebin(storagebin,whouse)">
+		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
+	<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.storagebin">
+		<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
+	
 	</md-toolbar>
+
+<md-card flex-gt-sm="90" flex-gt-md="80" >
+   <md-card-content style="padding: 0px 0px 16px 0px;">
+     
 	<md-list>
 			<div layout layout-sm="column">
 			      
@@ -37,14 +58,18 @@
            	<div layout layout-sm="column">
            	
            			<md-item class="md-raised" layout-padding  flex>
-            			<md-input-container layout-padding flex>
+            			<!-- <md-input-container layout-padding flex>
        						<label>Warehouse<span style="color:red">*</span></label>
          					<md-select ng-model="country" ng-required="true">
 		            			<md-option ng-repeat="warehouse in getWarehouseList" value="{{warehouse.warehouseId}}">
 		              			{{warehouse.name}}
 		            			</md-option>
           					</md-select>
-    					</md-input-container>
+    					</md-input-container> -->
+    					<span  layout="column" class="detail-list" layout-align="start start">
+			            <span class="ft-18 paddtb-8">{{warehouse.name}}</span>
+			            <span class="hash_color ft-14">Warehouse</span>
+		          	</span>
            			</md-item>
 			      
            	  	 <md-item class="md-raised" layout-padding  flex>
@@ -74,3 +99,4 @@
      </md-list>
    </md-card-content>
 </md-card>
+</div>

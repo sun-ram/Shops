@@ -1,12 +1,16 @@
 	<md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;"ng-click="addStorageBin()">
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getListOfStoragebin()">
- <md-toolbar class=" md-default-theme">
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body" ng-init="getListOfStoragebin()">
+
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row">
-  		<h2 layout-align="start">Storagebin</h2>
-    	<span class="flex"></span>
-    	 <md-input-container layout-padding flex>
+  		<h3 layout-align="start">Storagebin</h3>
+  		<div class="tbl-search">
+  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+  			<input ng-model="searchText" type="text"  placeholder="Search">
+  		</div>
+    	 <md-input-container flex="60" layout-align="center end">
        			<label>Warehouse<span style="color:red">*</span></label>
          		<md-select ng-model="whouse" ng-required="true">
 		            <md-option ng-repeat="warehouse in listOfWarehouse" value="{{warehouse.warehouseId}}" >
@@ -14,7 +18,7 @@
 		            </md-option>
           		</md-select>
     	 </md-input-container>
-	 <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
+	 <!-- <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
 	      <md-input-container md-theme="input" flex>
 	        <label>&nbsp;</label>
 	        <input ng-model="searchText" style="color: white; border-bottom-color: white;" placeholder="enter search">
@@ -25,48 +29,88 @@
 	  </div>
       <md-button ng-show="srch" layout-align="end" style="line-height: inherit; min-width: inherit;" aria-label="Search" ng-click="showSearch = !showSearch; srch = false;">
        <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-      </md-button>
+      </md-button> -->
     </div>
    </md-toolbar>
-   <md-card-content class="nopaddtop">
+   <md-card-content class="nopadd">
 		<md-data-table-container>
      <md-list>
-       <md-item ng-repeat="storagebin in listOfStoragebins | filter:whouse | orderBy: storagebinPagination.order | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
-         <md-item-content layout="row" layout-padding>
-            <div layout="row" layout-wrap class="full_wid">
-           		<span flex=5 class="padd-5-3"><ng-md-icon icon="store" size="30"></ng-md-icon></span>
-           
-           	<span flex=30 layout="column" class="padd-lr5" layout-align="start start" >
-           		
-             <span layout-padding class="shopname" class="padd-tr5-lb8 ft-18"><strong>{{storagebin.name}}</strong></span>
-              <span  class="hash_color padd-l8 ft-14">{{storagebin.row}} - {{storagebin.stack}} - {{storagebin.level}}</span>
-                          
+     
+     <md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row">
+          <div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex=15 layout-align="start center" layout-padding>
+             	Name
            	</span>
-           	<span flex=25 layout="row" layout-align="start end">
-             	<span class="ft-14 hash_color">{{storagebin.warehouse.name}}</span>
+         	<span flex=15 layout-align="start center" layout>
+             	Warehouse
+           	</span>
+           	<span flex=30 layout-align="start center" layout>
+             	Description
+           	</span>
+           	<span flex=10 layout-align="start center" layout>
+             	Row(X)
+           	</span>
+            <span flex=10 layout-align="start center" layout>
+                Level(Y)
+             </span>
+             <span flex=10 layout-align="start center" layout>
+                Stack(Z)
+             </span>
+             <span flex=10 layout-align="center center" layout>
+                Action
+             </span>	
+            </div>
+         </md-item-content>
+        
+       </md-item>
+       
+       <md-item class="data-table-list" md-data-table ng-repeat="storagebin in listOfStoragebins | filter:whouse | orderBy: storagebinPagination.order | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
+         <md-item-content layout="row" layout-padding>
+            <div layout="row" layout-wrap class="full_wid tbl-body">           		      
+           	<span flex=15 layout layout-align="start center" >           		
+             <span class="shopname">{{storagebin.name}}</span>                          
+           	</span>
+           	<span flex=15 layout layout-align="start center" >
+           		<span class="shopname" class="padd-tr5-lb8 ft-18">{{storagebin.warehouse.name}}</span>
+           	</span>
+           	<span flex=30 layout layout-align="start center">
+             	<span class="shopname" class="padd-tr5-lb8 ft-18"> {{storagebin.description}} </span>
            	 </span>
-           	 <span flex=25 layout="row" ng-hide=true layout-align="start end">
+           	 <!-- <span flex=10 layout="row" ng-hide=true layout-align="start end">
              	<span class="ft-14 hash_color">{{storagebin.warehouse.warehouseId}}</span>
+           	 </span> -->
+           	 <span flex=10 layout layout-align="start center">
+             	<span class="ft-14 hash_color">{{storagebin.row}}</span>
            	 </span>
-           	 <span flex=25 layout="row" layout-align="start end">
-             	<span class="ft-14 hash_color">{{storagebin.description}}</span>
+           	 <span flex=10 layout layout-align="start center">
+             	<span class="ft-14 hash_color">{{storagebin.stack}}</span>
            	 </span>
-             <span flex=15 layout="row" layout-align="center center">
+           	 <span flex=10 layout layout-align="start center">
+             	<span class="ft-14 hash_color">{{storagebin.level}}</span>
+           	 </span>
+             <!-- <span flex=15 layout layout-align="center center">
             
              	<span layout-padding><ng-md-icon style="z-index:500;" icon="mode_edit" size="20" class="icons hash_color" ng-click="editStoragebin(storagebin,whouse)"></ng-md-icon></span>
              	<span layout-padding><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color" ng-click="deleteStorageBin(storagebin)"></ng-md-icon></span>
           
-             </span>           
+             </span> --> 
+             <span flex=10 layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary" ng-click="redirectToEditStore(store);$event.stopPropagation();" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success" ng-click="editStoragebin(storagebin,whouse)"></ng-md-icon>
+      			</md-button>
+             	<md-button class="md-icon-button md-primary " ng-click="deleteStore(store.storeId);$event.stopPropagation();" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger" ng-click="deleteStorageBin(storagebin)"></ng-md-icon>
+             	</md-button>
+             </span>          
            	        	
             </div>       	
-           </div>
+           
          </md-item-content>
-         <md-divider></md-divider>
-       <md-divider></md-divider>
-       </md-item>
-     </md-list>
-	</md-data-table-container>
-   </md-card-content>
+         </md-item>
+         </md-list>
+         </md-data-table-container>
+      </md-card-content>
    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
 	<md-data-table-pagination md-limit="storagebinPagination.limit" md-page="storagebinPagination.page" md-total="{{storagebins.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>

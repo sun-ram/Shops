@@ -10,7 +10,7 @@
          		<h3 layout="column" style="padding: 0px 10px;">Products</h3>
          		<div class="tbl-search">
 		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-		  			<input ng-model="search" type="text"  placeholder="Search">
+		  			<input ng-model="searchTxt" type="text"  placeholder="Search">
 		  		</div>
          	</div>
          	
@@ -47,56 +47,85 @@
          <md-item-content layout="row" layout-padding class="tbl-header ">
       
       	<div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex layout-align="center center" layout>
+         	<span flex="10" layout-align="start center" layout>
+	         	Product
+            </span>
+         	<span flex="15" layout-align="start center" layout>
 	         	Product Name
             </span>
-            <span flex layout-align="center center" layout>
+            <span flex="10" layout-align="start center" layout>
 	         	Unit
             </span>
-            <span flex layout-align="center center" layout>
+            <span flex="10" layout-align="start center" layout>
 	         	UOM
             </span>
-            <span flex layout-align="center center" layout>
+            <span flex="10" layout-align="start center" layout>
 	         	Price
             </span>
-            <span flex layout-align="center center" layout>
+            <span flex="15" layout-align="start center" layout>
 	         	Category
             </span>
-            <span flex layout-align="center center" layout>
+            <span flex="15" layout-align="start center" layout>
 	         	Product Type
+            </span>
+            <span flex="15" layout-align="center center" layout>
+	         	Action
             </span>
         </div>
         </md-item-content>
         </md-item>
         
-      <!-- <div layout="column" style="width:100%;" flex>
-      	<div layout="row" flex class="pro-header">
-      		<div flex="20">&nbsp;</div> 
-      		<div flex="20">Product Name</div>
-      		<div flex="10">Unit</div>
-      		<div flex="10">UOM</div>
-      		<div flex="10">Price</div>
-      		<div flex="15">Category</div>
-      		<div flex="15">Product Type</div>-->
-      	
-      	<div ng-repeat="product in productList">
-      	<div layout="row" flex class="pro-lists" layout-align="start center" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
-      		<div flex="20" layout="row" style="">
-				<div flex="20"><ng-md-icon icon="mode_edit" size="20" style="margin:5px" class="icons hash_color" ng-click="editproduct(product)"></ng-md-icon></div>
+      <md-item class="data-table-list" md-data-table ng-repeat="product in productList | filter:searchTxt">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
+          
+      	<!-- <div ng-repeat="product in productList">
+      	<div layout="row" flex class="pro-lists" layout-align="start center" ng-hide="showDetails" ng-show="product.productId != showInLineEdit"> -->
+      		
+      		<span flex="10" layout-align="start center" layout>
+      			<img style="padding:2px; border-radius:50px; border:1px solid #999999;" src={{product.image.url}} width="40" height="40"/>
+      		</span>
+      		
+			<span flex="15" layout-align="start center" layout>
+			<span flex class="shopname">{{product.name}}</span>
+			</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.unit}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.uom.name}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.price}}</span>
+      		</span>
+      		<span flex="15" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productCategory.name}}</span>
+      		</span>
+      		<span flex="15" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productType.name}}</span>
+      		</span>
+      		
+      		
+      		<!-- <div flex="20"><ng-md-icon icon="mode_edit" size="20" style="margin:5px" class="icons hash_color" ng-click="editproduct(product)"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon icon="rate_review" size="20" style="margin:5px" class="icons hash_color" ng-click="showInLineEdit=product.productId;productEdit=product;"></ng-md-icon></div>
-				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="deleteProduct(product.productId)"></ng-md-icon></div>
-				<div flex="40"><img 	 style="padding:2px; float:right; margin-top:-10px; border-radius:50px; border:1px solid #999999;" src={{product.image.url}} width="40" height="40"/></div>
-			</div>
-      		<div flex="20">{{product.name}}</div>
-      		<div flex="10">{{product.unit}}</div>
-      		<div flex="10">{{product.uom.name}}</div>
-      		<div flex="10">{{product.price}}</div>
-      		<div flex="15">{{product.productCategory.name}}</div>
-      		<div flex="15">{{product.productType.name}}</div>
+				<div flex="20"><ng-md-icon icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="deleteProduct(product.productId)"></ng-md-icon></div> -->
+				
+      		<span flex=15 layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=product.productId;productEdit=product;" aria-label="Inline Edit">
+             		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+                <md-button class="md-icon-button md-primary" ng-click="editproduct(product)" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>        			
+      			</md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="deleteProduct(product.productId)" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+             
       	</div>
       	
-      	<div ng-show="product.productId == showInLineEdit" layout="row" flex class="pro-lists" layout-align="start center">
-      		<div flex="20" layout="row" style="">
+      	<div ng-show="product.productId == showInLineEdit" layout="row" layout-align="start center">
+      		<!-- <div flex="20" layout="row" style="">
 				<div flex="20"><ng-md-icon  ng-click="updateProduct(editProduct)" icon="mode_edit" size="20" style="margin:5px" class="icons hash_color"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon  icon="done" size="20"  style="margin:5px" class="icons hash_color" ng-click="showInLineEdit=null;updateProduct(productEdit);"></ng-md-icon></div>
 				<div flex="20"><ng-md-icon  icon="close" size="20"  style="margin:5px" class="icons hash_color" ng-click="showInLineEdit=null;productEdit=product;"></ng-md-icon></div>
@@ -109,29 +138,106 @@
       		<div flex="10"><input type="text"   ng-model="productEdit.uom.name" /></div>
       		<div flex="10"><input type="text"   ng-model="productEdit.price" /></div>
       		<div flex="15"><input type="text"   ng-model="productEdit.productCategory.name"/></div>
-      		<div flex="15"><input type="text"   ng-model="productEdit.productType.name"/></div>
+      		<div flex="15"><input type="text"   ng-model="productEdit.productType.name"/></div> -->
+      		
+      		
+			
+      		<span flex="10" layout-align="start center" layout>
+      			<img style="padding:2px; border-radius:50px; border:1px solid #999999;" src={{product.image.url}} width="40" height="40"/>
+      		</span>
+      		
+      		<md-input-container flex="15">
+      		<label>Product</label>
+      		<input type="text" ng-model="productEdit.name" valid-number /> 
+      		</md-input-container>	
+			
+			<md-input-container flex="10">
+      		<label>Unit</label>
+      		<input type="text" ng-model="productEdit.unit" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>UOM</label>
+      		<input type="text" ng-model="productEdit.uom.name" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Price</label>
+      		<input type="text" ng-model="productEdit.price" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Category</label>
+      		<input type="text" ng-model="productEdit.productCategory.name" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Product Type</label>
+      		<input type="text" ng-model="productEdit.productType.name" valid-number /> 
+      		</md-input-container>
+      		
+      		<!-- <span flex="15" layout-align="start center" layout>
+			<input type="text"  ng-model="productEdit.name" />
+			<span flex class="shopname">{{product.name}}</span>
+			</span> 
+			<span flex="10" layout-align="start center" layout>
+      		<input type="text"   ng-model="productEdit.unit" />
+      		<span flex class="shopname">{{product.unit}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<input type="text"   ng-model="productEdit.uom.name" />
+      		<span flex class="shopname">{{product.uom.name}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<input type="text"   ng-model="productEdit.price" />
+      		<span flex class="shopname">{{product.price}}</span>
+      		</span>
+      		<span flex="15" layout-align="start center" layout>
+      		<input type="text"   ng-model="productEdit.productCategory.name"/>
+      		<span flex class="shopname">{{product.productCategory.name}}</span>
+      		</span>
+      		<span flex="15" layout-align="start center" layout>
+      		<input type="text"   ng-model="productEdit.productType.name"/>
+      		<span flex class="shopname">{{product.productType.name}}</span>
+      		</span> -->
+      		
+      		<span flex=15 layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary" ng-click="showInLineEdit=null;updateProduct(productEdit);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+                <md-button class="md-icon-button md-primary" ng-click="updateProduct(editProduct)" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>        			
+      			</md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="showInLineEdit=null;productEdit=product;" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+      		
       	</div>
-       </div>
-      </div>
+       
+      </md-item-content>
+      </md-item>
       
      </md-list>
      </md-data-table-container>
    </md-card-content>   
 </md-card> 
 <div layout="row">
-<md-button flex="25" ng-href={{excelUrl}} layout-align="start start" >Export ProductList</md-button>
-<md-button flex="25" ng-click="#" layout-align="start center">
+<div style="font-size:16px;" flex="50" layout="row" class="table-pagination-bg" layout-align="start center">
+	 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{data.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+</div>
+<md-button flex="20" ng-href={{excelUrl}} layout-align="start start" style="height: 0;">Export ProductList</md-button>
+<md-button flex="20" ng-click="#" layout-align="start center" style="height: 0;">
         <label class="custom-excel-input">	
 	    <input id="file-upload1" type="file" ng-model="excelFile" app-filereader ng-change="uploadExcel('file-name1','file-upload1')"/>
 	    <span ng-hide="true" id="file-name1" ></span>
 	</label>			
 </md-button>
+<div flex="10"></div>
 
-<div style="font-size:16px;" flex="50" layout="row" class="table-pagination-bg" layout-align="end end">
-	 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{data.length}}"
-      md-trigger="onpagechange"></md-data-table-pagination>
-      </div>
+
 </div>
      
      <!-- <div layout="row" layout-padding layout-align="start">
