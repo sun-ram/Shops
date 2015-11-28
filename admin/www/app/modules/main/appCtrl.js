@@ -1,13 +1,8 @@
 angular.module('aviateAdmin.controllers')
 .controller("appCtrl", 
-		['$scope', '$rootScope','$state','$localStorage','$filter','$mdDialog',
-		 function($scope,$rootScope, $state,$localStorage, $filter,$mdDialog) {
+		['$scope', '$rootScope','$state','$localStorage','$filter','$mdDialog', 'CommonServices',
+		 function($scope,$rootScope, $state,$localStorage, $filter,$mdDialog, CommonServices) {
 			
-			/*$scope.query = {
-					limit: 5,
-					page: 1
-			};*/
-
 			$scope.merchantPagination = {
 					limit: 5,
 					page: 1
@@ -64,13 +59,25 @@ angular.module('aviateAdmin.controllers')
 			};
 			
 			$scope.storagebinPagination={
-				limit: 5,
-				page: 1
+					limit: 5,
+					page: 1
 			};
 			
 			$scope.deliveryTimeSlotsPagination={
 					limit: 5,
 					page: 1
-				};
+			};
+			
+			$scope.getState = function(country){
+				$scope.cunt = JSON.parse(country);
+				$scope.states = $scope.cunt.states;
+			}
+			
+			$scope.getCountries = function(){
+				CommonServices.getCountries($scope.country).then(function(data){
+					$scope.countries=data;
+				});
+			}
+			$scope.getCountries();
 			
 		}]);

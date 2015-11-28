@@ -3,20 +3,7 @@ angular.module('aviateAdmin.controllers')
 	['$scope', '$state','toastr','StoreServices','$rootScope','CommonServices',
 	 function($scope, $state, toastr, StoreServices, $rootScope,CommonServices) {
 		
-		$scope.getState = function(country){
-			$scope.cunt = JSON.parse(country);
-			$scope.states = $scope.cunt.states;
-		}
-		
-		$scope.getCountries = function(){
-			CommonServices.getCountries($scope.country).then(function(data){
-				$scope.countries=data;
-			});
-		}
-		$scope.getCountries();
-		
 		$scope.addStore = function(){
-			
 			$scope.cnt = JSON.parse($scope.country);
 			$scope.st = JSON.parse($scope.state);
 			$scope.store.user.address.country = {};

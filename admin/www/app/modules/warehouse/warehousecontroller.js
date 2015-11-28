@@ -3,26 +3,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	
 	
  	
-	 /* $scope.query = {
-		    limit: 5,
-		    page: 1
-		  };*/
-  
 	$scope.count = 3;
 	$scope.srch = true;
-	
-	$scope.getState = function(country){
-		$scope.cunt = JSON.parse(country);
-		$scope.states = $scope.cunt.states;
-	}
-	
-	$scope.getCountries = function(){
-		CommonServices.getCountries($scope.country).then(function(data){
-			$scope.countries=data;
-		});
-	}
-	
-	$scope.getCountries();
 	
 	$scope.warehouseDetails = function(warehouse){
 		localStorage.setItem('warehouse',JSON.stringify(warehouse));

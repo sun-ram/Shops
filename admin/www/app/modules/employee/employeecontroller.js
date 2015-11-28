@@ -48,19 +48,6 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$state.go('app.aviateemployees');
 	};
 
-	$scope.getState = function(country){
-		$scope.state=null;
-		$scope.cunt = JSON.parse(country);
-		$scope.states = $scope.cunt.states;
-	}
-	
-	$scope.getCountries = function(){
-		CommonServices.getCountries($scope.country).then(function(data){
-			$scope.countries=data;
-		});
-	}
-	$scope.getCountries();
-	
 	$scope.saveEmployee = function() {
 		$scope.user.address.country = {};
 		$scope.cnt = JSON.parse($scope.country1);

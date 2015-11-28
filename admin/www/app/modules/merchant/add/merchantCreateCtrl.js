@@ -3,18 +3,6 @@ angular.module('aviateAdmin.controllers')
 	['$scope', '$state','toastr','MerchantServices','CommonServices',
 	 function($scope, $state, toastr, MerchantServices, CommonServices) {
 
-		$scope.getState = function(country){
-			$scope.cunt = JSON.parse(country);
-			$scope.states = $scope.cunt.states;
-		}
-		
-		$scope.getCountries = function(){
-			CommonServices.getCountries($scope.country).then(function(data){
-				$scope.countries=data;
-			});
-		}
-		$scope.getCountries();
-		
 		$scope.addMerchant = function(){
 			if ($scope.merchantLogo == "" || $scope.merchantLogo==undefined) {
 				toastr.warning("Please select merchant logo");
