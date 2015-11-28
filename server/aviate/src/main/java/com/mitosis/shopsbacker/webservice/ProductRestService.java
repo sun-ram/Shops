@@ -34,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.common.service.ImageService;
@@ -600,9 +601,10 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public String imageUpload(ProductVo productVo) throws Exception {
+	public String imageUpload(ProductVo productVo){
 	
 		ObjectMapper mapper = CommonUtil.getObjectMapper();
+		String responseStr = null;
 		List<String> imageIds = new ArrayList<String>();
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try{
@@ -659,7 +661,13 @@ public class ProductRestService {
 			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			productResponse.setErrorString(CommonUtil.getErrorMessage(e));
 		}
-		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productResponse);
+		  try {
+			responseStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productResponse);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return responseStr;
 		
 	}
 
@@ -687,7 +695,7 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public String getProdutsFromMobile(ProductVo productVo) throws Exception {
+	public String getProdutsFromMobile(ProductVo productVo){
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			String productTypeId =null;
@@ -720,8 +728,6 @@ public class ProductRestService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
-			 throw e;
-			
 		}
 		return responseString;
 	}
