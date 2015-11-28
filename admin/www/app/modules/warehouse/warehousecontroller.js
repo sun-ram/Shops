@@ -91,7 +91,6 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		
 		
 		WarehouseService.updateWarehouse($scope.warehouse).then(function(data) {
-			toastr.success(CONSTANT.UPDATEWAREHOUSE);
 			$state.go('app.warehouse');
 		});
 	}

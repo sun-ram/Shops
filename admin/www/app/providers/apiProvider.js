@@ -414,7 +414,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Warehouse.update = function (warehouse, callback) {
-			httpRequest("POST", "warehouse/updatewarehouse", warehouse, function (err, data) {
+			httpRequest("POST", "warehouse/addwarehouse", warehouse, function (err, data) {
 				if (err) {
 
 					callback(err, null);

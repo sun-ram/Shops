@@ -18,7 +18,7 @@
 	<div class="md-toolbar-tools ">
 	
 	<div layout="row" layout-align="start center">		 
-     	<h3 layout="column" style="margin-left:-10px">Storage Bin</h3>   
+     	<h3 layout="column" style="margin-left:-10px">Storage Bin Details</h3>   
      	<!--  <span class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span> 	 -->
     </div>       
@@ -67,7 +67,7 @@
           					</md-select>
     					</md-input-container> -->
     					<span  layout="column" class="detail-list" layout-align="start start">
-			            <span class="ft-18 paddtb-8">{{warehouse.name}}</span>
+			            <span class="ft-18 paddtb-8">{{storagebin.warehouse.name}}</span>
 			            <span class="hash_color ft-14">Warehouse</span>
 		          	</span>
            			</md-item>
@@ -76,7 +76,7 @@
            		
            			<span  layout="column" class="detail-list" layout-align="start start">
             		 	<span class="ft-18 paddtb-8">{{storagebin.row}}</span>
-            		 	<span class="hash_color ft-14">Row (X)</span>
+            		 	<span class="hash_color ft-14">Row </span>
            			</span> 
            		</md-item>
            	</div>
@@ -85,14 +85,14 @@
            	
            			<span  layout="column" class="detail-list" layout-align="start start">
             		 	<span class="ft-18 paddtb-8">{{storagebin.stack}}</span>
-            		 	<span class="hash_color ft-14">Stack (Y)</span>
+            		 	<span class="hash_color ft-14">Stack </span>
            			</span>       
            		 </md-item>
            	  	 <md-item class="md-raised" layout-padding  flex>
            		
            			<span  layout="column" class="detail-list" layout-align="start start">
             		 	<span class="ft-18 paddtb-8">{{storagebin.level}}</span>
-            		 	<span class="hash_color ft-14">Level (Z)</span>
+            		 	<span class="hash_color ft-14">Level </span>
            			</span> 
            		</md-item>
            	</div>

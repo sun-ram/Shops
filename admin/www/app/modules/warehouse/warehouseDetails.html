@@ -19,7 +19,7 @@
 	<div class="md-toolbar-tools ">
 	
 	<div layout="row" layout-align="start center">		 
-     	<h3 layout="column" style="margin-left:-10px">Warehouse</h3>     
+     	<h3 layout="column" style="margin-left:-10px">Warehouse Detail</h3>     
      	 <!--  <span class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span> 	 -->
     </div>       
@@ -89,7 +89,7 @@
     				</md-input-container> -->
     				
     				<span  layout="column" class="detail-list" layout-align="start start">
-		            <span class="ft-18 paddtb-8">{{warehouse.address.country}}</span>
+		            <span class="ft-18 paddtb-8">{{warehouse.address.country.name}}</span>
 		            <span class="hash_color ft-14">Country</span>
 		          	</span>  
            		</md-item>
@@ -105,7 +105,7 @@
           			</md-select>
     				</md-input-container> -->
     				<span  layout="column" class="detail-list" layout-align="start start">
-		             <span class="ft-18 paddtb-8">{{warehouse.address.state}}</span>
+		             <span class="ft-18 paddtb-8">{{warehouse.address.state.name}}</span>
 		             <span class="hash_color ft-14">State</span>
 		           	</span>  
            		</md-item>

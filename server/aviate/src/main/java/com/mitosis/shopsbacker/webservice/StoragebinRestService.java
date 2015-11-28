@@ -69,7 +69,7 @@ public class StoragebinRestService {
 			if(storagebins.size()>0){
 				response.setStatus(SBMessageStatus.FAILURE.getValue()); 
 				//TODO:need to remove hard code.
-				response.setErrorString("The Storagebin name already exits in this form ("+storagebinVo.getName()+" "+ storagebinVo.getStack()+"-"+storagebinVo.getRow()+"-"+ storagebinVo.getLevel()+" . Kindly change the name or position (x-y-z)");	
+				response.setErrorString("The Storagebin name already exists in this form ("+storagebinVo.getName()+" "+ storagebinVo.getStack()+"-"+storagebinVo.getRow()+"-"+ storagebinVo.getLevel()+" . Kindly change the name or position (x-y-z)");	
 			return response;
 			}
 			

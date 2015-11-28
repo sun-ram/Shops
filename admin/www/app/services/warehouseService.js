@@ -55,6 +55,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Warehouse.update(warehouse, function(err, result){
 			if (result.status == 'SUCCESS') {
+				toastr.success(CONSTANT.UPDATEWAREHOUSE);
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);

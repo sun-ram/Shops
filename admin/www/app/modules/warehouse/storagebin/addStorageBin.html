@@ -2,7 +2,8 @@
 
 <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h3 style="margin-left:-10px;" class="md-layout-column">Storage Bin</h3>
+      <h3 style="margin-left:-10px;" ng-hide="storagebin.storagebinId" class="md-layout-column">Create Storage Bin</h3>
+      <h3 style="margin-left:-10px;" ng-show="storagebin.storagebinId" class="md-layout-column">Update Storage Bin</h3>
     </div>
   </md-toolbar>
   
@@ -39,17 +40,17 @@
           		</md-select>
     </md-input-container>
     <md-input-container>
-       <label>Row (X)<span style="color:red">*</span></label>
-      <input ng-model="storagebin.row" ng-required="true">
+       <label>Row <span style="color:red">*</span></label>
+      <input ng-model="storagebin.row" ng-required="true" maxlength="10">
     </md-input-container>
     
     <md-input-container>
-       <label>Stack (Y)<span style="color:red">*</span></label>
-      <input ng-model="storagebin.stack" ng-required="true">
+       <label>Stack <span style="color:red">*</span></label>
+      <input ng-model="storagebin.stack" ng-required="true" maxlength="10">
     </md-input-container>
     <md-input-container>
-       <label>Level (Z)<span style="color:red">*</span></label>
-      <input ng-model="storagebin.level" ng-required="true">
+       <label>Level <span style="color:red">*</span></label>
+      <input ng-model="storagebin.level" ng-required="true" maxlength="10">
     </md-input-container>    
     <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
     	<md-button class="md-raised md-success padd-50" ng-hide="storagebin.storagebinId" ng-click="saveStorageBin(storagebin)" ng-disabled="storagebinForm.$invalid">Create</md-button>
