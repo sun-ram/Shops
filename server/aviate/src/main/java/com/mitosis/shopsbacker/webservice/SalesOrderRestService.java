@@ -438,4 +438,66 @@ public class SalesOrderRestService<T> {
 		return responseStr;
 	}
 
+	@Path("/updateorderstatus")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String updateOrderStatusForEmp(SalesOrderVo salesOrderVo) {
+		salesOrderResponse = new SalesOrderResponseVo();
+		String responseStr = "";
+		try {
+			if (salesOrderVo.getSalesOrderId() != null && salesOrderVo.getStatus()!=null) {
+			SalesOrder salesOrder = salesOrderService.getSalesOrderById(salesOrderVo.getSalesOrderId());
+				if (salesOrder != null) {
+					String status = salesOrderVo.getStatus();
+					
+					boolean isValidStatus = OrderStatus.contains(status);
+							if (isValidStatus) {
+								salesOrder.setStatus(status);
+								salesOrderService.updateSalesOrder(salesOrder);
+								salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
+										.getValue());
+							}else{salesOrderResponse.setStatus(SBMessageStatus.FAILURE
+									.getValue());
+							salesOrderResponse
+									.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+											.getMessage());
+							salesOrderResponse
+									.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+											.getCode());
+								
+							}
+					
+				} else {
+					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+					salesOrderResponse
+							.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
+									.getMessage());
+					salesOrderResponse
+							.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
+									.getCode());
+				}
+			} else {
+				salesOrderResponse
+						.setStatus(SBMessageStatus.FAILURE.getValue());
+			}
+
+		}
+	 catch (Exception e) {
+			e.printStackTrace();
+			salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			salesOrderResponse.setErrorString(CommonUtil.getErrorMessage(e));
+			log.error(e.getMessage());
+		}
+		try {
+			responseStr = CommonUtil.getObjectMapper(salesOrderResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return responseStr;
+	}
+	
 }
