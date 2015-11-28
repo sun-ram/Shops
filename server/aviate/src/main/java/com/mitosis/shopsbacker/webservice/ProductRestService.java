@@ -646,6 +646,7 @@ public class ProductRestService {
 		ProductVo productvo = new ProductVo();
 		setProductVoForMobile(productvo, product);
 		
+		if(!imageIds.isEmpty()){
 		List<Image> images=imageService.getImages(imageIds);
 		
 		//delete images and product images 
@@ -654,6 +655,7 @@ public class ProductRestService {
 				productImageService.deleteProductImage(image.getProductImages().get(0));
 			}
 			imageService.deleteImage(image);
+		}
 		}
 		productResponse.setProduct(productvo);
 		productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());

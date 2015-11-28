@@ -48,7 +48,8 @@ ImageDao<T>, Serializable  {
 		
 		public List<Image> getImages(List<String> ids){
 			DetachedCriteria criteria = DetachedCriteria.forClass(Image.class);
-			return (List<Image>) criteria.add(Restrictions.in("imageId",ids));
+			criteria.add(Restrictions.in("imageId",ids));
+			return (List<Image>) findAll(criteria);
 		}
 
 }
