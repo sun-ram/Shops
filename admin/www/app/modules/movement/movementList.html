@@ -3,8 +3,8 @@
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
 </a>
-<md-card flex-gt-sm="90" flex-gt-md="80">
- <md-toolbar class=" md-default-theme">
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
+ <!-- <md-toolbar class=" md-default-theme">
 	<div class="md-toolbar-tools" layout="row">
   		<h2 layout-align="start">Movements</h2>
     	<span class="flex"></span>
@@ -21,7 +21,17 @@
        <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
       </md-button>
     </div>
-   </md-toolbar>
+   </md-toolbar> -->
+   
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+         <div class="md-toolbar-tools " layout="row">
+         		<h3 layout="column" style="padding: 0px 10px;">Movements</h3>
+         		<div class="tbl-search">
+		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+		  			<input ng-model="sreach" type="text"  placeholder="Search">
+		  		</div>
+         	</div>
+         </md-toolbar>
 
    <md-card-content class="nopaddtop">
 	<md-data-table-container>
@@ -55,11 +65,9 @@
        </md-item>
      </md-list>
 	</md-data-table-container>
-   </md-card-content>
-    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{movements.length}}" md-trigger="onpagechange">
-	
-	
-	</md-data-table-pagination>
-	</div>
+   </md-card-content>    
 </md-card>
+<div layout layout="row"  class="table-pagination-bg" layout-align="end center">
+	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{movements.length}}" md-trigger="onpagechange">
+	</md-data-table-pagination>
+</div>

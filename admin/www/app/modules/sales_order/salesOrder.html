@@ -1,4 +1,4 @@
-<div layout="row" ng-init="getSalesOrderList();getMerchantStore()">
+<!-- <div layout="row" ng-init="getSalesOrderList();getMerchantStore()">
 
 	<div layout="row" flex=20>
 		<h3 layout-padding layout-align="start center">Sales Order</h3>
@@ -23,14 +23,36 @@
 			placeholder="enter search"> </md-input-container>
 		<ng-md-icon icon="search" style="line-height: 5;"></ng-md-icon>
 	</div>
-</div>
-<md-card flex-gt-sm="90" flex-gt-md="80">
+</div> -->
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+	<div class="md-toolbar-tools" layout="row"  ng-init="getSalesOrderList();getMerchantStore()">
+  		<h3 layout-align="start">Sales Order</h3>
+  		<div class="tbl-search">
+  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+  			<input ng-model="search" type="text"  placeholder="Search">
+  		</div>
+    	<div layout="row">
+		<md-datepicker style="background: none;" layout-padding
+			layout-align="end center" class="bg-none" ng-model="fromDate"
+			ng-change="getSalesByDate()" md-placeholder="From"></md-datepicker>
+		<md-datepicker style="background: none;" layout-padding
+			layout-align="end center" class="bg-none" ng-model="toDate"
+			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
+		<md-input-container ng-hide="user.role == 'STOREADMIN'">
+		<label>Store</label> <md-select name="myModel" ng-model="search" 
+			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
+	    </md-input-container>
+	</div>
+    	 </div>
+    	 </md-toolbar>
+    	 
 <md-data-table-container>
 <table md-data-table class="md-primary"
 	md-progress="deferred">
-	<thead md-order="salesOrderPagination.order" md-trigger="onorderchange">
-		<tr>
+	<thead md-order="salesOrderPagination.order" md-trigger="onorderchange" class="full_wid">
+		<tr class="tbl-header">
 		<th name="Shoper"></th>
 		<th name="Backer"></th>
               <th order-by="customer.name" name="Customer"></th>
@@ -70,7 +92,9 @@
 		</tr>
 	</tbody>
 </table>
-</md-data-table-container> <md-data-table-pagination md-limit="salesOrderPagination.limit" md-page="salesOrderPagination.page"
+</md-data-table-container> 
+</md-card>
+<div layout layout="row" class="table-pagination-bg" layout-align="end center">
+<md-data-table-pagination md-limit="salesOrderPagination.limit" md-page="salesOrderPagination.page"
 	md-total="{{count}}" md-trigger="onpagechange"></md-data-table-pagination>
-</md-card>
-</md-card>
+</div>

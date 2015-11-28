@@ -166,12 +166,12 @@
       		<input type="text" ng-model="productEdit.price" valid-number /> 
       		</md-input-container>
       		
-      		<md-input-container flex="10">
+      		<md-input-container flex="15">
       		<label>Category</label>
       		<input type="text" ng-model="productEdit.productCategory.name" valid-number /> 
       		</md-input-container>
       		
-      		<md-input-container flex="10">
+      		<md-input-container flex="15">
       		<label>Product Type</label>
       		<input type="text" ng-model="productEdit.productType.name" valid-number /> 
       		</md-input-container>
@@ -223,21 +223,20 @@
    </md-card-content>   
 </md-card> 
 <div layout="row">
-<div style="font-size:16px;" flex="50" layout="row" class="table-pagination-bg" layout-align="start center">
-	 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{data.length}}"
-      md-trigger="onpagechange"></md-data-table-pagination>
-</div>
-<md-button flex="20" ng-href={{excelUrl}} layout-align="start start" style="height: 0;">Export ProductList</md-button>
-<md-button flex="20" ng-click="#" layout-align="start center" style="height: 0;">
+
+<md-button flex="20" ng-href={{excelUrl}} layout-align="start start" style="height: 0; margin-top: 12px;">Export ProductList</md-button>
+<md-button flex="20" ng-click="#" layout-align="start center" style="height: 0; margin-top: 12px;">
         <label class="custom-excel-input">	
 	    <input id="file-upload1" type="file" ng-model="excelFile" app-filereader ng-change="uploadExcel('file-name1','file-upload1')"/>
 	    <span ng-hide="true" id="file-name1" ></span>
 	</label>			
 </md-button>
-<div flex="10"></div>
-
-
+<div flex="15"></div>
+<div style="font-size:16px;" flex="40" layout="row" class="table-pagination-bg" layout-align="start center">
+	 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{data.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+</div>
 </div>
      
      <!-- <div layout="row" layout-padding layout-align="start">

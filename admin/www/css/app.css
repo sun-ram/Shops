@@ -179,9 +179,6 @@ h2 {
 .md-toolbar-tools-bottom {
   font-size: small;
 }
-.md-toolbar-tools-bottom :last-child {
-  opacity: 1;
-}
 
 .close_box{position: absolute;
 right: 3px;
@@ -520,6 +517,7 @@ md-sidenav md-icon {
 
 ::-webkit-scrollbar {
 	width: 8px;
+	height: 8px;
 }
 ::-webkit-scrollbar-button {
 	width: 8px;
@@ -547,8 +545,7 @@ md-sidenav md-icon {
     font-weight: 600;
     padding-left: 0px;
     padding-bottom: 3px;
-    font-size: 12px;
-    
+    font-size: 12px;    
 }
 
 .optionSelected {
@@ -570,5 +567,7 @@ x;
 ng-md-icon, md-icon{margin-left: 10px;}
 .svgicon_style svg{width:24px !important;fill:#ffffff !important;}
 .dashbord_liststyle .md-whiteframe-4dp h4 , .chart_header h4{font-size:18px; color:#000; padding:5px; margin: 5px;}
+
+md-toolbar:not(.md-menu-toolbar) md-icon{color: grey ! important; margin: 0px ! important ;}
 
 
