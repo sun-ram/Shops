@@ -54,9 +54,30 @@ public class MyCartRestServices<T> {
 	public String addToCart(MyCartVo myCartVo) throws Exception {
 		ResponseModel response = new ResponseModel();
 		try{
-			Product product = productService.getProduct(myCartVo.getProduct().getProductId());
-			Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
-			Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
+			String customerId = null;
+			String storeId = null;
+			String productId = null;
+			
+			if(myCartVo.getProductId() != null){
+				productId = myCartVo.getProductId();
+			}else {
+				productId = myCartVo.getProduct().getProductId();
+			}
+			
+			if(myCartVo.getStoreId() != null){
+				storeId = myCartVo.getStoreId();
+			}else {
+				storeId = myCartVo.getStore().getStoreId();
+			}
+			
+			if(myCartVo.getCustomerId() != null){
+				customerId = myCartVo.getCustomerId();
+			}else {
+				customerId = myCartVo.getCustomer().getCustomerId();
+			}
+			Product product = productService.getProduct(productId);
+			Store store = storeService.getStoreById(storeId);
+			Customer customer = customerService.getCustomerInfoById(customerId);
 			MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
 			if(myCart == null){
 				myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
@@ -93,9 +114,30 @@ public class MyCartRestServices<T> {
 	public String deletefromcart(MyCartVo myCartVo) throws Exception {
 		ResponseModel response = new ResponseModel();
 		try{
-			Product product = productService.getProduct(myCartVo.getProduct().getProductId());
-			Store store = storeService.getStoreById(myCartVo.getStore().getStoreId());
-			Customer customer = customerService.getCustomerInfoById(myCartVo.getCustomer().getCustomerId());
+			String customerId = null;
+			String storeId = null;
+			String productId = null;
+			
+			if(myCartVo.getProductId() != null){
+				productId = myCartVo.getProductId();
+			}else {
+				productId = myCartVo.getProduct().getProductId();
+			}
+			
+			if(myCartVo.getStoreId() != null){
+				storeId = myCartVo.getStoreId();
+			}else {
+				storeId = myCartVo.getStore().getStoreId();
+			}
+			
+			if(myCartVo.getCustomerId() != null){
+				customerId = myCartVo.getCustomerId();
+			}else {
+				customerId = myCartVo.getCustomer().getCustomerId();
+			}
+			Product product = productService.getProduct(productId);
+			Store store = storeService.getStoreById(storeId);
+			Customer customer = customerService.getCustomerInfoById(customerId);
 			MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
 			if (myCart != null) {
 				myCartService.removeFromCart(myCart);
@@ -124,9 +166,21 @@ public class MyCartRestServices<T> {
 		Customer customer = new Customer();
 		Store store = new Store();
 		try {
-			customer = customerService.getCustomerInfoById(myCartVo.getCustomer()
-					.getCustomerId());
-			store = storeService.getStoreById(myCartVo.getStore().getStoreId());
+			String customerId = null;
+			String storeId = null;
+			if(myCartVo.getStoreId() != null){
+				storeId = myCartVo.getStoreId();
+			}else {
+				storeId = myCartVo.getStore().getStoreId();
+			}
+			
+			if(myCartVo.getCustomerId() != null){
+				customerId = myCartVo.getCustomerId();
+			}else {
+				customerId = myCartVo.getCustomer().getCustomerId();
+			}
+			customer = customerService.getCustomerInfoById(customerId);
+			store = storeService.getStoreById(storeId);
 			if (customer != null && store != null) {
 				myCart = myCartService.getMyCartList(customer, store);
 				for(MyCart mycart : myCart){

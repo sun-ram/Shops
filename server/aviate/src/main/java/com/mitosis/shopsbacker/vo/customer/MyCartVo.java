@@ -6,6 +6,12 @@ import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 public class MyCartVo {
 
 	public String myCartId;
+	
+	public String productId;
+	
+	public String storeId;
+	
+	public String customerId;
 
 	public CustomerVo customer;
 
@@ -14,6 +20,32 @@ public class MyCartVo {
 	public StoreVo store;
 
 	public int qty;
+	
+	
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
+	public String getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 
 	public String getMyCartId() {
 		return myCartId;
