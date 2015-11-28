@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
@@ -25,7 +26,7 @@ import com.mitosis.shopsbacker.vo.customer.CustomerVo;
  *
  * @param <T>
  * 
- * Reviewed by Sundaram 27/11/2015
+ *            Reviewed by Sundaram 27/11/2015
  */
 
 @Service("addressServiceImpl")
@@ -33,15 +34,15 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 
 	@Autowired
 	AddressDao<T> addressDao;
-	
+
 	@Autowired
 	CustomerService<T> customerService;
-	
-	CustomerVo customerVo =null;
+
+	CustomerVo customerVo = null;
 	Address address = null;
-	AddressVo addressVo=null;
-	CountryVo countryVo=null;
-	StateVo stateVo =null;
+	AddressVo addressVo = null;
+	CountryVo countryVo = null;
+	StateVo stateVo = null;
 
 	public AddressDao<T> getAddressDao() {
 		return addressDao;
@@ -140,13 +141,13 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		addressVo.setLongitude(address.getLongitude());
 		addressVo.setCountry(setCountryVo(address.getCountry()));
 		addressVo.setState(setCountryVo(address.getState()));
-		Customer customer=address.getCustomer();
-		if(customer!=null){
-		addressVo.setCustomer(setCustomerVo(customer));
+		Customer customer = address.getCustomer();
+		if (customer != null) {
+			addressVo.setCustomer(setCustomerVo(customer));
 		}
 		return addressVo;
 	}
-	
+
 	public CountryVo setCountryVo(Country country) {
 		countryVo = new CountryVo();
 		countryVo.setName(country.getName());
@@ -162,7 +163,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		stateVo.setStateId(state.getStateId());
 		return stateVo;
 	}
-	
+
 	public CustomerVo setCustomerVo(Customer customer) {
 		customerVo = new CustomerVo();
 		customerVo.setCustomerId(customer.getCustomerId());
@@ -170,5 +171,15 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		return customerVo;
 	}
 
+	public JsonNode getLatLongByAddress(AddressVo addressVo) {
+		String full_address = addressVo.getAddress1() + ","
+				+ addressVo.getAddress2() != null ? addressVo.getAddress2()
+				+ "," : "" + addressVo.getCity() + ","
+				+ addressVo.getState().getName() + ","
+				+ addressVo.getCountry().getName() + ","
+				+ addressVo.getPinCode();
+		JsonNode location = CommonUtil.getLatLong(full_address);
+		return location;
+	}
 
 }

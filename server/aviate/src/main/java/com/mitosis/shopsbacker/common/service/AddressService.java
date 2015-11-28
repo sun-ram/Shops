@@ -2,11 +2,13 @@ package com.mitosis.shopsbacker.common.service;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
 
@@ -35,5 +37,7 @@ public interface AddressService<T> {
 	public AddressVo setAddressVo(Address address);
 	
 	public Address setAddress(AddressVo addressVo) throws Exception;
+	
+	public JsonNode getLatLongByAddress(AddressVo addressVo);
 
 }

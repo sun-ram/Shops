@@ -385,8 +385,14 @@ public final class CommonUtil {
 	 */
 	public static String getObjectMapper(Object obj) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(Include.NON_NULL);
-		mapper.setSerializationInclusion(Include.NON_EMPTY);
-		return mapper.writeValueAsString(obj);
+		String res = "";
+		try{
+			mapper.setSerializationInclusion(Include.NON_NULL);
+			mapper.setSerializationInclusion(Include.NON_EMPTY);
+			res = mapper.writeValueAsString(obj);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
 	}
 }

@@ -32,7 +32,7 @@ import com.mitosis.shopsbacker.vo.customer.CustomerVo;
  *
  * @param <T>
  * 
- *  Reviewed by Sundaram 27/11/2015
+ *            Reviewed by Sundaram 27/11/2015
  */
 
 @Path("customer")
@@ -41,18 +41,19 @@ public class CustomerRestService<T> {
 
 	@Autowired
 	CustomerService<T> customerService;
-	
+
 	@Autowired
 	AddressService<T> addressService;
-	
+
 	ResponseModel response = null;
-	CustomerLoginResponseVo customerLoginResponseVo=null;
-	CustomerVo customerDetails,customerVoSet=null;
-	Customer customer,customerEmailChecking,customerPhoneNoChecking,newCustomer = null;
-	Address address =null;
+	CustomerLoginResponseVo customerLoginResponseVo = null;
+	CustomerVo customerDetails, customerVoSet = null;
+	Customer customer, customerEmailChecking, customerPhoneNoChecking,
+			newCustomer = null;
+	Address address = null;
 	AddressResponseVo addressResponseList = null;
 	CustomerVo customerVo = null;
-	
+
 	@Path("/login")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -63,8 +64,8 @@ public class CustomerRestService<T> {
 		customerLoginResponseVo = new CustomerLoginResponseVo();
 		customerDetails = new CustomerVo();
 		if (customerVo != null) {
-			customer = customerService
-					.getCustomerInfoByEmail(customerVo.getEmail());
+			customer = customerService.getCustomerInfoByEmail(customerVo
+					.getEmail());
 			if (customer != null) {
 				flag = CommonUtil.passwordVerification(
 						customerVo.getPassword(), customer.getPassword());
@@ -93,8 +94,7 @@ public class CustomerRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public String userSignUp(CustomerVo customerVo)
-			throws Exception {
+	public String userSignUp(CustomerVo customerVo) throws Exception {
 		customerLoginResponseVo = new CustomerLoginResponseVo();
 		if (customerVo.getEmail() != null) {
 			customerEmailChecking = new Customer();
@@ -122,7 +122,7 @@ public class CustomerRestService<T> {
 									.getMessage());
 					customerLoginResponseVo.setStatus(SBMessageStatus.SUCCESS
 							.getValue());
-					return  CommonUtil.getObjectMapper(customerLoginResponseVo);
+					return CommonUtil.getObjectMapper(customerLoginResponseVo);
 				}
 			} else {
 				if (customerEmailChecking != null) {
@@ -134,7 +134,7 @@ public class CustomerRestService<T> {
 									.getMessage());
 					customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
-					return  CommonUtil.getObjectMapper(customerLoginResponseVo);
+					return CommonUtil.getObjectMapper(customerLoginResponseVo);
 				} else {
 					customerLoginResponseVo
 							.setErrorCode(SBErrorMessage.MOBILNO_EXISTS
@@ -144,76 +144,126 @@ public class CustomerRestService<T> {
 									.getMessage());
 					customerLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
-					return  CommonUtil.getObjectMapper(customerLoginResponseVo);
+					return CommonUtil.getObjectMapper(customerLoginResponseVo);
 				}
 			}
 		}
-		return  CommonUtil.getObjectMapper(customerLoginResponseVo);
+		return CommonUtil.getObjectMapper(customerLoginResponseVo);
 
 	}
-	
+
 	@Path("/addAddress")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel addAddress(AddressVo addressVo) throws Exception {
-		response=new ResponseModel();
-		if (addressVo.getCustomer().getCustomerId() != null) {
-			String full_address = addressVo.getAddress1()+","+addressVo.getAddress2()+","+
-								  addressVo.getCity()+","+addressVo.getCountry();	
-			JsonNode location = CommonUtil.getLatLong(full_address);
-			customer = customerService
-					.getCustomerInfoById(addressVo.getCustomer().getCustomerId());
-			address = addressService.setAddress(addressVo);
-			address.setCustomer(customer);
-			if(addressVo.getAddressId()==null){
-				addressService.saveAddress(address);
-			}else{
-				addressService.updateAddress(address);
+	public String addAddress(AddressVo addressVo) {
+		response = new ResponseModel();
+		String responseStr = "";
+		try {
+			if (addressVo.getCustomer().getCustomerId() != null) {
+				JsonNode location = addressService
+						.getLatLongByAddress(addressVo);
+				if (location == null) {
+					response.setErrorCode(SBErrorMessage.INVALID_ADDRESS
+							.getCode());
+					response.setErrorString(SBErrorMessage.INVALID_ADDRESS
+							.getMessage());
+					response.setStatus(SBMessageStatus.FAILURE.getValue());
+					return CommonUtil.getObjectMapper(response);
+				}
+				JsonNode loc = location.findValue("lat".toString());
+				addressVo.setLatitude(loc.toString());
+				loc = location.findValue("lng".toString());
+				addressVo.setLongitude(loc.toString());
+				Customer customer = customerService
+						.getCustomerInfoById(addressVo.getCustomer()
+								.getCustomerId());
+				Address address = addressService.setAddress(addressVo);
+				address.setCustomer(customer);
+				if (addressVo.getAddressId() == null) {
+					addressService.saveAddress(address);
+				} else {
+					addressService.updateAddress(address);
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
 		}
-		return response;
+		try {
+			responseStr = CommonUtil.getObjectMapper(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseStr;
 
 	}
-	
+
 	@Path("/getaddress")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public AddressResponseVo getCustomerAddress(CustomerVo customerVo) throws Exception {
+	public String getCustomerAddress(CustomerVo customerVo) {
 		addressResponseList = new AddressResponseVo();
-			customer = customerService
-					.getCustomerInfoById(customerVo.getCustomerId());
-			List<Address> addressList = addressService.getAddress(customer);
-			for(Address address: addressList){
+		String responseStr = "";
+		try {
+			Customer customer = customerService.getCustomerInfoById(customerVo
+					.getCustomerId());
+			List<Address> addressList = customer.getAddresses();
+			for (Address address : addressList) {
 				AddressVo addresVo = addressService.setAddressVo(address);
 				addressResponseList.getAddressList().add(addresVo);
 			}
-			return addressResponseList;
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+			addressResponseList.setStatus(SBMessageStatus.FAILURE.getValue());
+			addressResponseList.setErrorString(e.getMessage());
 		}
-	
+		try {
+			responseStr = CommonUtil.getObjectMapper(addressResponseList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseStr;
+
+	}
+
 	@Path("/deleteaddress")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel deleteAddress(AddressVo addressVo) throws Exception {
-		response=new ResponseModel();
-		if (addressVo.getAddressId() != null) {
-			Address address = addressService.getAddress(addressVo.getAddressId());
-			addressService.deleteAddress(address);
+	public String deleteAddress(AddressVo addressVo) {
+		response = new ResponseModel();
+		String responseStr = "";
+		try {
+			if (addressVo.getAddressId() != null) {
+				Address address = addressService.getAddress(addressVo
+						.getAddressId());
+				addressService.deleteAddress(address);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
 		}
-		return response;
+
+		try {
+			responseStr = CommonUtil.getObjectMapper(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return responseStr;
 
 	}
 
-
 	public Customer customerDetails(CustomerVo customerVo) throws Exception {
-		customer = (Customer) CommonUtil
-				.setAuditColumnInfo(Customer.class.getName());
+		customer = (Customer) CommonUtil.setAuditColumnInfo(Customer.class
+				.getName());
 		customer.setEmail(customerVo.getEmail());
 		customer.setPhoneNo(customerVo.getPhoneNo());
 		customer.setPassword(CommonUtil.passwordEncoder(customerVo
