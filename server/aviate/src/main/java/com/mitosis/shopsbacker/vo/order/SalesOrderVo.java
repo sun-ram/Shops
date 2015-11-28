@@ -40,7 +40,15 @@ public class SalesOrderVo {
 	private UserVo user;
 	private UserVo shoper;
 	private UserVo backer;
+	private String shoperId;
 
+	
+	public String getShoperId() {
+		return shoperId;
+	}
+	public void setShoperId(String shoperId) {
+		this.shoperId = shoperId;
+	}
 	private List<OrderTaxVo> orderTax;
 	
 	public String getSalesOrderId() {
