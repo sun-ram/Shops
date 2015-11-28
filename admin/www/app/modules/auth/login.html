@@ -4,23 +4,22 @@ svg {
 	color: white;
 	fill: white;
 }
-
 .btn-lgcolor {
 	background-color: #73A542;
 }
-
 .text-white {
 	color: #fff !important;
 }
-
-.ft-14 {
-	font-size: 14px;
-}
+.log_btn{margin: 0px;
+margin-top: 20px;
+margin-bottom: 20px;
+border-radius: 20px !important}
+.check_xwhite .md-icon{border-color:#fff !important;}
 </style>
 
 
 <div layout-align="start center" class="animate img-login"
-	style="width: 100%; min-width: 100%; max-width: 100%; height: 100% !important; background-image: url('images/bg-image4.png'); background-size: cover;"
+	style="width: 100%; min-width: 100%; max-width: 100%; height: 100% !important; background-image: url('images/Admin_banner.jpg'); background-size: cover;"
 	layout="column" class="colorNested ">
 	<md-card-content layout="row">
 	<!-- <div style="background-color:#FFFFFF; border-radius:50px; height:200px; width:200px;">
@@ -33,15 +32,15 @@ svg {
 		<form name="login" novalidate ng-hide="forget">
 			<div layout-padding>
 				<div layout-padding>
-					<img  src="images/sb-logo2.png" style=" border-radius:250px; padding:0px 20px; margin:0px 30px 50px 30px;width:250px; background-color:rgba(255,255,255,1);"/> 
+					<img  src="images/sb-logo2.png" style=" border-radius:50%; padding:0px 20px; margin:10px 20px 50px 15px;width:180px; background-color:rgba(255,255,255,1);"/> 
 					<md-input-container class=""> <label style="color:#FFFFFF;">Username</label>
 					<input name="userName" ng-model="user.userName" type="text"
-						ng-enter="signIn();" ng-required="true"> 
+						ng-enter="signIn();" class="ft_ltgreen ft-18" ng-required="true"> 
 					 <div ng-messages="login.userName.$error">
 						<div ng-message="required"
 							ng-show="(userNameRequired && !user.userName) || (login.userName.$invalid && !login.userName.$pristine)"
 							style="color: red;">
-							<div style="font-size: 4;">Username is required.</div>
+							<div style="font-size: 4;padding-top:5px;">Username is required.</div>
 						</div>
 						<!--<div ng-message="required"
 							ng-show="login.emailId.$error.email || (!login.emailId.$error.required && !login.emailId.$valid)"
@@ -52,35 +51,34 @@ svg {
 					</md-input-container>
 					<md-input-container class=""> <label style="color:#FFFFFF">Password</label>
 					<input ng-model="user.password" name="password" id="password"
-						type="password" ng-trim="false"
+						type="password" class="ft_ltgreen ft-18" ng-trim="false"
 						ng-change="user.password = user.password.split(' ').join('')"
 						ng-enter="signIn();" ng-required="true">
 					<div ng-messages="login.password.$error"
 						ng-show="(passwordRequired && !user.password) || (login.password.$invalid && !login.password.$pristine)">
-						<div style="width: 279px; height: 14px; font-size: small;">Password
+						<div style="width: 279px; padding-top:5px; height: 14px; font-size: small;">Password
 							is required.</div>
 					</div>
 					</md-input-container>
+					
 					<div layout="row">
-						<div>
-							<md-checkbox class="md-green" ng-change="saveauth()"
-								ng-model="rememberme" aria-label="Checkbox 1"> <span>Remember
-								me</span> </md-checkbox>
-						</div>
-						
-					</div>
-					<div>
-						<div style="float:left">
-							<md-button class="md-primary fgt-pwd" ng-click="forget=true">Forgot
-							Password?</md-button>
-						</div>
-						<div style="float:right">
-							<md-button flex class="md-raised md-success  text-white"
+							<md-button flex class="md-raised md-success log_btn text-white"
 							ng-disabled="(user.userName == '' || user.userName == undefined) || login.password.$invalid"
 							ng-click="signIn()">Login </md-button>
 						
 						</div>
+					<div layout="row" layout-align="space-between center">
+						<div>
+							<md-checkbox class="md-green check_xwhite" ng-change="saveauth()"
+								ng-model="rememberme" aria-label="Checkbox 1"> <span class="ft-14">Remember
+								me</span> </md-checkbox>
+						</div>
+						<div>						
+							<md-button class="md-primary fgt-pwd ft-14" ng-click="forget=true">Forgot
+							Password?</md-button>											
+						</div>
 					</div>
+					
 					
 				</div>
 			</div>
