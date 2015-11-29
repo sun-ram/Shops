@@ -83,7 +83,7 @@ public class SalesOrderRestService<T> {
 
 	@Autowired
 	TaxService<T> taxService;
-
+	
 	@Autowired
 	ShippingChargesService<T> shippingChargesService;
 
@@ -306,8 +306,11 @@ public class SalesOrderRestService<T> {
 						* myCart.getQty();
 				BigDecimal lineGrossAmount = new BigDecimal(lineAmount);
 				BigDecimal lineNetAmount = new BigDecimal(lineAmount);
+				sol.setSalesOrder(salesOrder);
+				sol.setIsactive('Y');
 				sol.setGrossAmount(lineGrossAmount);
 				sol.setNetAmount(lineNetAmount);
+				sol.setDiscount(new BigDecimal(0.0));
 				sol.setProduct(myCart.getProduct());
 				sol.setQty(myCart.getQty());
 				sol.setPrice(myCart.getProduct().getPrice());
@@ -423,6 +426,8 @@ public class SalesOrderRestService<T> {
 		salesOrdervo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrdervo.setOrderNo(salesOrder.getOrderNo());
 		salesOrdervo.setStatus(salesOrder.getStatus());
+		salesOrdervo.setAddress(addressService.setAddressVo(salesOrder.getAddress()));
+		salesOrdervo.setCustomer(customerService.setCustomerVo(salesOrder.getCustomer()));
 		List<SalesOrderLine> orderLines = salesOrder.getSalesOrderLines();
 		List<SalesOrderLineVo> orderLineVos = new ArrayList<SalesOrderLineVo>();
 		for (SalesOrderLine orderLine : orderLines) {

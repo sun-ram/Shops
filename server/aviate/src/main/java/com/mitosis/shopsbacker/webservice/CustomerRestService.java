@@ -71,7 +71,7 @@ public class CustomerRestService<T> {
 						customerVo.getPassword(), customer.getPassword());
 			}
 			if (customer != null && flag) {
-				customerDetails = setCustomerDetails(customer);
+				customerDetails = customerService.setCustomerVo(customer);
 				customerLoginResponseVo.setCustomer(customerDetails);
 				customerLoginResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
@@ -272,15 +272,5 @@ public class CustomerRestService<T> {
 		return customer;
 	}
 
-	public CustomerVo setCustomerDetails(Customer customer) {
-		customerVo = new CustomerVo();
-		customerVo.setCustomerId(customer.getCustomerId());
-		customerVo.setName(customer.getName());
-		customerVo.setEmail(customer.getEmail());
-		customerVo.setImageId(customer.getImageId());
-		customerVo.setDeviceid(customer.getDeviceid());
-		customerVo.setDeviceType(customer.getDeviceType());
-		return customerVo;
-	}
 
 }

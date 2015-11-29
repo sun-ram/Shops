@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.customer.service;
 
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 /**
  * @author prabakaran
@@ -26,5 +27,7 @@ public interface CustomerService<T> {
 	public Customer getCustomerInfoByEmail(String email, String password);
 	
 	public Customer getCustomerInfoByPhoneNo(String phoneNo);
+	
+	public CustomerVo setCustomerVo(Customer customer);
 
 }
