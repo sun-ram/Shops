@@ -22,7 +22,6 @@ import com.mitosis.shopsbacker.order.dao.ShippingChargesDao;
  * @author RiyazKhan.M
  */
 @Repository
-@Transactional
 public class ShippingChargesDaoImpl<T> extends CustomHibernateDaoSupport<T>
 implements ShippingChargesDao<T>, Serializable {
 
