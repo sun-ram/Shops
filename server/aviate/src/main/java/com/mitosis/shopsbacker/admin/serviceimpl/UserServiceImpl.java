@@ -198,7 +198,6 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		userVo.setUserId(user.getUserId());
 		userVo.setRole(roleService.setRoleVo(user.getRole()));
 		userVo.setAddress(addressService.setAddressVo(user.getAddress()));
-		userVo.setStore(setStoreVo(user.getStore()));
 		return userVo;
 	}
 	
