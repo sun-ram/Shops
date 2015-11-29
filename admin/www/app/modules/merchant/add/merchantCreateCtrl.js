@@ -24,7 +24,7 @@ angular.module('aviateAdmin.controllers')
 			MerchantServices.addNewMerchant($scope.merchantDetail).then(function(data){
 				$scope.merchantLogo=null;
 				$scope.merchantDetail = null;
-				$state.go('app.merchant');
+				$state.go('app.merchants');
 			});
 		};
 	
