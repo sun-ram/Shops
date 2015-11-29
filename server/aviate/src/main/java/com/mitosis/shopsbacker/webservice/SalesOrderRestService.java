@@ -389,7 +389,7 @@ public class SalesOrderRestService<T> {
 			} else if(salesOrderVo.getBackerId() != null){
 				user = userService.getUser(salesOrderVo.getBackerId());
 				if (user != null) {
-					List<SalesOrder> salesOrderList = user.getSalesOrdersForShopperId();
+					List<SalesOrder> salesOrderList = user.getSalesOrdersForBackerId();
 					List<SalesOrderVo> salesOrderVoList = new ArrayList<SalesOrderVo>();
 					Role role = user.getRole();
 					if (RoleName.BACKER.toString().equalsIgnoreCase(role.getName())) {
@@ -402,6 +402,7 @@ public class SalesOrderRestService<T> {
 							}
 						}
 					}
+					salesOrderResponse.setSalesOrderList(salesOrderVoList);
 				}
 			}else{
 				salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
