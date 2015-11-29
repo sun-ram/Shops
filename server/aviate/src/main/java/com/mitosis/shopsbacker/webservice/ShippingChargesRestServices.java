@@ -14,6 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.ShippingCharges;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.service.ShippingChargesService;
 import com.mitosis.shopsbacker.responsevo.ShippingChargesResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -22,9 +27,7 @@ import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.order.ShippingChargesVo;
-import com.mitosis.shopsbacker.admin.service.MerchantService;
-import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.ShippingCharges;
+
 /**
  * @author JAI BHARATHI
  *
@@ -32,16 +35,19 @@ import com.mitosis.shopsbacker.model.ShippingCharges;
  */
 @Path("shippingcharges")
 @Controller("shippingRestServices")
-public class ShippingRestServices<T> {
-	final static Logger log = Logger.getLogger(ShippingRestServices.class
-			.getName());
+public class ShippingChargesRestServices<T> {
+	final static Logger log = Logger
+			.getLogger(ShippingChargesRestServices.class.getName());
 
 	@Autowired
 	ShippingChargesService<T> shippingChargeService;
-	
+
 	@Autowired
 	MerchantService<T> merchantService;
-	
+
+	@Autowired
+	StoreService<T> storeService;
+
 	public ShippingChargesService<T> getShippingChargeService() {
 		return shippingChargeService;
 	}
@@ -50,8 +56,7 @@ public class ShippingRestServices<T> {
 			ShippingChargesService<T> shippingChargeService) {
 		this.shippingChargeService = shippingChargeService;
 	}
-	
-	
+
 	public MerchantService<T> getMerchantService() {
 		return merchantService;
 	}
@@ -59,7 +64,6 @@ public class ShippingRestServices<T> {
 	public void setMerchantService(MerchantService<T> merchantService) {
 		this.merchantService = merchantService;
 	}
-
 
 	ResponseModel response = null;
 	ShippingChargesResponseVo shippingchargesResponse = null;
@@ -73,13 +77,18 @@ public class ShippingRestServices<T> {
 		response = new ResponseModel();
 		try {
 			String id = null;
-			Merchant merchat = merchantService.getMerchantById(shippingChargesVo.getMerchantVo().getMerchantId());
-			List<ShippingCharges> shippingChargeList = shippingChargeService.getShippingChargesList(id,shippingChargesVo.getAmountRange(),merchat);
-			if(shippingChargeList.isEmpty()){
-				ShippingCharges shippingCharges = getShippingChargeService().setShippingCharges(shippingChargesVo);
+			Merchant merchat = merchantService
+					.getMerchantById(shippingChargesVo.getMerchantVo()
+							.getMerchantId());
+			List<ShippingCharges> shippingChargeList = shippingChargeService
+					.getShippingChargesList(id,
+							shippingChargesVo.getAmountRange(), merchat);
+			if (shippingChargeList.isEmpty()) {
+				ShippingCharges shippingCharges = getShippingChargeService()
+						.setShippingCharges(shippingChargesVo);
 				shippingChargeService.saveShippingCharges(shippingCharges);
 				return response;
-			}else{
+			} else {
 				response.setErrorCode(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
 						.getCode());
 				response.setErrorString(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
@@ -87,7 +96,7 @@ public class ShippingRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -101,20 +110,27 @@ public class ShippingRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel updateShippingCharges(ShippingChargesVo shippingChargesVo) {
+	public ResponseModel updateShippingCharges(
+			ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
-			
+
 			String id = shippingChargesVo.getShippingChargesId();
-			ShippingCharges shippingCharge = shippingChargeService.getShippingChargesById(shippingChargesVo.getShippingChargesId());
+			ShippingCharges shippingCharge = shippingChargeService
+					.getShippingChargesById(shippingChargesVo
+							.getShippingChargesId());
 			Merchant merchat = shippingCharge.getMerchant();
-			List<ShippingCharges> shippingChargeList = shippingChargeService.getShippingChargesList(id,shippingChargesVo.getAmountRange(),merchat);
-			if(shippingChargeList.isEmpty()){
-				shippingCharge.setChargingAmount(shippingChargesVo.getChargingAmount());
-				shippingCharge.setAmountRange(shippingChargesVo.getAmountRange());
+			List<ShippingCharges> shippingChargeList = shippingChargeService
+					.getShippingChargesList(id,
+							shippingChargesVo.getAmountRange(), merchat);
+			if (shippingChargeList.isEmpty()) {
+				shippingCharge.setChargingAmount(shippingChargesVo
+						.getChargingAmount());
+				shippingCharge.setAmountRange(shippingChargesVo
+						.getAmountRange());
 				shippingChargeService.updateShippingCharges(shippingCharge);
 				return response;
-			}else{
+			} else {
 				response.setErrorCode(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
 						.getCode());
 				response.setErrorString(SBErrorMessage.AMOUNT_RANGE_ALREADY_EXIST
@@ -122,7 +138,7 @@ public class ShippingRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -136,21 +152,37 @@ public class ShippingRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ShippingChargesResponseVo getShippingCharges(MerchantVo merchantVo) {
-		response = new ResponseModel();
+	public String getShippingCharges(MerchantVo merchantVo) {
 		shippingchargesResponse = new ShippingChargesResponseVo();
+		String responseStr = "";
 		try {
- 			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
-			List<ShippingCharges> shippingcharges = shippingChargeService.getShippingCharges(merchant);
+			Merchant merchant = new Merchant();
+			if (merchantVo.getStoreId() != null) {
+				Store store = storeService
+						.getStoreById(merchantVo.getStoreId());
+				merchant = store.getMerchant();
+			} else {
+				merchant = merchantService.getMerchantById(merchantVo
+						.getMerchantId());
+			}
+			List<ShippingCharges> shippingcharges = shippingChargeService
+					.getShippingCharges(merchant);
 			for (ShippingCharges shippingcharge : shippingcharges) {
-				ShippingChargesVo shippingchargeVo = getShippingChargeService().setShippingChargesVo(shippingcharge);
-				shippingchargesResponse.getShippingChargesList().add(shippingchargeVo);
+				ShippingChargesVo shippingchargeVo = getShippingChargeService()
+						.setShippingChargesVo(shippingcharge);
+				shippingchargesResponse.getShippingChargesList().add(
+						shippingchargeVo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		return shippingchargesResponse;
+		try {
+			responseStr = CommonUtil.getObjectMapper(shippingchargesResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
 
 	@Path("/delete")
@@ -158,10 +190,12 @@ public class ShippingRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel deleteShippingCharges(ShippingChargesVo shippingChargesVo) {
+	public ResponseModel deleteShippingCharges(
+			ShippingChargesVo shippingChargesVo) {
 		response = new ResponseModel();
 		try {
-			shippingChargeService.deleteShippingCharges(shippingChargesVo.getShippingChargesId());
+			shippingChargeService.deleteShippingCharges(shippingChargesVo
+					.getShippingChargesId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
