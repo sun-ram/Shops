@@ -88,7 +88,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 			$scope.addSubCategory = function(data, ev, cat){
 				$scope.dropObj = data;
 				$rootScope.dropObj = data;
-				if($scope.dropObj.key=='subcategory'){
+				if($scope.dropObj.key=='category'){
 					$mdDialog.show({
 						templateUrl: 'app/modules/modals/productCategoryModal.html',
 						parent: angular.element(document.body),
@@ -174,7 +174,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 			
 			$scope.addProductType = function(data, ev, cat){
 				$scope.dropObj = data;
-					if($scope.dropObj=='producttype'){
+					if($scope.dropObj.key =='producttype'){
 					$mdDialog.show({
 						templateUrl: 'app/modules/modals/productCategoryModal.html',
 						parent: angular.element(document.body),
@@ -184,11 +184,11 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 							$scope.productCategory = {};
 							$scope.categoryHeading="ProductType";
 							$scope.addCategory = function() {
-								/*var product = {
+								var product = {
 										"categoryId": cat.categoryId,
 										"productTypeName": $scope.productCategory.Name,
 										"merchantId":$rootScope.user.merchantId
-								};*/
+								};
 								var product = {
 										name:$scope.productCategory.Name,
 										merchant:{},
@@ -221,28 +221,48 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				}
 			};
 			
-			$scope.removeProductCategory= function(Id) {
-				ProductCategoryServices.removeProductCategory(Id).then(function(data){
-					toastr.success("Product Category Deleted Successfully");
-					$rootScope.parentCategoryListValue();
-					$rootScope.productCategoryListValue();
-				});
+			$scope.removeProductCategory= function(Id, name) {
+				var confirm = $mdDialog.confirm()
+				.title('Would you like to delete Product Category?')
+				.ok('Delete')
+				.cancel('Cancel');
+				$mdDialog.show(confirm).then(function() {
+					ProductCategoryServices.removeProductCategory(Id).then(function(data){
+						toastr.success("Product "+name+" Deleted Successfully");
+						$rootScope.parentCategoryListValue();
+						$rootScope.productCategoryListValue();
+					});
+				}, function() {
+
+				});		
+				
 			};
 
 			$scope.removeProductType= function(Id) {
-				ProductCategoryServices.removeProductType(Id).then(function(data){
-					toastr.success("Product Type Deleted Successfully");
-					$rootScope.parentCategoryListValue();
-					$rootScope.productCategoryListValue();
-				});
+
+				var confirm = $mdDialog.confirm()
+				.title('Would you like to delete Product Type?')
+				.ok('Delete')
+				.cancel('Cancel');
+				$mdDialog.show(confirm).then(function() {
+					ProductCategoryServices.removeProductType(Id).then(function(data){
+						toastr.success("Product Type Deleted Successfully");
+						$rootScope.parentCategoryListValue();
+						$rootScope.productCategoryListValue();
+					});
+				}, function() {
+
+				});		
+				
+				
 			};
-			$scope.updateproductCategory=function(categoryId,name){
+			$scope.updateproductCategory=function(categoryId,name,categoryName){
 				var product = {
 						productCategoryId : categoryId,
 						name : name
-				};
+					};
 				ProductCategoryServices.updateproductCategory(product).then(function(data){
-					toastr.success("Product Category Updated Successfully");
+					toastr.success("Product "+categoryName+" Updated Successfully");
 					$rootScope.parentCategoryListValue();
 					$rootScope.productCategoryListValue();
 				});
@@ -253,7 +273,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				var product = {
 						productTypeId : categoryId,
 						name : name
-				};
+					};
 				ProductCategoryServices.updateproductType(product).then(function(data){
 					toastr.success("Product Type Updated Successfully");
 					$rootScope.parentCategoryListValue();
@@ -312,7 +332,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				});
 			};
 
-			$scope.showConfirmUpdate = function(categoryId,name, ev) {				
+			$scope.showConfirmUpdate = function(categoryId,name, ev, categoryName) {				
 				$mdDialog.show({
 					templateUrl: 'app/modules/modals/ProductUpdateCategoryModal.html',
 					parent: angular.element(document.body),
@@ -331,7 +351,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 					}
 				})
 				.then(function(answer) {
-					$scope.updateproductCategory(categoryId,answer)
+					$scope.updateproductCategory(categoryId,answer,categoryName)
 					$scope.status = 'You said the information was "' + answer + '".';
 				}, function() {
 					$scope.status = 'You cancelled the dialog.';

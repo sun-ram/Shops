@@ -24,11 +24,11 @@
 				{{obj.name}}
 			</md-card>
 			</div>
-			<div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Sub Category'">
+			<!--  <div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Sub Category'">
 	 		<md-card  ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#FFFFFF; margin:5px 20px;">
 				{{obj.name}}
 			</md-card>
-			</div>
+			</div>  -->
 			<div class="drag-object" ng-repeat="obj in draggableObjects" ng-if="obj.name=='Product Type'">
 	 		<md-card  ng-drag="true" ng-drag-data="obj" style="padding:12px 20px;  background-color:#F0ED97; margin:5px 20px;">
 				{{obj.name}}
@@ -56,10 +56,10 @@
 <md-card  ng-drop="true" ng-drop-success="addSubCategory($data,$event,c)" class="ctg" layout >
 				<span layout-align="start center" layout-padding style="width: 100%;">{{c.name}}</span>
              	<span layout="" layout-align="end center">
-                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.productCategoryId,c.name,$evemt)" aria-label="Edit">
+                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.productCategoryId,c.name,$evemt,'Category')" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon>
       			</md-button>
-             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.productCategoryId)" aria-label="Delete">
+             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.productCategoryId, 'Category')" aria-label="Delete">
              		<ng-md-icon icon="close" style="fill:red" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
              </span>
@@ -80,10 +80,10 @@
 <md-card  ng-drop="true" ng-drop-success="addSubCategory($data,$event,c)" class="ctg" layout >
 				<span layout-align="start center" layout-padding style="width: 100%;">{{c.name}}</span>
              	<span layout="" layout-align="end center">
-                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.productCategoryId,c.name,$evemt)" aria-label="Edit">
+                <md-button class="md-icon-button md-primary" ng-click="showConfirmUpdate(c.productCategoryId,c.name,$evemt,'SubCategory')" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon>
       			</md-button>
-             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.productCategoryId)" aria-label="Delete">
+             	<md-button class="md-icon-button md-primary" ng-click="removeProductCategory(c.productCategoryId, 'SubCategory')" aria-label="Delete">
              		<ng-md-icon icon="close" style="fill:red" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
              </span>

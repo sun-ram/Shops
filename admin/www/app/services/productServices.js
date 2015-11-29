@@ -188,5 +188,14 @@ angular.module('aviateAdmin.services')
 		})
 		return d.promise;
 	};	
+	
+	this.setProductObj = function(product){
+		this.obj = product;
+	};
+
+	this.getProductObj = function(){
+		return this.obj;
+	};
+
 
 }]);

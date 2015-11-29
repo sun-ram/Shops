@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers')
-.controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig',
-                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig) {
+.controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig','$mdDialog',
+                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig, $mdDialog) {
 	/*==========Get All Product Details==========*/
 
 	$scope.downloadExcel = myConfig.backend;
@@ -20,6 +20,15 @@ angular.module('aviateAdmin.controllers')
 	
 	$scope.images={};
 	$scope.images.originalBackImage;
+	
+
+	$scope.productDetails = function(product){
+		ProductService.setProductObj(product);
+		/*localStorage.setItem('product',JSON.stringify(product));
+		$scope.product = JSON.parse(localStorage.getItem('product'));*/
+		$state.go('app.productdetailsview');
+		
+	},
 
 
 	$scope.getAllProductList = function() {
@@ -75,7 +84,7 @@ angular.module('aviateAdmin.controllers')
 
 			if($scope.product.productId){
 
-				toastr.success("product details have been updated successfully!!!");
+				toastr.success("Product details have been updated successfully!!!");
 				$localStorage.product={};
 				$state.go("app.products");
 
@@ -83,7 +92,7 @@ angular.module('aviateAdmin.controllers')
 
 			else{
 
-				toastr.success("product details have been added successfully!!!");
+				toastr.success("Product details have been added successfully!!!");
 				$localStorage.product={};
 				$state.go("app.products");
 			}
@@ -199,19 +208,26 @@ angular.module('aviateAdmin.controllers')
 	$scope.product = $localStorage.product;
 
 	$scope.deleteProduct= function(productId){
+		var confirm = $mdDialog.confirm()
+		.title('Would you like to delete Product?')
+		.ok('Delete')
+		.cancel('Cancel');
+		$mdDialog.show(confirm).then(function() {
+			$scope.product= {};
 
-		$scope.product= {};
+			$scope.product.productId = productId;
 
-		$scope.product.productId = productId;
+			ProductService.deleteProduct($scope.product).then(function(data) {
+				//$localStorage.totalProductType = false;
+				$scope.getAllProductList();
 
-		ProductService.deleteProduct($scope.product).then(function(data) {
-			//$localStorage.totalProductType = false;
-			$scope.getAllProductList();
+				toastr.success("Product details have been deleted successfully!!!");
 
-			toastr.success("product details have been deleted successfully!!!");
+			})
+		}, function() {
 
-		})
-
+		});		
+		
 	}
 	
 	$scope.getproductCategory = function(){

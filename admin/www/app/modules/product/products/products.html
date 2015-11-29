@@ -75,7 +75,7 @@
         </md-item-content>
         </md-item>
         
-      <md-item class="data-table-list" md-data-table ng-repeat="product in productList | filter:searchTxt">
+      <md-item class="data-table-list" md-data-table ng-repeat="product in productList | filter:searchTxt" ng-click="productDetails(product)">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
           
@@ -234,7 +234,7 @@
 <div flex="15"></div>
 <div style="font-size:16px;" flex="40" layout="row" class="table-pagination-bg" layout-align="start center">
 	 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{data.length}}"
+      md-page="productsPagination.page" md-total="{{productList.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
 </div>
 </div>

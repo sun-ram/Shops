@@ -2,7 +2,8 @@
 
 	<md-toolbar	class=" md-default-theme" style="background-color:transparent;">
 		<div class="md-toolbar-tools">
-			<h2 class="md-flex">Create Product</h2>
+			<h2 class="md-flex" ng-hide="product.productId">Create Product</h2>
+			<h2 class="md-flex" ng-show="product.productId">Update Product</h2>
 		</div>
 		<!-- <span class="close_box"> <ng-md-icon class="icon-white svgstyle"
 				size="35" icon="close" ui-sref="app.producttype"></ng-md-icon>
