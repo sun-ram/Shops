@@ -23,7 +23,7 @@
     </md-input-container>
      <md-input-container layout-padding flex>
       <label>Next Number<span style="color:red">*</span></label>
-      <input ng-model="orderNumber.nextNumber" name="nnum" ng-required="true" ng-maxlength="10" valid-number>
+      <input ng-model="orderNumber.nextNumber" name="nnum" ng-required="true" ng-maxlength="10" valid-number  ng-disabled="true">
       <span ng-message="required" ng-show="storeForm.nnum.$error.maxlength" style="color:red;">
        Enter Next Number within 10 digit</span>
        </md-input-container>
