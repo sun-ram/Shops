@@ -398,6 +398,7 @@ public class SalesOrderRestService<T> {
 								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
+							salesOrderResponse.setSalesOrderList(salesOrderVoList);
 						}
 					}
 				}
