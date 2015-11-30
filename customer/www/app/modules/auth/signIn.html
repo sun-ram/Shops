@@ -1,4 +1,4 @@
-<md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:450px;border-radius:0px;">
+<md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:450px; min-height:500px;border-radius:0px;">
   <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
     <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
       <h2 class="text-center wid_100">SIGN UP | SIGN IN</h2>
@@ -11,9 +11,10 @@
   
 <!-- Signin -->
   <md-dialog-content ng-hide="forgetPass" style="padding:0px;">
-  	<md-radio-group ng-model="isSignUp">
-         <md-radio-button ng-value="true" class="md-primary">I'm a new customer</md-radio-button>
-         <md-radio-button ng-value="false" class="md-primary">I'm returning customer</md-radio-button>
+  	<md-radio-group ng-model="isSignUp" layout="row" style="background-color:#F2CB6E;">
+  		<md-radio-button ng-value="false" flex class="md-primary">I'm returning customer</md-radio-button>
+         <md-radio-button ng-value="true" flex class="md-primary">I'm a new customer</md-radio-button>
+         
     </md-radio-group>
    <form name="userForm" layout-padding ng-show="isSignUp">			
         <md-input-container flex class="padd_btm10">

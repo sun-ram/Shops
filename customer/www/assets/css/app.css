@@ -7,6 +7,7 @@
 body,html{ font-family:'nirmalaui'; height:100%; width:100%; }
 
 
+*{outline:none;}
 
 .signup_btn_clr{  background: #72A308 !important;color:#fff !important;}
 .text-green {color: #72A308 !important;}
@@ -380,9 +381,10 @@ nav.mainslider-tab ul li a md-subhead,nav.mainslider-tab ul li a md-caption{ wid
 
 
 
+/* Change placeholder color */
+md-select .md-select-value.md-select-placeholder{color: rgba(0,0,0,0.8);}
 
-
-
+md-select .md-select-value{ border-color:rgba(0,0,0,0.6)}
 
 
 
