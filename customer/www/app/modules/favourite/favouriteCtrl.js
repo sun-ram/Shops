@@ -27,5 +27,17 @@ angular.module('aviate.controllers')
 			$scope.favouriteList = data.favourites;
 		});	
    	};
+   	
+   	$scope.addFavouriteToCart = function(salesOrderId){
+   		
+   		$scope.favourite ={};
+		$scope.favourite.customerId = $rootScope.user.userId;
+		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+		$scope.favourite.storeId = $rootScope.store.storeId;
+		$scope.favourite.salesOrderId = salesOrderId;
+		CheckOutServices.getFavourite($scope.favourite).then(function(data){
+			$state.go('app.cart');
+		});	
+   	}
 	
 }]);

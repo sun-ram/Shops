@@ -461,6 +461,19 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.CheckOut.addFavouriteToCart = function (favourite, callback) {
+			httpRequest("POST", "favourite/addFavouriteToCart", favourite, function (err, data) {
+				if (err) {
+		
+					callback(err, null);
+		
+				} else {
+		
+					callback(null, data);
+				}
+			});
+		};
 					
 		
 		apiClass.CheckOut.payment = function (payment, callback) {

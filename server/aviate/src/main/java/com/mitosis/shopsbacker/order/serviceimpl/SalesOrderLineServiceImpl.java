@@ -69,4 +69,11 @@ public class SalesOrderLineServiceImpl<T> implements
 	}
 
 
+	@Override
+	public List<SalesOrderLine> getSalesOrderLineBysalesOrder(
+			SalesOrder salesOrderId) {
+		return salesOrderLineDao.getSalesOrderLineBysalesOrder(salesOrderId);
+	}
+
+
 }
