@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.dao.ImageDao;
 import com.mitosis.shopsbacker.model.Image;
@@ -15,9 +14,10 @@ import com.mitosis.shopsbacker.model.Image;
  * @author kathir
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 28/11/2015
  */
 @Repository
-@Transactional
 public class ImageDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 ImageDao<T>, Serializable  {
 
