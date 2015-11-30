@@ -191,7 +191,7 @@ angular.module('aviate.controllers')
 			var showError = function(error) {
 				switch(error.code) {
 				case error.PERMISSION_DENIED:
-					toastr.error("User denied the request for Geolocation.");
+					//toastr.error("User denied the request for Geolocation.");
 					$rootScope.latLong.support=false;
 					$rootScope.showLocationDialog(true);
 					break;

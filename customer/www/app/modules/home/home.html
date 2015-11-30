@@ -10,7 +10,7 @@
 }*/
 
 </style>
-<div style="width:100%;height:100%;position: relative; background:#eeeeee;" ng-init="getBannerList()">
+<div style="width:100%;height:100%;position: relative; background:#eeeeee;" ng-init="getBannerList();getProducts();showHotProduct = 5;">
         <!-- Products page image scrolling functionality -->
         <section layout="row">
         	 <div flex="20" class="slider-left" style="background:#F96D57;">
@@ -53,13 +53,14 @@
 
         <section  style="background-color:#eeeeee; padding:20px;">
  			<div style="background-color:#FFFFFF; padding:10px;">
- 				<div class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Hot Products </h2><span style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <a href="">View More</a></span></div>
+ 				<div ng-hide="showProduct" class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Hot Products </h2><span style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a></span></div>
+ 				<div ng-show="showProduct" class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Hot Products </h2><span style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a></span></div>
  				  <div layout="column" style="width:100%; margin:0px auto; ">
    				 	<div flex layout="row" style="padding:10px 0px;">
    				 	
    				 	
    				 	
-    					<div layout="row" layout-wrap  ng-repeat="product in topcategories">
+    					<div layout="row" layout-wrap  ng-repeat="product in topcategories | orderBy:groupCount | limitTo:showHotProduct">
      						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
 								<div class="pro-box" flex layout="column">
@@ -121,7 +122,7 @@
         
         
           <section style="background-color:#eeeeee; padding:20px;" ng-repeat="category in categoriesWithProduct">
- 			<div style="background-color:#FFFFFF; padding:10px;">
+ 			<div style="background-color:#FFFFFF; padding:10px;" ng-if="category.products.length" >
  				<div class="prod-headings" flex ng-hide="category.products.length ==0" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">{{category.name}}</h2>
  					<span style="float:left;     margin: 22px 0px 0px 10px;"  class="md-subhead">
@@ -130,7 +131,7 @@
  				    </span>
  				</div>
  				
- 				  <div layout="column" style="width:100%; margin:0px auto;">
+ 				  <div  layout="column" style="width:100%; margin:0px auto;">
    				 	<div flex layout="row" style="padding:10px 0px;">
    				 	
    				 	
