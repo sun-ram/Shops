@@ -14,12 +14,24 @@ angular.module('aviateAdmin.controllers')
 					localStorage.removeItem('store');
 					$state.go('app.newstore');
 				}
+                console.log('choosed stored ',$scope.store);
+                
+                $scope.country = $scope.store.user.address.country;
+                
+                $scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
+                
+                $scope.state = $scope.store.user.address.state;
 			};
-			$scope.getStore();
-
+            if(!$scope.countries){
+                setTimeout(function(){
+                    $scope.getStore();
+                },3000)
+            }else{
+                $scope.getStore();
+            }
 			$scope.updateStore = function(){
-				$scope.cnt = JSON.parse($scope.country);
-				$scope.st = JSON.parse($scope.state);
+				$scope.cnt = $scope.country;
+				$scope.st = $scope.state;
 				$scope.store.user.address.country = {};
 				$scope.store.user.address.state = {};
 				$scope.store.user.address.country.countryId = $scope.cnt.countryId;
@@ -38,16 +50,8 @@ angular.module('aviateAdmin.controllers')
 			}
 			
 			$scope.getState = function(country){
-				$scope.cunt = JSON.parse(country);
+				$scope.cunt = country;
 				$scope.states = $scope.cunt.states;
 			}
-			
-			$scope.getCountries = function(){
-				CommonServices.getCountries($scope.country).then(function(data){
-					$scope.countries=data;
-				});
-			}
-			$scope.getCountries();
-			
 
 		}]);

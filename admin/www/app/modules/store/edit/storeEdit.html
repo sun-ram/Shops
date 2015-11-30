@@ -74,8 +74,8 @@
     </md-input-container>
 		    <md-input-container layout-padding flex>
        			<label>Country<span style="color:red">*</span></label>
-         		<md-select ng-model="country" ng-required="true" ng-change = "getState(country);">
-		            <md-option ng-repeat="cnt in countries" value="{{cnt}}">
+         		<md-select ng-model="country" ng-required="true" ng-change = "getState(country);" ng-model-options="{trackBy: '$value.countryId'}">
+		            <md-option ng-repeat="cnt in countries" ng-value="cnt">
 		              {{cnt.name}}
 		            </md-option>
           		</md-select>
@@ -83,8 +83,8 @@
         
 		    <md-input-container layout-padding flex>
        			<label>State<span style="color:red">*</span></label>
-         		<md-select ng-model="state" ng-required="true">
-		            <md-option ng-repeat="state in states" value="{{state}}">
+         		<md-select ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}">
+		            <md-option ng-repeat="state in states" ng-value="state">
 		              {{state.name}}
 		            </md-option>
           		</md-select>
@@ -105,8 +105,8 @@
     <div layout="row" layout-sm="column">
 		  	<div flex>
 		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
-			    	<md-button class="md-raised md-success padd-50" ng-click="updateStore();" ng-disabled="storeForm.$invalid">Update</md-button>
-			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button>
+			    	<md-button class="md-raised md-primary padd-50" ng-click="updateStore();" ng-disabled="storeForm.$invalid">Update</md-button>
+			    	<md-button class="md-raised md-warn padd-50" ui-sref="app.store">Cancel</md-button>
 			    </section>
 		  	</div>
 		  </div>	
