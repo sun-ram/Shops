@@ -2,6 +2,10 @@ package com.mitosis.shopsbacker.vo.admin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *  Created by Prabakaran.15/11/2015
+ *  Reviewed by Sundaram  27/11/2015
+ */
 @XmlRootElement
 public class StoreVo {
 	
