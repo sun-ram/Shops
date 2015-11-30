@@ -365,9 +365,14 @@ nav.mainslider-tab ul li a md-subhead,nav.mainslider-tab ul li a md-caption{ wid
 .footer-nav li{ list-style-type:none;display:inline-block;}
 .footer-nav li a{ font-size:12px; color:#FFFFFF; padding:5px; text-decoration:none;}
 
-.welcome{ padding:10px 10px 0px 28px; }
-.welcome h1{ font-size:40px; margin:20px 0px 10px 0px; color:#ED6663; }
-.welcome strong{ font-size:18px; color:#000000;}
+.slider-left{ padding:10px 20px; color:#FFFFFF;}
+.slider-left h1{ font-size:40px; margin:20px 0px 10px 0px; color:#ED6663; color:#FFFFFF;}
+.slider-left strong{  color:#FFFFFF;}
+
+.slider-right{ padding:10px 20px; color:#FFFFFF;}
+.slider-right h1{ font-size:40px; margin:20px 0px 10px 0px;  }
+.slider-right strong{ }
+
 .hpy-shop{ position:relative; top:20px; width:230px; left:20px;}
 
 
