@@ -80,11 +80,13 @@ angular.module('aviate.factories')
 
 	factory.myCartTotalPriceCalculation = function () {
 		var  _totalAmount = 0;
+		if($rootScope.myCart && $rootScope.myCart.cartItem){
 		for(var i=0; i<$rootScope.myCart.cartItem.length; i++){
 			var _subTotal = 0;
 			_subTotal = $rootScope.myCart.cartItem[i].qty * $rootScope.myCart.cartItem[i].product.price;
 			$rootScope.myCart.cartItem[i].product.subTotal = _subTotal;
 			_totalAmount += _subTotal;
+		}
 		}
 		$rootScope.myCart.cartTotalAmount = _totalAmount;
 		$rootScope.myCart.shippingCharges = 100;

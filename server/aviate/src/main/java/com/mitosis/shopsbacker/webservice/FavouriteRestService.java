@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.webservice;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -157,8 +158,9 @@ public class FavouriteRestService {
 			
 			for(SalesOrderLine salesOrderLine : salesOrderLines){
 				
+				MyCart myCarts = myCartService.getCartByCustomerStoreanProductId(customer, salesOrderLine.getProduct(), store);
+				if(myCarts == null){
 				MyCart myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
-				
 				myCart.setMerchant(merchant);
 				myCart.setStore(store);
 				myCart.setCustomer(customer);
@@ -166,6 +168,12 @@ public class FavouriteRestService {
 				myCart.setQty(salesOrderLine.getQty());
 				myCart.setIsactive('Y');
 				myCartService.addToCart(myCart);
+				}else{			
+					Integer quantity = 	myCarts.getQty() + salesOrderLine.getQty();
+					myCarts.setQty(quantity);
+					myCarts.setUpdated(new Date());
+					myCartService.updateCart(myCarts);
+				}
 				
 			}
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());

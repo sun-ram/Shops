@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("favouriteCtrl", ['$scope','$http','$stateParams','ProductService', '$rootScope','$state', 'CheckOutServices','$localStorage','$stateParams',
-                                   function($scope,$http,$stateParams,ProductService, $rootScope,$state, CheckOutServices,$localStorage,$stateParams) {
+.controller("favouriteCtrl", ['$scope','$http','$stateParams','ProductService', '$rootScope','$state', 'CheckOutServices','$localStorage','$stateParams','MyCartServices','MyCartFactory',
+                                   function($scope,$http,$stateParams,ProductService, $rootScope,$state, CheckOutServices,$localStorage,$stateParams,MyCartServices,MyCartFactory) {
 	
 	
 	
@@ -35,8 +35,13 @@ angular.module('aviate.controllers')
 		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
 		$scope.favourite.storeId = $rootScope.store.storeId;
 		$scope.favourite.salesOrderId = salesOrderId;
-		CheckOutServices.getFavourite($scope.favourite).then(function(data){
-			$state.go('app.cart');
+		CheckOutServices.addFavouriteToCart($scope.favourite).then(function(data){
+			MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+				MyCartFactory.myCartTotalPriceCalculation();
+				console.log('get MyCartlist success in Main Nav');
+				$state.go('app.cart');
+			});
+			
 		});	
    	}
 	

@@ -34,8 +34,8 @@ public class SalesOrderLineDaoImpl<T> extends CustomHibernateDaoSupport<T>
 
 	@Override
 	public List getSalesOrderLineBysalesOrder(SalesOrder salesOrder) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
-		criteria.add(Restrictions.eq("SalesOrder", salesOrder));
+		DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrderLine.class);
+		criteria.add(Restrictions.eq("salesOrder", salesOrder));
 		return ((List<SalesOrderLine>) findAll(criteria));
 	}
 
