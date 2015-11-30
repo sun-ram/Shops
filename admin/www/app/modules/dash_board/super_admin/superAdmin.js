@@ -1,6 +1,34 @@
 aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices',
     function($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices) {
 
+        $scope.map = { center: { latitude: 12.916292, longitude: 80.152379}, zoom: 15 };
+
+        $scope.marker = {
+            id: 0,
+            coords: {
+                latitude: 12.916292,
+                longitude:  80.152379
+            },
+            options: { draggable: false },
+            events: {
+                dragend: function (marker, eventName, args) {
+                    $log.log('marker dragend');
+                    var lat = marker.getPosition().lat();
+                    var lon = marker.getPosition().lng();
+                    $log.log(lat);
+                    $log.log(lon);
+
+                    $scope.marker.options = {
+                        draggable: true,
+                        labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+                        labelAnchor: "100 0",
+                        labelClass: "marker-labels"
+                    };
+                }
+            }
+        };
+
+
    
     var testdata = [
         {key: "One", y: 5},
@@ -56,7 +84,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         return chart;
     });
 
-        
+
           var testdata1 = [
         { key: "Updated", y: 0 },
         { key: "Pending", y: 100 }
@@ -123,14 +151,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             .attr('width', width)
             .attr('height', height)
             .call(chart);
-            
+
             d3.select("#test11")
             .datum(testdata1)
             .transition().duration(1200)
             .attr('width', width)
             .attr('height', height)
             .call(chart);
-            
+
             d3.select("#test12")
             .datum(testdata1)
             .transition().duration(1200)
@@ -201,7 +229,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             return chart;
 
         });
-        
+
          var test_data = stream_layers(3,10+Math.random()*100,.1).map(function(data, i) {
         return {
             key: 'Stream' + i,
@@ -379,6 +407,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
         ];
     }
+
+
  
         
    

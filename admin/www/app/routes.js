@@ -1,6 +1,12 @@
 angular.module('app')
-.config(['$stateProvider', '$urlRouterProvider', "apiProvider", "$httpProvider", "myConfig",
-         function ($stateProvider, $urlRouterProvider, apiProvider, $httpProvider, myConfig){
+.config(['$stateProvider', '$urlRouterProvider', "apiProvider", "$httpProvider", "myConfig", "uiGmapGoogleMapApiProvider",
+         function ($stateProvider, $urlRouterProvider, apiProvider, $httpProvider, myConfig,GoogleMapApiProviders){
+
+             GoogleMapApiProviders.configure({
+                 key: 'AIzaSyBMkNRqSlcPaUERbJfrpc5lLEKqJze1nD4',
+                 v: '3.20', //defaults to latest 3.X anyhow
+                 libraries: 'weather,geometry,visualization'
+             });
 
 	$urlRouterProvider.otherwise('/login');
 	$stateProvider

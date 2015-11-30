@@ -538,3 +538,5 @@ md-toolbar:not(.md-menu-toolbar) md-icon{color: grey ! important; margin: 0px ! 
 .svgicon_style{margin-left: 10px;}
 .svgicon_style svg{width:24px !important;fill:#ffffff;}
 .icon_svg svg{width:24px !important;display:inline-block; }
+
+.angular-google-map-container { height: 400px; }
