@@ -16,9 +16,10 @@ import com.mitosis.shopsbacker.model.Role;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 28/11/2015
  */
 @Repository
-@Transactional
 public class RoleDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		RoleDao<T>, Serializable {
 
