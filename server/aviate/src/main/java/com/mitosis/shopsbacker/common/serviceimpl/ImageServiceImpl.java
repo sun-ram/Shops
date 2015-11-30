@@ -17,13 +17,24 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
+/**
+ * @author Kathir
+ *
+ * @param <T>
+ * 
+ * Reviewed by Sundaram 28/11/2015
+ */
+
 @Service("imageServiceImpl")
 public class ImageServiceImpl<T> implements ImageService<T> {
 	
-	private static final long serialVersionUID = 1L;
+
 
 	@Autowired
 	ImageDao<T> imageDao;
+	
+	ImageVo imageVo = null;
+	Image logo,image = null;
 
 	public ImageDao<T> getImageDao() {
 		return imageDao;
@@ -35,8 +46,8 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 
 	@Override
 	public ImageVo setImageVo(Merchant merchant) throws IOException {
-		ImageVo imageVo = new ImageVo();
-		Image logo = merchant.getLogo();
+		imageVo = new ImageVo();
+		logo = merchant.getLogo();
 		String imageUrl = generateMerchantImageUrl(logo.getUrl());
 		imageVo.setName(logo.getName());
 		imageVo.setType(logo.getType());
@@ -48,7 +59,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 	@Override
 	public Image setImage(ImageVo imageVo) throws Exception {
 
-		Image image = (Image) CommonUtil
+		image = (Image) CommonUtil
 				.setAuditColumnInfo(Image.class.getName());
 		image.setName(imageVo.getName());
 		image.setType(imageVo.getType());
@@ -73,7 +84,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 
 	@Override
 	public ImageVo setImageVo(Image image) throws IOException {
-		ImageVo imageVo = new ImageVo();
+		imageVo = new ImageVo();
 		Properties properties = new Properties();
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
@@ -88,7 +99,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 	@Override
 	public Image getImageById(String id) throws Exception {
 	
-		Image image = imageDao.getImageById(id);
+		image = imageDao.getImageById(id);
 		
 		return image;
 	}
@@ -97,12 +108,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 		imageDao.addImage(image);
 	}
 
-	/**
-	 * @author Anbukkani Gajendran
-	 * @param merchant
-	 * @return String (Image URL as string)
-	 * @throws IOException
-	 */
+	
 	public String generateMerchantImageUrl(String url)
 			throws IOException {
 		Properties properties = new Properties();
