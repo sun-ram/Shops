@@ -1,8 +1,10 @@
 aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices',
     function($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices) {
 
-        $scope.map = { center: { latitude: 12.916292, longitude: 80.152379}, zoom: 15 };
+/*
+ $scope.map = { center: { latitude: 12.916292, longitude: 80.152379}, zoom: 5   };
 
+//Single Marker Specification
         $scope.marker = {
             id: 0,
             coords: {
@@ -26,10 +28,42 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     };
                 }
             }
+        };*/
+
+        $scope.map = {
+            center: {
+                latitude: 12.916292,
+                longitude: 80.152379
+            },
+            zoom: 15,
+            bounds: {}
+        };
+        $scope.options = {
+            scrollwheel: false
         };
 
+        //Random Markers
+        $scope.randomMarkers = [{
+            "latitude": 12.916149,
+            "longitude": 80.152353,
+            "title": "Jayam SuperMarket",
+            "id": 0
+        }, {
+            "latitude": 12.915115,
+            "longitude": 80.153115,
+            "title": "AGS SuperMarket",
+            "id": 1
+        }, {
+            "latitude": 12.922847,
+            "longitude": 80.151881,
+            "title": "Coffee Day",
+            "id": 2
+        }];
+        //Jayam SuperMarket 12.916149, 80.152353
+        //AGS SuperMArket   12.915115, 80.153115
+        //Coffee Day        12.922847, 80.151881
 
-   
+
     var testdata = [
         {key: "One", y: 5},
         {key: "Two", y: 2},

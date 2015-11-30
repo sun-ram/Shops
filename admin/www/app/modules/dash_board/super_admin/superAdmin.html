@@ -330,24 +330,10 @@ color:#30363E ! important;
 <!--<div flex="40" flex-sm="100" flex-md="100"class="white-text"style="">-->
 <!--<h2 layout-padding>Sales By Country</h2>-->
 <!--</div>-->
-    <ui-gmap-google-map center='map.center' zoom='map.zoom' >
-
-        <!--<ui-gmap-marker-->
-                <!--coords="marker.coords"-->
-                <!--options="marker.options"-->
-                <!--events="marker.events"-->
-                <!--idkey="marker.id">-->
-        <!--</ui-gmap-marker>-->
-
-        <ui-gmap-markers
-                models="randomMarkers"
-                coords="'self'"
-                icon="'icon'">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+        <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'">
         </ui-gmap-markers>
-
-
     </ui-gmap-google-map>
-
 </md-card>
 
 
