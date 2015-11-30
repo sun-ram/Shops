@@ -76,6 +76,10 @@ angular.module('aviateAdmin.controllers')
 			$scope.getCountries = function(){
 				CommonServices.getCountries($scope.country).then(function(data){
 					$scope.countries=data;
+					for (var i = 0; i < data.length; i++) { 
+						if($scope.countries[i].name === 'India')
+							$scope.country = $scope.countries[i];
+			        }
 				});
 			}
 			$scope.getCountries();
