@@ -191,6 +191,18 @@ angular.module('aviate.directives').directive('sideNav', [
                 		}
                 		$scope.headerNavId = id;
                 	};
+                   
+                   $scope.togglemouseLeave = build('left');
+                        function build(navID) {
+                        var debounceFn =  $mdUtil.debounce(function(){
+
+                            $mdSidenav(navID).toggle().then(function () {
+                                $log.debug("toggle " + navID + " is done");
+                            });
+                        },200);
+                        return debounceFn;
+                    };
+
                 }
             };
         }
