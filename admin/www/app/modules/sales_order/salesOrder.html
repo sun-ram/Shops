@@ -28,27 +28,25 @@
 
 <md-toolbar class=" md-default-theme" style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row"  ng-init="getSalesOrderList();getMerchantStore()">
-  		<div layout="row" flex="40">
   		<h3 layout-align="start">Sales Order</h3>
   		<div class="tbl-search">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<input ng-model="search" type="text"  placeholder="Search">
   		</div>
-  		</div>
-    	<div layout="row" flex="40">
+    	<div layout="row">
 		<md-datepicker style="background: none;" layout-padding
 			layout-align="end center" class="bg-none" ng-model="fromDate"
 			ng-change="getSalesByDate()" md-placeholder="From"></md-datepicker>
 		<md-datepicker style="background: none;" layout-padding
 			layout-align="end center" class="bg-none" ng-model="toDate"
-			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>		
-		</div>
-		<md-input-container ng-hide="user.role == 'STOREADMIN'" flex="20">
+			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
+		<md-input-container ng-hide="user.role == 'STOREADMIN'">
 		<label>Store</label> <md-select name="myModel" ng-model="search" 
 			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
 	    </md-input-container>
-    	</div>
-</md-toolbar>
+	</div>
+    	 </div>
+    	 </md-toolbar>
     	 
 <md-data-table-container>
 <table md-data-table class="md-primary"
@@ -81,16 +79,16 @@
 			<!-- <td><md-select ng-model="dessert.type" placeholder="Other">
 				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
 				</md-select></td> -->
-			<td>{{salesOrder.transactionNo}}</td>	
-			<td>{{salesOrder.addressVo.address1}},{{salesOrder.address.address2}},{{salesOrder.address.city}}</td>
+			<td>{{salesOrder.orderNo}}</td>	
+			<td>{{salesOrder.addressVo.address1}},{{salesOrder.address.city}}</td>
 			<td>{{salesOrder.status}}</td>
 			<td>{{salesOrder.fromDate}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>
-			<td>{{salesOrder.storeVo.name}}</td>
+			<td>{{salesOrder.store.name}}</td>
 			<td>{{salesOrder.shippingCharge}}</td>
 			<td>{{salesOrder.amount}}</td>
 			<td>{{salesOrder.netAmount}}</td>
-			<td><md-button class="md-raised btn-success" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>
+			<td><md-button class="md-raised md-primary" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>
 		</tr>
 	</tbody>
 </table>

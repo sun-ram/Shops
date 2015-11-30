@@ -245,12 +245,10 @@ public class CustomerRestService<T> {
 		response = new ResponseModel();
 		String responseStr = "";
 		try {
-			if (addressVo.getAddressId() != null) {
 				Address address = addressService.getAddress(addressVo
 						.getAddressId());
 				address.setIsactive('N');
 				addressService.updateAddress(address);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
