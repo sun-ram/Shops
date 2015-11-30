@@ -61,9 +61,9 @@ angular.module('aviate.factories')
 			};
 			MyCartServices.removeCartProduct(cartDetails).then(function(data){
 				console.log('get Mylist success in Main Nav');
+				$rootScope.myCart.cartItem.splice(_index, 1);
 				MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 					factory.myCartTotalPriceCalculation();
-					$rootScope.myCart.cartItem.splice(_index, 1);
 					console.log('get Cart in factory');
 				});
 			});
@@ -100,7 +100,7 @@ angular.module('aviate.factories')
 
 
 	factory.checkCartProductsQuantity = function (_productList , callback) {
-		if($rootScope.myCart.cartItem.length > 0){
+		if($rootScope.myCart.cartItem && $rootScope.myCart.cartItem.length > 0){
 			for(var i = 0; $rootScope.myCart.cartItem.length > i; i++){
 				for(var j = 0; _productList.length > j; j++){
 					if(_productList[j].productId == $rootScope.myCart.cartItem[i].product.productId){

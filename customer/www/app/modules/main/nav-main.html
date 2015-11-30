@@ -76,9 +76,28 @@
 	 
 	 <div style="float:right; ">
 	 
+	 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && favouriteList.length > 0">
+	   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
+	        <md-icon md-svg-icon="assets/img/icon/favourite.svg" style="color: white;"></md-icon>
+	        <md-tooltip md-direction="bottom">
+	          Favourite
+	        </md-tooltip>
+	    </md-button>
+	   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 63px;">
+	        <md-content>
+	         	 <md-list>
+				      <md-list-item layout="row" ng-repeat="favourite in favouriteList">
+				      		<div style="text-align:center" ng-click="addFavouriteToCart(favourite.salesOrderId)"> {{favourite.name}}</div>
+				      </md-list-item>
+	       		 </md-list>
+	         </md-content>
+	      </md-menu-content>
+       </md-menu>
+	 
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
     <md-button ng-click="toggleRight('right')" style="border-radius:0px;" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
-    <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;">{{myCart.cartItem.length}}</div>
+    <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length > 0">{{myCart.cartItem.length}}</div>
+       <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length == 0 || myCart.cartItem.length == undefined">0</div>
         <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
         <md-tooltip md-direction="bottom">
           My cart
@@ -175,10 +194,10 @@
 					</div>
 				</md-button> 
 			</md-menu-item> 
-			<md-menu-item class="menu-item" ng-show="user"> 
+			<md-menu-item class="menu-item" ng-show="user && favouriteList.length > 0"> 
 				<md-button ui-sref="app.favouriteList">
 					<div layout="row">
-						<p flex="" style="font-size: 18px;">My List</p>
+						<p flex="" style="font-size: 18px;">Favourite List</p>
 					</div>
 				</md-button> 
 			</md-menu-item> 

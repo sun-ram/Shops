@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("appCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog',
-		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','CheckOutServices',
+		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,CheckOutServices) {
 			
 		
 		$scope.checkOut = function() {
@@ -12,6 +12,20 @@ angular.module('aviate.controllers')
 				$rootScope.signInPopup();
 			}
 		};
+		
+		$scope.getFavourite = function(){
+	   		$scope.favourite ={};
+			$scope.favourite.customerId = $rootScope.user.userId;
+			$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+			$scope.favourite.storeId = $rootScope.store.storeId;
+			CheckOutServices.getFavourite($scope.favourite).then(function(data){
+				$scope.favouriteList = data.favourites;
+			});	
+	   	};
+	   	
+	   	if($rootScope.user != undefined){
+	   		$scope.getFavourite();
+	   	}
 		
 		$scope.checkOutfromcart = function() {
 					if($rootScope.user != null){
