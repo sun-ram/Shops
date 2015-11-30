@@ -6,14 +6,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
 import com.mitosis.shopsbacker.admin.dao.RoleDao;
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.admin.dao.UserDao;
 import com.mitosis.shopsbacker.admin.service.RoleService;
-import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.model.Address;
@@ -30,6 +28,8 @@ import com.mitosis.shopsbacker.vo.common.AddressVo;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 28/11/2015
  */
 @Service("userServiceImpl")
 public class UserServiceImpl<T> implements UserService<T>, Serializable {
@@ -56,6 +56,12 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	
 	@Autowired
 	MerchantDao<T> merchantDao;
+	
+	User user = null;
+	UserVo userVo = null;
+	AddressVo addressVo = null;
+	Address address = null;
+	StoreVo storeVo = null;
 	
 	public RoleDao<T> getRoleDao() {
 		return roleDao;
@@ -90,43 +96,36 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	}
 
 	@Override
-	@Transactional
 	public void saveUser(User user) {
 		getUserDao().saveUser(user);
 	}
 
 	@Override
-	@Transactional
 	public void updateUser(User user) {
 		getUserDao().updateUser(user);
 	}
 
 	@Override
-	@Transactional
 	public void deleteUser(String id) {
 		getUserDao().deleteUser(getUser(id));
 	}
 
 	@Override
-	@Transactional
 	public User getUser(String id) {
 		return getUserDao().getUser(id);
 	}
 
 	@Override
-	@Transactional
 	public List<User> getUser(Store store) {
 		return getUserDao().getUserByStore(store);
 	}
 
 	@Override
-	@Transactional
 	public List<User> getUser(Merchant merchant) {
 		return getUserDao().getUserByMerchant(merchant);
 	}
 
 	@Override
-	@Transactional
 	public List<User> getUsers(Store store, Role role) {
 		return getUserDao().getUsersByStoreAndRole(store, role);
 	}
@@ -164,7 +163,7 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	}
 
 	public User setUser(UserVo userVo, Role role) throws Exception {
-		User user = null;
+		
 		if(userVo.getUserId() == null){
 			user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
 			user.setIsactive('Y');
@@ -180,8 +179,8 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		user.setEmailid(userVo.getEmailid());
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(role);
-		AddressVo addressVo = userVo.getAddress();
-		Address address = addressService.setAddress(addressVo);
+		addressVo = userVo.getAddress();
+		address = addressService.setAddress(addressVo);
 		// addessService.saveAddress(address);
 		user.setAddress(address);
 
@@ -189,7 +188,7 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	}
 
 	public UserVo setUserVo(User user) throws Exception {
-		UserVo userVo = new UserVo();
+		userVo = new UserVo();
 		userVo.setName(user.getName());
 		userVo.setUserName(user.getUserName());
 		userVo.setPassword(user.getPassword());
@@ -203,7 +202,7 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	}
 	
 	public StoreVo setStoreVo(Store store) throws Exception {
-		StoreVo storeVo = new StoreVo();
+	    storeVo = new StoreVo();
 		storeVo.setName(store.getName());
 		storeVo.setStoreId(store.getStoreId());
 		return storeVo;
