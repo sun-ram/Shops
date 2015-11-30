@@ -21,7 +21,7 @@ angular.module('aviateAdmin.services')
 				toastr.success(CONSTANT.ADDWAREHOUSE);
 				d.resolve(result);
 			} else {
-				toastr.error(result.message);
+				toastr.error(result.errorString);
 			}
 		})
 		return d.promise;
