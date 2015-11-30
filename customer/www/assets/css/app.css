@@ -299,7 +299,7 @@ right: -8px;
 .btn-menu:hover{background: #7C817E ! important; padding-left: 11px ! important; border-left: 5px solid yellow; color: yellow; width: 100%; border-radius: 0px;}
 
 
-.md-3-line:hover{cursor: pointer;}
+.md-3-line:hover,.cursor{cursor: pointer;}
 
 /* Image icons */
 .sa {background: url(../images/websiteIconSprites.7a64e88b.png) no-repeat -661px -46px;}
@@ -359,17 +359,24 @@ ul.nav-menu1{margin-left: 210px ! important;}
 nav.mainslider-tab ul li{ }
 nav.mainslider-tab ul li a{ width:100% !important; height:100% !important; border:1px solid #999999; border-radius:0px;}
 nav.mainslider-tab ul li a md-subhead,nav.mainslider-tab ul li a md-caption{ width:100%;float:left;}
-.prod-headings a{ color:#ED6663 }
+.prod-headings h2{ color:#4eaf4c; }
+.prod-headings a{ color:#CF3721; }
 .footer-nav{ margin:0px; padding:0px; }
 .footer-nav li{ list-style-type:none;display:inline-block;}
 .footer-nav li a{ font-size:12px; color:#FFFFFF; padding:5px; text-decoration:none;}
 
-.welcome{ padding:10px 10px 0px 28px; }
-.welcome h1{ font-size:40px; margin:20px 0px 10px 0px; color:#ED6663; }
-.welcome strong{ font-size:18px; color:#000000;}
+.slider-left{ padding:10px 20px; color:#FFFFFF;}
+.slider-left h1{ font-size:40px; margin:20px 0px 10px 0px; color:#ED6663; color:#FFFFFF;}
+.slider-left strong{  color:#FFFFFF;}
+
+.slider-right{ padding:10px 20px; color:#FFFFFF;}
+.slider-right h1{ font-size:40px; margin:20px 0px 10px 0px;  }
+.slider-right strong{ }
+
 .hpy-shop{ position:relative; top:20px; width:230px; left:20px;}
 
-	
+
+.producutItem .md-subhead,.producutItem .md-body-1{ font-weight:600;}	
 
 
 

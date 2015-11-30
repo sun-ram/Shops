@@ -18,17 +18,17 @@
 			<div layout="row" flex="100" layout-align="start center"> 
 				
 				<div flex="30" flex-md="40" class="image" style="padding: 5px" ng-init="changeimage(productDetails.image.url)">
-					<img  src="{{productDetails.image.Url}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productDetails.image.url)">
+					<img  ng-src="{{productDetails.image.url}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productDetails.image.url)">
  				</div>
-				<div flex="30" flex-md="40" class="image" ng-repeat="image in productDetails.productImages"  ng-if="image.imagePosition == 'ORIGINALBACK'" style="padding: 5px">
-					<img src="{{image.imageUrl}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(image.imageUrl)">
+				<div flex="30" flex-md="40" class="image" ng-repeat="productImage in productDetails.productImages"  style="padding: 5px">
+					<img ng-src="{{productImage.image.url}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productImage.image.url)">
 				</div>	
 			</div>
 		</div>
 		<div flex-md="100" flex-lg="60" flex-gt-lg="65">
 			<div>
 				<h1 style="color: green">{{productDetails.name}}</h1>
-				<span style="font-style: italic; font-size: 22px; font-weight: bold; ">{{productDetails.unit}}{{productDetails.uom.name}}}</span>
+				<span style="font-style: italic; font-size: 22px; font-weight: bold; ">{{productDetails.unit}}{{productDetails.uom.name}}</span>
 				<p style="color: grey;">{{productDetails.uom.name}}</p>
 				<p style="font-size: 22px;"><span style="font-style: italic;">Effective Price: </span> <b style="color: red;"> Rs. {{productDetails.price}}</b></p>
 			</div>

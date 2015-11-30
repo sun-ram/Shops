@@ -25,27 +25,23 @@ implements MyCartService<T>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	@Transactional
 	public void updateCart(MyCart mycart) {
 		myCartDao.updateCart(mycart);
 		
 	}
 
 	@Override
-	@Transactional
 	public List<MyCart> getMyCartList(Customer customer, Store store) {
 		return myCartDao.getMyCartList(customer, store);
 	}
 
 	@Override
-	@Transactional
 	public void removeFromCart(MyCart mycart) {
 		myCartDao.removeFromCart(mycart);
 		
 	}
 
 	@Override
-	@Transactional
 	public void addToCart(MyCart mycart) {
 		myCartDao.addToCart(mycart);
 		

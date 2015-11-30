@@ -4,7 +4,7 @@
 	
 	<div><h3>Favourite List</h3></div>
 	<div ng-repeat="favourite in favouriteList">
-	<div> {{favourite.name}}</div>
+	<div ng-click="addFavouriteToCart(favourite.salesOrderId)"> {{favourite.name}}</div>
 
 	</div>
 

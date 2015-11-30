@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mitosis.shopsbacker.customer.dao.CustomerDao;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 /**
  * @author prabakaran
@@ -76,4 +77,14 @@ public class CustomerServiceImpl<T> implements CustomerService<T>, Serializable 
 		return getCustomerDao().getCustomerInfoByPhoneNo(phoneNo);
 	}
 
+	public CustomerVo setCustomerVo(Customer customer) {
+		CustomerVo customerVo = new CustomerVo();
+		customerVo.setCustomerId(customer.getCustomerId());
+		customerVo.setName(customer.getName());
+		customerVo.setEmail(customer.getEmail());
+		customerVo.setImageId(customer.getImageId());
+		customerVo.setDeviceid(customer.getDeviceid());
+		customerVo.setDeviceType(customer.getDeviceType());
+		return customerVo;
+	}
 }

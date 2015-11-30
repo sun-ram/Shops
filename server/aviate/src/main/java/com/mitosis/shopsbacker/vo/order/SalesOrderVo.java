@@ -41,8 +41,14 @@ public class SalesOrderVo {
 	private UserVo shoper;
 	private UserVo backer;
 	private String shoperId;
-
+	private String backerId;
 	
+	public String getBackerId() {
+		return backerId;
+	}
+	public void setBackerId(String backerId) {
+		this.backerId = backerId;
+	}
 	public String getShoperId() {
 		return shoperId;
 	}

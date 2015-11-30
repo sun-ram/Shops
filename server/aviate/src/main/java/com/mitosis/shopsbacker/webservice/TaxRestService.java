@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.TaxService;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.responsevo.TaxResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -34,15 +36,17 @@ import com.mitosis.shopsbacker.vo.admin.TaxVo;
 @Path("tax")
 @Controller("taxRestService")
 public class TaxRestService<T> {
-	final static Logger log = Logger.getLogger(Tax.class
-			.getName());
-	
+	final static Logger log = Logger.getLogger(Tax.class.getName());
+
 	@Autowired
 	TaxService<T> taxService;
-	
+
 	@Autowired
 	MerchantService<T> merchantService;
-	
+
+	@Autowired
+	StoreService<T> storeService;
+
 	public TaxService<T> getTaxService() {
 		return taxService;
 	}
@@ -50,8 +54,7 @@ public class TaxRestService<T> {
 	public void setTaxService(TaxService<T> taxService) {
 		this.taxService = taxService;
 	}
-	
-	
+
 	public MerchantService<T> getMerchantService() {
 		return merchantService;
 	}
@@ -60,10 +63,9 @@ public class TaxRestService<T> {
 		this.merchantService = merchantService;
 	}
 
-
 	ResponseModel response = null;
 	TaxResponseVo taxResponse = null;
-	
+
 	@Path("/addtax")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -74,13 +76,15 @@ public class TaxRestService<T> {
 		try {
 			String texId = null;
 			String name = taxVo.getName();
-			Merchant merchat = merchantService.getMerchantById(taxVo.getMerchantVo().getMerchantId());
-			List<Tax> taxList = taxService.getTaxListByName(texId,name,merchat);
-			if(taxList.isEmpty()){
+			Merchant merchat = merchantService.getMerchantById(taxVo
+					.getMerchantVo().getMerchantId());
+			List<Tax> taxList = taxService.getTaxListByName(texId, name,
+					merchat);
+			if (taxList.isEmpty()) {
 				Tax tax = getTaxService().setTax(taxVo);
 				taxService.addTax(tax);
 				return response;
-			}else{
+			} else {
 				response.setErrorCode(SBErrorMessage.TAX_NAME_ALREADY_EXIST
 						.getCode());
 				response.setErrorString(SBErrorMessage.TAX_NAME_ALREADY_EXIST
@@ -108,13 +112,14 @@ public class TaxRestService<T> {
 			String name = taxVo.getName();
 			Tax tax = taxService.getTaxById(taxVo.getTaxId());
 			Merchant merchat = tax.getMerchant();
-			List<Tax> taxList = taxService.getTaxListByName(texId,name,merchat);
-			if(taxList.isEmpty()){
+			List<Tax> taxList = taxService.getTaxListByName(texId, name,
+					merchat);
+			if (taxList.isEmpty()) {
 				tax.setTaxPercentage(taxVo.getTaxPercentage());
 				tax.setName(taxVo.getName());
 				taxService.updateTax(tax);
 				return response;
-			}else{
+			} else {
 				response.setErrorCode(SBErrorMessage.TAX_NAME_ALREADY_EXIST
 						.getCode());
 				response.setErrorString(SBErrorMessage.TAX_NAME_ALREADY_EXIST
@@ -122,26 +127,33 @@ public class TaxRestService<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 			response = CommonUtil.addStatusMessage(e, response);
 		}
 		return response;
 	}
-	
-	
+
 	@Path("/gettax")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public TaxResponseVo getTax(MerchantVo merchantVo) {
+	public String getTax(MerchantVo merchantVo) {
 		taxResponse = new TaxResponseVo();
-		response = new ResponseModel();
+		String responseStr = "";
 		try {
- 			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
+			Merchant merchant = new Merchant();
+			if (merchantVo.getStoreId() != null) {
+				Store store = storeService
+						.getStoreById(merchantVo.getStoreId());
+				merchant = store.getMerchant();
+			} else {
+				merchant = merchantService.getMerchantById(merchantVo
+						.getMerchantId());
+			}
 			List<Tax> taxList = taxService.getTax(merchant);
 			for (Tax tax : taxList) {
 				TaxVo taxVo = getTaxService().setTaxVo(tax);
@@ -151,9 +163,14 @@ public class TaxRestService<T> {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		return taxResponse;
+		try {
+			responseStr = CommonUtil.getObjectMapper(taxResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
-	
+
 	@Path("/deletetax")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -171,5 +188,5 @@ public class TaxRestService<T> {
 		}
 		return response;
 	}
-	
+
 }

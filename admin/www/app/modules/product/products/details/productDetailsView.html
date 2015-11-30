@@ -7,10 +7,13 @@
     <span class="close_box">
 	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.producttype"></ng-md-icon>
 	 </span> 
-    <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="product.status='true';editproduct(productDetail);$event.stopPropagation();">
+	 <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editproduct(productDetail);$event.stopPropagation();">
 		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 	</md-button>
-  </md-toolbar>
+	<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.products">
+		<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
+   </md-toolbar>
     
   <md-content md-theme="docs-dark" layout-padding>
   
@@ -19,43 +22,68 @@
    <div flex="50" class="padd-50 padd-b30" layout-padding layout="column" layout-sm="column">
     <md-input-container>
       <label>Product Name</label>
-      <input type="text" ng-model="productDetail.productName" readonly=true/>
+      <input type="text" ng-model="productDetail.name" readonly=true/>
+    </md-input-container>
+    
+     <md-input-container>
+      <label>Product Category</label>
+      <input type="text" ng-model="productDetail.productCategory.name" readonly=true/>
+     </md-input-container>
+    
+    <md-input-container>
+      <label>Product Type</label>
+        <input type="text" ng-model="productDetail.productType.name" readonly=true/>
     </md-input-container>
  	   
     <md-input-container>
-    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="productDetail.productUnitOfMeasure.description" readonly></textarea>
+    <textarea id="textarea1" rows="4" style="border: 1px solid #ddd;" class="materialize-textarea" ng-model="productDetail.description" readonly></textarea>
     </md-input-container>
     
     
     <md-input-container>
       <label>Product Measurement</label>
-      <input type="text" ng-model="productDetail.measurement" readonly=true/>
+      <input type="text" ng-model="productDetail.unit" readonly=true/>
+    </md-input-container>
+    
+     <md-input-container>
+      <label>Measurement Unit</label>
+      <input type="text" ng-model="productDetail.uom.name" readonly=true/>
     </md-input-container>
     
     <md-input-container>
       <label>Type</label>
-        <input type="text" ng-model="productDetail.type" readonly=true/>
+       <input type="text" ng-model="productDetail.edibleType" readonly=true></input>
     </md-input-container>
     
     <md-input-container>
       <label>Price</label>
-      <input type="text" ng-model="productDetail.productPrice.price" readonly=true/>
+      <input type="text" ng-model="productDetail.price" readonly=true/>
     </md-input-container>
-    <md-input-container>
-      <label>Type</label>
-       <input type="text" ng-model="productDetail.productTypeName" readonly=true></input>
-    </md-input-container>
-    <md-input-container>
-      <label>Measurement Unit</label>
-      <input type="text" ng-model="productDetail.productUnitOfMeasure.abbreviation" readonly=true/>
-    </md-input-container>
+    
+   
     </div>
         
     <div flex="50" class="padd-50" layout-padding layout="column" layout-sm="column">
     
+    		
+		<h4 layout="row" class="md-layout-column">
+			<input layout-align="start center" type="checkBox" ng-model="productDetail.isYourHot" ng-required="true" readonly=true/>
+			<label layout-align="end center" style="padding-left: 20px;">Is Your Hot Product</label>
+		</h4>
+		
+		
+		<md-input-container> <label>Brand</label> <input
+			type="text" ng-model="productDetail.brand" ng-required="true" readonly=true/> 
+		</md-input-container>
+
+
+		<md-input-container> <label>Group Count</label> <input
+			type="text" ng-model="productDetail.groupCount"
+			ng-required="true" readonly=true /> 
+		</md-input-container>
 	    <div class="padd-lrtb30">
 	    <div class="md-layout-row layout-align-start-center pt_relat" readonly>	 
-		    	  <img style="width: 100px;" src="{{productDetail.orginalfrontimage}}" class="img-circle"/> 
+		    	  <img style="width: 100px;" src="{{productDetail.image.url}}" class="img-circle"/> 
 					<label id="file-uploadtest" >	
                     </label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Original Front Image</h3> 
@@ -64,13 +92,13 @@
 	    </div>
 	    <div class="padd-lrtb30">
 	     <div class="md-layout-row layout-align-start-center pt_relat" >	 
-		    	  <img style="width: 100px;" src="{{productDetail.orginalbackimage}}" class="img-circle"/> 
+		    	  <img style="width: 100px;" src="{{productDetail.productImages.url}}" class="img-circle"/> 
 					<label id="file-uploadtest" >
                     </label>
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Original Back Image</h3> 
 	    </div>
 	    </div>
-	    <div class="padd-lrtb30">
+	   <!--  <div class="padd-lrtb30">
 	     <div class="md-layout-row layout-align-start-center pt_relat" readonly>	 
 		    	   <img style="width: 100px;" src="{{productDetail.smallfrontimage}}"/> 
 					<label id="file-uploadtest" >
@@ -87,7 +115,7 @@
 		     	<h3 style="padding: 0px 10px;" class="md-layout-column">Thumbnail Back Image</h3> 
 		     	    	
 		    </div>	
-	    </div>
+	    </div> -->
     
     </div>
     

@@ -11,6 +11,8 @@ public interface SalesOrderLineService<T> {
 	
 	public List<SalesOrderLine> getSalesOrderLineById(String id);
 	
+	public List<SalesOrderLine> getSalesOrderLineBysalesOrder(SalesOrder salesOrder);
+	
 	public List<SalesOrderLineVo> setSalesOrderLineVo (List<SalesOrderLine> list)throws Exception ;
 	
 }

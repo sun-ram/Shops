@@ -1,9 +1,9 @@
 
 <md-dialog aria-label="Mango (Fruit)"  ng-cloak>
-  <form>
+  <form ng-submit="addCategory(name)" >
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2>Update</h2>
+      <h2>Update </h2>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel()">
         <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -21,11 +21,11 @@
   </md-dialog-content>
   <div class="md-actions" layout="row">
     <span flex></span>
-    <md-button ng-click="cancel()" >
-    Cancel
-    </md-button>
-    <md-button ng-click="addCategory(name)" style="margin-right:20px;" >
+     <md-button type="submit" style="margin-right:20px;" >
      Update
+    </md-button>
+    <md-button type="button" ng-click="cancel()" >
+    Cancel
     </md-button>
   </div>
   </form>

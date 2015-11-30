@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -407,7 +408,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.orderTaxes = orderTaxes;
 	}
 
-	@OneToMany(mappedBy = "salesOrder")
+	@OneToMany(mappedBy = "salesOrder", cascade=CascadeType.ALL)
 	public List<SalesOrderLine> getSalesOrderLines() {
 		return this.salesOrderLines;
 	}

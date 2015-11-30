@@ -101,7 +101,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.merchant.merchant = {};
 				$scope.merchant.merchant.merchantId = $rootScope.user.merchantId;
 				ProductService.getAllProductList($scope.merchant).then(function(data) {
-					$scope.products = data.productList;
+					$scope.products = data.products;
 				});
 			};
 			
