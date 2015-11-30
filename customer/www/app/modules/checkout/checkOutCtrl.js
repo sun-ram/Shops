@@ -82,8 +82,24 @@ angular.module('aviate.controllers')
 		});
 	}
 	
+	$scope.data = {
+		      group1 : 'Cash on delivery',
+		      group2 : 'Credit / Debit / Netbanking'
+		    };
+	
+	$scope.redirectUrl=function(){
+		if($scope.data.group1=="Credit / Debit / Netbanking"){
+			$scope.visibility=true;
+			$scope.url.firstData="https://demo.globalgatewaye4.firstdata.com/payment";
+		}else{
+			$scope.visibility=false;
+			$scope.url.firstData="http://127.0.0.1:9999/www/#/home";
+		}
+	}
+	
 	$scope.confirmOrder = function() {
 		$scope.customer
+		
 		var menuJson = {
 				"customer":{
 					"customerId":$rootScope.user.userId

@@ -22,7 +22,8 @@
                     </div>
                     <div ng-click="selectAddress(address.addressId)">
                         <ul>
-                            <li>{{address.address1}},{{address.address2}}</li>
+                            <li>{{address.address1}}</li>
+                            <li ng-if="address.address2">{{address.address2}}</li>
                             <li>{{address.city}}</li>
                             <li>{{address.state.name}}</li>
                             <li>{{address.country.name}}</li>

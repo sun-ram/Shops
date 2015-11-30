@@ -189,7 +189,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 							if($rootScope.user.role == "MERCHANTADMIN"){
 								salesOrderVo.merchantId=$rootScope.user.merchantId
 							}else if($rootScope.user.role == "STOREADMIN"){
-								salesOrderVo.storeVo = {
+								salesOrderVo.store = {
 										"storeId":$rootScope.user.storeId
 								};
 							}

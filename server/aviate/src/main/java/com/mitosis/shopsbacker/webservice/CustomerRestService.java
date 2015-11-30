@@ -216,9 +216,11 @@ public class CustomerRestService<T> {
 					.getCustomerId());
 			List<Address> addressList = customer.getAddresses();
 			for (Address address : addressList) {
-				AddressVo addresVo = addressService.setAddressVo(address);
-				addresVo.getCustomer().setName(address.getCustomer().getName());
-				addressResponseList.getAddressList().add(addresVo);
+				if(address.getIsactive()=='Y'){
+					AddressVo addresVo = addressService.setAddressVo(address);
+					addresVo.getCustomer().setName(address.getCustomer().getName());
+					addressResponseList.getAddressList().add(addresVo);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -246,7 +248,8 @@ public class CustomerRestService<T> {
 			if (addressVo.getAddressId() != null) {
 				Address address = addressService.getAddress(addressVo
 						.getAddressId());
-				addressService.deleteAddress(address);
+				address.setIsactive('N');
+				addressService.updateAddress(address);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

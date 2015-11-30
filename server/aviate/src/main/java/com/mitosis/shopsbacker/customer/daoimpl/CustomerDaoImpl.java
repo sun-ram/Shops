@@ -1,7 +1,9 @@
 package com.mitosis.shopsbacker.customer.daoimpl;
 
 import java.io.Serializable;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,7 @@ import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.customer.dao.CustomerDao;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.ProductInventory;
 
 /**
  * @author prabakaran
@@ -20,7 +23,7 @@ import com.mitosis.shopsbacker.model.Merchant;
  */
 @Repository
 public class CustomerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
-		CustomerDao<T>, Serializable {
+CustomerDao<T>, Serializable {
 
 	/**
 	 * 
@@ -59,7 +62,11 @@ public class CustomerDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 
 	@Override
 	public Customer getCustomerInfoById(String id) {
-		return (Customer) getSession().get(Customer.class, id);
+		Criteria criteria = getSession().createCriteria(Customer.class,"customer");
+		criteria.createAlias("customer.addresses", "address");
+		criteria.add(Restrictions.eq("customer.customerId", id));
+		criteria.add(Restrictions.eq("address.isactive", 'Y'));
+		return (Customer) findAll(criteria).get(0);
 	}
 
 	@Override
