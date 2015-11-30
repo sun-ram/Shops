@@ -1,5 +1,7 @@
 aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http',
     function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http) {
+        var width = 300;
+        var height = 300;
         var month = new Array();
         month[0] = "Jan";
         month[1] = "Feb";
@@ -54,34 +56,35 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         //AGS SuperMArket   12.915115, 80.153115
         //Coffee Day        12.922847, 80.151881
 
-        $scope.populateCharts = function () {
-            var width = 300;
-            var height = 300;
-            //Pie chart
-            nv.addGraph(function () {
-                var chart = nv.models.pie()
-                    .x(function (d) {
-                        return d.key;
-                    })
-                    .y(function (d) {
-                        return d.y;
-                    })
-                    .width(width)
-                    .height(height)
-                    .labelType(function (d, i, values) {
-                        return values.key + ':' + values.value;
-                    });
+         //Pie chart
+            $scope.drawPiechart = function (){
+                nv.addGraph(function () {
+                    var chart = nv.models.pie()
+                        .x(function (d) {
+                            return d.key;
+                        })
+                        .y(function (d) {
+                            return d.y;
+                        })
+                        .width(width)
+                        .height(height)
+                        .labelType(function (d, i, values) {
+                            return values.key + ':' + values.value;
+                        });
 
-                d3.select("#test0")
-                    .datum([$scope.testdata])
-                    .transition().duration(1200)
-                    .attr('width', width)
-                    .attr('height', height)
-                    .call(chart);
+                    d3.select("#test0")
+                        .datum([$scope.testdata])
+                        .transition().duration(1200)
+                        .attr('width', width)
+                        .attr('height', height)
+                        .call(chart);
 
-                return chart;
-            });
-            //Revenue chart
+                    return chart;
+                });
+            };
+        
+         //Revenue chart
+         $scope.drawReviewChart = function (){
             nv.addGraph(function () {
                 var chart = nv.models.pie()
                     .x(function (d) {
@@ -105,10 +108,10 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
                 return chart;
             });   
-
+        };
         
-
-
+        //Bar Chart
+        $scope.drawBarChart = function(){
             nv.addGraph(function () {
                 var chart = nv.models.discreteBarChart()
                     .x(function (d) {
@@ -131,7 +134,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             });
         }
 
-        $scope.getInputData = function (callback) {
+        $scope.proceedSalesOrder = function (callback) {
             var reportType = 15;
             var anayed = [];
             $scope.testdata = [{
@@ -186,26 +189,37 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                         tmpAvgObj.value = totalAmount;
                         $scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
                     }
-                    $scope.populateCharts();
-                    callback();
+                    $scope.drawPiechart();
+                    $scope.drawReviewChart();
+                    $scope.drawBarChart();
+                    /*callback();*/
+                
                 })
                 .error(function (data, status) {
                     console.log("salesOrder Exected error case ", data);
                 });
 
-            //salesOrderLine 
+           
+           
+
+        };
+        $scope.proceedSalesOrderLine = function (callback){
             $http({
                     method: 'GET',
                     url: 'http://localhost:3000/shopsbacker/salesOrderLine'
                 })
                 .success(function (data, status) {
                     console.log("Sales order Line =>", data);
+                    /*callback();*/
                 })
                 .error(function (data, status) {
                     console.log("salesOrder Exected error case ", data);
                 });
 
-            //Merchants
+        };
+        
+        $scope.ProceedMerchant = function (callback) {
+             //Merchants
             $http({
                     method: 'GET',
                     url: 'http://localhost:3000/shopsbacker/merchant'
@@ -219,24 +233,24 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 .error(function (data, status) {
                     console.log("merchant error case ", data);
                 });
-
-            /*
-        
+        };
+         $scope.proceedStore = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://192.168.1.42:3000/aviate/json/store'
+                    url: 'http://localhost:3000/shopsbacker/store'
                 })
                 .success(function (data, status) {
-                    console.log("Store Exected success case ", data);
+                    console.log("Sales order Line =>", data);
+                    /*callback();*/
                 })
                 .error(function (data, status) {
-                    console.log("Store Exected error case ", data);
+                    console.log("salesOrder Exected error case ", data);
                 });
-		
- 
-    console.log("testdata = ",testdata);*/
+
         };
-        $scope.getInputData($scope.populateCharts);
+        $scope.proceedSalesOrder();
+        $scope.proceedSalesOrderLine();
+        $scope.proceedStore();
 
 
  }]);
