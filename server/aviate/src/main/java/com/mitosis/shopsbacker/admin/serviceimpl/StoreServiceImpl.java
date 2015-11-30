@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -27,6 +26,8 @@ import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
 /**
  * @author JAI BHARATHI
  * 
+ * Reviewed by Sundaram 28/11/2015.
+ * 
  */
 @Service("StoreServiceImpl")
 public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
@@ -45,6 +46,13 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 	@Autowired
 	MerchantService<T> merchantService;
+	
+	Store store = null;
+	StoreVo storeVo =null;
+	UserVo userVo = null;
+	Role role = null;
+	User user = null;
+	StoragebinVo storagebinVo=null;
 	
 	public MerchantService<T> getMerchantService() {
 		return merchantService;
@@ -71,25 +79,21 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	}
 	
 	@Override
-	@Transactional
 	public void saveStore(Store store) {
 		storeDao.saveStore(store);
 	}
 
 	@Override
-	@Transactional
 	public void updateStore(Store store) {
 		storeDao.updateStore(store);
 	}
 
 	@Override
-	@Transactional
 	public void removeStore(Store store) {
 		storeDao.removeStore(store);
 	}
 
 	@Override
-	@Transactional
 	public List<Store> getStoreByMerchant(Merchant merchant) {
 		return storeDao.getStoreByMerchant(merchant);
 
@@ -97,18 +101,16 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 	@Override
 	public Store getStoreById(String storeId) {
-		Store store = storeDao.getStoreById(storeId);
+		store = storeDao.getStoreById(storeId);
 		return store;
 	}
 
 	@Override
-	@Transactional
 	public List<Store> getShopList(String city) {
 		return storeDao.getShopList(city);
 	}
 
 	@Override
-	@Transactional
 	public List<Store> getShopList(String city, String address) {
 		return storeDao.getShopList(city, address);
 	}
@@ -119,7 +121,6 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	}
 
 	@Override
-	@Transactional
 	public List<Store> getStoreListByName(String name, Merchant merchant) {
 		return storeDao.getStoreListByName(name,merchant);
 	}
@@ -127,7 +128,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	@Override
 	public Store setStore(StoreVo storeVo) throws Exception {
 		
-		Store store = null;
+		
 		if(storeVo.getStoreId() == null){
 			store = (Store) CommonUtil.setAuditColumnInfo(Store.class.getName());
 			store.setIsactive('Y');
@@ -138,9 +139,9 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 			store.setUpdatedby("123");
 		}
 		
-		UserVo userVo = storeVo.getUser();
-		Role role = roleService.getRole(RoleName.STOREADMIN.toString());
-		User user = userService.setUser(userVo,role);
+	    userVo = storeVo.getUser();
+	    role = roleService.getRole(RoleName.STOREADMIN.toString());
+	    user = userService.setUser(userVo,role);
 		user.setStore(store);
 		store.setUser(user);
 		store.setName(storeVo.getName());
@@ -150,7 +151,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 	@Override
 	public StoreVo setStoreVo(Store store) throws Exception {
-		StoreVo storeVo = new StoreVo();
+	    storeVo = new StoreVo();
 		storeVo.setName(store.getName());
 		storeVo.setStoreId(store.getStoreId());
 		User user = store.getUser();
@@ -165,10 +166,10 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 		store = (Store) CommonUtil.setAuditColumnInfo(Store.class
 				.getName());
 		store.setName(storeVo.getName());
-		Role role = (Role) CommonUtil
+	    role = (Role) CommonUtil
 				.setAuditColumnInfo(Role.class.getName());
 		role.setName("STOREADMIN");
-		UserVo userVo = storeVo.getUser();
+		userVo = storeVo.getUser();
 		User user = userService.setUser(userVo,role);
 		user.setStore(store);
 		store.setUser(user);
@@ -179,13 +180,9 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 		return storeDao.getStoreList();
 	}
 
-	/**
-	 * @author Anbukkani Gajendran
-	 * @param storagebin
-	 * @return StoragebinVo
-	 */
+	
 	public StoragebinVo setStoragebinVO(Storagebin storagebin) {
-		StoragebinVo storagebinVo=new StoragebinVo();
+		storagebinVo=new StoragebinVo();
 		storagebinVo.setName(storagebin.getName());
 		storagebinVo.setDescription(storagebin.getDescription());
 		storagebinVo.setLevel(storagebin.getLevel());
