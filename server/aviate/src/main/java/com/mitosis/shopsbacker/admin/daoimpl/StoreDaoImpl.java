@@ -3,32 +3,32 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Address;
-import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.model.Tax;
-import com.mitosis.shopsbacker.model.User;
 
 /**
  * @author JAI BHARATHI
  * 
+ * Reviewed by Sundaram 28/11/2015
  */
 @Repository
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		StoreDao<T>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
 	@Override
