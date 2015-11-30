@@ -17,12 +17,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
    $scope.historicalBarChart = [
             {
                 key: "Cumulative Return",
-                values: [
-                    {
-                        "label" : "A" ,
-                        "value" : 29.765957771107
-                    } 
-                ]
+                values: []
             }
         ];
     
@@ -460,12 +455,12 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                             tmpAvgObj.key = month[tempDateObj.getMonth()] + (tempDateObj.getDate()+1).toString() + ' ₹';
                             tmpAvgObj.y = totalAmount;
                             $scope.testdata.push(angular.copy(tmpAvgObj)); 
-                            tmpAvgObj = {};
-                            tmpAvgObj.label = month[tempDateObj.getMonth()] + (tempDateObj.getDate()+1).toString();
-                            tmpAvgObj.value = totalAmount;
-                            $scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
                             
                         }
+                        tmpAvgObj = {};
+                        tmpAvgObj.label = month[tempDateObj.getMonth()] + (tempDateObj.getDate()+1).toString();
+                        tmpAvgObj.value = totalAmount;
+                        $scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
                     }
                    $scope.populateCharts();
                 })
