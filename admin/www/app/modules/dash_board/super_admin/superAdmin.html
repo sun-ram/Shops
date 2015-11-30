@@ -323,14 +323,33 @@ color:#30363E ! important;
  		</md-card>
 </div>
 
-<md-card class="md-whiteframe-1dp" layout="row" layout-sm="column" layout-md="column" style="background: #00bcd4;">
-<div flex="60" flex-sm="100" flex-md="100" class="white-text" style="">
-<h2 layout-padding>World Market</h2>
-</div>
-<div flex="40" flex-sm="100" flex-md="100"class="white-text"style="">
-<h2 layout-padding>Sales By Country</h2>
-</div>
+<md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
+<!--<div flex="60" flex-sm="100" flex-md="100" class="white-text" style="">-->
+<!--<h2 layout-padding>World Market</h2>-->
+<!--</div>-->
+<!--<div flex="40" flex-sm="100" flex-md="100"class="white-text"style="">-->
+<!--<h2 layout-padding>Sales By Country</h2>-->
+<!--</div>-->
+    <ui-gmap-google-map center='map.center' zoom='map.zoom' >
+
+        <!--<ui-gmap-marker-->
+                <!--coords="marker.coords"-->
+                <!--options="marker.options"-->
+                <!--events="marker.events"-->
+                <!--idkey="marker.id">-->
+        <!--</ui-gmap-marker>-->
+
+        <ui-gmap-markers
+                models="randomMarkers"
+                coords="'self'"
+                icon="'icon'">
+        </ui-gmap-markers>
+
+
+    </ui-gmap-google-map>
+
 </md-card>
+
 
   </div>
 
