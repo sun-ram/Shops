@@ -18,7 +18,15 @@ public class MerchantVo {
 	private String name;
 	private UserVo user;
 	private ImageVo logo;
+	private String storeId;
 	
+	
+	public String getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
 	public String getMerchantId() {
 		return merchantId;
 	}
