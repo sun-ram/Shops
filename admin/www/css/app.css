@@ -248,7 +248,8 @@ table[md-data-table] > thead:not([md-table-progress]) > tr > th[numeric] > div{
 	justify-content: flex-start ! important;	
 }
 table[md-data-table] > tbody > tr > td{
-	font-size: 15px ! important;	
+	font-size: 15px ! important;
+	text-align: left ! important;	
 }
 .md-datepicker-button{
 	width: 28px ! important;
@@ -404,6 +405,7 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
   
     .merch-addr{width: 500px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
 }
+
 
 .toolbarOnDumped {
 	position: fixed;

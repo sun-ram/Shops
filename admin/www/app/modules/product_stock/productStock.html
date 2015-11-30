@@ -24,12 +24,14 @@
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 <md-toolbar class=" md-default-theme" style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row"  ng-init="getProductStockList();getMerchantStore();">
+		<div layout = "row" flex="70">
   		<h3 layout-align="start">Product Stock</h3>
   		<div class="tbl-search">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<input ng-model="search" type="text"  placeholder="Search">
   		</div>
-    	 <md-input-container flex="60" layout-align="center end">
+  		</div>
+    	 <md-input-container flex="30" layout-align="center end">
        			<label>Store<span style="color:red">*</span></label>
          		<md-select name="myModel" ng-model="storesId" ng-change="getStockListByStore()" ng-required="true">
 		            <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >
@@ -86,7 +88,7 @@
 </md-data-table-container> 
 </md-card-content>
 </md-card>
- <div layout layout="row" class="table-pagination-bg" layout-align="start center">
+ <div layout layout="row" class="table-pagination-bg" layout-align="end center">
 <md-data-table-pagination md-limit="productStockPagination.limit" md-page="productStockPagination.page"
 	md-total="{{count}}" md-trigger="onpagechange"></md-data-table-pagination></div>
 

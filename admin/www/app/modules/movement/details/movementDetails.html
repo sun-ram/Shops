@@ -1,30 +1,43 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getPhysicalinventoryDetails();">
-   <md-card-content style="padding: 0px 0px 16px 0px;">
-    <md-toolbar ng-hide="warehouse.isprocessed" class=" md-default-theme">
-		<div class="md-toolbar-tools" layout="row">
-	  		<h2 layout-align="start">Movement</h2>
-	    	<span class="flex"></span>
-	    	<span hd-show="isMovementAdded">{{movement.name}} {{movement.warehouse.name}}</span>
-	      	<md-button ng-hide="movement.ismoved == 'Y'" class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMovement(movement);$event.stopPropagation();">
-				<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
-			</md-button>   
+<div ng-init="getPhysicalinventoryDetails();">
+
+ <md-toolbar ng-hide="warehouse.isprocessed" style="background-color:transparent;">
+		<div class="md-toolbar-tools">
+		<div layout="row" layout-align="start center" class="full_wid">	 
+	  		<h3 flex layout-align="start center">Movement</h3>
+	    	<span flex layout-align="end center" style="padding-left: 20px;" hd-show="isMovementAdded">{{movement.name}} &nbsp; &nbsp; {{movement.warehouse.name}}</span>
 	    </div>
-	    <span class="close_box" ui-sref="app.physical_inv">
+	    </div>
+	    <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMovement(movement);$event.stopPropagation();">
+		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.physical_inv">
+			<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+	    <!-- <div layout="row" layout-align="start center">	  -->
+	    <!-- <span class="close_box" ui-sref="app.physical_inv">4
 		   <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon> 
 		</span> 
+		<md-button ng-hide="movement.ismoved == 'Y'" class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMovement(movement);$event.stopPropagation();">
+				<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+			</md-button>  
+		--> 
     </md-toolbar>
-       	<md-content layout-padding layout="column" layout-sm="column" class="edit-container">
-			<form name="physicalinventoryForm" novalidate>
+    
+<md-card flex-gt-sm="90" flex-gt-md="80" >
+   <md-card-content style="padding: 0px 0px 16px 0px;">
+    
+       	<md-list>
+			
 			  <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines">
 			  <div layout-padding  flex><span>{{movementLine.product.name}}</span></div>
 			     <div layout-padding  flex><span>{{movementLine.toStoragebin.name}} ({{movementLine.toStoragebin.stack}} - {{movementLine.toStoragebin.row}} - {{movementLine.toStoragebin.level}})</span></div>
 			     <div layout-padding  flex><span>{{movementLine.qty}}</span></div>
 			  </div>
-	    	</form>
-    	</md-content>
+	    	
+    	</md-list>
   </md-card-content>
 </md-card>
-
+</div>
 
 
 

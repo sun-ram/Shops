@@ -1,21 +1,17 @@
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getProductDetails()">
-   
-   <md-toolbar class=" md-default-theme">
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Product Details</h2>
+      <h2 layout-align="start center">Product Details</h2>
     </div>
-    <span class="close_box">
-	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.producttype"></ng-md-icon>
-	 </span> 
-	 <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editproduct(productDetail);$event.stopPropagation();">
+    <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editproduct(productDetail);$event.stopPropagation();">
 		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 	</md-button>
 	<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.products">
 		<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
 	</md-button>
    </md-toolbar>
-    
-  <md-content md-theme="docs-dark" layout-padding>
+   
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getProductDetails()">
+    <md-content md-theme="docs-dark" layout-padding>
   
   <form name="merchant" layout="row">
   

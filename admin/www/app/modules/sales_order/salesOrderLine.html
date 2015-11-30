@@ -1,4 +1,4 @@
-<div layout="row">
+<!-- <div layout="row">
 
 	<div layout="row" flex=35>
 		<h3 layout-padding layout-align="start center">Sales Order Line</h3>
@@ -17,16 +17,27 @@
 
 
 	</div>
-</div>
-<md-card flex-gt-sm="90" flex-gt-md="80">
-<md-card-content style="padding: 0px 0px 16px 0px;">
+</div> -->
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+	<div class="md-toolbar-tools" layout="row">
+  		<h3 layout-align="start">Sales Order Line</h3>
+  		<div class="tbl-search">
+  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+  			<input ng-model="search" type="text"  placeholder="Search">
+  		</div>
+    	</div>
+</md-toolbar>
+    	 
+
+
 <md-data-table-container>
 <table md-data-table class="md-primary"
 	md-progress="deferred">
 	<thead md-order="salesOrderLinePagination.order" md-trigger="onorderchange">
-	<span ng-click="salesOrder()" class="close_box">
+	<!-- <span ng-click="salesOrder()" class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon>
-	 </span> 
+	 </span>  -->
 		<tr>
 			<th order-by="productDetails.productName" name="Product"></th>
 			<th order-by="productId" name="Discount"></th>
@@ -48,10 +59,13 @@
 		</tr>
 	</tbody>
 </table>
-</md-data-table-container> <md-data-table-pagination md-limit="salesOrderLinePagination.limit" md-page="salesOrderLinePagination.page"
-	md-total="{{desserts.count}}" md-trigger="onpagechange"></md-data-table-pagination>
-   </md-card-content>
+</md-data-table-container> 
 </md-card>
+<div layout layout="row" class="table-pagination-bg" layout-align="end center">
+<md-data-table-pagination md-limit="salesOrderLinePagination.limit" md-page="salesOrderLinePagination.page"
+	md-total="{{desserts.count}}" md-trigger="onpagechange"></md-data-table-pagination>
+ </div> 
+
 <style>
 .close_box {
   position: absolute;
