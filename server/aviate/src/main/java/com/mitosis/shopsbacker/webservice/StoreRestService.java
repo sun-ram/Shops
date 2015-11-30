@@ -43,6 +43,8 @@ import com.mitosis.shopsbacker.vo.common.ImageVo;
  * @author RiyazKhan
  *
  * @param <T>
+ * 
+ *            Reviewed by Sundaram 28/11/2015
  */
 @Path("store")
 @Controller("storeRestService")
@@ -64,9 +66,28 @@ public class StoreRestService<T> {
 
 	@Autowired
 	ImageService<T> imageService;
-	
+
 	@Autowired
-	UserService userService;
+	UserService<T> userService;
+
+	ResponseModel response = null;
+	User user = null;
+	Merchant merchant = null;
+	Store store = null;
+	StoreResponseVo storeResponse, storeResponseVo = null;
+	StoreVo storeVo = null;
+	MerchantVo merchantVo = null;
+	UserVo userVo = null;
+	ImageVo imagevo = null;
+	AddressVo addressVo = null;
+
+	public UserService<T> getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService<T> userService) {
+		this.userService = userService;
+	}
 
 	public AddressService<T> getAddessService() {
 		return addessService;
@@ -100,8 +121,6 @@ public class StoreRestService<T> {
 		this.merchantService = merchantService;
 	}
 
-	ResponseModel response = null;
-
 	@Path("/addstore")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -109,9 +128,9 @@ public class StoreRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addStoreDetails(StoreVo storeVo) {
 		try {
-			response=new ResponseModel();
-			Merchant merchant = merchantService.getMerchantById(storeVo
-					.getMerchant().getMerchantId());
+			response = new ResponseModel();
+			merchant = merchantService.getMerchantById(storeVo.getMerchant()
+					.getMerchantId());
 
 			List<Store> checkUniqueStore = getStoreService()
 					.getStoreListByName(storeVo.getName(), merchant);
@@ -124,16 +143,17 @@ public class StoreRestService<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			User user = userService.getUserByUserName(storeVo.getUser().getUserName());
-						if(user!=null){
-							response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
-									.getCode());
-							response.setErrorString(SBErrorMessage.USER_NAME_ALREADY_EXIST
-									.getMessage());
-							response.setStatus(SBMessageStatus.FAILURE.getValue());
-							return response;
-						}
-			Store store = storeService.setStore(storeVo);
+			user = userService.getUserByUserName(storeVo.getUser()
+					.getUserName());
+			if (user != null) {
+				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
+						.getCode());
+				response.setErrorString(SBErrorMessage.USER_NAME_ALREADY_EXIST
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+			store = storeService.setStore(storeVo);
 			store.getUser().setMerchant(merchant);
 			store.setMerchant(merchant);
 			storeService.saveStore(store);
@@ -152,9 +172,9 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateStoreDetails(StoreVo storeVo) {
-		response=new ResponseModel();
+		response = new ResponseModel();
 		try {
-			Store store = storeService.setStore(storeVo);
+			store = storeService.setStore(storeVo);
 			storeService.updateStore(store);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
@@ -172,9 +192,9 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel deleteStore(StoreVo storeVo) {
-		response=new ResponseModel();
+		response = new ResponseModel();
 		try {
-			Store store = getStoreService().getStoreById(storeVo.getStoreId());
+			store = getStoreService().getStoreById(storeVo.getStoreId());
 			getStoreService().removeStore(store);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
@@ -191,14 +211,14 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreList(MerchantVo merchantVo) {
-		StoreResponseVo storeResponse = new StoreResponseVo();
+		storeResponse = new StoreResponseVo();
 		try {
-			Merchant merchant = merchantService.getMerchantById(merchantVo
+			merchant = merchantService.getMerchantById(merchantVo
 					.getMerchantId());
 			List<Store> stores = getStoreService().getStoreByMerchant(merchant);
 			List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			for (Store store : stores) {
-				StoreVo storeVo = storeService.setStoreVo(store);
+				storeVo = storeService.setStoreVo(store);
 				storeVoList.add(storeVo);
 			}
 
@@ -216,12 +236,12 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreList() {
-		StoreResponseVo storeResponse = new StoreResponseVo();
+		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getStoreList();
 			List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			for (Store store : stores) {
-				StoreVo storeVo = storeService.setStoreVo(store);
+				storeVo = storeService.setStoreVo(store);
 				storeVo.setMerchant(null);
 				storeVoList.add(storeVo);
 			}
@@ -241,12 +261,12 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreList(AddressVo addressVo) {
-		StoreResponseVo storeResponse = new StoreResponseVo();
+		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getShopList(
 					addressVo.getCity());
 			for (Store store : stores) {
-				StoreVo storeVo = storeService.setStoreVo(store);
+				storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
 			}
 		} catch (Exception e) {
@@ -262,7 +282,7 @@ public class StoreRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getShopListByAddress(AddressVo addressVo) {
-		StoreResponseVo storeResponse = new StoreResponseVo();
+		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getShopList(
 					addressVo.getCity(), addressVo.getAddress1());
@@ -284,13 +304,13 @@ public class StoreRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public StoreResponseVo getStoreListBasedOnLoc(GeoLocation geoLocation)
 			throws IOException {
-		StoreResponseVo storeResponseVo = new StoreResponseVo();
+		storeResponseVo = new StoreResponseVo();
 		List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 		if (geoLocation.getLatitude() != null
 				&& geoLocation.getLongitude() != null) {
 			List<Store> storeList = storeService.getStoreList();
 			for (Store store : storeList) {
-				StoreVo storeVo = new StoreVo();
+				storeVo = new StoreVo();
 				double dist;
 				if (store.getUser().getAddress().getLatitude() != null
 						&& store.getUser().getAddress().getLongitude() != null) {
@@ -321,14 +341,14 @@ public class StoreRestService<T> {
 				List<Store> storeList = storeService.getShopList(geoLocation
 						.getCity());
 				for (Store store : storeList) {
-					StoreVo storeVo = new StoreVo();
+					storeVo = new StoreVo();
 					System.out.println(store);
 					storeVo.setStoreId(store.getStoreId());
 					storeVo.setName(store.getName());
-					MerchantVo merchant = setMerchantDetails(store);
-					UserVo user = setUserDetails(store);
-					storeVo.setMerchant(merchant);
-					storeVo.setUser(user);
+					merchantVo = setMerchantDetails(store);
+					userVo = setUserDetails(store);
+					storeVo.setMerchant(merchantVo);
+					storeVo.setUser(userVo);
 					storeVoList.add(storeVo);
 				}
 				storeResponseVo.setStore(storeVoList);
@@ -338,14 +358,14 @@ public class StoreRestService<T> {
 				List<Store> storeList = storeService.getShopList(
 						geoLocation.getCity(), geoLocation.getArea());
 				for (Store store : storeList) {
-					StoreVo storeVo = new StoreVo();
+					storeVo = new StoreVo();
 					System.out.println(store);
 					storeVo.setStoreId(store.getStoreId());
 					storeVo.setName(store.getName());
-					MerchantVo merchant = setMerchantDetails(store);
-					UserVo user = setUserDetails(store);
-					storeVo.setMerchant(merchant);
-					storeVo.setUser(user);
+					merchantVo = setMerchantDetails(store);
+					userVo = setUserDetails(store);
+					storeVo.setMerchant(merchantVo);
+					storeVo.setUser(userVo);
 					storeVoList.add(storeVo);
 				}
 				storeResponseVo.setStore(storeVoList);
@@ -376,7 +396,7 @@ public class StoreRestService<T> {
 		MerchantVo merchant = new MerchantVo();
 		if (store.getMerchant() != null) {
 			merchant.setMerchantId(store.getMerchant().getMerchantId());
-			ImageVo imagevo = imageService.setImageVo(store.getMerchant());
+			imagevo = imageService.setImageVo(store.getMerchant());
 			merchant.setLogo(imagevo);
 		}
 		return merchant;
@@ -384,18 +404,20 @@ public class StoreRestService<T> {
 	}
 
 	public UserVo setUserDetails(Store store) throws IOException {
-		UserVo user = new UserVo();
+		userVo = new UserVo();
 		if (store.getUser() != null) {
 			user.setName(store.getUser().getName());
 			if (store.getUser().getAddress() != null) {
-				AddressVo address = new AddressVo();
-				address.setAddress1(store.getUser().getAddress().getAddress1());
-				address.setAddress2(store.getUser().getAddress().getAddress2());
-				address.setCity(store.getUser().getAddress().getCity());
-				user.setAddress(address);
+				addressVo = new AddressVo();
+				addressVo.setAddress1(store.getUser().getAddress()
+						.getAddress1());
+				addressVo.setAddress2(store.getUser().getAddress()
+						.getAddress2());
+				addressVo.setCity(store.getUser().getAddress().getCity());
+				userVo.setAddress(addressVo);
 			}
 		}
-		return user;
+		return userVo;
 
 	}
 
