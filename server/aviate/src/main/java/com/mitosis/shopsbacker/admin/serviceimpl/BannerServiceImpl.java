@@ -21,6 +21,14 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
+/**
+ * @author Kathir
+ *
+ * @param <T>
+ * 
+ * Reviewed by Sundaram 28/11/2015
+ */
+
 @Service("bannerServiceImpl")
 public class BannerServiceImpl<T> implements BannerService<T> {
 
