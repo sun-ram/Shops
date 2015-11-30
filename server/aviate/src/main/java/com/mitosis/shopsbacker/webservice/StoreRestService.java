@@ -406,7 +406,7 @@ public class StoreRestService<T> {
 	public UserVo setUserDetails(Store store) throws IOException {
 		userVo = new UserVo();
 		if (store.getUser() != null) {
-			user.setName(store.getUser().getName());
+			userVo.setName(store.getUser().getName());
 			if (store.getUser().getAddress() != null) {
 				addressVo = new AddressVo();
 				addressVo.setAddress1(store.getUser().getAddress()
