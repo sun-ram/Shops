@@ -14,6 +14,8 @@ import com.mitosis.shopsbacker.vo.customer.RoleVo;
  * @author prabakaran
  *
  * @param <T>
+ * 
+ * Reviewed by Sundaram 28/11/2015
  */
 @Service("roleServiceImpl")
 public class RoleServiceImpl<T> implements RoleService<T>, Serializable {
@@ -25,6 +27,8 @@ public class RoleServiceImpl<T> implements RoleService<T>, Serializable {
 
 	@Autowired
 	RoleDao<T> roleDao;
+	
+	RoleVo roleVo = null;	
 
 	public Role getRole(String name) {
 		return roleDao.getRole(name);
@@ -32,7 +36,7 @@ public class RoleServiceImpl<T> implements RoleService<T>, Serializable {
 
 	@Override
 	public RoleVo setRoleVo(Role role) {
-		RoleVo roleVo = new RoleVo();
+		roleVo = new RoleVo();
 		roleVo.setName(role.getName());
 		roleVo.setRoleId(role.getRoleId());
 		roleVo.setDescription(role.getDescription());
