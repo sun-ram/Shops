@@ -5,6 +5,10 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import com.mitosis.shopsbacker.model.Merchant;
 
+/**
+ *  Created by Prabakaran.15/11/2015
+ *  Reviewed by Sundaram  27/11/2015
+ */
 @XmlRootElement
 public class TaxVo {
 	private String taxId;
