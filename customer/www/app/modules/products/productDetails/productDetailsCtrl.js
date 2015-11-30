@@ -4,13 +4,16 @@ angular.module('aviate.controllers')
 
 	$scope.getProducts = function(){
 			$scope.productDetails = $rootScope.productDetails;
-			for(var i=0;i<$scope.productDetails.productImages.length;i++){
+			/*for(var i=0;i<$scope.productDetails.productImages.length;i++){
 				if($scope.productDetails.productImages[i].imagePosition == "ORIGINALFRONT"){
 					$scope.image = $scope.productDetails.image.url;
 					//$scope.changeimage($rootScope.productDetails.productImages[i].imageUrl);
 				}
-			}
+			}*/
+		$scope.image = $scope.productDetails.image.url;
 	}
+	
+	
 	  $scope.changeimage = function(imageurl){
 			var someimage = document.getElementsByTagName('zoom')[0];
 			var myimg1 = someimage.getElementsByTagName('img')[0];
