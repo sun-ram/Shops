@@ -46,7 +46,8 @@ public class User implements java.io.Serializable {
 	private String name;
 	private String password;
 	private String emailid;
-	private String deveiceid;
+	private String deviceId;
+	private String deviceType;
 	private String userName;
 	private String phoneNo;
 	private char isactive;
@@ -62,7 +63,7 @@ public class User implements java.io.Serializable {
 
 	public User(String userId, String updatedby, String createdby,
 			String name, String password, String emailid, String userName,
-			char isactive, Date created, Date updated) {
+			char isactive, Date created, Date updated, String deviceType) {
 		this.userId = userId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -73,6 +74,7 @@ public class User implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.deviceType = deviceType;
 	}
 
 	public User(String userId, String updatedby, String createdby,
@@ -81,7 +83,7 @@ public class User implements java.io.Serializable {
 			String deveiceid, String userName, String phoneNo, char isactive,
 			Date created, Date updated, 
   List<SalesOrder> salesOrdersForBackerId,List<Store> storesForUserId,  
-			List<SalesOrder> salesOrdersForShopperId, Merchant merchantForUser) {
+			List<SalesOrder> salesOrdersForShopperId, Merchant merchantForUser, String deviceType) {
 		this.userId = userId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -93,7 +95,7 @@ public class User implements java.io.Serializable {
 		this.name = name;
 		this.password = password;
 		this.emailid = emailid;
-		this.deveiceid = deveiceid;
+		this.deviceId = deveiceid;
 		this.userName = userName;
 		this.phoneNo = phoneNo;
 		this.isactive = isactive;
@@ -103,6 +105,7 @@ public class User implements java.io.Serializable {
 		this.storesForUserId = storesForUserId;
 		this.salesOrdersForShopperId = salesOrdersForShopperId;
 		this.merchantForUser = merchantForUser;
+		this.deviceType = deviceType;
 	}
 
 	@Id
@@ -212,13 +215,13 @@ public class User implements java.io.Serializable {
 		this.emailid = emailid;
 	}
 
-	@Column(name = "DEVEICEID", length = 45)
-	public String getDeveiceid() {
-		return this.deveiceid;
+	@Column(name = "DEVICE_ID", length = 500)
+	public String getDeviceId() {
+		return this.deviceId;
 	}
 
-	public void setDeveiceid(String deveiceid) {
-		this.deveiceid = deveiceid;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	@Column(name = "USER_NAME", unique = true, nullable = false, length = 45)
@@ -304,4 +307,14 @@ public class User implements java.io.Serializable {
 	public void setMerchantForUser(Merchant merchantForUser) {
 		this.merchantForUser = merchantForUser;
 	}
+
+	@Column(name = "DEVICE_TYPE", length = 45)
+	public String getDeviceType() {
+		return deviceType;
+	}
+
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
+	}
+	
 }

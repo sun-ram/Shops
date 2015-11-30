@@ -100,7 +100,8 @@ angular.module('aviate.directives')
 
 			$scope.removeFromMyCart = function(item, index) {
 				MyCartFactory.removeFromCart(item.product.productId, index,function(data){
-					$rootScope.updateProductQuantity(item);
+					if($rootScope.updateProductQuantity)
+						$rootScope.updateProductQuantity(item);
 				});
 			};
 
@@ -267,6 +268,23 @@ angular.module('aviate.directives')
 					$rootScope.showLocationDialog(true);
 				}
 			};
+			
+			$scope.addFavouriteToCart = function(salesOrderId){
+		   		
+		   		$scope.favourite ={};
+				$scope.favourite.customerId = $rootScope.user.userId;
+				$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+				$scope.favourite.storeId = $rootScope.store.storeId;
+				$scope.favourite.salesOrderId = salesOrderId;
+				CheckOutServices.addFavouriteToCart($scope.favourite).then(function(data){
+					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+						MyCartFactory.myCartTotalPriceCalculation();
+						console.log('get MyCartlist success in Main Nav');
+						$state.go('app.cart');
+					});
+					
+				});	
+		   	}
 			
 		}
 

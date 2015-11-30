@@ -221,7 +221,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setMerchant(merchantVo);
 		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
 		salesOrderVo.setOrderNo(salesOrder.getOrderNo());
-		salesOrderVo.setAddressVo(setAddress(salesOrder.getAddress()));
+		salesOrderVo.setAddressVo(setAddressVo(salesOrder.getAddress()));
 		salesOrderVo.setStatus(salesOrder.getStatus());
 		salesOrderVo.setFromDate(CommonUtil.dateToString(salesOrder.getCreated()));
 		salesOrderVo.setSalesOrderLineVo(salesOrderLine.setSalesOrderLineVo(salesOrder.getSalesOrderLines()));
@@ -240,13 +240,15 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 
 	}
 	
-	public AddressVo setAddress(Address address) throws Exception {
+	public AddressVo setAddressVo(Address address) throws Exception {
 		AddressVo addressVo = new AddressVo();
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
 		addressVo.setCity(address.getCity());
 		addressVo.setPhoneNo(address.getPhoneNo());
 		addressVo.setLandmark(address.getLandmark());
+		addressVo.setLatitude(address.getLatitude());
+		addressVo.setLongitude(address.getLongitude());
 		return addressVo;
 
 	}

@@ -77,5 +77,9 @@ ADD CONSTRAINT `FK_SOL_SALES_ORDER`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+---- Prabakaran A ------------------------ device type column added and device id spelling corrected for mobile device details update ------------
 
+  ALTER TABLE `shopsbacker`.`user` 
+CHANGE COLUMN `DEVEICEID` `DEVICE_ID` VARCHAR(500) NULL DEFAULT NULL ,
+ADD COLUMN `DEVICE_TYPE` VARCHAR(45) NULL AFTER `DEVICE_ID`;
   

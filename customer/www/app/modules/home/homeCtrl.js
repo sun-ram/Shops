@@ -91,6 +91,12 @@ angular.module('aviate.controllers')
         		}
         		
         	}
+        	
+        	$scope.getProducts = function(){
+        		
+        		$rootScope.getTopCategories();
+        		$rootScope.getAllCategoryWithProduct();
+        	}
 
 		}]);
 

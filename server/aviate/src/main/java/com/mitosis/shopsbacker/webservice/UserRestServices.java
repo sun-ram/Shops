@@ -143,7 +143,7 @@ public class UserRestServices<T> {
 		userDetails.setMerchant(setMerchant(user));
 		userDetails.setStore(setStore(user));
 		userDetails.setEmailid(user.getEmailid());
-		userDetails.setDeveiceid(user.getDeveiceid());
+		userDetails.setDeviceId(user.getDeviceId());
 		userDetails.setUserName(user.getUserName());
 		userDetails.setPhoneNo(user.getPhoneNo());
 		userDetails.setRole(setRole(user));
@@ -449,6 +449,29 @@ public class UserRestServices<T> {
 			return userLoginResponseVo;
 		}
 
+	}
+	
+	
+	@Path("/deviceregister")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ResponseModel deviceRegister(UserVo userVo) {
+		response = new ResponseModel();
+		try {
+			User user = userService.getUser(userVo.getUserId());
+			if(userVo.getDeviceId() != null && userVo.getDeviceType() != null){
+				user.setDeviceId(userVo.getDeviceId());
+				user.setDeviceType(userVo.getDeviceType());
+			}
+			userService.updateUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response = CommonUtil.addStatusMessage(e, response);
+		}
+		return response;
 	}
 	
 

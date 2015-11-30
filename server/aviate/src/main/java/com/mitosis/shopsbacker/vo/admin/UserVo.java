@@ -23,13 +23,27 @@ public class UserVo  {
 	private String name;
 	private String password;
 	private String emailid;
-	private String deveiceid;
+	private String deviceId;
+	private String deviceType;
 	private String userName;
 	private String phoneNo;
 	private RoleVo role;
 	private MerchantVo merchant;
 	private StoreVo store;
 	
+	
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+	public String getDeviceType() {
+		return deviceType;
+	}
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -47,9 +61,6 @@ public class UserVo  {
 	}
 	public String getEmailid() {
 		return emailid;
-	}
-	public String getDeveiceid() {
-		return deveiceid;
 	}
 	public String getUserName() {
 		return userName;
@@ -74,9 +85,6 @@ public class UserVo  {
 	}
 	public void setEmailid(String emailid) {
 		this.emailid = emailid;
-	}
-	public void setDeveiceid(String deveiceid) {
-		this.deveiceid = deveiceid;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;

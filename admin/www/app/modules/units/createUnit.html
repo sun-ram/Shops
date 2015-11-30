@@ -1,7 +1,8 @@
 
    <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex" style="margin-left:-10px;">Units Of Measurement</h2>
+      <h2 class="md-flex" ng-hide="uom.uomId" style="margin-left:-10px;">Create Units Of Measurement</h2>
+      <h2 class="md-flex" ng-show="uom.uomId" style="margin-left:-10px;">Update Units Of Measurement</h2>
        <!--  <span class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span>  -->
     </div>
@@ -16,7 +17,7 @@
     </md-input-container> 
       
     <md-input-container>
-       <label>Description<span style="color:red">*</span></label>
+       <label>Units Of Measure<span style="color:red">*</span></label>
       <input ng-model="uom.description" ng-required="true"  maxlength="100">
     </md-input-container>
     

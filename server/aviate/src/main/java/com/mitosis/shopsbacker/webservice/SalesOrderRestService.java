@@ -372,8 +372,7 @@ public class SalesOrderRestService<T> {
 					if (RoleName.SHOPPER.toString().equalsIgnoreCase(role.getName())) {
 						for (SalesOrder salesOrder : salesOrderList) {
 							if (OrderStatus.Shoper_Assigned.toString().equalsIgnoreCase(salesOrder.getStatus())
-									|| OrderStatus.Picked.toString().equalsIgnoreCase(salesOrder.getStatus())
-									|| OrderStatus.Packed.toString().equalsIgnoreCase(salesOrder.getStatus())) {
+									|| OrderStatus.Picked.toString().equalsIgnoreCase(salesOrder.getStatus())) {
 								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
@@ -395,14 +394,12 @@ public class SalesOrderRestService<T> {
 					if (RoleName.BACKER.toString().equalsIgnoreCase(role.getName())) {
 						for (SalesOrder salesOrder : salesOrderList) {
 							if (OrderStatus.Backer_Assigned.toString().equalsIgnoreCase(salesOrder.getStatus())
-									|| OrderStatus.Backer_Started.toString().equalsIgnoreCase(salesOrder.getStatus())
-									|| OrderStatus.Delivered.toString().equalsIgnoreCase(salesOrder.getStatus())) {
+									|| OrderStatus.Backer_Started.toString().equalsIgnoreCase(salesOrder.getStatus())) {
 								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
 						}
 					}
-					salesOrderResponse.setSalesOrderList(salesOrderVoList);
 				}
 			}else{
 				salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
