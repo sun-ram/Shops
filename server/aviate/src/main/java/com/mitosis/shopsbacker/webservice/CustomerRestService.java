@@ -179,6 +179,8 @@ public class CustomerRestService<T> {
 				Customer customer = customerService
 						.getCustomerInfoById(addressVo.getCustomer()
 								.getCustomerId());
+				customer.setName(addressVo.getCustomer().getName());
+				customerService.updateCustomer(customer);
 				Address address = addressService.setAddress(addressVo);
 				address.setCustomer(customer);
 				if (addressVo.getAddressId() == null) {
@@ -215,6 +217,7 @@ public class CustomerRestService<T> {
 			List<Address> addressList = customer.getAddresses();
 			for (Address address : addressList) {
 				AddressVo addresVo = addressService.setAddressVo(address);
+				addresVo.getCustomer().setName(address.getCustomer().getName());
 				addressResponseList.getAddressList().add(addresVo);
 			}
 		} catch (Exception e) {

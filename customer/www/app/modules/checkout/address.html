@@ -27,6 +27,7 @@
                             <li>{{address.state.name}}</li>
                             <li>{{address.country.name}}</li>
                             <li>{{address.pinCode}}</li>
+                            <li>{{address.phoneNo}}</li>
                         </ul>
                     </div>
                 </md-card-content>
@@ -53,12 +54,12 @@
 </section>
 <section class="contact-details md-action" layout="row">
 	<div flex></div>
-    <div style="float:right">
+    <!-- <div style="float:right">
         <md-input-container flex layout-padding>
             <label style="color: green;">Contact Number <span style="color:red">*</span></label>   
             <input ng-model="currentOrder.contactNumber" valid-number ng-required="true">
         </md-input-container>
-    </div>    
+    </div>     -->
     <div layout="row" layout-align="end center">
         <span ng-hide="change">
         <md-button class="md-raised" ng-click="cancel1()">Back</md-button>

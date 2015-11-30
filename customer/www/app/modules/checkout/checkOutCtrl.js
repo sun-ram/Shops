@@ -1,6 +1,6 @@
 angular.module('aviate.controllers')
-.controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory','$filter','CommonServices',
-                             function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter,CommonServices) {
+.controller("checkOutCtrl", ['$scope', '$state', 'toastr', 'CONSTANT', 'CheckOutServices', '$mdDialog', '$rootScope','MyCartFactory','$filter','CommonServices','$localStorage',
+                             function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter,CommonServices,$localStorage) {
 
 	MyCartFactory.myCartTotalPriceCalculation();
 
@@ -50,9 +50,6 @@ angular.module('aviate.controllers')
 	};
 
 	var addAddress = function(address) {
-		address.customer={
-				"customerId":$rootScope.user.userId
-		}
 		delete address.selected;
 		//address.addressId = "";
 		console.log("data", address);
@@ -196,6 +193,7 @@ angular.module('aviate.controllers')
 			$scope.sta = JSON.parse($scope.state);
 			$scope.address.state.stateId = $scope.sta.stateId;
 			$scope.address.state.name = $scope.sta.name;
+			address.customer.customerId=$rootScope.user.userId;
 			addAddress(address);
 			$mdDialog.cancel();
 		};
@@ -211,9 +209,14 @@ angular.module('aviate.controllers')
 		};
 		
 		$scope.getCountries = function(){
-			CommonServices.getCountries($scope.country).then(function(data){
-				$scope.countries=data;
-			});
+			if($localStorage.countries){
+				$scope.countries=$localStorage.countries;
+			}else{
+				CommonServices.getCountries($scope.country).then(function(data){
+					$scope.countries=data;
+					$localStorage.countries = data;
+				});
+			}
 		};
 		
 		$scope.getCountries();
@@ -235,7 +238,7 @@ angular.module('aviate.controllers')
 			if($scope.addresses.length ==1){
 				$scope.currentOrder.address = $scope.addresses[0];
 			}
-			if ($scope.currentOrder.address && $scope.currentOrder.contactNumber != null) {
+			if ($scope.currentOrder.address!= null) {
 				$scope.timeLineStatus.addressEntry = true;
 				$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 			} else {
