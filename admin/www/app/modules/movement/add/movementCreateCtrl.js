@@ -10,6 +10,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.warehouse.store.storeId = $rootScope.user.storeId;
 				WarehouseService.warehouseList($scope.warehouse).then(function(data) {
 					$scope.warehouseData = data.warehouses;
+                    $scope.warehouse =   data.warehouses [0];
 				});
 			};
 			
