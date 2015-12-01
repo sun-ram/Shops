@@ -41,7 +41,7 @@ angular.module('aviate.services')
 		var d = $q.defer();
 		api.Location.getCity(location, function(err, result){
 			if(result){
-					d.resolve(result);
+					d.resolve(result.cityList);
 			}else{
 				toastr.error(err.errorCode);
 			}

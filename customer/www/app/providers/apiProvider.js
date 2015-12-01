@@ -315,7 +315,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 		
 						
 		/*My List*/
-		apiClass.MyList = {
+		/*apiClass.MyList = {
 				name: ""
 		};
 		
@@ -359,7 +359,7 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 		
 		/*Checkout services*/
 

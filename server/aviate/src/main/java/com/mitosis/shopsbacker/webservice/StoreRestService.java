@@ -260,7 +260,8 @@ public class StoreRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public StoreResponseVo getStoreList(AddressVo addressVo) {
+	public String getStoreList(AddressVo addressVo) {
+		String responseStr = "";
 		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getShopList(
@@ -271,9 +272,16 @@ public class StoreRestService<T> {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+			storeResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			storeResponse.setErrorString(e.getMessage());
 		}
-		return storeResponse;
+		
+		try {
+			responseStr = CommonUtil.getObjectMapper(storeResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
 
 	@Path("/getshoplistbyaddress")
@@ -381,15 +389,23 @@ public class StoreRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public Set<String> getStoreByCity() {
-		Set<String> cityList = null;
+	public String getStoreByCity() {
+		storeResponse = new StoreResponseVo();
+		String responseStr = "";
 		try {
-			cityList = new HashSet<String>(storeService.getShopCityList());
+			Set<String>  cityList = new HashSet<String>(storeService.getShopCityList());
+			storeResponse.setCityList(cityList);
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+			storeResponse.setErrorString(e.getMessage());
+			storeResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
-		return cityList;
-
+		try {
+			responseStr = CommonUtil.getObjectMapper(storeResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
 
 	public MerchantVo setMerchantDetails(Store store) throws IOException {
