@@ -1,8 +1,8 @@
 
 angular.module('aviateAdmin.controllers')
 .controller("merchantEditCtrl", 
-		['$scope', '$rootScope','$state','toastr','MerchantServices', 'CommonServices',
-		 function($scope,$rootScope, $state,  toastr, MerchantServices, CommonServices) {
+		['$scope', '$rootScope','$state','toastr','MerchantServices', 'CommonServices','$timeout',
+		 function($scope,$rootScope, $state,  toastr, MerchantServices, CommonServices,$timeout) {
 
 			$scope.getMerchant = function(){
 				$scope.merchantDetail = MerchantServices.getMerchantObj();
@@ -16,9 +16,18 @@ angular.module('aviateAdmin.controllers')
 					$state.go('app.newmerchant');
 				}
 				console.info($scope.merchantDetail);
-				
+				$scope.country = $scope.merchantDetail.user.address.country;
+				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
+				$scope.state = $scope.merchantDetail.user.address.state;
 			};
-			$scope.getMerchant();
+			if($scope.countries)
+				$scope.getMerchant();
+			else{
+				$timeout(function(){
+					$scope.getMerchant();
+				},3000);
+			}
+			
 			
             $scope.countryObjectof = function (countryList, keyId){
                 for(var i=0;i<countryList.length;i++){
@@ -47,23 +56,9 @@ angular.module('aviateAdmin.controllers')
            
             }
             
-			$scope.getState = function(country){
-				$scope.state=null;
-				$scope.cunt = JSON.parse(country);
-				$scope.states = $scope.cunt.states;
-			}
-			
-			$scope.getCountries = function(){
-				CommonServices.getCountries($scope.country).then(function(data){
-					$scope.countries=data;
-				});
-			}
-			$scope.getCountries();
-			
-			
 			$scope.updateMerchant = function(){
-				$scope.cnt = JSON.parse($scope.country);
-				$scope.st = JSON.parse($scope.state);
+				$scope.cnt = $scope.country;
+				$scope.st = $scope.state;
 				$scope.merchantDetail.user.address.country = {};
 				$scope.merchantDetail.user.address.state = {};
 				$scope.merchantDetail.user.address.country.countryId = $scope.cnt.countryId;
