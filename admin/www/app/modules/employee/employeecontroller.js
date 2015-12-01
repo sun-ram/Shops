@@ -1,10 +1,10 @@
-aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$location','$state','$mdDialog','EmployeeService','toastr','CONSTANT','$rootScope','CommonServices','StoreServices',
-                                              function($scope,$localStorage, $location,$state,$mdDialog,EmployeeService,toastr,CONSTANT, $rootScope, CommonServices, StoreServices) {
+aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$location','$state','$mdDialog','EmployeeService','toastr','CONSTANT','$rootScope','CommonServices','StoreServices','$timeout',
+                                              function($scope,$localStorage, $location,$state,$mdDialog,EmployeeService,toastr,CONSTANT, $rootScope, CommonServices, StoreServices,$timeout) {
 
 	if (angular.isDefined($localStorage.userDetails)) {
 		$scope.user = $localStorage.userDetails;
-	}	
-
+	}
+	
 	$scope.getStores=function(){
 		StoreServices.getStore({'merchantId':$rootScope.user.merchantId}).then(function(data){
 			$scope.stores=data;
@@ -48,12 +48,16 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$state.go('app.aviateemployees');
 	};
 
+	$scope.getState = function(country){
+		$scope.states = country.states;
+	}
+	
 	$scope.saveEmployee = function() {
 		$scope.user.address.country = {};
-		$scope.cnt = JSON.parse($scope.country1);
+		$scope.cnt = $scope.country;
 		$scope.user.address.country.countryId = $scope.cnt.countryId;
 		$scope.user.address.country.name = $scope.cnt.name;
-		$scope.sta = JSON.parse($scope.state);
+		$scope.sta = $scope.state;
 		$scope.user.address.state = $scope.sta;
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
@@ -69,10 +73,10 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 
 	$scope.updateEmployee = function() {
 		$scope.user.address.country = {};
-		$scope.cnt = JSON.parse($scope.country1);
+		$scope.cnt = $scope.country;
 		$scope.user.address.country.countryId = $scope.cnt.countryId;
 		$scope.user.address.country.name = $scope.cnt.name;
-		$scope.sta = JSON.parse($scope.state);
+		$scope.sta = $scope.state;
 		$scope.user.address.state = $scope.sta;
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
@@ -106,7 +110,7 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.user = {};
 		$state.go('app.addemployee');
 
-	},
+	};
 
 	$scope.shopList = function(){
 		EmployeeService.getShopList().then(function(data) {
@@ -116,16 +120,35 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.shops = {};
 		$scope.shops = $localStorage.shops;
 
-	},
+	};
 
 	$scope.employeeDetails = function(employee){
 		$localStorage.employees = employee;
 		$state.go('app.employeedetailsview');
 
-	},
+	};
+
+	var populateEmployee = function(){
+		if(!$scope.countries){
+			$timeout(function(){populateEmployee()},2000);
+		}else{
+			$scope.user = $localStorage.user;
+			if ($scope.user && $scope.user.address) {
+				$scope.country = $scope.user.address.country;
+				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
+				$scope.state = $scope.user.address.state;
+			}	
+		}
+	}
+	
+	if($scope.countries){
+		populateEmployee();
+	}else{
+		$timeout(function(){populateEmployee()},3000)
+	}
 
 	$scope.employee = $localStorage.employees;
-
+	
 	$scope.redirectToEmployeeDetails = function(){
 		if($rootScope.fromDetailsPage == true){
 			$state.go('app.employeedetailsview');
@@ -159,6 +182,5 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 			$rootScope.fromDetailsPage = true;
 		$state.go('app.addemployee');
 	}
-	$scope.user = $localStorage.user;
 }
 ]);

@@ -41,6 +41,7 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	DELETEORDERNUMBER:'Order Number Deleted successfully',
 	UPDATEORDERNUMBER:'Order Number Updated Successfully',
 	ORDERNUMBERERROR:'You Cant Add More Than One Order Number',
+	PERCENTAGE_LIMIT_EXCEED:"Value should not exceed {}",
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'

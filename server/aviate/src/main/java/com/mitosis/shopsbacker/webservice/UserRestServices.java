@@ -234,12 +234,10 @@ public class UserRestServices<T> {
 			userVo.getAddress().setLongitude(loc.toString());
 			Store store = storeService.getStoreById(userVo.getStore()
 					.getStoreId());
-			Merchant merchant = merchantService.getMerchantById(userVo
-					.getMerchant().getMerchantId());
 			User user = userService.setUser(userVo,
 					roleService.getRole(userVo.getRole().getName()));
 			user.setStore(store);
-			user.setMerchant(merchant);
+			user.setMerchant(store.getMerchant());
 			userService.saveUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,5 @@
-aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog','$localStorage','$location','$state','toastr','CONSTANT', '$http','WarehouseService','$location','CommonServices', 
-                                              function($scope,$rootScope,$mdDialog,$localStorage, $location,$state,toastr,CONSTANT,$http,WarehouseService,$localStorage,CommonServices) {
+aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog','$localStorage','$location','$state','toastr','CONSTANT', '$http','WarehouseService','$location','CommonServices','$timeout', 
+                                              function($scope,$rootScope,$mdDialog,$localStorage, $location,$state,toastr,CONSTANT,$http,WarehouseService,$localStorage,CommonServices,$timeout) {
 	
 	
  	
@@ -11,8 +11,34 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse = JSON.parse(localStorage.getItem('warehouse'));
 		$state.go('app.warehouseDetails');
 		
-	},
-	$scope.warehouse = JSON.parse(localStorage.getItem('warehouse'));
+	};
+	
+	$scope.getState = function(country){
+		$scope.states = country.states;
+	}
+	
+	var populateCountries = function(){
+		$scope.warehouse = JSON.parse(localStorage.getItem('warehouse'));
+		if($scope.warehouse){
+			$scope.country = $scope.warehouse.address.country;
+			if(!$scope.countries){
+				$timeout(function(){populateCountries()},2000);
+				console.log('Waiting for getting countries');
+			}else{
+				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
+				console.log('populated state is ',$scope.states);
+				$scope.state = $scope.warehouse.address.state;
+				console.log('populated state is ',$scope.state);
+			}
+		}
+	}
+	
+	if($scope.countries){
+		populateCountries();
+	}else{
+		$timeout(function(){populateCountries()},5000);
+	}
+	
 	$scope.addWarehouse = function(){
 		
 		$state.go('app.addWarehouse');
@@ -40,8 +66,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.store.storeId = $rootScope.user.storeId;
 		$scope.warehouse.merchant.merchantId= $rootScope.user.merchantId;
 		
-		$scope.cnt = JSON.parse($scope.country);
-		$scope.st = JSON.parse($scope.state);
+		$scope.cnt = $scope.country;
+		$scope.st = $scope.state;
 		$scope.warehouse.address.country = {};
 		$scope.warehouse.address.state = {};
 		$scope.warehouse.address.country.countryId = $scope.cnt.countryId;
@@ -62,8 +88,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.store.storeId = $rootScope.user.storeId;
 		$scope.warehouse.merchant.merchantId= $rootScope.user.merchantId;
 		
-		$scope.cnt = JSON.parse($scope.country);
-		$scope.st = JSON.parse($scope.state);
+		$scope.cnt = $scope.country;
+		$scope.st = $scope.state;
 		$scope.warehouse.address.country = {};
 		$scope.warehouse.address.state = {};
 		$scope.warehouse.address.country.countryId = $scope.cnt.countryId;
