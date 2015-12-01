@@ -82,4 +82,15 @@ ADD CONSTRAINT `FK_SOL_SALES_ORDER`
   ALTER TABLE `shopsbacker`.`user` 
 CHANGE COLUMN `DEVEICEID` `DEVICE_ID` VARCHAR(500) NULL DEFAULT NULL ,
 ADD COLUMN `DEVICE_TYPE` VARCHAR(45) NULL AFTER `DEVICE_ID`;
+
+----   01-12-2015 -------- Prabakaran A ----------------- Sales order customer sign forign key altered ----------------
+ALTER TABLE `shopsbacker`.`sales_order` 
+ADD INDEX `FK_CUSTOMER_SIGN_idx` (`CUSTOMER_SIGN` ASC);
+ALTER TABLE `shopsbacker`.`sales_order` 
+ADD CONSTRAINT `FK_CUSTOMER_SIGN`
+  FOREIGN KEY (`CUSTOMER_SIGN`)
+  REFERENCES `shopsbacker`.`image` (`IMAGE_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
   

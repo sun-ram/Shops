@@ -1,8 +1,11 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -21,11 +24,14 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.TaxService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
+import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.Image;
+import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.MyCart;
 import com.mitosis.shopsbacker.model.OrderTax;
 import com.mitosis.shopsbacker.model.Role;
@@ -45,6 +51,7 @@ import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
@@ -83,7 +90,7 @@ public class SalesOrderRestService<T> {
 
 	@Autowired
 	TaxService<T> taxService;
-	
+
 	@Autowired
 	ShippingChargesService<T> shippingChargesService;
 
@@ -92,6 +99,9 @@ public class SalesOrderRestService<T> {
 
 	@Autowired
 	ProductService<T> productService;
+
+	@Autowired
+	ImageService<T> imageService;
 
 	public SalesOrderService<T> getSalesOrderService() {
 		return salesOrderService;
@@ -241,8 +251,8 @@ public class SalesOrderRestService<T> {
 				List<SalesOrder> salesOrderList = salesOrderService
 						.salesOrderDetailList(salesOrderVo.getFromDate(),
 								salesOrderVo.getDeliveryDate(), merchantService
-										.getMerchantById(salesOrderVo
-												.getMerchant().getMerchantId()));
+								.getMerchantById(salesOrderVo
+										.getMerchant().getMerchantId()));
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
 							salesOrder);
@@ -419,7 +429,7 @@ public class SalesOrderRestService<T> {
 		}
 		return responseStr;
 	}
-	
+
 	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder) throws Exception{
 		SalesOrderVo salesOrdervo = new SalesOrderVo();
 		salesOrdervo.setSalesOrderId(salesOrder.getSalesOrderId());
@@ -440,7 +450,33 @@ public class SalesOrderRestService<T> {
 		salesOrdervo.setSalesOrderLineVo(orderLineVos);
 		return salesOrdervo ;
 	}
-	
+
+
+
+	public void customerSign(SalesOrder salesOrder, SalesOrderVo salesOrderVo) throws IOException, Exception {
+		Merchant merchant = salesOrder.getMerchant();
+		Store store = salesOrder.getStore();
+		String imagePath = "";
+		String defaultImagePath = "";
+		Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream(
+				"/properties/serverurl.properties"));
+		defaultImagePath = properties.getProperty("imagePath");
+		imagePath = "merchant/" + merchant.getName() + "/"+ store.getStoreId() + "/customer_sign";
+		String imageName = UUID.randomUUID().toString().replace("-", "");
+		if (CommonUtil.uploadImage(salesOrderVo.getSign().getImage(), salesOrderVo.getSign().getType(), 
+				defaultImagePath + imagePath,
+				imageName)) {
+			salesOrderVo.getSign().setName(imageName);
+			salesOrderVo.getSign().setUrl(
+					imagePath + imageName + "."
+							+ salesOrderVo.getSign().getType());
+		}
+	}
+
+
+
+
 	@Path("/updateorderstatus")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -450,45 +486,65 @@ public class SalesOrderRestService<T> {
 		salesOrderResponse = new SalesOrderResponseVo();
 		String responseStr = "";
 		try {
-			if (salesOrderVo.getSalesOrderId() != null && salesOrderVo.getStatus()!=null) {
 			SalesOrder salesOrder = salesOrderService.getSalesOrderById(salesOrderVo.getSalesOrderId());
-				if (salesOrder != null) {
-					String status = salesOrderVo.getStatus();
-					
-					boolean isValidStatus = OrderStatus.contains(status);
-							if (isValidStatus) {
-								salesOrder.setStatus(status);
-								salesOrderService.updateSalesOrder(salesOrder);
-								salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
-										.getValue());
-							}else{salesOrderResponse.setStatus(SBMessageStatus.FAILURE
-									.getValue());
-							salesOrderResponse
-									.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
-											.getMessage());
-							salesOrderResponse
-									.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
-											.getCode());
-								
+			if (salesOrder != null) {
+				
+				if (salesOrderVo.getSalesOrderId() != null && salesOrderVo.getStatus()!=null) {
+					if(OrderStatus.Delivered.toString().equalsIgnoreCase(salesOrderVo.getStatus())){
+						if (salesOrderVo.getSign().getImage() != null) {
+							customerSign(salesOrder, salesOrderVo);
+							Image image = imageService.setImage(salesOrderVo.getSign());
+							salesOrder.setCustomerSign(image);
+						}else {
+							salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+							salesOrderResponse.setErrorCode(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN.getCode());
+							salesOrderResponse.setErrorString(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN.getMessage());
+							try {
+								responseStr = CommonUtil.getObjectMapper(salesOrderResponse);
+							} catch (Exception e) {
+								e.printStackTrace();
+								log.error(e.getMessage());
 							}
-					
+							return responseStr;
+						}
+					}				
+				
+					String status = salesOrderVo.getStatus();
+
+					boolean isValidStatus = OrderStatus.contains(status);
+					if (isValidStatus) {
+						salesOrder.setStatus(status);
+						salesOrderService.updateSalesOrder(salesOrder);
+						salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
+								.getValue());
+					}else{salesOrderResponse.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+					salesOrderResponse
+					.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+							.getMessage());
+					salesOrderResponse
+					.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+							.getCode());
+
+					}
+
 				} else {
 					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 							.getValue());
 					salesOrderResponse
-							.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
-									.getMessage());
+					.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
+							.getMessage());
 					salesOrderResponse
-							.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
-									.getCode());
+					.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
+							.getCode());
 				}
 			} else {
 				salesOrderResponse
-						.setStatus(SBMessageStatus.FAILURE.getValue());
+				.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
 
 		}
-	 catch (Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
 			salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			salesOrderResponse.setErrorString(CommonUtil.getErrorMessage(e));
@@ -502,5 +558,5 @@ public class SalesOrderRestService<T> {
 		}
 		return responseStr;
 	}
-	
+
 }

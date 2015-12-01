@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 
 public class SalesOrderVo {
@@ -28,7 +28,7 @@ public class SalesOrderVo {
 	private BigDecimal totalTaxAmount;
 	private BigDecimal shippingCharge;
 	private BigDecimal netAmount;
-	private String customerSign;
+	private ImageVo sign;
 	private MerchantVo merchant;
 	private Date deliveryTime;
 	private Character deliveryFlag;
@@ -43,6 +43,14 @@ public class SalesOrderVo {
 	private String shoperId;
 	private String backerId;
 	
+	
+	
+	public ImageVo getSign() {
+		return sign;
+	}
+	public void setSign(ImageVo sign) {
+		this.sign = sign;
+	}
 	public String getBackerId() {
 		return backerId;
 	}
@@ -128,12 +136,6 @@ public class SalesOrderVo {
 	}
 	public void setNetAmount(BigDecimal netAmount) {
 		this.netAmount = netAmount;
-	}
-	public String getCustomerSign() {
-		return customerSign;
-	}
-	public void setCustomerSign(String customerSign) {
-		this.customerSign = customerSign;
 	}
 	public MerchantVo getMerchant() {
 		return merchant;

@@ -49,7 +49,7 @@ public class SalesOrder implements java.io.Serializable {
 	private BigDecimal totalTaxAmount;
 	private BigDecimal shippingCharge;
 	private BigDecimal netAmount;
-	private String customerSign;
+	private Image customerSign;
 	private Merchant merchant;
 	private Date deliveryTime;
 	private char deliveryFlag;
@@ -98,7 +98,7 @@ public class SalesOrder implements java.io.Serializable {
 			BigDecimal amount, String paymentMethod, String transactionNo,
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
-			String customerSign, Merchant merchant, Date deliveryTime,
+			Image customerSign, Merchant merchant, Date deliveryTime,
 			char deliveryFlag, BigDecimal discountAmount, char isactive,
 			String createdby, Date created, Date updated, String updatedby) {
 		this.salesOrderId = salesOrderId;
@@ -244,12 +244,13 @@ public class SalesOrder implements java.io.Serializable {
 		this.netAmount = netAmount;
 	}
 
-	@Column(name = "CUSTOMER_SIGN", length = 32)
-	public String getCustomerSign() {
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CUSTOMER_SIGN")
+	public Image getCustomerSign() {
 		return this.customerSign;
 	}
 
-	public void setCustomerSign(String customerSign) {
+	public void setCustomerSign(Image customerSign) {
 		this.customerSign = customerSign;
 	}
 

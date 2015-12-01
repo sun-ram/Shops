@@ -39,6 +39,7 @@ public class Image implements java.io.Serializable {
 	private String updatedby;
 	private Date created;
 	private Date updated;
+	private List<SalesOrder> salesOrders =  new ArrayList<SalesOrder>(); 
 	private List<Merchant> merchant = new ArrayList<Merchant>();
 	private List<ProductImage> productImages = new ArrayList<ProductImage>();
 	private List<Banner> banners = new ArrayList<Banner>();
@@ -62,7 +63,7 @@ public class Image implements java.io.Serializable {
 	public Image(String imageId, String name, String type, String url,
 			char isactive, String createdby, String updatedby, Date created,
 			Date updated, List<ProductImage> productImages, List<Banner> banners, List<User> users,
-			List<Product> products, List<Merchant> merchant) {
+			List<Product> products, List<Merchant> merchant, List<SalesOrder> salesOrders) {
 		this.imageId = imageId;
 		this.name = name;
 		this.type = type;
@@ -77,6 +78,7 @@ public class Image implements java.io.Serializable {
 		this.users = users;
 		this.products = products;
 		this.merchant = merchant;
+		this.salesOrders = salesOrders;
 	}
 
 	@Id
@@ -208,6 +210,15 @@ public class Image implements java.io.Serializable {
 
 	public void setMerchant(List<Merchant> merchant) {
 		this.merchant = merchant;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerSign", cascade = CascadeType.ALL)
+	public List<SalesOrder> getSalesOrders() {
+		return salesOrders;
+	}
+
+	public void setSalesOrders(List<SalesOrder> salesOrders) {
+		this.salesOrders = salesOrders;
 	}
 
 }
