@@ -47,55 +47,13 @@ angular.module('aviate.directives')
 			
 //			console.info('cart-------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
-				$mdDialog.show({
-					templateUrl: 'app/modules/auth/signIn.html',
-					parent: angular.element(document.body),
-					targetEvent: ev,
-					clickOutsideToClose:true,
-					controller: function($scope, AuthServices, toastr, CONSTANT){
-						
-						$scope.isSignUp = true;
-						$scope.signUp = function(user) {
-							//user.role = CONSTANT.SUCCESS_CODE.ROLE;
-							if(user.password !== $scope.confirmPassword){
-								toastr.warning(CONSTANT.WARNING_CODE.MISSMATCHPASSWORD);
-								return;
-							}
-							AuthServices.signUp(user).then(function(data){
-								$scope.cancel();
-								toastr.success(CONSTANT.SUCCESS_CODE.SIGNUPSUCCESS);
-								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
-								if($scope.myCart != undefined || $scope.myCart != null){
-
-									for(var i=0;i<$scope.myCart.cartItem.length;i++){
-										$scope.cartDetails = {
-												"customerId" : $rootScope.user.userId, 
-												"storeId" : $rootScope.store.storeId, 
-												"productId" : $scope.myCart.cartItem[i].product.productId, 
-												"price" : $scope.myCart.cartItem[i].product.productPrice.price, 
-												"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
-										}
-										MyCartServices.addToCart($scope.cartDetails).then(function(data){
-											console.log('get Mylist success in Main Nav');
-										});
-
-									}
-								}
-							});
-						};
-						
-
-						$scope.cancel = function() {
-							$mdDialog.cancel();
-						};
-
-					}
-				})
-				.then(function() {
-
-				}, function() {
-
-				});
+				$rootScope.isSignUp = true;
+				$rootScope.signInSignUpOptions(ev);
+			}
+			
+			$rootScope.signInPopup = function(ev){
+				$rootScope.isSignUp = false;
+				$rootScope.signInSignUpOptions(ev);
 			}
 
 			$scope.removeFromMyCart = function(item, index) {
@@ -113,18 +71,17 @@ angular.module('aviate.directives')
 					toast.info('need to login first');
 				}
 			};*/
-
-			$scope.isSignIn = true;
-			$rootScope.signInPopup = function(ev){
+			
+			$rootScope.signInSignUpOptions = function(ev){
 				$mdDialog.show({
 					templateUrl: 'app/modules/auth/signIn.html',
 					parent: angular.element(document.body),
 					targetEvent: ev,
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT,ipCookie){
+						$scope.isSignUp = $rootScope.isSignUp;
 						$scope.title = 'SIGN IN';
 						$scope.forgetPass = false;
-						$scope.isSignUp = false;
 						$scope.user = {}
 						var authInfo = ipCookie('auth_info');
 						
@@ -199,7 +156,6 @@ angular.module('aviate.directives')
 									$scope.myListProducts = data;
 								});
 
-
 							});
 						};
 
@@ -234,6 +190,42 @@ angular.module('aviate.directives')
 							toastr.error(CONSTANT.PASSWORDNOTMATCH);
 						}
 					};
+					
+
+					$scope.signUp = function(user) {
+						//user.role = CONSTANT.SUCCESS_CODE.ROLE;
+						if(user.password !== $scope.confirmPassword){
+							toastr.warning(CONSTANT.WARNING_CODE.MISSMATCHPASSWORD);
+							return;
+						}
+						AuthServices.signUp(user).then(function(data){
+							$scope.cancel();
+							toastr.success(CONSTANT.SUCCESS_CODE.SIGNUPSUCCESS);
+							$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
+							if($scope.myCart != undefined || $scope.myCart != null){
+
+								for(var i=0;i<$scope.myCart.cartItem.length;i++){
+									$scope.cartDetails = {
+											"customerId" : $rootScope.user.userId, 
+											"storeId" : $rootScope.store.storeId, 
+											"productId" : $scope.myCart.cartItem[i].product.productId, 
+											"price" : $scope.myCart.cartItem[i].product.productPrice.price, 
+											"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
+									}
+									MyCartServices.addToCart($scope.cartDetails).then(function(data){
+										console.log('get Mylist success in Main Nav');
+									});
+
+								}
+							}
+						});
+					};
+					
+					$scope.clearFormValues = function(user){
+						var email = user.email;
+						user = {};
+						user.email = email;
+					}
 
 						$scope.cancel = function() {
 							$mdDialog.cancel();
