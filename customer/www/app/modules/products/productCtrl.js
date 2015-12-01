@@ -32,9 +32,32 @@ angular.module('aviate.controllers')
 			$scope.getProducts = function(){
 					MyCartFactory.checkMyListProductsList(products,function(data){
 						$scope.productList = data;
+						$scope.productTypes = [];
+						for(var i=0;$scope.productList.length>=i;i++){
+							if($scope.productTypes.length ==0){
+								$scope.productTypes.push({
+									"productTypeName":$scope.productList[i].productType.name,
+									"productTypeId":$scope.productList[i].productType.productTypeId
+								})
+							}else{
+							for(var j=0;$scope.productTypes.length>=j;j++){
+								if($scope.productList[i].productType.name != $scope.productTypes[j].productTypeName){
+									$scope.productTypes.push({
+										"productTypeName":$scope.productList[i].productType.name,
+										"productTypeId":$scope.productList[i].productType.productTypeId
+									})
+									
+								}
+									
+								}
+							}
+							}
 					});
 			};
 			
+			$scope.setType = function(type){
+				$scope.type =type;
+			}
 			$scope.getCartList = function(){
 				if($rootScope.user){
 					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){

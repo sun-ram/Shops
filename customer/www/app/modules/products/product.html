@@ -41,13 +41,16 @@
         </md-content>                 
         
       </div>
- 
+      <button ng-click="type=null">All</button>
+ <div ng-repeat="types in productTypes">
+ 	<button ng-click="setType(types.productTypeName);">{{types.productTypeName}}</button>
+ </div>
 
 </div>
     <div layout="column" style="width:94%; margin:0px auto; ">
     <div flex layout="row" style="padding:10px 8px;">
     <div layout="row" layout-wrap flex >
-     <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+     <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct | productType : type" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
 		<div class="pro-box" flex layout="column"> 
 				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
@@ -104,8 +107,6 @@
     </div>
     </section>
 </div>
-
-
 
 
 
