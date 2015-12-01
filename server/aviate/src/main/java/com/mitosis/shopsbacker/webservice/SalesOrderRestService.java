@@ -55,6 +55,7 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
+import com.mitosis.shopsbacker.util.PaymentMethod;
 
 /**
  * @author JAI BHARATHI
@@ -296,7 +297,12 @@ public class SalesOrderRestService<T> {
 			salesOrder.setIspaid('N');
 			salesOrder.setStore(store);
 			salesOrder.setDiscountAmount(new BigDecimal(0));
-
+			
+			if(salesOrderVo.getPaymentMethod()!=null && salesOrderVo.getPaymentMethod().equals("COD")){
+				salesOrder.setStatus(OrderStatus.Placed.toString());
+				salesOrder.setPaymentMethod(PaymentMethod.COD.toString());
+			}
+			
 			Double totalTaxAmount = 0.0;
 			Double orderGrossAmount = 0.0;
 

@@ -62,11 +62,7 @@ CustomerDao<T>, Serializable {
 
 	@Override
 	public Customer getCustomerInfoById(String id) {
-		Criteria criteria = getSession().createCriteria(Customer.class,"customer");
-		criteria.createAlias("customer.addresses", "address");
-		criteria.add(Restrictions.eq("customer.customerId", id));
-		criteria.add(Restrictions.eq("address.isactive", 'Y'));
-		return (Customer) findAll(criteria).get(0);
+		return (Customer) getSession().get(Customer.class, id);
 	}
 
 	@Override

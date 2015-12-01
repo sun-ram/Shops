@@ -24,7 +24,7 @@ angular.module('aviate.services')
 		api.CheckOut.addAddress(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve($rootScope.myList);
+					d.resolve(result);
 					if(user.addressId==undefined){
 					toastr.success(CONSTANT.SUCCESS_CODE.ADDADDRESS);
 					}
@@ -46,9 +46,7 @@ angular.module('aviate.services')
 		var d = $q.defer();
 		api.CheckOut.getAddressList(user, function(err, result){
 			if(result){				
-					ipCookie("myList",result);
-					$rootScope.myList = ipCookie("myList");
-					d.resolve($rootScope.myList);
+					d.resolve(result);
 				if(result.status === CONSTANT.STATUS.FAILURE)  {
 					toastr.warning(CONSTANT.WARNING_CODE.ADDTHEADDERSS);
 				}
@@ -64,7 +62,7 @@ angular.module('aviate.services')
 		api.CheckOut.removeAddress(user, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve($rootScope.myList);
+					d.resolve(result);
 					toastr.success(CONSTANT.SUCCESS_CODE.REMOVEADDRESS);
 				} else {
 					toastr.error(result.errorString);

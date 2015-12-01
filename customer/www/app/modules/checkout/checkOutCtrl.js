@@ -87,16 +87,6 @@ angular.module('aviate.controllers')
 		      group2 : 'Credit / Debit / Netbanking'
 		    };
 	
-	$scope.redirectUrl=function(){
-		if($scope.data.group1=="Credit / Debit / Netbanking"){
-			$scope.visibility=true;
-			$scope.url.firstData="https://demo.globalgatewaye4.firstdata.com/payment";
-		}else{
-			$scope.visibility=false;
-			$scope.url.firstData="http://127.0.0.1:9999/www/#/home";
-		}
-	}
-	
 	$scope.confirmOrder = function() {
 		$scope.customer
 		
@@ -120,11 +110,20 @@ angular.module('aviate.controllers')
 				//"shippingCharge":$rootScope.myCart.shippingCharges,
 				//"merchantId":$rootScope.store.merchantId
 		}
-
+		
+		if($scope.data.group1=="Cash on delivery"){
+			menuJson.paymentMethod="COD";
+			menuJson.status="Initalized";
+		}
+		
 		CheckOutServices.confirmOrder(menuJson).then(function(data) {
 			console.log("OrderNo", data);
 			$scope.orderNo = data.orderNo;
-			$scope.payment();
+			if($scope.data.group1=="Cash on delivery"){
+				$state.go('app.favourite',{'orderNo':$scope.orderNo});
+			}else{
+				$scope.payment();
+			}
 		});
 	};
 
@@ -251,6 +250,18 @@ angular.module('aviate.controllers')
 	$scope.goNext = function(id) {
 		switch (id) {
 		case "address":
+			if(!($scope.addresses)){
+				$mdDialog.show(
+						$mdDialog.alert()
+						.parent(angular.element(document.querySelector('#popupContainer')))
+						.clickOutsideToClose(true)
+						//.title('Alert')
+						.content('Please Add delivery address')
+						.ariaLabel('Alert Dialog Demo')
+						.ok('Ok')
+						.targetEvent()
+				);
+			}
 			if($scope.addresses.length ==1){
 				$scope.currentOrder.address = $scope.addresses[0];
 			}
@@ -258,7 +269,7 @@ angular.module('aviate.controllers')
 				$scope.timeLineStatus.addressEntry = true;
 				$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 			} else {
-				if($scope.currentOrder.address == null && $scope.currentOrder.contactNumber != null)
+				if($scope.currentOrder.address == null)
 					{
 				$mdDialog.show(
 						$mdDialog.alert()
