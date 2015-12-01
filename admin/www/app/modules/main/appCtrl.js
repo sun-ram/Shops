@@ -69,8 +69,7 @@ angular.module('aviateAdmin.controllers')
 			};
 			
 			$scope.getState = function(country){
-				$scope.cunt = JSON.parse(country);
-				$scope.states = $scope.cunt.states;
+				$scope.states = country.states;
 			}
 			
 			$scope.getCountries = function(){
@@ -79,6 +78,7 @@ angular.module('aviateAdmin.controllers')
 					for (var i = 0; i < data.length; i++) { 
 						if($scope.countries[i].name === 'India')
 							$scope.country = $scope.countries[i];
+							$scope.states=$scope.countries[i].states;
 			        }
 				});
 			}

@@ -9,7 +9,7 @@ angular.module('aviateAdmin.controllers')
 				return;
 			} 
 			
-			$scope.cnt = JSON.parse($scope.country);
+			$scope.cnt = $scope.country;
 			$scope.st = JSON.parse($scope.state);
 			$scope.merchantDetail.user.address.country = {};
 			$scope.merchantDetail.user.address.state = {};
