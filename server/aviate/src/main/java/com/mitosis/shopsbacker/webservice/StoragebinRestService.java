@@ -27,6 +27,7 @@ import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.responsevo.StoragebinResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
 import com.mitosis.shopsbacker.vo.inventory.WarehouseVo;
@@ -69,7 +70,8 @@ public class StoragebinRestService {
 			if(storagebins.size()>0){
 				response.setStatus(SBMessageStatus.FAILURE.getValue()); 
 				//TODO:need to remove hard code.
-				response.setErrorString("The Storagebin name already exists in this form ("+storagebinVo.getName()+" "+ storagebinVo.getStack()+"-"+storagebinVo.getRow()+"-"+ storagebinVo.getLevel()+" . Kindly change the name or position (x-y-z)");	
+				String str=storagebinVo.getName()+" , "+ storagebinVo.getStack()+"-"+storagebinVo.getRow()+"-"+ storagebinVo.getLevel();
+				response.setErrorString(SBErrorMessage.STORAGEBIN_NAME_ALREADY_EXITS.getMessage().replaceAll("1",str));	
 			return response;
 			}
 			

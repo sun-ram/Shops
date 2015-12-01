@@ -32,7 +32,8 @@ public enum SBErrorMessage {
 	INVALID_SHOPPER_ID("E0021", "Invalid shopper id."),
 	INVALID_SALES_ORDER_ID("E0022", "Invalid Sales Order id."),
 	INVALID_SALES_ORDER_STATUS("E0023", "Invalid Sales Order Status."),
-	UNKNOWN_CUSTOMER_SIGN("E0024", "With out customer sign we cant able to complete your order.");
+	UNKNOWN_CUSTOMER_SIGN("E0024", "With out customer sign we cant able to complete your order."),
+	STORAGEBIN_NAME_ALREADY_EXITS("E0025","The Storagebin name already exits in this form ( 1 . Kindly change the name or position (Name , Row-Statc-Level)");
 
 	private final String erroeCode;
 	  private final String errorMessage;

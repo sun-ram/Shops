@@ -149,6 +149,9 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.store.storeId = $rootScope.user.storeId;
 		WarehouseService.warehouseList($scope.warehouse).then(function(data) {
 			$scope.getWarehouseList = data.warehouses;
+			if($scope.storagebin){
+				$scope.warehouse = _.findWhere($scope.getWarehouseList,{warehouseId : $scope.storagebin.warehouse.warehouseId})
+			}
 			$scope.shopList();
 			
 		});
