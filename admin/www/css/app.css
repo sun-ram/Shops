@@ -362,7 +362,7 @@ md-select .md-select-value{
 .login-box .md-primary{ border-radius:0px;}
 .login-box md-checkbox{ margin:20px 8px 20px 2px;}
 .tbl-body h3{ color:#666666; font-weight:100; padding-right:20px; font-size:20px !important; font-family:'titilium-regular'; border-right:1px solid #dddddd; }
-.tbl-body .tbl-search ng-md-icon{ fill:#979797; height:16px; width:16px; margin-left:20px;top:5px; position:relative;}
+.tbl-body .tbl-search ng-md-icon{ fill:#979797; height:16px; width:16px; margin-left:20px;top:6px; position:relative;}
 .tbl-body .tbl-search input{ border:none; padding:3px 0px; font-weight:100;outline:0;}
 .tbl-body .tbl-header{color:#333333; padding:10px 0px; font-size:18px !important; background-color:#EEEEEE !important}
 .tbl-body .tbl-body{ color:#666666; }

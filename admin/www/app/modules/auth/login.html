@@ -84,18 +84,19 @@ svg {
 		</form>
 		<form name="reset" novalidate ng-show="forget">
 			<div layout-padding>
+				<div  layout-padding class="md-title text-white" >Forgot Password</div>
 				<div layout-padding>
-					<md-input-container class=""> <label style="color:#FFFFFF;">Username</label> <input
-						name="userName" ng-model="user.userName" type="text"
+					<md-input-container class=""> <label style="color:#FFFFFF;" class="md-subhead">Username</label> <input
+						name="userName" ng-model="user.userName" type="text" class="ft_ltgreen" 
 						ng-required="true"> </md-input-container>
 					<div layout layout-row style="padding-top: 15px;">
-						
-						<md-button flex class="md-raised md-primary  text-white"
-							ng-click="cancel()">Cancel </md-button>
-						
 						<md-button flex class="md-raised md-success  text-white"
 							ng-disabled="(user.userName == '' || user.userName == undefined)" ng-click="forgetpass(user)">Submit
 						</md-button>
+						<md-button flex class="md-raised md-primary  text-white"
+							ng-click="cancel()">Cancel </md-button>
+						
+						
 						
 					</div>
 				</div>
