@@ -47,15 +47,14 @@ import com.mitosis.shopsbacker.responsevo.ConfirmOrderResponseVo;
 import com.mitosis.shopsbacker.responsevo.SalesOrderResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
+import com.mitosis.shopsbacker.util.PaymentMethod;
 import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
-import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
-import com.mitosis.shopsbacker.util.PaymentMethod;
 
 /**
  * @author JAI BHARATHI
@@ -197,6 +196,14 @@ public class SalesOrderRestService<T> {
 				salesOrderService.updateSalesOrder(salesOrder);
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
+
+				if (user.getDeviceType().equalsIgnoreCase("ANDROID")) {
+					String message = "Received New Order";
+					CommonUtil.androidPushNotification(message,
+							user.getDeviceId());
+				} else if (user.getDeviceType().equalsIgnoreCase("IOS")) {
+
+				}
 			}
 		}
 		return salesOrderResponseVo;
@@ -222,6 +229,13 @@ public class SalesOrderRestService<T> {
 				salesOrderService.updateSalesOrder(salesOrder);
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
+				if (user.getDeviceType().equalsIgnoreCase("ANDROID")) {
+					String message = "Received New Order";
+					CommonUtil.androidPushNotification(message,
+							user.getDeviceId());
+				} else if (user.getDeviceType().equalsIgnoreCase("IOS")) {
+
+				}
 			}
 		}
 		return salesOrderResponseVo;
@@ -252,8 +266,8 @@ public class SalesOrderRestService<T> {
 				List<SalesOrder> salesOrderList = salesOrderService
 						.salesOrderDetailList(salesOrderVo.getFromDate(),
 								salesOrderVo.getDeliveryDate(), merchantService
-								.getMerchantById(salesOrderVo
-										.getMerchant().getMerchantId()));
+										.getMerchantById(salesOrderVo
+												.getMerchant().getMerchantId()));
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
 							salesOrder);
@@ -297,12 +311,13 @@ public class SalesOrderRestService<T> {
 			salesOrder.setIspaid('N');
 			salesOrder.setStore(store);
 			salesOrder.setDiscountAmount(new BigDecimal(0));
-			
-			if(salesOrderVo.getPaymentMethod()!=null && salesOrderVo.getPaymentMethod().equals("COD")){
+
+			if (salesOrderVo.getPaymentMethod() != null
+					&& salesOrderVo.getPaymentMethod().equals("COD")) {
 				salesOrder.setStatus(OrderStatus.Placed.toString());
 				salesOrder.setPaymentMethod(PaymentMethod.COD.toString());
 			}
-			
+
 			Double totalTaxAmount = 0.0;
 			Double orderGrossAmount = 0.0;
 
@@ -336,7 +351,7 @@ public class SalesOrderRestService<T> {
 			}
 			salesOrder.setSalesOrderLines(salesOrderLines);
 
-			List<Tax> taxs =store.getMerchant().getTaxes();
+			List<Tax> taxs = store.getMerchant().getTaxes();
 			List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 			for (Tax tax : taxs) {
 				OrderTax orderTax = (OrderTax) CommonUtil
@@ -382,44 +397,62 @@ public class SalesOrderRestService<T> {
 			if (salesOrderVo.getShoperId() != null) {
 				user = userService.getUser(salesOrderVo.getShoperId());
 				if (user != null) {
-					List<SalesOrder> salesOrderList = user.getSalesOrdersForShopperId();
+					List<SalesOrder> salesOrderList = user
+							.getSalesOrdersForShopperId();
 					List<SalesOrderVo> salesOrderVoList = new ArrayList<SalesOrderVo>();
 					Role role = user.getRole();
-					if (RoleName.SHOPPER.toString().equalsIgnoreCase(role.getName())) {
+					if (RoleName.SHOPPER.toString().equalsIgnoreCase(
+							role.getName())) {
 						for (SalesOrder salesOrder : salesOrderList) {
-							if (OrderStatus.Shoper_Assigned.toString().equalsIgnoreCase(salesOrder.getStatus())
-									|| OrderStatus.Picked.toString().equalsIgnoreCase(salesOrder.getStatus())) {
+							if (OrderStatus.Shoper_Assigned.toString()
+									.equalsIgnoreCase(salesOrder.getStatus())
+									|| OrderStatus.Picked.toString()
+											.equalsIgnoreCase(
+													salesOrder.getStatus())) {
 								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
 						}
 						salesOrderResponse.setSalesOrderList(salesOrderVoList);
 					}
-					salesOrderResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+					salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
+							.getValue());
 				} else {
-					salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
-					salesOrderResponse.setErrorString(SBErrorMessage.INVALID_SHOPPER_ID.getMessage());
-					salesOrderResponse.setErrorCode(SBErrorMessage.INVALID_SHOPPER_ID.getCode());
+					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+					salesOrderResponse
+							.setErrorString(SBErrorMessage.INVALID_SHOPPER_ID
+									.getMessage());
+					salesOrderResponse
+							.setErrorCode(SBErrorMessage.INVALID_SHOPPER_ID
+									.getCode());
 				}
-			} else if(salesOrderVo.getBackerId() != null){
+			} else if (salesOrderVo.getBackerId() != null) {
 				user = userService.getUser(salesOrderVo.getBackerId());
 				if (user != null) {
-					List<SalesOrder> salesOrderList = user.getSalesOrdersForBackerId();
+					List<SalesOrder> salesOrderList = user
+							.getSalesOrdersForBackerId();
 					List<SalesOrderVo> salesOrderVoList = new ArrayList<SalesOrderVo>();
 					Role role = user.getRole();
-					if (RoleName.BACKER.toString().equalsIgnoreCase(role.getName())) {
+					if (RoleName.BACKER.toString().equalsIgnoreCase(
+							role.getName())) {
 						for (SalesOrder salesOrder : salesOrderList) {
-							if (OrderStatus.Backer_Assigned.toString().equalsIgnoreCase(salesOrder.getStatus())
-									|| OrderStatus.Backer_Started.toString().equalsIgnoreCase(salesOrder.getStatus())) {
+							if (OrderStatus.Backer_Assigned.toString()
+									.equalsIgnoreCase(salesOrder.getStatus())
+									|| OrderStatus.Backer_Started.toString()
+											.equalsIgnoreCase(
+													salesOrder.getStatus())) {
 								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
-							salesOrderResponse.setSalesOrderList(salesOrderVoList);
+							salesOrderResponse
+									.setSalesOrderList(salesOrderVoList);
 						}
 					}
 				}
-			}else{
-				salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			} else {
+				salesOrderResponse
+						.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -436,30 +469,33 @@ public class SalesOrderRestService<T> {
 		return responseStr;
 	}
 
-	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder) throws Exception{
+	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder) throws Exception {
 		SalesOrderVo salesOrdervo = new SalesOrderVo();
 		salesOrdervo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrdervo.setOrderNo(salesOrder.getOrderNo());
 		salesOrdervo.setStatus(salesOrder.getStatus());
-		salesOrdervo.setAddress(addressService.setAddressVo(salesOrder.getAddress()));
-		salesOrdervo.setCustomer(customerService.setCustomerVo(salesOrder.getCustomer()));
+		salesOrdervo.setAddress(addressService.setAddressVo(salesOrder
+				.getAddress()));
+		salesOrdervo.setCustomer(customerService.setCustomerVo(salesOrder
+				.getCustomer()));
 		List<SalesOrderLine> orderLines = salesOrder.getSalesOrderLines();
 		List<SalesOrderLineVo> orderLineVos = new ArrayList<SalesOrderLineVo>();
 		for (SalesOrderLine orderLine : orderLines) {
 			SalesOrderLineVo salesOrderLineVo = new SalesOrderLineVo();
-			ProductVo productVo = productService.setProductVo(orderLine.getProduct());
+			ProductVo productVo = productService.setProductVo(orderLine
+					.getProduct());
 			salesOrderLineVo.setProductVo(productVo);
 			salesOrderLineVo.setQty(orderLine.getQty());
-			salesOrderLineVo.setSalesOrderLineId(orderLine.getSalesOrderLineId());
+			salesOrderLineVo.setSalesOrderLineId(orderLine
+					.getSalesOrderLineId());
 			orderLineVos.add(salesOrderLineVo);
 		}
 		salesOrdervo.setSalesOrderLineVo(orderLineVos);
-		return salesOrdervo ;
+		return salesOrdervo;
 	}
 
-
-
-	public void customerSign(SalesOrder salesOrder, SalesOrderVo salesOrderVo) throws IOException, Exception {
+	public void customerSign(SalesOrder salesOrder, SalesOrderVo salesOrderVo)
+			throws IOException, Exception {
 		Merchant merchant = salesOrder.getMerchant();
 		Store store = salesOrder.getStore();
 		String imagePath = "";
@@ -468,10 +504,11 @@ public class SalesOrderRestService<T> {
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		defaultImagePath = properties.getProperty("imagePath");
-		imagePath = "merchant/" + merchant.getName() + "/"+ store.getStoreId() + "/customer_sign";
+		imagePath = "merchant/" + merchant.getName() + "/" + store.getStoreId()
+				+ "/customer_sign";
 		String imageName = UUID.randomUUID().toString().replace("-", "");
-		if (CommonUtil.uploadImage(salesOrderVo.getSign().getImage(), salesOrderVo.getSign().getType(), 
-				defaultImagePath + imagePath,
+		if (CommonUtil.uploadImage(salesOrderVo.getSign().getImage(),
+				salesOrderVo.getSign().getType(), defaultImagePath + imagePath,
 				imageName)) {
 			salesOrderVo.getSign().setName(imageName);
 			salesOrderVo.getSign().setUrl(
@@ -479,9 +516,6 @@ public class SalesOrderRestService<T> {
 							+ salesOrderVo.getSign().getType());
 		}
 	}
-
-
-
 
 	@Path("/updateorderstatus")
 	@POST
@@ -492,29 +526,40 @@ public class SalesOrderRestService<T> {
 		salesOrderResponse = new SalesOrderResponseVo();
 		String responseStr = "";
 		try {
-			SalesOrder salesOrder = salesOrderService.getSalesOrderById(salesOrderVo.getSalesOrderId());
+			SalesOrder salesOrder = salesOrderService
+					.getSalesOrderById(salesOrderVo.getSalesOrderId());
 			if (salesOrder != null) {
-				
-				if (salesOrderVo.getSalesOrderId() != null && salesOrderVo.getStatus()!=null) {
-					if(OrderStatus.Delivered.toString().equalsIgnoreCase(salesOrderVo.getStatus())){
+
+				if (salesOrderVo.getSalesOrderId() != null
+						&& salesOrderVo.getStatus() != null) {
+					if (OrderStatus.Delivered.toString().equalsIgnoreCase(
+							salesOrderVo.getStatus())) {
 						if (salesOrderVo.getSign().getImage() != null) {
 							customerSign(salesOrder, salesOrderVo);
-							Image image = imageService.setImage(salesOrderVo.getSign());
+							Image image = imageService.setImage(salesOrderVo
+									.getSign());
 							salesOrder.setCustomerSign(image);
-						}else {
-							salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
-							salesOrderResponse.setErrorCode(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN.getCode());
-							salesOrderResponse.setErrorString(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN.getMessage());
+						} else {
+							salesOrderResponse
+									.setStatus(SBMessageStatus.FAILURE
+											.getValue());
+							salesOrderResponse
+									.setErrorCode(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN
+											.getCode());
+							salesOrderResponse
+									.setErrorString(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN
+											.getMessage());
 							try {
-								responseStr = CommonUtil.getObjectMapper(salesOrderResponse);
+								responseStr = CommonUtil
+										.getObjectMapper(salesOrderResponse);
 							} catch (Exception e) {
 								e.printStackTrace();
 								log.error(e.getMessage());
 							}
 							return responseStr;
 						}
-					}				
-				
+					}
+
 					String status = salesOrderVo.getStatus();
 
 					boolean isValidStatus = OrderStatus.contains(status);
@@ -523,14 +568,15 @@ public class SalesOrderRestService<T> {
 						salesOrderService.updateSalesOrder(salesOrder);
 						salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
 								.getValue());
-					}else{salesOrderResponse.setStatus(SBMessageStatus.FAILURE
-							.getValue());
-					salesOrderResponse
-					.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
-							.getMessage());
-					salesOrderResponse
-					.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
-							.getCode());
+					} else {
+						salesOrderResponse.setStatus(SBMessageStatus.FAILURE
+								.getValue());
+						salesOrderResponse
+								.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+										.getMessage());
+						salesOrderResponse
+								.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+										.getCode());
 
 					}
 
@@ -538,19 +584,18 @@ public class SalesOrderRestService<T> {
 					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 							.getValue());
 					salesOrderResponse
-					.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
-							.getMessage());
+							.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
+									.getMessage());
 					salesOrderResponse
-					.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
-							.getCode());
+							.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
+									.getCode());
 				}
 			} else {
 				salesOrderResponse
-				.setStatus(SBMessageStatus.FAILURE.getValue());
+						.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
 
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			salesOrderResponse.setErrorString(CommonUtil.getErrorMessage(e));

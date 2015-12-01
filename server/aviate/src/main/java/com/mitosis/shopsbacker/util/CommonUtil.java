@@ -3,7 +3,6 @@ package com.mitosis.shopsbacker.util;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -30,7 +29,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mitosis.shopsbacker.model.Merchant;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.sun.jersey.api.client.Client;
@@ -395,4 +395,35 @@ public final class CommonUtil {
 		}
 		return res;
 	}
+	
+	public static void applePushNotification(String orderId, String deviceId){/*
+		try{
+			ApnsService service =
+					APNS.newService().withCert(this.getClass().getResourceAsStream("/apnscertificate/Deve_Certificates.p12"), "123456")
+							.withSandboxDestination()
+							.build();
+			String payload = APNS.newPayload().alertBody(orderId).sound("test.mp3").build();
+			service.push(deviceId, payload);
+			Map<String, Date> inactiveDevices = service.getInactiveDevices();
+			for (String deviceToken : inactiveDevices.keySet()) {
+				Date inactiveAsOf = inactiveDevices.get(deviceToken);
+				System.out.println(inactiveAsOf);
+			}
+		}catch(Exception e){
+
+		}
+	*/}
+	
+	public static void androidPushNotification(String messageStr, String deviceId){
+		try{
+			Result result = null;
+			Sender sender = new Sender("AIzaSyBIy9JnsUNw-ZBhStC8os3mUkH-OpS1rF0");
+			com.google.android.gcm.server.Message message = new com.google.android.gcm.server.Message.Builder().timeToLive(30)
+					.delayWhileIdle(true).addData("message", messageStr).build();
+			result = sender.send(message, deviceId, 1);
+		}catch(Exception e){
+
+		}
+	}
+	
 }
