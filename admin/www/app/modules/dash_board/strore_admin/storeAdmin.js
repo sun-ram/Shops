@@ -144,7 +144,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/salesOrder'
+                    url: 'http://192.168.1.100:3000/shopsbacker/salesOrder'
                 })
                 .success(function (data, status) {
                     console.log("salesOrder Exected success case ", data);
@@ -206,7 +206,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
         $scope.proceedSalesOrderLine = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/salesOrderLine'
+                    url: 'http://192.168.1.100:3000/shopsbacker/salesOrderLine'
                 })
                 .success(function (data, status) {
                     console.log("Sales order Line =>", data);
@@ -222,7 +222,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
              //Merchants
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/merchant'
+                    url: 'http://192.168.1.100:3000/shopsbacker/merchant'
                 })
                 .success(function (data, status) {
                     console.log("merchant Line =>", data);
@@ -237,7 +237,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
          $scope.proceedStore = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/store'
+                    url: 'http://192.168.1.100:3000/shopsbacker/store'
                 })
                 .success(function (data, status) {
                     console.log("Sales order Line =>", data);
