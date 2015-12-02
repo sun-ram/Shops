@@ -190,9 +190,11 @@ angular.module('aviate.controllers')
 		$scope.delete = false;
 		if (address) {
 			$scope.AddUpdate = "update";
+			$scope.editName = true;
 			$scope.delete = true;
 
 		} else {
+			$scope.editName = false;
 			$scope.AddUpdate = "add";
 		}
 		$scope.cancel = function() {

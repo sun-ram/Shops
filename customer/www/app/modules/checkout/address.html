@@ -7,7 +7,7 @@
                     <div layout="row" class="address-header">
                         <img ng-click="selectAddress(address.addressId)" src="assets/img/checkout/address.svg" height="40px" width="40px">
                         <div flex></div>
-                        <p ng-click="selectAddress(address.addressId)">{{address.firstName }}&nbsp;{{ address.lastName}}</p>
+                        <p ng-click="selectAddress(address.addressId)">{{address.customer.name}}</p>
                         <div flex></div>
                         <div class="address-edit">
                             <md-button class="md-icon-button" aria-label="More" ng-click="editAddress(address,$event)">
