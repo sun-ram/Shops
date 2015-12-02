@@ -369,11 +369,17 @@ public class SalesOrderRestService<T> {
 			salesOrder.setAmount(new BigDecimal(orderGrossAmount));
 			salesOrder.setNetAmount(new BigDecimal(orderGrossAmount));
 			salesOrder.setTotalTaxAmount(new BigDecimal(totalTaxAmount));
-			BigDecimal ShippingCharge = new BigDecimal(1000);
+			BigDecimal ShippingCharge = shippingChargesService.getShippingCharge(salesOrder.getNetAmount(), store.getMerchant());
 			salesOrder.setShippingCharge(ShippingCharge);
 			salesOrder.setMerchant(store.getMerchant());
 
 			salesOrderService.saveSalesOrder(salesOrder);
+			int numberOfEntityDeleted = 0;
+			if (salesOrderVo.getPaymentMethod() != null
+					&& salesOrderVo.getPaymentMethod().equals("COD")) {
+				numberOfEntityDeleted = myCartService.deleteCartProduct(salesOrder.getCustomer().getCustomerId(),salesOrder.getStore().getStoreId());
+			}
+			
 			response.setOrderNo(salesOrder.getOrderNo());
 		} catch (Exception e) {
 			e.printStackTrace();

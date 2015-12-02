@@ -93,7 +93,12 @@ implements ShippingChargesDao<T>, Serializable {
 		criteria.add(Restrictions.eq("merchant", merchant));
 		criteria.add(Restrictions.and(Restrictions.ge("amountRange", orderAmount)));
 		criteria.addOrder(Order.asc("amountRange"));
-		return (BigDecimal) criteria.list().get(0);
+		List listOfValues = criteria.list();
+		BigDecimal shippingCharge=BigDecimal.ZERO;
+		if(!listOfValues.isEmpty()){
+			shippingCharge=(BigDecimal) listOfValues.get(0);
+		}
+		return shippingCharge;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -111,9 +111,9 @@ MyCartDao<T>, Serializable {
 	 * 
 	 */
 	public int deleteFromCart(String customerId, String storeId) {
-		Query deleteQuery = getSession().createQuery("delete from my_cart where STORE_ID = ? and CUSTOMER_ID = ?");
-		deleteQuery.setString(0, storeId);
-		deleteQuery.setString(1, customerId);
+		Query deleteQuery = getSession().createQuery("delete from MyCart where store.storeId = :storeId and customer.customerId = :customerId");
+		deleteQuery.setParameter("storeId", storeId);
+		deleteQuery.setParameter("customerId", customerId);
 		return deleteQuery.executeUpdate();
 	}
 
