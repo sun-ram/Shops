@@ -8,6 +8,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -61,11 +63,20 @@ public class CustomerRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userLogin(CustomerVo customerVo) throws Exception {
 		boolean flag = false;
+		final String EMAIL_PATTERN = 
+				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		customerLoginResponseVo = new CustomerLoginResponseVo();
 		customerDetails = new CustomerVo();
+		customer = new Customer();
 		if (customerVo != null) {
-			customer = customerService.getCustomerInfoByEmail(customerVo
-					.getEmail());
+			if(customerVo.getEmail().matches(EMAIL_PATTERN)){
+				customer = customerService.getCustomerInfoByEmail(customerVo
+						.getEmail());
+			}else if (StringUtils.isNumeric(customerVo.getEmail().trim())) {
+				customer = customerService.getCustomerInfoByPhoneNo(customerVo.getEmail());
+			}
+			
 			if (customer != null) {
 				flag = CommonUtil.passwordVerification(
 						customerVo.getPassword(), customer.getPassword());
@@ -275,6 +286,6 @@ public class CustomerRestService<T> {
 		customer.setName(customerVo.getEmail());
 		return customer;
 	}
-
+	
 
 }

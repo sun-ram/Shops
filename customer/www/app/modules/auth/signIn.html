@@ -21,8 +21,8 @@
     	<div flex>
 	  <form name="userLoginForm" layout-padding ng-hide="isSignUp">			
         <md-input-container flex class="padd_btm10">
-          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email/MobilNo</label>
-          <input ng-model="user.email" type="text" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email/MobileNo</label>
+          <input ng-model="user.email" type="text" ng-required="true" >
         </md-input-container >
 	      <md-input-container flex class="padd_btm10 ">
 	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
@@ -35,7 +35,7 @@
 		        </md-checkbox>
 		      </div>
 		      <div flex class="tright">
-		       <md-button  class="text-orange" ng-click="forgetPass = true;title = 'FORGOT PASSWORD'">Forgot password?</md-button>
+		       <md-button  class="text-orange" ng-click="forgetPass = true;title = 'Forgot password?'">Forgot password?</md-button>
 		      </div>     
 		    </div> 
 		  <div class="md-actions" layout="row">
@@ -85,14 +85,14 @@
 	  <form name="userForgetPassForm">			
         <md-input-container flex class="padd_btm10">
           <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="user.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+          <input ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
         </md-input-container >
 	      <div layout="row">
 		      <div flex>
 		      </div>
 		    </div> 
 		  <div class="md-actions padd_btm20" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-click="forGetPassword(user);title = 'SIGN IN'">
+		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid" ng-click="forGetPassword(users);title = 'SIGN IN'">
 		      SUBMIT
 		    </md-button>
 		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;title = 'SIGN IN'" style="margin-right:20px;" >

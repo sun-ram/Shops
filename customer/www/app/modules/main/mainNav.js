@@ -87,21 +87,21 @@ angular.module('aviate.directives')
 						
 						if(authInfo != undefined || authInfo != null){
 							if(authInfo.rememberme){
-							$scope.user.email=authInfo.emailId;
+							$scope.user.email=authInfo.email;
 							$scope.user.password = authInfo.password;
 						}}
 						
 						$scope.saveauth = function() {
-						if($scope.rememberme){
-							if($scope.user.emailId==undefined){
-								toastr.error("Invalid Email Id");
+							if($scope.rememberme){
+								if($scope.user.email==undefined || $scope.user.password==undefined){
+									toastr.error("Please Enter Email and Password");
+								}
+								else{
+								$scope.user.rememberme=true;
+								ipCookie('auth_info', $scope.user);
+								}
+								}
 							}
-							else{
-							$scope.user.rememberme=true;
-							ipCookie('auth_info', $scope.user);
-							}
-							}
-						}
 						
 						
 						/*$scope.validatePhoneNo = function(name) {
@@ -151,11 +151,11 @@ angular.module('aviate.directives')
 								});
 
 
-								MyListServices.getMyList({ customerId :$rootScope.user.userId, storeId: $rootScope.store.storeId }).then(function(data){
+								/*MyListServices.getMyList({ customerId :$rootScope.user.userId, storeId: $rootScope.store.storeId }).then(function(data){
 									console.log('get Mylist success in Main Nav');
 									$scope.myListProducts = data;
 								});
-
+*/
 							});
 						};
 
