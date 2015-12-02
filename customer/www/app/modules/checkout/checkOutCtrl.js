@@ -88,8 +88,6 @@ angular.module('aviate.controllers')
 		    };
 	
 	$scope.confirmOrder = function() {
-		$scope.customer
-		
 		var menuJson = {
 				"customer":{
 					"customerId":$rootScope.user.userId
@@ -102,13 +100,6 @@ angular.module('aviate.controllers')
 				},
 				"deliveryDate":$scope.currentOrder.delivery.date,
 				"deliveryTimeSlot":$scope.currentOrder.delivery.fromTime +" "+ $scope.currentOrder.delivery.toTime
-				//"deliveryTime":$scope.currentOrder.delivery.time,
-				//"contactNo":$scope.currentOrder.contactNumber,
-				//"totalAmount":$rootScope.myCart.cartTotalAmount,
-				//"orderGrossAmount":$rootScope.myCart.grossAmount,
-				//"totalTaxAmount":$rootScope.myCart.taxAmount,
-				//"shippingCharge":$rootScope.myCart.shippingCharges,
-				//"merchantId":$rootScope.store.merchantId
 		}
 		
 		if($scope.data.group1=="Cash on delivery"){
@@ -119,8 +110,9 @@ angular.module('aviate.controllers')
 		CheckOutServices.confirmOrder(menuJson).then(function(data) {
 			console.log("OrderNo", data);
 			$scope.orderNo = data.orderNo;
+			$scope.salesOrderId = data.salesOrderId;
 			if($scope.data.group1=="Cash on delivery"){
-				$state.go('app.favourite',{'orderNo':$scope.orderNo});
+				$state.go('app.favourite',{'salesOrderId':$scope.salesOrderId});
 			}else{
 				$scope.payment();
 			}

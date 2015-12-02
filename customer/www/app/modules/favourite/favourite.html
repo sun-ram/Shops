@@ -1,4 +1,55 @@
-<section class="address-section" layout="column">
+<link rel="stylesheet" href="assets/css/favourites.css">
+
+<div class="content">
+  <div class="list" tabindex="1">
+    <div class="list-name">
+      <div class="list-name-text">
+      	Would you like to add this order into your favourite. 
+      </div>
+    </div>
+ <div class="list-content">
+ <md-content>
+    <md-list>
+      <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Monthly List';addFavourite();">
+        <div class="md-list-item-text">
+          <p>
+            Monthly List
+          </p>
+        </div>
+      </md-list-item>
+      <md-divider ></md-divider>
+       <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Weekly List';addFavourite();">
+        <div class="md-list-item-text">
+          <p>
+             Weekly List
+          </p>
+        </div>
+      </md-list-item>
+      <md-divider ></md-divider>
+            <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Quarterly List';addFavourite();">
+        <div class="md-list-item-text">
+          <p>
+            Quarterly List
+          </p>
+        </div>
+      </md-list-item>
+      <md-divider ></md-divider>
+       <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Party List';addFavourite();">
+        <div class="md-list-item-text">
+          <p>
+           Party List
+          </p>
+        </div>
+      </md-list-item>
+      <md-divider ></md-divider>
+    </md-list>
+    </md-content>
+    </div>
+  </div>
+</div>
+
+
+<!-- <section class="address-section" layout="column">
     <p class="address-title md-headline">Make This Order as Favourite</p>
     <div class="address-container" layout="row" layout-wrap layout-align="center">
 
@@ -19,4 +70,4 @@
             </div>
     </div>
 </section>
-<div layout layout-sm="column">Skip it</div>
+<div layout layout-sm="column">Skip it</div> -->

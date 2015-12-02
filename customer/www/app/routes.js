@@ -82,7 +82,7 @@ angular.module('app')
 
 	// Check Out module
 	.state('app.checkout', {
-		url: '/checkout/:orderNo',
+		url: '/checkout',
 		templateUrl: 'app/modules/checkout/checkOut.html',
 		controller : 'checkOutCtrl'
 	})
@@ -104,7 +104,7 @@ angular.module('app')
 	//Favourite Module
 	
 	.state('app.favourite', {
-		url: '/favourite/:orderNo',
+		url: '/favourite/:salesOrderId',
 		templateUrl: 'app/modules/favourite/favourite.html',
 		controller : 'favouriteCtrl'
 	})

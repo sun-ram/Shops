@@ -136,6 +136,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	}
 	
 	@Override
+	public SalesOrder getSalesOrder(String orderNo) {
+		return salesOrderDao.getSalesOrder(orderNo);
+	}
+	
+	@Override
 	public void paymentConfimation(String orderNo, String transactionNo,
 			String paymentMethod) {
 		try{
@@ -186,9 +191,6 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception {
@@ -252,7 +254,4 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		return addressVo;
 
 	}
-
-
-
 }

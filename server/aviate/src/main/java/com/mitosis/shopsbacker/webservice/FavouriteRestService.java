@@ -26,7 +26,6 @@ import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Favourite;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.MyCart;
-import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
@@ -37,7 +36,6 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.customer.FavouriteVo;
-import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 @Path("favourite")
 @Controller("favouriteRestServices")
@@ -131,6 +129,7 @@ public class FavouriteRestService {
 	
 	
 	private Favourite setFavourite(Favourite favourite, FavouriteVo favouriteVo){
+		
 		SalesOrder salesOrder = salesOrderService.getSalesOrderById(favouriteVo.getSalesOrderId());
 		favourite.setSalesOrder(salesOrder);
 		favourite.setStore(salesOrder.getStore());

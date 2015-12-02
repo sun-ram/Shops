@@ -40,6 +40,8 @@ public interface SalesOrderService<T> {
 
 	public void paymentConfimation(String orderNo, String transactionNo,
 			String paymentMethod);
+	
+	public SalesOrder getSalesOrder(String orderNo);
 
 
 }

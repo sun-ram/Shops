@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("appCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','CheckOutServices',
-		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,CheckOutServices) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices',
+		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices) {
 			
 		
 		$scope.checkOut = function() {
@@ -18,7 +18,7 @@ angular.module('aviate.controllers')
 			$scope.favourite.customerId = $rootScope.user.userId;
 			$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
 			$scope.favourite.storeId = $rootScope.store.storeId;
-			CheckOutServices.getFavourite($scope.favourite).then(function(data){
+			FavouriteServices.getFavourite($scope.favourite).then(function(data){
 				$scope.favouriteList = data.favourites;
 			});	
 	   	};

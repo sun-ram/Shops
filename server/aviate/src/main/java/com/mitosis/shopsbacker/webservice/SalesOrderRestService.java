@@ -381,6 +381,7 @@ public class SalesOrderRestService<T> {
 			}
 			
 			response.setOrderNo(salesOrder.getOrderNo());
+			response.setSalesOrderId(salesOrder.getSalesOrderId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
