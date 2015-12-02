@@ -75,18 +75,19 @@
 			ng-required="true"> </md-input-container>
 			
 					<md-input-container layout-padding flex> <label>Country<span
-			style="color: red">*</span></label> <md-select ng-model="country"
-			ng-required="true" ng-change="getState(country);"> <md-option
-			ng-repeat="cnt in countries" value="{{cnt}}">
+			style="color: red">*</span></label> 
+			<md-select ng-model="country" ng-required="true" ng-model-options="{trackBy: '$value.countryId'}" ng-change="getState(country);"> 
+			<md-option	ng-repeat="cnt in countries" ng-value="cnt">
 		{{cnt.name}} </md-option> </md-select> </md-input-container>
 
 	
 	
 		<md-input-container layout-padding flex> <label>State<span
-			style="color: red">*</span></label> <md-select ng-model="state"
-			ng-required="true"> <md-option
-			ng-repeat="state in states" value="{{state}}">
+			style="color: red">*</span></label>
+			<md-select ng-model="state"	ng-required="true"  ng-model-options="{trackBy: '$value.stateId'}">
+			<md-option ng-repeat="state in states" ng-value="state">
 		{{state.name}} </md-option> </md-select> </md-input-container>
+		
 		<md-input-container layout-padding flex> <label>Postal
 			Code<span style="color: red">*</span>
 		</label> <input ng-model="store.user.address.pinCode" valid-number

@@ -2,10 +2,12 @@ angular.module('aviateAdmin.controllers')
 	.controller("storeCreateCtrl", 
 	['$scope', '$state','toastr','StoreServices','$rootScope','CommonServices',
 	 function($scope, $state, toastr, StoreServices, $rootScope,CommonServices) {
+ 
+		
 		
 		$scope.addStore = function(){
-			$scope.cnt = JSON.parse($scope.country);
-			$scope.st = JSON.parse($scope.state);
+			$scope.cnt =  $scope.country;
+			$scope.st = $scope.state;
 			$scope.store.user.address.country = {};
 			$scope.store.user.address.state = {};
 			$scope.store.user.address.country.countryId = $scope.cnt.countryId;
