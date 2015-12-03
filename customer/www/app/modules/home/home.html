@@ -156,13 +156,7 @@
 																		
 										<div flex="100" layout="row" layout-align="center center"
 											class="button-flex cart-btn">
-											<div layout layout-align="center center" class="cursor" flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
-											</div>
-											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
-											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
-		
+											
 											<div layout layout-align="center center" class="cursor" flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
 												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
 													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
@@ -170,6 +164,14 @@
 											<div layout layout-align="center center" class="cursor" flex="30" ng-hide="product.noOfQuantityInCart > 0" >
 												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
 													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											
+											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+		
+											<div layout layout-align="center center" class="cursor" flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
 											</div>
 										</div>
 									</div>
