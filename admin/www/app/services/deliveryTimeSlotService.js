@@ -9,9 +9,9 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.UpdateUnit = function(uom){
+	this.UpdateDeliveryTimeSlot = function(deliveryTimeSlot){
 		var d = $q.defer();
-		api.Unit.Update(uom, function(err, result){
+		api.DeliveryTimeSlot.save(deliveryTimeSlot, function(err, result){
 			if (result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {

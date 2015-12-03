@@ -23,7 +23,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		};
 	
 		$scope.updateDeliveryTimeSlot = function(deliveryTimeSlot) {
-			deliveryTimeSlotService.UpdateUnit(deliveryTimeSlot).then(function(data) {
+			deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
 				toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
 				$state.go('app.deliveryTimeSlot');
 			});
