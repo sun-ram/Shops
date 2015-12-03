@@ -208,19 +208,19 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setUom(uomVo);
 		
 		List<ProductImage> productImages = product.getProductImages();
-		List<ProductImageVo> productImageVos=new  ArrayList<ProductImageVo>();
+		List<ImageVo> productImageVos=new  ArrayList<ImageVo>();
 		for(ProductImage productImage:productImages){
-			ProductImageVo productImageVo= new  ProductImageVo();
+//			ProductImageVo productImageVo= new  ProductImageVo();
 			ImageVo image = imageService.setImageVo(productImage.getImage());
-			productImageVo.setImage(image);
-			ProductVo productvo = new ProductVo();
-			productvo.setProductId(product.getProductId());
-			productvo.setName(product.getName());
-			productImageVo.setProduct(productvo);
-			productImageVo.setProductImageId(productImage.getProductImageId());
-			productImageVos.add(productImageVo);
+//		 	productImageVo.setImage(image);
+//			ProductVo productvo = new ProductVo();
+//			productvo.setProductId(product.getProductId());
+//			productvo.setName(product.getName());
+//			productImageVo.setProduct(productvo);
+//			productImageVo.setProductImageId(productImage.getProductImageId());
+			productImageVos.add(image);
 		}
-		productVo.setProductImages(productImageVos);
+		productVo.setImages(productImageVos);
 		return productVo;
 	}
 	
