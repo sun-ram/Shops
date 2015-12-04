@@ -60,7 +60,7 @@
 					<img style="height:150px;  width: 100%;" ng-src="{{product.image.url}}" style="width:100%"/>
 				</div>
 				<div flex layout-align="center center" layout="row">
-					<span class="md-subhead">{{product.name | limitTo: 15}}{{product.name.length > 15 ? '...' : ''}}</span>
+					<span class="md-subhead" style="color:#375E97;">{{product.name | limitTo: 15}}{{product.name.length > 15 ? '...' : ''}}</span>
 				</div>
 				<div flex  layout="row">
 					<span flex class="md-body-1 text-left">{{product.unit}}{{product.uom.name}}</span>
