@@ -1,31 +1,41 @@
-
-   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex" style="margin-left:-10px;">Delivery Time Slot</h2>
-       <!--  <span class="close_box">
+        <h2 class="md-flex" style="margin-left:-10px;">Delivery Time Slot</h2>
+        <!--  <span class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span>  -->
     </div>
-  </md-toolbar>
- <md-card flex-gt-sm="90" flex-gt-md="80"> 
+</md-toolbar>
+<md-card flex-gt-sm="90" flex-gt-md="80">
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-      <form name="deliveryTimeSlotForm" novalidate>
-    <md-input-container>
-     <label>From Time<span style="color:red">*</span></label>
+        <div layout="row"><span flex style="font-size:23px;color:#aaa">From Time</span><span flex style="font-size:23px;color:#aaa;margin-left:3%">To Time</span></div>
+        <div layout="row">
+<!--
+            <md-input-container>
+                <label>From Time<span style="color:red">*</span></label>
+                
    <input type="time" id="exampleInput" name="input" ng-model="deliveryTimeSlot.fromTime"
        placeholder="HH:mm:ss" required />
-    </md-input-container> 
-    <md-input-container>
-       <label>To Time<span style="color:red">*</span></label>
-       <input type="time" id="exampleInput" name="input" ng-model="deliveryTimeSlot.toTime"
-       placeholder="HH:mm:ss" min="deliveryTimeSlot.fromTime" max="24:00:00" required />
-    </md-input-container>
-    
-    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50" ng-show="deliveryTimeSlot.deliveryTimeSlotId" ng-click="updateDeliveryTimeSlot(deliveryTimeSlot);">Update</md-button>
-    		<md-button class="md-raised md-success padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="saveDeliveryTimeSlot(deliveryTimeSlot);" ng-disabled="uoms.$invalid">Create</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ng-show="deliveryTimeSlot.deliveryTimeSlotId" ng-click="cancelEdit();">Cancel</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="cancel();">Cancel</md-button>
-    </section>
-    </form>
+
+               
+            </md-input-container>
+-->     
+             <time-date-picker display-mode='time' autosave="true" ng-model="deliveryTimeSlot.fromTime"></time-date-picker>
+<!--
+            <md-input-container>
+                <label>To Time<span style="color:red">*</span></label>
+                <input type="time" id="exampleInput" name="input" ng-model="deliveryTimeSlot.toTime" placeholder="HH:mm:ss" min="deliveryTimeSlot.fromTime" max="24:00:00" required />
+            </md-input-container>
+-->
+            <div flex="5"></div>
+            <time-date-picker display-mode='time'  autosave="true" ng-model="deliveryTimeSlot.toTime"></time-date-picker>
+            
+            
+        </div>
+        <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+                <md-button class="md-raised md-success padd-50" ng-show="deliveryTimeSlot.deliveryTimeSlotId" ng-click="updateDeliveryTimeSlot(deliveryTimeSlot);">Update</md-button>
+                <md-button class="md-raised md-success padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="saveDeliveryTimeSlot(deliveryTimeSlot);" ng-disabled="uoms.$invalid">Create</md-button>
+                <md-button class="md-raised md-cancel padd-50" ng-show="deliveryTimeSlot.deliveryTimeSlotId" ng-click="cancelEdit();">Cancel</md-button>
+                <md-button class="md-raised md-cancel padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="cancel();">Cancel</md-button>
+        </section>
     </md-content>
 </md-card>

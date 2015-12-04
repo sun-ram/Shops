@@ -7,17 +7,20 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 
-     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" > 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="libs/angular-material/angular-material.min.css">
-       <link rel="stylesheet" type="text/css" href="css/angular-toastr.css">
+    <link rel="stylesheet" type="text/css" href="css/angular-toastr.css">
     <link rel="stylesheet" type="text/css" href="assets/md-data-table.css">
-<!--    <link rel="stylesheet" type="text/css" href="css/circle.css"> -->
-   <!-- <link rel="stylesheet" type="text/css" href="css/nv.d3.css"/>   --> 
+    <!--    <link rel="stylesheet" type="text/css" href="css/circle.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/nv.d3.css"/>   -->
     <link rel="stylesheet" type="text/css" href="css/app.css">
-     <link href='https://fonts.googleapis.com/css?family=Roboto:100&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-<!--     <link rel="stylesheet" type="text/css" href="css/angular-ui-tree.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <link href="libs/date-time-picker/sc-date-time.css" rel="stylesheet" type="text/css">
+    <!--     <link rel="stylesheet" type="text/css" href="css/angular-ui-tree.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
-	
+
     <title>ShopsBacker</title>
 
 </head>
@@ -38,14 +41,18 @@
     <script src="libs/ngstorage/ngStorage.min.js"></script>
     <script src="libs/angular-cookie/angular-cookie.js"></script>
     <script src="libs/angular-material-icons/angular-material-icons.min.js"></script>
-    
-     <!--D3-->
+
+    <!-- date-time picker -->
+    <script src="libs/date-time-picker/sc-date-time.js"></script>
+
+
+    <!--D3-->
     <script src="libs/d3/d3.js"></script>
     <script src="libs/d3/nv.d3.js"></script>
     <script src="libs/d3/stream_layers.js"></script>
-    
+
     <script src="assets/md-data-table.js"></script>
-	<script src="assets/js/ngDraggable.js"></script>
+    <script src="assets/js/ngDraggable.js"></script>
 
     <!--Google Map Integration-->
 
@@ -70,23 +77,23 @@
     <script src="app/services/employeeServices.js"></script>
     <script src="app/services/merchantServices.js"></script>
     <script src="app/services/storeServices.js"></script>
-     <script src="app/services/productServices.js"></script>
-     <script src="app/services/productCategoryServices.js"></script>
+    <script src="app/services/productServices.js"></script>
+    <script src="app/services/productCategoryServices.js"></script>
 
     <script src="app/services/movementServices.js"></script>
     <!-- <script src="app/services/movementLineServices.js"></script> -->
     <script src="app/services/unitService.js"></script>
-	<script src="app/services/salesorderServices.js"></script>
-	<script src="app/services/productStockService.js"></script>
-	<script src="app/services/warehouseService.js"></script>
-	<script src="app/services/commonServices.js"></script>
-	<script src="app/services/shippingChargeService.js"></script>
-	<script src="app/services/taxService.js"></script>
-	<script src="app/services/bannerService.js"></script>
-	<script src="app/services/deliveryTimeSlotService.js"></script>
-	<script src="app/services/orderNumberServices.js"></script>
+    <script src="app/services/salesorderServices.js"></script>
+    <script src="app/services/productStockService.js"></script>
+    <script src="app/services/warehouseService.js"></script>
+    <script src="app/services/commonServices.js"></script>
+    <script src="app/services/shippingChargeService.js"></script>
+    <script src="app/services/taxService.js"></script>
+    <script src="app/services/bannerService.js"></script>
+    <script src="app/services/deliveryTimeSlotService.js"></script>
+    <script src="app/services/orderNumberServices.js"></script>
 
-	
+
     <script src="app/modules/main/mainNav.js"></script>
     <script src="app/modules/main/sideNav.js"></script>
     <script src="app/modules/main/appCtrl.js"></script>
@@ -108,10 +115,10 @@
     <script src="app/modules/store/add/storeCreateCtrl.js"></script>
     <script src="app/modules/store/details/storeDetailsCtrl.js"></script>
     <script src="app/modules/store/edit/storeEditCtrl.js"></script>
-    
-     <script src="app/modules/dash_board/merchant_admin/merchantAdmin.js"></script>
-     <script src="app/modules/dash_board/strore_admin/storeAdmin.js"></script>
-     <script src="app/modules/dash_board/super_admin/superAdmin.js"></script>
+
+    <script src="app/modules/dash_board/merchant_admin/merchantAdmin.js"></script>
+    <script src="app/modules/dash_board/strore_admin/storeAdmin.js"></script>
+    <script src="app/modules/dash_board/super_admin/superAdmin.js"></script>
 
     <script src="app/modules/employee/employeecontroller.js"></script>
     <script src="app/modules/warehouse/warehousecontroller.js"></script>
@@ -119,41 +126,41 @@
     <script src="app/modules/movement/add/movementCreateCtrl.js"></script>
     <script src="app/modules/movement/details/movementDetailsCtrl.js"></script>
     <script src="app/modules/movement/edit/movementEditCtrl.js"></script>
-   	<!-- <script src="app/modules/movement/movementLine/movementLineCtrl.js"></script> -->
+    <!-- <script src="app/modules/movement/movementLine/movementLineCtrl.js"></script> -->
 
 
 
     <script src="app/modules/product_stock/productstockcontroller.js"></script>
     <script src="app/modules/units/unitController.js"></script>
-	<script src="app/modules/sales_order/salesordercontroller.js"></script>
-	<script src="app/modules/deliverytimeslot/deliveryTimeSlotController.js"></script>
-	<!-- <script src="js/controllers/userController.js"></script> -->
-	
+    <script src="app/modules/sales_order/salesordercontroller.js"></script>
+    <script src="app/modules/deliverytimeslot/deliveryTimeSlotController.js"></script>
+    <!-- <script src="js/controllers/userController.js"></script> -->
+
     <script src="app/modules/shipping_charges/shippingChargesController.js"></script>
     <script src="app/modules/shipping_charges/add/shippingChargeCreateCtrl.js"></script>
     <script src="app/modules/shipping_charges/details/shippingChargesDetailsCtrl.js"></script>
     <script src="app/modules/shipping_charges/edit/shippingChargesEditCtrl.js"></script>
-   
+
     <script src="app/modules/banner/bannerCtrl.js"></script>
     <script src="app/modules/banner/uploadBanner/uploadBannerCtrl.js"></script>
     <script src="app/modules/banner/editBanner/editBannerCtrl.js"></script>
-   
+
     <script src="app/modules/order_number/orderNumberController.js"></script>
     <script src="app/modules/order_number/add/orderNumberCreateCtrl.js"></script>
     <script src="app/modules/order_number/edit/orderNumberEditCtrl.js"></script>
-      
+
     <script src="app/modules/tax/taxController.js"></script>
     <script src="app/modules/tax/add/taxCreateCtrl.js"></script>
     <script src="app/modules/tax/details/taxDetailsCtrl.js"></script>
     <script src="app/modules/tax/edit/taxEditCtrl.js"></script>
-    
+
     <script src="app/directives/appFilereader.js"></script>
     <script src="app/directives/validNumber.js"></script>
     <script src="app/directives/ngEnter.js"></script>
     <script src="app/directives/valueRestriction.js"></script>
 
     <script src='//maps.googleapis.com/maps/api/js'></script>
-    
+
 
 </body>
 

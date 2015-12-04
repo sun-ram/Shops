@@ -15,8 +15,8 @@ var aviateAdmin = angular.module('app', ['toastr',
                                          'ipCookie',
                                          'ngMdIcons',
                                          'md.data.table',
-                                         'ngDraggable','uiGmapgoogle-maps'
-                                        
+                                         'ngDraggable', 'uiGmapgoogle-maps',
+                                         'scDateTime'
                                          ]);
 
 
