@@ -1,9 +1,122 @@
 <div style="width:100%;height:100%;position: relative;" class="bg_gray" ng-init="getProducts();">
-   <section style="height:280px;width:100%;position:relative;">
+   <!-- <section style="height:280px;width:100%;position:relative;">
         <img ng-src="assets/images/banner1.png" alt="" src="assets/images/banner1.png" style="width: 100%;height: 100%;">        
        
-        <h1 class="md-display-2" style="position:absolute;color:#fff;top: 25%;left: 40%;"><!-- Fresh Fruits --></h1>
-    </section>
+        <h1 class="md-display-2" style="position:absolute;color:#fff;top: 25%;left: 40%;">Fresh Fruits</h1>
+    </section> -->
+    
+    
+    <md-card layout="column" layout-padding layout-margin style="margin:20px;">
+    	<div flex>
+    		<section>
+    		
+    			<div layout="row" class="prod-headings flex" ng-hide="category.products.length ==0" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; " aria-hidden="false">
+ 					<h2 flex style="margin:10px 0px 0px 0px; float:left;" class="md-display-1 ng-binding">Products</h2>
+ 					 <div class="" flex layout="row" layout-sm="50" layout layout-align="">                   
+                       <span flex layout-padding style="color:#000000;">
+                            <md-input-container flex class="nopadd ft_size14">
+                              <label ng-style="margin-top: 0px; color:#000000;" class="mg-primary">Sort By</label>
+                              <md-select ng-model="orderList" >
+                                <md-option value="name"> Product A-Z </md-option>
+                                <md-option value="-name"> Product Z-A </md-option>
+                                <md-option value="price"> Price - Low to High </md-option>
+                                <md-option value="-price"> Price - High to Low </md-option>
+                              </md-select>
+                            </md-input-container>
+                     </span>
+                     <span flex >
+                        <md-input-container flex class="nopadd ft_size14">
+                            <label style="margin-top: 8px;">Search</label>
+                            <input ng-model="searchProduct">
+                        </md-input-container >
+                     </span>
+                    </div> 
+ 				</div>
+ 				
+ 				
+    		</section>
+    	</div>
+    	
+    	<div flex>
+    		<section>
+    			<div layout flex>
+ 					 <md-button ng-click="type=null">All</md-button>
+					 <div ng-repeat="types in productTypes">
+					 	<md-button ng-click="setType(types.productTypeName);">{{types.productTypeName}}</md-button>
+					 </div>
+ 				</div>
+    		</section>
+    	</div>
+    	<div flex>
+    		<section>
+    		
+    		
+    		
+    			 <div layout="row" layout-wrap flex >
+     <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct | productType : type" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+		<div class="pro-box" flex layout="column"> 
+				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
+					<img style="height:150px;  width: 100%;" ng-src="{{product.image.url}}" style="width:100%"/>
+				</div>
+				<div flex layout-align="center center" layout="row">
+					<span class="md-subhead">{{product.name | limitTo: 15}}{{product.name.length > 15 ? '...' : ''}}</span>
+				</div>
+				<div flex  layout="row">
+					<span flex class="md-body-1 text-left">{{product.unit}}{{product.uom.name}}</span>
+					<span flex class="md-body-1 text-right">
+						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
+						₹{{product.price}}
+					</span>
+				</div>
+							<div layout="row" flex>
+								<!-- <div flex="40" ng-hide="product.isProductMyList" ng-click="addToMyList(product,$index);" style="font-size:12px; background-color:#00B8D4; color:#FFFFFF;" layout="column" layout-align="center center"
+									class="button-flex wishlist-btn">
+									<div flex ><md-icon style="height:14px; color:#FFFFFF; margin:3px; "
+										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
+										</div>
+									<div flex style="text-align:center;">Add To List</div>
+								</div>
+								<div flex="40" ng-show="product.isProductMyList" ng-click="removeFromMyList(product,$index);" style="font-size:12px; background-color:#990000; color:#FFFFFF;" layout="column" layout-align="center center"
+									class="button-flex wishlist-btn">
+									<div flex ><md-icon style="height:14px; color:#FFFFFF; margin:3px; "
+										md-svg-src="assets/img/icon/favorite21.svg"></md-icon>
+										</div>
+									<div flex style="text-align:center;">Remove From List</div>
+								</div>	 -->							
+								<div flex="100" layout="row" layout-align="center center"
+									class="button-flex cart-btn">
+									<div flex="30" layout layout-align="center center" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+									</div>
+									<div flex="30" layout layout-align="center center" ng-hide="product.noOfQuantityInCart > 0" >
+										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+											md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+									</div>
+									
+									<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
+									<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
+
+									<div flex="30" layout layout-align="center center"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+											md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+									</div>
+								</div>
+							</div>
+						</div>				
+			</div>
+		</div>
+		
+		
+    		</section>
+    	</div>
+    </md-card>
+    
+    
+    
+    
+    <!-- 
     <section  style="background-color:#fff;">
 <div layout="column" layout-margin layout-fill  >
  
@@ -13,8 +126,8 @@
               <div layout="row" layout-align="space-between center" class="wid_100">
                   <div flex layout="column" layout-sm="50">
                   
-                  	<div flex class="md-caption text-primary" ><!-- Fresh Products / Fresh Fruits --></div>
-                  	<div flex class="md-title" style="margin-top:10px; color:#333333"><!-- Fruits --></div>
+                  	<div flex class="md-caption text-primary" >Fresh Products / Fresh Fruits</div>
+                  	<div flex class="md-title" style="margin-top:10px; color:#333333">Fruits</div>
                   </div>
                    <div class="" flex layout="row" layout-sm="50" layout layout-align="">                   
                        <span flex layout-padding style="color:#000000;">
@@ -51,7 +164,7 @@
     <div flex layout="row" style="padding:10px 8px;">
     <div layout="row" layout-wrap flex >
      <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct | productType : type" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
-         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
+         <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" >
 		<div class="pro-box" flex layout="column"> 
 				<div flex style="height:150px; text-align: center; cursor: pointer;" ng-click="productDetails($event,product);">
 					<img style="height:150px;  width: 100%;" ng-src="{{product.image.url}}" style="width:100%"/>
@@ -105,7 +218,7 @@
 		</div>
 		</div>
     </div>
-    </section>
+    </section> -->
 </div>
 
 
