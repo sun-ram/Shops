@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.order.serviceimpl.SalesOrderServiceImpl;
 
@@ -52,9 +53,9 @@ public class PaymentRedirect<T> extends HttpServlet {
 		String[] transaction = result.split("REFERENCE #     :");
 		String transactionNo = transaction[1].substring(1,10);
 		String[] order = result.split("TRANS. REF.     : ");
-		String orderNo = order[1].substring(0, 10);
+		String orderNo = order[1].substring(0, 20);
 		SalesOrderService<T> salesOrderService = new SalesOrderServiceImpl<T>();
-		salesOrderService.paymentConfimation(orderNo.trim(), transactionNo.trim(), paymentMethod);
+		SalesOrder salesOrder= salesOrderService.paymentConfimation(orderNo.trim(), transactionNo.trim(), paymentMethod);
 		// Set response content type
 	      response.setContentType("text/html");
 
@@ -62,7 +63,7 @@ public class PaymentRedirect<T> extends HttpServlet {
 	      //String site = new String("http://localhost:8080/aviate/#/paymentType");
 	      String site = new String(properties.getProperty("redirectUrl"));
 	      response.setStatus(response.SC_MOVED_TEMPORARILY);
-	      response.setHeader("Location", site);    
+	      response.setHeader("Location", site.concat(salesOrder.getSalesOrderId()));    
 	}
 
 }

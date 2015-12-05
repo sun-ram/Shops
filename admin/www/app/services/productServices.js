@@ -189,6 +189,18 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};	
 	
+	this.deleteProductImage = function(image){
+		var d= $q.defer();
+		api.Product.deleteProductImage(image, function(err, result){
+			if (result.status == 'SUCCESS') {
+				d.resolve(result);
+			} else {
+				toastr.error(result.errorString);
+			}
+		})
+		return d.promise;
+	};
+	
 	this.setProductObj = function(product){
 		this.obj = product;
 	};

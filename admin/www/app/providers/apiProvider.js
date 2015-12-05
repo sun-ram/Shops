@@ -783,21 +783,21 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.Product.getProductType = function (product, callback) {
-						httpRequest("POST", "producttype/getProductTypeByCategory", product, function (err, data) {
-							if (err) {
-			
-								callback(err, null);
-			
-							} else {
-			
-								callback(null, data);
-			
-							}
-						});
-					};	
+			httpRequest("POST", "producttype/getProductTypeByCategory", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};	
 		
-		apiClass.Product.getAllProductList = function (merchant, callback) {
-			httpRequest("POST", "update/getmerchantproducts", merchant, function (err, data) {
+		apiClass.Product.deleteProductImage = function (product, callback) {
+			httpRequest("POST", "product/deleteProductImage", product, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -809,6 +809,19 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		/*apiClass.Product.getAllProductList = function (merchant, callback) {
+			httpRequest("POST", "update/getmerchantproducts", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};*/
 		
 		
 		//physical Inventory Module

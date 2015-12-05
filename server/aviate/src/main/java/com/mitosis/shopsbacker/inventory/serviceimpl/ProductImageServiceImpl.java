@@ -17,7 +17,7 @@ public class ProductImageServiceImpl<T> implements ProductImageService<T>, Seria
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	ProductImageDao productImageDao;
+	ProductImageDao<T> productImageDao;
 
 	@Override
 	public ProductImage getProductImage(String productImageId) {

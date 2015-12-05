@@ -1,4 +1,4 @@
-<div ng-init="getMeasurementUnit();getproductCategory();getProductType(product.productCategory.productCategoryId)">
+ <div ng-init="getMeasurementUnit();getproductCategory();getProductType(product.productCategory.productCategoryId)">
 
 	<md-toolbar	class=" md-default-theme" style="background-color:transparent;">
 		<div class="md-toolbar-tools">
@@ -12,7 +12,7 @@
 
 <md-card flex-gt-sm="90" flex-gt-md="80"> 
 	 
-<md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
+<md-content layout-padding layout="column" layout-sm="column">
 
 <!-- <div layout="row" class="addprdct-title">
 	<h3 layout-align="start center"></h3>
@@ -101,106 +101,53 @@
 			ng-required="true" /> 
 		</md-input-container>
 
-		<!-- <div class="padd-lrtb30">
-			<div class="md-layout-row layout-align-start-center pt_relat">
-				<img ng-show="image.originalFrontImage" style="width: 100px;"  src="{{image.originalFrontImage}}"
-					class="img-circle" height="100" ng-required="true" /> 
-					
-				<img ng-hide="image.originalFrontImage"  style="width: 100px;" src={{product.image.url}}
-					class="img-circle" height="100" ng-required="true" />
-					
-					<label
-					id="file-uploadtest"> <ng-md-icon icon="file_upload"
-						size="20"></ng-md-icon> <input id="file-upload1" type="file"
-					ng-model="image.originalFrontImage" class="nodisplay"
-					app-filereader ng-change="uploadFile('file-name1','file-upload1')" />
-					
-					<span id="file-name1"></span>
+	<div flex layout="row">
+  		<div layout="row" layout-sm="column" layout-align="start start">
+		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
+	     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
+				Upload Image
+				<input id="file-upload1" type="file" ng-model="image.originalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')" />
 				</label>
-				<h3 style="padding: 0px 10px;" class="md-layout-column">Original
-					Front Image</h3>
-
-			</div>
-		</div>
+				<img ng-show="image.originalFrontImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" ng-src="{{image.originalFrontImage}}" ng-required="true" /> 
 		
-		<div class="padd-lrtb30">
-			<div class="md-layout-row layout-align-start-center pt_relat">
-				<img ng-show="images.originalBackImage" style="width: 100px;"  src="{{images.originalBackImage}}"
-					class="img-circle" height="100" ng-required="true" /> 
-					
-				<img ng-hide="images.originalBackImage"  style="width: 100px;" src={{product.productImages[0].image.url}}
-					class="img-circle" height="100" ng-required="true" />
-					
-					<label
-					id="file-uploadtest"> <ng-md-icon icon="file_upload"
-						size="20"></ng-md-icon> <input id="file-upload2" type="file"
-					ng-model="images.originalBackImage" class="nodisplay"
-					app-filereader ng-change="uploadFile('file-name2','file-upload2')" />
-					
-					<span id="file-name2"></span>
+				<img ng-hide="image.originalFrontImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" ng-src={{product.image.url}} ng-required="true" /> 
+		    </div> 
+		  </div>
+		  <div layout-align="center center">
+		  	<span style="line-height: 6; font-weight: bold; padding-left: 10px; font-size: 18px;">Original Front Image</span>
+		  </div>
+	</div>
+		
+	<div flex layout="row" ng-repeat="imgs in uploadedImages">
+  		<div layout="row" layout-sm="column" layout-align="start start">
+		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
+	     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
+				Upload Image
+				<input id="file-upload2" type="file" ng-model="imgs.image" class="nodisplay" app-filereader ng-change="uploadFile('file-name2','file-upload2')" />
 				</label>
-				<h3 style="padding: 0px 10px;" class="md-layout-column">Original
-					Back Image</h3>
-
-			</div>
-		</div> -->		
-		
-		<div flex layout="row">
-		  		<div layout="row" layout-sm="column" layout-align="start start">
-				    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
-						
-				     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
-							Upload Image
-							<input id="file-upload1" type="file" ng-model="image.originalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')" />
-							<!-- <span id="file-name1"></span> -->
-							</label>
-							
-							<img ng-show="image.originalFrontImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" src="{{image.originalFrontImage}}" ng-required="true" /> 
-					
-							<img ng-hide="image.originalFrontImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" src={{product.image.url}} ng-required="true" /> 
-									        	
-				    </div> 
-				  </div>
-				  <div layout-align="center center">
-				  	<span style="line-height: 6; font-weight: bold; padding-left: 10px; font-size: 18px;">Original Front Image</span>
-				  </div>
-		  	</div>
-		
-		<div flex layout="row">
-		  		<div layout="row" layout-sm="column" layout-align="start start">
-				    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
-						
-				     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
-							Upload Image
-							<input id="file-upload2" type="file" ng-model="images.originalBackImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name2','file-upload2')" />
-							<!-- <span id="file-name2"></span> -->
-							</label>
-							
-							<img ng-show="images.originalBackImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" src="{{images.originalBackImage}}" ng-required="true" /> 
-					
-							<img ng-hide="images.originalBackImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px; border-radius: 5px;" src={{product.productImages[0].image.url}} ng-required="true" /> 
-							<!-- <img src="{{merchantLogo}}" ng-show="merchantLogo"  /> -->
-				        	
-				    </div> 
-				  </div>
-				  <div layout-align="center center">
-				  	<span style="line-height: 6; font-weight: bold; padding-left: 10px; font-size: 18px;">Original Back Image</span>
-				  </div>
-		  	</div>
+				<img ng-show="imgs.image" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" ng-src="{{imgs.image}}" ng-required="true" /> 
+				<img ng-hide="imgs.image" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px; border-radius: 5px;" ng-src={{imgs.url}} ng-required="true" /> 
+		    </div> 
+		  </div>
+		  <div layout-align="center center">
+		  	<md-button class="md-icon-button md-primary" ng-click="deleteProductImage($index, imgs);" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+		  </div>
+	  	</div>
+	  	<div ng-show="image.originalFrontImage || (uploadedImages.length >=  0)" flex layout="row">
+  		<div layout="row" layout-sm="column" layout-align="start start">
+		    <div ng-click="addNewImageToList();" class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
+	     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
+				Add New Image
+				</label>
+		    </div> 
+		  </div>
+	  	</div>
 	</div>
 	</div>
 	</div>
 	
-	<!-- <section layout="row" layout-align="start center" layout-wrap>
-			<md-button ng-hide="product.productId" class="md-raised md-success  prdct-btns"
-				ng-click="addproduct();">Create</md-button>
-			<md-button ng-show="product.productId" class="md-raised md-success  prdct-btns"
-				ng-click="update();">Update</md-button>
-			<md-button ui-sref="app.producttype"
-				class="md-raised md-cancel prdct-btns">Cancel</md-button>
-			<md-button class="md-raised md-cancel prdct-btns" ui-sref="app.producttype">Cancel</md-button>
-		</section> -->
-		
 		<div layout="row" layout-sm="column">
 		  	<div flex>
 		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>

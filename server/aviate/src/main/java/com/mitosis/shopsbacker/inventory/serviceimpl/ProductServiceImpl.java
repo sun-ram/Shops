@@ -145,9 +145,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
 			product.setIsactive('Y');
 		}else{
-			
-				product = productDao.getProductByName(productVo.getName());
-			
+			product = productDao.getProduct(productVo.getProductId());
 			product.setUpdated(new Date());
 			//TODO need to get user from session and set to updatedby
 			product.setUpdatedby("123");
@@ -172,9 +170,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		}else{
 			product.setIsYourHot('N');
 		}
-
+/*
 		Image image = imageService.setImage(productVo.getImage());
-		product.setImage(image);
+		product.setImage(image);*/
 
 
 

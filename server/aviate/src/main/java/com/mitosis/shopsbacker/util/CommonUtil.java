@@ -388,7 +388,7 @@ public final class CommonUtil {
 		String res = "";
 		try{
 			mapper.setSerializationInclusion(Include.NON_NULL);
-			mapper.setSerializationInclusion(Include.NON_EMPTY);
+			//mapper.setSerializationInclusion(Include.NON_EMPTY);
 			res = mapper.writeValueAsString(obj);
 		}catch(Exception e){
 			e.printStackTrace();

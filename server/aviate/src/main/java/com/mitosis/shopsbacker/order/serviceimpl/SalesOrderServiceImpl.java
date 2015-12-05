@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
@@ -141,10 +143,12 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	}
 	
 	@Override
-	public void paymentConfimation(String orderNo, String transactionNo,
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public SalesOrder paymentConfimation(String orderNo, String transactionNo,
 			String paymentMethod) {
+		SalesOrder salesOrder = new SalesOrder();
 		try{
-			SalesOrder salesOrder = salesOrderDao.getSalesOrder(orderNo);
+			salesOrder = salesOrderDao.getSalesOrder(orderNo);
 			
 			salesOrder.setIspaid('Y');
 			salesOrder.setStatus(OrderStatus.Placed.toString());
@@ -188,9 +192,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 
 				}
 			}*/
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return salesOrder;
 	}
 	
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception {
