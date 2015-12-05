@@ -81,7 +81,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
                                                   
 	$scope.deliveryTimeSlot=$localStorage.deliveryTimeSlot;
     
-    if($scope.deliveryTimeSlot.fromTime) 
+    if($scope.deliveryTimeSlot && $scope.deliveryTimeSlot.fromTime) 
         parseDeliverySlot($scope.deliveryTimeSlot);
     else
          $scope.deliveryTimeSlot = {fromTime:new Date(),toTime:new Date()};
