@@ -113,6 +113,7 @@ angular.module('aviate.controllers')
 			$scope.salesOrderId = data.salesOrderId;
 			if($scope.data.group1=="Cash on delivery"){
 				$state.go('app.favourite',{'salesOrderId':$scope.salesOrderId});
+				$rootScope.myCart.cartItem = {};
 			}else{
 				$scope.payment();
 			}
@@ -142,6 +143,7 @@ angular.module('aviate.controllers')
 				$scope.$apply(); 
 				document.forms["FirstData"].submit();
 			}, 25);
+			$rootScope.myCart.cartItem = {};
 		});
 	};
 

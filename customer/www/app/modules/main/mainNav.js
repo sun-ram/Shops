@@ -127,16 +127,15 @@ angular.module('aviate.directives')
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
 								if($scope.myCart != undefined || $scope.myCart != null){
-
+									
 									for(var i=0;i<$scope.myCart.cartItem.length;i++){
 										$scope.cartDetails = {
-												"customerId" : $rootScope.user.userId, 
-												"storeId" : $rootScope.store.storeId, 
-												"productId" : $scope.myCart.cartItem[i].product.productId, 
-												"price" : $scope.myCart.cartItem[i].product.productPrice.price, 
-												"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
+												customer : {customerId : $rootScope.user.userId}, 
+												store : {storeId : $rootScope.store.storeId}, 
+												product : {productId : $scope.myCart.cartItem[i].product.productId}, 
+												qty : $scope.myCart.cartItem[i].product.noOfQuantityInCart
 										}
-										MyCartServices.addToCart($scope.cartDetails).then(function(data){
+										MyCartServices.addToCart($scope.cartDetails).then(function(datas){
 											console.log('get Mylist success in Main Nav');
 										});
 
@@ -150,12 +149,6 @@ angular.module('aviate.directives')
 									console.log('get MyCartlist success in Main Nav');
 								});
 
-
-								/*MyListServices.getMyList({ customerId :$rootScope.user.userId, storeId: $rootScope.store.storeId }).then(function(data){
-									console.log('get Mylist success in Main Nav');
-									$scope.myListProducts = data;
-								});
-*/
 							});
 						};
 
