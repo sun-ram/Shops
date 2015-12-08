@@ -55,8 +55,12 @@ angular.module('aviate.controllers')
 					});
 			};
 			
-			$scope.setType = function(type){
+			$scope.activeprod = "prodactive others";
+			
+			$scope.setType = function(event,type){
 				$scope.type =type;
+				$(".others").removeClass("prodactive");
+				$(event.currentTarget).addClass("prodactive");
 			}
 			$scope.getCartList = function(){
 				if($rootScope.user){

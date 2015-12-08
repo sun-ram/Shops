@@ -40,9 +40,9 @@
     	<div flex>
     		<section>
     			<div layout flex>
- 					 <md-button ng-click="type=null">All</md-button>
+ 					 <md-button ng-click="setType($event);type=null" ng-class="activeprod" style="min-width: 0px; padding: 0px; border-radius: 0;"><span>All</span></md-button>
 					 <div ng-repeat="types in productTypes">
-					 	<md-button ng-click="setType(types.productTypeName);">{{types.productTypeName}}</md-button>
+					 	<md-button ng-click="setType($event,types.productTypeName);" class="others" style="min-width: 0px; padding: 0px; border-radius: 0;" ><span>{{types.productTypeName}}</span></md-button>
 					 </div>
  				</div>
     		</section>
