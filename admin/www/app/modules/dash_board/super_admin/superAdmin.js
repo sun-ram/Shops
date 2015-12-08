@@ -2,6 +2,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
     function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http) {
         var width = 300;
         var height = 300;
+        var reportType = 15;
+        var commition = 3;
         var month = new Array();
         month[0] = "Jan";
         month[1] = "Feb";
@@ -15,6 +17,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         month[9] = "Oct";
         month[10] = "Nov";
         month[11] = "Dec";
+       $scope.salesOrders;
+	   $scope.merchants;
+	   $scope.stores;
+	   $scope.salesOrderLines;
+	   $scope.yesterdayTotSale = 0;
+	   $scope.todayTotSale = 0;
+	   $scope.totalMerchants = 0;
+       $scope.salesGrowthToday = 0;
 
         $scope.historicalBarChart = [
             {
@@ -135,7 +145,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         }
 
         $scope.proceedSalesOrder = function (callback) {
-            var reportType = 15;
+          
             var anayed = [];
             $scope.testdata = [{
                 key: "O",
@@ -147,10 +157,10 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     url: 'http://192.168.1.100:3000/shopsbacker/salesOrder'
                 })
                 .success(function (data, status) {
-                    console.log("salesOrder Exected success case ", data);
-
+                    $scope.salesOrders = data;
                     var tempDateObj2;
-                    var endDateObj = new Date("2015-11-30");
+                    var today = new Date();
+			        var endDateObj = new Date(today.toISOString().substring(0, 10));
                     endDateObj.setTime(endDateObj.getTime() - (reportType * 24 * 3600000));
                     var i = 0;
                     len = data.Books.length;
@@ -165,12 +175,11 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                             totalAmount = totalAmount + data.Books[i].order_amount;
                         }
                     }
-                    console.info("Array Filtered= ", tempArray);
                     len = tempArray.length;
                     var tmpAvgObj = {},
                         tmpAvgObj1 = [{}];
                     for (var j = 0; j < reportType; j++) {
-                        tempDateObj.setTime(endDateObj.getTime() + ((j + 1) * 24 * 3600000));
+                        tempDateObj.setTime(endDateObj.getTime() + (j * 24 * 3600000));
                         totalAmount = 0;
                         for (var i = 0; i < len; i++) {
                             tempDateObj2 = new Date((tempArray[i].delivery_date).substring(0, 10));
@@ -192,6 +201,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     $scope.drawPiechart();
                     $scope.drawReviewChart();
                     $scope.drawBarChart();
+                    $scope.compSalesToday();
                     /*callback();*/
                 
                 })
@@ -209,6 +219,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     url: 'http://192.168.1.100:3000/shopsbacker/salesOrderLine'
                 })
                 .success(function (data, status) {
+                    $scope.salesOrderLines = data;
                     console.log("Sales order Line =>", data);
                     /*callback();*/
                 })
@@ -225,10 +236,13 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     url: 'http://192.168.1.100:3000/shopsbacker/merchant'
                 })
                 .success(function (data, status) {
+                
+                    $scope.merchants = data;
                     console.log("merchant Line =>", data);
                     if (data && data.Books) {
                         $scope.totalMerchants = data.Books.length;
                     }
+                    $scope.locateMerchants();
                 })
                 .error(function (data, status) {
                     console.log("merchant error case ", data);
@@ -240,6 +254,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     url: 'http://192.168.1.100:3000/shopsbacker/store'
                 })
                 .success(function (data, status) {
+                    $scope.stores = data;
                     console.log("Sales order Line =>", data);
                     /*callback();*/
                 })
@@ -248,7 +263,46 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 });
 
         };
+    $scope.compSalesToday = function() {
+            var today = new Date();
+            var todayDateObj = new Date(today.toISOString().substring(0, 10));
+            var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
+            yesterdayDateObj.setTime(todayDateObj.getTime() - 86400000);
+            var len = $scope.salesOrders.Books.length;
+            var i = 0,
+                tempDateObj;
+            for (; i < len; i++) {
+                tempDateObj = new Date(($scope.salesOrders.Books[i].delivery_date).substring(0, 10));
+                tempDateObj.setTime(tempDateObj.getTime() + 86400000);
+                if (tempDateObj.getTime() == todayDateObj.getTime()) {
+                    $scope.todayTotSale = $scope.todayTotSale + $scope.salesOrders.Books[i].order_amount;
+                } else if (tempDateObj.getTime() == yesterdayDateObj.getTime()) {
+                    $scope.yesterdayTotSale = $scope.yesterdayTotSale + $scope.salesOrders.Books[i].order_amount;
+                }
+            }
+            $scope.todayTotSale =   (commition/100) * $scope.todayTotSale;
+            $scope.yesterdayTotSale = (commition/100) * $scope.yesterdayTotSale;
+            $scope.salesGrowthToday = (($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100;
+            $scope.salesGrowthToday = Math.round($scope.salesGrowthToday * 100) / 100;
+            
+	};
+	$scope.locateMerchants = function() {
+		var i = 0;
+		var len = $scope.merchants.Books.length;
+		var locationObj = {};
+		for (; i < len; i++) {
+			locationObj.latitude = $scope.merchants.Books[i].latitude;
+			locationObj.longtitude = $scope.merchants.Books[i].longtitude;
+			locationObj.title = $scope.merchants.Books[i].merchant_name;
+			locationObj.id = $scope.randomMarkers[$scope.randomMarkers.length - 1] + 1;
+            if(locationObj.latitude && locationObj.longtitude){
+			     $scope.randomMarkers.push(angular.copy(locationObj));
+            }
+		}
+	}
+
         $scope.proceedSalesOrder();
+        $scope.ProceedMerchant();
         $scope.proceedSalesOrderLine();
         $scope.proceedStore();
 
