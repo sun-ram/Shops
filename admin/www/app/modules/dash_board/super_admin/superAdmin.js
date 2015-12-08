@@ -46,22 +46,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         };
 
         //Random Markers
-        $scope.randomMarkers = [{
-            "latitude": 12.916149,
-            "longitude": 80.152353,
-            "title": "Jayam SuperMarket",
-            "id": 0
-        }, {
-            "latitude": 12.915115,
-            "longitude": 80.153115,
-            "title": "AGS SuperMarket",
-            "id": 1
-        }, {
-            "latitude": 12.922847,
-            "longitude": 80.151881,
-            "title": "Coffee Day",
-            "id": 2
-        }];
+        
         //Jayam SuperMarket 12.916149, 80.152353
         //AGS SuperMArket   12.915115, 80.153115
         //Coffee Day        12.922847, 80.151881
@@ -143,6 +128,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 return chart;
             });
         }
+        
+        function getMerchantById(id){
+            for (var i=0; i < $scope.merchants.Books.length; i++) {
+                if ($scope.merchants.Books[i].merchant_id == id) {
+                    return $scope.merchants.Books[i].merchant_name;
+                }
+            }
+        };
 
         $scope.proceedSalesOrder = function (callback) {
           
@@ -154,9 +147,10 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
             $http({
                     method: 'GET',
-                    url: 'http://192.168.1.100:3000/shopsbacker/salesOrder'
+                    url: 'http://localhost:3000/shopsbacker/salesOrder'
                 })
                 .success(function (data, status) {
+                    console.log("salesOrder Exected success case ", data);
                     $scope.salesOrders = data;
                     var tempDateObj2;
                     var today = new Date();
@@ -175,17 +169,26 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                             totalAmount = totalAmount + data.Books[i].order_amount;
                         }
                     }
+                    var x = {};
+                    var storeIds=[];
+                    for (var i = 0; i < tempArray.length; ++i) {
+                        var obj = tempArray[i];
+                        if (x[obj.merchant_id] === undefined && obj.merchant_id){
+                                x[obj.merchant_id] = [getMerchantById(obj.merchant_id)]; 
+                                storeIds.push(obj.merchant_id);
+                        }
+                        if(obj.merchant_id)
+                                x[obj.merchant_id].push(obj.order_amount);
+                    }
+                    console.log("Sorted values x{}===",x);
+                    console.info("Array Filtered= ", tempArray);
                     len = tempArray.length;
                     var tmpAvgObj = {},
                         tmpAvgObj1 = [{}];
-                    for (var j = 0; j < reportType; j++) {
-                        tempDateObj.setTime(endDateObj.getTime() + (j * 24 * 3600000));
+                    for (var j = 0; j < storeIds.length; j++) {
                         totalAmount = 0;
-                        for (var i = 0; i < len; i++) {
-                            tempDateObj2 = new Date((tempArray[i].delivery_date).substring(0, 10));
-                            if (tempDateObj.getTime() == tempDateObj2.getTime()) {
-                                totalAmount = totalAmount + tempArray[i].order_amount;
-                            }
+                        for (var i = 1; i < x[storeIds[j]].length; i++) {
+                                totalAmount = totalAmount + x[storeIds[j]][i];
                         }
                         if (totalAmount > 0) {
                             tmpAvgObj.key = month[tempDateObj.getMonth()] + (tempDateObj.getDate() + 1).toString() + ' ₹';
@@ -216,7 +219,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         $scope.proceedSalesOrderLine = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://192.168.1.100:3000/shopsbacker/salesOrderLine'
+                    url: 'http://localhost:3000/shopsbacker/salesOrderLine'
                 })
                 .success(function (data, status) {
                     $scope.salesOrderLines = data;
@@ -233,7 +236,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
              //Merchants
             $http({
                     method: 'GET',
-                    url: 'http://192.168.1.100:3000/shopsbacker/merchant'
+                    url: 'http://localhost:3000/shopsbacker/merchant'
                 })
                 .success(function (data, status) {
                 
@@ -251,7 +254,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
          $scope.proceedStore = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://192.168.1.100:3000/shopsbacker/store'
+                    url: 'http://localhost:3000/shopsbacker/store'
                 })
                 .success(function (data, status) {
                     $scope.stores = data;
@@ -287,23 +290,33 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             
 	};
 	$scope.locateMerchants = function() {
+        $scope.tempMarkers = [{"latitude": 13.916149,
+            "longitude": 80.152353,
+            "title": "Jayam SuperMarket",
+            "id": 0}];
 		var i = 0;
 		var len = $scope.merchants.Books.length;
 		var locationObj = {};
 		for (; i < len; i++) {
-			locationObj.latitude = $scope.merchants.Books[i].latitude;
-			locationObj.longtitude = $scope.merchants.Books[i].longtitude;
+			locationObj.latitude = parseFloat($scope.merchants.Books[i].latitude);
+			locationObj.longtitude = parseFloat($scope.merchants.Books[i].longtitude);
 			locationObj.title = $scope.merchants.Books[i].merchant_name;
-			locationObj.id = $scope.randomMarkers[$scope.randomMarkers.length - 1] + 1;
+            if(!$scope.tempMarkers || $scope.tempMarkers.length < 2){
+                locationObj.id = 1;
+            }else{
+                locationObj.id = $scope.tempMarkers[$scope.tempMarkers.length - 1].id + 1;
+            }
             if(locationObj.latitude && locationObj.longtitude){
-			     $scope.randomMarkers.push(angular.copy(locationObj));
+			     $scope.tempMarkers.push(angular.copy(locationObj));
             }
 		}
+        $scope.randomMarkers = $scope.tempMarkers;
+        console.log("$scope.randomMarkers==>",$scope.randomMarkers);
 	}
 
-        $scope.proceedSalesOrder();
         $scope.ProceedMerchant();
         $scope.proceedSalesOrderLine();
+        $scope.proceedSalesOrder();
         $scope.proceedStore();
 
 
