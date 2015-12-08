@@ -86,21 +86,23 @@ angular.module('aviate.directives')
 						var authInfo = ipCookie('auth_info');
 						
 						if(authInfo != undefined || authInfo != null){
-							if(authInfo.rememberme){
+							$scope.user.email = authInfo;
+							$scope.rememberme = true;
+							/*if(authInfo.rememberme){
 							$scope.user.email=authInfo.email;
-							$scope.user.password = authInfo.password;
-						}}
+							$scope.user.password = authInfo.password;*/
+						}else{
+							$scope.rememberme = false;
+						}
 						
 						$scope.saveauth = function() {
 							if($scope.rememberme){
-								if($scope.user.email==undefined || $scope.user.password==undefined){
-									toastr.error("Please Enter Email and Password");
+								if($scope.user.email!=undefined){
+									ipCookie('auth_info', $scope.user.email);
 								}
-								else{
-								$scope.user.rememberme=true;
-								ipCookie('auth_info', $scope.user);
-								}
-								}
+							 }else{
+								 	ipCookie.remove('auth_info');
+							 }
 							}
 						
 						
@@ -121,8 +123,8 @@ angular.module('aviate.directives')
 						}*/
 						
 						$scope.signIn = function(user) {
-							$scope.saveauth();
 							AuthServices.signIn(user).then(function(data){
+								$scope.saveauth();
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
 								$scope.myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
@@ -214,10 +216,10 @@ angular.module('aviate.directives')
 						});
 					};
 					
-					$scope.clearFormValues = function(user){
-						var email = user.email;
-						user = {};
-						user.email = email;
+					$scope.clearFormValues = function(){
+						var email = $scope.user.email;
+						$scope.user = {};
+						$scope.user.email = email;
 					}
 
 						$scope.cancel = function() {
