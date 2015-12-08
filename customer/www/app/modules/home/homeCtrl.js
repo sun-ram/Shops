@@ -16,7 +16,8 @@ angular.module('aviate.controllers')
 			                          { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!"}
 			                          ]
 
-
+            $rootScope.numLimit = 5;
+             
 			/*------------------------------------------------*/
 			if($rootScope.images != undefined){
 				$scope.images = $rootScope.images ;

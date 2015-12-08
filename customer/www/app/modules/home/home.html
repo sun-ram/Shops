@@ -147,7 +147,7 @@
    				 	<div flex layout="row" style="padding:10px 0px;">
    				 	
    				 	
-    					<div layout="row" layout-wrap  ng-repeat="product in category.products | orderBy:groupCount | limitTo:5">
+    					<div layout="row" layout-wrap  ng-repeat="product in category.products | orderBy:groupCount | limitTo:$root.numLimit">
      						<div  class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:260px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
 								<div class="pro-box" flex layout="column">
