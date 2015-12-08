@@ -53,26 +53,36 @@
 
         <section  style="background-color:#eeeeee; padding:20px;">
  			<div style="background-color:#FFFFFF; padding:10px;">
- 				<div ng-hide="showProduct" class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Hot Products </h2><span style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a></span></div>
- 				<div ng-show="showProduct" class="prod-headings"><h2 style="margin:10px 0px 0px 6px; float:left;">Hot Products </h2><span style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a></span></div>
+ 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">Hot Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) Items 
+ 						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
+ 					</span>
+ 				</div>
+ 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">Hot Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) 
+ 						<a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a>
+ 					</span>
+ 				</div>
  				  <div layout="column" style="width:100%; margin:0px auto; ">
    				 	<div flex layout="row" style="padding:10px 0px;">
    				 	
    				 	
    				 	
     					<div layout="row" layout-wrap  ng-repeat="product in topcategories | orderBy:groupCount | limitTo:showHotProduct">
-     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:260px;max-width:260px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
 								<div class="pro-box" flex layout="column">
 									<div flex style="height:150px; text-align: center; cursor: pointer; border-bottom:rgba(0,0,0,0.5); padding-bottom:10px;" ng-click="productDetails($event,product);">
 										<img style="height:150px;  width: 100%;" src="{{product.image.url}}" style="width:100%"/>
 									</div>
 									<div flex layout-align="center center" layout="row">
-										<span class="sub-head text-primary">{{product.name}}</span>
+										<span class=" md-subhead" style="color:#375E97;">{{product.name}}</span>
 									</div>
 									<div flex  layout="row">
-										<span flex class="md-body-2 text-left">{{product.unit}}{{product.uom.name}}</span>
-										<span flex class="md-body-2 text-right">
+										<span flex class="md-body-1 text-left">{{product.unit}} {{product.uom.name}}</span>
+										<span flex class="md-body-1 text-right">
 											<md-icon style="height:12px; width:12px; color:red;" md-svg-src={{product.image.url}}></md-icon>
 											₹ {{product.price}}
 										</span>
@@ -81,20 +91,22 @@
 																		
 										<div flex="100" layout="row" layout-align="center center"
 											class="button-flex cart-btn">
-											<div flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+											
+											<div flex="30" layout layout-align="center center"  ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
 												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
 											</div>
+											<div flex="30" layout layout-align="center center"  ng-hide="product.noOfQuantityInCart > 0" >
+												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
+													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+											</div>
+											
 											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
 											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
 		
-											<div flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+											<div flex="30" layout layout-align="center center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
 												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
-											</div>
-											<div flex="30" ng-hide="product.noOfQuantityInCart > 0" >
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
+													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
 											</div>
 										</div>
 									</div>
@@ -146,7 +158,7 @@
 										<span class=" md-subhead" style="color:#375E97;">{{product.name}}</span>
 									</div>
 									<div flex  layout="row">
-										<span flex class="md-body-1 text-left" >{{product.unit}}{{product.uom.name}}</span>
+										<span flex class="md-body-1 text-left" >{{product.unit}} {{product.uom.name}}</span>
 										<span flex class="md-body-1 text-right" >
 											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
 											₹ {{product.price}}
