@@ -71,5 +71,18 @@ angular.module('aviate.services')
 		});
 		return d.promise;
 	};
+	
+	this.getShippingCharge = function(merchant){
+		var d = $q.defer();
+		api.shippingCharge.getShippingCharge(merchant, function(err, result){
+			if(result){
+				d.resolve(result.shippingChargesList);
+			}
+			else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 
 }]);

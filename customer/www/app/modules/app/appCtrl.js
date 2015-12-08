@@ -150,6 +150,7 @@ angular.module('aviate.controllers')
 							$rootScope.getTopCategories(); 
 							$rootScope.getAllCategoryWithProduct();
 							$rootScope.categoryList();
+							$rootScope.shippingCharge();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
 							$scope.banner = {};
@@ -246,6 +247,14 @@ angular.module('aviate.controllers')
             homePageServices.allCategoriesWithProduct($scope.product).then(function(data){
                 $rootScope.categoriesWithProduct = data.productCategories;
             })
+			}
+			
+			$rootScope.shippingCharge = function(){
+				$scope.shippingCharges ={};
+				$scope.merchant = $rootScope.store.merchant;
+	            homePageServices.getShippingCharge($scope.merchant).then(function(data){
+	                $rootScope.shippingCharges = data;
+	            })
 			}
 
 }]);

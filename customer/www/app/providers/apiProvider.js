@@ -490,6 +490,26 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		/*Shipping Charge*/
+		
+		apiClass.shippingCharge = {
+				name: ""
+		};
+
+		apiClass.shippingCharge.getShippingCharge = function (merchant, callback) {
+			httpRequest("POST", "shippingcharges/getshippingcharges", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		/*Home Page Banners*/
 				
 				apiClass.Banner = {
