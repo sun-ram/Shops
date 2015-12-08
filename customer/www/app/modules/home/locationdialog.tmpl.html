@@ -9,6 +9,8 @@ md-ink-bar{top:115px;}
 .chg-tool{
 	background: #ED6663 ! important;
 }
+.arrow_color md-tabs-wrapper md-icon{height: 30px;
+width: 30px;fill: gray;}
 .btn-success{background: #72A308 ! important; padding: 5px 20px;}
 .chs-img{height: 60px ! important; width: 60px ! important; border-radius: 50% ! important;}
 </style>
@@ -42,7 +44,7 @@ md-ink-bar{top:115px;}
               </md-select>
         </md-input-container>
    
-        <md-input-container ng-if="checked" style="margin:1% 8%;">
+        <md-input-container ng-if="checked" style="margin:1% 8%;padding-bottom: 18px;">
            <label>Select Area<span style="color:red">*</span></label>
              <md-select ng-model="selectedaddress" ng-required="true" ng-change="searchByAddress(selectedaddress)">
                 <md-option ng-repeat="address in addressList track by $index" value="{{address.user.address.address1}}">
@@ -51,13 +53,15 @@ md-ink-bar{top:115px;}
               </md-select>
         </md-input-container>
  
-    
-   <md-tabs ng-if="((!checked)&&(storeList.length>0))"md-stretch-tabs="auto">
-      <md-tab  ng-click = "changeStore(store)" ng-repeat="store in storeList">
+    <md-content class="md-padding">
+    	 <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" class="arrow_color" md-stretch-tabs="auto">
+      <md-tab  ng-click = "changeStore(store)" ng-repeat="store in filterStoreList">
      <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
       <label>{{store.name}}</label>
       </md-tab>
     </md-tabs>
+    </md-content>
+  
     
    <!--   <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" md-stretch-tabs="auto">
      <div>
@@ -68,12 +72,12 @@ md-ink-bar{top:115px;}
       </div>
     </md-tabs> -->
     
-    <div ng-if="((checked)&&(filterStoreList.length>0))" class="storelist" md-stretch-tabs="auto" layout>
+   <!--  <div ng-if="((checked)&&(filterStoreList.length>0))" class="storelist" md-stretch-tabs="auto" layout>
     	<div ng-click = "changeStore(store)" ng-repeat="store in filterStoreList" flex="25">
     		<img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
       		<label>{{store.name}}</label>
     	</div>
-    </div>
+    </div> -->
    
     <h4 ng-if="!checked" style="color:black;text-align: center;font-family:sans-serif; margin: 5px 0px; ">or</h4>
     <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 5%;">
