@@ -11,7 +11,7 @@
   
 <!-- Signin -->
   <md-dialog-content ng-hide="forgetPass" style="padding:0px;">
-  	<md-radio-group ng-model="isSignUp" layout="row" >
+  	<md-radio-group ng-change="clearFormValues(user)" ng-model="isSignUp" layout="row" >
   		<md-radio-button ng-value="false" flex class="md-primary md-headline">Existing customer</md-radio-button>
          <md-radio-button ng-value="true" flex class="md-primary  md-headline">New customer</md-radio-button>
          
@@ -30,7 +30,7 @@
 	      </md-input-container>
 	      <div layout="row">
 		      <div flex>
-		       <md-checkbox  class="md-green" ng-change="saveauth()" ng-model="rememberme" aria-label="Checkbox 1">
+		       <md-checkbox  class="md-green" ng-model="rememberme" aria-label="Checkbox 1">
 		          	<span>Remember me</span>
 		        </md-checkbox>
 		      </div>
