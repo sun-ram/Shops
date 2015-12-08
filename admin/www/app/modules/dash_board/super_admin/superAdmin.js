@@ -147,7 +147,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/salesOrder'
+                    url: 'http://192.168.1.100:3000/shopsbacker/salesOrder'
                 })
                 .success(function (data, status) {
                     console.log("salesOrder Exected success case ", data);
@@ -180,8 +180,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                         if(obj.merchant_id)
                                 x[obj.merchant_id].push(obj.order_amount);
                     }
-                    console.log("Sorted values x{}===",x);
-                    console.info("Array Filtered= ", tempArray);
                     len = tempArray.length;
                     var tmpAvgObj = {},
                         tmpAvgObj1 = [{}];
@@ -219,7 +217,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         $scope.proceedSalesOrderLine = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/salesOrderLine'
+                    url: 'http://192.168.1.100:3000/shopsbacker/salesOrderLine'
                 })
                 .success(function (data, status) {
                     $scope.salesOrderLines = data;
@@ -236,7 +234,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
              //Merchants
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/merchant'
+                    url: 'http://192.168.1.100:3000/shopsbacker/merchant'
                 })
                 .success(function (data, status) {
                 
@@ -254,7 +252,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
          $scope.proceedStore = function (callback){
             $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/shopsbacker/store'
+                    url: 'http://192.168.1.100:3000/shopsbacker/store'
                 })
                 .success(function (data, status) {
                     $scope.stores = data;
@@ -311,7 +309,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
 		}
         $scope.randomMarkers = $scope.tempMarkers;
-        console.log("$scope.randomMarkers==>",$scope.randomMarkers);
 	}
 
         $scope.ProceedMerchant();
