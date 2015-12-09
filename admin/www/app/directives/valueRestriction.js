@@ -13,7 +13,7 @@ angular.module('aviateAdmin.directives')
 				  var $input = $(this);
 				  console.log('entered value ',parseInt($input.val()));
 				  if(parseInt($input.val())> parseInt(value)){
-					    $input.val(0); 
+					    $input.val(); 
 						toastr.error(CONSTANT.PERCENTAGE_LIMIT_EXCEED.replace('{}',value));
 				  }
 			})

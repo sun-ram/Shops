@@ -84,5 +84,18 @@ angular.module('aviate.services')
 		});
 		return d.promise;
 	};
+	
+	this.getTax = function(merchant){
+		var d = $q.defer();
+		api.tax.getTax(merchant, function(err, result){
+			if(result){
+				d.resolve(result);
+			}
+			else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 
 }]);

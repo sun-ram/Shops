@@ -7,5 +7,6 @@ require("./merchant.js")(router);
 require("./store.js")(router);
 require("./address.js")(router);
 require("./users.js")(router);
+require("./customer.js")(router);
 
 module.exports = router;

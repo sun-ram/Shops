@@ -55,7 +55,7 @@
        Enter phoneNo within 20 digit</span>   
         </md-input-container>
     <md-input-container layout-padding flex>
-      <label>Address<span style="color:red">*</span></label>
+      <label>Address 1<span style="color:red">*</span></label>
       
           <input name="address1" ng-model="store.user.address.address1" ng-required="true" ng-maxlength="150">
 		      <span ng-message="required" ng-show="store.user.address.address1.$error.maxlength" style="color:red;">
@@ -67,7 +67,13 @@
     
     <div flex>
 	<div layout-padding>
-    
+    <md-input-container layout-padding flex> <label>Address
+			2<span style="color: red">*</span>
+		</label> <input name="address2" ng-model="store.user.address.address2"
+			ng-required="true" ng-maxlength="150"> <span
+			ng-message="required" ng-show="storeForm.address2.$error.maxlength"
+			style="color: red;"> Enter address within 150 characters</span> 
+			</md-input-container>
     <md-input-container layout-padding flex>
       <label>City<span style="color:red">*</span></label>
       <input ng-model="store.user.address.city" ng-required="true">

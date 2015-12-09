@@ -98,6 +98,7 @@ angular.module('aviate.controllers')
         		$rootScope.getTopCategories();
         		$rootScope.getAllCategoryWithProduct();
         		$rootScope.shippingCharge();
+        		$rootScope.getTax();
         	}
 
 		}]);
