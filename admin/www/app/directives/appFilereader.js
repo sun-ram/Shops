@@ -15,30 +15,10 @@ angular.module('aviateAdmin.directives')
 							'change',
 							function(e) {
 								var element = e.target;
-								if (element.files[0].size < 500000) {
+						//		if (element.files[0].size < 500000) {
 									if (!element.value)
 										return;
 									element.disabled = true;
-									$q
-									.all(
-											slice
-											.call(
-													element.files,
-													0)
-													.map(
-															readFile))
-															.then(
-																	function(
-																			values) {
-																		if (element.multiple)
-																			ngModel
-																			.$setViewValue(values);
-																		else
-																			ngModel
-																			.$setViewValue(values.length ? values[0] : null);
-																		element.disabled = false;
-																	});
-
 									function readFile(file) {
 										var deferred = $q
 										.defer();
@@ -57,9 +37,23 @@ angular.module('aviateAdmin.directives')
 										.readAsDataURL(file);
 										return deferred.promise;
 									}
-								} else {
-									alert("Image size should not be more than 50 kb")
-								}
+									$q
+									.all(slice.call(element.files,0).map(readFile))
+															.then(
+																	function(values) {
+																		if (element.multiple)
+																			ngModel
+																			.$setViewValue(values);
+																		else
+																			ngModel
+																			.$setViewValue(values.length ? values[0] : null);
+																		element.disabled = false;
+																	});
+
+									
+							//	} else {
+							//		alert("Image size should not be more than 50 kb")
+							//	}
 							});
 				}
 			};
