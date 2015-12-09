@@ -69,13 +69,13 @@
 
 .verification-section .address-verify {
     border-left: solid 4px #8bb617;
-    height: 150px;
+    height: 30px;
     border-bottom: solid 2px #ebebeb
 }
 
 .verification-section .delivery-verify {
     border-left: solid 3px #FB8C00;
-    height: 100px;
+    height: 30px;
     border-bottom: solid 2px #ebebeb
 }
 
