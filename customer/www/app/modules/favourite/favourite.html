@@ -51,12 +51,12 @@
         	<div flex>
 		        <md-input-container class="md-block" flex-gt-sm>
 		          <label>Others</label>
-		          <input ng-model="">
+		          <input ng-model="favouritName">
 		        </md-input-container>
 		    </div>    
 	        <div flex style="margin-top:12px;">
-	        	<md-button class="md-raised md-primary" style="background-color:#6EAB10 !important">ADD</md-button>
-	        	<md-button class="md-raised " >SKIP</md-button>
+	        	<md-button class="md-raised md-primary" style="background-color:#6EAB10 !important" ng-click="addFavourite();">ADD</md-button>
+	        	<md-button class="md-raised " ui-sref="app.home">SKIP</md-button>
 	        </div>
         </div>
       </md-list-item>
