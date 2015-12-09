@@ -67,7 +67,7 @@
 				    <md-input-container>
 		       			 <label>State<span style="color:red">*</span></label>
                         <md-select ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}">
-                        <md-option ng-repeat="state in states" ng-value="state">
+                        <md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
                         {{state.name}}
                        </md-option>
                 </md-select>
@@ -106,7 +106,7 @@
 				   	  <md-input-container>
 		       			 <label>Country<span style="color:red">*</span></label>
          				 <md-select ng-model="country" ng-required="true" ng-change = "getState(country);" ng-model-options="{trackBy: '$value.countryId'}">
-             		       <md-option ng-repeat="cnt in countries" ng-value="cnt">
+             		       <md-option ng-repeat="cnt in countries | orderBy:'name'" ng-value="cnt">
                		         {{cnt.name}}
                			     </md-option>
                			 </md-select>
