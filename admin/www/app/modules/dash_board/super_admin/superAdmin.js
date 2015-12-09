@@ -42,14 +42,43 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             bounds: {}
         };
         $scope.options = {
-            scrollwheel: false
+            scrollwheel: true
         };
 
-        //Random Markers
-        
-        //Jayam SuperMarket 12.916149, 80.152353
-        //AGS SuperMArket   12.915115, 80.153115
-        //Coffee Day        12.922847, 80.151881
+
+        $scope.onMarkerClicked = function(marker, eventName, model) {
+            console.log("Clicked!", marker);
+            model.show = !model.show;
+        };
+
+/*
+
+Random Markers
+
+        Jayam SuperMarket 12.916149, 80.152353
+        AGS SuperMArket   12.915115, 80.153115
+        Coffee Day        12.922847, 80.151881
+
+                $scope.randomMarkers = [{
+                    "latitude": 12.916149,
+                    "longitude": 80.152353,
+                    "title": "Jayam SuperMarket",
+                    "id": 0
+                }, {
+                    "latitude": 12.915115,
+                    "longitude": 80.153115,
+                    "title": "AGS SuperMarket",
+                    "id": 1
+                }, {
+                    "latitude": 12.922847,
+                    "longitude": 80.151881,
+
+                    "title": "Coffee Day",
+                    "id": 2
+                }]
+
+ */
+
 
          //Pie chart
             $scope.drawPiechart = function (){

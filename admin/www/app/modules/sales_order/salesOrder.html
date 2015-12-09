@@ -41,7 +41,7 @@
 			layout-align="end center" class="bg-none" ng-model="toDate"
 			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
 		<md-input-container ng-hide="user.role == 'STOREADMIN'">
-		<label>Store</label> <md-select name="myModel" ng-model="search" 
+		<label>Store</label> <md-select name="myModel" ng-model="store" 
 			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
 	    </md-input-container>
 	</div>
