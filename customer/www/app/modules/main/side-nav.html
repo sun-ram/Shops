@@ -22,23 +22,23 @@
     </script>
 
     <script type="text/ng-template" id="productCategoryList">
-        <md-menu-item ng-class="c.selectionClass" ng-hide="c.hide" ng-if="(c.rootParent>=0)" ng-click="getProductsByCategoryId(c.productCategoryId);">
+        <md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(c.rootParent>=0)" ng-click="getProductsByCategoryId(c.productCategoryId); activemenu($event)">
             <md-button ng-class="c.selectionClass" class="btn-menu">
                 <div layout="row">{{c.name}}</div>
             </md-button>
         </md-menu-item>
 
-        <md-menu-item ng-class="c.selectionClass" ng-hide="c.hide" ng-if="(!c.rootParent && c.rootParent!=0)" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId);">
+        <md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(!c.rootParent && c.rootParent!=0)" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId); activemenu($event)">
             <md-button ng-class="c.selectionClass" class="btn-sub">{{c.name}}
             </md-button>
         </md-menu-item>
 
         <ul ng-hide="c.hide" ng-if="c.categoriesVo.length == 0" style="padding-left: 0px;">
-            <li ng-class="c.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productTypes" class='has-sub' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId);"></li>
+            <li ng-class="c.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productTypes" class='has-sub others' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId); activemenu($event)"></li>
         </ul>
 
         <ul ng-hide="c.hide" ng-if="c.categoriesVo.length> 0" style="padding-left: 0px;">
-            <li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub ' ng-repeat="c in c.categoriesVo" ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
+            <li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub others' ng-repeat="c in c.categoriesVo" ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
         </ul>
     </script>
 

@@ -14,6 +14,12 @@ angular.module('aviate.directives').directive('sideNav', [
                 	};*/
                 	var directParent;
                     var currentRootCatagoryIndex="";
+                    
+                    $scope.activemenu = function(event){
+                		$(".others").removeClass("activemenu");
+        				$(event.currentTarget).addClass("activemenu");
+        			}
+                    
                 	$scope.optimizeInnerData = function (data){
 //                		console.log("Data --->",data);
                         if(typeof data.rootParent == 'undefined'){
