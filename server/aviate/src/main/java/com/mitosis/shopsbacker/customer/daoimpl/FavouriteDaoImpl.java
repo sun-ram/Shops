@@ -87,4 +87,8 @@ public class FavouriteDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (Favourite) findUnique(criteria);
 	}
 
+	public Favourite getFavourite(String id) {
+		return(Favourite) getSession().get(Favourite.class, id);
+	}
+
 }

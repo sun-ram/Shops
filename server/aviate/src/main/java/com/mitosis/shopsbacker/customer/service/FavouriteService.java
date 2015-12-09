@@ -22,6 +22,8 @@ public interface FavouriteService<T> {
 	public void deleteFavourite(Favourite favourite);
 
 	public List<Favourite> getFavourites(Customer customer, Store store);
+	
+	public Favourite getFavourites(String favouriteId);
 
 	public List<Favourite> getFavourites(Customer customer, Product product,
 			Store store);

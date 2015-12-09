@@ -112,6 +112,7 @@ angular.module('aviate.controllers')
 			$scope.orderNo = data.orderNo;
 			$scope.salesOrderId = data.salesOrderId;
 			if($scope.data.group1=="Cash on delivery"){
+				$scope.getCartList();
 				$state.go('app.favourite',{'salesOrderId':$scope.salesOrderId});
 				//$rootScope.myCart.cartItem = {};
 			}else{

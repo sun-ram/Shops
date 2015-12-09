@@ -94,7 +94,7 @@ angular.module('aviate.factories')
 		$rootScope.myCart.serviceTax = $rootScope.myCart.cartTotalAmount*(2.5/100);
 		
 		//shipping charge
-		if($rootScope.shippingCharges != undefined || $rootScope.shippingCharges.length !=0){
+		if($rootScope.shippingCharges != undefined && $rootScope.shippingCharges.length !=0){
 		for(var i =0;i<$rootScope.shippingCharges.length;i++){
 			for(var j =0;j<$rootScope.shippingCharges.length;j++){
 				if(_totalAmount <= $rootScope.shippingCharges[i].amountRange){
@@ -108,7 +108,7 @@ angular.module('aviate.factories')
 		}else{
 			$rootScope.myCart.shippingCharges =100;
 		}
-		if($rootScope.shippingCharges.length == 1){
+		if($rootScope.shippingCharges && $rootScope.shippingCharges.length == 1){
 			$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[0].chargingAmount;
 		}
 		//Tax Charge
@@ -116,18 +116,18 @@ angular.module('aviate.factories')
 		$rootScope.taxList
 		$rootScope.myCart.taxs = [];
 		$rootScope.myCart.taxAmount =0;
-		if($rootScope.taxList != undefined ||$rootScope.taxList.length !=0){
-		for(var i=0;i<$rootScope.taxList.length;i++){
-			$rootScope.name = $rootScope.taxList[i].name;
-			$rootScope.taxPercentage = $rootScope.taxList[i].taxPercentage;
-			$rootScope.rate = $rootScope.myCart.cartTotalAmount*($rootScope.taxPercentage/100);
-			$rootScope.myCart.taxs.push({
-				"name":$rootScope.name,
-				"taxPercentage":$rootScope.taxPercentage,
-				"rate":$rootScope.rate
-			});
-			$rootScope.myCart.taxAmount = $rootScope.myCart.taxAmount + $rootScope.rate;
-		}
+		if($rootScope.taxList != undefined && $rootScope.taxList.length !=0){
+			for(var i=0;i<$rootScope.taxList.length;i++){
+				$rootScope.name = $rootScope.taxList[i].name;
+				$rootScope.taxPercentage = $rootScope.taxList[i].taxPercentage;
+				$rootScope.rate = $rootScope.myCart.cartTotalAmount*($rootScope.taxPercentage/100);
+				$rootScope.myCart.taxs.push({
+					"name":$rootScope.name,
+					"taxPercentage":$rootScope.taxPercentage,
+					"rate":$rootScope.rate
+				});
+				$rootScope.myCart.taxAmount = $rootScope.myCart.taxAmount + $rootScope.rate;
+			}
 		}
 		//cartTotalAmount*(2.5/100)
 		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.myCart.shippingCharges;

@@ -4,8 +4,8 @@
  */
 
 angular.module('aviate.services')
-.service('FavouriteServices',['$q','api','toastr','CONSTANT','ipCookie',
-                              function($q, api, toastr, CONSTANT, ipCookie) {
+.service('FavouriteServices',['$q','api','toastr','CONSTANT','ipCookie','$rootScope',
+                              function($q, api, toastr, CONSTANT, ipCookie, $rootScope) {
 
 	this.addFavourite = function(favourite){
 		var d = $q.defer();
@@ -24,12 +24,16 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 
-	this.getFavourite = function(favourite){
+	this.getFavourite = function(){
+		favourite ={};
+		favourite.customerId = $rootScope.user.userId;
+		favourite.merchantId = $rootScope.store.merchant.merchantId;
+		favourite.storeId = $rootScope.store.storeId;
 		var d = $q.defer();
 		api.CheckOut.getFavourite(favourite, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					d.resolve(result);
+					d.resolve(result.favourites);
 				} else {
 					toastr.error(result.errorString);
 				}

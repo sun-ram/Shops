@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices', 'FavouriteServices',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices, FavouriteServices) {
 
 	return {
 		// scope: false,
@@ -161,6 +161,10 @@ angular.module('aviate.directives')
 									console.log('get MyCartlist success in Main Nav');
 								});
 								
+								FavouriteServices.getFavourite().then(function(data){
+									$scope.favouriteList = data;
+								});
+								
 								$scope.redirectToUrl();
 
 							});
@@ -276,14 +280,13 @@ angular.module('aviate.directives')
 				}
 			};
 			
-			$scope.addFavouriteToCart = function(salesOrderId){
-		   		
+			$scope.addFavouriteToCart = function(favouriteId){
 		   		$scope.favourite ={};
 				$scope.favourite.customerId = $rootScope.user.userId;
 				$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
 				$scope.favourite.storeId = $rootScope.store.storeId;
-				$scope.favourite.salesOrderId = salesOrderId;
-				CheckOutServices.addFavouriteToCart($scope.favourite).then(function(data){
+				$scope.favourite.favouriteId = favouriteId;
+				FavouriteServices.addFavouriteToCart($scope.favourite).then(function(data){
 					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 						MyCartFactory.myCartTotalPriceCalculation();
 						console.log('get MyCartlist success in Main Nav');

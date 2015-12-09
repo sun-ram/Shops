@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.FavouriteService;
@@ -29,7 +28,6 @@ import com.mitosis.shopsbacker.model.MyCart;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.responsevo.FavouriteResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -55,12 +53,6 @@ public class FavouriteRestService {
 	
 	@Autowired
 	SalesOrderService<T> salesOrderService;
-	
-	@Autowired
-	SalesOrderLineService<T> salesOrderLineService;
-	
-	@Autowired
-	MerchantService<T> merchantService;
 	
 	@Autowired
 	MyCartService<T> myCartService;
@@ -148,7 +140,8 @@ public class FavouriteRestService {
 	public ResponseModel addFavouriteToCart(FavouriteVo favouriteVo) {
 		ResponseModel response = new ResponseModel();
 		try {
-			SalesOrder salesOrder = salesOrderService.getSalesOrderById(favouriteVo.getSalesOrderId());
+			Favourite favourite = favouriteService.getFavourites(favouriteVo.getFavouriteId());
+			SalesOrder salesOrder = favourite.getSalesOrder();
 			List<SalesOrderLine> salesOrderLines = salesOrder.getSalesOrderLines();
 			
 			Merchant merchant = salesOrder.getMerchant();

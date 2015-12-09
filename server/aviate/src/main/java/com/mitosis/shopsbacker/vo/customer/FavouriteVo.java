@@ -1,7 +1,8 @@
 package com.mitosis.shopsbacker.vo.customer;
 
 public class FavouriteVo {
-
+	
+	private String favouriteId;
 	private String salesOrderId;
 	private String merchantId;
 	private String storeId;
@@ -38,7 +39,11 @@ public class FavouriteVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+	public String getFavouriteId() {
+		return favouriteId;
+	}
+	public void setFavouriteId(String favouriteId) {
+		this.favouriteId = favouriteId;
+	}
 	
 }

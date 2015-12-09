@@ -86,8 +86,8 @@
 	   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 63px;">
 	        <md-content>
 	         	 <md-list>
-				      <md-list-item layout="row" ng-repeat="favourite in favouriteList">
-				      		<div style="text-align:center" ng-click="addFavouriteToCart(favourite.salesOrderId)"> {{favourite.name}}</div>
+				      <md-list-item layout="row" ng-repeat="favourite in favouriteList" ng-click="addFavouriteToCart(favourite.favouriteId)">
+				      		<div style="text-align:center"> {{favourite.name}}</div>
 				      </md-list-item>
 	       		 </md-list>
 	         </md-content>
@@ -194,13 +194,13 @@
 					</div>
 				</md-button> 
 			</md-menu-item> 
-			<md-menu-item class="menu-item" ng-show="user && favouriteList.length > 0"> 
+			<!-- <md-menu-item class="menu-item" ng-show="user && favouriteList.length > 0"> 
 				<md-button ui-sref="app.favouriteList">
 					<div layout="row">
 						<p flex="" style="font-size: 18px;">Favourite List</p>
 					</div>
 				</md-button> 
-			</md-menu-item> 
+			</md-menu-item> --> 
 			<md-menu-item ng-show="user"> 
 				<md-button ng-click="logout()">
 					<div layout="row">
