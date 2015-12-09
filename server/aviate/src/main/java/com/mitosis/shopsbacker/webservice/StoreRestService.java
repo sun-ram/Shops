@@ -412,13 +412,15 @@ public class StoreRestService<T> {
 	}
 
 	public MerchantVo setMerchantDetails(Store store) throws IOException {
-		MerchantVo merchant = new MerchantVo();
-		if (store.getMerchant() != null) {
-			merchant.setMerchantId(store.getMerchant().getMerchantId());
-			imagevo = imageService.setImageVo(store.getMerchant());
-			merchant.setLogo(imagevo);
+		MerchantVo merchantVo = new MerchantVo();
+		Merchant merchantObj = store.getMerchant();
+		if (merchantObj != null) {
+			merchantVo.setMerchantId(merchantObj.getMerchantId());
+			merchantVo.setName(merchantObj.getName());
+			imagevo = imageService.setImageVo(merchantObj);
+			merchantVo.setLogo(imagevo);
 		}
-		return merchant;
+		return merchantVo;
 
 	}
 
