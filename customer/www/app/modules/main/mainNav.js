@@ -245,6 +245,7 @@ angular.module('aviate.directives')
 				$rootScope.myCart.cartItem = [];
 				//ipCookie('myCart', $rootScope.myCart);
 				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
+				$state.go('app.home');
 			};
 
 			$scope.changeStore = function() {
