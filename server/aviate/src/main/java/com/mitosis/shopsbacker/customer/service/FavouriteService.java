@@ -26,7 +26,7 @@ public interface FavouriteService<T> {
 	public List<Favourite> getFavourites(Customer customer, Product product,
 			Store store);
 	
-	public Favourite getFavouriteByName(String favouriteName);
+	public Favourite getFavouriteByName(String favouriteName, String customerId);
 
 	public FavouriteVo setFavouriteVo(Favourite favourite);
 }

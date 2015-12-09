@@ -74,7 +74,7 @@ public class FavouriteRestService {
 		FavouriteResponseVo favouriteResponseVo = new FavouriteResponseVo();
 		Favourite favourite;
 		try {
-			favourite = favouriteService.getFavouriteByName(favouriteVo.getName());
+			favourite = favouriteService.getFavouriteByName(favouriteVo.getName(), favouriteVo.getCustomerId());
 			if(favourite == null){
 				favourite = (Favourite) CommonUtil.setAuditColumnInfo(Favourite.class.getName());
 				favourite.setIsactive('Y');

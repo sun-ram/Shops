@@ -297,8 +297,7 @@ public class SalesOrderRestService<T> {
 							.getCustomerId());
 			Store store = storeService.getStoreById(salesOrderVo.getStore()
 					.getStoreId());
-			String orderNo = orderNumber.getSalesOrderNumber(storeService
-					.getStoreById(salesOrderVo.getStore().getStoreId()));
+			String orderNo = orderNumber.getSalesOrderNumber(store);
 			Address address = addressService.getAddress(salesOrderVo
 					.getAddress().getAddressId());
 
@@ -325,6 +324,8 @@ public class SalesOrderRestService<T> {
 					store);
 			if (cartProduct.isEmpty()) {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				response.setErrorCode(SBErrorMessage.CART_IS_EMPTY.getCode());
+				response.setErrorString(SBErrorMessage.CART_IS_EMPTY.getMessage());
 				return response;
 			}
 

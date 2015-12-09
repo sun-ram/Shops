@@ -80,9 +80,10 @@ public class FavouriteDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		
 	}
 
-	public Favourite getFavouriteByName(String favouriteName) {
+	public Favourite getFavouriteByName(String favouriteName, Customer customer) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Favourite.class);
 		criteria.add(Restrictions.eq("name", favouriteName));
+		criteria.add(Restrictions.eq("customer", customer));
 		return (Favourite) findUnique(criteria);
 	}
 

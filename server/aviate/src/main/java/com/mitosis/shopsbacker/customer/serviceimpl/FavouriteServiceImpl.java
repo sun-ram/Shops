@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.customer.dao.CustomerDao;
 import com.mitosis.shopsbacker.customer.dao.FavouriteDao;
+import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.FavouriteService;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Favourite;
@@ -32,6 +34,9 @@ public class FavouriteServiceImpl<T> extends CustomHibernateDaoSupport<T>
 
 	@Autowired
 	FavouriteDao<T> favourite;
+	
+	@Autowired
+	 CustomerDao<T> customerDao;
 
 	public FavouriteDao<T> getFavourite() {
 		return favourite;
@@ -69,8 +74,9 @@ public class FavouriteServiceImpl<T> extends CustomHibernateDaoSupport<T>
 	}
 
 	@Override
-	public Favourite getFavouriteByName(String favouriteName) {
-		return getFavourite().getFavouriteByName(favouriteName);
+	public Favourite getFavouriteByName(String favouriteName, String customerId) {
+		Customer customer = customerDao.getCustomerInfoById(customerId);
+		return getFavourite().getFavouriteByName(favouriteName, customer);
 	}
 
 	@Override
