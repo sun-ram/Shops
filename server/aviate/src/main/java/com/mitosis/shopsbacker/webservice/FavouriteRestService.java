@@ -149,11 +149,11 @@ public class FavouriteRestService {
 		ResponseModel response = new ResponseModel();
 		try {
 			SalesOrder salesOrder = salesOrderService.getSalesOrderById(favouriteVo.getSalesOrderId());
-			List<SalesOrderLine> salesOrderLines = salesOrderLineService.getSalesOrderLineBysalesOrder(salesOrder);
+			List<SalesOrderLine> salesOrderLines = salesOrder.getSalesOrderLines();
 			
-			Merchant merchant = merchantService.getMerchantById(favouriteVo.getMerchantId());
-			Store store = storeService.getStoreById(favouriteVo.getStoreId());
-			Customer customer = customerService.getCustomerInfoById(favouriteVo.getCustomerId());
+			Merchant merchant = salesOrder.getMerchant();
+			Store store = salesOrder.getStore();
+			Customer customer = salesOrder.getCustomer();
 			
 			for(SalesOrderLine salesOrderLine : salesOrderLines){
 				
