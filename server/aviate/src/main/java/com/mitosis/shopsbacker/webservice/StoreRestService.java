@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -393,7 +396,7 @@ public class StoreRestService<T> {
 		storeResponse = new StoreResponseVo();
 		String responseStr = "";
 		try {
-			Set<String>  cityList = new HashSet<String>(storeService.getShopCityList());
+			SortedSet<String>  cityList = new TreeSet<String>(storeService.getShopCityList());
 			storeResponse.setCityList(cityList);
 		} catch (Exception e) {
 			e.printStackTrace();
