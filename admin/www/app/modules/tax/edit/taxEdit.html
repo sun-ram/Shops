@@ -19,11 +19,15 @@
     
     <md-input-container layout-padding flex>
       <label>Tax Name<span style="color:red">*</span></label>
-      <input ng-model="tax.name" ng-required="true" ng-maxlength="19">
+      <input ng-model="tax.name" ng-required="true" name="taxName" ng-maxlength="30">
+    <span ng-message="required" ng-show="storeForm.taxName.$error.maxlength" style="color:red;" >
+       Enter Tax Name within 30 Characters</span>
     </md-input-container>
     <md-input-container layout-padding flex>
       <label>Tax_Percentage<span style="color:red">*</span></label>
-      <input ng-model="tax.taxPercentage" ng-required="true" value-restriction="100" ng-maxlength="19"  pattern="[0-9]{1,2}\.[0-9]{1,2}$|^[0-9]{1,3}$">
+      <input ng-model="tax.taxPercentage" ng-required="true" name="taxPercentage" value-restriction="100" ng-maxlength="19"  pattern="[0-9]{1,2}\.[0-9]{1,2}$|^[0-9]{1,3}$">
+   <span ng-message="required" ng-show="storeForm.taxPercentage.$error.maxlength" style="color:red;" >
+       Enter Tax Percentage within 20 digit</span>
     </md-input-container>
     </div>
     	  
