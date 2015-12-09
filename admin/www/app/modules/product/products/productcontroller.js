@@ -43,7 +43,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}
 		$scope.product.images = [];
-		if($scope.uploadedImages.length > 0){
+		if($scope.uploadedImages && $scope.uploadedImages.length > 0){
 			for(var i=0; i<$scope.uploadedImages.length; i++){
 				if($scope.uploadedImages[i].image != undefined && $scope.uploadedImages[i].image != null ){
 					$scope.productimg = $scope.splitProductType($scope.uploadedImages[i].image);
@@ -121,7 +121,7 @@ angular.module('aviateAdmin.controllers')
 			return;
 		}
 
-		if($scope.uploadedImages.length > 0){
+		if($scope.uploadedImages && $scope.uploadedImages.length > 0){
 			$scope.product.images =[];
 			for(var i=0; i<$scope.uploadedImages.length; i++){
 				if($scope.uploadedImages[i].image != undefined ){
