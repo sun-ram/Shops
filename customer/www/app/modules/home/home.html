@@ -70,8 +70,8 @@
    				 	
    				 	
    				 	
-    					<div layout="row" layout-wrap  ng-repeat="product in topcategories | orderBy:groupCount | limitTo:showHotProduct">
-     						<div class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:260px;max-width:260px;">
+    					<div layout="row" layout-wrap >
+     						<div ng-repeat="product in topcategories | orderBy:groupCount | limitTo:showHotProduct" class="producutItem" flex="auto"  flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:248px;max-width:248px;">
          <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
 								<div class="pro-box" flex layout="column">
 									<div flex style="height:150px; text-align: center; cursor: pointer; border-bottom:rgba(0,0,0,0.5); padding-bottom:10px;" ng-click="productDetails($event,product);">
