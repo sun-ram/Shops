@@ -1,6 +1,6 @@
 var _ = require("underscore")._;
 module.exports = {
-    getStore: function(callback) {
+    getUsers: function(callback) {
         var data = {
             "error": 1,
             "Books": ""

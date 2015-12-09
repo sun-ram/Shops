@@ -3,6 +3,6 @@ module.exports = {
     salesOrderLine: require("./salesOrderLine.js"),
     merchant: require("./merchant.js"),
     store: require("./store.js"),
-    store: require("./address.js"),
-    store: require("./users.js")
+    address: require("./address.js"),
+    users: require("./users.js")
 };
