@@ -40,13 +40,14 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SalesOrder> getOrderList(Store store) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(SalesOrder.class);
-			//criteria.add(Restrictions.eq("store", store));
-			//criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("store", store));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
