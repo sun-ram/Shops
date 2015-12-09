@@ -1,12 +1,16 @@
-<link rel="stylesheet" href="assets/css/favourites.css">
+<!-- <link rel="stylesheet" href="assets/css/favourites.css"> -->
 
+
+	<div layout="row" layout-align="center center">
+      <span class="md-display-1" style="margin:30px 20px 20px 20px;">
+      <!-- 	Would you like to add this order into your favourite.  -->
+      Choose one of your favourite list to add this order
+      </span>
+    </div>
+<md-card style="width:600px; margin:0px auto">
 <div class="content">
   <div class="list" tabindex="1">
-    <div class="list-name">
-      <div class="list-name-text">
-      	Would you like to add this order into your favourite. 
-      </div>
-    </div>
+    
  <div class="list-content">
  <md-content>
     <md-list>
@@ -42,13 +46,26 @@
         </div>
       </md-list-item>
       <md-divider ></md-divider>
+      <md-list-item class="md-1-line md-long-text" >
+        <div layout="row" style="padding:0px 16px; width:100%;">
+        	<div flex>
+		        <md-input-container class="md-block" flex-gt-sm>
+		          <label>Others</label>
+		          <input ng-model="">
+		        </md-input-container>
+		    </div>    
+	        <div flex style="margin-top:12px;">
+	        	<md-button class="md-raised md-primary" style="background-color:#6EAB10 !important">ADD</md-button>
+	        </div>
+        </div>
+      </md-list-item>
     </md-list>
     </md-content>
     </div>
   </div>
 </div>
 
-
+</md-card>
 <!-- <section class="address-section" layout="column">
     <p class="address-title md-headline">Make This Order as Favourite</p>
     <div class="address-container" layout="row" layout-wrap layout-align="center">
