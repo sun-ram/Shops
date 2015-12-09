@@ -9,6 +9,7 @@ angular.module('aviate.controllers')
 				$rootScope.change=false;
 				$state.go('app.checkout');
 			}else{
+				$rootScope.redirectUrl = 'app.checkout';
 				$rootScope.signInPopup();
 			}
 		};
@@ -32,6 +33,7 @@ angular.module('aviate.controllers')
 						$rootScope.change=true;
 			 				$state.go('app.checkout');
 			 			}else{
+			 				$rootScope.redirectUrl = 'app.checkout';
 			 				$rootScope.signInPopup();
 			 			}
 		};

@@ -124,6 +124,14 @@ angular.module('aviate.directives')
 								return false;
 						}*/
 						
+						$scope.redirectToUrl = function(){
+							if($rootScope.redirectUrl != undefined || $rootScope.redirectUrl != null){
+								var redirectUrl = $rootScope.redirectUrl;
+								$rootScope.redirectUrl = null;
+								$state.go(redirectUrl);
+							}
+						};
+						
 						$scope.signIn = function(user) {
 							AuthServices.signIn(user).then(function(data){
 								$scope.saveauth();
@@ -152,6 +160,8 @@ angular.module('aviate.directives')
 									MyCartFactory.myCartTotalPriceCalculation();
 									console.log('get MyCartlist success in Main Nav');
 								});
+								
+								$scope.redirectToUrl();
 
 							});
 						};
@@ -206,7 +216,7 @@ angular.module('aviate.directives')
 											"customerId" : $rootScope.user.userId, 
 											"storeId" : $rootScope.store.storeId, 
 											"productId" : $scope.myCart.cartItem[i].product.productId, 
-											"price" : $scope.myCart.cartItem[i].product.productPrice.price, 
+											"price" : $scope.myCart.cartItem[i].product.price, 
 											"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
 									}
 									MyCartServices.addToCart($scope.cartDetails).then(function(data){
@@ -215,6 +225,7 @@ angular.module('aviate.directives')
 
 								}
 							}
+							$scope.redirectToUrl();
 						});
 					};
 					
