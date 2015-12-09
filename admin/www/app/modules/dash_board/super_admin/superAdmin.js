@@ -314,8 +314,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
             $scope.todayTotSale =   (commition/100) * $scope.todayTotSale;
             $scope.yesterdayTotSale = (commition/100) * $scope.yesterdayTotSale;
-            $scope.salesGrowthToday = (($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100;
-            $scope.salesGrowthToday = Math.round($scope.salesGrowthToday * 100) / 100;
+            $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? ((($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100) : 0;
+            $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? (Math.round($scope.salesGrowthToday * 100) / 100) : 0;
             
 	};
 		$scope.getAddressIdByUserId = function (userID){

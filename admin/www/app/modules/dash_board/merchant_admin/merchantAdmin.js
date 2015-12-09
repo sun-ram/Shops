@@ -275,6 +275,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
                 .success(function (data, status) {
                     $scope.addresses = data;
                     console.log("proceedAddresses Line =>", data);
+					$scope.locateMerchants();
                     /*callback();*/
                 })
                 .error(function (data, status) {
@@ -316,7 +317,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
             }
             $scope.todayTotSale =   $scope.todayTotSale;
             $scope.yesterdayTotSale = $scope.yesterdayTotSale;
-            $scope.salesGrowthToday = (($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100;
+            $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? ((($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100) : 0;
             $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? (Math.round($scope.salesGrowthToday * 100) / 100) : 0;
             
 	};
@@ -337,12 +338,32 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 				}
 			}
 		};
+		
+		$scope.locateMerchants = function() {
+			$scope.tempMarkers = [{
+			}];
+			var i = 0;
+			var len = $scope.stores.Books.length;
+			var locationObj = {};
+			for (; i < len; i++) {
+				var addressObj= $scope.getLatLongByUserId($scope.stores.Books[i].USER_ID); 
+				locationObj.latitude = parseFloat(addressObj.LATITUDE);
+				locationObj.longitude = parseFloat(addressObj.LONGITUDE);
+				locationObj.title = $scope.stores.Books[i].NAME;
+				locationObj.id = $scope.stores.Books[i].MERCHANT_ID;
+				if (locationObj.latitude && locationObj.longitude) {
+					$scope.tempMarkers.push(angular.copy(locationObj));
+				}
+			}
+			$scope.randomMarkers = $scope.tempMarkers;
+		}
 	
+		$scope.proceedStore();
         $scope.ProceedMerchant();
 		$scope.proceedUsers();
 		$scope.proceedAddresses();
         $scope.proceedSalesOrderLine();
         $scope.proceedSalesOrder();
-        $scope.proceedStore();
+        
 
  }]);
