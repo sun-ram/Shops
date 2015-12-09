@@ -510,6 +510,26 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		/*Tax Charge*/
+		
+		apiClass.tax = {
+				name: ""
+		};
+
+		apiClass.tax.getTax = function (merchant, callback) {
+			httpRequest("POST", "tax/gettax", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		/*Home Page Banners*/
 				
 				apiClass.Banner = {

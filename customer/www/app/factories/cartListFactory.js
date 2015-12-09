@@ -100,15 +100,33 @@ angular.module('aviate.factories')
 			if($rootScope.shippingCharges[i].amountRange < $rootScope.shippingCharges[j].amountRange){	
 				$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[i].chargingAmount;
 				
+					}
+				  }
+				}	
 			}
-				}
-			}	
-			}
+		
 		if($rootScope.shippingCharges.length == 1){
 			$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[0].chargingAmount;
 		}
+		//Tax Charge
+		
+		$rootScope.taxList
+		$rootScope.myCart.taxs = [];
+		$rootScope.myCart.taxAmount =0;
+		for(var i=0;i<$rootScope.taxList.length;i++){
+			$rootScope.name = $rootScope.taxList[i].name;
+			$rootScope.taxPercentage = $rootScope.taxList[i].taxPercentage;
+			$rootScope.rate = $rootScope.myCart.cartTotalAmount*($rootScope.taxPercentage/100);
+			$rootScope.myCart.taxs.push({
+				"name":$rootScope.name,
+				"taxPercentage":$rootScope.taxPercentage,
+				"rate":$rootScope.rate
+			});
+			$rootScope.myCart.taxAmount = $rootScope.myCart.taxAmount + $rootScope.rate;
+		}
+		
 		//cartTotalAmount*(2.5/100)
-		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.myCart.shippingCharges+$rootScope.myCart.serviceTax;
+		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.myCart.shippingCharges;
 		//ipCookie("myCart",$rootScope.myCart);
 		localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 	}

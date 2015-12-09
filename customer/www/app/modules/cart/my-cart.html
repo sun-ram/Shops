@@ -62,8 +62,12 @@
 				<div flex layout="row"  >
 					<div flex="30" layout="column" >
 						<span flex class="md-caption">Shipping Charges -  {{myCart.shippingCharges | number:2}}</span>
-						<span flex class="md-caption">Vat(12.5%) - {{myCart.taxAmount | number:2}}</span>
-						<span flex class="md-caption">Service Tax(2.5%) - {{myCart.serviceTax | number:2}}</span>
+					<!-- 	<span flex class="md-caption">Vat(12.5%) - {{myCart.taxAmount | number:2}}</span>
+						<span flex class="md-caption">Service Tax(2.5%) - {{myCart.serviceTax | number:2}}</span> -->
+						<div ng-repeat="tax in myCart.taxs">
+						<span flex class="md-caption">{{tax.name}} - {{tax.rate | number:2}}</span>
+						</div>
+						
 					</div>
 					<div flex="50" layout="row" layout-align="end center">
 						Total
