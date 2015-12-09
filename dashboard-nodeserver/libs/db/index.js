@@ -4,5 +4,6 @@ module.exports = {
     merchant: require("./merchant.js"),
     store: require("./store.js"),
     address: require("./address.js"),
-    users: require("./users.js")
+    users: require("./users.js"),
+    customer: require("./customer.js")
 };
