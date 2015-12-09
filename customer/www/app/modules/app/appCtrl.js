@@ -67,6 +67,7 @@ angular.module('aviate.controllers')
 					templateUrl: 'app/modules/home/locationdialog.tmpl.html',
 					parent: angular.element(document.body),
 					clickOutsideToClose:false,
+					escapeToClose : false,
 					controller: function($scope, $mdDialog,LocationService,$rootScope,$log,toastr,$state,ipCookie){
 						$scope.checked=ev;
 						$scope.hide = function() {
