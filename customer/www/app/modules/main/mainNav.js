@@ -212,12 +212,18 @@ angular.module('aviate.directives')
 							if($scope.myCart != undefined || $scope.myCart != null){
 
 								for(var i=0;i<$scope.myCart.cartItem.length;i++){
-									$scope.cartDetails = {
+									/*$scope.cartDetails = {
 											"customerId" : $rootScope.user.userId, 
 											"storeId" : $rootScope.store.storeId, 
 											"productId" : $scope.myCart.cartItem[i].product.productId, 
 											"price" : $scope.myCart.cartItem[i].product.price, 
 											"quantity" : $scope.myCart.cartItem[i].product.noOfQuantityInCart
+									}*/
+									$scope.cartDetails = {
+											customer : {customerId : $rootScope.user.userId}, 
+											store : {storeId : $rootScope.store.storeId}, 
+											product : {productId : $scope.myCart.cartItem[i].product.productId}, 
+											qty : $scope.myCart.cartItem[i].product.noOfQuantityInCart
 									}
 									MyCartServices.addToCart($scope.cartDetails).then(function(data){
 										console.log('get Mylist success in Main Nav');
