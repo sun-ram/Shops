@@ -35,8 +35,10 @@ angular.module('aviate.directives')
 				var debounceFn =  $mdUtil.debounce(function(){
 					 if($rootScope.navsides == "navigate-right"){
 							$rootScope.navsides = "remove-right";
+                            $rootScope.numLimit = 5;
 							}else{
 								$rootScope.navsides = "navigate-right";
+                                 $rootScope.numLimit = 3;
 							}
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");
