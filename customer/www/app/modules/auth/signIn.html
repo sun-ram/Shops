@@ -35,14 +35,14 @@
 		        </md-checkbox>
 		      </div>
 		      <div flex class="tright">
-		       <md-button  class="text-orange" ng-click="forgetPass = true;title = 'Forgot password?'">Forgot password?</md-button>
+		       <md-button type="button" class="text-orange" ng-click="forgetPass = true;title = 'Forgot password?'">Forgot password?</md-button>
 		      </div>     
 		    </div> 
 		  <div class="md-actions" layout="row">
 		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userLoginForm.$invalid" ng-click="signIn(user);">
 		      SIGN IN
 		    </md-button>
-		    <md-button  type="button" class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
+		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
 		      CANCEL
 		    </md-button>
 		  </div>
