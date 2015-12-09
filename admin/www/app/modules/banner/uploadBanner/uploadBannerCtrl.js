@@ -2,7 +2,7 @@ angular.module('aviateAdmin.controllers')
 .controller("uploadBannerCtrl", 
 		['$scope', '$rootScope', '$state','toastr','CommonServices','BannerServices',
 		 function($scope, $rootScope, $state, toastr, CommonServices, BannerServices) {
-
+			var flag=false;
 			$scope.uploadFile = function (val1,val2){
 				var id =$('#'+val2).val();
 				var srs=id.replace("C:\\fakepath\\" ,"" );	
@@ -10,6 +10,7 @@ angular.module('aviateAdmin.controllers')
 			}
 
 			$scope.addBanner = function(bannerDetail){
+				if(!flag){
 				if ($scope.bannerDetail.tabTitleBold == "" || $scope.bannerDetail.tabTitleBold==undefined) {
 					toastr.warning("Please Enter Banner Title 1");
 					return;
@@ -29,12 +30,15 @@ angular.module('aviateAdmin.controllers')
 					$scope.bannerDetail.store.storeId = $rootScope.user.storeId;
 					$scope.bannerDetail.merchant.merchantId = $rootScope.user.merchantId;
 				}
+				flag=true;
 				$scope.bannerDetail.image.image = $scope.bannerImage.split(",")[1];
 				$scope.bannerDetail.image.type = $scope.bannerImage ? ($scope.bannerImage.substring(11).split(";")[0]) : "";
 				BannerServices.addNewBanner($scope.bannerDetail).then(function(data){
+					flag=false;
 					$scope.bannerDetail = null;
 					$state.go('app.banner');
 				});
+				}
 			}
 
 		}]);
