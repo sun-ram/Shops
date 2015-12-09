@@ -7,7 +7,7 @@
                     <div layout="row" class="address-header">
                         <img ng-click="selectAddress(address.addressId)" src="assets/img/checkout/address.svg" height="40px" width="40px">
                         <div flex></div>
-                        <p ng-click="selectAddress(address.addressId)">{{address.customer.name}}</p>
+                        <p ng-click="selectAddress(address.addressId)"><span class="md-title">{{address.customer.name}}</span></p>
                         <div flex></div>
                         <div class="address-edit">
                             <md-button class="md-icon-button" aria-label="More" ng-click="editAddress(address,$event)">
@@ -21,14 +21,14 @@
                         </div>                        
                     </div>
                     <div ng-click="selectAddress(address.addressId)">
-                        <ul>
-                            <li>{{address.address1}}</li>
-                            <li ng-if="address.address2">{{address.address2}}</li>
-                            <li>{{address.city}}</li>
-                            <li>{{address.state.name}}</li>
-                            <li>{{address.country.name}}</li>
-                            <li>{{address.pinCode}}</li>
-                            <li>{{address.phoneNo}}</li>
+                        <ul class="del-address">
+                            <li><span class="md-body-1">Address 1</span>- {{address.address1}}</li>
+                            <li ng-if="address.address2"> <span  class="md-body-1">Address 2</span>- {{address.address2}}</li>
+                            <li><span>Country</span>- {{address.country.name}}</li>
+                            <li><span>State</span>- {{address.state.name}}</li>
+                            <li><span>City</span>- {{address.city}}</li>
+                            <li><span>Pincode</span>- {{address.pinCode}}</li>
+                            <li><span>Phone</span>- {{address.phoneNo}}</li>
                         </ul>
                     </div>
                 </md-card-content>
@@ -68,6 +68,6 @@
        <span ng-show="change">
         <md-button class="md-raised" ng-click="back()">Back</md-button>
        </span>
-        <md-button class="md-primary md-raised" ng-click="goNext('address')" >Next</md-button>
+        <md-button class="md-raised" ng-click="goNext('address')" style="background-color:#72a308 ; color:#FFFFFF;">Next</md-button>
     </div>
 </section>

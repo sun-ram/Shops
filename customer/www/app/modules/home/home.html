@@ -21,11 +21,11 @@
 					
 				
 			</div>
-	        <div flex="60" higgidy-carousel='images' timeout="5000" style="height:280px; " >
-	            <ul higgidy-carousel-images style="height:230px; overflow:hidden;">
+	        <div flex="60" higgidy-carousel='images' timeout="5000" style="height:235px; " >
+	            <ul higgidy-carousel-images style="height:185px; overflow:hidden;">
 	                <li ng-repeat="image in images">
 	                    <a href="{{image.link}}">
-	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" height="230" style="width: 787px;"/>
+	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" height="185" style="width: 787px;"/>
 	                    </a>
 	                </li>
 	            </ul>
@@ -41,10 +41,10 @@
 	            </nav>
 	        </div>
 	        <div flex="20" class="slider-right" style="background:#F2CB6E;">
-				
+				<!-- 
 				<strong class="md-headline">About ShopsBacker</strong></br>
-				<md-body-1>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</md-caption> 
-				<!-- <img src="assets\img\hpy-shoping.png" class="hpy-shop"/> -->
+				<md-body-1>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</md-caption>  -->
+				<img src="assets\images\bannerright.png" style="height:230px; "/> 
 					
 				
 			</div>
@@ -55,7 +55,7 @@
  			<div style="background-color:#FFFFFF; padding:10px;">
  				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">Hot Products </h2>
- 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) Items 
+ 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <span ng-if="topcategories.length > 1">Items</span> <span ng-if="topcategories.length <= 1">Item</span> 
  						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
  					</span>
  				</div>
@@ -138,7 +138,7 @@
  				<div class="prod-headings" flex ng-hide="category.products.length ==0" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">{{category.name}}</h2>
  					<span style="float:left;     margin: 22px 0px 0px 10px;"  class="md-subhead">
- 				({{category.products.length}}) Items 
+ 				({{category.products.length}}) <span ng-if="category.products.length > 1">Items</span> <span ng-if="category.products.length <= 1">Item</span> 
  				    <a href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a>
  				    </span>
  				</div>
