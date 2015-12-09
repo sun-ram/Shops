@@ -381,7 +381,7 @@ Random Markers
 					$scope.tempMarkers.push(angular.copy(locationObj));
 				}
 			}
-			//$scope.randomMarkers = $scope.tempMarkers;
+			$scope.randomMarkers = $scope.tempMarkers;
 		}
         $scope.ProceedMerchant();
 		$scope.proceedUsers();
@@ -389,8 +389,6 @@ Random Markers
         $scope.proceedSalesOrderLine();
         $scope.proceedSalesOrder();
         $scope.proceedStore();
-
-
 
 
  }]);
