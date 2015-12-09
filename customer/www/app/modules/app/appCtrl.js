@@ -154,6 +154,7 @@ angular.module('aviate.controllers')
 							$rootScope.getAllCategoryWithProduct();
 							$rootScope.categoryList();
 							$rootScope.shippingCharge();
+							$rootScope.getTax();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
 							$scope.banner = {};
@@ -259,5 +260,12 @@ angular.module('aviate.controllers')
 	                $rootScope.shippingCharges = data;
 	            })
 			}
-
+			$rootScope.getTax =function(){
+				$scope.tax ={};
+				$scope.merchant = $rootScope.store.merchant;
+				homePageServices.getTax($scope.merchant).then(function(data){
+				$rootScope.taxList = data.taxList;
+				})
+								
+			}
 }]);
