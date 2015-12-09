@@ -41,8 +41,11 @@
                         <md-menu-item>
                             <md-button>
                                 <div layout="row">
-                                    <p flex="">{{user.role}}</p>
-                                </div>
+                         <div ng-if="user.role == 'SUPERADMIN'" style="height:20px !important;"> <span style="color:#000000;" class="md-body-1">SUPER ADMIN</span></div>
+                          <div ng-if="user.role == 'MERCHANTADMIN'" style="height:20px !important;"> <span style="color:#000000;" class="md-body-1">MERCHANT ADMIN</span></div>
+            		<div ng-if="user.role == 'STOREADMIN'" style="height:20px !important;"> <span style="color:#000000;" class="md-body-1">STORE ADMIN</span></div>      
+<!--                                     <p flex="">{{user.role}}</p>
+ -->                                </div>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
