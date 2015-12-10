@@ -93,4 +93,10 @@ ADD CONSTRAINT `FK_CUSTOMER_SIGN`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
   
+  ----   10-12-2015 -------- Fayaz ----------------- Address table name field added ----------------
+  
+  ALTER TABLE `shopsbacker`.`address` 
+ADD COLUMN `NAME` VARCHAR(150) NULL DEFAULT NULL AFTER `UPDATED`;
+
+  
   

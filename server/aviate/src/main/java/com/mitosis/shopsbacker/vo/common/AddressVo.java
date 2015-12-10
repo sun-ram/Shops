@@ -16,6 +16,7 @@ import com.mitosis.shopsbacker.vo.customer.CustomerVo;
 @XmlRootElement
 public class AddressVo {
 	private String addressId;
+	private String name;
 	private StateVo state;
 	private CountryVo country;
 	private String landmark;
@@ -100,5 +101,12 @@ public class AddressVo {
 	public void setCustomer(CustomerVo customer) {
 		this.customer = customer;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 
 }

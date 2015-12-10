@@ -32,6 +32,7 @@ public class Address implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String addressId;
+	private String name;
 	private State state;
 	private Customer customer;
 	private Country country;
@@ -58,7 +59,7 @@ public class Address implements java.io.Serializable {
 
 	public Address(String addressId, State state, Country country,
 			String address1, String pinCode, String createdby,
-			String updatedby, Date created, Date updated) {
+			String updatedby, Date created, Date updated,String name) {
 		this.addressId = addressId;
 		this.state = state;
 		this.country = country;
@@ -68,15 +69,17 @@ public class Address implements java.io.Serializable {
 		this.updatedby = updatedby;
 		this.created = created;
 		this.updated = updated;
+		this.name=name;
 	}
 
-	public Address(String addressId, State state, Customer customer,
+	public Address(String addressId,String name, State state, Customer customer,
 			Country country, String landmark, String address1, String address2,
 			String city, String pinCode, String phoneNo, String latitude,
 			String longitude, char isactive, String createdby,
 			String updatedby, Date created, Date updated, List<SalesOrder> salesOrders,
 			List<User> users, List<MerchantRequest> merchantRequests,List<Warehouse>  warehouses) {
 		this.addressId = addressId;
+		this.name=name;
 		this.state = state;
 		this.customer = customer;
 		this.country = country;
@@ -295,4 +298,15 @@ public class Address implements java.io.Serializable {
 	public void setWarehouses(List<Warehouse> warehouses) {
 		this.warehouses = warehouses;
 	}
+
+	@Column(name = "NAME", length = 150)
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 }

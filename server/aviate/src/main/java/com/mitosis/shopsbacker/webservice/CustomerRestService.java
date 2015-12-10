@@ -229,7 +229,7 @@ public class CustomerRestService<T> {
 			for (Address address : addressList) {
 				if(address.getIsactive()=='Y'){
 					AddressVo addresVo = addressService.setAddressVo(address);
-					addresVo.getCustomer().setName(address.getCustomer().getName());
+					//addresVo.getCustomer().setName(address.getCustomer().getName());
 					addressResponseList.getAddressList().add(addresVo);
 				}
 			}

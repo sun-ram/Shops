@@ -115,6 +115,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 			// TODO need to get user from session and set to updatedby
 			address.setUpdatedby("123");
 		}
+		address.setName(addressVo.getName());
 		address.setAddress1(addressVo.getAddress1());
 		address.setAddress2(addressVo.getAddress2());
 		address.setCity(addressVo.getCity());
@@ -132,6 +133,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	public AddressVo setAddressVo(Address address) {
 		addressVo = new AddressVo();
 		addressVo.setAddressId(address.getAddressId());
+		addressVo.setName(address.getName());
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
 		addressVo.setCity(address.getCity());
