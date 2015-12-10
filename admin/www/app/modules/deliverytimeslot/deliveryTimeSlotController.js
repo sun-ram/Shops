@@ -1,5 +1,5 @@
-aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$location','$state','$rootScope','toastr','CONSTANT','deliveryTimeSlotService','$filter',
-                                              function($scope,$http,$localStorage, $location,$state,$rootScope,toastr,CONSTANT,deliveryTimeSlotService,$filter) {
+aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$location','$state','$rootScope','$mdDialog','toastr','CONSTANT','deliveryTimeSlotService','$filter',
+                                              function($scope,$http,$localStorage, $location,$state,$rootScope,$mdDialog,toastr,CONSTANT,deliveryTimeSlotService,$filter) {
 
 	 /* $scope.query = {
 			    limit: 5,
@@ -56,11 +56,22 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		};
 		
 		$scope.deleteDeliveryTimeSlot = function(deliveryTimeSlot) {
-		 
-			deliveryTimeSlotService.deleteDeliveryTimeSlot({'deliveryTimeSlotId':deliveryTimeSlot.deliveryTimeSlotId}).then(function(data) {
-				$scope.getDeliveryTimeSlots();
-				toastr.success(CONSTANT.DELETEDELIVERYTIMESLOT);
-			});
+			var confirm = $mdDialog.confirm()
+	        .title('Would you like to delete Delivery Time Slot?')
+			        .ok('Delete')
+			        .cancel('Cancel');
+			  $mdDialog.show(confirm).then(function() {
+		
+				  deliveryTimeSlotService.deleteDeliveryTimeSlot({'deliveryTimeSlotId':deliveryTimeSlot.deliveryTimeSlotId}).then(function(data) {
+						$scope.getDeliveryTimeSlots();
+						toastr.success(CONSTANT.DELETEDELIVERYTIMESLOT);
+					});
+				
+	  }, function() {
+				  
+				  });		
+			  
+			
 		};		
 			
 		
@@ -121,3 +132,5 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 	}
 }
 ]);
+
+
