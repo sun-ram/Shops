@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.webservice;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
@@ -192,6 +193,7 @@ public class SalesOrderRestService<T> {
 				User user = userService.getUser(salesOrderVo.getUser()
 						.getUserId());
 				salesOrder.setStatus(OrderStatus.Shoper_Assigned.toString());
+				salesOrder.setShopperAssignedTime(new Date());
 				salesOrder.setShopper(user);
 				salesOrderService.updateSalesOrder(salesOrder);
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
@@ -225,6 +227,7 @@ public class SalesOrderRestService<T> {
 				User user = userService.getUser(salesOrderVo.getUser()
 						.getUserId());
 				salesOrder.setStatus(OrderStatus.Backer_Assigned.toString());
+				salesOrder.setBackerAssignedTime(new Date());
 				salesOrder.setBacker(user);
 				salesOrderService.updateSalesOrder(salesOrder);
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
@@ -540,13 +543,27 @@ public class SalesOrderRestService<T> {
 
 				if (salesOrderVo.getSalesOrderId() != null
 						&& salesOrderVo.getStatus() != null) {
-					if (OrderStatus.Delivered.toString().equalsIgnoreCase(
+					
+					boolean isValidStatus = OrderStatus.contains(salesOrderVo.getStatus());
+					if (isValidStatus) {
+						
+					if (OrderStatus.Picked.toString().equalsIgnoreCase(
+							salesOrderVo.getStatus())) {
+						salesOrder.setPickupStartTime(new Date());
+					}else if (OrderStatus.Packed.toString().equalsIgnoreCase(
+							salesOrderVo.getStatus())) {
+						salesOrder.setPackedTime(new Date());
+					}else if (OrderStatus.Backer_Started.toString().equalsIgnoreCase(
+							salesOrderVo.getStatus())) {
+						salesOrder.setDeliveryStartTime(new Date());
+					}else if (OrderStatus.Delivered.toString().equalsIgnoreCase(
 							salesOrderVo.getStatus())) {
 						if (salesOrderVo.getSign().getImage() != null) {
 							customerSign(salesOrder, salesOrderVo);
 							Image image = imageService.setImage(salesOrderVo
 									.getSign());
 							salesOrder.setCustomerSign(image);
+							salesOrder.setDeliveredTime(new Date());
 						} else {
 							salesOrderResponse
 									.setStatus(SBMessageStatus.FAILURE
@@ -567,12 +584,7 @@ public class SalesOrderRestService<T> {
 							return responseStr;
 						}
 					}
-
-					String status = salesOrderVo.getStatus();
-
-					boolean isValidStatus = OrderStatus.contains(status);
-					if (isValidStatus) {
-						salesOrder.setStatus(status);
+						salesOrder.setStatus(salesOrderVo.getStatus());
 						salesOrderService.updateSalesOrder(salesOrder);
 						salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
 								.getValue());

@@ -206,7 +206,6 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setCustomer(setCustomerDetails(salesOrder.getCustomer()));
 		salesOrderVo.setDeliveryDate(CommonUtil.dateToString(salesOrder.getDeliveryDate()));
 		salesOrderVo.setDeliveryFlag(salesOrder.getDeliveryFlag());
-		salesOrderVo.setDeliveryTime(salesOrder.getDeliveryTime());
 		salesOrderVo.setStore(getStoreService().setStoreVo((salesOrder.getStore())));
 		salesOrderVo.setDiscountAmount(salesOrder.getDiscountAmount());
 		salesOrderVo.setTotalTaxAmount(salesOrder.getTotalTaxAmount());
@@ -214,6 +213,24 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
 		MerchantVo merchantVo=new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
+		if(salesOrder.getDeliveredTime() != null){
+			salesOrderVo.setDeliveredTime(CommonUtil.dateToString(salesOrder.getDeliveredTime()));
+		}
+		if(salesOrder.getPickupStartTime() != null){
+			salesOrderVo.setPickupStartTime(CommonUtil.dateToString(salesOrder.getPickupStartTime()));
+		}
+		if(salesOrder.getPackedTime() != null){
+			salesOrderVo.setPackedTime(CommonUtil.dateToString(salesOrder.getPackedTime()));
+		}
+		if(salesOrder.getDeliveryStartTime() != null){
+			salesOrderVo.setDeliveryStartTime(CommonUtil.dateToString(salesOrder.getDeliveryStartTime()));
+		}
+		if(salesOrder.getShopperAssignedTime() != null){
+			salesOrderVo.setShopperAssignedTime(CommonUtil.dateToString(salesOrder.getShopperAssignedTime()));
+		}
+		if(salesOrder.getBackerAssignedTime() != null){
+			salesOrderVo.setBackerAssignedTime(CommonUtil.dateToString(salesOrder.getBackerAssignedTime()));
+		}
 		if(salesOrder.getShopper()!=null){
 			UserVo userVo=new UserVo();
 			userVo.setName(salesOrder.getShopper().getName());

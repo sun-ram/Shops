@@ -234,7 +234,7 @@ public final class CommonUtil {
 	public static String dateToString(Date date) {
 		String dateString = null;
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss") ;
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss") ;
 			dateString = sdf.format(date);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -51,7 +51,7 @@ public class SalesOrder implements java.io.Serializable {
 	private BigDecimal netAmount;
 	private Image customerSign;
 	private Merchant merchant;
-	private Date deliveryTime;
+	private Date deliveredTime;
 	private char deliveryFlag;
 	private BigDecimal discountAmount;
 	private char isactive;
@@ -59,6 +59,11 @@ public class SalesOrder implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private String updatedby;
+	private Date pickupStartTime;
+	private Date packedTime;
+	private Date deliveryStartTime;
+	private Date shopperAssignedTime;
+	private Date backerAssignedTime;
 	private List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 	private List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 	private List<Favourite> favourites = new ArrayList<Favourite>();
@@ -71,7 +76,7 @@ public class SalesOrder implements java.io.Serializable {
 			String deliveryTimeSlot, char ispaid, BigDecimal amount,
 			BigDecimal totalTaxAmount, BigDecimal shippingCharge,
 			BigDecimal netAmount, Merchant merchant, BigDecimal discountAmount,
-			char isactive, Date created, Date updated) {
+			char isactive, Date created, Date updated, Date pickupStartTime, Date packedTime, Date backerStartTime) {
 		this.salesOrderId = salesOrderId;
 		this.customer = customer;
 		this.address = address;
@@ -89,6 +94,9 @@ public class SalesOrder implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.pickupStartTime = pickupStartTime;
+		this.packedTime = packedTime;
+		this.deliveryStartTime = backerStartTime;
 	}
 
 	public SalesOrder(String salesOrderId, User backer,
@@ -98,9 +106,10 @@ public class SalesOrder implements java.io.Serializable {
 			BigDecimal amount, String paymentMethod, String transactionNo,
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
-			Image customerSign, Merchant merchant, Date deliveryTime,
+			Image customerSign, Merchant merchant, Date deliveredTime,
 			char deliveryFlag, BigDecimal discountAmount, char isactive,
-			String createdby, Date created, Date updated, String updatedby) {
+			String createdby, Date created, Date updated, String updatedby, Date pickupStartTime, Date packedTime, Date deliveryStartTime, 
+			Date shopperAssignedTime, Date backerAssignedTime) {
 		this.salesOrderId = salesOrderId;
 		this.backer = backer;
 		this.customer = customer;
@@ -121,7 +130,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.netAmount = netAmount;
 		this.customerSign = customerSign;
 		this.merchant = merchant;
-		this.deliveryTime = deliveryTime;
+		this.deliveredTime = deliveredTime;
 		this.deliveryFlag = deliveryFlag;
 		this.discountAmount = discountAmount;
 		this.isactive = isactive;
@@ -129,7 +138,11 @@ public class SalesOrder implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.updatedby = updatedby;
-		
+		this.pickupStartTime = pickupStartTime;
+		this.packedTime = packedTime;
+		this.deliveryStartTime = deliveryStartTime;
+		this.shopperAssignedTime = shopperAssignedTime;
+		this.backerAssignedTime = backerAssignedTime;
 	}
 
 	@Id
@@ -265,13 +278,13 @@ public class SalesOrder implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELIVERY_TIME", length = 19)
-	public Date getDeliveryTime() {
-		return this.deliveryTime;
+	@Column(name = "DELIVERED_TIME", length = 19)
+	public Date getDeliveredTime() {
+		return this.deliveredTime;
 	}
 
-	public void setDeliveryTime(Date deliveryTime) {
-		this.deliveryTime = deliveryTime;
+	public void setDeliveredTime(Date deliveredTime) {
+		this.deliveredTime = deliveredTime;
 	}
 
 	@Column(name = "DELIVERY_FLAG", length = 1)
@@ -426,5 +439,55 @@ public class SalesOrder implements java.io.Serializable {
 	public void setFavourites(List<Favourite> favourites) {
 		this.favourites = favourites;
 	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "PICKUP_START_TIME", length = 19)
+	public Date getPickupStartTime() {
+		return pickupStartTime;
+	}
+
+	public void setPickupStartTime(Date pickupStartTime) {
+		this.pickupStartTime = pickupStartTime;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "PACKED_TIME", length = 19)
+	public Date getPackedTime() {
+		return packedTime;
+	}
+
+	public void setPackedTime(Date packedTime) {
+		this.packedTime = packedTime;
+	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "SHOPPER_ASSIGNED_TIME", length = 19)
+	public Date getShopperAssignedTime() {
+		return shopperAssignedTime;
+	}
+
+	public void setShopperAssignedTime(Date shopperAssignedTime) {
+		this.shopperAssignedTime = shopperAssignedTime;
+	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "BACKER_ASSIGNED_TIME", length = 19)
+	public Date getBackerAssignedTime() {
+		return backerAssignedTime;
+	}
+
+	public void setBackerAssignedTime(Date backerAssignedTime) {
+		this.backerAssignedTime = backerAssignedTime;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DELIVERY_START_TIME", length = 19)
+	public Date getDeliveryStartTime() {
+		return deliveryStartTime;
+	}
+
+	public void setDeliveryStartTime(Date deliveryStartTime) {
+		this.deliveryStartTime = deliveryStartTime;
+	}
+	
+	
 	
 }

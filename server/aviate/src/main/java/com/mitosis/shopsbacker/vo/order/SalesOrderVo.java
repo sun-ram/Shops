@@ -30,7 +30,6 @@ public class SalesOrderVo {
 	private BigDecimal netAmount;
 	private ImageVo sign;
 	private MerchantVo merchant;
-	private Date deliveryTime;
 	private Character deliveryFlag;
 	private BigDecimal discountAmount;
 	private List<SalesOrderLineVo> salesOrderLineVo;
@@ -42,8 +41,14 @@ public class SalesOrderVo {
 	private UserVo backer;
 	private String shoperId;
 	private String backerId;
-	
-	
+	private String customerId;
+	private String storeId;
+	private String deliveredTime;
+	private String pickupStartTime;
+	private String packedTime;
+	private String deliveryStartTime;
+	private String shopperAssignedTime;
+	private String backerAssignedTime;
 	
 	public ImageVo getSign() {
 		return sign;
@@ -143,12 +148,6 @@ public class SalesOrderVo {
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
-	public Date getDeliveryTime() {
-		return deliveryTime;
-	}
-	public void setDeliveryTime(Date deliveryTime) {
-		this.deliveryTime = deliveryTime;
-	}
 	public Character getDeliveryFlag() {
 		return deliveryFlag;
 	}
@@ -227,7 +226,53 @@ public class SalesOrderVo {
 	public void setBacker(UserVo backer) {
 		this.backer = backer;
 	}
-
-	
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+	public String getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
+	public String getDeliveredTime() {
+		return deliveredTime;
+	}
+	public void setDeliveredTime(String deliveredTime) {
+		this.deliveredTime = deliveredTime;
+	}
+	public String getPickupStartTime() {
+		return pickupStartTime;
+	}
+	public void setPickupStartTime(String pickupStartTime) {
+		this.pickupStartTime = pickupStartTime;
+	}
+	public String getPackedTime() {
+		return packedTime;
+	}
+	public void setPackedTime(String packedTime) {
+		this.packedTime = packedTime;
+	}
+	public String getDeliveryStartTime() {
+		return deliveryStartTime;
+	}
+	public void setDeliveryStartTime(String deliveryStartTime) {
+		this.deliveryStartTime = deliveryStartTime;
+	}
+	public String getShopperAssignedTime() {
+		return shopperAssignedTime;
+	}
+	public void setShopperAssignedTime(String shopperAssignedTime) {
+		this.shopperAssignedTime = shopperAssignedTime;
+	}
+	public String getBackerAssignedTime() {
+		return backerAssignedTime;
+	}
+	public void setBackerAssignedTime(String backerAssignedTime) {
+		this.backerAssignedTime = backerAssignedTime;
+	}
 	
 }

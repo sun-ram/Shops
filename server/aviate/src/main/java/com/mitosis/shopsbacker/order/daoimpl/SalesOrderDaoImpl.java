@@ -6,9 +6,9 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
+import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
@@ -25,7 +25,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 
 	private static final long serialVersionUID = 1L;
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<SalesOrder> getSalesOrders(Store store, boolean isPaid) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
@@ -41,7 +41,6 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<SalesOrder> getOrderList(Store store) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
@@ -55,7 +54,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<SalesOrder> getOrderList(Store store, OrderStatus status) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
@@ -70,7 +69,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
 			String toDate, Store store) {
 		try {
@@ -89,7 +88,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 	
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
 			String toDate, Merchant merchant) {
 		try {
@@ -108,7 +107,6 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
-	@Override
 	public SalesOrder salesOrderById(String salesOrderId) {
 		try {
 			return (SalesOrder) getSession()
@@ -119,7 +117,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public void updateSalesOrder(SalesOrder salesOrder) {
 		try {
 			update((T) salesOrder);
@@ -130,7 +128,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public void saveSalesOrder(SalesOrder salesOrder) {
 		try {
 			save((T) salesOrder);
@@ -141,7 +139,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<SalesOrder> getOrderList(Merchant merchant) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
@@ -163,6 +161,26 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("orderNo", orderNo));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return (SalesOrder) findUnique(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+
+	/**
+	 * @author Prabakaran A
+	 * @return List of SalesOrder
+	 * @param Store store, Customer customer
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SalesOrder> getOrderList(Store store, Customer customer) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
+			criteria.add(Restrictions.eq("store", store));
+			criteria.add(Restrictions.eq("customer", customer));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw (e);
