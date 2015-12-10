@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
@@ -167,4 +168,11 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		}
 	}
 
+	public int inActiveStores(Merchant merchant) {
+				Query updateQuery = getSession().createQuery(
+						"update Store set isactive='N' where merchant = :merchant");
+				updateQuery.setParameter("merchant", merchant);
+				return updateQuery.executeUpdate();
+			}
+	
 }

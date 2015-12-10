@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -13,8 +14,7 @@ import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 
 /**
- *  Created by Prabakaran.15/11/2015
- *  Reviewed by Sundaram  27/11/2015
+ * Created by Prabakaran.15/11/2015 Reviewed by Sundaram 27/11/2015
  */
 
 @Repository
@@ -25,7 +25,6 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -60,7 +59,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 
 	@Override
 	public Merchant getMerchantById(String id) {
-		return(Merchant) getSession().get(Merchant.class, id);
+		return (Merchant) getSession().get(Merchant.class, id);
 	}
 
 	@SuppressWarnings("unchecked")

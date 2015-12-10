@@ -31,4 +31,6 @@ public interface StoreDao<T> {
 
 	public List<Store> getStoreList();
 	
+	public int inActiveStores(Merchant merchant);
+	
 }

@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -141,4 +142,11 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (List<User>) findAll(criteria);
 	}
 
+	public int inActiveUsers(Merchant merchant) {
+		Query updateQuery = getSession().createQuery(
+				"update User set isactive='N' where merchant = :merchant");
+		updateQuery.setParameter("merchant", merchant);
+		return updateQuery.executeUpdate();
+	}
+	
 }
