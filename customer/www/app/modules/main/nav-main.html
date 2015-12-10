@@ -78,7 +78,7 @@
 	 
 	 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && favouriteList.length > 0">
 	   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
-	        <md-icon md-svg-icon="assets/img/icon/favourite.svg" style="color: white;"></md-icon>
+	        <md-icon md-svg-icon="assets/img/icon/favourite.svg" style="color: white; width: 20px;"></md-icon>
 	        <md-tooltip md-direction="bottom">
 	          Favourite
 	        </md-tooltip>
@@ -93,12 +93,12 @@
 	         </md-content>
 	      </md-menu-content>
        </md-menu>
-	 
+	<span class="cart-amt">Rs.17000</span> 
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
     <md-button ng-click="toggleRight('right')" style="border-radius:0px;" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
     <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length > 0">{{myCart.cartItem.length}}</div>
        <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length == 0 || myCart.cartItem.length == undefined">0</div>
-        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
+        <md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white; width: 20px;"></md-icon>
         <md-tooltip md-direction="bottom">
           My cart
         </md-tooltip>
@@ -168,7 +168,7 @@
 
 	<md-menu style="margin-top: -8px" md-position-mode="target-right target">
 		<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation(); addpos()" class="height50 wid_60 nomargin  md-icon-button" aria-label="User">
-			<md-icon md-svg-icon="assets/img/icon/hd-user.svg" style="color: white;"></md-icon>
+			<md-icon md-svg-icon="assets/img/icon/hd-user.svg" style="color: white; width: 20px;"></md-icon>
 	    <md-tooltip md-direction="bottom">User</md-tooltip>
 		</md-button>
 		

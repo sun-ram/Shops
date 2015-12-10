@@ -80,7 +80,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .mtopn8{margin-top:-8px;}
 .mg-tb25{margin: 25px 0px;}
 .mg_t15{margin: 15px 0px 0px;}
-.marg-5{margin:5px;}
+.marg-5{margin:5px ! important;}
 
 /* ------------ Font color ----------*/
 
@@ -423,8 +423,10 @@ ui-view{ background-color:#EEEEEE !important;}
 	border-bottom: 3px solid orangered;
 }
 
-
-
+.md-list-item-text h4{
+	font-size: 15px ! important;
+}
+.cart-amt{right: 70px; position: absolute; top: 38px; color: white; font-weight: bold; font-size: 10px;}
 
 
 

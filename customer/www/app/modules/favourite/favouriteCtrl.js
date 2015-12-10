@@ -4,7 +4,7 @@ angular.module('aviate.controllers')
 
 	$scope.addFavourite = function(){
 		$scope.favourite = {};
-		$scope.favourite.name = $scope.favouritName;
+		$scope.favourite.name = $scope.favouriteName;
 		$scope.favourite.salesOrderId = $stateParams.salesOrderId;
 		$scope.favourite.customerId = $rootScope.user.userId;
 		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
