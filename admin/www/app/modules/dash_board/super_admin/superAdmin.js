@@ -5,23 +5,11 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		var reportType = 15;
 		var commition = 3;
 		var millisecondsPerday = 86400000;
-		var month = new Array();
+		
 		var today = new Date();
 		var todayDateObj = new Date(today.toISOString().substring(0, 10));
 		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
 		yesterdayDateObj.setTime(todayDateObj.getTime() - millisecondsPerday);
-		month[0] = "Jan";
-		month[1] = "Feb";
-		month[2] = "Mar";
-		month[3] = "Apr";
-		month[4] = "May";
-		month[5] = "Jun";
-		month[6] = "Jul";
-		month[7] = "Aug";
-		month[8] = "Sep";
-		month[9] = "Oct";
-		month[10] = "Nov";
-		month[11] = "Dec";
 		$scope.salesOrders;
 		$scope.merchants;
 		$scope.stores;
@@ -45,6 +33,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
         ];
 		 $scope.reportSelector = [{
+			name: "Today",
+            value:1
+		 },{
             name: "Weekly",
             value:7
         }, {
@@ -55,7 +46,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             value:30
         }];
 		$scope.onReportChanged = function(reportValue){
+			reportType = reportValue;
             console.log("onReportChanged",reportValue);
+			initiateAllMethods();
         }
 		$scope.map = {
 			center: {
@@ -318,8 +311,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					totalAmount = totalAmount + x1[storeIds1[j]][i];
 				}
 				if (totalAmount > 0) {
-					tmpAvgObj.key = x1[storeIds1[j]][0];
-					tmpAvgObj.y = Math.round((commition / 100) * totalAmount);
+					tmpAvgObj = {};
+					tmpAvgObj.label =  x1[storeIds1[j]][0];
+					tmpAvgObj.value = Math.round((commition / 100) * totalAmount);
 					$scope.historicalBarChart2[0].values.push(angular.copy(tmpAvgObj));
 
 				}
