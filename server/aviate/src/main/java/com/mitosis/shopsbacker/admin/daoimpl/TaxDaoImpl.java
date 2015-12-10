@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -64,6 +65,7 @@ TaxDao<T>, Serializable{
 					.forClass(Tax.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<Tax>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();

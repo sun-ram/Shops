@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -79,6 +80,7 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return ((List<Store>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
