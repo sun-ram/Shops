@@ -147,7 +147,7 @@ public class StoreRestService<T> {
 				return response;
 			}
 			user = userService.getUserByUserName(storeVo.getUser()
-					.getUserName());
+					.getUserName(), false);
 			if (user != null) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
 						.getCode());

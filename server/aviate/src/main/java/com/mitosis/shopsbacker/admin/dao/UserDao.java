@@ -28,9 +28,7 @@ public interface UserDao<T> {
 
 	public List<User> getUsersByStoreAndRole(Store store, Role role);
 
-	public User getUserByName(String userName);
-
-	public User getUserByName(String userName, String password);
+	public User getUserByName(String userName, boolean isFromLogin);
 
 	public List<User> getUsers(List<Role> role, Store store);
 
