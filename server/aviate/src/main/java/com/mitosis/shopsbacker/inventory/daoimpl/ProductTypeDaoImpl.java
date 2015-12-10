@@ -131,4 +131,28 @@ public class ProductTypeDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		}
 	}
 
+	@Override
+	public boolean checkProductTypeWithname(ProductCategory productCategory,
+			String name) {
+		boolean flag=false;
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(ProductType.class);
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("productCategory", productCategory));
+			criteria.add(Restrictions.eq("name", name));
+			List<ProductType> productType= (List<ProductType>) findAll(criteria);
+			if(productType.size()>0){
+				flag=false;
+			}
+			else{
+				flag=true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+		return flag;
+	}
+
 }

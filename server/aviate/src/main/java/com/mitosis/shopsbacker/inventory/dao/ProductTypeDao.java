@@ -18,6 +18,8 @@ public interface ProductTypeDao<T> {
 	public void removeProductType(ProductType productType);
 	
 	public boolean checkProductType(ProductCategory productCategory);
+	
+	public boolean checkProductTypeWithname(ProductCategory productCategory,String name);
 
 	public ProductType getProductTypeById(String productTypeId);
 

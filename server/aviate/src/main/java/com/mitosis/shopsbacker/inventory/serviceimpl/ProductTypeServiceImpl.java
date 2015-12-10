@@ -104,4 +104,10 @@ public class ProductTypeServiceImpl<T> implements ProductTypeService<T>,
 		}
 		return productTypeVoResponse;
 	}
+
+	@Override
+	public boolean checkProductTypeWithname(ProductCategory productCategory,
+			String name) {
+ 	return productTypeDao.checkProductTypeWithname(productCategory,name);
+	}
 }

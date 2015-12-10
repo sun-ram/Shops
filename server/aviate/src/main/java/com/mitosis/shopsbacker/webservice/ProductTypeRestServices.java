@@ -22,6 +22,7 @@ import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.responsevo.ProductTypeResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 
@@ -50,6 +51,8 @@ public class ProductTypeRestServices<T> {
 		ProductCategory productCategory = productCategoryService
 				.getCategoryById(productTypeVo.getProductCategory()
 						.getProductCategoryId());
+		boolean flag=productTypeService.checkProductTypeWithname(productCategory,productTypeVo.getName());
+		if(flag){
 		productType = setProductTypeDetails(productTypeVo);
 		productType.setName(productTypeVo.getName());
 		productType.setProductCategory(productCategory);
@@ -61,6 +64,13 @@ public class ProductTypeRestServices<T> {
 			productTypeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
 		}
 		return productTypeResponseVo;
+		}
+		else{
+			productTypeResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+			productTypeResponseVo.setErrorCode(SBErrorMessage.PRODUCTTYPE_EXIST.getCode());
+			productTypeResponseVo.setErrorString(SBErrorMessage.PRODUCTTYPE_EXIST.getMessage());
+			return productTypeResponseVo;
+		}
 	}
 
 	@Path("/updateproducttypes")

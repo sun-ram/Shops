@@ -20,6 +20,8 @@ public interface ProductTypeService<T> {
 	public void removeProductType(ProductType productType);
 
 	public ProductType getProductTypeById(String productTypeId);
+	
+	public boolean checkProductTypeWithname(ProductCategory productCategory,String name);
 
 	public List<ProductType> getAllProductType();
 
