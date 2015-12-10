@@ -454,3 +454,5 @@ ui-view{ background-color:#EEEEEE !important;}
 .tbl-body .tbl-header{color:#333333; padding:10px 0px; font-size:18px !important; background-color:#EEEEEE !important}
 .tbl-body .tbl-body{ color:#666666; }
 .full_wid{width:100%; outline:0;}
+
+.md-button{ padding:5px 20px; border-radius:0px; box-shadow:none; font-weight:600; text-transform: capitalize;}
