@@ -203,7 +203,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		
 		$scope.compSalesToday = function () {
-
+			$scope.yesterdayTotSale = $scope.todayTotSale = 0;
 			var len = $scope.salesOrders.Books.length;
 			var i = 0,
 				tempDateObj;
@@ -277,6 +277,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			var totalAmount = 0;
 			for (; i < len; i++) {
 				tempDateObj = new Date((data.Books[i].DELIVERY_DATE).substring(0, 10));
+				tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);
 				if (tempDateObj.getTime() > endDateObj.getTime()) {
 					tempArray[index] = data.Books[i];
 					index++;
@@ -330,7 +331,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 				if (totalAmount > 0) {
 					tmpAvgObj = {};
-					tmpAvgObj.label =  x1[storeIds1[j]][0];
+					tmpAvgObj.label =  x1[storeIds1[j]][0]+j;
 					tmpAvgObj.value = Math.round((commition / 100) * totalAmount);
 					$scope.historicalBarChart2[0].values.push(angular.copy(tmpAvgObj));
 
