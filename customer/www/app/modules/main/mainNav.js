@@ -87,6 +87,7 @@ angular.module('aviate.directives')
 					clickOutsideToClose:true,
 					controller: function($scope, AuthServices, toastr, CONSTANT,ipCookie){
 						$scope.isSignUp = $rootScope.isSignUp;
+						$scope.isSignIn=!$rootScope.isSignUp;
 						$scope.title = 'SIGN IN';
 						$scope.forgetPass = false;
 						$scope.user = {}

@@ -17,6 +17,7 @@ import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
  * @author RiyazKhan.M
  */
@@ -147,6 +148,20 @@ ProductDao<T>, Serializable{
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("name", param));
+			return (Product) findUnique(criteria);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Product getProductByName(String param, Merchant merchant) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.eq("name", param));
+			criteria.add(Restrictions.eq("merchant", merchant));
 			return (Product) findUnique(criteria);
 		} catch (Throwable e) {
 			e.printStackTrace();

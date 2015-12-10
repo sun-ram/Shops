@@ -259,7 +259,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		return productDao.getProductByName(param);
 	}
 
-
-
+	@Override
+	public Product getProductByName(String param, Merchant merchant) {
+		return productDao.getProductByName(param, merchant);
+	}
 
 }

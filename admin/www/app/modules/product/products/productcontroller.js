@@ -168,6 +168,7 @@ angular.module('aviateAdmin.controllers')
 			ProductService.deleteProduct($scope.product).then(function(data) {
 				$scope.getAllProductList();
 				toastr.success("Product details have been deleted successfully!!!");
+				$state.go("app.products");
 			})
 		}, function() {
 
@@ -252,31 +253,29 @@ angular.module('aviateAdmin.controllers')
 	}
 
 
-	$scope.uploadExcel = function (val1,val2){
-
+	$scope.uploadExcelFile = function (val1,val2){
 		var id =$('#'+val2).val();
-
 		var srs=id.replace("C:\\fakepath\\" ,"" );	
-
 		$('#'+val1).html(srs);
-
-		$scope.uploadXmls();
-
 	}
-
+	$scope.excelFile={};
 	$scope.uploadXmls = function(){
 		//$scope.product.merchant.merchantId=$rootScope.user.merchantId
 		$scope.product.productId="456"
-			$scope.product.image ={};
-		$scope.product.image.image=$scope.excelFile.split(",")[1];
-		$scope.product.image.type=$scope.excelFile ? ($scope.excelFile.substring(11).split(";")[0]) : "";
+		$scope.product.image ={};
+		$scope.product.merchant={
+				"merchantId":$rootScope.user.merchantId
+		}
+		$scope.product.image.image=$scope.excelFile.file.split(",")[1];
+		$scope.product.image.type=$scope.excelFile.file ? ($scope.excelFile.file.substring(11).split(";")[0]) : "";
 		ProductService.uploadExcelFile($scope.product).then(function(data) {
+			
 		})
 	}
 
 	$scope.addNewImageToList = function(){
 		if($scope.uploadedImages != undefined && $scope.uploadedImages.length > 0){
-			if(!$scope.uploadedImages[$scope.uploadedImages.length-1].image){
+			if(!($scope.uploadedImages[$scope.uploadedImages.length-1].image || $scope.uploadedImages[$scope.uploadedImages.length-1].imageId)){
 				return;
 			}
 		}else{

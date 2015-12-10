@@ -7,6 +7,7 @@ import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 /**
  * @author RiyazKhan.M
@@ -33,5 +34,7 @@ public interface ProductDao<T> {
 	public List<Product> getProductByMerchant(Merchant merchant);
 	
 	public Product getProductByName(String param);
+
+	public Product getProductByName(String param, Merchant merchant);
 
 }

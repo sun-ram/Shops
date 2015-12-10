@@ -151,10 +151,13 @@ public class ProductRestService {
 				imageService.deleteImage(img);
 			}
 			for (String imageId : imageIds) {
-				 Image image = imageService.getImageById(imageId);
+				if(imageId==null){
+					continue;
+				}
+				Image image = imageService.getImageById(imageId);
 				List<ProductImage> productImages = image.getProductImages();
 				for(ProductImage productImg:productImages){
-				productImageService.deleteProductImage(productImg);
+					productImageService.deleteProductImage(productImg);
 				}
 				imageService.deleteImage(image);
 			}
@@ -374,7 +377,7 @@ public class ProductRestService {
 		return productResponse;
 
 	}
-	
+
 
 	@Path("/deleteProductImage")
 	@POST
@@ -385,7 +388,7 @@ public class ProductRestService {
 		response = new ResponseModel();
 		try {
 			Image images = imageService.getImageById(imageVo.getImageId());
-	
+
 			if (images.getProductImages() != null
 					&& images.getProductImages().size() > 0) {
 				productImageService.deleteProductImage(images.getProductImages().get(0));
@@ -495,6 +498,7 @@ public class ProductRestService {
 	public ProductUploadVO excelUpload(ProductVo file) {
 		ProductUploadVO response = new ProductUploadVO();
 		String excelPath = null;
+		Merchant merchant = new Merchant();
 		try {
 			Properties properties = new Properties();
 			properties.load(getClass().getResourceAsStream(
@@ -504,8 +508,9 @@ public class ProductRestService {
 			try (OutputStream stream = new FileOutputStream(excelPath)) {
 				stream.write(data);
 			}
+			merchant = merchantService.getMerchantById(file.getMerchant().getMerchantId());
 			List<Product> productList = new ArrayList<Product>();
-			response = convertXlsToModel(excelPath, 0);
+			response = convertXlsToModel(excelPath, 0,merchant);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -517,7 +522,7 @@ public class ProductRestService {
 
 	}
 
-	public ProductUploadVO convertXlsToModel(String path, int sheetNo) {
+	public ProductUploadVO convertXlsToModel(String path, int sheetNo,Merchant merchant) {
 		ProductUploadVO response = new ProductUploadVO();
 		Product product = new Product();
 		boolean isNew = false;
@@ -623,7 +628,7 @@ public class ProductRestService {
 											product = productService
 													.getProductByName(cell
 															.getStringCellValue()
-															.trim());
+															.trim(),merchant);
 											if (product == null) {
 												response.setStatus(SBMessageStatus.FAILURE
 														.getValue());
@@ -688,7 +693,7 @@ public class ProductRestService {
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
 			Product product = productService.getProduct(productVo.getProductId());
-			
+
 			if (productVo.getImage().getImage() != null) {
 				productService.productImageUpload(productVo.getImage(),product.getMerchant());
 				if (productVo.getImage().getImageId() != null) {
@@ -698,14 +703,14 @@ public class ProductRestService {
 				product.setImage(image);
 			}
 
-			
-			
+
+
 			List<ProductImage> productImages = new ArrayList<ProductImage>();
 			List<ImageVo> imageVos = productVo.getImages();
 
 			for (ImageVo imageVo : imageVos) {
-				
-				
+
+
 				productService.productImageUpload(imageVo,product.getMerchant());
 				if (imageVo.getImage() != null) {
 					if (imageVo.getImageId() != null) {
@@ -720,13 +725,13 @@ public class ProductRestService {
 					productimage.setProduct(product);
 					productImages.add(productimage);
 				}
-				
-				
+
+
 			}
 			product.setProductImages(productImages);
-			
-			
-			
+
+
+
 			productService.updateProduct(product);
 
 			ProductVo productvo = new ProductVo();
@@ -750,7 +755,7 @@ public class ProductRestService {
 			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			productResponse.setErrorString(CommonUtil.getErrorMessage(e));
 		}
-		
+
 		try {
 			responseStr =CommonUtil.getObjectMapper(productResponse);
 		} catch (Exception e) {

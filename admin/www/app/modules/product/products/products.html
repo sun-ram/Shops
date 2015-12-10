@@ -152,12 +152,13 @@
 <div layout="row">
 
 <md-button flex="10" ng-href={{excelUrl}} layout-align="start start" style="height: 0; margin-top: 12px;">Export ProductList</md-button>
-<md-button flex="10" ng-click="#" layout-align="start center" style="height: 0; margin-top: 12px;">
+<md-button flex="10" layout-align="start start" style="height: 0; margin-top: 12px;">
         <label class="custom-excel-input">	
-	    <input id="file-upload1" type="file" ng-model="excelFile" app-filereader ng-change="uploadExcel('file-name1','file-upload1')" aria-label="File upload"/>
-	    <span ng-hide="true" id="file-name1" ></span>
-	</label>			
+	    <input id="file-upload1" type="file" ng-model="excelFile.file" app-filereader ng-change="uploadExcelFile('file-name1','file-upload1')"/>
+	</label>
 </md-button>
+<md-button class="md-raised md-success padd-50" ng-click="uploadXmls()" ng-disabled="">Add</md-button>
+
 <div flex="5"></div>
 <div style="font-size:16px;" flex="75" layout="row" class="table-pagination-bg" layout-align="start center">
 	 <md-data-table-pagination md-limit="productsPagination.limit"
