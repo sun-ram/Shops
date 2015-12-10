@@ -106,10 +106,10 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								product.merchant.merchantId=$rootScope.user.merchantId;
 								product.category.productCategoryId=cat.productCategoryId;
 								ProductCategoryServices.addProductCategory1(product).then(function(data){
-									if($rootScope.dropObj.key=='subcategory'){
-										toastr.success("Product Sub-Category Added Successfully");
-									}
-									$rootScope.parentCategoryListValue();
+/*									if($rootScope.dropObj.key=='subcategory'){
+*/										toastr.success("Product Sub-Category Added Successfully");
+/*									}
+*/									$rootScope.parentCategoryListValue();
 									$rootScope.productCategoryListValue();
 									$mdDialog.cancel();
 								});
