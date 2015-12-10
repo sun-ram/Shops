@@ -204,6 +204,14 @@ color:#30363E ! important;
 				</p>
 			</div>		
 		</div>
+		<div class="card pink" flex flex-sm="100">
+			<div class="card-content white-text">
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
+				<h4 class="card-stats-number">{{totalStores}}</h4>
+				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
+				</p>
+			</div>		
+		</div>
 		<div class="card purple" flex flex-sm="100">
 			<div class="card-content white-text">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
@@ -221,14 +229,7 @@ color:#30363E ! important;
 				</p>
 			</div>	
 		</div>
-		<div class="card pink" flex flex-sm="100">
-			<div class="card-content white-text">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Revienue Growth</p>
-				<h4 class="card-stats-number">{{salesGrowthToday}}%</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
-				</p>
-			</div>		
-		</div>
+		
 	</div>
       
        <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10">              	
@@ -350,7 +351,7 @@ color:#30363E ! important;
       <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
 		   <div class="md-whiteframe-4dp br_yellow">
                <div>
-                   <h4 style="float:left">Bar Chart</h4>
+                   <h4 style="float:left">Merchants and Store</h4>
 
                    <md-menu-bar style="float:right">
                        <md-menu>
@@ -384,43 +385,11 @@ color:#30363E ! important;
 				    <svg class="svgss"></svg>
 				</div>    
 			</div>
-			<!--<div layout="row" layout-sm="column">
-				<span flex  height="120">
-					<md-card class="dashbord_liststyle" style="margin-left:0px;">
-				 	  <div layout="column" class="md-whiteframe-4dp br_pink" layout-sm="row" >
-				  		<h4>Daily Sales</h4>
-			 			 <svg id="test"></svg>	
-					  </div>	
-		  			</md-card>
-				</span>
-				<span flex   height="120">
-					<md-card class="dashbord_liststyle" >
-					   <div layout="column" class="md-whiteframe-4dp br_pink" layout-sm="row">
-					  	 <h4>Weekly Sales</h4>
-				  			<svg id="test4">  </svg>	
-						</div>	
-			  		</md-card>
-		  		</span>
-				<span flex  height="120">
-					<md-card class="dashbord_liststyle" style="margin-right:0px;">
-					   <div layout="column" class="md-whiteframe-4dp br_pink" layout-sm="row">
-					  	 <h4>Monthly Sales</h4>
-				  			<svg id="test5">  </svg>	
-						</div>	
-			  		</md-card>
-				</span>		
-			</div>-->
   	 </md-card>
       
 </div>
 
 <md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
-<!--<div flex="60" flex-sm="100" flex-md="100" class="white-text" style="">-->
-<!--<h2 layout-padding>World Market</h2>-->
-<!--</div>-->
-<!--<div flex="40" flex-sm="100" flex-md="100"class="white-text"style="">-->
-<!--<h2 layout-padding>Sales By Country</h2>-->
-<!--</div>-->
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
         <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onMarkerClicked">
 
