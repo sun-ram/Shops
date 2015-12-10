@@ -15,8 +15,8 @@ angular.module('aviate.controllers')
     lastname: "Tucker",
     email: "avery.tucker67@example.com",
     birthday: "4/6/1983",
-    data: ""
-  }];
+    data: "  "
+  }]; 
   
   $scope.columns = [{
     headerName: "",

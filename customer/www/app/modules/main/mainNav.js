@@ -47,7 +47,7 @@ angular.module('aviate.directives')
 				return debounceFn;
 			};
 			
-//			console.info('cart-------------',$rootScope.myCart);
+//			console.info('cart---------------',$rootScope.myCart);
 			$scope.signUpPopup = function(ev){
 				$rootScope.isSignUp = true;
 				$rootScope.signInSignUpOptions(ev);

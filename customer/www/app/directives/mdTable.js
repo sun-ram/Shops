@@ -5,7 +5,7 @@ angular.module('aviate.directives')
     restrict: 'E',
     scope: {
       items: '=',
-      columns: '='
+      columns: '='  
     },
     templateUrl: function($scope, $attrs) {
       return $attrs.templateName || "";

@@ -114,7 +114,7 @@ angular.module('app')
 		templateUrl: 'app/modules/favourite/favouriteList.html',
 		controller : 'favouriteCtrl'
 	})
-    .state('app.orderHistory', {
+    .state('app.orderHistory', { 
 		url: '/orderHistory',
 		templateUrl: 'app/modules/orderHistory/orderHistory.html',
 		controller : 'orderHistoryCtrl'
