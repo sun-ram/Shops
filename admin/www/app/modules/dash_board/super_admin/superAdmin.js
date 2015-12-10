@@ -38,13 +38,20 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
         ];
 
-        $scope.selectorValue = [{
-            name: "Sort by Days"
+        $scope.reportSelector = [{
+            name: "Weekly",
+            value:7
         }, {
-            name: "Sort by Week"
+            name: "Half Month",
+            value:15
         }, {
-            name: "Sort by Month"
+            name: "Monthly",
+            value:30
         }];
+
+        $scope.onReportChanged = function(reportValue){
+            console.log("onReportChanged",reportValue);
+        }
 
 		$scope.map = {
 			center: {

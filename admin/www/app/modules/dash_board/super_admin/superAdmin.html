@@ -125,8 +125,8 @@ color:#30363E ! important;
             <h2  layout-padding layout-margin style="float:left" class="ft-black"> Dashboard </h2>
         </md-card-title-text>
             <md-input-container style="float:right">
-                <md-select placeholder="Select your sorting" ng-model="user"  style="min-width: 200px;">
-                    <md-option ng-value="user" ng-repeat="user in selectorValue">{{user.name}}</md-option>
+                <md-select placeholder="Reports" ng-model="report"  style="min-width: 200px;" ng-change="onReportChanged(report.value)">
+                    <md-option ng-value="report" ng-repeat="report in reportSelector" >{{report.name}}</md-option>
                 </md-select>
             </md-input-container>
         </md-card-title>
