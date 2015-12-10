@@ -1,13 +1,49 @@
 <!-- <link rel="stylesheet" href="assets/css/favourites.css"> -->
 
 
-	<div layout="row" layout-align="center center">
-      <span class="md-display-1" style="margin:30px 20px 20px 20px;">
-      <!-- 	Would you like to add this order into your favourite.  -->
-      Choose one of your favourite list to add this order
-      </span>
+	<div layout="column" layout-align="center center">
+      <div class="md-display-1" style="margin:30px 20px 20px 20px; color:#31A9B8;'">
+      	Successfully your order has been placed
+      </div>
+      <div class="md-display-1" style="width:400px; border-bottom:3px dotted red; margin:10px 0px 40px 0px; "></div>
+       <div class="md-headline">
+      	 Create your wish list for your next one tap shop
+      </div>
     </div>
-<md-card style="width:600px; margin:0px auto">
+   
+    <md-card style="width:540px; padding:20px; margin:10px auto; ">
+    
+      <div  layout="column" layout-align="center center">
+      	<div flex style="width:500px;">
+      		<md-input-container class="md-block" flex-gt-sm>
+		          <label>Type your Favorite Name</label>
+		          <input ng-model="favouritName">
+		    </md-input-container>
+      	</div>
+      	<div flex style="width:500px; margin-top:5px; text-align:center;">
+      		<span>Or</span>
+      	</div>
+      	<div flex style="width:500px;">
+      		<md-input-container>
+		        <label>Choose from your default list</label>
+		        <md-select ng-model="size" >
+		          <md-option  value="Monthly List">Monthly List</md-option>
+		          <md-option  value="Weekly List">Weekly List</md-option>
+		          <md-option  value="Quarterly List">Quarterly List</md-option>
+		          <md-option  value="Party List">Party List</md-option>
+		        </md-select>
+		      </md-input-container>
+      	</div>
+      	<div layout="row" flex style="width:500px;">
+      		<md-button class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF; ">ADD</md-button>
+      		<md-button class="md-raised " >SKIP</md-button>
+      	</div>
+      </div>
+      
+      </md-card>
+      
+    
+<!-- <md-card style="width:600px; margin:0px auto">
 <div class="content">
   <div class="list" tabindex="1">
     
@@ -64,9 +100,9 @@
     </md-content>
     </div>
   </div>
-</div>
+</div> 
 
-</md-card>
+</md-card>-->
 <!-- <section class="address-section" layout="column">
     <p class="address-title md-headline">Make This Order as Favourite</p>
     <div class="address-container" layout="row" layout-wrap layout-align="center">

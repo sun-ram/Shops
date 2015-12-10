@@ -363,6 +363,8 @@ ul.nav-menu1{margin-left: 210px ! important;}
 
 /*  17-11  */
 .sa-logo{ width:auto; height:52px; float:left; background-color:#ffffff ; padding:0px 10px;}
+.ma-logo{ width:auto; height:52px; float:left; background-color:transparent; padding:0px 10px;}
+
 nav.mainslider-tab ul li{ }
 nav.mainslider-tab ul li a{ width:100% !important; height:100% !important; border:1px solid #999999; border-radius:0px;}
 nav.mainslider-tab ul li a md-subhead,nav.mainslider-tab ul li a md-caption{ width:100%;float:left;}
@@ -420,3 +422,10 @@ ui-view{ background-color:#EEEEEE !important;}
 	font-weight: bold;
 	border-bottom: 3px solid orangered;
 }
+
+
+
+
+
+
+
