@@ -11,7 +11,6 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -27,6 +26,7 @@ implements ShippingChargesDao<T>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ShippingCharges> getShippingCharges(Merchant merchant) {
 		try {
@@ -34,6 +34,7 @@ implements ShippingChargesDao<T>, Serializable {
 					.forClass(ShippingCharges.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return ((List<ShippingCharges>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,6 +54,7 @@ implements ShippingChargesDao<T>, Serializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateShippingCharges(ShippingCharges shippingCharges) {
 		try {
@@ -74,6 +76,7 @@ implements ShippingChargesDao<T>, Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void deleteShippingCharges(String id) {
 		try {
