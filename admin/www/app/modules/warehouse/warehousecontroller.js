@@ -134,7 +134,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 						$scope.storagebin.storagebinId = storagebin.storagebinId;
 						WarehouseService.deleteStorageBin($scope.storagebin).then(function(data) {
 						toastr.success(CONSTANT.DELETESTORAGEBIN);
-						$state.go('app.storagebin');
+						var index = $scope.listOfStoragebins.indexOf(storagebin);
+						$scope.listOfStoragebins.splice(index, 1);  
 					});
 				}, function() {
 				  
