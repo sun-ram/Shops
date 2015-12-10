@@ -58,6 +58,11 @@ angular.module('aviate.directives')
 				$rootScope.signInSignUpOptions(ev);
 			}
 
+             $scope.orderHistory = function(){
+                
+                $state.go("app.orderHistory");
+            }
+            
 			$scope.removeFromMyCart = function(item, index) {
 				MyCartFactory.removeFromCart(item.product.productId, index,function(data){
 					if($rootScope.updateProductQuantity)

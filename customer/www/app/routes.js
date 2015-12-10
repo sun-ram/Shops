@@ -114,6 +114,11 @@ angular.module('app')
 		templateUrl: 'app/modules/favourite/favouriteList.html',
 		controller : 'favouriteCtrl'
 	})
+    .state('app.orderHistory', {
+		url: '/orderHistory',
+		templateUrl: 'app/modules/orderHistory/orderHistory.html',
+		controller : 'orderHistoryCtrl'
+	})
 
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common = 'Content-Type: application/json';

@@ -1,0 +1,25 @@
+<md-content layout="column" layout-fill="layout-fill" role="main" class="relative">
+  
+      <md-content layout="column" flex="flex" layout-fill="layout-fill">
+        <md-table items="data" columns="columns" template-name="row.tmpl.html" flex="flex" layout-fill="layout-fill"></md-table>
+        <script type="text/ng-template" id="row.tmpl.html">
+          <table class="md-table">
+            <thead>
+              <tr>
+                <th ng-repeat="col in columns" class="md-table-header"><span>{{ col.headerName }}</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in items" class="md-table-content-row">
+                <td ng-repeat="col in columns" ng-class="{ 'md-table-content': col.fieldName !== 'picture' }">
+                  <div ng-if="col.fieldName === 'picture'" class="md-table-thumbs">
+                    <div style="background-image:url({{ item[col.fieldName] }})"></div>
+                  </div>
+                  <div ng-if="col.fieldName !== 'picture'">{{ item[col.fieldName] }}</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </script>
+      </md-content>
+    </md-content>
