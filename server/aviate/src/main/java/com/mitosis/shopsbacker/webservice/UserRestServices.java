@@ -92,7 +92,7 @@ public class UserRestServices<T> {
 		try {
 			UserVo userDetails = new UserVo();
 			if (userVo.getUserName() != null) {
-				User user = userService.getUserByUserName(userVo.getUserName());
+				User user = userService.getUserByUserName(userVo.getUserName(), true);
 				if (user != null) {
 					flag = CommonUtil.passwordVerification(
 							userVo.getPassword(), user.getPassword());
@@ -209,7 +209,7 @@ public class UserRestServices<T> {
 		response = new ResponseModel();
 		try {
 			
-			User uniqueUser = userService.getUserByUserName(userVo.getUserName());
+			User uniqueUser = userService.getUserByUserName(userVo.getUserName(), false);
 			if (uniqueUser!=null) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST.getCode());
 				response.setErrorString(SBErrorMessage.USER_NAME_ALREADY_EXIST

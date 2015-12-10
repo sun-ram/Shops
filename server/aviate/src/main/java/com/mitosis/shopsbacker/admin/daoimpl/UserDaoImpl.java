@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -97,23 +98,13 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	}
 
 	@Override
-	public User getUserByName(String userName) {
+	public User getUserByName(String userName, boolean isFromLogin) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 			criteria.add(Restrictions.eq("userName", userName));
-			return (User) findUnique(criteria);
-		} catch (Throwable e) {
-			e.printStackTrace();
-			throw (e);
-		}
-	}
-
-	@Override
-	public User getUserByName(String userName, String password) {
-		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
-			criteria.add(Restrictions.eq("userName", userName));
-			criteria.add(Restrictions.eq("password", password));
+			if(isFromLogin){
+				criteria.add(Restrictions.eq("isactive", 'Y'));
+			}
 			return (User) findUnique(criteria);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -141,4 +132,11 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (List<User>) findAll(criteria);
 	}
 
+	public int inActiveUsers(Merchant merchant) {
+		Query updateQuery = getSession().createQuery(
+				"update User set isactive='N' where merchant = :merchant");
+		updateQuery.setParameter("merchant", merchant);
+		return updateQuery.executeUpdate();
+	}
+	
 }

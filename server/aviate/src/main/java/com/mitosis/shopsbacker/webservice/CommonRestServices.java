@@ -154,7 +154,7 @@ public class CommonRestServices<T> {
 					String userId = null;
 					String emailId = null;
 					if(userType.equals("admin")){
-						user = userService.getUserByUserName(userVo.getUserName());
+						user = userService.getUserByUserName(userVo.getUserName(), true);
 						if (user != null) {
 							userId = user.getUserId();
 							emailId = user.getEmailid();

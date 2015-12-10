@@ -24,9 +24,7 @@ public interface UserService<T> {
 
 	public User getUser(String id);
 
-	public User getUserByUserName(String userName);
-
-	public User getUserByUserName(String userName, String password);
+	public User getUserByUserName(String userName, boolean isFromLogin);
 
 	public List<User> getUser(Store store);
 

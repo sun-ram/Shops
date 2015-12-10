@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mitosis.shopsbacker.admin.dao.MerchantDao;
+import com.mitosis.shopsbacker.admin.dao.StoreDao;
+import com.mitosis.shopsbacker.admin.dao.UserDao;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.UserService;
@@ -21,6 +23,7 @@ import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 /**
  * @author prabakaran
@@ -49,6 +52,12 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 	@Autowired
 	RoleService<T> roleService;
+	
+	@Autowired
+	StoreDao<T> storeDao;
+	
+	@Autowired
+	UserDao<T> userDao;
 
 	Merchant merchant = null;
 	UserVo userVo = null;
@@ -98,7 +107,36 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 	@Override
 	public void deleteMerchant(String id) {
-		getMerchantDao().deleteMerchant(getMerchantById(id));
+		Merchant merchantObj = getMerchantById(id);
+		boolean merchantHasRefenece = checkMerchantReference(merchantObj);
+		if(!merchantHasRefenece){
+			merchantDao.deleteMerchant(merchantObj);
+		}else{
+		storeDao.inActiveStores(merchantObj);
+		userDao.inActiveUsers(merchantObj);
+		merchantObj.setIsactive('N');
+		merchantDao.updateMerchant(merchantObj);
+		}
+	}
+
+	/**
+	 * Check the merchant has any foreign key relationships 
+	 * @author Anbukkani Gajendran
+	 * @param merchantObj
+	 * @return merchantHasRefenece
+	 */
+	public boolean checkMerchantReference(Merchant merchantObj) {
+		boolean merchantHasRefenece=false;
+		if(!merchantObj.getStores().isEmpty()){
+			return true;
+		}else if(!merchantObj.getShippingChargeses().isEmpty()){
+			return true;
+		}else if(!merchantObj.getTaxes().isEmpty()){
+			return true;
+		}else if(!merchantObj.getProductCategories().isEmpty()){
+			return true;
+		} 
+		return merchantHasRefenece;
 	}
 
 	@Override

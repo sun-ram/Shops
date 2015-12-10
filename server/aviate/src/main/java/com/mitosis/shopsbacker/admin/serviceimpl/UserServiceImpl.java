@@ -131,16 +131,9 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 	}
 
 	@Override
-	public User getUserByUserName(String userName) {
-		return getUserDao().getUserByName(userName);
+	public User getUserByUserName(String userName, boolean isFromLogin) {
+		return getUserDao().getUserByName(userName, isFromLogin);
 	}
-
-	@Override
-	public User getUserByUserName(String userName, String password) {
-		return getUserDao().getUserByName(userName, password);
-	}
-	
-	
 
 	/* @author prabakaran
 	 * This method will return List of users

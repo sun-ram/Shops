@@ -120,7 +120,7 @@ public class MerchantRestServices<T> {
 				return response;
 			}
 			checkUniqueUser = getUserService().getUserByUserName(
-					merchantVo.getUser().getUserName());
+					merchantVo.getUser().getUserName(), false);
 			if (checkUniqueUser != null) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST
 						.getCode());
