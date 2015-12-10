@@ -42,7 +42,7 @@
 							<h4>{{item.product.unit}}{{item.product.uom.name}}</h4>
 							<h4>Rs {{item.product.price}}</h4>
 					        </div>
-					        <h4 style="margin: 25px 10px; font-weight: bold;"><span style="font-weight: normal;">=</span>Rs {{item.product.price}}</h4>
+					        <h4 style="margin: 25px 10px; font-weight: bold;"><span style="font-weight: normal;">=</span>Rs {{item.product.price * item.qty}}</h4>
 <!-- 					         <md-icon aria-label="Menu" icon="highlight_remove" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 20px;"></md-icon> -->
 					         <ng-md-icon icon="highlight_remove" size="25" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="cursor:pointer;margin-top: 22px; fill: #F96D57;"></ng-md-icon>
 					         <md-divider ></md-divider>
