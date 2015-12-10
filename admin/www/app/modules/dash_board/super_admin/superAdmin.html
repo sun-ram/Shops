@@ -131,6 +131,7 @@ color:#30363E ! important;
             </md-input-container>
         </md-card-title>
      </md-card>
+           
 	
    <!-- <div layout="row" layout-sm="column" class="md-whiteframe-1dp">
 		<div class="card_top" flex flex-sm="100" >
@@ -393,6 +394,49 @@ color:#30363E ! important;
   	 </md-card>
       
 </div>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
+      <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
+		   <div class="md-whiteframe-4dp br_yellow">
+               <div>
+                   <h4 style="float:left">Customer and Sales</h4>
+
+                   <md-menu-bar style="float:right">
+                       <md-menu>
+                           <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="$mdOpenMenu()" >
+                               <md-icon md-svg-icon="assets/svgicon/menu.svg"></md-icon>
+                           </md-button>
+                           <md-menu-content>
+                               <md-menu-item>
+                                   <md-button >
+                                       One 1
+                                   </md-button>
+                               </md-menu-item>
+                               <md-menu-divider></md-menu-divider>
+                               <md-menu-item>
+                                   <md-button>
+                                       Two 2
+                                   </md-button>
+                               </md-menu-item>
+                               <md-menu-divider></md-menu-divider>
+                               <md-menu-item>
+                                   <md-button >
+                                       Three 3
+                                   </md-button>
+                               </md-menu-item>
+                               <md-menu-divider></md-menu-divider>
+                           </md-menu-content>
+                       </md-menu>
+                   </md-menu-bar>
+               </div>
+	 			<div id="barChart2">
+				    <svg class="svgss"></svg>
+				</div>    
+			</div>
+  	 </md-card>
+      
+</div>
+	
+	
 
 <md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
