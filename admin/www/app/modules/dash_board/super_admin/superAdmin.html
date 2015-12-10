@@ -122,10 +122,15 @@ color:#30363E ! important;
 	 <md-card class="nomarg marg-t10">
         <md-card-title>
           <md-card-title-text>
-            <h2  layout-padding layout-margin class="ft-black"> Dashboard </h2>
-            </md-card-title-text>
-            </md-card-title>
-            </md-card>
+            <h2  layout-padding layout-margin style="float:left" class="ft-black"> Dashboard </h2>
+        </md-card-title-text>
+            <md-input-container style="float:right">
+                <md-select placeholder="Select your sorting" ng-model="user"  style="min-width: 200px;">
+                    <md-option ng-value="user" ng-repeat="user in selectorValue">{{user.name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </md-card-title>
+     </md-card>
 	
    <!-- <div layout="row" layout-sm="column" class="md-whiteframe-1dp">
 		<div class="card_top" flex flex-sm="100" >

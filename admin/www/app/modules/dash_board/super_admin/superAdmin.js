@@ -38,6 +38,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
         ];
 
+        $scope.selectorValue = [{
+            name: "Sort by Days"
+        }, {
+            name: "Sort by Week"
+        }, {
+            name: "Sort by Month"
+        }];
+
 		$scope.map = {
 			center: {
 				latitude: 12.916292,
@@ -213,7 +221,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 
 		$scope.locateMerchants = function () {
-			$scope.tempMarkers = [{}];
+			$scope.tempMarkers = [];
 			var i = 0;
 			var len = $scope.merchants.Books.length;
 			var locationObj = {};
@@ -222,12 +230,18 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				locationObj.latitude 	= 	parseFloat(addressObj.LATITUDE);
 				locationObj.longitude 	= 	parseFloat(addressObj.LONGITUDE);
 				locationObj.title 		= 	$scope.merchants.Books[i].NAME;
-				locationObj.id 			= 	$scope.merchants.Books[i].MERCHANT_ID;
+				//locationObj.id 			= 	$scope.merchants.Books[i].MERCHANT_ID;
+                if (!$scope.tempMarkers || $scope.tempMarkers.length < 1) {
+                    locationObj.id = 1;
+                } else {
+                    locationObj.id = $scope.tempMarkers[$scope.tempMarkers.length - 1].id + 1;
+                }
 				if (locationObj.latitude 	&& 	locationObj.longitude) {
 					$scope.tempMarkers.push(angular.copy(locationObj));
 				}
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
+            console.log("$scope.randomMarkers",JSON.stringify($scope.randomMarkers))
 		};
 
 		function postSalesOrder(data) {
@@ -367,7 +381,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/salesOrder'
+					url: 'http://192.168.1.29:3000/shopsbacker/salesOrder'
 				})
 				.success(function (data, status) {
 					console.log("salesOrder Exected success case ", data);
@@ -381,7 +395,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedSalesOrderLine = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/salesOrderLine'
+					url: 'http://192.168.1.29:3000/shopsbacker/salesOrderLine'
 				})
 				.success(function (data, status) {
 					$scope.salesOrderLines = data;
@@ -398,7 +412,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			//Merchants
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/merchant'
+					url: 'http://192.168.1.29:3000/shopsbacker/merchant'
 				})
 				.success(function (data, status) {
 
@@ -413,7 +427,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedStore = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/store'
+					url: 'http://192.168.1.29:3000/shopsbacker/store'
 				})
 				.success(function (data, status) {
 					$scope.stores = data;
@@ -430,7 +444,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedAddresses = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/address'
+					url: 'http://192.168.1.29:3000/shopsbacker/address'
 				})
 				.success(function (data, status) {
 					$scope.addresses = data;
@@ -446,7 +460,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedUsers = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/users'
+					url: 'http://192.168.1.29:3000/shopsbacker/users'
 				})
 				.success(function (data, status) {
 					$scope.users = data;
@@ -462,7 +476,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedCustomer = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/customer'
+					url: 'http://192.168.1.29:3000/shopsbacker/customer'
 				})
 				.success(function (data, status) {
 					$scope.customers = data;
