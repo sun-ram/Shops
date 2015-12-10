@@ -36,6 +36,8 @@
                 <!-- <div layout-padding > -->
                 <!-- <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines" ng-dblClick="editMovementLine = movementLine"> -->
                 <md-input-container flex layout-padding> {{editMovementLine | json}}
+                   		       			<label>Product<span style="color:red">*</span></label>
+                   
                     <md-select ng-model="movementLine.product.productId" aria-label="Movement product id" >
                         <md-option ng-repeat="product in products" value="{{product.productId}}">
                             {{product.name}}
@@ -43,6 +45,8 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container flex layout-padding>
+                   		       			<label>Storagebin<span style="color:red">*</span></label>
+                   
                     <md-select ng-model="movementLine.toStoragebin.storagebinId" style="min-width: 200px;" aria-label="To storage bin id" >
                         <md-option ng-repeat="toStoragebin in bins" value="{{toStoragebin.storagebinId}}" >
                             {{toStoragebin.name}} ( {{toStoragebin.stack}} - {{toStoragebin.row}} - {{toStoragebin.level}} )
@@ -50,7 +54,9 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container flex layout-padding>
-                    <input ng-model="movementLine.qty" ng-enter="addNewRow($index);" aria-label="Product Quantity" >
+                		       			<label>Quantity<span style="color:red">*</span></label>
+                
+                    <input ng-model="movementLine.qty" ng-enter="addNewRow($index);" aria-label="Product Quantity" valid-number >
                 </md-input-container>
                 <!-- <div layout="row" flex layout-padding>
                     <div flex><ng-md-icon ng-hide="movementLine.movementLineId" ng-disabled="checkAddNew($index);" icon="done" size="20" style="margin:5px" class="icons hash_color" ng-click="addNewRow($index);"></ng-md-icon></div>
