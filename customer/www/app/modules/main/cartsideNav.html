@@ -30,19 +30,21 @@
 		            </md-toolbar>
 				</div>
             	<div flex layout="column" style="">
-			         <div flex style=" overflow-y:scroll;   " class="scroll-cart">
+			         <div flex style=" overflow-y:scroll;" class="scroll-cart">
 			       		<md-list-item layout="row" class="md-3-line" ng-repeat="item in myCart.cartItem">
-					      <span class="mg-tb25">{{ item.qty}} X </span>
+					      <span class="mg-tb25">{{ item.qty}} x </span>
 					      <div class="cartsliderlist_img">
 					      	<img ng-src="{{item.product.image.url}}" class="md-avatar" alt="{{item.who}}" />
 					      </div>
 					        
-					        <div class="md-list-item-text mg_t15" layout="column">
-					        <h4 class="marg-5">{{ item.product.name }}</h4>
-							<p class="marg-5"><span>{{item.product.unit}}{{item.product.uom.name}}</span></p>
+					        <div class="md-list-item-text marg-5" layout="column">
+					        <h4>{{ item.product.name }}</h4>
+							<h4>{{item.product.unit}}{{item.product.uom.name}}</h4>
+							<h4>Rs {{item.product.price}}</h4>
 					        </div>
-					        <span style="margin: 25px;">Rs {{item.product.price}}</span>
-					         <md-icon aria-label="Menu" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 20px;"></md-icon>
+					        <h4 style="margin: 25px 10px; font-weight: bold;"><span style="font-weight: normal;">=</span>Rs {{item.product.price}}</h4>
+<!-- 					         <md-icon aria-label="Menu" icon="highlight_remove" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 20px;"></md-icon> -->
+					         <ng-md-icon icon="highlight_remove" size="25" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="cursor:pointer;margin-top: 22px; fill: #F96D57;"></ng-md-icon>
 					         <md-divider ></md-divider>
 					      </md-list-item> 
 			         </div>
