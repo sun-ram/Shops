@@ -5,6 +5,10 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         var reportType = 15;
         var commition = 3;
         var month = new Array();
+		var today = new Date();
+		var todayDateObj = new Date(today.toISOString().substring(0, 10));
+		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
+		yesterdayDateObj.setTime(todayDateObj.getTime() - 86400000);
         month[0] = "Jan";
         month[1] = "Feb";
         month[2] = "Mar";
@@ -182,7 +186,6 @@ Random Markers
                     console.log("salesOrder Exected success case ", data);
                     $scope.salesOrders = data;
                     var tempDateObj2;
-                    var today = new Date();
 			        var endDateObj = new Date(today.toISOString().substring(0, 10));
                     endDateObj.setTime(endDateObj.getTime() - (reportType * 24 * 3600000));
                     var i = 0;
@@ -269,9 +272,20 @@ Random Markers
                 
                     $scope.merchants = data;
                     console.log("merchant Line =>", data);
-                    if (data && data.Books) {
-                        $scope.totalMerchants = data.Books.length;
-                    }
+					$scope.totalMerchants = (data)? data.Books.length : 0;
+					var newMerchantsToday = 0,newMerchantsLastDat = 0;
+					var len = data.Books.length;
+					for(var i=0;i<data.Books.length; i++){
+						tempDateObj = new Date((data.Books[i].CREATED).substring(0, 10));
+						tempDateObj.setTime(tempDateObj.getTime() + 86400000);
+						if (tempDateObj.getTime() == todayDateObj.getTime()) {
+							newMerchantsToday = newMerchantsToday + 1 ;
+						} else if (tempDateObj.getTime() == yesterdayDateObj.getTime()) {
+							newMerchantsLastDat = newMerchantsLastDat + 1;
+						}
+					}
+					console.log("merchants Yesterday and to Today",newMerchantsLastDat, " & ", newMerchantsToday);
+					$scope.merchantGrowthToday = (newMerchantsLastDat)?(((newMerchantsToday - newMerchantsLastDat)/newMerchantsLastDat)*100) : 0;
                     
                 })
                 .error(function (data, status) {
@@ -324,11 +338,37 @@ Random Markers
                 });
 
         };
+		$scope.proceedCustomer = function (callback){
+            $http({
+                    method: 'GET',
+                    url: 'http://localhost:3000/shopsbacker/customer'
+                })
+                .success(function (data, status) {
+                    $scope.customers = data;
+                    console.log("Sales order Line =>", data);
+					$scope.totalCustomers = (data)? data.Books.length : 0;
+					var newCustomerToday = 0,newCustomerLastDat = 0;
+					
+					var len = data.Books.length;
+					for(var i=0;i<data.Books.length; i++){
+						tempDateObj = new Date((data.Books[i].CREATED).substring(0, 10));
+						tempDateObj.setTime(tempDateObj.getTime() + 86400000);
+						if (tempDateObj.getTime() == todayDateObj.getTime()) {
+							newCustomerToday = newCustomerToday + 1 ;
+						} else if (tempDateObj.getTime() == yesterdayDateObj.getTime()) {
+							newCustomerLastDat = newCustomerLastDat + 1;
+						}
+					}
+					$scope.customerGrowthToday = (newCustomerLastDat)?(((newCustomerToday - newCustomerLastDat)/newCustomerLastDat)*100) : 0;
+                    /*callback();*/
+                })
+                .error(function (data, status) {
+                    console.log("salesOrder Exected error case ", data);
+                });
+
+        };
     $scope.compSalesToday = function() {
-            var today = new Date();
-            var todayDateObj = new Date(today.toISOString().substring(0, 10));
-            var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
-            yesterdayDateObj.setTime(todayDateObj.getTime() - 86400000);
+    
             var len = $scope.salesOrders.Books.length;
             var i = 0,
                 tempDateObj;
@@ -341,10 +381,11 @@ Random Markers
                     $scope.yesterdayTotSale = $scope.yesterdayTotSale + $scope.salesOrders.Books[i].NET_AMOUNT;
                 }
             }
-            $scope.todayTotSale =   (commition/100) * $scope.todayTotSale;
+			
+            $scope.todayTotSale =   (Math.round(((commition/100) * $scope.todayTotSale) * 100) / 100);
             $scope.yesterdayTotSale = (commition/100) * $scope.yesterdayTotSale;
-            $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? ((($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100) : 0;
-            $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? (Math.round($scope.salesGrowthToday * 100) / 100) : 0;
+            $scope.salesGrowthToday = ($scope.yesterdayTotSale > 0)? ((($scope.todayTotSale - $scope.yesterdayTotSale)/$scope.yesterdayTotSale)*100) : 0;
+            $scope.salesGrowthToday = ($scope.salesGrowthToday > 0)? (Math.round($scope.salesGrowthToday * 100) / 100) : $scope.todayTotSale;
             
 	};
 		$scope.getAddressIdByUserId = function (userID){
@@ -383,6 +424,7 @@ Random Markers
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
 		}
+		$scope.proceedCustomer();
         $scope.ProceedMerchant();
 		$scope.proceedUsers();
 		$scope.proceedAddresses();
