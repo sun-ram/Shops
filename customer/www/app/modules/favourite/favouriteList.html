@@ -30,7 +30,7 @@
 				</div>
 				<div flex="30" layout="column">
 					<div  class="md-title">{{product.product.name}}</div>
-					<div  class="md-caption">{{product.product.measurement}}{{item.product.productUnitOfMeasure.abbreviation}}</div>
+					<div  class="md-caption">{{product.product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</div>
 					<div  class="md-subhead" style="margin-top:10px;">Rs.{{product.product.price }}</div>
 				</div>
 				<div flex="20" layout="row" layout-align="center center">
@@ -55,7 +55,10 @@
 					
 				</div>
 				<div flex layout="row" layout-align="end start">
-					<md-button class="md-raised md-primary" ng-click="addFavouriteToCart(productInFavourite.favouriteId);">Add To Cart</md-button>
+					<md-button class="md-raised md-primary" ng-click="addFavouriteToCart(productInFavourite.favouriteId);">Add Favourite To Cart</md-button>
+				</div>
+								<div flex layout="row" layout-align="end start">
+					<md-button class="md-raised md-primary" ng-click="favouriteToCheckout(productInFavourite.favouriteId);">Checkout This  	 Favourite</md-button>
 				</div>
 			</div>
 		</div>

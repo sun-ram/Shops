@@ -43,19 +43,20 @@ angular.module('aviate.controllers')
 
 		});	
 	}	
-	/*$scope.itemPopupFadeOut = function (){
-		  $('.wrapper').addClass('active');
-		  $('.item').removeClass('active').removeClass('margin');
-		  $('.close').fadeOut(300);
-		  $(this).addClass('active').addClass('margin');
-		  $('.close', this).delay(700).fadeIn(300);
-		};
 
-		$scope.itemPopupFadeIn = function (event){
-		  event.stopPropagation();
-		  $('.wrapper').removeClass('active');
-		  $('.item').removeClass('active').removeClass('margin');
-		  $('.close').fadeOut(300);
-		};
-*/
+	$scope.favouriteToCheckout = function(favouriteId){
+		$scope.favourite ={};
+		$scope.favourite.customerId = $rootScope.user.userId;
+		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+		$scope.favourite.storeId = $rootScope.store.storeId;
+		$scope.favourite.favouriteId = favouriteId;
+		FavouriteServices.favouriteToCheckout($scope.favourite).then(function(data){
+			MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+				MyCartFactory.myCartTotalPriceCalculation();
+				$state.go('app.cart');
+			});
+
+		});	
+		
+	}
 }]);
