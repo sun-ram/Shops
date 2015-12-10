@@ -1,5 +1,6 @@
-aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http',
-    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http) {
+aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
+    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http,$q) {
+		var commonNodeURL = 'http://localhost:3000/shopsbacker/';
 		var width = 300;
 		var height = 300;
 		var reportType = 15;
@@ -10,7 +11,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		var todayDateObj = new Date(today.toISOString().substring(0, 10));
 		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
 		yesterdayDateObj.setTime(todayDateObj.getTime() - millisecondsPerday);
-		$scope.salesOrders;
+		$scope.salesOrders = {Books:[]};
 		$scope.merchants;
 		$scope.stores;
 		$scope.salesOrderLines;
@@ -168,6 +169,22 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				return chart;
 			});
 		}
+		
+		function sendHttpRequest (service){
+			var defer = $q.defer();
+			$http({
+					method: 'GET',
+					url: commonNodeURL+service
+				})
+				.success(function (data, status) {
+					defer.resolve(data);
+				})
+				.error(function (data, status) {
+					defer.reject(data);
+					console.log("merchant error case ", data);
+				});
+			return  defer.promise;
+		}
 
 		function getMerchantById(id) {
 			for (var i = 0; i < $scope.merchants.Books.length; i++) {
@@ -249,7 +266,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 
 		function postSalesOrder(data) {
-			$scope.salesOrders = data;
+			
 			var tempDateObj;
 			var endDateObj = new Date(today.toISOString().substring(0, 10));
 			endDateObj.setTime(endDateObj.getTime() - (reportType * 24 * 3600000));
@@ -266,6 +283,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					totalAmount = totalAmount + data.Books[i].NET_AMOUNT;
 				}
 			}
+			$scope.salesOrders.Books = tempArray;
 			var x = {};
 			var storeIds = [];
 			for (var i = 0; i < tempArray.length; ++i) {
@@ -412,115 +430,56 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				y: 0
             }];
 
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/salesOrder'
-				})
-				.success(function (data, status) {
-					console.log("salesOrder Exected success case ", data);
-					postSalesOrder(data);
-
-				})
-				.error(function (data, status) {
-					console.log("salesOrder Exected error case ", data);
-				});
+			sendHttpRequest('salesOrder').then(function (data) {
+				console.log("salesOrder Exected success case ", data);
+				postSalesOrder(data);
+			});
 		};
 		$scope.proceedSalesOrderLine = function (callback) {
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/salesOrderLine'
-				})
-				.success(function (data, status) {
-					$scope.salesOrderLines = data;
-					console.log("Sales order Line =>", data);
-				})
-				.error(function (data, status) {
-					console.log("salesOrder Exected error case ", data);
-				});
+			sendHttpRequest('salesOrderLine').then(function (data) {
+				$scope.salesOrderLines = data;
+				console.log("Sales order Line =>", data);
+			});
 
 		};
 
 
 		$scope.ProceedMerchant = function (callback) {
 			//Merchants
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/merchant'
-				})
-				.success(function (data, status) {
-
-					$scope.merchants = data;
-					console.log("merchant Line =>", data);
-					postMerchant(data);
-				})
-				.error(function (data, status) {
-					console.log("merchant error case ", data);
-				});
+			sendHttpRequest('merchant').then(function (data) {
+				$scope.merchants = data;
+				console.log("merchant Line =>", data);
+				postMerchant(data);
+			});
 		};
-		$scope.proceedStore = function (callback) {
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/store'
-				})
-				.success(function (data, status) {
-					$scope.stores = data;
-					console.log("Store success case -- ", data);
-					postStore(data);
-
-					/*callback();*/
-				})
-				.error(function (data, status) {
-					console.log("salesOrder Exected error case ", data);
-				});
+		$scope.proceedStore = function (callback) {			
+			sendHttpRequest('store').then(function (data) {
+				$scope.stores = data;
+				console.log("Store success case -- ", data);
+				postStore(data);
+			});
 
 		};
-		$scope.proceedAddresses = function (callback) {
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/address'
-				})
-				.success(function (data, status) {
-					$scope.addresses = data;
-					console.log("proceedAddresses Line =>", data);
-					$scope.locateMerchants(data);
-					/*callback();*/
-				})
-				.error(function (data, status) {
-					console.log("salesOrder Exected error case ", data);
-				});
-
+		$scope.proceedAddresses = function (callback) {		
+			sendHttpRequest('address').then(function (data) {
+				$scope.addresses = data;
+				console.log("proceedAddresses Line =>", data);
+				$scope.locateMerchants(data);
+			});
 		};
 		$scope.proceedUsers = function (callback) {
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/users'
-				})
-				.success(function (data, status) {
-					$scope.users = data;
-					console.log("users  =>", data);
-					/*callback();*/
-				})
-				.error(function (data, status) {
-					console.log("salesOrder Exected error case ", data);
-				});
-
+			sendHttpRequest('users').then(function (data) {
+				$scope.users = data;
+				console.log("users --->", data);
+			});
 		};
 
 		$scope.proceedCustomer = function (callback) {
-			$http({
-					method: 'GET',
-					url: 'http://localhost:3000/shopsbacker/customer'
-				})
-				.success(function (data, status) {
-					$scope.customers = data;
-					console.log("Sales order Line =>", data);
-					postCustomer(data);
-
-				})
-				.error(function (data, status) {
-					console.log("salesOrder Exected error case ", data);
-				});
-
+			sendHttpRequest('customer').then(function (data) {
+				console.log("Customers--->",data);
+				$scope.customers = data;
+				postCustomer(data);
+			});
 		};
 		
 		function initiateAllMethods (){
