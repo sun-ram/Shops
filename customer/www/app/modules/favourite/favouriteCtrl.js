@@ -53,7 +53,7 @@ angular.module('aviate.controllers')
 		FavouriteServices.favouriteToCheckout($scope.favourite).then(function(data){
 			MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 				MyCartFactory.myCartTotalPriceCalculation();
-				$state.go('app.cart');
+				$state.go('app.checkout');
 			});
 
 		});	

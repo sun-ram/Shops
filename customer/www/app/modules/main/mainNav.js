@@ -13,7 +13,7 @@ angular.module('aviate.directives')
 			
 			$scope.toggleLeft = buildToggler('left');
 			$scope.toggleRight = buildCartToggler('right');
-
+			
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
 				/*if($rootScope.newclass == "navigate"){
@@ -166,8 +166,9 @@ angular.module('aviate.directives')
 									console.log('get MyCartlist success in Main Nav');
 								});
 								
-								FavouriteServices.getFavourite().then(function(data){
-									$scope.favouriteList = data;
+								FavouriteServices.getFavourite().then(function(datas){
+									$rootScope.favouriteList = datas;
+									
 								});
 								
 								$scope.redirectToUrl();
@@ -295,7 +296,7 @@ angular.module('aviate.directives')
 					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 						MyCartFactory.myCartTotalPriceCalculation();
 						console.log('get MyCartlist success in Main Nav');
-						$state.go('app.cart');
+						$state.go('app.favouriteList');
 					});
 					
 				});	
