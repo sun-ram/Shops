@@ -21,7 +21,8 @@ angular.module('aviate.constant').constant('CONSTANT', {
 				PRODUCTINCRCREASED:'Product Increased Successfully',
 				PRODUCTDECREASED:'Product Decreased Successfully',
 				PASSWORDNOTMATCH: 'Password and Confirm Password did not match',
-				PASSWORDCHANGED: 'Password changed successfully'
+				PASSWORDCHANGED: 'Password changed successfully',
+				FAVOURITEDELETED: 'Favourite Removed Successfully'	
 		},
 
 		ERROR_CODE:{

@@ -264,4 +264,17 @@ angular.module('aviate.controllers')
 				})
 								
 			}
+			
+			$scope.deleteFavourite = function(favouriteId){
+				
+				$scope.favourite ={};
+				$scope.favourite.favouriteId = favouriteId
+				FavouriteServices.deleteFavourite($scope.favourite).then(function(data){
+					FavouriteServices.getFavourite().then(function(datas){
+						$scope.favouriteList = datas;
+						
+					});
+					
+				});	
+			}
 }]);

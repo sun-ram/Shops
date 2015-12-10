@@ -499,6 +499,19 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		apiClass.CheckOut.deleteFavourite = function (favourite, callback) {
+			httpRequest("POST", "favourite/deleteFavourite", favourite, function (err, data) {
+				if (err) {
+		
+					callback(err, null);
+		
+				} else {
+		
+					callback(null, data);
+				}
+			});
+		};
+		
 		apiClass.CheckOut.payment = function (payment, callback) {
 			httpRequest("POST", "payment/gatewaydetails", payment, function (err, data) {
 				if (err) {

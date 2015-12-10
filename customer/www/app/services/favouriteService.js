@@ -91,5 +91,23 @@ angular.module('aviate.services')
 		})
 		return d.promise;
 	};
+	
+	this.deleteFavourite = function(favourite){
+		var d = $q.defer();
+		api.CheckOut.deleteFavourite(favourite, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result);
+					toastr.success(CONSTANT.SUCCESS_CODE.FAVOURITEDELETED);
+					
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
 
 }]);

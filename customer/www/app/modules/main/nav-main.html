@@ -76,7 +76,7 @@
 	 
 	 <div style="float:right; ">
 	 
-	 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && $root.favouriteList.length > 0">
+	 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && favouriteList.length > 0">
 	   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
 	        <md-icon md-svg-icon="assets/img/icon/favourite.svg" style="color: white; width: 20px;"></md-icon>
 	        <md-tooltip md-direction="bottom">
@@ -86,16 +86,16 @@
 	   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 74px; box-shadow:0px 2px 3px rgba(0,0,0,0.4)">
 	       <md-content>
 	         	 <md-list>
-				      <md-list-item layout="row" ng-repeat="favourite in favouriteList" ng-click="viewProductInFavourite(favourite.favouriteId)">
-				      		<div flex> {{favourite.name}} </div>
-				      		<div flex layout="row" layout-align="end end"><span><ng-md-icon icon="highlight_remove" style="fill: #F96D57" size="20"></ng-md-icon> </span></div>
+				      <md-list-item layout="row" ng-repeat="favourite in favouriteList">
+				      		<div flex ng-click="viewProductInFavourite(favourite.favouriteId)"> {{favourite.name}} </div>
+				      		<div flex layout="row" layout-align="end end"><span ng-click="deleteFavourite(favourite.favouriteId)"><ng-md-icon icon="highlight_remove" style="fill: #F96D57" size="20"></ng-md-icon> </span></div>
 				      </md-list-item>
                       
 	       		 </md-list>
 	         </md-content>
 	      </md-menu-content>
        </md-menu>
-	<span class="cart-amt">Rs {{myCart.grossAmount | number:2}}</span> 
+	<span class="cart-amt" ng-if="myCart.cartItem.length !=0">Rs {{myCart.grossAmount | number:2}}</span> 
 <md-menu style="margin-top: -8px" md-position-mode="target-right target">
     <md-button ng-click="toggleRight('right')" style="border-radius:0px;" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
     <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length > 0">{{myCart.cartItem.length}}</div>
