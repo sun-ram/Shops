@@ -83,12 +83,14 @@
 	          Favourite
 	        </md-tooltip>
 	    </md-button>
-	   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 63px;">
-	        <md-content>
+	   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 74px; box-shadow:0px 2px 3px rgba(0,0,0,0.4)">
+	       <md-content>
 	         	 <md-list>
-				      <md-list-item layout="row" ng-repeat="favourite in favouriteList" ng-click="viewProductInFavourite(favourite.favouriteId)">
-				      		<div style="text-align:center"> {{favourite.name}}</div>
+				      <md-list-item layout="row" ng-repeat="favourite in favouriteList" ng-click="addFavouriteToCart(favourite.favouriteId)">
+				      		<div flex> {{favourite.name}} </div>
+				      		<div flex layout="row" layout-align="end end"><span><ng-md-icon icon="highlight_remove" style="fill: #F96D57" size="20"></ng-md-icon> </span></div>
 				      </md-list-item>
+                      
 	       		 </md-list>
 	         </md-content>
 	      </md-menu-content>
@@ -188,17 +190,20 @@
 				</md-button> 
 			</md-menu-item> 
 			<md-menu-item class="menu-item" ng-show="user"> 
-                <md-button ng-click="orderHistory();">
-					<div layout="row">
-						<p flex="" style="font-size: 20px; font-weight: bold;">order history</p>
-					</div>
-				</md-button> 
+               
 				<md-button>
 					<div layout="row">
 						<p flex="" style="font-size: 20px; font-weight: bold;">{{user.userName}}</p>
 					</div>
 				</md-button> 
 			</md-menu-item> 
+            <md-menu-item class="menu-item" ng-show="user"> 
+				 <md-button ng-click="orderHistory();">
+					<div layout="row">
+						<p flex="" style="font-size: 20px; font-weight: bold;">order history</p>
+					</div>
+				</md-button> 
+			</md-menu-item>
 			<!-- <md-menu-item class="menu-item" ng-show="user && favouriteList.length > 0"> 
 				<md-button ui-sref="app.favouriteList">
 					<div layout="row">
