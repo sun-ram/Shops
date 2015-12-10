@@ -15,13 +15,13 @@ angular.module('aviate.controllers')
 		});	
 	}
 
-	$scope.addFavouriteToCart = function(salesOrderId){
+	$scope.addFavouriteToCart = function(favouriteId){
 
 		$scope.favourite ={};
 		$scope.favourite.customerId = $rootScope.user.userId;
 		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
 		$scope.favourite.storeId = $rootScope.store.storeId;
-		$scope.favourite.salesOrderId = salesOrderId;
+		$scope.favourite.favouriteId = favouriteId;
 		FavouriteServices.addFavouriteToCart($scope.favourite).then(function(data){
 			MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 				MyCartFactory.myCartTotalPriceCalculation();
@@ -31,6 +31,18 @@ angular.module('aviate.controllers')
 		});	
 	}
 	
+	$scope.viewProductInFavourite = function(){
+		
+		$scope.favourite ={};
+		$scope.favourite.customerId = $rootScope.user.userId;
+		$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+		$scope.favourite.storeId = $rootScope.store.storeId;
+		$scope.favourite.salesOrderId = salesOrderId;
+		FavouriteServices.viewProductInFavourite($scope.favourite).then(function(data){
+			$scope.productInFavourite = data;
+
+		});	
+	}	
 	/*$scope.itemPopupFadeOut = function (){
 		  $('.wrapper').addClass('active');
 		  $('.item').removeClass('active').removeClass('margin');

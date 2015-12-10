@@ -34,7 +34,7 @@ implements ShippingChargesDao<T>, Serializable {
 					.forClass(ShippingCharges.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
-			criteria.addOrder(Order.desc("created"));
+			criteria.addOrder(Order.asc("amountRange"));
 			return ((List<ShippingCharges>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -474,7 +474,18 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-					
+		apiClass.CheckOut.viewProductInFavourite = function (favourite, callback) {
+			httpRequest("POST", "favourite/getProductInFavourite", favourite, function (err, data) {
+				if (err) {
+		
+					callback(err, null);
+		
+				} else {
+		
+					callback(null, data);
+				}
+			});
+		};					
 		
 		apiClass.CheckOut.payment = function (payment, callback) {
 			httpRequest("POST", "payment/gatewaydetails", payment, function (err, data) {

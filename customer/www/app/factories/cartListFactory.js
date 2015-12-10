@@ -89,24 +89,17 @@ angular.module('aviate.factories')
 		}
 		}
 		$rootScope.myCart.cartTotalAmount = _totalAmount;
-		//$rootScope.myCart.shippingCharges = 100;
-		$rootScope.myCart.taxAmount = $rootScope.myCart.cartTotalAmount*(12.5/100);
-		$rootScope.myCart.serviceTax = $rootScope.myCart.cartTotalAmount*(2.5/100);
 		
 		//shipping charge
 		if($rootScope.shippingCharges != undefined && $rootScope.shippingCharges.length !=0){
 		for(var i =0;i<$rootScope.shippingCharges.length;i++){
-			for(var j =0;j<$rootScope.shippingCharges.length;j++){
 				if(_totalAmount <= $rootScope.shippingCharges[i].amountRange){
-			if($rootScope.shippingCharges[i].amountRange < $rootScope.shippingCharges[j].amountRange){	
 				$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[i].chargingAmount;
-				
-					}
-				  }
+				i = $rootScope.shippingCharges.length;
 				}	
 			}
 		}else{
-			$rootScope.myCart.shippingCharges =100;
+			$rootScope.myCart.shippingCharges =0;
 		}
 		if($rootScope.shippingCharges && $rootScope.shippingCharges.length == 1){
 			$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[0].chargingAmount;

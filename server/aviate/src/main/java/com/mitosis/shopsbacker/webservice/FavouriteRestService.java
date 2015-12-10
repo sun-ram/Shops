@@ -21,6 +21,7 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.FavouriteService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
+import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Favourite;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -30,10 +31,14 @@ import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.responsevo.FavouriteResponseVo;
+import com.mitosis.shopsbacker.responsevo.MyCartResponseVo;
+import com.mitosis.shopsbacker.responsevo.ProductResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.customer.FavouriteVo;
+import com.mitosis.shopsbacker.vo.customer.MyCartVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 @Path("favourite")
 @Controller("favouriteRestServices")
@@ -56,6 +61,9 @@ public class FavouriteRestService {
 	
 	@Autowired
 	MyCartService<T> myCartService;
+	
+	@Autowired
+	ProductService<T> productService;
 
 	@Path("/addfavourite")
 	@POST
@@ -174,6 +182,40 @@ public class FavouriteRestService {
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
 		return response;
+		
+	}
+	
+	@Path("/getProductInFavourite")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public MyCartResponseVo productInFavourite(FavouriteVo favouriteVo) {
+		//ProductResponseVo productResponse = new ProductResponseVo();
+		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
+		try {
+			Favourite favourite = favouriteService.getFavourites(favouriteVo.getFavouriteId());
+			SalesOrder salesOrder = favourite.getSalesOrder();
+			List<SalesOrderLine> salesOrderLines = salesOrder.getSalesOrderLines();
+			
+			
+			//List<ProductVo> productVoList = new ArrayList<ProductVo>();
+			List<MyCartVo> myCartVoList = new ArrayList<MyCartVo>();
+			for(SalesOrderLine salesOrderLine : salesOrderLines){
+				MyCartVo mycartvo = new MyCartVo();
+				ProductVo productVo = productService.setProductVo(salesOrderLine.getProduct());
+				mycartvo.setProduct(productVo);
+				mycartvo.setQty(salesOrderLine.getQty());
+				myCartVoList.add(mycartvo);
+				
+			}
+			myCartResponseVo.setMyCart(myCartVoList);
+			myCartResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			myCartResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+		}
+		return myCartResponseVo;
 		
 	}
 }

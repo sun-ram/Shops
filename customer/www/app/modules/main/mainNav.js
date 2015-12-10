@@ -296,6 +296,22 @@ angular.module('aviate.directives')
 				});	
 		   	}
 			
+			$scope.viewProductInFavourite = function(favouriteId){
+				
+				$scope.favourite ={};
+				$scope.favourite.customerId = $rootScope.user.userId;
+				$scope.favourite.merchantId = $rootScope.store.merchant.merchantId;
+				$scope.favourite.storeId = $rootScope.store.storeId;
+				$scope.favourite.favouriteId = favouriteId
+				FavouriteServices.viewProductInFavourite($scope.favourite).then(function(data){
+					$scope.productInFavourite = {};
+					$scope.productInFavourite.productList = data.myCart;
+					$scope.productInFavourite.favouriteId = favouriteId;
+					$state.go('app.favouriteList');
+
+				});	
+			}
+			
 		}
 
 	};
