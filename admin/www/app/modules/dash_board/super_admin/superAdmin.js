@@ -37,8 +37,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				values: []
             }
         ];
-
-        $scope.reportSelector = [{
+		
+		$scope.historicalBarChart2 = [
+			{
+				key: "Cumulative Return1",
+				values: []
+            }
+        ];
+		 $scope.reportSelector = [{
             name: "Weekly",
             value:7
         }, {
@@ -48,11 +54,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             name: "Monthly",
             value:30
         }];
-
-        $scope.onReportChanged = function(reportValue){
+		$scope.onReportChanged = function(reportValue){
             console.log("onReportChanged",reportValue);
         }
-
 		$scope.map = {
 			center: {
 				latitude: 12.916292,
@@ -71,35 +75,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			model.show = !model.show;
 		};
 
-		/*
-
-		Random Markers
-
-		        Jayam SuperMarket 12.916149, 80.152353
-		        AGS SuperMArket   12.915115, 80.153115
-		        Coffee Day        12.922847, 80.151881
-
-		                $scope.randomMarkers = [{
-		                    "latitude": 12.916149,
-		                    "longitude": 80.152353,
-		                    "title": "Jayam SuperMarket",
-		                    "id": 0
-		                }, {
-		                    "latitude": 12.915115,
-		                    "longitude": 80.153115,
-		                    "title": "AGS SuperMarket",
-		                    "id": 1
-		                }, {
-		                    "latitude": 12.922847,
-		                    "longitude": 80.151881,
-
-		                    "title": "Coffee Day",
-		                    "id": 2
-		                }]
-
-		 */
-
-
+		
 		//Pie chart
 		$scope.drawPiechart = function () {
 			nv.addGraph(function () {
@@ -177,11 +153,41 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				return chart;
 			});
 		}
+		$scope.drawBarChart2 = function () {
+			nv.addGraph(function () {
+				var chart = nv.models.discreteBarChart()
+					.x(function (d) {
+						return d.label
+					})
+					.y(function (d) {
+						return d.value
+					})
+					.staggerLabels(true)
+					//.staggerLabels(historicalBarChart[0].values.length > 8)
+					.showValues(true)
+					.duration(250);
+
+				d3.select('#barChart2 svg')
+					.datum($scope.historicalBarChart2)
+					.call(chart);
+
+				nv.utils.windowResize(chart.update);
+				return chart;
+			});
+		}
 
 		function getMerchantById(id) {
 			for (var i = 0; i < $scope.merchants.Books.length; i++) {
 				if ($scope.merchants.Books[i].MERCHANT_ID == id) {
 					return $scope.merchants.Books[i].NAME;
+				}
+			}
+		};
+		
+		function getCustomerNameById(id) {
+			for (var i = 0; i < $scope.customers.Books.length; i++) {
+				if ($scope.customers.Books[i].CUSTOMER_ID == id) {
+					return $scope.customers.Books[i].NAME;
 				}
 			}
 		};
@@ -237,8 +243,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				locationObj.latitude 	= 	parseFloat(addressObj.LATITUDE);
 				locationObj.longitude 	= 	parseFloat(addressObj.LONGITUDE);
 				locationObj.title 		= 	$scope.merchants.Books[i].NAME;
-				//locationObj.id 			= 	$scope.merchants.Books[i].MERCHANT_ID;
-                if (!$scope.tempMarkers || $scope.tempMarkers.length < 1) {
+				if (!$scope.tempMarkers || $scope.tempMarkers.length < 1) {
                     locationObj.id = 1;
                 } else {
                     locationObj.id = $scope.tempMarkers[$scope.tempMarkers.length - 1].id + 1;
@@ -248,7 +253,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
-            console.log("$scope.randomMarkers",JSON.stringify($scope.randomMarkers))
 		};
 
 		function postSalesOrder(data) {
@@ -295,9 +299,36 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 				}
 			}
+			x1 = {};
+			storeIds1 = [];
+			for (var i = 0; i < tempArray.length; ++i) {
+				var obj = tempArray[i];
+				if (x1[obj.CUSTOMER_ID] === undefined && obj.CUSTOMER_ID) {
+					x1[obj.CUSTOMER_ID] = [getCustomerNameById(obj.CUSTOMER_ID)];
+					storeIds1.push(obj.CUSTOMER_ID);
+				}
+				if (obj.CUSTOMER_ID)
+					x1[obj.CUSTOMER_ID].push(obj.NET_AMOUNT);
+			};
+			
+			tmpAvgObj = {};
+			for (var j = 0; j < storeIds1.length; j++) {
+				totalAmount = 0;
+				for (var i = 1; i < x1[storeIds1[j]].length; i++) {
+					totalAmount = totalAmount + x1[storeIds1[j]][i];
+				}
+				if (totalAmount > 0) {
+					tmpAvgObj.key = x1[storeIds1[j]][0];
+					tmpAvgObj.y = Math.round((commition / 100) * totalAmount);
+					$scope.historicalBarChart2[0].values.push(angular.copy(tmpAvgObj));
+
+				}
+			}
+			console.log("$scope.historicalBarChart2--->",$scope.historicalBarChart2);
+			
 			$scope.drawPiechart();
 			$scope.drawReviewChart();
-			/*$scope.drawBarChart();*/
+			$scope.drawBarChart2();
 			$scope.compSalesToday();
 			/*callback();*/
 		};
@@ -372,6 +403,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				tmpAvgObj.value = count;
 				$scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
 			}
+			console.log("$scope.historicalBarChart",$scope.historicalBarChart);
 			$scope.drawBarChart();
 			console.log("Stores Yesterday and to Today", newStoresLastDay, " & ", newStoresToday);
 			$scope.storeGrowthToday = (newStoresLastDay) ? (((newStoresToday - newStoresLastDay) / newStoresLastDay) * 100) : 0;
@@ -388,7 +420,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/salesOrder'
+					url: 'http://localhost:3000/shopsbacker/salesOrder'
 				})
 				.success(function (data, status) {
 					console.log("salesOrder Exected success case ", data);
@@ -402,7 +434,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedSalesOrderLine = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/salesOrderLine'
+					url: 'http://localhost:3000/shopsbacker/salesOrderLine'
 				})
 				.success(function (data, status) {
 					$scope.salesOrderLines = data;
@@ -419,7 +451,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			//Merchants
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/merchant'
+					url: 'http://localhost:3000/shopsbacker/merchant'
 				})
 				.success(function (data, status) {
 
@@ -434,7 +466,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedStore = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/store'
+					url: 'http://localhost:3000/shopsbacker/store'
 				})
 				.success(function (data, status) {
 					$scope.stores = data;
@@ -451,7 +483,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedAddresses = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/address'
+					url: 'http://localhost:3000/shopsbacker/address'
 				})
 				.success(function (data, status) {
 					$scope.addresses = data;
@@ -467,7 +499,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedUsers = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/users'
+					url: 'http://localhost:3000/shopsbacker/users'
 				})
 				.success(function (data, status) {
 					$scope.users = data;
@@ -483,7 +515,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.proceedCustomer = function (callback) {
 			$http({
 					method: 'GET',
-					url: 'http://192.168.1.29:3000/shopsbacker/customer'
+					url: 'http://localhost:3000/shopsbacker/customer'
 				})
 				.success(function (data, status) {
 					$scope.customers = data;
