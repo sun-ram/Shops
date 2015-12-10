@@ -1,3 +1,28 @@
+<style>
+md-tabs-canvas {
+    height: 100px;
+    
+}
+md-ink-bar{top:115px;}
+.md-tab{
+	padding: 28px ! important;
+}
+.chg-tool{
+	background: #ED6663 ! important;
+}
+ md-dialog {width: 93%;
+min-width: 85%; }
+
+
+.tab-img md-tab-item{
+max-width: 70px !important;
+padding: 5px 4px!important;
+height: 100px;}
+.padd-tb16{padding: 16px 0px;}
+md-tabs-canvas.md-paginated{margin: 0 16px;}
+md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
+</style>
+
 <div style="position: relative;" class="bg_gray product-detail-dialog">
    <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
     <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
@@ -8,35 +33,49 @@
       </md-button>
     </div>
   </md-toolbar>         
-<md-card layout="row" layout-md="column" layout-padding style="padding: 25px; margin: 20px 3%;">
-		<div flex-md="100" flex-lg="40" flex-gt-lg="35">
+<md-card layout="row" flex layout-sm="column" layout-padding style="padding: 25px; margin: 20px 3%;">
+		<div flex-sm="100" flex-md="45" flex-lg="40" flex-gt-lg="35">
 			<div layout="row" layout-align="start center">
 			
 			<zoom mark-height="50" mark-width="50"  src="{{image}}" zoom-lvl="{{zoomLvl}}"></zoom>
 			<!-- 	<img src="assets/images/fruit.jpg" height="250px" border="1"> -->
 			</div>
-			<div layout="row" flex="100" layout-align="start center"> 
+			<!-- <div layout="row" flex="100" layout-align="start center">  -->
 				
-				<div flex="30" flex-md="40" class="image" style="padding: 5px" ng-init="changeimage(productDetails.image.url)">
+		 <md-content class="padd-tb16 pdwid-80">
+		 <hr></hr>
+	    	 <md-tabs class="arrow_color tab-img" md-stretch-tabs="auto">
+			      	<md-tab ng-init="changeimage(productDetails.image.url)" class="tab-img">
+    			 		<img  ng-src="{{productDetails.image.url}}" class="md-avatar chs-img" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productDetails.image.url)">
+ 				 	</md-tab>
+			      
+			      <md-tab  ng-repeat="productImage in productDetails.images" class="tab-img">
+			     <img  ng-src="{{productImage.url}}" class="md-avatar chs-img"></br>
+			     </md-tab>
+	   		 </md-tabs>
+	    </md-content>
+							 
+				<!-- <div flex="30" flex-md="40" class="image" style="padding: 5px" ng-init="changeimage(productDetails.image.url)">
 					<img  ng-src="{{productDetails.image.url}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productDetails.image.url)">
  				</div>
-				<div flex="30" flex-md="40" class="image" ng-repeat="productImage in productDetails.productImages"  style="padding: 5px">
-					<img ng-src="{{productImage.image.url}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productImage.image.url)">
-				</div>	
-			</div>
+				<div flex="30" flex-md="40" class="image" ng-repeat="productImage in productDetails.images"  style="padding: 5px">
+					<img ng-src="{{productImage.url}}" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productImage.image.url)">
+				</div> -->	
+				<!-- 
+			</div> -->
 		</div>
-		<div flex-md="100" flex-lg="60" flex-gt-lg="65">
-			<div>
+		<div class="product-details-pname" flex-sm="100" flex-md="55" flex-lg="60" flex-gt-lg="65">
+			<div >
 				<span class="md-display-1" style="color: green">{{productDetails.name}}</span>
 				<div style="width:100%; min-height:100px;">{{productDetails.description}}</div>
 				<div layout="row" style="padding:10px 0px;">
-					<span flex class="md-title" >{{productDetails.unit}}{{productDetails.uom.name}}</span>
-					<span flex class="md-title" >Effective Price:<span style="color: red;"> Rs. {{productDetails.price}}</span></span>
+					<span flex flex-sm="50" class="md-title" >{{productDetails.unit}}{{productDetails.uom.name}}</span>
+					<span flex flex-sm="50" class="md-title" >Effective Price:<span style="color: red;"> Rs. {{productDetails.price}}</span></span>
 				</div>
 			</div>
 			<div>
 				
-				<div layout="row" flex>
+				<div layout="row" flex class="mg_t15">
 						<!-- <div flex-gt-sm = "40" flex="30" layout="row" layout-align="start center" style="margin-right: 20px; cursor: pointer;">
 								<div flex="100" ng-hide="productDetails.isProductMyList" ng-click="addToMyList(productDetails);" flex="40" style="font-size:12px; background-color:#00B8D4; color:#FFFFFF;" layout="column" layout-align="center center"
 									class="button-flex wishlist-btn">
@@ -53,7 +92,7 @@
 									<div flex style="text-align:center; font-size: 19px; padding-bottom: 4px;">Remove From My List</div>
 								</div>
 						</div> -->
-								<div flex-gt-sm = "40" flex="30" layout="row" layout-align="center center"
+								<div flex="50" flex-gt-sm="40"  layout="row" layout-align="center center"
 									class="button-flex cart-btn">
 									<div flex="30" style="text-align: center; cursor: pointer;" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
 										<md-icon style="height:30px; color:#FFFFFF; margin:3px; "
@@ -71,6 +110,7 @@
 											md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
 									</div>
 								</div>
+								<div flex-md-60="40" flex-sm="20"></div>
 							</div>
 			</div>
 		</div>    
