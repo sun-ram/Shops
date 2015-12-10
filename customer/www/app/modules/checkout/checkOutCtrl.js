@@ -205,6 +205,7 @@ angular.module('aviate.controllers')
 			$scope.sta = JSON.parse($scope.state);
 			$scope.address.state.stateId = $scope.sta.stateId;
 			$scope.address.state.name = $scope.sta.name;
+			address.customer={};
 			address.customer.customerId=$rootScope.user.userId;
 			addAddress(address);
 			$mdDialog.cancel();
