@@ -17,7 +17,7 @@
       	<div flex style="width:500px;">
       		<md-input-container class="md-block" flex-gt-sm>
 		          <label>Type your Favorite Name</label>
-		          <input ng-model="favouritName">
+		          <input ng-model="favouriteName">
 		    </md-input-container>
       	</div>
       	<div flex style="width:500px; margin-top:5px; text-align:center;">
@@ -26,17 +26,17 @@
       	<div flex style="width:500px;">
       		<md-input-container>
 		        <label>Choose from your default list</label>
-		        <md-select ng-model="size" >
-		          <md-option  value="Monthly List">Monthly List</md-option>
-		          <md-option  value="Weekly List">Weekly List</md-option>
-		          <md-option  value="Quarterly List">Quarterly List</md-option>
-		          <md-option  value="Party List">Party List</md-option>
+		        <md-select ng-model="favouriteName" >
+		          <md-option  value="Monthly List" ng-click="favouriteName = 'Monthly List';">Monthly List</md-option>
+		          <md-option  value="Weekly List" ng-click="favouriteName = 'Weekly List';">Weekly List</md-option>
+		          <md-option  value="Quarterly List" ng-click="favouriteName = 'Quarterly List';">Quarterly List</md-option>
+		          <md-option  value="Party List" ng-click="favouriteName = 'Party List';">Party List</md-option>
 		        </md-select>
 		      </md-input-container>
       	</div>
       	<div layout="row" flex style="width:500px;">
-      		<md-button class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF; ">ADD</md-button>
-      		<md-button class="md-raised " >SKIP</md-button>
+      		<md-button class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF;" ng-click="addFavourite();">ADD</md-button>
+      		<md-button class="md-raised " ui-sref="app.home">SKIP</md-button>
       	</div>
       </div>
       
@@ -50,7 +50,7 @@
  <div class="list-content">
  <md-content>
     <md-list>
-      <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Monthly List';addFavourite();">
+      <md-list-item class="md-1-line md-long-text" ng-click="favouriteName = 'Monthly List';addFavourite();">
         <div class="md-list-item-text">
           <p>
             Monthly List
@@ -58,7 +58,7 @@
         </div>
       </md-list-item>
       <md-divider ></md-divider>
-       <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Weekly List';addFavourite();">
+       <md-list-item class="md-1-line md-long-text" ng-click="favouriteName = 'Weekly List';addFavourite();">
         <div class="md-list-item-text">
           <p>
              Weekly List
@@ -66,7 +66,7 @@
         </div>
       </md-list-item>
       <md-divider ></md-divider>
-            <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Quarterly List';addFavourite();">
+            <md-list-item class="md-1-line md-long-text" ng-click="favouriteName = 'Quarterly List';addFavourite();">
         <div class="md-list-item-text">
           <p>
             Quarterly List
@@ -74,7 +74,7 @@
         </div>
       </md-list-item>
       <md-divider ></md-divider>
-       <md-list-item class="md-1-line md-long-text" ng-click="favouritName = 'Party List';addFavourite();">
+       <md-list-item class="md-1-line md-long-text" ng-click="favouriteName = 'Party List';addFavourite();">
         <div class="md-list-item-text">
           <p>
            Party List
@@ -87,7 +87,7 @@
         	<div flex>
 		        <md-input-container class="md-block" flex-gt-sm>
 		          <label>Others</label>
-		          <input ng-model="favouritName">
+		          <input ng-model="favouriteName">
 		        </md-input-container>
 		    </div>    
 	        <div flex style="margin-top:12px;">
@@ -110,7 +110,7 @@
             <div layout layout-sm="column">
   			<label>Favourite Name</label>
                 <md-input-container flex>
-					<select ng-model="favouritName">
+					<select ng-model="favouriteName">
  						  <option value="monthlyList">Monthly List</option>
  						  <option value="quartelyList">Quarterly List</option>
  						  <option value="partyList">Party List</option>
