@@ -43,7 +43,7 @@
                     <label>Country<span style="color:red">*</span></label>
                     <!-- <input type="text" ng-model="address.state" ng-required="true"> -->
                     <md-select ng-model="country" ng-required="true" ng-change = "getState(country);">
-		            <md-option ng-repeat="cnt in countries" value="{{cnt}}">
+		            <md-option ng-repeat="cnt in countries | orderBy:'name'" value="{{cnt}}">
 		              {{cnt.name}}
 		            </md-option>
           		</md-select>
@@ -54,7 +54,7 @@
                 <md-input-container flex>
                     <label>State<span style="color:red">*</span></label>
                     <md-select ng-model="state" ng-required="true">
-		            <md-option ng-repeat="state in states" value="{{state}}">
+		            <md-option ng-repeat="state in states | orderBy:'name'" value="{{state}}">
 		              {{state.name}}
 		            </md-option>
           		</md-select>
