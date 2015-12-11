@@ -168,7 +168,6 @@ angular.module('aviateAdmin.controllers')
 			ProductService.deleteProduct($scope.product).then(function(data) {
 				$scope.getAllProductList();
 				toastr.success("Product details have been deleted successfully!!!");
-				$state.go("app.products");
 			})
 		}, function() {
 

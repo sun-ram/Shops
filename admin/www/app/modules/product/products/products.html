@@ -86,7 +86,7 @@
                 <md-button class="md-icon-button md-primary" ng-click="editproduct(product)" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>        			
       			</md-button>
-             	<md-button class="md-icon-button md-primary" ng-click="deleteProduct(product.productId)" aria-label="Delete">
+             	<md-button class="md-icon-button md-primary" ng-click="deleteProduct(product.productId);$event.stopPropagation();" aria-label="Delete">
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
