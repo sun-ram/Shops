@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public List<Merchant> getMerchantList() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
 		criteria.add(Restrictions.eq("isactive", 'Y'));
+        criteria.addOrder(Order.desc("created"));
 		return (List<Merchant>) findAll(criteria);
 	}
 
@@ -68,6 +70,7 @@ public class MerchantDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		DetachedCriteria criteria = DetachedCriteria.forClass(Merchant.class);
 		criteria.add(Restrictions.eq("name", param));
 		criteria.add(Restrictions.eq("isactive", 'Y'));
+		
 		return (List<Merchant>) findAll(criteria);
 	}
 
