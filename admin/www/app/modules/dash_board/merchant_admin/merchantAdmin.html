@@ -255,14 +255,14 @@
 	</md-card>
 
 	<div layout="row" layout-sm="column" class="md-whiteframe-1dp">
-		<div class="card green" flex flex-sm="100">
+		<!--<div class="card green" flex flex-sm="100">
 			<div class="card-content  green white-text">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
 				<h4 class="card-stats-number">{{totalMerchants}}</h4>
 				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
 				</p>
 			</div>
-		</div>
+		</div>-->
 		<div class="card pink" flex flex-sm="100">
 			<div class="card-content white-text">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
@@ -280,9 +280,17 @@
 			</div>
 
 		</div>
+		<div class="card green" flex flex-sm="100">
+			<div class="card-content  green white-text">
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
+				<h4 class="card-stats-number">{{totalSalesRevenue}}</h4>
+				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> INR(₹)
+				</p>
+			</div>
+		</div>
 		<div class="card grey" flex flex-sm="100">
 			<div class="card-content white-text">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Commition</p>
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Today Sales Revenue</p>
 				<h4 class="card-stats-number">{{todayTotSale}}</h4>
 				<p class="card-stats-compare" style="line-height: 3; background: #455a64; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
 				</p>
@@ -297,7 +305,7 @@
 		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp">
 			<div layout="column" layout-sm="row" class="chart_header br_green">
 				<div>
-					<h4 style="float:left">Pie Chart</h4>
+					<h4 style="float:left">Sales By Stores</h4>
 
 				</div>
 				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
@@ -310,7 +318,7 @@
 		<md-card flex flex-md="100" class="md-whiteframe-4dp br_blue" flex-sm="100">
 			<div layout="column" class="chart_header " layout-sm="row">
 				<div>
-					<h4 style="float:left">Revenue</h4>
+					<h4 style="float:left">Sales Revinue In Percentage</h4>
 
 				</div>
 				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
@@ -322,7 +330,7 @@
 		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
 			<div class="md-whiteframe-4dp br_yellow">
 				<div>
-					<h4 style="float:left">Merchants and Store</h4>
+					<h4 style="float:left">Store and SalesOrders</h4>
 				</div>
 				<div id="chart1">
 					<svg class="svgss"></svg>

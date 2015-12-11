@@ -1,434 +1,364 @@
-
 <style>
-        text {
-            font: 12px sans-serif;
-        }
-        .testBlock {
-            display: block;
-            float: left;
-            height: 100%;
-            width: 100%;
-        }
-       
-            text
-            {
-                font: 12px sans-serif;
-            }
-        
-                  
-            .nvd3.nv-pie.nv-chart-donut2 .nv-pie-title
-            {
-                fill: gray;
-            }
-        
-            .nvd3.nv-pie.nv-chart-donut1 .nv-pie-title
-            {
-                opacity: 0.4;
-                fill: green;
-            }
-   
-    .svgss {
-            display: block;
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            width: 100%;
-        }
-    #chart2 {
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            width: 100%;
-        }    
-h3{margin:0; color:#fff;}
-#barId{float: left ! important; width: 100%;}
-#pieId{width: 100%;}
-#areaId{width: 100%;}
-span{color: grey; font-size: 20px; font-weight: bold}
-.card {
-color:#fff;
-overflow: hidden;
-margin: 10px 5px;
-border-radius: 2px;
-text-align: center;
-}
-.fab_iconstyle{position:relative;top:-17px;}
-.grey{background-color: #607d8b !important;}
-.green{background: #4CAF50 !important}
-.purple{background: #9c27b0 !important}
-.pink{background: #f06292 !important}
-.white-text{color:#fff ! important;}
-.ft-green{color}
-.info-box {
-display: block;
-min-height: 90px;
-background: #fff;
-width: 100%;
-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-border-radius: 2px;
-margin:10px 0px;
-}
-.info-box:hover{box-shadow: 0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);	}
-.info-box-icon {
-border-top-left-radius: 2px;
-border-top-right-radius: 0;
-border-bottom-right-radius: 0;
-border-bottom-left-radius: 2px;
-display: block;
-float: left;
-height: 90px;
-width: 90px;
-text-align: center;
-font-size: 45px;
-line-height: 90px;
-background: rgba(0,0,0,0.2);
-}
-.info-box-icon img{margin-top: 15px;
-width: 60px;}
-
-.info-box-text {
-display: block;
-font-size: 14px;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-.info-box-number {
-display: block;
-font-weight: lighter;
-font-size: 26px;
-color:#30363E ! important;
-}
-.info-box-content {padding: 5px 10px;margin-left: 90px;}
-.bg-aqua{background-color: #00c0ef !important;color: #fff !important;}
-.bg-red{background-color: red !important;color: #fff !important;}
-.bg-green{background-color: #00c0ef !important;color: #fff !important;}
-.bg-yellow{background-color: #f39c12 !important;color: #fff !important;}
-.card_top{margin: 5px;padding: 5px;}
-.card_top h1{font-size:30px;font-weight:100;color:#ddd;}
-.card_top .card-stats-title{color:#388E3C;text-transform: uppercase;font-size:16px;}
-.card_top .card-stats-title span{font-weight:600;color:#4CAF50 ;font-size:16px;}
-.hr_line{margin-top: 5%;height: 55px;}
-.br_red{border-top: 3px inset red;}
-.br_green{border-top: 3px solid #00a65a;}
-.br_yellow{border-top:3px solid #f39c12 !important;}
-.br_blue{border-top:3px solid #00c0ef !important;}
-.br_gray{border-top:3px solid #607d8b !important;}
-.br_pink{border-top:3px solid #f06292 !important;}
-.nomarg{margin:0px;}
-.marg-t10{margin-top:10px;}
+	text {
+		font: 12px sans-serif;
+	}
+	
+	.testBlock {
+		display: block;
+		float: left;
+		height: 100%;
+		width: 100%;
+	}
+	
+	text {
+		font: 12px sans-serif;
+	}
+	
+	.nvd3.nv-pie.nv-chart-donut2 .nv-pie-title {
+		fill: gray;
+	}
+	
+	.nvd3.nv-pie.nv-chart-donut1 .nv-pie-title {
+		opacity: 0.4;
+		fill: green;
+	}
+	
+	.svgss {
+		display: block;
+		margin: 0px;
+		padding: 0px;
+		height: 100%;
+		width: 100%;
+	}
+	
+	#chart2 {
+		margin: 0px;
+		padding: 0px;
+		height: 100%;
+		width: 100%;
+	}
+	
+	#barChart2 {
+		margin: 0px;
+		padding: 0px;
+		height: 100%;
+		width: 100%;
+	}
+	
+	h3 {
+		margin: 0;
+		color: #fff;
+	}
+	
+	#barId {
+		float: left ! important;
+		width: 100%;
+	}
+	
+	#pieId {
+		width: 100%;
+	}
+	
+	#areaId {
+		width: 100%;
+	}
+	
+	span {
+		color: grey;
+		font-size: 20px;
+		font-weight: bold
+	}
+	
+	.card {
+		color: #fff;
+		overflow: hidden;
+		margin: 10px 5px;
+		border-radius: 2px;
+		text-align: center;
+	}
+	
+	.fab_iconstyle {
+		position: relative;
+		top: -17px;
+	}
+	
+	.grey {
+		background-color: #607d8b !important;
+	}
+	
+	.green {
+		background: #4CAF50 !important
+	}
+	
+	.purple {
+		background: #9c27b0 !important
+	}
+	
+	.pink {
+		background: #f06292 !important
+	}
+	
+	.white-text {
+		color: #fff ! important;
+	}
+	
+	.ft-green {
+		color
+	}
+	
+	.info-box {
+		display: block;
+		min-height: 90px;
+		background: #fff;
+		width: 100%;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+		border-radius: 2px;
+		margin: 10px 0px;
+	}
+	
+	.info-box:hover {
+		box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+	}
+	
+	.info-box-icon {
+		border-top-left-radius: 2px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 2px;
+		display: block;
+		float: left;
+		height: 90px;
+		width: 90px;
+		text-align: center;
+		font-size: 45px;
+		line-height: 90px;
+		background: rgba(0, 0, 0, 0.2);
+	}
+	
+	.info-box-icon img {
+		margin-top: 15px;
+		width: 60px;
+	}
+	
+	.info-box-text {
+		display: block;
+		font-size: 14px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	
+	.info-box-number {
+		display: block;
+		font-weight: lighter;
+		font-size: 26px;
+		color: #30363E ! important;
+	}
+	
+	.info-box-content {
+		padding: 5px 10px;
+		margin-left: 90px;
+	}
+	
+	.bg-aqua {
+		background-color: #00c0ef !important;
+		color: #fff !important;
+	}
+	
+	.bg-red {
+		background-color: red !important;
+		color: #fff !important;
+	}
+	
+	.bg-green {
+		background-color: #00c0ef !important;
+		color: #fff !important;
+	}
+	
+	.bg-yellow {
+		background-color: #f39c12 !important;
+		color: #fff !important;
+	}
+	
+	.card_top {
+		margin: 5px;
+		padding: 5px;
+	}
+	
+	.card_top h1 {
+		font-size: 30px;
+		font-weight: 100;
+		color: #ddd;
+	}
+	
+	.card_top .card-stats-title {
+		color: #388E3C;
+		text-transform: uppercase;
+		font-size: 16px;
+	}
+	
+	.card_top .card-stats-title span {
+		font-weight: 600;
+		color: #4CAF50;
+		font-size: 16px;
+	}
+	
+	.hr_line {
+		margin-top: 5%;
+		height: 55px;
+	}
+	
+	.br_red {
+		border-top: 3px inset red;
+	}
+	
+	.br_green {
+		border-top: 3px solid #00a65a;
+	}
+	
+	.br_yellow {
+		border-top: 3px solid #f39c12 !important;
+	}
+	
+	.br_blue {
+		border-top: 3px solid #00c0ef !important;
+	}
+	
+	.br_gray {
+		border-top: 3px solid #607d8b !important;
+	}
+	
+	.br_pink {
+		border-top: 3px solid #f06292 !important;
+	}
+	
+	.nomarg {
+		margin: 0px;
+	}
+	
+	.marg-t10 {
+		margin-top: 10px;
+	}
 </style>
 <div ng-cloak class="testBlock">
-	 <md-card class="nomarg marg-t10">
-        <md-card-title>
-          <md-card-title-text>
-            <h2  layout-padding layout-margin class="ft-black"> Dashboard </h2>
-            </md-card-title-text>
-            </md-card-title>
-            </md-card>
-	
-   <!-- <div layout="row" layout-sm="column" class="md-whiteframe-1dp">
-		<div class="card_top" flex flex-sm="100" >
-    		<div class="info-box">
-	            <span class="info-box-icon bg-aqua">
-	             <img src="images/users6.png" ></span>
-	            <div class="info-box-content">
-	              <span class="info-box-text">New Members</span>
-	              <span class="info-box-number">90<small>%</small></span>
-	            </div>
-            
-          	</div>
-   		 </div>
-   		 <div class="card_top" flex flex-sm="100" >
-    		<div class="info-box">
-	            <span class="info-box-icon bg-red">
-	             <img src="images/coin3.png" ></span>
-	            <div class="info-box-content">
-	              <span class="info-box-text">Product Sales</span>
-	              <span class="info-box-number">90<small>%</small></span>
-	            </div>
-            
-          	</div>
-   		 </div>
-   		 <div class="card_top" flex flex-sm="100" >
-    		<div class="info-box">
-	            <span class="info-box-icon bg-yellow">
-	             <img src="images/shopping187.png" ></span>
-	            <div class="info-box-content">
-	              <span class="info-box-text">Total no of Merchants</span>
-	              <span class="info-box-number">90<small>%</small></span>
-	            </div>
-           
-          	</div>
-   		 </div>
-   		 <div class="card_top" flex flex-sm="100" >
-    		<div class="info-box">
-	            <span class="info-box-icon green">
-	             <img src="images/shopping-cart2.png" ></span>
-	            <div class="info-box-content">
-	              <span class="info-box-text">Total Sales Amt</span>
-	              <span class="info-box-number">90<small>%</small></span>
-	            </div>
-            
-          	</div>
-   		 </div>
-    
-    </div> -->
-     <!--<div layout="row" layout-sm="column" class="md-whiteframe-1dp">
-		<div class="card_top" flex flex-sm="100" >
-			<h1>2500</h1>
-			<p class="card-stats-title"><span>Merchant</span> Strength</p>
-		</div>	<hr class="hr_line"></hr>	
-		<div class="card_top" flex flex-sm="100" >
-			<h1>200</h1>
-			<p class="card-stats-title"><span>Product </span> Sales</p>
-		</div><hr class="hr_line"></hr>
-		<div class="card_top" flex flex-sm="100" >
-			<h1>500</h1>
-			<p class="card-stats-title"><span>Total</span> Sales Order</p>
-		</div><hr class="hr_line"></hr>
-		<div class="card_top" flex flex-sm="100" >
-			<h1>1000</h1>
-			<p class="card-stats-title"><span>New</span> Clients</p>
-		</div>		
-	</div>-->
-     
-     
-     
-      <div layout="row" layout-sm="column" class="md-whiteframe-1dp">
+	<md-card class="nomarg marg-t10">
+		<md-card-title>
+			<md-card-title-text>
+				<h2 layout-padding layout-margin style="float:left" class="ft-black"> Dashboard </h2>
+			</md-card-title-text>
+			<md-input-container style="float:right">
+				<md-select placeholder="Weekly" ng-model="report" style="min-width: 200px;" ng-change="onReportChanged(report.value)">
+					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
+				</md-select>
+			</md-input-container>
+		</md-card-title>
+	</md-card>
+
+	<div layout="row" layout-sm="column" class="md-whiteframe-1dp">
 		<div class="card green" flex flex-sm="100">
 			<div class="card-content  green white-text">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
 				<h4 class="card-stats-number">{{totalMerchants}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
-				</p>
-			</div>		
-		</div>
-		<div class="card purple" flex flex-sm="100">
-			<div class="card-content white-text">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Product Sales</p>
-				<h4 class="card-stats-number">566</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
+				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
 				</p>
 			</div>
-			
-		</div>
-		<div class="card grey" flex flex-sm="100">
-			<div class="card-content white-text">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Amt</p>
-				<h4 class="card-stats-number">566</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #455a64; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
-				</p>
-			</div>	
 		</div>
 		<div class="card pink" flex flex-sm="100">
 			<div class="card-content white-text">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> New Clients</p>
-				<h4 class="card-stats-number">566</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% from yesterday
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
+				<h4 class="card-stats-number">{{totalStores}}</h4>
+				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
 				</p>
-			</div>		
-		</div>
-	</div>
-      
-       <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10">              	
-       	<!--<md-card flex="60" flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
-	   	<div class="md-whiteframe-4dp br_red">           
-           <h4>Area Chart</h4>
- 		<div id="chart2">   
-		</div> -->     
-	<!-- <md-button class="md-fab" aria-label="Eat cake" style=" right: 10px; margin-bottom: -20px; z-index: 998; float: right; line-height: inherit; width: 40px; height: 40px;">
-		<ng-md-icon icon="add" size="25" class="icon-white fab_iconstyle" ></ng-md-icon>
-	</md-button> -->
-<!--	</div>-->
-	<!--<div layout="row" layout-sm="column">
-		<span flex  height="120">
-			<md-card class="dashbord_liststyle" style="margin-left:0px;">
-	   <div layout="column" layout-sm="row" class="md-whiteframe-4dp br_gray">
-	   <h4>Pie Chart 1</h4>
-  <svg id="test1"></svg>	
-	</div>	
-  </md-card>
-		</span>
-		<span flex   height="120">
-			<md-card class="dashbord_liststyle" >
-			   <div layout="column" class="md-whiteframe-4dp br_gray" layout-sm="row">
-			  	 <h4>Pie Chart 2</h4>
-		  			<svg id="test11">  </svg>	
-				</div>	
-	  		</md-card>
-  		</span>
-		<span flex  height="120">
-			<md-card class="dashbord_liststyle" style="margin-right:0px;">
-			   <div layout="column" class="md-whiteframe-4dp br_gray" layout-sm="row">
-			  	 <h4>Pie Chart 3</h4>
-		  			<svg id="test12">  </svg>	
-				</div>	
-	  		</md-card>
-		</span>		
-	</div>-->
- <!-- </md-card>-->
-       <md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp">
-	   <div layout="column" layout-sm="row" class="chart_header br_green">
-           <div>
-               <h4 style="float:left">Pie Chart</h4>
-
-               <md-menu-bar style="float:right">
-                   <md-menu>
-                       <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="$mdOpenMenu()" >
-                           <md-icon md-svg-icon="assets/svgicon/menu.svg"></md-icon>
-                       </md-button>
-                       <md-menu-content>
-                           <md-menu-item>
-                               <md-button >
-                                   One 1
-                               </md-button>
-                           </md-menu-item>
-                           <md-menu-divider></md-menu-divider>
-                           <md-menu-item>
-                               <md-button>
-                                   Two 2
-                               </md-button>
-                           </md-menu-item>
-                           <md-menu-divider></md-menu-divider>
-                           <md-menu-item>
-                               <md-button >
-                                   Three 3
-                               </md-button>
-                           </md-menu-item>
-                           <md-menu-divider></md-menu-divider>
-                       </md-menu-content>
-                   </md-menu>
-               </md-menu-bar>
-           </div>
-  <svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
-	<!-- <md-button class="md-fab" aria-label="Eat cake" style="margin-left: 90%; margin-bottom: -20px; z-index: 998; line-height: inherit; width: 40px; height: 40px;">
-		<ng-md-icon icon="add" size="25" class="icon-white fab_iconstyle" ></ng-md-icon>
-	</md-button> -->
-	</div>
-	
-  </md-card>
-            <md-card flex flex-md="100" class="md-whiteframe-4dp br_blue" flex-sm="100">
-		   <div layout="column" class="chart_header " layout-sm="row" >
-			   <div>
-                   <h4 style="float:left">Revenue</h4>
-
-                   <md-menu-bar style="float:right">
-                       <md-menu>
-                           <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="$mdOpenMenu()" >
-                               <md-icon md-svg-icon="assets/svgicon/menu.svg"></md-icon>
-                           </md-button>
-                           <md-menu-content>
-                               <md-menu-item>
-                                   <md-button >
-                                       One 1
-                                   </md-button>
-                               </md-menu-item>
-                               <md-menu-divider></md-menu-divider>
-                               <md-menu-item>
-                                   <md-button>
-                                       Two 2
-                                   </md-button>
-                               </md-menu-item>
-                               <md-menu-divider></md-menu-divider>
-                               <md-menu-item>
-                                   <md-button >
-                                       Three 3
-                                   </md-button>
-                               </md-menu-item>
-                               <md-menu-divider></md-menu-divider>
-                           </md-menu-content>
-                       </md-menu>
-                   </md-menu-bar>
-               </div>
-		 		<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
-			</div>	
- 		</md-card>
-</div>
-
- <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
-      <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
-		   <div class="md-whiteframe-4dp br_yellow">
-               <div>
-                   <h4 style="float:left">Bar Chart</h4>
-
-                   <md-menu-bar style="float:right">
-                       <md-menu>
-                           <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="$mdOpenMenu()" >
-                               <md-icon md-svg-icon="assets/svgicon/menu.svg"></md-icon>
-                           </md-button>
-                           <md-menu-content>
-                               <md-menu-item>
-                                   <md-button >
-                                       One 1
-                                   </md-button>
-                               </md-menu-item>
-                               <md-menu-divider></md-menu-divider>
-                               <md-menu-item>
-                                   <md-button>
-                                       Two 2
-                                   </md-button>
-                               </md-menu-item>
-                               <md-menu-divider></md-menu-divider>
-                               <md-menu-item>
-                                   <md-button >
-                                       Three 3
-                                   </md-button>
-                               </md-menu-item>
-                               <md-menu-divider></md-menu-divider>
-                           </md-menu-content>
-                       </md-menu>
-                   </md-menu-bar>
-               </div>
-	 			<div id="chart1">
-				    <svg class="svgss"></svg>
-				</div>    
 			</div>
-			<!--<div layout="row" layout-sm="column">
-				<span flex  height="120">
-					<md-card class="dashbord_liststyle" style="margin-left:0px;">
-				 	  <div layout="column" class="md-whiteframe-4dp br_pink" layout-sm="row" >
-				  		<h4>Daily Sales</h4>
-			 			 <svg id="test"></svg>	
-					  </div>	
-		  			</md-card>
-				</span>
-				<span flex   height="120">
-					<md-card class="dashbord_liststyle" >
-					   <div layout="column" class="md-whiteframe-4dp br_pink" layout-sm="row">
-					  	 <h4>Weekly Sales</h4>
-				  			<svg id="test4">  </svg>	
-						</div>	
-			  		</md-card>
-		  		</span>
-				<span flex  height="120">
-					<md-card class="dashbord_liststyle" style="margin-right:0px;">
-					   <div layout="column" class="md-whiteframe-4dp br_pink" layout-sm="row">
-					  	 <h4>Monthly Sales</h4>
-				  			<svg id="test5">  </svg>	
-						</div>	
-			  		</md-card>
-				</span>		
-			</div>-->
-  	 </md-card>
-      
+		</div>
+		<div class="card purple" flex flex-sm="100">
+			<div class="card-content white-text">
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
+				<h4 class="card-stats-number">{{totalCustomers}}</h4>
+				<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
+				</p>
+			</div>
+
+		</div>
+		<div class="card grey" flex flex-sm="100">
+			<div class="card-content white-text">
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Commition</p>
+				<h4 class="card-stats-number">{{todayTotSale}}</h4>
+				<p class="card-stats-compare" style="line-height: 3; background: #455a64; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
+				</p>
+			</div>
+		</div>
+
+	</div>
+
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10">
+
+		<!-- </md-card>-->
+		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp">
+			<div layout="column" layout-sm="row" class="chart_header br_green">
+				<div>
+					<h4 style="float:left">Pie Chart</h4>
+
+				</div>
+				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
+				<!-- <md-button class="md-fab" aria-label="Eat cake" style="margin-left: 90%; margin-bottom: -20px; z-index: 998; line-height: inherit; width: 40px; height: 40px;">
+		<ng-md-icon icon="add" size="25" class="icon-white fab_iconstyle" ></ng-md-icon>
+	</md-button> -->
+			</div>
+
+		</md-card>
+		<md-card flex flex-md="100" class="md-whiteframe-4dp br_blue" flex-sm="100">
+			<div layout="column" class="chart_header " layout-sm="row">
+				<div>
+					<h4 style="float:left">Revenue</h4>
+
+				</div>
+				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
+			</div>
+		</md-card>
+	</div>
+
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp br_yellow">
+				<div>
+					<h4 style="float:left">Merchants and Store</h4>
+				</div>
+				<div id="chart1">
+					<svg class="svgss"></svg>
+				</div>
+			</div>
+		</md-card>
+
+	</div>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp br_yellow">
+				<div>
+					<h4 style="float:left">Customer and Sales</h4>
+
+				</div>
+				<div id="barChart2">
+					<svg class="svgss"></svg>
+				</div>
+			</div>
+		</md-card>
+
+	</div>
+
+
+
+	<md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
+		<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+			<ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onMarkerClicked">
+
+				<ui-gmap-windows show="show">
+					<div ng-non-bindable>{{title}}</div>
+				</ui-gmap-windows>
+
+			</ui-gmap-markers>
+		</ui-gmap-google-map>
+	</md-card>
+
+
 </div>
-
-<md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
-<!--<div flex="60" flex-sm="100" flex-md="100" class="white-text" style="">-->
-<!--<h2 layout-padding>World Market</h2>-->
-<!--</div>-->
-<!--<div flex="40" flex-sm="100" flex-md="100"class="white-text"style="">-->
-<!--<h2 layout-padding>Sales By Country</h2>-->
-<!--</div>-->
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
-        <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'">
-        </ui-gmap-markers>
-    </ui-gmap-google-map>
-</md-card>
-
-
-  </div>
-
-     
-   
