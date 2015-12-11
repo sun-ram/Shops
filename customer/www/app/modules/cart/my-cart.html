@@ -17,7 +17,7 @@
 		<md-card-content>
 			<div flex layout="row" style="border-bottom:2px solid #eeeeee;">
 				<div flex >
-					<h2 class="md-headline">My Cart</h2>
+					<h2>My Cart</h2>
 				</div>
 				
 			</div>
@@ -26,7 +26,7 @@
 			
 			
 			
-			<div ng-repeat="product in myCart.cartItem" flex layout="row" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
+			<!-- <div ng-repeat="product in myCart.cartItem" flex layout="row" style="border-bottom:2px solid #eeeeee; padding:10px 0px 0px 0px; ">
 				<div flex="15">
 					<img src="{{product.product.image.url}}" style="width:120px; padding:5px;"/>
 				</div>
@@ -52,39 +52,105 @@
 					<span>Rs.{{product.product.price * product.qty}}</span>
 				</div>
 				
-			</div>
+			</div> -->
+			
+			<md-list-item ng-repeat="product in myCart.cartItem" style="border-bottom:2px solid #eeeeee; padding:10px; background: whitesmoke; margin: 30px 0px; ">
+		     <div class="md-list-item-text" flex="20" style="padding:0px 25px;">
+		     	<img width="120" height="120" src="{{product.product.image.url}}"/>
+		     </div>
+		        <div class="md-list-item-text" flex="30" style="padding:0px 50px;">
+		          <h2>{{product.product.name}}</h2>
+		          <h3>Rs.{{product.product.price }}</h3>
+		        </div>
+		        	<div class="md-list-item-text" flex="20" style="padding: 0px 30px;">
+		        	<div class="cart-count">
+		       		<md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty - 1;addToCart(product.product)">
+                          <!-- <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon> -->
+                          <ng-md-icon icon="remove" style="fill: #fff" size="22"></ng-md-icon> 
+                    </md-button>
+					<span>{{product.qty}}</span>
+					<md-button class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty + 1;addToCart(product.product)">
+                        <!-- <md-icon md-svg-icon="assets/img/checkout/subtract.svg"></md-icon> -->
+                        <ng-md-icon icon="add" style="fill: #fff" size="22"></ng-md-icon> 
+                    </md-button>
+                    </div>
+                    </div>
+                    
+                    <div class="md-list-item-text" flex="20" style="padding: 0px 30px;">
+					<strong style="font-size: 25px;">Rs.{{product.product.price * product.qty}}</strong>				
+				</div>
+					<div class="md-list-item-text" flex="10" layout-align="end">
+                   <md-button class="md-icon-button cart-remove" aria-label="More" ng-click="removeFromMyCart(product,$index);">
+                         <!-- <md-icon md-svg-icon="assets/img/checkout/close1.svg"></md-icon> -->
+                         <ng-md-icon icon="close" style="fill: #fff" size="20"></ng-md-icon>
+                         <md-tooltip md-direction="bottom">Remove from cart</md-tooltip>
+                     </md-button> 
+                     </div>
+                    <!-- <div class="c-input-number md-list-item-text">
+                    <span>
+                    <input id="box2" type="text" class="manual-adjust" value="0">
+                    <input type="button" value="-" class="userincr-btn-dec" title="âˆ’1">
+                    <input type="button" value="+" class="userincr-btn-inc" title="+1">
+                    <md-button class="userincr-btn-inc" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty + 1;addToCart(product.product)">
+                                <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon>
+                    </md-button>
+                    <md-button class="userincr-btn-inc" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty - 1;addToCart(product.product)">
+                        <md-icon md-svg-icon="assets/img/checkout/subtract.svg"></md-icon>
+                    </md-button>
+                    </span>
+                    </div> -->
+		      </md-list-item>
+		      <md-divider ></md-divider>
 			
 			
 		</md-card-content>
 		<div class="md-actions" >
-			<div flex layout="row" style=" padding:16px  " ng-show="myCart.cartItem.length > 0">
+			<!-- <div flex layout="row" style=" padding:16px  " ng-show="myCart.cartItem.length > 0">
 				
 				<div flex layout="row"  >
 					<div flex="30" layout="column" >
 						<span flex class="md-caption">Shipping Charges -  {{myCart.shippingCharges | number:2}}</span>
-					<!-- 	<span flex class="md-caption">Vat(12.5%) - {{myCart.taxAmount | number:2}}</span>
-						<span flex class="md-caption">Service Tax(2.5%) - {{myCart.serviceTax | number:2}}</span> -->
+						<span flex class="md-caption">Vat(12.5%) - {{myCart.taxAmount | number:2}}</span>
+						<span flex class="md-caption">Service Tax(2.5%) - {{myCart.serviceTax | number:2}}</span>
 						<div ng-repeat="tax in myCart.taxs">
 						<span flex class="md-caption">{{tax.name}} - {{tax.rate | number:2}}</span>
 						</div>
 						
 					</div>
 					<div flex="50" layout="row" layout-align="end center">
-						Total
+						Cart Total Amount
 					</div>
 					<div flex="20" layout="row" layout-align="center center">
 						<span>  {{myCart.grossAmount | number:2}}</span>
 					</div>
 				</div>
+			</div> -->
+			
+			<div layout="row" layout-padding>
+				<div flex layout="column" layout-align="start" class="cart-btm">
+						<h3><strong>Shipping Charges </strong> -  {{myCart.shippingCharges | number:2}}</h3>
+						<h3><strong>Vat(12.5%) </strong>- {{myCart.taxAmount | number:2}}</h3>
+						<h3><strong>Service Tax(2.5%) </strong>- {{myCart.serviceTax | number:2}}</h3>
+						<div ng-repeat="tax in myCart.taxs">
+						<h3>{{tax.name}} - {{tax.rate | number:2}}</h3>
+						</div>						
+				</div>
+				<div flex layout="column" layout-align="end end">
+					<span layout="row">
+					<h2><strong>Cart Total Amount : </strong> {{myCart.grossAmount | number:2}}</h2>
+					
+					</span>
+				</div>
 			</div>
+			
 			<div flex layout="row"  style=" padding:16px  ">
 				
 				<div flex layout="row" layout-align="start start">
-					<md-button class="md-raised" ui-sref="app.home">Continue Shopping</md-button>
+					<md-button style="background: #ED6663; color: #fff; padding: 5px 15px;" ui-sref="app.home">Continue Shopping</md-button>
 					
 				</div>
 				<div flex layout="row" layout-align="end start" ng-show="myCart.cartItem.length > 0">
-					<md-button class="md-raised md-primary" ng-click="checkOutfromcart();">Proceed To Checkout</md-button>
+					<md-button style="background: #72a308; color: #fff; padding: 5px 15px;"  ng-click="checkOutfromcart();">Proceed To Checkout</md-button>
 				</div>
 			</div>
 		</div>

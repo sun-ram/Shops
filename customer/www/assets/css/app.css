@@ -127,8 +127,14 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .header_color .md-icon-button{border-radius:0px;}
 .bor_radius{border-radius:0px;}
 md-dialog {border-radius:0px; display: block ! important;}
-
-
+/* .cart-count{background: #fff;} */
+.cart-count .md-button {margin: 0px;}
+.cart-count .md-icon-button{border-radius: 0px; background: #494949;}
+.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 15px; background: white; margin: -3px;}
+.cart-count .md-icon-button:hover{background: #494949 ! important;}
+.cart-remove{ background: #F96D57; line-height: inherit ! important; width: 38px ! important; height: 38px ! important;}
+.cart-remove:hover{background: #F96D57 ! important;}
+.cart-btm h3{margin-bottom: 0px ! important;}
 /* ------------ Floating ----------*/
 
 /* ------------ Floating ----------*/
