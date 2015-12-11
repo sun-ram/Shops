@@ -1,12 +1,11 @@
 aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
     function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http,$q) {
-		var commonNodeURL = 'http://localhost:3000/shopsbacker/';
+		var commonNodeURL = CONSTANT.DASHBOARD.NODE_SERVER_URL;
+		var reportType = CONSTANT.DASHBOARD.DEFAULT_REPORT_TYPE;
+		var commition = CONSTANT.DASHBOARD.COMMITION_PERCENTAGE;
 		var width = 300;
 		var height = 300;
-		var reportType = 15;
-		var commition = 3;
 		var millisecondsPerday = 86400000;
-		
 		var today = new Date();
 		var todayDateObj = new Date(today.toISOString().substring(0, 10));
 		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));

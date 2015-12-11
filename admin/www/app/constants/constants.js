@@ -50,6 +50,12 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	
 	ERROR_CODE:{
 		
+	},
+	
+	DASHBOARD : {
+		DEFAULT_REPORT_TYPE : 7,
+		NODE_SERVER_URL : 'http://localhost:3000/shopsbacker/',
+		COMMITION_PERCENTAGE :3
 	}
 	
 		
