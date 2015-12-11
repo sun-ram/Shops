@@ -45,7 +45,7 @@
 		  		<div layout-padding>
 		  			<md-input-container>
 				      <label>Name<span style="color:red">*</span></label>
-				      <input ng-model="merchantDetail.name" ng-required="true">
+				      <input ng-model="merchantDetail.name"  ng-disabled="true" ng-required="true">
 				    </md-input-container>
 				    <md-input-container>
 				      <label>Contact Person Name<span style="color:red">*</span></label>
@@ -85,7 +85,7 @@
 				    </md-input-container>
 				      <md-input-container>
 				      <label>Address 2</label>
-				      <input name="address2" ng-model="merchantDetail.user.address.address2" ng-maxlength="150">
+				      <input name="address2" ng-model="merchantDetail.user.address.address2" ng-required="true" ng-maxlength="150">
 				      <span ng-message="required" ng-show="merchantForm.address2.$error.maxlength" style="color:red;">
 		      			Enter address within 150 characters
 		      		  </span>
@@ -200,7 +200,7 @@
 			  	<div flex="20"></div>
 			  	<div flex="80">
 			  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
-				    	<md-button class="md-raised md-success padd-50" ng-click="updateMerchant();" ng-disabled="merchant.$invalid">Update</md-button>
+				    	<md-button class="md-raised md-success padd-50" ng-click="updateMerchant();" ng-disabled="merchantForm.$invalid">Update</md-button>
 				    	<md-button class="md-raised md-cancel padd-50" ng-click="redirectToMerchantDetails(merchantDetail)">Cancel</md-button>
 				    </section>
 			  	</div>
