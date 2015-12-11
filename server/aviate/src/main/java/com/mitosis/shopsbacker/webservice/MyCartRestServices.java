@@ -27,6 +27,8 @@ import com.mitosis.shopsbacker.responsevo.MyCartResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.customer.AddToCartRequestVo;
+import com.mitosis.shopsbacker.vo.customer.MyCartProductVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
@@ -98,6 +100,45 @@ public class MyCartRestServices<T> {
 			} else {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+		}
+		return CommonUtil.getObjectMapper(response);
+	}
+	
+	@Path("/addproductstocart")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String addProductsToCart(AddToCartRequestVo addToCartRequestVo) throws Exception {
+		ResponseModel response = new ResponseModel();
+		try{
+			
+			Customer customer = customerService.getCustomerInfoById(addToCartRequestVo.getCustomerId());
+			Store store = storeService.getStoreById(addToCartRequestVo.getStoreId());
+			List<MyCartProductVo> prodcuts = addToCartRequestVo.getProducts();
+			for(MyCartProductVo productVo:prodcuts){
+				Product product = productService.getProduct(productVo.getProductId());
+				MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
+				if(myCart == null){
+					myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
+					myCart.setProduct(product);
+					myCart.setStore(store);
+					myCart.setCustomer(customer);
+					myCart.setMerchant(product.getMerchant());
+					myCart.setQty(productVo.getQty());
+					myCart.setIsactive('Y');
+					myCartService.addToCart(myCart);
+				} else {
+					myCart.setQty(productVo.getQty());
+					myCart.setUpdated(new Date());
+					myCartService.updateCart(myCart);
+				}
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
