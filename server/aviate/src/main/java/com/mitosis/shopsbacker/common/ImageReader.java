@@ -47,7 +47,8 @@ public class ImageReader extends HttpServlet {
 		logger.info(req.getRequestURL());
 		try{
 				String fname = req.getRequestURL().substring(IMAGE_FILE_URL.length(), req.getRequestURL().length());
-				File file = new File(IMAGE_FILE_LOCATION+fname);
+				String name = fname.replaceAll("%20", "\\ ");
+				File file = new File(IMAGE_FILE_LOCATION+name);
 				InputStream in = new FileInputStream(file);
 				ServletOutputStream out = resp.getOutputStream();
 				IOUtils.copy(in, resp.getOutputStream());

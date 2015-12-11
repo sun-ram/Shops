@@ -47,11 +47,13 @@
 			{{item.name}} </md-option> </md-select> </md-input-container>
 			
 			<md-input-container> <label>Product
-				Description</label> <textarea id="textarea1" rows="4"
+				Description</label> <textarea id="title2" name="title2" rows="5"
 				style="border: 1px solid #ddd;" class="materialize-textarea"
-				ng-model="product.description"></textarea> 
+				ng-model="product.description" ng-maxlength="250" required></textarea> 
+				<span ng-message="required" ng-show="addProductForm.title2.$error.maxlength" style="color:red;">
+				       	Enter Product Description within 250 digit
+				      	</span>
 			</md-input-container>
-
 
 			<md-input-container> <label>Product
 				Measurement<span style="color:red">*</span></label> <input type="text" ng-model="product.unit" valid-number
