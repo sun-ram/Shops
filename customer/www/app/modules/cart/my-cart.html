@@ -129,10 +129,8 @@
 			<div layout="row" layout-padding>
 				<div flex layout="column" layout-align="start" class="cart-btm">
 						<h3><strong>Shipping Charges </strong> -  {{myCart.shippingCharges | number:2}}</h3>
-						<h3><strong>Vat(12.5%) </strong>- {{myCart.taxAmount | number:2}}</h3>
-						<h3><strong>Service Tax(2.5%) </strong>- {{myCart.serviceTax | number:2}}</h3>
 						<div ng-repeat="tax in myCart.taxs">
-						<h3>{{tax.name}} - {{tax.rate | number:2}}</h3>
+						<h3>{{tax.name}} ({{tax.taxPercentage}}%) - {{tax.rate | number:2}}</h3>
 						</div>						
 				</div>
 				<div flex layout="column" layout-align="end end">
