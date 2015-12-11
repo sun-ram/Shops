@@ -155,6 +155,10 @@ angular.module('aviate.directives')
 										}
 										MyCartServices.addToCart($scope.cartDetails).then(function(datas){
 											console.log('get Mylist success in Main Nav');
+											MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+												MyCartFactory.myCartTotalPriceCalculation();
+												console.log('get MyCartlist success in Main Nav');
+											});
 										});
 
 
