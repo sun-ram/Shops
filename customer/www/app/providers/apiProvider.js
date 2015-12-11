@@ -605,6 +605,27 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 									}
 								});
 							};
+        
+        /*ordersHistory*/
+				
+				apiClass.ordersHistory = {
+						storeId: "",
+                        customerId:""
+				};
+		
+				apiClass.ordersHistory.getordersHistory = function (ordersHistory, callback) {
+					httpRequest("POST", "orderhistory/customerorder", ordersHistory, function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				};
 
 		return apiClass;
 	}]
