@@ -49,6 +49,7 @@ public class SalesOrderVo {
 	private Date deliveryStartTime;
 	private Date shopperAssignedTime;
 	private Date backerAssignedTime;
+	private Date orderPlacedTime;
 	
 	public ImageVo getSign() {
 		return sign;
@@ -274,6 +275,11 @@ public class SalesOrderVo {
 	public void setBackerAssignedTime(Date backerAssignedTime) {
 		this.backerAssignedTime = backerAssignedTime;
 	}
-	
+	public Date getOrderPlacedTime() {
+		return orderPlacedTime;
+	}
+	public void setOrderPlacedTime(Date orderPlacedTime) {
+		this.orderPlacedTime = orderPlacedTime;
+	}
 	
 }

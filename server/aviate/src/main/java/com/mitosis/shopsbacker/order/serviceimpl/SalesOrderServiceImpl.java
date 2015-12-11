@@ -211,6 +211,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setTotalTaxAmount(salesOrder.getTotalTaxAmount());
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
+		salesOrderVo.setOrderPlacedTime(salesOrder.getCreated());
 		MerchantVo merchantVo=new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
 		if(salesOrder.getDeliveredTime() != null){
