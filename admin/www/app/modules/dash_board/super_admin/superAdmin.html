@@ -239,6 +239,20 @@
 	.marg-t10 {
 		margin-top: 10px;
 	}
+	
+	.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+	
 </style>
 <div ng-cloak class="testBlock">
 	<md-card class="nomarg marg-t10">
@@ -345,7 +359,21 @@
 		</md-card>
 
 	</div>
+	<div>
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp br_yellow">
+				<div>
+					<h4 style="float:left">Grouped chart</h4>
 
+				</div>
+				<!--<label><input type="radio" name="mode" value="grouped"> Grouped</label>
+				<label><input type="radio" name="mode" value="stacked" checked> Stacked</label>-->
+				<div id="grouperBarChart">
+					<svg class="svgss"></svg>
+				</div>
+			</div>
+		</md-card>
+	</div>
 
 
 	<md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
