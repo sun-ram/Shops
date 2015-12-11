@@ -4,8 +4,8 @@
         <!-- <div flex="40"> -->
             <md-card flex="45" ng-repeat="address in addresses track by $index" class="address"  ng-class="{selected:address.selected}">
                 <md-card-content>
-                    <div layout="row" class="address-header">
-                        <img ng-click="selectAddress(address.addressId)" src="assets/img/checkout/address.svg" height="40px" width="40px">
+                     <div layout="row" class="address-header">
+                        <img ng-click="selectAddress(address.addressId)" src="assets/img/checkout/address.svg" style=" margin:10px 0px 0px 10px" height="40px" width="40px">
                         <div flex></div>
                         <p ng-click="selectAddress(address.addressId)"><span class="md-title">{{address.name}}</span></p>
                         <div flex></div>
@@ -21,16 +21,58 @@
                         </div>                        
                     </div>
                     <div ng-click="selectAddress(address.addressId)">
-                        <ul class="del-address">
-                            <li><span class="md-body-1">Address 1</span>- {{address.address1}}</li>
-                            <li ng-if="address.address2"> <span  class="md-body-1">Address 2</span>- {{address.address2}}</li>
-                            <li><span>Country</span>- {{address.country.name}}</li>
-                            <li><span>State</span>- {{address.state.name}}</li>
-                            <li><span>City</span>- {{address.city}}</li>
-                            <li><span>Pincode</span>- {{address.pinCode}}</li>
-                            <li><span>Phone</span>- {{address.phoneNo}}</li>
+                        <ul class="del-address" style="padding:0px 15px;">
+                            <li><span class="md-body-1"><ng-md-icon icon="place" style="fill: #333333" size="24"></ng-md-icon> </span> {{address.address1}}</li>
+                            <li ng-if="address.address2">  {{address.address2}}</li>
+                            <li><span>&nbsp;</span> {{address.city}}</li>
+                            <li><span>&nbsp;</span> {{address.state.name}}</li>
+                            <li><span>&nbsp;</span> {{address.country.name}}</li>
+                            <li><span>&nbsp;</span> {{address.pinCode}}</li>
+                            <li><br/></li>
+                            <li><span><ng-md-icon icon="phone" style="fill: #333333" size="16"></ng-md-icon> </span> {{address.phoneNo}}</li>
                         </ul>
                     </div>
+                    
+                    <!-- <div layout="row" class="delivery-address"  layout-align="center center">
+                    	<div layout="column" flex="85" flex-gt-md="85" flex-md="80" ng-click="selectAddress(address.addressId)" style="padding:20px;">
+                    		<div flex layout="row" >
+                    			<div style="width:30px;">
+                    				<ng-md-icon icon="person" style="fill: #333333" size="24"></ng-md-icon> 
+                    			</div> 
+                    			<div flex  ><span class="md-headline">{{address.name}}</span></div>
+                    		</div>
+                    		<div flex layout="row"  >
+                    			<div style="width:30px;">
+                    				<ng-md-icon icon="place" style="fill: #333333" size="24"></ng-md-icon> 
+                    			</div>
+                    			<div flex>
+                    			 	{{address.address1}}, {{address.address2}}, {{address.city}}, {{address.state.name}}, {{address.country.name}} - {{address.pinCode}}
+                    			</div> 	
+                    		</div>
+                    		<div flex layout="row"  >
+                    			<div style="width:30px;">
+                    				<ng-md-icon icon="phone" style="fill: #333333" size="16"></ng-md-icon> 
+                    			</div>
+                    			<div flex>
+                    				{{address.phoneNo}}
+                    			</div>
+                    		</div>
+                    	</div>
+                    	<div flex="15" flex-gt-md="15" flex-md="20" layout="column" style="padding:20px 10px;">
+                    		<div flex>
+                    			 <md-button class="md-icon-button" aria-label="More" ng-click="editAddress(address,$event)">
+	                                <md-icon md-svg-icon="assets/img/checkout/edit.svg" ></md-icon>
+	                                <ng-md-icon icon="edit" style="fill: #333333" size="22"></ng-md-icon> 
+	                             </md-button>
+                    		</div>
+                    		<div flex>
+                    			<md-button class="md-icon-button" aria-label="More" ng-click="removeAddress(address);">
+                                	<md-icon md-svg-icon="assets/img/checkout/close.svg"></md-icon>
+                                	<ng-md-icon icon="clear" style="fill: #333333" size="22"></ng-md-icon> 
+                            	</md-button>
+                    		</div>
+                    	</div>
+                    </div> -->
                 </md-card-content>
             </md-card>
         <!-- </div> -->

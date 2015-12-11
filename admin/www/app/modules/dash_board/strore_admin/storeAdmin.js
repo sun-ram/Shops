@@ -257,7 +257,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 		};
 
-		$scope.locateStores = function () {
+		/*$scope.locateStores = function () {
 			$scope.tempMarkers = [];
 			var i = 0;
 			var len = $scope.stores.Books.length;
@@ -279,7 +279,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
-		};
+		};*/
 
 		function postSalesOrder(data) {
 			
@@ -438,7 +438,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 			console.log("Stores Yesterday and to Today", newStoresLastDay, " & ", newStoresToday);
 			$scope.storeGrowthToday = (newStoresLastDay) ? (((newStoresToday - newStoresLastDay) / newStoresLastDay) * 100) : 0;
 			$scope.storeGrowthToday = (Math.round($scope.storeGrowthToday  * 100) / 100);
-			$scope.locateStores();
+			/*$scope.locateStores();*/
 		};
 
 

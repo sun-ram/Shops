@@ -408,7 +408,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 .text-white{ color:#FFFFFF;}
 
 .del-address{ list-style-type:none; padding-left:0px;}
-.del-address li span{ width:100px; float:left; font-weight:600;}
+.del-address li span{ width:30px; float:left; font-weight:600;}
 ui-view{ background-color:#EEEEEE !important;}
 
 
@@ -464,3 +464,4 @@ ui-view{ background-color:#EEEEEE !important;}
 .data-table-list:nth-child(odd)  md-item-content{ background-color:#f5f6f8;}
 
 .md-button{ padding:5px 20px; border-radius:0px; box-shadow:none; font-weight:600; text-transform: capitalize;}
+.delivery-address svg{ margin-top:5px;}
