@@ -3,12 +3,13 @@ angular.module('aviateAdmin.controllers')
 	['$scope', '$state','toastr','$rootScope','OrderNumberServices',
 	 function($scope, $state, toastr, $rootScope, OrderNumberServices) {
 		
-		
+		$scope.assignNextNumber = function(){
+			$scope.orderNumber.nextNumber = parseInt($scope.orderNumber.startingNumber) + 1;
+		}
+			
 		$scope.addOrderNumber = function(){
-			$scope.orderNumber.merchant = {};
+		    $scope.orderNumber.merchant = {};
 			$scope.orderNumber.store = {};
-			/*$scope.orderNumber.merchant.merchantId = 1;
-			$scope.orderNumber.store.storeId = 2;*/
 			$scope.orderNumber.merchant.merchantId = $rootScope.user.merchantId;
 			$scope.orderNumber.store.storeId = $rootScope.user.storeId;
 			OrderNumberServices.addOrderNumber($scope.orderNumber).then(function(data){
