@@ -43,12 +43,12 @@ public class SalesOrderVo {
 	private String backerId;
 	private String customerId;
 	private String storeId;
-	private String deliveredTime;
-	private String pickupStartTime;
-	private String packedTime;
-	private String deliveryStartTime;
-	private String shopperAssignedTime;
-	private String backerAssignedTime;
+	private Date deliveredTime;
+	private Date pickupStartTime;
+	private Date packedTime;
+	private Date deliveryStartTime;
+	private Date shopperAssignedTime;
+	private Date backerAssignedTime;
 	
 	public ImageVo getSign() {
 		return sign;
@@ -238,41 +238,42 @@ public class SalesOrderVo {
 	public void setStoreId(String storeId) {
 		this.storeId = storeId;
 	}
-	public String getDeliveredTime() {
+	public Date getDeliveredTime() {
 		return deliveredTime;
 	}
-	public void setDeliveredTime(String deliveredTime) {
+	public void setDeliveredTime(Date deliveredTime) {
 		this.deliveredTime = deliveredTime;
 	}
-	public String getPickupStartTime() {
+	public Date getPickupStartTime() {
 		return pickupStartTime;
 	}
-	public void setPickupStartTime(String pickupStartTime) {
+	public void setPickupStartTime(Date pickupStartTime) {
 		this.pickupStartTime = pickupStartTime;
 	}
-	public String getPackedTime() {
+	public Date getPackedTime() {
 		return packedTime;
 	}
-	public void setPackedTime(String packedTime) {
+	public void setPackedTime(Date packedTime) {
 		this.packedTime = packedTime;
 	}
-	public String getDeliveryStartTime() {
+	public Date getDeliveryStartTime() {
 		return deliveryStartTime;
 	}
-	public void setDeliveryStartTime(String deliveryStartTime) {
+	public void setDeliveryStartTime(Date deliveryStartTime) {
 		this.deliveryStartTime = deliveryStartTime;
 	}
-	public String getShopperAssignedTime() {
+	public Date getShopperAssignedTime() {
 		return shopperAssignedTime;
 	}
-	public void setShopperAssignedTime(String shopperAssignedTime) {
+	public void setShopperAssignedTime(Date shopperAssignedTime) {
 		this.shopperAssignedTime = shopperAssignedTime;
 	}
-	public String getBackerAssignedTime() {
+	public Date getBackerAssignedTime() {
 		return backerAssignedTime;
 	}
-	public void setBackerAssignedTime(String backerAssignedTime) {
+	public void setBackerAssignedTime(Date backerAssignedTime) {
 		this.backerAssignedTime = backerAssignedTime;
 	}
+	
 	
 }

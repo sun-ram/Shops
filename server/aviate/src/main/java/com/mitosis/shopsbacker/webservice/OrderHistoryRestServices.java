@@ -55,7 +55,7 @@ public class OrderHistoryRestServices<T> {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally{
-			response = CommonUtil.getObjectMapper(salesOrderResponse);
+			response = CommonUtil.getObjectMapperWithSerializationFeature(salesOrderResponse);
 		}
 		return response;
 	}

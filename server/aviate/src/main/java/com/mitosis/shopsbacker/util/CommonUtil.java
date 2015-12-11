@@ -29,6 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.mitosis.shopsbacker.vo.ResponseModel;
@@ -389,6 +390,24 @@ public final class CommonUtil {
 		try{
 			mapper.setSerializationInclusion(Include.NON_NULL);
 			//mapper.setSerializationInclusion(Include.NON_EMPTY);
+			res = mapper.writeValueAsString(obj);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	/**
+	 * This method used for removed null and formated the date.
+	 * @author Prabakaran
+	 * @return json string 
+	 */
+	public static String getObjectMapperWithSerializationFeature(Object obj) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		String res = "";
+		try{
+			mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+			mapper.setSerializationInclusion(Include.NON_NULL);
 			res = mapper.writeValueAsString(obj);
 		}catch(Exception e){
 			e.printStackTrace();

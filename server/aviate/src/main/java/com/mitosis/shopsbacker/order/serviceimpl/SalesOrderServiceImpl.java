@@ -214,22 +214,22 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		MerchantVo merchantVo=new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
 		if(salesOrder.getDeliveredTime() != null){
-			salesOrderVo.setDeliveredTime(CommonUtil.dateToString(salesOrder.getDeliveredTime()));
+			salesOrderVo.setDeliveredTime(salesOrder.getDeliveredTime());
 		}
 		if(salesOrder.getPickupStartTime() != null){
-			salesOrderVo.setPickupStartTime(CommonUtil.dateToString(salesOrder.getPickupStartTime()));
+			salesOrderVo.setPickupStartTime(salesOrder.getPickupStartTime());
 		}
 		if(salesOrder.getPackedTime() != null){
-			salesOrderVo.setPackedTime(CommonUtil.dateToString(salesOrder.getPackedTime()));
+			salesOrderVo.setPackedTime(salesOrder.getPackedTime());
 		}
 		if(salesOrder.getDeliveryStartTime() != null){
-			salesOrderVo.setDeliveryStartTime(CommonUtil.dateToString(salesOrder.getDeliveryStartTime()));
+			salesOrderVo.setDeliveryStartTime(salesOrder.getDeliveryStartTime());
 		}
 		if(salesOrder.getShopperAssignedTime() != null){
-			salesOrderVo.setShopperAssignedTime(CommonUtil.dateToString(salesOrder.getShopperAssignedTime()));
+			salesOrderVo.setShopperAssignedTime(salesOrder.getShopperAssignedTime());
 		}
 		if(salesOrder.getBackerAssignedTime() != null){
-			salesOrderVo.setBackerAssignedTime(CommonUtil.dateToString(salesOrder.getBackerAssignedTime()));
+			salesOrderVo.setBackerAssignedTime(salesOrder.getBackerAssignedTime());
 		}
 		if(salesOrder.getShopper()!=null){
 			UserVo userVo=new UserVo();
