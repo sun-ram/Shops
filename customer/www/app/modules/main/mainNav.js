@@ -63,12 +63,30 @@ angular.module('aviate.directives')
                 $state.go("app.orderHistory");
             }
             
-			$scope.removeFromMyCart = function(item, index) {
+         	$scope.removeFromMyCart = function(item, index) {
 				MyCartFactory.removeFromCart(item.product.productId, index,function(data){
 					if($rootScope.updateProductQuantity)
 						$rootScope.updateProductQuantity(item);
+					if($rootScope.topcategories){
+						angular.forEach($rootScope.topcategories,function(p){
+							if(p.productId == item.product.productId){
+								p.noOfQuantityInCart = 0;
+							}
+						});
+					}
+					//$rootScope.getAllCategoryWithProduct();	
+					if($rootScope.categoriesWithProduct){
+						angular.forEach($rootScope.categoriesWithProduct,function(p){
+							angular.forEach(p.products,function(s){
+								if(s.productId == item.product.productId){
+									s.noOfQuantityInCart = 0;
+								}
+							});	
+						});
+						}
 				});
 			};
+
 
 			/*			$scope.checkOutPage = function() {
 				if($rootScope.user != null){
