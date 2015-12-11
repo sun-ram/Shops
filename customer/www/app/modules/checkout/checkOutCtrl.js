@@ -407,5 +407,14 @@ angular.module('aviate.controllers')
 			$scope.deliveryTime.index = index;
 		}
 	};
+	
+	 $scope.filter12HrTime = function(time){
+	        var temp = time.split(':'),hours = temp[0],
+	            ampm = hours >= 12 ? 'PM' : 'AM';
+	        hours = hours % 12;
+	        temp.splice(2);
+	        temp[0] = hours ? hours : 12;
+	        return  temp.join(':') +" "+ampm;
+	    };
 }
 ]);

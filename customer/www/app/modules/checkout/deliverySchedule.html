@@ -34,7 +34,7 @@ height: 20px;}
 					<md-card layout  style="width: 250px;height: 200px;position: relative;background-color: #2ECD71;color: #FFF;">
  					  <md-card-content layout="column" layout-align="center center" style="width: 100%;" ng-model="date">
  					<p class="slot_day">Delivery Time</p>
- 					<p style="margin:35px 0px 5px;font-size: 35px;">{{deliveryTime.fromTime}}<span style="font-size:14px"><span ng-show="delivery.startTime == 10">AM</span><span ng-show="delivery.startTime != 10">PM</span></span> </p>
+ 					<p style="margin:35px 0px 5px;font-size: 35px;">{{filter12HrTime(deliveryTime.fromTime)}}</p>
 	 					
 	 					<div layout layout="row" layout-align="space-between center" style="width:100%;margin: 5px 0px;">
 	 					<md-button class="wid_60 md-icon-button" aria-label="Favorite">
@@ -42,7 +42,7 @@ height: 20px;}
 	 					<span>To</span><md-button class="wid_60 md-icon-button" aria-label="Favorite" >
 							<md-icon md-svg-icon="assets/img/icon/right-arrow49.svg" md-ink-ripple=""  ng-click="incrementTime(deliveryTime.index+1);"  ng-class="delivery.endTime == 10 ? 'text-black' : 'text-white'"></md-icon> </md-button>
 	 					</div>
- 					<p style="margin: 5px 0px;font-size: 35px;">{{deliveryTime.toTime}} <span style="font-size:14px">PM</span></p>
+ 					<p style="margin: 5px 0px;font-size: 35px;">{{filter12HrTime(deliveryTime.toTime)}} </p>
  					
 					</md-card-content> 
 					</md-card>	
