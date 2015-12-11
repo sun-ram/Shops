@@ -84,7 +84,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
 		ProductService.addProduct($scope.product).then(function(data) {
 			$scope.product = $localStorage.product;
-			toastr.success("product details have been updated successfully!!!");
+			toastr.success("Product details have been updated successfully!!!");
 			$localStorage.product={};
 			$state.go("app.products");
 			$scope.showInLineEdit = null;
@@ -135,12 +135,12 @@ angular.module('aviateAdmin.controllers')
 		ProductService.addProduct($scope.product).then(function(data) {
 			$scope.product = $localStorage.product;
 			if($scope.product.productId){
-				toastr.success("product details have been updated successfully!!!");
+				toastr.success("Product details have been updated successfully!!!");
 				$localStorage.product={};
 				$state.go("app.products");
 			}
 			else{
-				toastr.success("product details have been added successfully!!!");
+				toastr.success("Product details have been added successfully!!!");
 				$localStorage.product={};
 				$state.go("app.products");
 			}
