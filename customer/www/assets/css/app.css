@@ -451,8 +451,10 @@ ui-view{ background-color:#EEEEEE !important;}
 .tbl-body h3{ color:#666666; font-weight:100; padding-right:20px; font-size:20px !important; font-family:'titilium-regular'; border-right:1px solid #dddddd; }
 .tbl-body .tbl-search ng-md-icon{ fill:#979797; height:16px; width:16px; margin-left:20px;top:6px; position:relative;}
 .tbl-body .tbl-search input{ border:none; padding:3px 0px; font-weight:100;outline:0;}
-.tbl-body .tbl-header{color:#333333; padding:10px 0px; font-size:18px !important; background-color:#EEEEEE !important}
+.tbl-body .tbl-header{color:#333333; padding:10px 5px; font-size:18px !important; background-color:#EEEEEE !important}
 .tbl-body .tbl-body{ color:#666666; }
 .full_wid{width:100%; outline:0;}
+.data-table-list{ cursor:pointer; outline:0;}
+.data-table-list:nth-child(odd)  md-item-content{ background-color:#f5f6f8;}
 
 .md-button{ padding:5px 20px; border-radius:0px; box-shadow:none; font-weight:600; text-transform: capitalize;}

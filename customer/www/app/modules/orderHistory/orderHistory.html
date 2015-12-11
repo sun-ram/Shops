@@ -14,72 +14,61 @@
      <md-item class="data-table-list " md-data-table>
          <md-item-content layout="row" layout-padding class="tbl-header ">
           <div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex=10 layout-align="center center" layout>
-             	orderNo
+         	<span flex layout-align="start center" layout>
+             	OrderNo
            	</span>
-         	<span flex=25>
+         	<span flex>
              	Name
            	</span>
-           	<span flex=25>
-             	merchant name
+           	<span flex>
+             	Merchant Name
            	</span>
-            <span flex=25>
-             	Order date
+            <span flex>
+             	Order Date
            	</span>
-              <span flex=25>
-             	deliveryDate
+              <span flex>
+             	DeliveryDate
            	</span>
-           	<span flex=25 layout-align="center center" layout>
-             	amount
+           	<span flex>
+             	Amount
            	</span>
-            <span flex=15 layout-align="center center" layout>
-                status
+            <span flex>
+                Status
              </span>	
             </div>
          </md-item-content>
         
        </md-item>
-       <md-item class="data-table-list" md-data-table ng-repeat="ordersHis in data " class="md-table-content-row" ng-click="redirectToStoreDetails(ordersHis);">
+       <md-item class="data-table-list" style="line-height: 3;" md-data-table ng-repeat="ordersHis in data " ng-click="redirectToStoreDetails(ordersHis);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
          	
         	
-           	<span flex=25 layout-align="start center" layout>
+           	<span flex layout-align="start center" layout>
              <span flex class="shopname">{{ordersHis.orderNo}}</span>
             </span>
             
-            <span flex=25 layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.merchant.name}}</span>
            	</span>
            	
-        	<span flex=25 layout-align="start center" layout>
+        	<span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.merchant.name}}</span>
            	</span>
-              <span flex=25 layout-align="start center" layout>
+              <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.deliveryDate}}</span>
            	</span>
-              <span flex=25 layout-align="start center" layout>
+              <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.deliveryDate}}</span>
            	</span>
-              <span flex=25 layout-align="start center" layout>
+              <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.amount}}</span>
            	</span>
-              <span flex=25 layout-align="start center" layout>
-            <span flex class="hash_color merch-addr">{{ordersHis.status}}</span>
-           	</span>
-        	
-       
-        	
-        	 	<span flex=15 layout-align="center center" layout>
-                <md-button class="md-icon-button md-primary" ng-click="redirectToEditStore(store);$event.stopPropagation();" aria-label="Edit">
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
-      			</md-button>
-             	<md-button class="md-icon-button md-primary " ng-click="deleteStore(store.storeId);$event.stopPropagation();" aria-label="Delete">
-             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
-             	</md-button>
-             </span>
-        	
-             
+            <span flex layout-align="start center" layout>
+            <span flex class="hash_color merch-addr">{{ordersHis.status}}
+            <ng-md-icon icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
+            </span>
+           	</span>            
             </div>
          </md-item-content>
          <md-divider></md-divider>
