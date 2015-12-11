@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("appCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices',
-		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices','$localStorage',
+		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices,$localStorage) {
 			
 		
 		$scope.checkOut = function() {
@@ -161,11 +161,8 @@ angular.module('aviate.controllers')
 									if(data.length != 0){
 								    	$rootScope.images=data;
 									}else{
-     									$scope.banner.isShopsbackerBanner = 'Y';
-										homePageServices.getBannerList($scope.banner).then(function(data){
-											$rootScope.images=data;
-										});
-									}
+										$rootScope.images = $localStorage.images;
+     								}
 								});
 							}
 							

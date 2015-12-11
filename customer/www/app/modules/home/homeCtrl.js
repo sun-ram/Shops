@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("homeCtrl",
-		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService','ipCookie',
-		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService, ipCookie) {
+		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService','ipCookie','$localStorage',
+		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService, ipCookie, $localStorage) {
 
 			$scope.topCategoryList = [
 			                          { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
@@ -30,6 +30,7 @@ angular.module('aviate.controllers')
 
 					homePageServices.getBannerList($scope.banner).then(function(data){
 						$scope.images=data;
+						$localStorage.images = data;
 					});
 				}
 			}

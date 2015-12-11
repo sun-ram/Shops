@@ -179,7 +179,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 					if($scope.toDate != undefined){
 							
 						if($scope.fromDate > $scope.toDate){
-							toastr.error("To date must less than from date");
+							toastr.error("To date must be greater than from date");
 						}else{
 							var salesOrderVo = {
 									"fromDate":$scope.fromDate.toLocaleDateString(),
