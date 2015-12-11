@@ -35,7 +35,7 @@
 		      </md-input-container>
       	</div>
       	<div layout="row" flex style="width:500px;">
-      		<md-button class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF;" ng-click="addFavourite();">ADD</md-button>
+      		<md-button ng-disabled="!favouriteName" class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF;" ng-click="addFavourite();">ADD</md-button>
       		<md-button class="md-raised " ui-sref="app.home">SKIP</md-button>
       	</div>
       </div>
