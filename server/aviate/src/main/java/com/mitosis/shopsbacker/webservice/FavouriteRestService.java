@@ -36,6 +36,7 @@ import com.mitosis.shopsbacker.responsevo.ProductResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.customer.FavouriteVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
@@ -64,6 +65,8 @@ public class FavouriteRestService {
 	
 	@Autowired
 	ProductService<T> productService;
+	
+	Favourite favourite = null;
 
 	@Path("/addfavourite")
 	@POST
@@ -217,5 +220,53 @@ public class FavouriteRestService {
 		}
 		return myCartResponseVo;
 		
+	}
+	
+	@Path("/favouriteToCheckout")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ResponseModel favouriteToCheckout(FavouriteVo favouriteVo) {
+		ResponseModel response = new ResponseModel();
+		try{
+			Favourite favourite = favouriteService.getFavourites(favouriteVo.getFavouriteId());
+			SalesOrder salesOrder = favourite.getSalesOrder();
+			
+			Store store = salesOrder.getStore();
+			Customer customer = salesOrder.getCustomer();
+			
+			List<MyCart> myCarts = myCartService.getMyCartList(customer,store);
+			for(MyCart myCart : myCarts){
+				myCartService.removeFromCart(myCart);
+			}
+			response = this.addFavouriteToCart(favouriteVo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+		}
+		
+		return response;
+		
+	}
+	
+	@Path("/deleteFavourite")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ResponseModel deleteFavourite(FavouriteVo favouriteVo) {
+		ResponseModel response = new ResponseModel();
+		try {
+			favourite = favouriteService.getFavourites(favouriteVo.getFavouriteId());
+			favouriteService.deleteFavourite(favourite);
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response = CommonUtil.addStatusMessage(e, response);
+		}
+		return response;
 	}
 }
