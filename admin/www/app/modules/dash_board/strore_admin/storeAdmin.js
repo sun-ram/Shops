@@ -8,6 +8,19 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		var today = new Date();
 		var todayDateObj = new Date(today.toISOString().substring(0, 10));
 		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
+		var month = new Array();
+		month[0] = "Jan";
+		month[1] = "Feb";
+		month[2] = "Mar";
+		month[3] = "Apr";
+		month[4] = "May";
+		month[5] = "Jun";
+		month[6] = "Jul";
+		month[7] = "Aug";
+		month[8] = "Sep";
+		month[9] = "Oct";
+		month[10] = "Nov";
+		month[11] = "Dec";
 		yesterdayDateObj.setTime(todayDateObj.getTime() - millisecondsPerday);
 		$scope.salesOrders = {Books:[]};
 		$scope.merchants;
@@ -19,7 +32,6 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.totalStores = 0;
 		$scope.salesGrowthToday = 0;
 		$scope.totalSalesRevenue = 0;
-
 		$scope.historicalBarChart = [
 			{
 				key: "Cumulative Return",
@@ -203,7 +215,8 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		
 		$scope.compSalesToday = function () {
-			$scope.yesterdayTotSale = $scope.todayTotSale = 0;
+			$scope.yesterdayTotSale = 0;
+			$scope.todayTotSale = 0;
 			var len = $scope.salesOrders.Books.length;
 			var i = 0,
 				tempDateObj;
@@ -295,29 +308,26 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 			var storeIds = [];
 			for (var i = 0; i < tempArray.length; ++i) {
 				var obj = tempArray[i];
-				if (x[obj.STORE_ID] === undefined && obj.STORE_ID) {
-					x[obj.STORE_ID] = [getStoreById(obj.STORE_ID)];
-					storeIds.push(obj.STORE_ID);
+				if (x[obj.PAYMENT_METHOD] === undefined && obj.PAYMENT_METHOD) {
+					x[obj.PAYMENT_METHOD] = [obj.PAYMENT_METHOD];
+					storeIds.push(obj.PAYMENT_METHOD);
 				}
-				if (obj.STORE_ID)
-					x[obj.STORE_ID].push(obj.NET_AMOUNT);
+				if (obj.PAYMENT_METHOD)
+					x[obj.PAYMENT_METHOD].push(obj.NET_AMOUNT);
 			}
 			len = tempArray.length;
-			var tmpAvgObj = {},
-				tmpAvgObj1 = [{}];
+			
 			for (var j = 0; j < storeIds.length; j++) {
-				totalAmount = 0;
-				for (var i = 1; i < x[storeIds[j]].length; i++) {
-					totalAmount = totalAmount + x[storeIds[j]][i];
+				var  tot = 0;
+				for(var i=1;i<x[storeIds[j]].length;i++){
+					tot = tot + x[storeIds[j]][i];
 				}
-				if (totalAmount > 0) {
-					tmpAvgObj.key = x[storeIds[j]][0] + ' ₹';
-					tmpAvgObj.y = totalAmount;
-					$scope.testdata.push(angular.copy(tmpAvgObj));
-
-				}
+				var tmpAvgObj = {};
+				tmpAvgObj.key = x[storeIds[j]][0] +'('+ (x[storeIds[j]].length -1).toString() + ')';
+				tmpAvgObj.y = tot;
+				$scope.testdata.push(angular.copy(tmpAvgObj));
 			}
-			x1 = {};
+			/*x1 = {};
 			storeIds1 = [];
 			for (var i = 0; i < tempArray.length; ++i) {
 				var obj = tempArray[i];
@@ -327,7 +337,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 				if (obj.CUSTOMER_ID)
 					x1[obj.CUSTOMER_ID].push(obj.NET_AMOUNT);
-			};
+			};*/
 			
 			tmpAvgObj = {};
 			$scope.historicalBarChart2 = [{ key: "Cumulative Return1", values: []}];
@@ -348,11 +358,11 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 						}
 				}
 				tmpAvgObj = {};
-				tmpAvgObj.label = (tempStoreDate.getDay()).toString();
+				tmpAvgObj.label = month[tempStoreDate.getMonth()] + (tempStoreDate.getDate()).toString();
 				tmpAvgObj.value = totalamt;
 				$scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
 				tmpAvgObj = {};
-				tmpAvgObj.label = (tempStoreDate.getDay()).toString();
+				tmpAvgObj.label = month[tempStoreDate.getMonth()] + (tempStoreDate.getDate()).toString();
 				tmpAvgObj.value = soCount;
 				$scope.historicalBarChart2[0].values.push(angular.copy(tmpAvgObj));
 				
@@ -424,25 +434,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 					newStoresLastDay = newStoresLastDay + 1;
 				}
 			}
-			/*len1 = $scope.stores.Books.length;
-			var tempStore;
-			for(var i=0; i < len1; i++){
-				tempStore = $scope.stores.Books[i];
-				count = 0;
-				if(tempStore.MERCHANT_ID == $rootScope.user.merchantId){
-					for(var j = 0; j < len ; j++){
-						if(tempStore.STORE_ID == $scope.salesOrders.Books[j].STORE_ID){
-							count = count +1;
-						}
-					}
-					tmpAvgObj = {};
-					tmpAvgObj.label = tempStore.NAME;
-					tmpAvgObj.value = count;
-					$scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
-				}
-			}
-			console.log("$scope.historicalBarChart",$scope.historicalBarChart);
-			$scope.drawBarChart();*/
+			
 			console.log("Stores Yesterday and to Today", newStoresLastDay, " & ", newStoresToday);
 			$scope.storeGrowthToday = (newStoresLastDay) ? (((newStoresToday - newStoresLastDay) / newStoresLastDay) * 100) : 0;
 			$scope.storeGrowthToday = (Math.round($scope.storeGrowthToday  * 100) / 100);
