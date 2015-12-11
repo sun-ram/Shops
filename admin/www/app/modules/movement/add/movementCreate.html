@@ -14,8 +14,9 @@
         <span ng-show="movement.movementId">{{movement.name}} {{movement.warehouse.name}}</span>
 
         <md-input-container flex="20" ng-hide="movement.movementId" layout-align="end center">
-            <label>Warehouse</label>
-            <md-select ng-model="warehouse" style="min-width: 200px;" ng-change = "setStoragebin(warehouse)">
+<!--             <label>Warehouse<span style="color:red">*</span></label>
+ -->          
+   <md-select  placeholder="Warehouse" ng-model="warehouse" style="min-width: 200px;" ng-change = "setStoragebin(warehouse)">
                 <md-option ng-value="{{warehouse}}" ng-repeat="warehouse in warehouseData  | orderBy:'name'" selected="{warehouse}">
                     {{warehouse.name}}
                 </md-option>

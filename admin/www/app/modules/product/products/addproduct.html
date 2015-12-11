@@ -25,12 +25,12 @@
 		<div layout="row" layout-sm="column">
 		<div flex>
 		<div layout-padding>
-			<md-input-container> <label>Product Name</label>
+			<md-input-container> <label>Product Name<span style="color:red">*</span></label>
 				<input type="text" ng-model="product.name" ng-required="true" /> 
 			</md-input-container>
 
 			<md-input-container> <label>Product
-				Category</label> <md-select placeholder="Select Product Category"
+				Category<span style="color:red">*</span></label> <md-select placeholder="Select Product Category"
 				ng-change="getProductType(product.productCategory.productCategoryId)"
 				ng-model="product.productCategory.productCategoryId"
 				ng-required="true"> <md-option
@@ -38,7 +38,7 @@
 				ng-repeat="item in productCategoryVo"> {{item.name}} </md-option> </md-select> 
 			</md-input-container>
 
-			<md-input-container> <label>Product Type</label>
+			<md-input-container> <label>Product Type<span style="color:red">*</span></label>
 	
 			<md-select placeholder="Select Product Type"
 				ng-model="product.productType.productTypeId" ng-required="true">
@@ -54,23 +54,23 @@
 
 
 			<md-input-container> <label>Product
-				Measurement</label> <input type="text" ng-model="product.unit" valid-number
+				Measurement<span style="color:red">*</span></label> <input type="text" ng-model="product.unit" valid-number
 				ng-required="true" />
 			</md-input-container>
 
 			<md-input-container> <label>Measurement
-				Unit</label> <md-select name="myModel" ng-model="product.uom.uomId"
+				Unit<span style="color:red">*</span></label> <md-select name="myModel" ng-model="product.uom.uomId"
 				ng-required="true"> <md-option ng-value="item.uomId"
 				ng-repeat="item in uom"> {{item.name}} </md-option> </md-select> 
 			</md-input-container>
 
-			<md-input-container> <label>Edible Type</label> <md-select
+			<md-input-container> <label>Edible Type<span style="color:red">*</span></label> <md-select
 				placeholder="Select Type" ng-model="product.edibleType">
 			<md-option ng-value="item.Name" ng-repeat="item in typeList"
 				ng-required="true"> {{item.Name}} </md-option> </md-select> 
 			</md-input-container>
 
-			<md-input-container> <label>Price</label> <!--    <input type="text" class="decimalnumber" ng-model="product.productPrice.price" />  -->
+			<md-input-container> <label>Price<span style="color:red">*</span></label> <!--    <input type="text" class="decimalnumber" ng-model="product.productPrice.price" />  -->
 			<input type="text" name="price" ng-model="product.price"
 				pattern="^\d*(\.\d{2}$)?" ng-required="true" /> <span
 				ng-message="required"
@@ -86,17 +86,17 @@
 		<div layout-padding>
 				
 		<h4 layout="row" class="md-layout-column">
-			<input layout-align="start center" type="checkBox" ng-model="product.isYourHot" ng-required="true" />
+			<input layout-align="start center" type="checkBox" ng-model="product.isYourHot" />
 			<label layout-align="end center" style="padding-left: 20px;">Is Your Hot Product</label>
 		</h4>
 		
 		
-		<md-input-container> <label>Brand</label> <input
+		<md-input-container> <label>Brand<span style="color:red">*</span></label> <input
 			type="text" ng-model="product.brand" ng-required="true" /> 
 		</md-input-container>
 
 
-		<md-input-container> <label>Group Count</label> <input
+		<md-input-container> <label>Group Count<span style="color:red">*</span></label> <input
 			type="text" ng-model="product.groupCount" valid-number
 			ng-required="true" /> 
 		</md-input-container>
@@ -151,8 +151,8 @@
 		<div layout="row" layout-sm="column">
 		  	<div flex>
 		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
-			    	<md-button class="md-raised md-success padd-50" ng-hide="product.productId" ng-click="addproduct();" ng-disabled="">Create</md-button>
-			    	<md-button class="md-raised md-success padd-50" ng-show="product.productId" ng-click="update();" ng-disabled="">Update</md-button>
+			    	<md-button class="md-raised md-success padd-50" ng-hide="product.productId" ng-click="addproduct();" ng-disabled="addProductForm.$invalid">Create</md-button>
+			    	<md-button class="md-raised md-success padd-50" ng-show="product.productId" ng-click="update();" ng-disabled="addProductForm.$invalid">Update</md-button>
 			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.products">Cancel</md-button>
 			    </section>
 		  	</div>

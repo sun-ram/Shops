@@ -121,22 +121,22 @@ angular.module('app')
 
 
 	//Delivery Time Slot
-	.state('app.deliveryTimeSlot', {
+	/*.state('app.deliveryTimeSlot', {
 		url: '/deliveryTimeSlot',
 		templateUrl: 'app/modules/deliverytimeslot/deliveryTimeSlot.html',
 		controller : 'deliveryTimeSlot'
-	})
+	})*/
 
 	.state('app.addDeliveryTimeSlot', {
 		url: '/createDeliveryTimeSlot',
 		templateUrl: 'app/modules/deliverytimeslot/addDeliveryTimeSlot.html',
 		controller : 'deliveryTimeSlot'
 	})
-	.state('app.deliveryTimeSlotDetails', {
+	/*.state('app.deliveryTimeSlotDetails', {
 		url: '/deliveryTimeSlotDetails',
 		templateUrl: 'app/modules/deliverytimeslot/deliveryTimeSlotDetail.html',
 		controller : 'deliveryTimeSlot'
-	})
+	})*/
 
 	//Unit of Measure
 	.state('app.units', {

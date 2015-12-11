@@ -5,12 +5,12 @@ angular.module('aviateAdmin.controllers')
 			$scope.isMovementEdit = false;
 			
 			$scope.getWarehouse = function() {
-				$scope.warehouse = {};
+				$rootScope.warehouse = {};
 				$scope.warehouse.store={};
 				$scope.warehouse.store.storeId = $rootScope.user.storeId;
 				WarehouseService.warehouseList($scope.warehouse).then(function(data) {
 					$scope.warehouseData = data.warehouses;
-                    $scope.warehouse =   data.warehouses [0];
+					$rootScope.warehouse =   data.warehouses [0];
 				});
 			};
 			

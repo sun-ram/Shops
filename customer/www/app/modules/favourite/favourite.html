@@ -17,7 +17,7 @@
       	<div flex style="width:500px;">
       		<md-input-container class="md-block" flex-gt-sm>
 		          <label>Type your Favorite Name</label>
-		          <input ng-model="favouriteName">
+		          <input ng-model="favouriteName" ng-required="true">
 		    </md-input-container>
       	</div>
       	<div flex style="width:500px; margin-top:5px; text-align:center;">
@@ -35,7 +35,7 @@
 		      </md-input-container>
       	</div>
       	<div layout="row" flex style="width:500px;">
-      		<md-button class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF;" ng-click="addFavourite();">ADD</md-button>
+      		<md-button ng-disabled="!favouriteName" class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF;" ng-click="addFavourite();">ADD</md-button>
       		<md-button class="md-raised " ui-sref="app.home">SKIP</md-button>
       	</div>
       </div>
