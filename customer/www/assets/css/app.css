@@ -423,6 +423,9 @@ ui-view{ background-color:#EEEEEE !important;}
 @media screen and (min-width: 961px) {
     .product-detail-dialog{width:100%; height:auto;}
 }
+
+
+
 @media screen and (max-width: 810px) {
 	.pdwid-80{width: 96% !important;}
 	.product-details-pname{padding-left: 4%;}
@@ -441,6 +444,10 @@ ui-view{ background-color:#EEEEEE !important;}
 	.product-details-pname .md-display-1{font-size: 35px;}
 	.product-details-pname .md-title{font-size: 28px;}
 	}
+	
+	
+	
+	
 .pdwid-80{width:81%;}
 .prodactive{
 	font-weight: bold;

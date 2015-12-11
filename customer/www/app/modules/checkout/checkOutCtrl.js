@@ -161,7 +161,7 @@ angular.module('aviate.controllers')
 
 	$scope.removeAddress = function(address) {
 	
-		var confirm = $mdDialog.confirm()
+		/*var confirm = $mdDialog.confirm()
         .title('Would you like to delete Address?')
 		        .ok('Delete')
 		        .cancel('Cancel');
@@ -175,7 +175,21 @@ angular.module('aviate.controllers')
 
   }, function() {
 			  
-			  });		
+			  })*/;		
+			  
+			  $mdDialog.show({
+			      controller: function(){
+			    	  
+			      },
+			      templateUrl: 'app/modules/checkout/deleteAddressPrompt.html',
+			      parent: angular.element(document.body),
+			      clickOutsideToClose:true,
+			    })
+			    .then(function(answer) {
+			      $scope.status = 'You said the information was "' + answer + '".';
+			    }, function() {
+			      $scope.status = 'You cancelled the dialog.';
+			    });
 		
 
 	};
