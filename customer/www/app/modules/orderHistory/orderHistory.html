@@ -1,7 +1,7 @@
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
 	<div class="md-toolbar-tools" layout="row">
-  		<h3 layout-align="start">Order History</h3>
+  		<h3 layout-align="start">Your orders</h3>
   		<div class="tbl-search">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<input ng-model="searchTxt" type="text"  placeholder="Search">
@@ -21,13 +21,13 @@
              	Name
            	</span>
            	<span flex>
-             	Merchant Name
+             	Store
            	</span>
             <span flex>
              	Order Date
            	</span>
               <span flex>
-             	DeliveryDate
+             	Delivery Date
            	</span>
            	<span flex>
              	Amount
@@ -39,8 +39,9 @@
          </md-item-content>
         
        </md-item>
-       <md-item class="data-table-list" style="line-height: 3;" md-data-table ng-repeat="ordersHis in data " ng-click="redirectToStoreDetails(ordersHis);">
-         <md-item-content layout="row" layout-padding>
+       <md-item class="data-table-list" style="line-height: 3;" md-data-table ng-repeat="ordersHis in data | filter:searchTxt " ng-click="redirectToStoreDetails(ordersHis);">
+         
+        <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
          	
         	
@@ -66,13 +67,17 @@
            	</span>
             <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.status}}
-            <ng-md-icon icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
+            <ng-md-icon ng-click="showListBottomSheet($event);" icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
             </span>
            	</span>            
             </div>
          </md-item-content>
+           <div ng-repeat="productOrders in ordersHis.salesOrderLineVo" ng-show="openClose">
+           {{productOrders.price}}
+           </div> 
          <md-divider></md-divider>
-       <md-divider></md-divider>
+         
+      
        </md-item>
      </md-list>
 	</md-data-table-container>
@@ -80,5 +85,5 @@
 </md-card>
 
 <div style="font-size:16px;" layout="row" class="table-pagination-bg" layout-align="end end">
-		<md-data-table-pagination md-limit="storePagination.limit" md-page="storePagination.page" md-total="{{storeData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+		<md-data-table-pagination md-limit="ordersPagination.limit" md-page="ordersPagination.page" md-total="{{data.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 </div>
