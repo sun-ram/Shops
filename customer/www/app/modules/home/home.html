@@ -139,7 +139,7 @@
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">{{category.name}}</h2>
  					<span style="float:left;     margin: 22px 0px 0px 10px;"  class="md-subhead">
  				({{category.products.length}}) <span ng-if="category.products.length > 1">Items</span> <span ng-if="category.products.length <= 1">Item</span> 
- 				    <a href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a>
+ 				    <a ng-if="category.products.length > $root.numLimit" href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a>
  				    </span>
  				</div>
  				
