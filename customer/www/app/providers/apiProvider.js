@@ -284,7 +284,21 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.MyCart.addProductsToCart = function (cartdetails, callback) {
+			httpRequest("POST", "mycart/addproductstocart", cartdetails, function (err, data) {
+				if (err) {
 
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		apiClass.MyCart.getCartList = function (user, callback) {
 			httpRequest("POST", "mycart/getMyCartList", user, function (err, data) {
 				if (err) {

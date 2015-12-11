@@ -20,6 +20,25 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 	
+	this.addProductsToCart = function(cartdetails){
+		var d = $q.defer();
+		//{"customerId" : $localStorage.userId, "storeId" : $rootScope.superMarketId, "productId" : productId, "price" : subTotal, "quantity" : quantity}
+		api.MyCart.addProductsToCart(cartdetails, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					/*ipCookie("myCart",result);
+					$rootScope.myCart = ipCookie("myCart");*/
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	}
+	
 	this.getCartList = function(user){
 		var d = $q.defer();
 		//{"customerId" : $localStorage.userId, "storeId" : $rootScope.superMarketId}
