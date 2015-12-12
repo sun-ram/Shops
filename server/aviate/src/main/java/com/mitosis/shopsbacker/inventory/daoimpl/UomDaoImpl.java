@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +51,7 @@ public class UomDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Uom.class);
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<Uom>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
