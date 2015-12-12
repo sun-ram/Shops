@@ -67,14 +67,22 @@
            	</span>
             <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.status}}
-            <ng-md-icon ng-click="showListBottomSheet($event);" icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
+            <ng-md-icon ng-click="showListBottomSheet($event); " icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
             </span>
            	</span>            
             </div>
          </md-item-content>
-           <div ng-repeat="productOrders in ordersHis.salesOrderLineVo" ng-show="openClose">
-           {{productOrders.price}}
+         <md-item-content layout="column" layout-padding>
+           <div layout="row" flex ng-repeat="productOrders in ordersHis.salesOrderLineVo" >
+           <img width="80" height="80" src="" style="padding-right: 20px"/>
+           <span flex>Name(apple)</span>
+           <span flex>Unit(Kg,gm)</span>
+           <span flex>Rs.{{productOrders.price}}</span>           
+           <span flex>Quantity(2,1)</span>
+           <span flex>Gross Amount(Rs.500)</span>
+           <span flex>Net Amount(Rs.1000)</span>                      
            </div> 
+           </md-item-content>
          <md-divider></md-divider>
          
       
