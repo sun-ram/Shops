@@ -26,5 +26,7 @@ public interface ProductCategoryDao<T> {
 	public List<ProductCategory> getRootProductCategoryList(Merchant merchant);
 	
 	public List<ProductCategory> getallleafcategorylist(Merchant merchant);
+	
+	public List<ProductCategory> getParentCategory(ProductCategory parentCategory);
 
 }

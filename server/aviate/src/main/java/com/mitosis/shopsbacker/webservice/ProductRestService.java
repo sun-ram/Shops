@@ -151,12 +151,12 @@ public class ProductRestService {
 				imageService.deleteImage(img);
 			}
 			for (String imageId : imageIds) {
-				if(imageId==null){
+				if (imageId == null) {
 					continue;
 				}
 				Image image = imageService.getImageById(imageId);
 				List<ProductImage> productImages = image.getProductImages();
-				for(ProductImage productImg:productImages){
+				for (ProductImage productImg : productImages) {
 					productImageService.deleteProductImage(productImg);
 				}
 				imageService.deleteImage(image);
@@ -326,23 +326,40 @@ public class ProductRestService {
 			ProductCategory productCategory = productCategoryService
 					.getCategoryById(productVo.getProductCategory()
 							.getProductCategoryId());
-			List<Product> productList = getProductService()
-					.getProductListByCategoty(productCategory);
-			List<ProductVo> productVoList = new ArrayList<ProductVo>();
-			for (Product product : productList) {
-				ProductVo productVos = productService.setProductVo(product);
-				productVoList.add(productVos);
+			if (productCategory.getParentCategory() != null) {
+				List<Product> productList = getProductService()
+						.getProductListByCategoty(productCategory);
+				List<ProductVo> productVoList = new ArrayList<ProductVo>();
+				for (Product product : productList) {
+					ProductVo productVos = productService.setProductVo(product);
+					productVoList.add(productVos);
+				}
+				productResponse.setProducts(productVoList);
+				productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+			} else {
+				List<ProductCategory> productCategoryList = productCategoryService
+						.getParentCategory(productCategory);
+				List<ProductVo> productVoList = new ArrayList<ProductVo>();
+				for (ProductCategory pr : productCategoryList) {
+					ProductCategory productCategory1 = productCategoryService
+							.getCategoryById(pr.getProductCategoryId());
+					List<Product> productList = getProductService()
+							.getProductListByCategoty(productCategory1);
+					for (Product product : productList) {
+						ProductVo productVos = productService
+								.setProductVo(product);
+						productVoList.add(productVos);
+					}
+				}
+				productResponse.setProducts(productVoList);
+				productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 			}
-
-			productResponse.setProducts(productVoList);
-			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			productResponse.setErrorString(e.getMessage());
 		}
-
 		return CommonUtil.getObjectMapper(productResponse);
 
 	}
@@ -378,7 +395,6 @@ public class ProductRestService {
 
 	}
 
-
 	@Path("/deleteProductImage")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -391,7 +407,8 @@ public class ProductRestService {
 
 			if (images.getProductImages() != null
 					&& images.getProductImages().size() > 0) {
-				productImageService.deleteProductImage(images.getProductImages().get(0));
+				productImageService.deleteProductImage(images
+						.getProductImages().get(0));
 				imageService.deleteImage(images);
 			}
 		} catch (Exception e) {
@@ -508,9 +525,10 @@ public class ProductRestService {
 			try (OutputStream stream = new FileOutputStream(excelPath)) {
 				stream.write(data);
 			}
-			merchant = merchantService.getMerchantById(file.getMerchant().getMerchantId());
+			merchant = merchantService.getMerchantById(file.getMerchant()
+					.getMerchantId());
 			List<Product> productList = new ArrayList<Product>();
-			response = convertXlsToModel(excelPath, 0,merchant);
+			response = convertXlsToModel(excelPath, 0, merchant);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -522,7 +540,8 @@ public class ProductRestService {
 
 	}
 
-	public ProductUploadVO convertXlsToModel(String path, int sheetNo,Merchant merchant) {
+	public ProductUploadVO convertXlsToModel(String path, int sheetNo,
+			Merchant merchant) {
 		ProductUploadVO response = new ProductUploadVO();
 		Product product = new Product();
 		boolean isNew = false;
@@ -626,9 +645,10 @@ public class ProductRestService {
 											product.setIsactive('Y');
 										} else {
 											product = productService
-													.getProductByName(cell
-															.getStringCellValue()
-															.trim(),merchant);
+													.getProductByName(
+															cell.getStringCellValue()
+																	.trim(),
+															merchant);
 											if (product == null) {
 												response.setStatus(SBMessageStatus.FAILURE
 														.getValue());
@@ -692,10 +712,12 @@ public class ProductRestService {
 		List<String> imageIds = new ArrayList<String>();
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
-			Product product = productService.getProduct(productVo.getProductId());
+			Product product = productService.getProduct(productVo
+					.getProductId());
 
 			if (productVo.getImage().getImage() != null) {
-				productService.productImageUpload(productVo.getImage(),product.getMerchant());
+				productService.productImageUpload(productVo.getImage(),
+						product.getMerchant());
 				if (productVo.getImage().getImageId() != null) {
 					imageIds.add(productVo.getImage().getImageId());
 				}
@@ -703,15 +725,13 @@ public class ProductRestService {
 				product.setImage(image);
 			}
 
-
-
 			List<ProductImage> productImages = new ArrayList<ProductImage>();
 			List<ImageVo> imageVos = productVo.getImages();
 
 			for (ImageVo imageVo : imageVos) {
 
-
-				productService.productImageUpload(imageVo,product.getMerchant());
+				productService.productImageUpload(imageVo,
+						product.getMerchant());
 				if (imageVo.getImage() != null) {
 					if (imageVo.getImageId() != null) {
 						imageIds.add(imageVo.getImageId());
@@ -726,11 +746,8 @@ public class ProductRestService {
 					productImages.add(productimage);
 				}
 
-
 			}
 			product.setProductImages(productImages);
-
-
 
 			productService.updateProduct(product);
 
@@ -744,7 +761,8 @@ public class ProductRestService {
 				for (Image image : images) {
 					if (image.getProductImages() != null
 							&& image.getProductImages().size() > 0) {
-						productImageService.deleteProductImage(image.getProductImages().get(0));
+						productImageService.deleteProductImage(image
+								.getProductImages().get(0));
 					}
 					imageService.deleteImage(image);
 				}
@@ -757,7 +775,7 @@ public class ProductRestService {
 		}
 
 		try {
-			responseStr =CommonUtil.getObjectMapper(productResponse);
+			responseStr = CommonUtil.getObjectMapper(productResponse);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

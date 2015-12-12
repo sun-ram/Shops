@@ -38,5 +38,7 @@ public interface ProductCategoryService<T> {
 	public List<ProductCategory> getallleafcategorylist(Merchant merchant);
 	
 	public ProductCategoryVo setProductCategoryVo(ProductCategory productCategory);
+	
+	public List<ProductCategory> getParentCategory(ProductCategory parentCategory);
 
 }

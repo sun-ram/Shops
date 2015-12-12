@@ -129,4 +129,10 @@ public class ProductCategoryServiceImpl<T> implements
 		category.setName(productCategory.getName());
 		return category;
 	}
+
+	@Override
+	public List<ProductCategory> getParentCategory(
+			ProductCategory parentCategory) {
+		return productCategoryDao.getParentCategory(parentCategory);
+	}
 }
