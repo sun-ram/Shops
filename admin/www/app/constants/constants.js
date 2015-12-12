@@ -54,8 +54,9 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	
 	DASHBOARD : {
 		DEFAULT_REPORT_TYPE : 7,
-		NODE_SERVER_URL : 'http://localhost:3000/shopsbacker/',
-		COMMITION_PERCENTAGE :3
+		COMMITION_PERCENTAGE :3,
+		DELIVERY_TIME_SPAN : 3600000,
+		ADJUSTABLE_TRAFIC_TIME_SPAN : 900000
 	}
 	
 		

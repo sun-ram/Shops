@@ -12,7 +12,7 @@ var apiroutes = require("./routes/api/index");
 var app = express();
 
 GLOBAL.connection = mysql.createConnection({
-		host     : 'localhost',
+		host     : '49.50.78.143',
 		user     : 'shopsbacker',
 		password : '@MitShops@',
 		database : 'shopsbacker',

@@ -1,6 +1,6 @@
-aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
-    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http,$q) {
-		var commonNodeURL = CONSTANT.DASHBOARD.NODE_SERVER_URL;
+aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', 'myConfig', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
+    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, myConfig, $rootScope, CommonServices, StoreServices, api, $http,$q) {
+		var commonNodeURL = myConfig.node_server_url;
 		var reportType = CONSTANT.DASHBOARD.DEFAULT_REPORT_TYPE;
 		var width = 300;
 		var height = 300;

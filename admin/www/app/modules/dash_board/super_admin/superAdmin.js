@@ -1,13 +1,14 @@
-aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
-    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, $rootScope, CommonServices, StoreServices, api, $http,$q) {
-		var commonNodeURL = CONSTANT.DASHBOARD.NODE_SERVER_URL;
+aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT','myConfig', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
+    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, myConfig, $rootScope, CommonServices, StoreServices, api, $http,$q) {
+		var commonNodeURL = myConfig.node_server_url;
 		var reportType = CONSTANT.DASHBOARD.DEFAULT_REPORT_TYPE;
 		var commition = CONSTANT.DASHBOARD.COMMITION_PERCENTAGE;
+		var deliveryTimeSpan = CONSTANT.DASHBOARD.DELIVERY_TIME_SPAN;
+		var trafficTimeSpan = CONSTANT.DASHBOARD.ADJUSTABLE_TRAFIC_TIME_SPAN;
 		var width = 300;
 		var height = 300;
+		var index;
 		var millisecondsPerday = 86400000;
-		var deliveryTimeSpan = 3600000;
-		var trafficTimeSpan = 900000;
 		var today = new Date();
 		var todayDateObj = new Date(today.toISOString().substring(0, 10));
 		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
@@ -21,6 +22,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.totalMerchants = 0;
 		$scope.salesGrowthToday = 0;
 		$scope.qualirtStatsRecords = [];
+		
 
 		$scope.historicalBarChart = [
 			{
@@ -173,12 +175,12 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		}
 		
 		function groupedBarChart (){
-				var n = 3, // number of layers
-				m = $scope.merchants.Books.length, // number of samples per layer
-				stack = d3.layout.stack(),
-				layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
-				yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),
-				yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+				var n = 3; // number of layers
+				var m = $scope.merchants.Books.length; // number of samples per layer
+				var stack = d3.layout.stack();
+				var layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); }));
+				var yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); });
+				var yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
 
 			var margin = {top: 40, right: 10, bottom: 20, left: 10},
 				width = 960 - margin.left - margin.right,
@@ -271,39 +273,45 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 
 			// Inspired by Lee Byron's test data generator.
-			getQualityStats();
+			/*getQualityStats();*/
+			
 			function bumpLayer(n, o) {
-
-			  function bump(a) {
-				  
-				  console.log("a--->");
-				  
-				var x = 5,
-					y = 5,
-					z = 5;
-				  console.log("X,Y,Z ==>",x,'&',y,'&',z);
-				for (var i = 0; i < n; i++) {
-				  var w = (i / n - y) * z;
-				  a[i] += x * Math.exp(-w * w);
-				}
+				
+			  function bump(a,index) {
+				  /*if($scope.qualirtStatsRecords[index]){*/
+					  console.log("a--->");
+					var x = $scope.qualirtStatsRecords[index][0],
+						y = $scope.qualirtStatsRecords[index][1],
+						z = $scope.qualirtStatsRecords[index][2];
+					 /*var x = 5,
+						y = 5,
+						z = 5;*/
+					  console.log("X,Y,Z ==>",x,'&',y,'&',z);
+					for (var i = 0; i < n; i++) {
+					  var w = (i / n - y) * z;
+					  a[i] += x * Math.exp(-w * w);
+					}
+				 /* }*/
 			  }
 
 			  var a = [], i;
 			  for (i = 0; i < n; ++i) a[i] = 1;
-			  for (i = 0; i < 5; ++i) bump(a);
+			  for (i = 0; i < n; ++i){ console.log("i",i); bump(a,i);}
 			  return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
 			}
 		};
 		
 		function getQualityStats (){
-			var i=0,len=$scope.merchants.length;
+			$scope.qualirtStatsRecords = [];
+			var i=0,len;
 			var tmpArray = [],red,green,yellow;
 			var createdTime;
 			var deliveredTime; 
+			len = $scope.merchants.Books.length;
 			for(;i<len;i++){
 				tmpArray = [];
 				red=green=yellow=0;
-				var j=0;soLen = $scope.salesOrders.Books.length;
+				var j=0,solen = $scope.salesOrders.Books.length;
 				for(;j<solen;j++){
 					if($scope.salesOrders.Books[j].MERCHANT_ID == $scope.merchants.Books[i].MERCHANT_ID && $scope.salesOrders.Books[j].DELIVERY_DATE){
 						createdTime = new Date($scope.salesOrders.Books[j].CREATED);
@@ -322,7 +330,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				tmpArray.push(red);	
 				$scope.qualirtStatsRecords.push(tmpArray);
 			}
-		
+			console.log("$scope.qualirtStatsRecords",$scope.qualirtStatsRecords);
+			groupedBarChart();
+			
 		};
 		
 		function sendHttpRequest (service){
@@ -498,6 +508,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			$scope.drawReviewChart();
 			$scope.drawBarChart2();
 			$scope.compSalesToday();
+			getQualityStats();
 			/*callback();*/
 		};
 
@@ -518,6 +529,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 			console.log("merchants Yesterday and to Today", newMerchantsLastDat, " & ", newMerchantsToday);
 			$scope.merchantGrowthToday = (newMerchantsLastDat) ? (((newMerchantsToday - newMerchantsLastDat) / newMerchantsLastDat) * 100) : 0;
+			$scope.merchantGrowthToday = (Math.round($scope.merchantGrowthToday*100))/100;
 
 		};
 
@@ -537,6 +549,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 			}
 			$scope.customerGrowthToday = (newCustomerLastDat) ? (((newCustomerToday - newCustomerLastDat) / newCustomerLastDat) * 100) : 0;
+			$scope.customerGrowthToday = Math.round($scope.customerGrowthToday * 100)/100;
 			/*callback();*/
 		};
 		
@@ -575,6 +588,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			$scope.drawBarChart();
 			console.log("Stores Yesterday and to Today", newStoresLastDay, " & ", newStoresToday);
 			$scope.storeGrowthToday = (newStoresLastDay) ? (((newStoresToday - newStoresLastDay) / newStoresLastDay) * 100) : 0;
+			$scope.storeGrowthToday = Math.round($scope.storeGrowthToday * 100)/100;
 		};
 
 
@@ -613,7 +627,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				$scope.stores = data;
 				console.log("Store success case -- ", data);
 				postStore(data);
-				groupedBarChart();
+				/*groupedBarChart();*/
 			});
 
 		};
@@ -640,6 +654,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		
 		function initiateAllMethods (){
+			document.getElementById('grouperBarChart').innerHTML = "";
 			//call all methods by preority
 			$scope.proceedCustomer();
 			$scope.ProceedMerchant();
