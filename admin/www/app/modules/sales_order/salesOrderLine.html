@@ -63,7 +63,9 @@
 </md-card>
 <div layout layout="row" class="table-pagination-bg" layout-align="end center">
 <md-data-table-pagination md-limit="salesOrderLinePagination.limit" md-page="salesOrderLinePagination.page"
-	md-total="{{desserts.count}}" md-trigger="onpagechange"></md-data-table-pagination>
+	md-total="{{salesOrderDetails.salesOrderLineVo.length}}" md-trigger="onpagechange"> </md-data-table-pagination>
+	<div>
+	</div>
  </div> 
 
 <style>
