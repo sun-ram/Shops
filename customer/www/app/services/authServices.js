@@ -83,7 +83,7 @@ angular.module('aviate.services')
 		api.User.resetPassword(req, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					toastr.success(CONSTANT.PASSWORDCHANGED);
+					toastr.success(CONSTANT.SUCCESS_CODE.PASSWORDCHANGED);
 					//alert('password sent');
 					d.resolve(result);
 				} else {

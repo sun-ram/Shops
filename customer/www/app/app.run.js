@@ -55,9 +55,5 @@ angular.module('app')
 			
 		});
 	}
-	setTimeout(function() {
-		/*alert("check");*/
-		$rootScope.geoLocation();
-	}, 500);
 	
 });

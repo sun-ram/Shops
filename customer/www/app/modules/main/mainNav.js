@@ -228,18 +228,6 @@ angular.module('aviate.directives')
 						});
 					};
 					
-					$scope.resetpass = function(user) {
-						if(user.password === $scope.confirmPassword){
-							var req = {"tokenId": $scope.tokenId, "user": user};
-							AuthService.resetpass(req).then(function(data){
-								$scope.user ="";
-								$state.go('login');
-							});
-						}else{
-							toastr.error(CONSTANT.PASSWORDNOTMATCH);
-						}
-					};
-					
 
 					$scope.signUp = function(user) {
 						//user.role = CONSTANT.SUCCESS_CODE.ROLE;

@@ -274,4 +274,11 @@ angular.module('aviate.controllers')
 					
 				});	
 			}
+			
+			if ($rootScope.store == undefined || $rootScope.store == null) {
+				setTimeout(function() {
+					/*alert("check");*/
+					$rootScope.geoLocation();
+				}, 500);
+			}
 }]);

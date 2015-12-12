@@ -20,13 +20,13 @@ angular.module('aviate.constant').constant('CONSTANT', {
 				REMOVEADDRESS:'Address Removed Successfully',
 				PRODUCTINCRCREASED:'Product Increased Successfully',
 				PRODUCTDECREASED:'Product Decreased Successfully',
-				PASSWORDNOTMATCH: 'Password and Confirm Password did not match',
 				PASSWORDCHANGED: 'Password changed successfully',
 				FAVOURITEDELETED: 'Favourite Removed Successfully'	
 		},
 
 		ERROR_CODE:{
 			VALIDADDRESS: 'Enter valid address',
+			PASSWORDNOTMATCH: 'Password and Confirm Password did not match'
 		},
 
 		WARNING_CODE:{

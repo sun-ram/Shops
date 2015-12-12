@@ -33,14 +33,6 @@ angular.module('app')
 		controller : 'signInCtrl'
 	})
 	
-	// Reset Password
-	.state('app.resetPassword', {
-		url: '/resetpassword/{tokenId}',
-		templateUrl: 'app/modules/auth/cart.html',
-		controller : 'signInCtrl'
-	})
-
-
 	// Product module
 	.state('app.products', {
 		url: '/products/:categoryId',
@@ -119,6 +111,19 @@ angular.module('app')
 		templateUrl: 'app/modules/orderHistory/orderHistory.html',
 		controller : 'orderHistoryCtrl'
 	})
+	
+	.state('auth', {
+		abstract: true,
+		templateUrl: 'app/modules/auth/auth.html',
+	})
+	
+	// Reset Password
+	.state('auth.resetPassword', {
+		url: '/resetpassword/:tokenId',
+		controller : 'authCtrl'
+	})
+	
+
 
 	$httpProvider.defaults.useXDomain = true;
 	$httpProvider.defaults.headers.common = 'Content-Type: application/json';
