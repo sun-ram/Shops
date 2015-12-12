@@ -40,7 +40,7 @@ angular.module('aviate.controllers')
 									"productTypeId":$scope.productList[i].productType.productTypeId
 								})
 							}else{
-							for(var j=0;$scope.productTypes.length>=j;j++){
+							for(var j=0;$scope.productTypes.length>j;j++){
 								if($scope.productList[i].productType.name != $scope.productTypes[j].productTypeName){
 									$scope.productTypes.push({
 										"productTypeName":$scope.productList[i].productType.name,
