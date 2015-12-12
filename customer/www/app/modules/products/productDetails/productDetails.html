@@ -35,7 +35,7 @@ md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
   </md-toolbar>         
 <md-card layout="row" flex layout-sm="column" layout-padding style="padding: 25px; margin: 20px 3%;">
 		<div flex-sm="100" flex-md="45" flex-lg="40" flex-gt-lg="35">
-			<div layout="row" layout-align="start center">
+			<div layout="row" layout-align="start center" ng-mouseover="changeimage(image)">
 			
 			<zoom mark-height="50" mark-width="50"  src="{{image}}" zoom-lvl="{{zoomLvl}}"></zoom>
 			<!-- 	<img src="assets/images/fruit.jpg" height="250px" border="1"> -->
@@ -45,12 +45,12 @@ md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
 		 <md-content class="padd-tb16 pdwid-80">
 		 <hr></hr>
 	    	 <md-tabs class="arrow_color tab-img" md-stretch-tabs="auto">
-			      	<md-tab ng-init="changeimage(productDetails.image.url)" class="tab-img">
+			      	<md-tab class="tab-img">
     			 		<img  ng-src="{{productDetails.image.url}}" class="md-avatar chs-img" style="border: 1px solid lightgrey;" height="100px" width="100px" ng-mouseover="changeimage(productDetails.image.url)">
  				 	</md-tab>
 			      
 			      <md-tab  ng-repeat="productImage in productDetails.images" class="tab-img">
-			     <img  ng-src="{{productImage.url}}" class="md-avatar chs-img"></br>
+			     <img  ng-src="{{productImage.url}}" class="md-avatar chs-img" ng-mouseover="changeimage(productImage.url)"></br>
 			     </md-tab>
 	   		 </md-tabs>
 	    </md-content>

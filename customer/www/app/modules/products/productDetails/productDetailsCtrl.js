@@ -21,6 +21,7 @@ angular.module('aviate.controllers')
 			myimg1.setAttribute("src",imageurl);
 			myimg1.setAttribute("ng-src",imageurl);
 			myimg2.setAttribute("src",imageurl);
+			$scope.image = imageurl;
 
 			//document.getElementByTagName("zoom img").src = imageurl;
 			//$scope.showImageindescription = imageurl;
