@@ -2,6 +2,9 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
     function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, myConfig, $rootScope, CommonServices, StoreServices, api, $http,$q) {
 		var commonNodeURL = myConfig.node_server_url;
 		var reportType = CONSTANT.DASHBOARD.DEFAULT_REPORT_TYPE;
+		var commition = CONSTANT.DASHBOARD.COMMITION_PERCENTAGE;
+		var deliveryTimeSpan = CONSTANT.DASHBOARD.DELIVERY_TIME_SPAN;
+		var trafficTimeSpan = CONSTANT.DASHBOARD.ADJUSTABLE_TRAFIC_TIME_SPAN;
 		var width = 300;
 		var height = 300;
 		var millisecondsPerday = 86400000;
@@ -169,6 +172,156 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 				return chart;
 			});
 		}
+		
+		function groupedBarChart (data){
+					
+			// Set our margins
+			var margin = {
+				top: 20,
+				right: 20,
+				bottom: 30,
+				left: 60
+			},
+			width = 700 - margin.left - margin.right,
+			height = 350 - margin.top - margin.bottom;
+
+			var x0 = d3.scale.ordinal()
+				.rangeRoundBands([0, width], .1);
+
+			var x1 = d3.scale.ordinal();
+
+			var y = d3.scale.linear()
+				.range([height, 0]);
+
+			var color = d3.scale.ordinal()
+				.range(["#4eaf4c", "#ffff00", "#ff0000"]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x0)
+				.orient("bottom");
+
+			var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left")
+				.tickFormat(d3.format(".2s"));
+
+			// Add our chart to the #chart div
+			var svg = d3.select("#grouperBarChart").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			//array of keys except date
+			var keys = d3.keys(data[0]).filter(function(key) { return key !== "date"; });
+
+			data.forEach(function(d) {
+				d.key = keys.map(function(name) { 
+				  console.log("printing the name: "+name+ " "+d[name])
+				  return {name: name, value: +d[name]}; });
+			});
+
+			x0.domain(data.map(function(d) { return d.date; }));
+			x1.domain(keys).rangeRoundBands([0, x0.rangeBand()]);
+			y.domain([0, d3.max(data, function(d) { return d3.max(d.key, function(d) { return d.value; }); })]);
+
+			  svg.append("g")
+				  .attr("class", "x axis")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(xAxis);
+
+			  svg.append("g")
+				  .attr("class", "y axis")
+				  .call(yAxis)
+				.append("text")
+				  .attr("transform", "rotate(-90)")
+				  .attr("y", 6)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "end")
+				  .text("count");
+
+			  var date = svg.selectAll(".date")
+				  .data(data)
+				  .enter().append("g")
+				  .attr("class", "g")
+				  .attr("transform", function(d) { return "translate(" + x0(d.date) + ",0)"; });
+
+			  date.selectAll("rect")
+				  .data(function(d) { return d.key; })
+				  .enter().append("rect")
+				  .attr("width", x1.rangeBand())
+				  .attr("x", function(d) { return x1(d.name); })
+				  .attr("y", function(d) { return y(d.value); })
+				  .attr("height", function(d) { return height - y(d.value); })
+				  .style("fill", function(d) { return color(d.name); });
+
+			//for showing the legend
+			var legend = svg.selectAll(".legend")
+				.data(color.domain().slice().reverse())
+				.enter().append("g")
+				.attr("class", "legend")
+				.attr("transform", function (d, i) {
+				return "translate(0," + i * 20 + ")";
+			});
+
+			legend.append("rect")
+				.attr("x", width - 18)
+				.attr("width", 18)
+				.attr("height", 18)
+				.style("fill", color);
+
+			legend.append("text")
+				.attr("x", width - 24)
+				.attr("y", 9)
+				.attr("dy", ".35em")
+				.style("text-anchor", "end")
+				.text(function (d) {
+				return d;
+			});
+		};
+		
+		function getQualityStats (){
+			$scope.qualirtStatsRecords = [];
+			var i=0,len;
+			var tmpArray = [],red,green,yellow;
+			var createdTime;
+			var deliveredTime; 
+			len = $scope.stores.Books.length;
+			var tmpGroupObj = {};
+			console.log("SALESORDER COUNT ==> ",$scope.salesOrders.Books.length);
+			for(;i<len;i++){
+				if($rootScope.user.merchantId == $scope.stores.Books[i].MERCHANT_ID){
+					tmpArray = [];
+					red=green=yellow=0;
+					var j=0,solen = $scope.salesOrders.Books.length;
+					for(;j<solen;j++){
+						if($scope.salesOrders.Books[j].MERCHANT_ID == $rootScope.user.merchantId && $scope.salesOrders.Books[j].STORE_ID == $scope.stores.Books[i].STORE_ID && $scope.salesOrders.Books[j].DELIVERY_DATE){
+							createdTime = new Date($scope.salesOrders.Books[j].CREATED);
+							deliveredTime = new Date($scope.salesOrders.Books[j].DELIVERED_TIME);
+							if((deliveredTime.getTime() - createdTime.getTime()) <= deliveryTimeSpan){
+								green++;
+							}else if((deliveredTime.getTime() - createdTime.getTime()) <= (deliveryTimeSpan + trafficTimeSpan) ){
+								yellow++;
+							}else{
+								red++;
+							}
+						}
+					}		
+						tmpGroupObj = {};
+						tmpGroupObj.date = $scope.stores.Books[i].NAME;
+						tmpGroupObj.Good = green;
+						tmpGroupObj.Normal = yellow;
+						tmpGroupObj.Bad = red;
+						if(tmpGroupObj.Good >0 || tmpGroupObj.Normal > 0 || tmpGroupObj.Bad > 0){
+							$scope.qualirtStatsRecords.push(angular.copy(tmpGroupObj));
+						}
+					}
+				
+			}
+			console.log("$scope.qualirtStatsRecords",$scope.qualirtStatsRecords);
+			groupedBarChart($scope.qualirtStatsRecords);
+			
+		};
 		
 		function sendHttpRequest (service){
 			var defer = $q.defer();
@@ -366,6 +519,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 			$scope.drawReviewChart();
 			$scope.drawBarChart2();
 			$scope.compSalesToday();
+			getQualityStats();
 			/*callback();*/
 		};
 
@@ -512,6 +666,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 		};
 		
 		function initiateAllMethods (){
+			document.getElementById('grouperBarChart').innerHTML = "";
 			//call all methods by preority
 			$scope.proceedCustomer();
 			$scope.ProceedMerchant();
