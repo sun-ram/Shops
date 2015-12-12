@@ -74,10 +74,10 @@
 
 			<md-input-container> <label>Price<span style="color:red">*</span></label> <!--    <input type="text" class="decimalnumber" ng-model="product.productPrice.price" />  -->
 			<input type="text" name="price" ng-model="product.price"
-				pattern="^\d*(\.\d{2}$)?" ng-required="true" /> <span
+				pattern="\d+(\.\d{1,2})?"  valid-number1 ng-required="true" /> <span
 				ng-message="required"
 				ng-show="addProductForm.price.$error.price || (!addProductForm.price.$error.required && !addProductForm.price.$valid)"
-				style="color: red;">Price Should be Number and upto 2 digits
+				style="color: red;">Price Should allow upto 2 digits
 				decimal point.</span> 
 			</md-input-container>
 		</div>
