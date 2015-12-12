@@ -1,9 +1,12 @@
 angular.module('app')
-.run(function($rootScope, $state, $http, ipCookie, MyCartServices, MyCartFactory) {
+.run(function($rootScope, $state, $http, ipCookie, MyCartServices, MyCartFactory, $localStorage) {
 
 	var store = ipCookie('store');
 	$rootScope.latLong ={}
-
+	
+	$rootScope.shippingCharges = $localStorage.shippingCharges;
+	$rootScope.taxList = $localStorage.taxList;
+		
 	if (store == undefined || store == null) {
 		$rootScope.store = null;
 		$rootScope.latLong.findlocation=true;

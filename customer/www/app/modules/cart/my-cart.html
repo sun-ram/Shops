@@ -54,7 +54,7 @@
 				
 			</div> -->
 			
-			<md-list-item ng-repeat="product in myCart.cartItem" style="border-bottom:2px solid #eeeeee; padding:10px; margin: 10px 0px; ">
+			<md-list-item ng-repeat="product in myCart.cartItem track by $index" style="border-bottom:2px solid #eeeeee; padding:10px; margin: 10px 0px; ">
 		      <div class="md-list-item-text" flex="15" style="padding:0px 20px;">
 		     	<img width="100" height="100" src="{{product.product.image.url}}"/>
 		     </div>

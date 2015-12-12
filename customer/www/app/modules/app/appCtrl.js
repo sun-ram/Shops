@@ -237,6 +237,7 @@ angular.module('aviate.controllers')
 				$scope.shippingCharges ={};
 				$scope.merchant = $rootScope.store.merchant;
 	            homePageServices.getShippingCharge($scope.merchant).then(function(data){
+	            	$localStorage.shippingCharges =data;
 	                $rootScope.shippingCharges = data;
 	            })
 			}
@@ -244,7 +245,8 @@ angular.module('aviate.controllers')
 				$scope.tax ={};
 				$scope.merchant = $rootScope.store.merchant;
 				homePageServices.getTax($scope.merchant).then(function(data){
-				$rootScope.taxList = data.taxList;
+					$localStorage.taxList =data.taxList;	
+					$rootScope.taxList = data.taxList;
 				})
 								
 			}
