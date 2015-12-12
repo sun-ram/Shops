@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +34,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("ispaid", isPaid ? 'Y' : "N"));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
