@@ -94,7 +94,7 @@
 		      </div>
 		    </div> 
 		  <div class="md-actions padd_btm20" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid" ng-click="forGetPassword(users);isSignIn=true;title = 'SIGN IN'">
+		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
 		      SUBMIT
 		    </md-button>
 		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;isSignIn=true;title = 'SIGN IN'" style="margin-right:20px;" >

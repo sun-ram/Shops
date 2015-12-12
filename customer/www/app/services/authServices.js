@@ -51,12 +51,7 @@ angular.module('aviate.services')
 		var d = $q.defer();
 		api.User.forGetPassword(req, function(err, result){
 			if(result){
-				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					toastr.success(CONSTANT.SUCCESS_CODE.FORGETPASSWORDCONFIRMATION);
-					d.resolve(result);
-				} else {
-					toastr.error(result.errorString);
-				}
+				d.resolve(result);
 			}else{
 				toastr.error(err.errorCode);
 			}

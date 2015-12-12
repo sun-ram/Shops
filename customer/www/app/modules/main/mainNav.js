@@ -218,13 +218,26 @@ angular.module('aviate.directives')
 
 						});
 					};*/
+						
+					$scope.isForPassSubBtnDisabled = false;
 					   	
 					$scope.forGetPassword = function(user) {
-						$scope.forgetPass = false;
+						$scope.isForPassSubBtnDisabled = true;
 						var req = {"user":user, "passwordResetUrl": window.location.origin + "/#/resetpassword/", "userType": "customer"};
 						AuthServices.forGetPassword(req).then(function(data){
 							//$scope.user ="";
 							//$state.go('login');
+							if (data.status === CONSTANT.STATUS.SUCCESS) {
+								toastr.success(CONSTANT.SUCCESS_CODE.FORGETPASSWORDCONFIRMATION);
+								$scope.forgetPass = false;
+								$scope.isSignIn = true;
+								$scope.title = 'SIGN IN'
+							} else {
+								toastr.error(data.errorString);
+							}
+							
+							$scope.isForPassSubBtnDisabled = false;
+							
 						});
 					};
 					
