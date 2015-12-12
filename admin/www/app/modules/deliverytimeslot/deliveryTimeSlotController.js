@@ -28,6 +28,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		}
 		deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
 			toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
+			/*$state.go('app.addDeliveryTimeSlot');*/
 		});
 	};		
 
@@ -45,6 +46,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
 		deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
 			toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
+			$state.go('app.addDeliveryTimeSlot',{},{reload: true});
 		});
 	};
 	
