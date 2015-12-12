@@ -472,3 +472,34 @@ ui-view{ background-color:#EEEEEE !important;}
 
 .md-button{ padding:5px 20px; border-radius:0px; box-shadow:none; font-weight:600; text-transform: capitalize;}
 .delivery-address svg{ margin-top:5px;}
+
+
+
+
+/* deliver Address */
+.del-container{ border:1px solid rgba(0,0,0,0.1); box-sizing:border-box; }
+.container-address{ border-left:4px solid #4eaf4c;}
+
+.container-time{ border-left:4px solid #faa438;}
+.del-container .del-container-img{ width:60px;}
+.del-container .del-address{ width:calc(100% - 60px); }
+
+.del-container .del-address-edit{ float:right;}
+
+.del-container .del-address-edit md-icon{ width:16px; height:16px; top: -10px; position: relative;}
+.del-items{ border-bottom:1px solid rgba(0,0,0,0.1); }
+.del-items:first{ border-top:1px solid rgba(0,0,0,0.1); }
+
+.order-total{height:200px;}
+
+
+
+
+
+
+
+
+
+
+
+
