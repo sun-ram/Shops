@@ -1,32 +1,22 @@
-aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$location','$state','$rootScope','$mdDialog','toastr','CONSTANT','deliveryTimeSlotService','$filter',
-                                            function($scope,$http,$localStorage, $location,$state,$rootScope,$mdDialog,toastr,CONSTANT,deliveryTimeSlotService,$filter) {
+aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$location','$state','$rootScope','$mdDialog','toastr','CONSTANT','deliveryTimeSlotService','$filter','deliverTimes',
+                                            function($scope,$http,$localStorage, $location,$state,$rootScope,$mdDialog,toastr,CONSTANT,deliveryTimeSlotService,$filter,deliverTimes) {
 
-	/* $scope.query = {
-			    limit: 5,
-			    page: 1
-			  };*/
+	$scope.deliveryTimeSlot = deliverTimes.deliveryTimeSlots;
 
 	$scope.count = 3;
 	$scope.srch = true;
 	$scope.uom = $localStorage.uom;
 
 	$scope.getDeliveryTimeSlots = function() {
-
-		$scope.deliveryTimeSlot ={};
-		$scope.deliveryTimeSlot.merchant={};
-		$scope.deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
-
-		deliveryTimeSlotService.getDeliveryTimeSlots($scope.deliveryTimeSlot).then(function(data) {
-			if(data.deliveryTimeSlots.length !=0){
-				$scope.deliveryTimeSlot = data.deliveryTimeSlots[0];
-				$scope.deliveryTimeSlot.fromTime = $scope.convertToTime($scope.deliveryTimeSlot.fromTime);
-				$scope.deliveryTimeSlot.toTime = $scope.convertToTime($scope.deliveryTimeSlot.toTime);
-			}else{
-				$scope.deliveryTimeSlot = {fromTime:new Date(),toTime:new Date()};
-			}
-		});
+		if($scope.deliveryTimeSlot.length !=0){
+			$scope.deliveryTimeSlot = $scope.deliveryTimeSlot[0];
+			$scope.deliveryTimeSlot.fromTime = $scope.convertToTime($scope.deliveryTimeSlot.fromTime);
+			$scope.deliveryTimeSlot.toTime = $scope.convertToTime($scope.deliveryTimeSlot.toTime);
+		}else{
+			$scope.deliveryTimeSlot = {fromTime:new Date(),toTime:new Date()};
+		}
 	};
-
+		
 	$scope.updateDeliveryTimeSlot = function(deliveryTimeSlot) {
 		if(!deliveryTimeSlot.fromTime || !deliveryTimeSlot.toTime){
 			toastr.error('Please select delivery time slot');
@@ -38,7 +28,6 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		}
 		deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
 			toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
-			$scope.getDeliveryTimeSlots();
 		});
 	};		
 
@@ -56,7 +45,6 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
 		deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
 			toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
-			$scope.getDeliveryTimeSlots();
 		});
 	};
 	
@@ -64,6 +52,8 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		var timeTokens = timeString.split(':');
 		return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
 	}
+	
+	$scope.getDeliveryTimeSlots();
 	
 	/*
 	if($scope.deliveryTimeSlot && $scope.deliveryTimeSlot.fromTime) 

@@ -1,9 +1,13 @@
 angular.module('aviateAdmin.services')
-.service('deliveryTimeSlotService',['$q','api','toastr', function($q, api, toastr) {
+.service('deliveryTimeSlotService',['$q','api','toastr','$rootScope', function($q, api, toastr, $rootScope) {
 	
-	this.getDeliveryTimeSlots = function(uom){
+	this.getDeliveryTimeSlots = function(){
+		var deliverTime = {
+				"merchant":{"merchantId":$rootScope.user.merchantId}
+				
+		};
 		var d = $q.defer();
-		api.DeliveryTimeSlot.getList(uom, function(err, result){
+		api.DeliveryTimeSlot.getList(deliverTime, function(err, result){
 			d.resolve(result);
 		})
 		return d.promise;

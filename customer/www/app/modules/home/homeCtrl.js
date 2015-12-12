@@ -16,23 +16,38 @@ angular.module('aviate.controllers')
 			                          { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!"}
 			                          ]
 
-            $rootScope.numLimit = 5;
-             
+			$rootScope.numLimit = 5;
+
 			/*------------------------------------------------*/
-			if($rootScope.images != undefined){
-				$scope.images = $rootScope.images ;
-			}
+						
+																	
 			$scope.getBannerList = function(){
 				
-				if($rootScope.store == null){
+				if($rootScope.store != null){
 					$scope.banner = {};
-					$scope.banner.isShopsbackerBanner = 'Y';
+					$scope.banner.store = {};
+					$scope.banner.store.storeId = $rootScope.store.storeId;
 
 					homePageServices.getBannerList($scope.banner).then(function(data){
-						$scope.images=data;
-						$localStorage.images = data;
+						if(data.length != 0){
+							$scope.images = data;
+						}else{
+							$scope.shopsBackerImages();
+						}
 					});
+				}else{
+					$scope.shopsBackerImages();
 				}
+			}
+			
+			$scope.shopsBackerImages = function(){
+				$scope.banner = {};
+				$scope.banner.isShopsbackerBanner = 'Y';
+
+				homePageServices.getBannerList($scope.banner).then(function(data){
+					$scope.images = data;
+				});
+				
 			}
 
 			var timeout;
@@ -66,7 +81,7 @@ angular.module('aviate.controllers')
 			};
 			$scope.$watch('carousel.timeout', $scope.initTimeout);
 			$scope.$watch('images', $scope.setMax);
-			
+
 			$scope.productDetails = function(ev,products){
 				$rootScope.productDetails = products;
 				$mdDialog.show({
@@ -77,30 +92,30 @@ angular.module('aviate.controllers')
 					controller: "productDetailsCtrl"
 				})
 				.then(function() {
-					
+
 				}, function() {
 
 				});
 			}
-			
-        	$scope.getProductsByCategoryId = function(categoryId){
-        		if(categoryId){
-                    currentRootCatagoryIndex = -1;
-                    $scope.getRootCatagory($scope.categoryList,categoryId, null);
-                    $scope.optimizeData ($scope.categoryList, currentRootCatagoryIndex);
-                    $scope.findSubtree($scope.categoryList, categoryId,false);
-            		$state.go('app.products',{'categoryId': categoryId});
-        		}
-        		
-        	}
-        	
-        	$scope.getProducts = function(){
-        		
-        		$rootScope.getTopCategories();
-        		$rootScope.getAllCategoryWithProduct();
-        		$rootScope.shippingCharge();
-        		$rootScope.getTax();
-        	}
+
+			$scope.getProductsByCategoryId = function(categoryId){
+				if(categoryId){
+					currentRootCatagoryIndex = -1;
+					$scope.getRootCatagory($scope.categoryList,categoryId, null);
+					$scope.optimizeData ($scope.categoryList, currentRootCatagoryIndex);
+					$scope.findSubtree($scope.categoryList, categoryId,false);
+					$state.go('app.products',{'categoryId': categoryId});
+				}
+
+			}
+
+			$scope.getProducts = function(){
+
+				$rootScope.getTopCategories();
+				$rootScope.getAllCategoryWithProduct();
+				$rootScope.shippingCharge();
+				$rootScope.getTax();
+			}
 
 		}]);
 

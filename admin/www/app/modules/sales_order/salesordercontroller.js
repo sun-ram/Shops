@@ -5,7 +5,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
 			$scope.salesOrderPagination.order= 'customer.name';
-			
+
 			if($localStorage.state){
 				$scope.salesOrderList = $localStorage.salesorderfilter;
 				$localStorage.state=false;
@@ -13,122 +13,122 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				$scope.salesOrderList = $localStorage.salesorderlist;
 
 			}
-			
-			 $scope.showTabShoper=function(salesOrder,ev) {
-				 var userVo = {};
-					if($rootScope.user.role == "MERCHANTADMIN"){
-						userVo.merchant = {
-								"merchantId":$rootScope.user.merchantId
+
+			$scope.showTabShoper=function(salesOrder,ev) {
+				var userVo = {};
+				if($rootScope.user.role == "MERCHANTADMIN"){
+					userVo.merchant = {
+							"merchantId":$rootScope.user.merchantId
+					};
+				}else if($rootScope.user.role == "STOREADMIN"){
+					userVo.store = {
+							"storeId":$rootScope.user.storeId
+					};
+				}
+				SalesOrderServices.getShoperDetails(userVo).then(function(data) {
+					$scope.showShoperDetails(salesOrder,ev,data);
+
+				});
+
+			};
+
+			$scope.showShoperDetails = function(salesOrder,ev,userList) {
+				$mdDialog.show({
+					templateUrl: 'app/modules/modals/salerOrderAssignModal.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					clickOutsideToClose:true,
+					controller: function($scope,$rootScope){
+						$scope.userList1=userList;
+						$scope.heading="Assign Shoper";
+						$scope.salesId=salesOrder.salesOrderId;
+						$scope.assignShopper = function() {
+							if($scope.shoper!=undefined){
+								var salesOrder = {
+										salesOrderId:$scope.salesId,
+										user:{},
+								};
+								salesOrder.user.userId= $scope.shoper;
+								SalesOrderServices.updateShoperIntoSalesOrder(salesOrder).then(function(data) {
+									$rootScope.getSalesOrderList();
+									$mdDialog.cancel();
+
+								});
+							}
+							else{
+								alert("Choose the Shoper");
+							}
 						};
-					}else if($rootScope.user.role == "STOREADMIN"){
-						userVo.store = {
-								"storeId":$rootScope.user.storeId
+						$scope.cancel = function() {
+							$mdDialog.cancel();
 						};
 					}
-					SalesOrderServices.getShoperDetails(userVo).then(function(data) {
-						 $scope.showShoperDetails(salesOrder,ev,data);
+				})
+				.then(function(answer) {	
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+			};
 
-					});
-					
-			 };
-			 
-			 $scope.showShoperDetails = function(salesOrder,ev,userList) {
-				 $mdDialog.show({
-						templateUrl: 'app/modules/modals/salerOrderAssignModal.html',
-						parent: angular.element(document.body),
-						targetEvent: ev,
-						clickOutsideToClose:true,
-						controller: function($scope,$rootScope){
-							$scope.userList1=userList;
-							$scope.heading="Assign Shoper";
-							$scope.salesId=salesOrder.salesOrderId;
-							$scope.assignShopper = function() {
-								if($scope.shoper!=undefined){
-										var salesOrder = {
-											salesOrderId:$scope.salesId,
-											user:{},
-										};
-										salesOrder.user.userId= $scope.shoper;
-										SalesOrderServices.updateShoperIntoSalesOrder(salesOrder).then(function(data) {
-											$rootScope.getSalesOrderList();
-											$mdDialog.cancel();
-		
-										});
-									}
-								else{
-									alert("Choose the Shoper");
-								}
-							};
-							$scope.cancel = function() {
-								$mdDialog.cancel();
-							};
-						}
-					})
-					.then(function(answer) {	
-						$scope.status = 'You said the information was "' + answer + '".';
-					}, function() {
-						$scope.status = 'You cancelled the dialog.';
-					});
-				  };
-			 
-			 $scope.showTabBacker=function(salesOrder,ev) {
-				 var userVo = {};
-					if($rootScope.user.role == "MERCHANTADMIN"){
-						userVo.merchant = {
-								"merchantId":$rootScope.user.merchantId
+			$scope.showTabBacker=function(salesOrder,ev) {
+				var userVo = {};
+				if($rootScope.user.role == "MERCHANTADMIN"){
+					userVo.merchant = {
+							"merchantId":$rootScope.user.merchantId
+					};
+				}else if($rootScope.user.role == "STOREADMIN"){
+					userVo.store = {
+							"storeId":$rootScope.user.storeId
+					};
+				}
+				SalesOrderServices.getBackerDetails(userVo).then(function(data) {
+					$scope.showBackerDetails(salesOrder,ev,data);
+
+				});
+
+			};
+
+			$scope.showBackerDetails = function(salesOrder,ev,userList) {
+				$mdDialog.show({
+					templateUrl: 'app/modules/modals/salerOrderAssignModal.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					clickOutsideToClose:true,
+					controller: function($scope,$rootScope){
+						$scope.userList1=userList;
+						$scope.heading="Assign Backer";
+						$scope.salesId=salesOrder.salesOrderId;
+						$scope.assignShopper = function() {
+							if($scope.shoper!=undefined){
+								var salesOrder = {
+										salesOrderId:$scope.salesId,
+										user:{},
+								};
+								salesOrder.user.userId= $scope.shoper;
+								SalesOrderServices.updateBackerIntoSalesOrder(salesOrder).then(function(data) {
+									$rootScope.getSalesOrderList();
+									$mdDialog.cancel();
+
+								});
+							}
+							else{
+								alert("Choose the Backer");
+							}
 						};
-					}else if($rootScope.user.role == "STOREADMIN"){
-						userVo.store = {
-								"storeId":$rootScope.user.storeId
+						$scope.cancel = function() {
+							$mdDialog.cancel();
 						};
 					}
-					SalesOrderServices.getBackerDetails(userVo).then(function(data) {
-						 $scope.showBackerDetails(salesOrder,ev,data);
+				})
+				.then(function(answer) {	
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+			};
 
-					});
-					
-			 };
-			
-			 $scope.showBackerDetails = function(salesOrder,ev,userList) {
-				 $mdDialog.show({
-						templateUrl: 'app/modules/modals/salerOrderAssignModal.html',
-						parent: angular.element(document.body),
-						targetEvent: ev,
-						clickOutsideToClose:true,
-						controller: function($scope,$rootScope){
-							$scope.userList1=userList;
-							$scope.heading="Assign Backer";
-							$scope.salesId=salesOrder.salesOrderId;
-							$scope.assignShopper = function() {
-								if($scope.shoper!=undefined){
-										var salesOrder = {
-											salesOrderId:$scope.salesId,
-											user:{},
-										};
-										salesOrder.user.userId= $scope.shoper;
-										SalesOrderServices.updateBackerIntoSalesOrder(salesOrder).then(function(data) {
-											$rootScope.getSalesOrderList();
-											$mdDialog.cancel();
-		
-										});
-									}
-								else{
-									alert("Choose the Backer");
-								}
-							};
-							$scope.cancel = function() {
-								$mdDialog.cancel();
-							};
-						}
-					})
-					.then(function(answer) {	
-						$scope.status = 'You said the information was "' + answer + '".';
-					}, function() {
-						$scope.status = 'You cancelled the dialog.';
-					});
-				  };
-			
-			
+
 			$rootScope.getSalesOrderList = function () {
 				var salesOrderVo = {};
 				if($rootScope.user.role == "MERCHANTADMIN"){
@@ -177,7 +177,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				if($scope.fromDate != undefined){
 
 					if($scope.toDate != undefined){
-							
+
 						if($scope.fromDate > $scope.toDate){
 							toastr.error("To date must be greater than from date");
 						}else{
@@ -185,9 +185,11 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 									"fromDate":$scope.fromDate.toLocaleDateString(),
 									"deliveryDate":$scope.toDate.toLocaleDateString()
 							};
-							
+
 							if($rootScope.user.role == "MERCHANTADMIN"){
-								salesOrderVo.merchantId=$rootScope.user.merchantId
+								salesOrderVo.merchant = {
+										"merchantId":$rootScope.user.merchantId
+								    };
 							}else if($rootScope.user.role == "STOREADMIN"){
 								salesOrderVo.store = {
 										"storeId":$rootScope.user.storeId
@@ -197,6 +199,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 							SalesOrderServices.getSalesByDate(salesOrderVo).then(function(data) {
 								$localStorage.salesorderfilter = data;
 								$scope.salesOrderList = $localStorage.salesorderfilter;
+								$scope.count=data.length;
 
 							});
 
@@ -214,12 +217,12 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				$rootScope.salesOrderDetails = $localStorage.salesorderline;
 				$state.go('app.salesOrderLine');
 			};
-			
+
 			$scope.salesOrder = function () {
 				$localStorage.state=true;
 				$state.go('app.salesorder');
 			};
-			
+
 			$scope.onpagechange = function(page, limit) {
 				var deferred = $q.defer();
 
@@ -240,4 +243,13 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				return deferred.promise;
 			};
 
-		}]);
+		}])
+		.config(function($mdDateLocaleProvider) {
+			$mdDateLocaleProvider.formatDate = function(date) {
+				if(date != undefined){
+					return moment(date).format('DD-MM-YYYY');
+				}else{
+					return "";
+				}	
+			};
+		});

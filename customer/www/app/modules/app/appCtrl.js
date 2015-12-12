@@ -153,19 +153,6 @@ angular.module('aviate.controllers')
 							$rootScope.getTax();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
-							$scope.banner = {};
-							if($rootScope.store != null){
-								$scope.banner.store = {};
-								$scope.banner.store.storeId = $rootScope.store.storeId;
-								homePageServices.getBannerList($scope.banner).then(function(data){
-									if(data.length != 0){
-								    	$rootScope.images=data;
-									}else{
-										$rootScope.images = $localStorage.images;
-     								}
-								});
-							}
-							
 							$state.go('app.home',{},{reload: true});
 						}
 

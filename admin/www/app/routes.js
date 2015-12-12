@@ -130,7 +130,15 @@ angular.module('app')
 	.state('app.addDeliveryTimeSlot', {
 		url: '/createDeliveryTimeSlot',
 		templateUrl: 'app/modules/deliverytimeslot/addDeliveryTimeSlot.html',
-		controller : 'deliveryTimeSlot'
+		controller : 'deliveryTimeSlot',
+		resolve:   {
+			deliverTimes:  function(deliveryTimeSlotService, $http, $stateParams){
+				return deliveryTimeSlotService.getDeliveryTimeSlots().then(function(data) {
+					return data;
+				});
+
+			}
+		}
 	})
 	/*.state('app.deliveryTimeSlotDetails', {
 		url: '/deliveryTimeSlotDetails',
