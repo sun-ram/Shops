@@ -12,14 +12,10 @@
 </style>
 <div style="width:100%;height:100%;position: relative; background:#eeeeee;" ng-init="getBannerList();getProducts();showHotProduct = 5;">
         <!-- Products page image scrolling functionality -->
-        <section layout="row">
+      <!--   <section layout="row">
         	 <div flex="20" class="slider-left" style="background:#F96D57;">
 				<h1 class="md-display-2">Hi There!</h1>
 				<strong class="md-title">Welcome to ShopsBacker</strong></br>
-				<!-- <md-body-1>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</md-caption> 
-				<img src="assets\img\hpy-shoping.png" class="hpy-shop"/> -->
-					
-				
 			</div>
 	        <div flex="60" higgidy-carousel='images' timeout="5000" style="height:235px; " >
 	            <ul higgidy-carousel-images style="height:185px; overflow:hidden;">
@@ -41,14 +37,37 @@
 	            </nav>
 	        </div>
 	        <div flex="20" class="slider-right" style="background:#F2CB6E;">
-				<!-- 
-				<strong class="md-headline">About ShopsBacker</strong></br>
-				<md-body-1>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</md-caption>  -->
 				<img src="assets\images\bannerright.png" style="height:230px; "/> 
-					
-				
 			</div>
+        </section> -->
+        
+        <section layout="row">
+        	<div flex-gt-md="20" hide-sm hide-md class="slider-left" style="background:#F96D57;">
+        	</div>
+        	<div flex-gt-md="60" flex-sm="100" flex-md="100" higgidy-carousel='images' timeout="5000">
+        		<ul higgidy-carousel-images >
+	                <li ng-repeat="image in images">
+	                    <a href="{{image.link}}">
+	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" style="width: 100%; max-height:200px"/>
+	                    </a>
+	                </li>
+	            </ul>
+	            <nav class="links mainslider-tab">
+	                <ul layout>
+	                    <li flex layout ng-repeat="image in images">
+	                        <a href="" flex layout="column" ng-click="show($index)" ng-class="{selected: carousel.current == $index}">
+	                        <md-subhead flex="100">{{image.tabTitleBold}} </md-subhead>
+	                        <md-caption flex="100" style="font-size:12px;">{{image.tabTitleSmall}}</md-caption>
+	                        </a>
+	                    </li> 
+	                    
+	                </ul>
+	            </nav>
+        	</div>
+        	<div flex-gt-md="20" hide-sm hide-md class="slider-right" style="background:#F2CB6E;">
+        	</div>
         </section>
+        
         <!-- ------------------ -->
 
         <section  style="background-color:#eeeeee; padding:20px;">

@@ -491,7 +491,7 @@ ui-view{ background-color:#EEEEEE !important;}
 .del-items:first{ border-top:1px solid rgba(0,0,0,0.1); }
 
 .order-total{height:200px;}
-
+.mainslider-tab ul li a{ display:block !important}
 
 
 
