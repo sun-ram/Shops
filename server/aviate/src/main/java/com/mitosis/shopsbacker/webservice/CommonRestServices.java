@@ -19,6 +19,7 @@ import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.common.service.CommonService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.PasswordResetRequest;
@@ -30,6 +31,7 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
+import com.mitosis.shopsbacker.vo.common.CityVo;
 import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.PasswordResetRequestVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
@@ -60,6 +62,7 @@ public class CommonRestServices<T> {
 	
 	CountryVo countryVo = null;
 	StateVo stateVo = null;
+	CityVo cityVo = null;
 	ResponseModel response =null;
 	UserVo userVo =null;
 	User user =null;
@@ -79,7 +82,8 @@ public class CommonRestServices<T> {
 	@Path("/country")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)	
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)	
 	public CountryResponse getCountry() {
 		CountryResponse countryResponse = new CountryResponse();
 		try {
@@ -100,7 +104,16 @@ public class CommonRestServices<T> {
 					stateVo.setStateId(state.getStateId());
 					stateList.add(stateVo);
 					countryVo.setStates(stateList);
+					List<CityVo> cityList = new ArrayList<CityVo>();
+					for(City city:state.getCity()){
+						cityVo = new CityVo();
+						cityVo.setCityId(city.getCityId());
+						cityVo.setName(city.getName());
+						cityList.add(cityVo);
+					}
+					stateVo.setCity(cityList);
 				}
+				
 				countryList.add(countryVo);
 			}
 			countryResponse.setCountries(countryList);
@@ -303,5 +316,24 @@ public class CommonRestServices<T> {
 			return response;
 		}
 		return response;
+	}
+	
+	@Path("/city")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)	
+	public CountryResponse getCity() {
+		CountryResponse countryResponse = new CountryResponse();
+		List<City> city = new ArrayList<City>();
+		try {
+			city = getAddressService().getCity();
+		} catch (Exception e) {
+			e.printStackTrace();
+			countryResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			countryResponse.setErrorString(e.getMessage());
+		}
+		return countryResponse;
+
 	}
 }
