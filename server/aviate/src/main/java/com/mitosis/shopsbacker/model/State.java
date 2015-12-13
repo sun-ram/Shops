@@ -3,9 +3,7 @@ package com.mitosis.shopsbacker.model;
 // Generated Nov 12, 2015 6:16:19 PM 
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +32,7 @@ public class State implements java.io.Serializable {
 	private Country country;
 	private String name;
 	private char isactive;
-	private List<City> city = new ArrayList<City>();
+	private List<City> cities = new ArrayList<City>();
 	private List<Address> addresses = new ArrayList<Address>();
 
 	public State() {
@@ -48,13 +46,13 @@ public class State implements java.io.Serializable {
 	}
 
 	public State(String stateId, Country country, String name, char isactive,
-			List<Address> addresses, List<City> city) {
+			List<Address> addresses, List<City> cities) {
 		this.stateId = stateId;
 		this.country = country;
 		this.name = name;
 		this.isactive = isactive;
 		this.addresses = addresses;
-		this.city = city;
+		this.cities = cities;
 	}
 
 	@Id
@@ -107,11 +105,11 @@ public class State implements java.io.Serializable {
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-	public List<City> getCity() {
-		return this.city;
+	public List<City> getCities() {
+		return this.cities;
 	}
 
-	public void setCity(List<City> city) {
-		this.city = city;
+	public void setCities(List<City> city) {
+		this.cities = city;
 	}
 }

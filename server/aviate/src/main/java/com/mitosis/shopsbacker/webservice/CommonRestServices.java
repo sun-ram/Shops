@@ -105,7 +105,7 @@ public class CommonRestServices<T> {
 					stateList.add(stateVo);
 					countryVo.setStates(stateList);
 					List<CityVo> cityList = new ArrayList<CityVo>();
-					for(City city:state.getCity()){
+					for(City city:state.getCities()){
 						cityVo = new CityVo();
 						cityVo.setCityId(city.getCityId());
 						cityVo.setName(city.getName());
