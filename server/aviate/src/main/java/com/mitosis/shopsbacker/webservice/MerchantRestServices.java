@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.webservice;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -193,7 +194,8 @@ public class MerchantRestServices<T> {
 				+ merchantVo.getUser().getAddress().getState().getName() + ","
 				+ merchantVo.getUser().getAddress().getCountry().getName()
 				+ "," + merchantVo.getUser().getAddress().getPinCode();
-		JsonNode location = CommonUtil.getLatLong(full_address);
+		Map<String, JsonNode> addressNodeMap=CommonUtil.getLatLong(full_address);
+		JsonNode location = addressNodeMap.get("location");
 		return location;
 	}
 

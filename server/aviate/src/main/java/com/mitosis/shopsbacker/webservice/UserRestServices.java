@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.webservice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -254,7 +255,8 @@ public class UserRestServices<T> {
 				+ userVo.getAddress().getState().getName() + ","
 				+ userVo.getAddress().getCountry().getName() + ","
 				+ userVo.getAddress().getPinCode();
-		JsonNode location = CommonUtil.getLatLong(full_address);
+		Map<String, JsonNode> addressNodeMap=CommonUtil.getLatLong(full_address);
+		JsonNode location = addressNodeMap.get("location");
 		return location;
 	}
 

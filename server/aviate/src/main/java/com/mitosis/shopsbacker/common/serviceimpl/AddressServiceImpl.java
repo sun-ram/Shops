@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.common.serviceimpl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,6 +128,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		address.setLongitude(addressVo.getLongitude());
 		address.setCountry(getCountry(addressVo.getCountry().getCountryId()));
 		address.setState(getStateById(addressVo.getState().getStateId()));
+		address.setFormattedAddress(addressVo.getFormattedAddress());
 		return address;
 
 	}
@@ -182,7 +184,9 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 				+ addressVo.getState().getName() + ","
 				+ addressVo.getCountry().getName() + ","
 				+ addressVo.getPinCode();
-		JsonNode location = CommonUtil.getLatLong(full_address);
+	
+				Map<String, JsonNode> addressNodeMap=CommonUtil.getLatLong(full_address);
+				JsonNode location = addressNodeMap.get("location");
 		return location;
 	}
 
