@@ -47,7 +47,7 @@
 		   			<div flex>
 			   			<md-input-container>
 					      <label>Title for Bold<span style="color:red">*</span></label>
-					      <input ng-model="bannerDetail.tabTitleBold" name="title1" ng-required="true" ng-maxlength="100">
+					      <input ng-model="bannerDetail.tabTitleBold" ng-blur="validateTitleBold(bannerDetail.tabTitleBold)" name="title1" ng-required="true" ng-maxlength="100">
 				      	<span ng-message="required" ng-show="merchantForm.title1.$error.maxlength" style="color:red;">
 				       	Enter Title-1 within 100 digit
 				      	</span>
@@ -56,7 +56,7 @@
 				    <div flex>
 					    <md-input-container>
 					      <label>Title for Regular<span style="color:red">*</span></label>
-					      <input  ng-model="bannerDetail.tabTitleSmall" name="title2" ng-required="true" ng-maxlength="100">
+					      <input  ng-model="bannerDetail.tabTitleSmall" ng-blur="validateTitleSmall(bannerDetail.tabTitleSmall)" name="title2" ng-required="true" ng-maxlength="100">
 				      	<span ng-message="required" ng-show="merchantForm.title2.$error.maxlength" style="color:red;">
 				       	Enter Title-2 within 100 digit
 				      	</span>

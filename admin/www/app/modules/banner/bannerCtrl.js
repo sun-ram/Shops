@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("bannerCtrl", 
-		['$scope', '$rootScope', '$state','toastr','CommonServices','$mdDialog','BannerServices','CONSTANT',
-		 function($scope, $rootScope, $state, toastr, CommonServices, $mdDialog, BannerServices, CONSTANT) {
+		['$scope', '$rootScope', '$state','toastr','CommonServices','$mdDialog','BannerServices','CONSTANT','$localStorage',
+		 function($scope, $rootScope, $state, toastr, CommonServices, $mdDialog, BannerServices, CONSTANT, $localStorage) {
 
 			$scope.banner = {};
 
@@ -12,11 +12,13 @@ angular.module('aviateAdmin.controllers')
 					$scope.banner.store.storeId = $rootScope.user.storeId;
 					BannerServices.getBanner($scope.banner).then(function(data){
 						$scope.bannerData=data;
+						$localStorage.banners = $scope.bannerData;
 					});
 				}else{
 					$scope.banner.isShopsbackerBanner = 'Y';
 					BannerServices.getBanner($scope.banner).then(function(data){
 						$scope.bannerData=data;
+						$localStorage.banners = $scope.bannerData;
 					});
 				}
 			}
