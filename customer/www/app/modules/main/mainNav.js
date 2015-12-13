@@ -223,7 +223,7 @@ angular.module('aviate.directives')
 					   	
 					$scope.forGetPassword = function(user) {
 						$scope.isForPassSubBtnDisabled = true;
-						var req = {"user":user, "passwordResetUrl": window.location.origin + "/#/resetpassword/", "userType": "customer"};
+						var req = {"user":user, "passwordResetUrl": window.location.origin + window.location.pathname + "#/resetpassword/", "userType": "customer"};
 						AuthServices.forGetPassword(req).then(function(data){
 							//$scope.user ="";
 							//$state.go('login');
