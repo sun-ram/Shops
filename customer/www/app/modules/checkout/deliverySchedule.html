@@ -50,7 +50,7 @@ background: #ebf6eb;
         <md-card-content class="ft-grn">
             <div layout="row" layout-sm="column" flex layout-align="none start">               
  				<div layout="column" flex="40" flex-sm="100"  flex-xs="100"layout-align="none" ng-model="date" class=" calender-style border-green">
- 					<span flex layout-padding class="border-light border-bottom relative-p"> Choose the date
+ 					<span flex layout-padding class="border-light border-bottom relative-p"> Pick a date
  					<md-datepicker class="delivery_slot" aria-label="Choose Date" ng-model="delivery.date" md-min-date="minDate" ng-change="formateSelectedDate(delivery.date)"></md-datepicker></span>
  					<span flex class="calendar-date">{{choosedDate[2]}}</span>
  					<span flex class="calendar-month">{{choosedDate[1]}} , {{choosedDate[3]}}</span>
@@ -70,15 +70,15 @@ background: #ebf6eb;
  			 			<span flex layout="column" layput-padding class=" marg-15 border-right border-light">
  			 			<div layout="row" class="ft_gray">
  			 				<md-icon md-svg-icon="assets/img/icon/time36.svg" style="padding: 0px 5px 0px 10px;"></md-icon> 
- 			 				 <strong flex class="ft_size20 ft-grn"> 9am to 10pm </strong>			 				 
+ 			 				 <strong flex class="ft_size20 ft-grn"> 9AM to 10PM </strong>			 				 
  			 			</div>
- 			 			 	<span flex class="padd-l10 text-small">This time only shop will be delivery available </span>
+ 			 			 	<span flex class="padd-l10 text-small">Your store is available for delivery from </span>
  			 			</span> 			 			
  			 		</div>
  			 		<div class="" flex>
  			 			<span flex layout="column" layput-padding class="marg-15 ft_gray">
  			 			 <div layout="row">
- 			 			 <span class=" ft-grn">Your Grocery Product delivered to with in <span class="text-small ft_gray">90 minutes *</span> </span>
+ 			 			 <span class=" ft-grn">Your basket is expected to be delivered within <span class="text-small ft_gray">90 minutes *</span> </span>
  			 			 </div>
  			 			 
  			 			 </span>
