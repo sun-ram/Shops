@@ -34,6 +34,14 @@ width: 30px;fill: gray;}
    <p style="color:black;text-align: center;font-family:sans-serif;">Choose from here</p>
  	</md-content>
   </div> 
+ 	      <md-content class="md-padding">
+    	 <md-tabs ng-if="storeList.length>0" class="arrow_color" md-stretch-tabs="auto">
+      <md-tab  ng-click = "changeStore(store)" ng-repeat="store in storeList">
+     <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
+      <label>{{store.name}}</label>
+      </md-tab>
+    </md-tabs>
+    </md-content>
       
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select City<span style="color:red">*</span></label>
