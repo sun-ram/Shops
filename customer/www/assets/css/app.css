@@ -29,7 +29,7 @@ url("../fonts/roboto-medium-webfont.svg#robotomedium") format("svg");
   src: local('Material Icons'), local('MaterialIcons-Regular'), url("../fonts/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2") format('woff2');
 }
 
-body,html{ font-family:Roboto; height:100%; width:100%; }
+body,html{ font-family:Roboto; height:100%; width:100%; background-color:#f5f5f5 !important}
 
 
 *{outline:none;}
@@ -454,7 +454,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 
 .del-address{ list-style-type:none; padding-left:0px;}
 .del-address li span{ width:30px; float:left; font-weight:600;}
-ui-view{ background-color:#EEEEEE !important;}
+
 
 
 @media screen and (max-width: 384px){
