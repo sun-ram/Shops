@@ -91,7 +91,7 @@ svg {
 						ng-required="true"> </md-input-container>
 					<div layout layout-row style="padding-top: 15px;">
 						<md-button flex class="md-raised md-success  text-white"
-							ng-disabled="(user.userName == '' || user.userName == undefined)" ng-click="forgetpass(user)">Submit
+							ng-disabled="reset.$invalid || isForPassSubBtnDisabled" ng-click="forgetpass(user)">Submit
 						</md-button>
 						<md-button flex class="md-raised md-primary  text-white"
 							ng-click="cancel()">Cancel </md-button>

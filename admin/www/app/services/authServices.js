@@ -31,19 +31,9 @@ angular.module('aviateAdmin.services')
 	
 	this.forgetpass = function(req){
 				var d = $q.defer();
-				if(!req.user.userName){
-					toastr.warning(CONSTANT.FORGETPASSWORDNEEDMAILID);
-					return;
-				}
 				api.User.forgetpass(req, function(err, result){
 					if(result){
-						if (result.status === CONSTANT.STATUS.SUCCESS) {
-							toastr.success(CONSTANT.FORGETPASSWORDCONFIRMATION);
-							//alert('password sent');
-							d.resolve(result);
-						} else {
-							toastr.error(result.errorString);
-						}
+						d.resolve(result);
 					}else{
 						toastr.error(err.errorCode);
 					}

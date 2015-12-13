@@ -19,7 +19,7 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ADDSTORAGEBIN:'StorageBin Added Successfully',
 	DELETESTORAGEBIN:'StorageBin Deleted Successfully',
 	INV_PROCESSED:'Inventory has been processed successfully',
-	FORGETPASSWORDCONFIRMATION:'Password has been sent your Email',
+	FORGETPASSWORDCONFIRMATION:'Password reset link has been sent to your email',
 	FORGETPASSWORDNEEDMAILID:"This Email-Id is not registered.",
 	ADDSHIPPING:'Shipping Charges Added successfully',
 	DELETESHIPPING:'Shipping Charges Deleted successfully',

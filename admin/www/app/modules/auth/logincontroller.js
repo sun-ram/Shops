@@ -13,12 +13,19 @@ angular.module('aviateAdmin.controllers')
 		});
 	}
 	
+	$scope.isForPassSubBtnDisabled = false;
 	$scope.forgetpass = function(user) {
-				$scope.forget = false;
+				$scope.isForPassSubBtnDisabled = true;
 				var req = {"user":user, "passwordResetUrl": window.location.origin + window.location.pathname + "#/resetpassword/", "userType": "admin"};
 				AuthService.forgetpass(req).then(function(data){
-					$scope.user ="";
-					$state.go('login');
+					if (data.status === CONSTANT.STATUS.SUCCESS) {
+						toastr.success(CONSTANT.FORGETPASSWORDCONFIRMATION);
+						$scope.forget = false;
+						$scope.clearFormValues();
+					} else {
+						toastr.error(data.errorString);
+					}
+					$scope.isForPassSubBtnDisabled = false;
 				});
 			};
 			
@@ -37,8 +44,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.cancel=function()
 			{
 				$scope.forget=false;
-				$scope.user ="";
-				$state.go('login');
+				$scope.clearFormValues();
 			}
 			
 	$scope.signIn = function() {
@@ -73,6 +79,12 @@ angular.module('aviateAdmin.controllers')
 			}
 		});
 	};
+	
+	$scope.clearFormValues = function(){
+		var userName = $scope.user.userName;
+		$scope.user = {};
+		$scope.user.userName = userName;
+	}
 	
 	$scope.saveauth = function() {
 		if($scope.rememberme){
