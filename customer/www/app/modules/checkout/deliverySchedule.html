@@ -4,18 +4,102 @@
 }
 .delivery_slot .md-datepicker-button{width: 25px;height: 25px;z-index: 200;line-height: 15px;margin: 2px 3px;
 }
-.delivery_slot{position: absolute;right: 0;top: 0;background-color: #2A8FBD;color: #fff;}
-.delivery_slot .md-datepicker-button .md-datepicker-calendar-icon{color: #fff;
+.delivery_slot{position: absolute;right:0px;top: 0px;z-index: 1;background-color: transparent;color: #fff;}
+.delivery_slot .md-datepicker-button .md-datepicker-calendar-icon{color: #4eaf4c;
 height: 20px;}
  .delivery_slot .md-datepicker-button .md-datepicker-calendar-icon:hover{color: #fff;}
-.slot_day{position: absolute;top: 0;padding: 10px 0px;left: 0;background: #2D3E50;width: 100%;margin: 0px;text-align: center;}
+.slot_day{position: absolute;top: 0;padding: 10px 0px;left: 0;background: #5F8295;width: 100%;margin: 0px;text-align: center;}
 .time_slot{min-width: 200px;background: #141E2D;color: #4F535A;}
 .time_slot md-option:hover{background: #F3BD29;color: #fff;}
+
+/* new style */
+.address-title .md-headline{margin:15px 20px;}
+.calendar-date{font-size: 8em;padding-left: 0.2em;font-weight: 600;}
+.calendar-month{font-size: 1.5em; padding-left: 1em;line-height: 0.9em;}
+.calendar-day{font-size: 1em;line-height: 1.8em; padding-left: 1.5em;}
+.calender-style{color:#4eaf4c;}
+.calender-style:hover{background-color:#4eaf4c;color:#fff !important;}
+.calender-style:hover .md-datepicker-button .md-datepicker-calendar-icon{color: #fff;}
+.calender-style:hover .border-light { border-color: rgba(255, 255,255, 0.4);}
+.md-datepicker-open .md-datepicker-calendar-icon {
+fill: #4eaf4c;
+}
+.md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator {
+border: 1px solid #4eaf4c;
+}
+.md-calendar-date-selection-indicator:hover {
+background: #D2EBD1;
+}
+.md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator, .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+background: #4caf63;}
+.md-calendar {
+color: #60b95e;
+}
+.md-calendar-day-header {
+background: #ebf6eb;
+
 </style>
+ <link rel="stylesheet" type="text/css" href="app/modules/checkout/date-time.css">
+ 
 <section class="deliverySlot-section" layout="column" layout-align="start center" ng-init="getTimeSlot();">
-    <md-card style="width:90%;">
-        <md-card-content>
-            <div layout="column" layout-align="space-between center">
+    <md-card >
+        	<div class="row address-title border-light border-bottom"> 
+   			 <p class="md-headline ft_black">Reserve your delivery slot</p> 
+   			 
+   		</div>
+        <md-card-content class="ft-grn">
+            <div layout="row" layout-sm="column" flex layout-align="none start">               
+ 				<div layout="column" flex="40" flex-sm="100"  flex-xs="100"layout-align="none" ng-model="date" class=" calender-style border-green">
+ 					<span flex layout-padding class="border-light border-bottom relative-p"> Choose the date
+ 					<md-datepicker class="delivery_slot" aria-label="Choose Date" ng-model="delivery.date" md-min-date="minDate" ng-change="formateSelectedDate(delivery.date)"></md-datepicker></span>
+ 					<span flex class="calendar-date">{{choosedDate[2]}}</span>
+ 					<span flex class="calendar-month">{{choosedDate[1]}} , {{choosedDate[3]}}</span>
+ 					<span flex class="calendar-day">{{choosedDate[0]}}</span>
+ 				</div>
+ 				<div layout class="delivery-icon" flex="20" flex-sm="100" flex-xs="100" layout-align=" start center">
+ 					<md-icon md-svg-icon="assets/img/icon/logistics2.svg" style="height: 70px;width:70px;color: #FB8A08;"></md-icon> 
+				</div>
+ 				<div layout="column" flex="40" flex-sm="100" flex-xs="100" layout-align=" start center" class="border-green padd-t15">
+ 					<clockpicker ng-model="time" />
+ 				</div>
+ 			</div>	 			
+        </md-card-content>
+         <div layout="row" layout-sm="column" layout-align="none start" class="marg-tb15 border-light border-top border-bottom">    
+ 			 
+ 			 		<div class="" flex> 			 		
+ 			 			<span flex layout="column" layput-padding class=" marg-15 border-right border-light">
+ 			 			<div layout="row" class="ft_gray">
+ 			 				<md-icon md-svg-icon="assets/img/icon/time36.svg" style="padding: 0px 5px 0px 10px;"></md-icon> 
+ 			 				 <strong flex class="ft_size20 ft-grn"> 9am to 10pm </strong>			 				 
+ 			 			</div>
+ 			 			 	<span flex class="padd-l10 text-small">This time only shop will be delivery available </span>
+ 			 			</span> 			 			
+ 			 		</div>
+ 			 		<div class="" flex>
+ 			 			<span flex layout="column" layput-padding class="marg-15 ft_gray">
+ 			 			 <div layout="row">
+ 			 			 <span class=" ft-grn">Your Grocery Product delivered to with in <span class="text-small ft_gray">90 minutes *</span> </span>
+ 			 			 </div>
+ 			 			 
+ 			 			 </span>
+ 			 		</div>
+ 			 		<div >
+ 			 	</div>
+ 			 </div>
+    </md-card>
+</section>
+
+<section class="contact-details md-action" layout="row">
+    <div flex></div>
+    <div layout="row" layout-align="end center">
+        <md-button class="md-raised" ng-click="goPrevious('address')">Back</md-button>
+        <md-button class="md-primary md-raised" style="background-color:#6EAB10 !important" ng-click="goNext('deliverySchedule')">Next</md-button>
+    </div>
+
+</section>
+
+
+ <!--  <div layout="column" layout-align="space-between center">
                 <p class="address-title md-headline">Reserve your delivery slot</p>                
               
  					<div layout="row" flex layout-align=" start center">
@@ -49,16 +133,4 @@ height: 20px;}
  			
  					</div>
 
-  </div>
-        </md-card-content>
-    </md-card>
-</section>
-
-<section class="contact-details md-action" layout="row">
-    <div flex></div>
-    <div layout="row" layout-align="end center">
-        <md-button class="md-raised" ng-click="goPrevious('address')">Back</md-button>
-        <md-button class="md-primary md-raised" style="background-color:#6EAB10 !important" ng-click="goNext('deliverySchedule')">Next</md-button>
-    </div>
-
-</section>
+  </div> -->

@@ -3,7 +3,8 @@ angular.module('aviate.controllers')
                              function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter,CommonServices,$localStorage) {
 
 	MyCartFactory.myCartTotalPriceCalculation();
-
+	
+	$scope.time = new Date();
 	$scope.addresses = [];
 	$scope.delivery = {
 			date: new Date()
@@ -397,10 +398,10 @@ angular.module('aviate.controllers')
     );
     
     //displaying current date in delivery section
-    $scope.choosedDate = $filter('date')(new Date(),'EEE,MMM,d,yyyy').split(',');
+    $scope.choosedDate = $filter('date')(new Date(),'EEEE,MMMM,dd,yyyy').split(',');
     console.log('formatter choosed date is ',$scope.choosedDate);
     $scope.formateSelectedDate = function(date){
-    	$scope.choosedDate = $filter('date')(date,'EEE,MMM,d,yyyy').split(',');
+    	$scope.choosedDate = $filter('date')(date,'EEEE,MMMM,dd,yyyy').split(',');
     };
     
 	console.log("card items",$rootScope.myCard);

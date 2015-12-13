@@ -1,0 +1,24 @@
+<div class='ui-clockpicker'>		
+		  <div class='ui-clockpicker-selector' ng-class='{minute: !selectionMode}'>
+		     <div class="uiclockpick">
+		     <div class='ui-clockpicker-line' style='{{lineStyle()}}'></div>
+		     <ol class='ui-clockpicker-time'>
+		       <li ng-repeat='option in options' 
+		         ng-class='{selected: selectionMode ? hour == option : minute == option }' 
+		         ng-click='selectValue(option)'>{{option}}</li>
+		     </ol>
+		    <!--  <ol class='ui-clockpicker-period'>
+		       <li ng-repeat='periodOption in periodOptions' 
+		        ng-class='{selected: period == periodOption }' 
+		         ng-click='selectPeriod(periodOption)'>{{periodOption}}</li>
+		    </ol> -->
+		    <a class="ui-ampm" ng-click='togglePeriod()'>{{period}}</a>
+		  </div>
+		  </div>
+		    <div class='ui-clockpicker-selection'>
+		    <a ng-click='selectionMode = true' ng-class='{selected: selectionMode}'>{{hour}}</a>: <a ng-click='selectionMode = false' ng-class='{selected: !selectionMode}'>{{minute}}</a> 
+		<a ng-click='togglePeriod()'>{{period}}</a>
+		  </div>
+		</div>
+		
+	

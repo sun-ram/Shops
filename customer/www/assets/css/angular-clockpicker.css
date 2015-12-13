@@ -1,0 +1,178 @@
+.ui-clockpicker {
+  width: 100%;
+  font-family: Helvetica, sans-serif;
+}
+.ui-clockpicker .selected {
+  background-color: #86CA85;color:#fff;
+}
+.ui-clockpicker .selected :hover{background-color: #86CA85;color:#fff;}
+.ui-clockpicker a {
+  cursor: pointer;
+}
+.ui-clockpicker-selection a{padding: 0px 6px;}
+.ui-clockpicker-selection {
+  display: block;
+  padding: 10px 0 7px;
+  font-size: xx-large;
+
+  text-align: center;
+}
+.ui-clockpicker-selector {
+  position: relative;
+  display: block;
+  padding: 5px;
+ /* background: #eee;*/
+}
+.ui-clockpicker-selector li {
+  cursor: pointer;
+  color: #60b95e;
+  font-size:14px;
+  
+}
+
+.ui-clockpicker-line {
+  position: absolute;
+  top: 86px;
+  left: 86px;
+  width: 2px;
+  height: 60px;
+  background: #86CA85;
+  z-index: 1;
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+}
+.ui-clockpicker-time {
+  position: relative;
+  width: 175px;
+  height: 175px;
+  margin: 0;
+  padding: 0;
+  list-style: none; 
+  border-radius: 250px;
+  background: #ebf6eb;
+}
+.ui-clockpicker-time li {
+  position: absolute;
+  font-size: 16px;
+  padding: 6px 9px;
+  border-radius: 50%;
+  
+}
+
+.ui-clockpicker-selector li:hover{background-color: #D2EBD1;}
+.ui-clockpicker-selector li:active{background-color: #86CA85;color:#fff; }
+
+.ui-clockpicker-time li:nth-child(1) {
+  top: 0;
+  left: 70px;
+  padding: 7px;
+}
+.ui-clockpicker-time li:nth-child(2) {
+  top: 9px;
+  left: 109px;
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(2) {
+  left: 104px;
+}
+.ui-clockpicker-time li:nth-child(3) {
+  top: 32px;
+  left: 137px;
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(3) {
+  left: 130px;
+}
+.ui-clockpicker-time li:nth-child(4) {
+  top: 70px;
+  left: 148px;
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(4) {
+  left: 143px;
+}
+.ui-clockpicker-time li:nth-child(5) {
+  top: 107px;
+  left: 139px;
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(5) {
+  left: 134px;
+}
+.ui-clockpicker-time li:nth-child(6) {
+  top: 135px;
+  left: 113px;
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(6) {
+  left: 108px;
+}
+.ui-clockpicker-time li:nth-child(7) {
+  top: 145px;
+  left: 75px
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(7) {
+  left: 72px;
+}
+.ui-clockpicker-time li:nth-child(8) {
+  top: 135px;
+  left: 36px;
+}
+.ui-clockpicker-selector.minute ol.ui-clockpicker-time li:nth-child(8) {
+  left: 33px;
+}
+.ui-clockpicker-time li:nth-child(9) {
+  top: 107px;
+  left: 10px;
+}
+.ui-clockpicker-time li:nth-child(10) {
+  top: 70px;
+  left: 0px;
+}
+.ui-clockpicker-time li:nth-child(11) {
+  top: 32px;
+  left: 13px;padding: 7px;
+}
+.ui-clockpicker-time li:nth-child(12) {
+  top: 9px;
+  left: 39px;padding: 7px;
+}
+
+.ui-clockpicker-period {
+  position: relative;
+  top: -5px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ui-clockpicker-period li {
+  position: absolute;
+  font-weight: bold;
+  color:#86CA85;
+}
+.ui-clockpicker-period li:nth-child(1) {
+  left: 0;
+}
+.ui-clockpicker-period li:nth-child(2) {
+  right: 0;
+}
+
+.ui-ampm{position: absolute;
+top: 67px;
+padding: 8px 5px;
+background:#4caf63;
+left: 72px;
+border-radius: 80%;
+color:#fff;
+z-index: 1;}
+
+.uiclockpick{
+		margin: 0px auto;
+width: 180px;
+position: relative;
+}
+
+
+
+
+
+
+
+
+

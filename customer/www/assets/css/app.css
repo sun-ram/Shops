@@ -93,7 +93,8 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .navigate-right{padding-right: 304px;  transition: 0.3s ease-in all;}
 .remove{padding-left: 0px;}
 .remove-right{padding-right: 0px;}
-
+.padd-l10{padding-left: 10px;}
+.padd-t15{padding-top: 15px;}
 /* ------------ Margin ----------*/
 
 .nomargin{margin:0px !important;}
@@ -106,7 +107,8 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .mg-tb25{margin: 25px 0px;}
 .mg_t15{margin: 15px 0px 0px;}
 .marg-5{margin:5px ! important;}
-
+.marg-15{margin:15px ! important;}
+.marg-tb15{margin:15px 0px;}
 /* ------------ Font color ----------*/
 
 .text-white{color:#fff;}
@@ -115,7 +117,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .ft_black{color:#000;}
 .ft_gray{color:gray;}
 .ft_yellow{color:yellow}
-
+.ft-grn{color:#4eaf4c;}
 /* ------------ Text align ----------*/
 
 .tright{text-align: right;}
@@ -146,7 +148,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .sp-bottom {font-size: 17px;}
 .ft_size18{font-size: 18px;}
 .ft_size14{font-size: 14px;}
-
+.ft_size20{font-size: 20px;}
 /* ------------ border-radius ----------*/
 
 .header_color .md-icon-button{border-radius:0px;}
@@ -167,6 +169,24 @@ md-dialog {border-radius:0px; display: block ! important;}
 /* ------------ Floating ----------*/
 
 
+.border-bottom {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.border-right {
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+.border-top {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: inherit;
+}
+.border-light {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+.border-green{border: 1px solid #4eaf4c;}
+.bg-green{ background:#4eaf4c;}
 
 
 
@@ -468,6 +488,10 @@ ui-view{ background-color:#EEEEEE !important;}
 	.product-details-pname{padding-left: 0px;}
 	.product-details-pname .md-display-1{font-size: 35px;}
 	.product-details-pname .md-title{font-size: 28px;}
+	.border-right{border-right:none !important;	border-bottom: border-bottom-style: solid;
+     border-bottom-width: 1px;}
+    .delivery-icon{margin:20px 0px;}
+ 	}
 	}
 	
 	
@@ -540,6 +564,13 @@ ui-view{ background-color:#EEEEEE !important;}
 }
 
 
+.text-light {
+color: rgba(255, 255, 255, 0.9);
+}
+.text-small {
+font-size: 12px !important;
+}
+.relative-p{position:relative;}
 
 
 
