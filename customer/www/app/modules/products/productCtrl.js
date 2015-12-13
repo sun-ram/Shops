@@ -34,26 +34,30 @@ angular.module('aviate.controllers')
 						$scope.productList = data;
 						$scope.productTypes = [];
 						for(var i=0;$scope.productList.length>=i;i++){
-							if($scope.productTypes.length ==0){
-								$scope.productTypes.push({
-									"productTypeName":$scope.productList[i].productType.name,
-									"productTypeId":$scope.productList[i].productType.productTypeId
-								})
-							}else{
-							for(var j=0;$scope.productTypes.length>j;j++){
-								if($scope.productList[i].productType.name != $scope.productTypes[j].productTypeName){
-									$scope.productTypes.push({
-										"productTypeName":$scope.productList[i].productType.name,
-										"productTypeId":$scope.productList[i].productType.productTypeId
-									})
-									
-								}
-									
-								}
-							}
-							}
+							
+						var typeExist = $scope.checkType($scope.productList[i].productType.name);
+						if(!typeExist){
+							$scope.productTypes.push({
+								"productTypeName":$scope.productList[i].productType.name,
+								"productTypeId":$scope.productList[i].productType.productTypeId
+							})
+						  }
+						}
 					});
 			};
+			
+			$scope.checkType = function(productTypeName){
+				
+				for(var i=0;i<$scope.productTypes.length;i++){
+					
+					if(productTypeName == $scope.productTypes[i].productTypeName){
+							return true;
+					}
+				}
+				
+				return false;
+				
+			}
 			
 			$scope.activeprod = "prodactive others";
 			
