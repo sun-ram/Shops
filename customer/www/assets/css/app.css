@@ -165,6 +165,7 @@ md-dialog {border-radius:0px; display: block ! important;}
 .cart-count .md-icon-button:hover{background: #494949 ! important;}
 .mycart-img{width: 80px; height: 80px;}
 .cart-btm-btns{color: #fff; padding: 5px 15px;}
+.cart-remove{margin-top: 15px ! important;}
 /* ------------ Floating ----------*/
 
 

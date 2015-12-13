@@ -1,5 +1,5 @@
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+ <md-toolbar class=" md-default-theme" style="background-color:transparent; z-index: 0;">
 	<div class="md-toolbar-tools" layout="row">
   		<h3 layout-align="start">Your orders</h3>
   		<div class="tbl-search">
@@ -9,12 +9,12 @@
     </div>
    </md-toolbar>
    <md-card-content class="nopadd">
-	<md-data-table-container>
-     <md-list>
+	<md-data-table-container class="table-orderlist">
+     <md-list class="order-table">
      <md-item class="data-table-list " md-data-table>
          <md-item-content layout="row" layout-padding class="tbl-header ">
           <div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex layout-align="start center" layout>
+         	<span flex layout-align="start" layout>
              	OrderNo
            	</span>
          	<span flex>
@@ -67,21 +67,26 @@
            	</span>
             <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.status}}
-            <ng-md-icon ng-click="showListBottomSheet($event); " icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
+            <ng-md-icon ng-click="showListBottomSheet($event); showDetails = ! showDetails " icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
             </span>
            	</span>            
             </div>
          </md-item-content>
-         <md-item-content layout="column" layout-padding>
-           <div layout="row" flex ng-repeat="productOrders in ordersHis.salesOrderLineVo" >
-           <img width="80" height="80" src="" style="padding-right: 20px"/>
-           <span flex>Name(apple)</span>
-           <span flex>Unit(Kg,gm)</span>
-           <span flex>Rs.{{productOrders.price}}</span>           
-           <span flex>Quantity(2,1)</span>
-           <span flex>Gross Amount(Rs.500)</span>
-           <span flex>Net Amount(Rs.1000)</span>                      
-           </div> 
+         <md-item-content layout="column" ng-show="showDetails" style="padding:0px 20px;" >
+           <div flex ng-repeat="productOrders in ordersHis.salesOrderLineVo" class="padd-lr30 padd-t30">
+           <div layout="row">
+           <span flex="10"><img width="80" height="80" src="assets/images/fruit.jpg"/></span>
+           <span flex="20"><span class="title">Product name</span></br>{{productOrders.productVo.name}}</span>
+           <span flex="15"><span class="title">Unit</span></br>{{productOrders.productVo.unit}} Kg</span>
+           <span flex="15"><span class="title">Price</span></br>Rs. {{productOrders.price}}</span>           
+           <span flex="15"><span class="title">Quantity</span></br>{{productOrders.qty}}</span>
+           <span style="text-align: right;" flex="25" layout-align-sm="center"><span class="title">Gross Amount</span></br> Rs. {{productOrders.grossAmount}}</span>    
+           </div>                                  
+           <md-divider></md-divider>
+           </div>
+            <span layout="row" layout-align="end"><span class="title"><strong style="font-size: 22px;">NetAmount : </span> Rs. {{ordersHis.amount}}</strong></span>
+           
+           
            </md-item-content>
          <md-divider></md-divider>
          
