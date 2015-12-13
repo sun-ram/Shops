@@ -93,8 +93,12 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .navigate-right{padding-right: 304px;  transition: 0.3s ease-in all;}
 .remove{padding-left: 0px;}
 .remove-right{padding-right: 0px;}
-.padd-l10{padding-left: 10px;}
-.padd-t15{padding-top: 15px;}
+.padd-l30{padding-left:30px ! important;}
+.padd-l20{padding-left: 20px ! important;}
+.padd-t30{padding-top: 30px;}
+
+
+
 /* ------------ Margin ----------*/
 
 .nomargin{margin:0px !important;}
@@ -156,16 +160,11 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 md-dialog {border-radius:0px; display: block ! important;}
 /* .cart-count{background: #fff;} */
 .cart-count .md-button {margin: 0px;}
-.cart-count .md-icon-button{border-radius: 0px; background: #494949;}
-.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 15px; background: white; margin: -3px;}
+.cart-count .md-icon-button{border-radius: 0px; background: #494949; height: 40px; width: 40px; line-height: 45px; padding: 0px;}
+.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 15px; background: white; margin: -3px;}		.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 8px; margin: 0px;}
 .cart-count .md-icon-button:hover{background: #494949 ! important;}
-/* .cart-remove{ background: #F96D57; line-height: inherit ! important; width: 38px ! important; height: 38px ! important;}
-.cart-remove:hover{background: #F96D57 ! important;}
-.cart-btm h3{margin-bottom: 0px ! important;} */
-/* ------------ Floating ----------*/
-
-/* ------------ Floating ----------*/
-/* ------------ Floating ----------*/
+.mycart-img{width: 80px; height: 80px;}
+.cart-btm-btns{color: #fff; padding: 5px 15px;}
 /* ------------ Floating ----------*/
 
 
@@ -457,6 +456,16 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 ui-view{ background-color:#EEEEEE !important;}
 
 
+@media screen and (max-width: 384px){
+	.marg-l10{margin-left: 10px ! important;}
+	.marg-l-15{margin-left: -15px ! important;}
+	.padd-l10{padding-left: 10px ! important;}
+	.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 11px; margin: 0px;}	
+}
+@media screen and (max-width: 450px){
+	.cart-count .md-icon-button{border-radius: 50% ! important; height: 25px ! important; width: 25px ! important; min-height: 0 ! important;}
+	.cart-btm-btns{width: 100%;}
+}
 
 
 @media screen and (max-width: 600px) {
@@ -476,6 +485,7 @@ ui-view{ background-color:#EEEEEE !important;}
 	.product-details-pname{padding-left: 4%;}
 	.product-details-pname .md-display-1{font-size: 28px;}
 	.product-details-pname .md-title{font-size: 14px;}	
+	.mycart-img{width: 50px ! important; height: 50px ! important;}	
 	}
 @media screen and (max-width: 700px) {
 	.product-details-pname{padding-left: 10%;}
@@ -488,12 +498,22 @@ ui-view{ background-color:#EEEEEE !important;}
 	.product-details-pname{padding-left: 0px;}
 	.product-details-pname .md-display-1{font-size: 35px;}
 	.product-details-pname .md-title{font-size: 28px;}
-	.border-right{border-right:none !important;	border-bottom: border-bottom-style: solid;
-     border-bottom-width: 1px;}
+	.border-right{border-right:none !important;	border-bottom: border-bottom-style: solid; border-bottom-width: 1px;}
     .delivery-icon{margin:20px 0px;}
- 	}
 	}
-	
+@media screen and (max-width: 950px) {
+	.order-table{width: 950px;}		
+}
+@media screen and (max-width: 1090px) {
+	.padd-lr0{padding-left: 0px ! important;}
+}
+@media screen and (max-width: 850px) {
+	.cart-count .md-icon-button {
+			height: 35px;
+			width: 35px;
+			line-height: 0 ! important;
+		}
+}
 	
 	
 	
@@ -573,5 +593,27 @@ font-size: 12px !important;
 .relative-p{position:relative;}
 
 
-
+/* custom scroll */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-button {
+	width: 8px;
+	height:5px;
+}
+::-webkit-scrollbar-track {
+	background:#eee;
+	border: thin solid lightgray;
+	box-shadow: 0px 0px 3px #dfdfdf inset;
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb {
+	background:#999;
+	border: thin solid gray;
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background:#7d7d7d;
+}
 
