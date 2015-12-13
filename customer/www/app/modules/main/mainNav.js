@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices', 'FavouriteServices',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices, FavouriteServices) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices', 'FavouriteServices', '$window',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices, FavouriteServices, $window) {
 
 	return {
 		// scope: false,
@@ -35,10 +35,66 @@ angular.module('aviate.directives')
 				var debounceFn =  $mdUtil.debounce(function(){
 					 if($rootScope.navsides == "navigate-right"){
 							$rootScope.navsides = "remove-right";
-                            $rootScope.numLimit = 5;
+                            //$rootScope.numLimit = 5;
+							
+							$scope.$watch(function(){
+							       return $window.innerWidth;
+							    }, function(value) {
+							    	if(value < 450){
+								    	   $rootScope.numLimit = 1;
+								       }
+								       if(value > 450 && value <= 700){
+								    	   $rootScope.numLimit = 2;
+								       }
+								       if(value > 700 && value <= 960){
+								    	   $rootScope.numLimit = 3;
+								       }
+								       if(value > 960 && value <= 1024){
+								    	   $rootScope.numLimit = 4;
+								       }
+								       if(value > 1024 && value <= 1200){
+								    	   $rootScope.numLimit = 5;
+								       }
+								       if(value > 1200 && value <= 1500){
+								    	   $rootScope.numLimit = 6;
+								       }
+								       if(value > 1500){
+								    	   
+								    	   $rootScope.numLimit = 6;
+								       }
+							});
+							
 							}else{
 								$rootScope.navsides = "navigate-right";
-                                 $rootScope.numLimit = 3;
+                                // $rootScope.numLimit = 3;
+								
+								$scope.$watch(function(){
+								       return $window.innerWidth;
+								    }, function(value) {
+								    	if(value < 450){
+									    	   $rootScope.numLimit = 1;
+									       }
+									       if(value > 450 && value <= 700){
+									    	   $rootScope.numLimit = 1;
+									       }
+									       if(value > 700 && value <= 960){
+									    	   $rootScope.numLimit = 1;
+									       }
+									       if(value > 960 && value <= 1024){
+									    	   $rootScope.numLimit = 1;
+									       }
+									       if(value > 1024 && value <= 1200){
+									    	   $rootScope.numLimit = 2;
+									       }
+									       if(value > 1200 && value <= 1500){
+									    	   $rootScope.numLimit = 3;
+									       }
+									       if(value > 1500){
+									    	   
+									    	   $rootScope.numLimit = 4;
+									       }
+								});
+							       
 							}
 					$mdSidenav(navID).toggle().then(function () {
 						$log.debug("toggle " + navID + " is done");

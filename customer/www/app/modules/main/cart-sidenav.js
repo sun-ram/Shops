@@ -16,10 +16,10 @@ angular.module('aviate.directives').directive('cartsidenav', [
                 	$scope.toggleSubList = function(id){
                         alert("djhasd");
                 		if(id == $scope.headerNavId){
-                            $rootScope.numLimit = 5;
+                            /*$rootScope.numLimit = 5;*/
                 			$scope.show = false;
                 		} else {
-                            $rootScope.numLimit = 3;
+                           /* $rootScope.numLimit = 3;*/
                 			$scope.show = true;
                 		}
                 		$scope.headerNavId = id;

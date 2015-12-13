@@ -23,13 +23,22 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			return;
 		}
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
-			toastr.error('To-Time cannot less than From-Time');
-			return;
+			var confirm = $mdDialog.confirm()
+			.title('Are You Delivering In Night Shift?')
+			.ok('Ok')
+			.cancel('Cancel');
+			$mdDialog.show(confirm).then(function() {
+				deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
+					toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
+				});
+			}, function() {
+
+			});	
+		}else{
+			deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
+				toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
+			});	
 		}
-		deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
-			toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
-			/*$state.go('app.addDeliveryTimeSlot');*/
-		});
 	};		
 
 	$scope.saveDeliveryTimeSlot = function(deliveryTimeSlot) {
@@ -40,14 +49,26 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			return;
 		}
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
-			toastr.error('To-Time cannot less than From-Time');
-			return;
+			var confirm = $mdDialog.confirm()
+			.title('Are You Delivering In Night Shift?')
+			.ok('Ok')
+			.cancel('Cancel');
+			$mdDialog.show(confirm).then(function() {
+				deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
+				deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
+					toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
+					$state.go('app.addDeliveryTimeSlot',{},{reload: true});
+				});
+			}, function() {
+
+			});
+		}else{
+			deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
+			deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
+				toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
+				$state.go('app.addDeliveryTimeSlot',{},{reload: true});
+			});
 		}
-		deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
-		deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
-			toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
-			$state.go('app.addDeliveryTimeSlot',{},{reload: true});
-		});
 	};
 	
 	$scope.convertToTime = function(timeString){

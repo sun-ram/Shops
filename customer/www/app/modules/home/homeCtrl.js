@@ -42,9 +42,19 @@ angular.module('aviate.controllers')
 				       if(value > 1500){
 				    	   
 				    	   $rootScope.numLimit = 6;
+				    	   
+				    	   
 				       }
 			});
 			
+			$scope.remainOb = function(lengths){
+				
+				$scope.remain = 0;
+				if($rootScope.numLimit > lengths){
+					$scope.remain = $rootScope.numLimit - lengths;
+				}
+				return new Array($scope.remain);	
+			};
 			
 			
 
