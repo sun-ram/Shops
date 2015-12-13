@@ -11,6 +11,7 @@ import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
@@ -182,6 +183,11 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 				+ addressVo.getPinCode();
 		JsonNode location = CommonUtil.getLatLong(full_address);
 		return location;
+	}
+
+	@Override
+	public List<City> getCity() {
+		return addressDao.getCity();
 	}
 
 }

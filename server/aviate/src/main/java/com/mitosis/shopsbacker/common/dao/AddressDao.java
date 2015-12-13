@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.common.dao;
 import java.util.List;
 
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
@@ -30,5 +31,8 @@ public interface AddressDao<T> {
 	public List<State> getState(Country country);
 	
 	public State getStateById(String id);
+	
+	public List<City> getCity();
+
 
 }

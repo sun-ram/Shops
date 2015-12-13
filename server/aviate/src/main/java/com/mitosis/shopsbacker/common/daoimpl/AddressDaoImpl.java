@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
@@ -104,6 +105,12 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 	@Override
 	public State getStateById(String id) {
 		return (State) getSession().get(State.class, id);
+	}
+
+	@Override
+	public List<City> getCity() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(City.class);
+		return (List<City>) findAll(criteria);
 	}
 
 }

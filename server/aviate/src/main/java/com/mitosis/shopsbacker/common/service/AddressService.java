@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.State;
@@ -39,5 +40,8 @@ public interface AddressService<T> {
 	public Address setAddress(AddressVo addressVo) throws Exception;
 	
 	public JsonNode getLatLongByAddress(AddressVo addressVo);
+	
+	public List<City> getCity();
+
 
 }

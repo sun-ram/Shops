@@ -2,6 +2,9 @@ package com.mitosis.shopsbacker.vo.common;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -13,6 +16,14 @@ public class StateVo {
 
 	private String stateId;
 	private String name;
+	private List<CityVo> city = new ArrayList<CityVo>();
+
+	public List<CityVo> getCity() {
+		return city;
+	}
+	public void setCity(List<CityVo> city) {
+		this.city = city;
+	}
 	public String getStateId() {
 		return stateId;
 	}
@@ -25,5 +36,6 @@ public class StateVo {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 
 }

@@ -34,6 +34,7 @@ public class State implements java.io.Serializable {
 	private Country country;
 	private String name;
 	private char isactive;
+	private List<City> city = new ArrayList<City>();
 	private List<Address> addresses = new ArrayList<Address>();
 
 	public State() {
@@ -47,12 +48,13 @@ public class State implements java.io.Serializable {
 	}
 
 	public State(String stateId, Country country, String name, char isactive,
-			List<Address> addresses) {
+			List<Address> addresses, List<City> city) {
 		this.stateId = stateId;
 		this.country = country;
 		this.name = name;
 		this.isactive = isactive;
 		this.addresses = addresses;
+		this.city = city;
 	}
 
 	@Id
@@ -103,5 +105,13 @@ public class State implements java.io.Serializable {
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
+	public List<City> getCity() {
+		return this.city;
+	}
 
+	public void setCity(List<City> city) {
+		this.city = city;
+	}
 }
