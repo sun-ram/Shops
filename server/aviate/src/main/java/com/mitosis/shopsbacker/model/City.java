@@ -85,7 +85,7 @@ public class City implements java.io.Serializable{
 		this.isactive = isactive;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "area")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
 	public List<Area> getAreas() {
 		return this.areas;
 	}

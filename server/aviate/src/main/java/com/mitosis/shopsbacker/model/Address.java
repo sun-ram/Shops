@@ -49,6 +49,7 @@ public class Address implements java.io.Serializable {
 	private String updatedby;
 	private Date created;
 	private Date updated;
+	private String formattedAddress;
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
 	private List<User>  users =new ArrayList<User>();
 	private List<MerchantRequest>  merchantRequests = new ArrayList<MerchantRequest>();
@@ -59,7 +60,7 @@ public class Address implements java.io.Serializable {
 
 	public Address(String addressId, State state, Country country,
 			String address1, String pinCode, String createdby,
-			String updatedby, Date created, Date updated,String name) {
+			String updatedby, Date created, Date updated,String name,String formattedAddress) {
 		this.addressId = addressId;
 		this.state = state;
 		this.country = country;
@@ -70,13 +71,14 @@ public class Address implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.name=name;
+		this.formattedAddress= formattedAddress;
 	}
 
 	public Address(String addressId,String name, State state, Customer customer,
 			Country country, String landmark, String address1, String address2,
 			String city, String pinCode, String phoneNo, String latitude,
 			String longitude, char isactive, String createdby,
-			String updatedby, Date created, Date updated, List<SalesOrder> salesOrders,
+			String updatedby, Date created, Date updated,String formattedAddress, List<SalesOrder> salesOrders,
 			List<User> users, List<MerchantRequest> merchantRequests,List<Warehouse>  warehouses) {
 		this.addressId = addressId;
 		this.name=name;
@@ -100,6 +102,7 @@ public class Address implements java.io.Serializable {
 		this.users = users;
 		this.merchantRequests = merchantRequests;
 		this.warehouses = warehouses;
+		this.formattedAddress = formattedAddress;
 	}
 
 	@Id
@@ -307,6 +310,16 @@ public class Address implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Column(name = "FORMATTED_ADDRESS", length = 250)
+	public String getFormattedAddress() {
+		return formattedAddress;
+	}
+
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
+	}
+	
 	
 	
 }

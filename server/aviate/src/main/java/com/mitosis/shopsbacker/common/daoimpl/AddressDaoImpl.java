@@ -6,10 +6,10 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.Area;
 import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
@@ -21,10 +21,11 @@ import com.mitosis.shopsbacker.model.User;
  *
  * @param <T>
  * 
- * Reviewed by Sundaram 27/11/2015
+ *            Reviewed by Sundaram 27/11/2015
  */
 @Repository
-public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements AddressDao<T>, Serializable {
+public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
+		AddressDao<T>, Serializable {
 
 	/**
 	 * 
@@ -34,9 +35,9 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 	@SuppressWarnings("unchecked")
 	@Override
 	public void saveAddress(Address address) {
-		try{
+		try {
 			save((T) address);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -44,9 +45,9 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 	@SuppressWarnings("unchecked")
 	@Override
 	public void updateAddress(Address address) {
-		try{
+		try {
 			update((T) address);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -54,9 +55,9 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 	@SuppressWarnings("unchecked")
 	@Override
 	public void deleteAddress(Address address) {
-		try{
+		try {
 			delete((T) address);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -84,7 +85,7 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Country> getCountry() {
-		DetachedCriteria  criteria=  DetachedCriteria.forClass(Country.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Country.class);
 		criteria.add(Restrictions.eq("isactive", 'Y'));
 		return (List<Country>) findAllEh(criteria);
 	}
@@ -107,10 +108,19 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements A
 		return (State) getSession().get(State.class, id);
 	}
 
-	@Override
-	public List<City> getCity() {
+	public List<City> getCities() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(City.class);
 		return (List<City>) findAll(criteria);
 	}
 
+	public List<Area> getAreas(City city) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Area.class);
+		criteria.add(Restrictions.eq("isactive", 'Y'));
+		criteria.add(Restrictions.eq("city", city));
+		return (List<Area>) findAll(criteria);
+	}
+
+	public City getCity(String id) {
+		return (City) getSession().get(City.class, id);
+	}
 }

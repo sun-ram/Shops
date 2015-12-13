@@ -11,6 +11,7 @@ import com.mitosis.shopsbacker.common.dao.AddressDao;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.Area;
 import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Country;
 import com.mitosis.shopsbacker.model.Customer;
@@ -186,8 +187,15 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	}
 
 	@Override
-	public List<City> getCity() {
-		return addressDao.getCity();
+	public List<City> getCities() {
+		return addressDao.getCities();
 	}
 
+	public List<Area> getAreas(City city){
+		return addressDao.getAreas(city);
+	}
+	
+	public  City getCity(String id){
+		return addressDao.getCity(id);
+	}
 }

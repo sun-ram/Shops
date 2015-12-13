@@ -28,6 +28,7 @@ public class AddressVo {
 	private String latitude;
 	private String longitude;
 	private CustomerVo customer;
+	private String formattedAddress;
 	
 	public CountryVo getCountry() {
 		return country;
@@ -107,6 +108,10 @@ public class AddressVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-
+	public String getFormattedAddress() {
+		return formattedAddress;
+	}
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
+	}
 }
