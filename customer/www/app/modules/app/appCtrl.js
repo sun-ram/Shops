@@ -33,11 +33,18 @@ angular.module('aviate.controllers')
 			 				$rootScope.signInPopup();
 			 			}
 		};
+		
+		var timeOut;
 		$scope.addToCart = function(product){
-			MyCartFactory.addToCart(product,$scope.productList,  function(data){
-				$scope.productList = data;
-				$scope.getCartList();
-			});
+				if(timeOut)
+					clearTimeout(timeOut);
+				timeOut = setTimeout(function() {
+					MyCartFactory.addToCart(product,$scope.productList,  function(data){
+						console.log("product added to cart");
+						$scope.productList = data;
+						$scope.getCartList();
+					});
+				}, 500);
 		}
 
 		$scope.getCartList = function(){
