@@ -363,7 +363,7 @@ ul.nav-menu1{margin-left: 210px ! important;}
 .menu-item{border-bottom: 1px solid lightgrey ! important;}
 .menu-item:hover{background: #72a308 ! important; color: #ffffff ! important; }
 /* .top-tool{width: calc(100% - 220px);} */
-.producutItem{min-width:220px;max-width:280px;}
+.producutItem{min-width:100%;}
 .customerSideNav{min-width:180px;max-width:220px; top:82px;}
 
 

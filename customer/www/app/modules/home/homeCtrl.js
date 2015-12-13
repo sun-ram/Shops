@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("homeCtrl",
-		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService','ipCookie','$localStorage',
-		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService, ipCookie, $localStorage) {
+		['$scope', '$state', '$interval', 'toastr', 'CONSTANT', 'ProductService','homePageServices','$rootScope','$mdDialog','$log','LocationService','ipCookie','$localStorage','$window',
+		 function($scope, $state, $interval ,toastr, CONSTANT, ProductService, homePageServices, $rootScope,$mdDialog,$log,LocationService, ipCookie, $localStorage, $window) {
 
 			$scope.topCategoryList = [
 			                          { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
@@ -15,8 +15,40 @@ angular.module('aviate.controllers')
 			                          { title: 'Nine', content: "If you set md-theme=\"green\" on the md-tabs element, you'll get green tabs."},
 			                          { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!"}
 			                          ]
+			
+			//alert("djhasd");
+			
+			$scope.$watch(function(){
+			       return $window.innerWidth;
+			    }, function(value) {
+			    	if(value < 450){
+				    	   $rootScope.numLimit = 1;
+				       }
+				       if(value > 450 && value <= 700){
+				    	   $rootScope.numLimit = 2;
+				       }
+				       if(value > 700 && value <= 960){
+				    	   $rootScope.numLimit = 3;
+				       }
+				       if(value > 960 && value <= 1024){
+				    	   $rootScope.numLimit = 4;
+				       }
+				       if(value > 1024 && value <= 1200){
+				    	   $rootScope.numLimit = 5;
+				       }
+				       if(value > 1200 && value <= 1500){
+				    	   $rootScope.numLimit = 6;
+				       }
+				       if(value > 1500){
+				    	   
+				    	   $rootScope.numLimit = 6;
+				       }
+			});
+			
+			
+			
 
-			$rootScope.numLimit = 5;
+			/*$rootScope.numLimit = 5;*/
 
 			/*------------------------------------------------*/
 						
