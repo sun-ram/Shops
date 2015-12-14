@@ -501,7 +501,7 @@ public class StoreRestService<T> {
 	public Map<String, JsonNode> getLatLongByAddress(StoreVo storeVo) {
 		String full_address = storeVo.getUser().getAddress().getAddress1()
 				+ "," + storeVo.getUser().getAddress().getAddress2() + ","
-				+ storeVo.getUser().getAddress().getCity() + ","
+				+ storeVo.getUser().getAddress().getCity().getName() + ","
 				+ storeVo.getUser().getAddress().getState().getName() + ","
 				+ storeVo.getUser().getAddress().getCountry().getName()
 				+ "," + storeVo.getUser().getAddress().getPinCode();

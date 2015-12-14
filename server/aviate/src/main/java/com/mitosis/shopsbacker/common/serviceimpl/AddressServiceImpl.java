@@ -192,7 +192,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	public JsonNode getLatLongByAddress(AddressVo addressVo) {
 		String full_address = addressVo.getAddress1() + ","
 				+ addressVo.getAddress2() != null ? addressVo.getAddress2()
-				+ "," : "" + addressVo.getCity() + ","
+				+ "," : "" + addressVo.getCity().getName() + ","
 				+ addressVo.getState().getName() + ","
 				+ addressVo.getCountry().getName() + ","
 				+ addressVo.getPinCode();

@@ -34,17 +34,15 @@ angular.module('aviateAdmin.controllers')
             }
 			$scope.updateStore = function(){
 				$scope.cnt = $scope.country;
-				$scope.st = $scope.state;
-				$scope.ct = $scope.cty;
 				$scope.store.user.address.country = {};
 				$scope.store.user.address.state = {};
 				$scope.store.user.address.city = {};
 				$scope.store.user.address.country.countryId = $scope.cnt.countryId;
 				$scope.store.user.address.country.name = $scope.cnt.name;
-				$scope.store.user.address.state.stateId = $scope.st.stateId;
-				$scope.store.user.address.state.name = $scope.st.name;
-				$scope.store.user.address.city.name=$scope.ct.name;
-				$scope.store.user.address.city.cityId=$scope.ct.cityId;
+				$scope.store.user.address.state.stateId = $scope.state.stateId;
+				$scope.store.user.address.state.name = $scope.state.name;
+				$scope.store.user.address.city.name=$scope.cty.name;
+				$scope.store.user.address.city.cityId=$scope.cty.cityId;
 				StoreServices.updateStore($scope.store).then(function(data){
 					localStorage.removeItem('store');
 					$state.go('app.store');
@@ -60,5 +58,10 @@ angular.module('aviateAdmin.controllers')
 				$scope.cunt = country;
 				$scope.states = $scope.cunt.states;
 			}
-
+			
+			$scope.getCity = function(states){
+				$scope.cities = states.city;
+			}
+			
+			
 		}]);

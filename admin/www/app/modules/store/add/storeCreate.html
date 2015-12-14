@@ -78,7 +78,7 @@
 		<md-input-container layout-padding flex>
 		       			<label>City<span style="color:red">*</span></label>
 		         		<md-select ng-model="cty" ng-required="true">
-				            <md-option ng-repeat="city in cities | orderBy:'name'" value="{{city}}">
+				            <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
 				              {{city.name}}
 				            </md-option>
 		          		</md-select>

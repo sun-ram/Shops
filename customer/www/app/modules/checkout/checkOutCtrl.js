@@ -214,12 +214,14 @@ angular.module('aviate.controllers')
 		$scope.addAddress = function(address) {
 			$scope.address.country = {};
 			$scope.address.state = {};
+			$scope.address.city={};
 			$scope.cnt = JSON.parse($scope.country);
 			$scope.address.country.countryId = $scope.cnt.countryId;
 			$scope.address.country.name = $scope.cnt.name;
-			$scope.sta = JSON.parse($scope.state);
-			$scope.address.state.stateId = $scope.sta.stateId;
-			$scope.address.state.name = $scope.sta.name;
+			$scope.address.state.stateId = $scope.state.stateId;
+			$scope.address.state.name = $scope.state.name;
+			$scope.address.city.cityId=$scope.cty.cityId;
+			$scope.address.city.name=$scope.cty.name;
 			address.customer={};
 			address.customer.customerId=$rootScope.user.userId;
 			addAddress(address);
@@ -235,6 +237,10 @@ angular.module('aviate.controllers')
 			$scope.cunt = JSON.parse(country);
 			$scope.states = $scope.cunt.states;
 		};
+		
+		$scope.getCity = function(states){
+			$scope.cities = states.city;
+		}
 		
 		$scope.getCountries = function(){
 			if($localStorage.countries){
