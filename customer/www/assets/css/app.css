@@ -74,7 +74,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 
 /* .selectedField {background: #282D33 ! important; width: 100%; border-radius: 0px; border-left:5px inset #3b5c87;} */
 
-.activemenu{background: #282D33 ! important; width: 100%; border-radius: 0px;}
+.activemenu{background: #282D33 ! important; width: 100%;}
 /* ------------ Padding ----------*/
 
 .nopadd{padding:0px !important;}

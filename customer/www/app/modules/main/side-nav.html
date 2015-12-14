@@ -4,7 +4,7 @@
 	<script type="text/ng-template" id="productTypeList">
 		<md-menu-item>
 			<md-button ng-class="pt.selectionClass" class="btn-sub">
-				<div layout="row">{{pt.name}}</div>
+				<div layout="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{pt.name}}</div>
 			</md-button>
 		</md-menu-item>
 	</script>
@@ -20,9 +20,9 @@
 		</md-menu-item>
 
 		<md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(!c.rootParent && c.rootParent!=0)" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId); activemenu($event)">
-			<md-button ng-class="c.selectionClass" class="btn-sub">
-				<ng-md-icon icon="{{c.extrIconName}}" style="fill:#ffffff; width:20px;height:20px;transform: translateY(40%);"></ng-md-icon>
-				&nbsp;&nbsp;&nbsp;{{c.name}}
+			<md-button ng-class="c.selectionClass" class="btn-menu">
+				<ng-md-icon icon="multitrack_audio" style="fill:#ffffff; width:10px;height:10px;transform: translateY(40%);"></ng-md-icon>
+					&nbsp;{{c.name}}</div>
 			</md-button>
 		</md-menu-item>
 
