@@ -47,7 +47,7 @@ width: 30px;fill: gray;}
            <label>Select City<span style="color:red">*</span></label>
              <md-select ng-model="selectedcity" ng-required="true" ng-change="searchByCity(selectedcity)">
                 <md-option ng-repeat="shop in allStoreList track by $index" value="{{shop}}">
-                  {{shop}}
+                  {{shop.name}}
                 </md-option>
               </md-select>
         </md-input-container>

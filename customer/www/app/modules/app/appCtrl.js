@@ -120,9 +120,9 @@ angular.module('aviate.controllers')
 						});
 
 						$scope.searchByCity = function(selectedcity){
-							$scope.selectedcity=selectedcity;
+							$scope.selectedcity=selectedcity.name;
 							var request ={
-									city:selectedcity
+									city:$scope.selectedcity
 							}
 							LocationService.getStoreByLocation(request).then(function(data) {
 								$scope.addressList = data;

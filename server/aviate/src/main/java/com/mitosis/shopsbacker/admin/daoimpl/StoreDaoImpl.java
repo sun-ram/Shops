@@ -98,7 +98,8 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 					"store");
 			criteria.createAlias("store.users", "user");
 			criteria.createAlias("user.address", "address");
-			criteria.add(Restrictions.like("address.city", "%" + city + "%"));
+			criteria.createAlias("address.city", "city");
+			criteria.add(Restrictions.like("city.name", "%" + city + "%"));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {
@@ -114,7 +115,8 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 					"store");
 			criteria.createAlias("store.users", "user");
 			criteria.createAlias("user.address", "address");
-			criteria.add(Restrictions.like("address.city", "%" + city + "%"));
+			criteria.createAlias("address.city", "city");
+			criteria.add(Restrictions.like("city.name", "%" + city + "%"));
 			criteria.add(Restrictions.like("address.address1", "%" + address
 					+ "%"));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
