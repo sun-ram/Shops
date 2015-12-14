@@ -92,12 +92,20 @@
     					<div layout="row" flex ng-repeat="product in topcategories | orderBy:groupCount | limitTo:$root.numLimit">
      						
                             <div class="views view-first">
+                                 <md-icon>shopping_cart</md-icon>
                     <img src="assets/images/fruit.jpg" style=" width: 180px;
     height: 160px;"/>
                     <div class="mask">
+                        <md-icon>shopping_cart</md-icon>
                         <h2>Hover Style #1</h2>
                         <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
-                        <a href="#" class="info">Read More</a>
+                         <md-button>+ More</md-button>
+                        <md-button class="md-icon-button md-primary" aria-label="Settings">
+        <md-icon>add</md-icon>
+      </md-button>
+                         <md-button class="md-icon-button md-primary" aria-label="Settings">
+        <md-icon>remove</md-icon>
+      </md-button>
                     </div>
                 </div>  
 
