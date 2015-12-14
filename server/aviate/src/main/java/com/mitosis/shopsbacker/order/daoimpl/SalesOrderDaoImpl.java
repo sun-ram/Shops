@@ -49,6 +49,8 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
+
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -148,7 +150,10 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
+
 			return (List<SalesOrder>) findAll(criteria);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw (e);
