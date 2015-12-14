@@ -29,7 +29,12 @@ url("../fonts/roboto-medium-webfont.svg#robotomedium") format("svg");
   src: local('Material Icons'), local('MaterialIcons-Regular'), url("../fonts/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2") format('woff2');
 }
 
-body,html{ font-family:Roboto; height:100%; width:100%; background-color:#f5f5f5 !important}
+body,html{ font-family:Roboto; height:100%; width:100%; background-color:#f5f5f5 !important;
+-webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none; 
+}
 
 
 *{outline:none;}
@@ -635,10 +640,10 @@ font-size: 12px !important;
 .hgt-34{ height:34px;}
 .views {
    width: 300px;
-   height: 300px;
+   /* height: 300px; */
    margin: 10px;
    float: left;
-   border: 10px solid #fff;
+   /* border: 10px solid #fff; */
    overflow: hidden;
    position: relative;
    text-align: center;
@@ -668,7 +673,7 @@ font-size: 12px !important;
    font-size: 17px;
    padding: 10px;
    background: rgba(0, 0, 0, 0.8);
-   margin: 20px 0 0 0;
+   margin: 10px 0 0 0;
 }
 .views p {
    font-family: Georgia, serif;
@@ -811,3 +816,51 @@ font-size: 12px !important;
     width: 800px !important;
     height: 441px !important;
 }
+
+
+
+.pull-left{float:left;}
+.pull-right{float:right;}
+
+.item-count{ position:absolute; top:3px; right:3px; background-color:#0F9D58 ; padding:3px 7px; font-size:12px; border-radius:40px; color:#FFFFFF}
+.item-type{  padding:3px; border:1px solid rgba(0,0,0,0.3)}
+.item-type span{ width:12px; height:12px; border-radius:50px; float:left;}
+.item-type-veg{ background-color:#008000;}
+.item-type-nonveg{ background-color:#DA251E;}
+.item-type-noneatable{ border:2px solid #DA251E; position:relative;}
+.item-type-noneatable:after{
+	height: 12px;
+    width: 2px;
+    position: absolute;
+    background-color: #DA251E;
+    content: '';
+    transform:rotate(45deg);
+    left:5px;
+    top:1px;
+ }
+ .border-r-only{ border-right:1px solid rgba(0,0,0,0.7);}
+.actual-prices{ color:#DA251E;}
+.actual-prices:after{
+	height: 15px;
+    width: 1px;
+    position: absolute;
+    background-color:rgba(0,0,0,0.3) ;
+    content: '';
+    left:39px;
+    top:3px;
+} 
+.icon-black{ color:rgba(0,0,0,0.6) !important;}
+.pro-price{ padding-right:5px;}
+.mrp-price{ color:rgba(0,0,0,0.5); padding-left:5px;}
+.index-top{z-index: 1000; position: relative;}
+
+.icon-large{ color:#FFFFFF; font-size:30px;}
+.icon-xlarge{ color:#FFFFFF; font-size:40px;}
+.pro-img{ height:150px; width:100%;}
+.icon-large-border{color:#FFFFFF; font-size:20px;}
+.pro-btns{ padding:10px; background-color:rgba(0, 0, 0, 0.8); color:#FFFFFF;}
+.bg-gray{ background-color:rgba(0, 0, 0, 0.8); padding:10px;}
+.border-l-r{ border-left:1px solid rgba(255,255,255,0.5);  border-right:1px solid rgba(255,255,255,0.5);}
+
+
+

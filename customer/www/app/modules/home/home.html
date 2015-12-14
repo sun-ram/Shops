@@ -90,24 +90,73 @@
    				 	
    				 	
     					<div layout="row" flex ng-repeat="product in topcategories | orderBy:groupCount | limitTo:$root.numLimit">
-     						
+     							
                             <div class="views view-first">
-                                 <md-icon>shopping_cart</md-icon>
-                    <img src="assets/images/fruit.jpg" style=" width: 180px;
-    height: 160px;"/>
+                            	<div layout="row">
+                            		<div flex layout-align="start start">
+                            			 
+                            		</div>
+                            		<div flex>
+                            			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
+									        <md-icon class="icon-black" fill="black">shopping_cart</md-icon>
+									      </md-button>
+									      <span class="item-count">2</span>
+                            		</div>
+                            	</div>
+                             
+                                
+                    <div class="pro-img"><img src="assets/images/fruit.jpg" height="120" style="margin:0px auto;"/></div>
                     <div class="mask">
-                        <md-icon>shopping_cart</md-icon>
+                      
                         <h2>Hover Style #1</h2>
                         <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
-                         <md-button>+ More</md-button>
-                        <md-button class="md-icon-button md-primary" aria-label="Settings">
-        <md-icon>add</md-icon>
-      </md-button>
-                         <md-button class="md-icon-button md-primary" aria-label="Settings">
-        <md-icon>remove</md-icon>
-      </md-button>
+                         
+                         <div layout="row" layout-align="center center">
+	                        	
+					        <div flex>
+	                    		<md-button><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
+	                    	</div>
+	                        
+     		  			</div>
+                        <div layout="row" layout-align="center center" class="bg-gray">
+	                       
+	     		  			<div flex>
+					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
+					        </div>	
+					        <div flex>
+	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">0</span></div>
+	                    	</div>
+	                        <div flex>
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+     		  			</div>
+     		  			
+     		  			
                     </div>
-                </div>  
+                    			<div layout="row">
+                            		<div flex>
+                            			<div class="pull-left" layout-padding><span class="md-body-1">2 Kg</span></div> 
+                            		</div>
+                            		<div flex>
+                            			<div  layout-padding>
+                            				<div class="pull-right item-type"><span class="item-type-nonveg"></span></div>
+                            			</div>
+                            		</div>
+                            	</div>
+                            	
+                            	<div layout-align="center center" layout="row" class="md-subhead">Product Name</div>
+                            	
+                            	<div layout="row">
+                            		<div flex="40">
+                            			<div  layout-padding >
+                            				<div class="pull-right pro-price"><span class="actual-prices">&#8377;25</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex="60">
+                            			<div class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;30 </strike></div> 
+                            		</div>
+                            	</div>
+                			</div>  
 
   </div>	
 						
