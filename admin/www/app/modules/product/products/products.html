@@ -163,7 +163,7 @@
 	    <input id="file-upload1" type="file" ng-model="excelFile.file" app-filereader ng-change="uploadExcelFile('file-name1','file-upload1')"/>
 	</label>
 </md-button>
-<md-button class="md-raised md-success padd-50" ng-click="uploadXmls()" ng-disabled="">Add</md-button>
+<md-button ng-show="excelFile.file" class="md-raised md-success padd-50" ng-click="uploadXmls()" ng-disabled="">Add</md-button>
 
 <div flex="5"></div>
 <div style="font-size:16px;" flex="75" layout="row" class="table-pagination-bg" layout-align="start center">
