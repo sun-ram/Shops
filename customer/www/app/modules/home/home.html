@@ -100,33 +100,34 @@
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon class="icon-black" fill="black">shopping_cart</md-icon>
 									      </md-button>
-									      <span class="item-count">2</span>
+									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
                             		</div>
                             	</div>
                              
                                 
-                    <div class="pro-img"><img src="assets/images/fruit.jpg" height="120" style="margin:0px auto;"/></div>
+                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
                     <div class="mask">
                       
-                        <h2>Hover Style #1</h2>
-                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                        <h2>{{product.name}}</h2>
+                      <!--  <p>{{product.description}}</p>-->
+                          <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
                          
                          <div layout="row" layout-align="center center">
 	                        	
-					        <div flex>
-	                    		<md-button><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
+					        <div flex ng-click="productDetails($event,product);">
+	                    		<md-button class="md-icon-button" aria-label="More"><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
 	                    	</div>
 	                        
      		  			</div>
                         <div layout="row" layout-align="center center" class="bg-gray">
 	                       
-	     		  			<div flex>
+	     		  			<div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
 					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
 					        </div>	
 					        <div flex>
-	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">0</span></div>
+	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div>
 	                    	</div>
-	                        <div flex>
+	                        <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
 	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
 	     		  			</div>
      		  			</div>
@@ -135,21 +136,21 @@
                     </div>
                     			<div layout="row">
                             		<div flex>
-                            			<div class="pull-left" layout-padding><span class="md-body-1">2 Kg</span></div> 
+                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
                             		</div>
                             		<div flex>
                             			<div  layout-padding>
-                            				<div class="pull-right item-type"><span class="item-type-nonveg"></span></div>
+                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
                             			</div>
                             		</div>
                             	</div>
                             	
-                            	<div layout-align="center center" layout="row" class="md-subhead">Product Name</div>
+                            	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
                             	<div layout="row">
                             		<div flex="40">
                             			<div  layout-padding >
-                            				<div class="pull-right pro-price"><span class="actual-prices">&#8377;25</span></div>
+                            				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
                             		<div flex="60">
@@ -180,6 +181,7 @@
         
         
           <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct">
+           
  			<div ng-if="category.products.length" >
  				<div class="prod-headings" flex ng-hide="category.products.length ==0" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">{{category.name}}</h2>
@@ -194,47 +196,77 @@
    				 	
    				 	
     					<div layout="row" flex layout-wrap  ng-repeat="product in category.products | orderBy:groupCount | limitTo:$root.numLimit">
-     						<div  class="producutItem"    layout-padding  layout="column" >
-         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
-								<div class="pro-box" flex layout="column">
-									<div flex style="height:150px; text-align: center; cursor: pointer;  border-bottom:rgba(0,0,0,0.5); padding-bottom:10px;" ng-click="productDetails($event,product);">
-										<img style="height:150px;  width: 100%;" src="{{product.image.url}}" />
-									</div>
-									<div flex layout-align="center center" layout="row">
-										<span class=" md-subhead" style="color:#375E97;">{{product.name}}</span>
-									</div>
-									<div flex  layout="row">
-										<span flex class="md-body-1 text-left" >{{product.unit}} {{product.uom.name}}</span>
-										<span flex class="md-body-1 text-right" >
-											<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-											₹ {{product.price}}
-										</span>
-									</div>
-									<div layout="row" flex>
-																		
-										<div flex="100" layout="row" layout-align="center center"
-											class="button-flex cart-btn">
-											
-											<div layout layout-align="center center" class="cursor" flex="30" ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
-											</div>
-											<div layout layout-align="center center" class="cursor" flex="30" ng-hide="product.noOfQuantityInCart > 0" >
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
-											</div>
-											
-											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
-											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
-		
-											<div layout layout-align="center center" class="cursor" flex="30"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
-											</div>
-										</div>
-									</div>
-								</div>				
-							</div>
+     						
+                            <div class="views view-first">
+                            	<div layout="row">
+                            		<div flex layout-align="start start">
+                            			 
+                            		</div>
+                            		<div flex>
+                            			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
+									        <md-icon class="icon-black" fill="black">shopping_cart</md-icon>
+									      </md-button>
+									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
+                            		</div>
+                            	</div>
+                             
+                                
+                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
+                    <div class="mask">
+                      
+                        <h2>{{product.name}}</h2>
+                        <!--<p>{{product.description}}</p>-->
+                         <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                         <div layout="row" layout-align="center center">
+	                        	
+					        <div flex ng-click="productDetails($event,product);">
+	                    		<md-button class="md-icon-button" aria-label="More"><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
+	                    	</div>
+	                        
+     		  			</div>
+                        <div layout="row" layout-align="center center" class="bg-gray">
+	                       
+	     		  			<div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
+					        </div>	
+					        <div flex>
+	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div>
+	                    	</div>
+	                        <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+     		  			</div>
+     		  			
+     		  			
+                    </div>
+                    			<div layout="row">
+                            		<div flex>
+                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
+                            		</div>
+                            		<div flex>
+                            			<div  layout-padding>
+                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
+                            			</div>
+                            		</div>
+                            	</div>
+                            	
+                            	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
+                            	
+                            	<div layout="row">
+                            		<div flex="40">
+                            			<div  layout-padding >
+                            				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex="60">
+                            			<div class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;30 </strike></div> 
+                            		</div>
+                            	</div>
+                			</div> 
+                            
+                            
+                            
+                            
 						</div>
 						
 						<div layout="row" flex layout-wrap ng-repeat="test  in remainOb(category.products.length);  track by $index"></div>

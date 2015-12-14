@@ -825,10 +825,10 @@ font-size: 12px !important;
 .item-count{ position:absolute; top:3px; right:3px; background-color:#0F9D58 ; padding:3px 7px; font-size:12px; border-radius:40px; color:#FFFFFF}
 .item-type{  padding:3px; border:1px solid rgba(0,0,0,0.3)}
 .item-type span{ width:12px; height:12px; border-radius:50px; float:left;}
-.item-type-veg{ background-color:#008000;}
-.item-type-nonveg{ background-color:#DA251E;}
-.item-type-noneatable{ border:2px solid #DA251E; position:relative;}
-.item-type-noneatable:after{
+.item-type-Veg{ background-color:#008000;}
+.item-type-Non-Veg{ background-color:#DA251E;}
+.item-type-Non-Eatable{ border:2px solid #DA251E; position:relative;}
+.item-type-Non-Eatable:after{
 	height: 12px;
     width: 2px;
     position: absolute;
@@ -840,7 +840,7 @@ font-size: 12px !important;
  }
  .border-r-only{ border-right:1px solid rgba(0,0,0,0.7);}
 .actual-prices{ color:#DA251E;}
-.actual-prices:after{
+/*.actual-prices:after{
 	height: 15px;
     width: 1px;
     position: absolute;
@@ -848,7 +848,7 @@ font-size: 12px !important;
     content: '';
     left:39px;
     top:3px;
-} 
+} */
 .icon-black{ color:rgba(0,0,0,0.6) !important;}
 .pro-price{ padding-right:5px;}
 .mrp-price{ color:rgba(0,0,0,0.5); padding-left:5px;}
