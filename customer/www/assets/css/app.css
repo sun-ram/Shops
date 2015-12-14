@@ -275,7 +275,7 @@ height: 40px;
 
 
 .nav-bar-subheader{ padding:10px 0px; background-color:#0F9D58 !important}
-ul.nav-menu{ width:400px; padding:10px; margin-left:0px; display:inline; list-style-type:none;}
+ul.nav-menu{ width:400px; padding:6px; margin:0px; display:inline; list-style-type:none; position:absolute;}
 ul.nav-menu li{ width:auto; display:inline; list-style-type: none; padding:10px; list-style-type:none;}
 
 .triangle ::after {
@@ -471,8 +471,12 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 }
 
 
+
 @media screen and (max-width: 600px) {
     .product-detail-dialog{}
+    .nopadd-sm { padding:0px !important; }
+    .nomar-sm{ margin:6px 0px !important;}
+    .width-sm{width:50px !important; float:left; padding:0px !important;}
 }
 @media screen and (min-width: 601px) and (max-width: 960px) {
     .product-detail-dialog{}
@@ -620,6 +624,8 @@ font-size: 12px !important;
 	background:#7d7d7d;
 }
 
+.icon-20{ font-size:20px;}
+.hgt-34{ height:34px;}
 .views {
    width: 300px;
    height: 300px;
