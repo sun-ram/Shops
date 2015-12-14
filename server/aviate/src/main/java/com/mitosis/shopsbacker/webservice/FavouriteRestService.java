@@ -193,16 +193,14 @@ public class FavouriteRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public MyCartResponseVo productInFavourite(FavouriteVo favouriteVo) {
-		//ProductResponseVo productResponse = new ProductResponseVo();
+	public String productInFavourite(FavouriteVo favouriteVo) {
+		String responseStr = "";
 		MyCartResponseVo myCartResponseVo = new MyCartResponseVo();
 		try {
 			Favourite favourite = favouriteService.getFavourites(favouriteVo.getFavouriteId());
 			SalesOrder salesOrder = favourite.getSalesOrder();
 			List<SalesOrderLine> salesOrderLines = salesOrder.getSalesOrderLines();
 			
-			
-			//List<ProductVo> productVoList = new ArrayList<ProductVo>();
 			List<MyCartVo> myCartVoList = new ArrayList<MyCartVo>();
 			for(SalesOrderLine salesOrderLine : salesOrderLines){
 				MyCartVo mycartvo = new MyCartVo();
@@ -218,7 +216,13 @@ public class FavouriteRestService {
 			e.printStackTrace();
 			myCartResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
-		return myCartResponseVo;
+		try {
+			responseStr = CommonUtil.getObjectMapper(myCartResponseVo);
+		} catch (Exception e) {
+			log.error(e);
+			e.printStackTrace();
+		}
+		return responseStr;
 		
 	}
 	

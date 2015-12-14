@@ -174,8 +174,10 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	
 	public CityVo setCityVo(City city) {
 		cityVo = new CityVo();
-		cityVo.setName(city.getName());
-		cityVo.setCityId(city.getCityId());
+		if(city != null){
+			cityVo.setName(city.getName());
+			cityVo.setCityId(city.getCityId());
+		}
 		return cityVo;
 	}
 
