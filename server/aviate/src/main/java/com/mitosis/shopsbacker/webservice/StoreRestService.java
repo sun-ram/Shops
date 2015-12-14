@@ -310,7 +310,7 @@ public class StoreRestService<T> {
 		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getShopList(
-					addressVo.getCity());
+					addressVo.getCity().getName());
 			for (Store store : stores) {
 				storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
@@ -338,7 +338,7 @@ public class StoreRestService<T> {
 		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getShopList(
-					addressVo.getCity(), addressVo.getAddress1());
+					addressVo.getCity().getName(), addressVo.getAddress1());
 			for (Store store : stores) {
 				StoreVo storeVo = storeService.setStoreVo(store);
 				storeResponse.getStore().add(storeVo);
@@ -476,7 +476,7 @@ public class StoreRestService<T> {
 						.getAddress1());
 				addressVo.setAddress2(store.getUser().getAddress()
 						.getAddress2());
-				addressVo.setCity(store.getUser().getAddress().getCity());
+				addressVo.setCity(addessService.setCityVo(store.getUser().getAddress().getCity()));
 				userVo.setAddress(addressVo);
 			}
 		}

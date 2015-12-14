@@ -55,7 +55,7 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		var store ={};
 		api.Employee.shopList(store,function(err, result){
-			if (result.status == 'SUCCESS') {
+			if (result!= null && result.status == 'SUCCESS') {
 				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);

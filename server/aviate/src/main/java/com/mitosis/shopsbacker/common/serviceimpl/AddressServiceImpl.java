@@ -23,6 +23,7 @@ import com.mitosis.shopsbacker.vo.common.AddressVo;
 import com.mitosis.shopsbacker.vo.common.CountryVo;
 import com.mitosis.shopsbacker.vo.common.StateVo;
 import com.mitosis.shopsbacker.vo.customer.CustomerVo;
+import com.mitosis.shopsbacker.vo.common.CityVo;
 
 /**
  * @author prabakaran
@@ -46,7 +47,8 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	AddressVo addressVo = null;
 	CountryVo countryVo = null;
 	StateVo stateVo = null;
-
+	CityVo cityVo = null;
+	
 	public AddressDao<T> getAddressDao() {
 		return addressDao;
 	}
@@ -121,7 +123,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		address.setName(addressVo.getName());
 		address.setAddress1(addressVo.getAddress1());
 		address.setAddress2(addressVo.getAddress2());
-		address.setCity(addressVo.getCity());
+		address.setCity(getCity(addressVo.getCity().getCityId()));
 		address.setPhoneNo(addressVo.getPhoneNo());
 		address.setPinCode(addressVo.getPinCode());
 		address.setLatitude(addressVo.getLatitude());
@@ -140,7 +142,7 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		addressVo.setName(address.getName());
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
-		addressVo.setCity(address.getCity());
+		addressVo.setCity(setCityVo(address.getCity()));
 		addressVo.setPhoneNo(address.getPhoneNo());
 		addressVo.setPinCode(address.getPinCode());
 		addressVo.setLatitude(address.getLatitude());
@@ -169,6 +171,14 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		stateVo.setStateId(state.getStateId());
 		return stateVo;
 	}
+	
+	public CityVo setCityVo(City city) {
+		cityVo = new CityVo();
+		cityVo.setName(city.getName());
+		cityVo.setCityId(city.getCityId());
+		return cityVo;
+	}
+
 
 	public CustomerVo setCustomerVo(Customer customer) {
 		customerVo = new CustomerVo();

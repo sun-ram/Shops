@@ -22,7 +22,7 @@ public class AddressVo {
 	private String landmark;
 	private String address1;
 	private String address2;
-	private String city;
+	private CityVo city;
 	private String pinCode;
 	private String phoneNo;
 	private String latitude;
@@ -51,7 +51,7 @@ public class AddressVo {
 	public String getAddress2() {
 		return address2;
 	}
-	public String getCity() {
+	public CityVo getCity() {
 		return city;
 	}
 	public String getPinCode() {
@@ -81,7 +81,7 @@ public class AddressVo {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
-	public void setCity(String city) {
+	public void setCity(CityVo city) {
 		this.city = city;
 	}
 	public void setPinCode(String pinCode) {

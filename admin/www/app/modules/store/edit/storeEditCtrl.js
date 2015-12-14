@@ -21,6 +21,9 @@ angular.module('aviateAdmin.controllers')
                 $scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
                 
                 $scope.state = $scope.store.user.address.state;
+                
+                $scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				$scope.cty = $scope.store.user.address.city;
 			};
             if(!$scope.countries){
                 setTimeout(function(){
@@ -32,12 +35,16 @@ angular.module('aviateAdmin.controllers')
 			$scope.updateStore = function(){
 				$scope.cnt = $scope.country;
 				$scope.st = $scope.state;
+				$scope.ct = $scope.cty;
 				$scope.store.user.address.country = {};
 				$scope.store.user.address.state = {};
+				$scope.store.user.address.city = {};
 				$scope.store.user.address.country.countryId = $scope.cnt.countryId;
 				$scope.store.user.address.country.name = $scope.cnt.name;
 				$scope.store.user.address.state.stateId = $scope.st.stateId;
 				$scope.store.user.address.state.name = $scope.st.name;
+				$scope.store.user.address.city.name=$scope.ct.name;
+				$scope.store.user.address.city.cityId=$scope.ct.cityId;
 				StoreServices.updateStore($scope.store).then(function(data){
 					localStorage.removeItem('store');
 					$state.go('app.store');

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
 import com.mitosis.shopsbacker.model.Address;
 import com.mitosis.shopsbacker.model.Customer;
@@ -47,6 +48,9 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	
 	@Autowired
 	MyCartService<T> mycartService;
+	
+	@Autowired
+	AddressService<T> addessService;
 	
 	public SalesOrderDao<T> getSalesOrderDao() {
 		return salesOrderDao;
@@ -270,7 +274,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		AddressVo addressVo = new AddressVo();
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
-		addressVo.setCity(address.getCity());
+		addressVo.setCity(addessService.setCityVo(address.getCity()));
 		addressVo.setPhoneNo(address.getPhoneNo());
 		addressVo.setLandmark(address.getLandmark());
 		addressVo.setLatitude(address.getLatitude());

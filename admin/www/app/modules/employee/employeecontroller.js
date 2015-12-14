@@ -52,13 +52,22 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.states = country.states;
 	}
 	
+	$scope.getCity = function(states){
+		$scope.cities = states.city;
+	}
+	
 	$scope.saveEmployee = function() {
 		$scope.user.address.country = {};
+		$scope.user.address.city={};
 		$scope.cnt = $scope.country;
 		$scope.user.address.country.countryId = $scope.cnt.countryId;
 		$scope.user.address.country.name = $scope.cnt.name;
 		$scope.sta = $scope.state;
+		$scope.ct = $scope.cty;
+
 		$scope.user.address.state = $scope.sta;
+		$scope.user.address.city.cityId= $scope.ct.cityId;
+		$scope.user.address.city.name=$scope.ct.name;
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
 			$scope.user.store.storeId = $rootScope.user.storeId
@@ -137,6 +146,8 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 				$scope.country = $scope.user.address.country;
 				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
 				$scope.state = $scope.user.address.state;
+				$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				$scope.cty = $scope.user.address.city;
 			}	
 		}
 	}

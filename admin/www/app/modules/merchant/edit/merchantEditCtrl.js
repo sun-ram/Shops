@@ -19,6 +19,9 @@ angular.module('aviateAdmin.controllers')
 				$scope.country = $scope.merchantDetail.user.address.country;
 				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
 				$scope.state = $scope.merchantDetail.user.address.state;
+				$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				$scope.cty = $scope.merchantDetail.user.address.city;
+				
 			};
 			if($scope.countries)
 				$scope.getMerchant();
@@ -44,6 +47,7 @@ angular.module('aviateAdmin.controllers')
                     }
                 }
             }
+            
             $scope.double = function(value) { return value * 2; };
              
 			$scope.populateStates = function(country){
@@ -56,15 +60,27 @@ angular.module('aviateAdmin.controllers')
            
             }
             
+            $scope.getCity = function(states){
+    			$scope.cities = states.city;
+			}
+			
+			$scope.getState = function(country){
+				$scope.states = country.states;
+			}
+            
 			$scope.updateMerchant = function(){
 				$scope.cnt = $scope.country;
 				$scope.st = $scope.state;
+				$scope.ct = $scope.cty;
 				$scope.merchantDetail.user.address.country = {};
 				$scope.merchantDetail.user.address.state = {};
+				$scope.merchantDetail.user.address.city = {};
 				$scope.merchantDetail.user.address.country.countryId = $scope.cnt.countryId;
 				$scope.merchantDetail.user.address.country.name = $scope.cnt.name;
 				$scope.merchantDetail.user.address.state.stateId = $scope.st.stateId;
 				$scope.merchantDetail.user.address.state.name = $scope.st.name;
+				$scope.merchantDetail.user.address.city.cityId=$scope.ct.cityId;
+				$scope.merchantDetail.user.address.city.name=$scope.ct.name;
 				
 				if ($scope.merchantLogo != "" && $scope.merchantLogo != undefined && $scope.merchantLogo != null) {
 					$scope.merchantDetail.logo = {};

@@ -109,7 +109,7 @@ public class State implements java.io.Serializable {
 		return this.cities;
 	}
 
-	public void setCities(List<City> city) {
-		this.cities = city;
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 }

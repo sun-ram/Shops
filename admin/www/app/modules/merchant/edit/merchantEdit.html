@@ -66,7 +66,7 @@
 				   	</md-input-container>
 				    <md-input-container>
 		       			 <label>State<span style="color:red">*</span></label>
-                        <md-select ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}">
+                        <md-select ng-model="state" ng-required="true" ng-change = " getCity(state);" ng-model-options="{trackBy: '$value.stateId'}">
                         <md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
                         {{state.name}}
                        </md-option>
@@ -91,10 +91,18 @@
 		      		  </span>
 				    </md-input-container>
 				    
-				    <md-input-container>
+				    <!-- <md-input-container>
 				      <label>City<span style="color:red">*</span></label>
 				      <input ng-model="merchantDetail.user.address.city" ng-required="true">
-				    </md-input-container>
+				    </md-input-container> -->
+				    <md-input-container>
+		       			 <label>City<span style="color:red">*</span></label>
+                        <md-select ng-model="cty" ng-required="true" ng-model-options="{trackBy: '$value.cityId'}">
+                        <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
+                        {{city.name}}
+                       </md-option>
+              		  </md-select>
+		    		</md-input-container>
 				    <md-input-container>
 				    	<label>Phone<span style="color:red">*</span></label>
 			  			<input ng-model="merchantDetail.user.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">

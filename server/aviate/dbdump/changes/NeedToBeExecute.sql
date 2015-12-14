@@ -193,3 +193,20 @@ ADD COLUMN `FORMATTED_ADDRESS` VARCHAR(250) NULL AFTER `NAME`;
 
 ALTER TABLE `shopsbacker`.`product` 
 ADD COLUMN `WAS_PRICE` DECIMAL(15,2) NULL DEFAULT '0.00' AFTER `DESCRIPTION`;
+
+----   14-12-2015 -------- JAI----------------- Address Delete CITY FIELD ------
+
+ALTER TABLE `shopsbacker`.`address` 
+DROP COLUMN `CITY`;
+
+----   14-12-2015 -------- JAI----------------- Address Add CITY_ID ------
+
+ALTER TABLE `shopsbacker`.`address` 
+ADD COLUMN `CITY_ID` VARCHAR(32) NULL AFTER `FORMATTED_ADDRESS`,
+ADD INDEX `FK_ADDRESS_CITY_idx` (`CITY_ID` ASC);
+ALTER TABLE `shopsbacker`.`address` 
+ADD CONSTRAINT `FK_ADDRESS_CITY`
+  FOREIGN KEY (`CITY_ID`)
+  REFERENCES `shopsbacker`.`city` (`CITY_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

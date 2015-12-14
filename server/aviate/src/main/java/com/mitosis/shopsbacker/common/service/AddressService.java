@@ -13,6 +13,7 @@ import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
+import com.mitosis.shopsbacker.vo.common.CityVo;
 
 public interface AddressService<T> {
 	
@@ -47,5 +48,7 @@ public interface AddressService<T> {
 	public  City getCity(String id);
 	
 	public List<Area> getAreas(City city);
+	
+	public CityVo setCityVo(City city);
 
 }

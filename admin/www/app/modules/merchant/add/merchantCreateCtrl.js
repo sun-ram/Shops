@@ -11,12 +11,16 @@ angular.module('aviateAdmin.controllers')
 			
 			$scope.cnt = $scope.country;
 			$scope.st = JSON.parse($scope.state);
+			$scope.ct = JSON.parse($scope.cty);
 			$scope.merchantDetail.user.address.country = {};
 			$scope.merchantDetail.user.address.state = {};
+			$scope.merchantDetail.user.address.city = {};
 			$scope.merchantDetail.user.address.country.countryId = $scope.cnt.countryId;
 			$scope.merchantDetail.user.address.country.name = $scope.cnt.name;
 			$scope.merchantDetail.user.address.state.stateId = $scope.st.stateId;
 			$scope.merchantDetail.user.address.state.name = $scope.st.name;
+			$scope.merchantDetail.user.address.city.cityId=$scope.ct.cityId;
+			$scope.merchantDetail.user.address.city.name=$scope.ct.name;
 			
 			$scope.merchantDetail.logo = {};
 			$scope.merchantDetail.logo.image=$scope.merchantLogo.split(",")[1];

@@ -68,6 +68,11 @@ angular.module('aviateAdmin.controllers')
 					page: 1
 			};
 			
+			$scope.getCity = function(states){
+				$scope.state = JSON.parse(states);
+				$scope.cities = $scope.state.city;
+			}
+			
 			$scope.getState = function(country){
 				$scope.states = country.states;
 			}

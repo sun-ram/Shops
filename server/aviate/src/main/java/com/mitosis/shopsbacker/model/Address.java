@@ -39,7 +39,7 @@ public class Address implements java.io.Serializable {
 	private String landmark;
 	private String address1;
 	private String address2;
-	private String city;
+	private City city;
 	private String pinCode;
 	private String phoneNo;
 	private String latitude;
@@ -76,7 +76,7 @@ public class Address implements java.io.Serializable {
 
 	public Address(String addressId,String name, State state, Customer customer,
 			Country country, String landmark, String address1, String address2,
-			String city, String pinCode, String phoneNo, String latitude,
+			City city, String pinCode, String phoneNo, String latitude,
 			String longitude, char isactive, String createdby,
 			String updatedby, Date created, Date updated,String formattedAddress, List<SalesOrder> salesOrders,
 			List<User> users, List<MerchantRequest> merchantRequests,List<Warehouse>  warehouses) {
@@ -174,12 +174,13 @@ public class Address implements java.io.Serializable {
 		this.address2 = address2;
 	}
 
-	@Column(name = "CITY", length = 45)
-	public String getCity() {
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CITY_ID", nullable = false)	
+	public City getCity() {
 		return this.city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
 
