@@ -462,9 +462,11 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 	.marg-l-15{margin-left: -15px ! important;}
 	.padd-l10{padding-left: 10px ! important;}
 	.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 11px; margin: 0px;}	
+	.font-16{font-size: 16px ! important;}
+	.font-14{font-size: 14px ! important;}
 }
 @media screen and (max-width: 450px){
-	.cart-count .md-icon-button{border-radius: 50% ! important; height: 25px ! important; width: 25px ! important; min-height: 0 ! important;}
+	.cart-count .md-icon-button{border-radius: 50% ! important; height: 25px ! important; width: 25px ! important; min-height: 0 ! important; margin-left: 3px;}
 	.cart-btm-btns{width: 100%;}
 }
 

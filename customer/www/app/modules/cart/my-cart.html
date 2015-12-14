@@ -59,8 +59,8 @@
 		     	<img class="mycart-img" src="{{product.product.image.url}}"/>
 		     </div>
 		         <div class="md-list-item-text padd-l20  padd-l10 marg-l10" layout="column" flex="35" flex-md="30" flex-sm="25">
-		          <span class="md-title">{{product.product.name}}</span>
-		          <span class="md-subhead">Rs.{{product.product.price }}</span>
+		          <span class="md-title font-16">{{product.product.name}}</span>
+		          <span class="md-subhead font-14">Rs.{{product.product.price }}</span>
 		        </div>
 		        	<div class="md-list-item-text padd-l30 padd-l10 marg-l10" flex="20" flex-md="30" flex-sm="25">
 		        	<div class="cart-count">
@@ -77,7 +77,7 @@
                     </div>
                     
                     <div class="md-list-item-text padd-l30 padd-lr0 marg-l-15" flex="20" flex-md="20" flex-sm="25">
-					<span class="md-title">Rs.{{product.product.price * product.qty}}</span>				
+					<span class="md-title font-16">Rs.{{product.product.price * product.qty}}</span>				
 				</div>
 					<div class="md-list-item-text marg-l-15" flex="10" flex-md="10" flex-sm="10" layout-align="end">
                    <md-button class="md-icon-button cart-remove" aria-label="More" ng-click="removeFromMyCart(product,$index);">
