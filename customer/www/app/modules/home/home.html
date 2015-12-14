@@ -90,48 +90,18 @@
    				 	
    				 	
     					<div layout="row" flex ng-repeat="product in topcategories | orderBy:groupCount | limitTo:$root.numLimit">
-     						<div  class="producutItem" flex layout-padding  layout="column" >
-         <!-- <div flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" > -->
-								<div class="pro-box" flex layout="column">
-									<div flex style="height:150px; text-align: center; cursor: pointer; border-bottom:rgba(0,0,0,0.5); padding-bottom:10px;" ng-click="productDetails($event,product);">
-										<img style="height:150px;  width: 100%;" src="{{product.image.url}}" style="width:100%"/>
-									</div>
-									<div flex layout-align="center center" layout="row">
-										<span class=" md-subhead" style="color:#375E97;">{{product.name}}</span>
-									</div>
-									<div flex  layout="row">
-										<span flex class="md-body-1 text-left">{{product.unit}} {{product.uom.name}}</span>
-										<span flex class="md-body-1 text-right">
-											<md-icon style="height:12px; width:12px; color:red;" md-svg-src={{product.image.url}}></md-icon>
-											₹ {{product.price}}
-										</span>
-									</div>
-									<div layout="row" flex>
-																		
-										<div flex="100" layout="row" layout-align="center center"
-											class="button-flex cart-btn">
-											
-											<div flex="30" layout layout-align="center center"  ng-show="product.noOfQuantityInCart > 0"  ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
-											</div>
-											<div flex="30" layout layout-align="center center"  ng-hide="product.noOfQuantityInCart > 0" >
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/decfromcart.svg"></md-icon>
-											</div>
-											
-											<div flex="40" ng-hide="product.noOfQuantityInCart > 0" style="text-align:center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)" class="md-subhead">Cart</div>
-											<div flex="40" ng-show="product.noOfQuantityInCart > 0" style="text-align:center" class="md-subhead">{{product.noOfQuantityInCart}}</div>
-		
-											<div flex="30" layout layout-align="center center" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-												<md-icon style="height:20px; color:#FFFFFF; margin:3px; "
-													md-svg-src="assets/img/icon/addtocart.svg"></md-icon>
-											</div>
-										</div>
-									</div>
-								</div>				
-							</div>
-						</div>	
+     						
+                            <div class="views view-first">
+                    <img src="assets/images/fruit.jpg" style=" width: 180px;
+    height: 160px;"/>
+                    <div class="mask">
+                        <h2>Hover Style #1</h2>
+                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                        <a href="#" class="info">Read More</a>
+                    </div>
+                </div>  
+
+  </div>	
 						
 						
 						
