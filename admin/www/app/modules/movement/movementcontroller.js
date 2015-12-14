@@ -25,7 +25,7 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 			$scope.processMovement = function(movement) {
 				$scope.warehouseData = {};
 				movementServices.processMovement({'movementId': movement.movementId}).then(function(data){
-					$state.go('app.newphysicalinventory');
+					$state.go('app.physical_inv');
 				});
 			};
 			
