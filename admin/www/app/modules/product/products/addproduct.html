@@ -81,12 +81,12 @@
 				decimal point.</span> 
 			</md-input-container>
 			
-			<md-input-container> <label>Was Price<span style="color:red">*</span></label>
+			<md-input-container> <label>Was Price</label>
 			<input type="text" name="wasPrice" ng-model="product.wasPrice"
-				pattern="\d+(\.\d{1,2})?"  valid-number1 ng-required="true" /> <span
+				pattern="\d+(\.\d{1,2})?"  valid-number1 /> <span
 				ng-message="required"
 				ng-show="addProductForm.wasPrice$error.price || (!addProductForm.wasPrice.$error.required && !addProductForm.wasPrice.$valid)"
-				style="color: red;">wasPrice Should allow upto 2 digits
+				style="color: red;">Price Should allow upto 2 digits
 				decimal point.</span> 
 			</md-input-container>
 			
