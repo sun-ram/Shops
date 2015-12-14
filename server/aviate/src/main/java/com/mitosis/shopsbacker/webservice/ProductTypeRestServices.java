@@ -18,6 +18,7 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.responsevo.ProductTypeResponseVo;
@@ -102,9 +103,16 @@ public class ProductTypeRestServices<T> {
 		ProductTypeResponseVo productTypeResponseVo = new ProductTypeResponseVo();
 		ProductType productType = productTypeService
 				.getProductTypeById(productTypeVo.getProductTypeId());
-		if (productType != null) {
+		List<Product> productList = productType.getProducts();
+		if (productType != null && productList.size()==0) {
 			productTypeService.removeProductType(productType);
 			productTypeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+		}
+		else{
+			productTypeResponseVo.setStatus(SBMessageStatus.FAILURE
+					.getValue());
+			productTypeResponseVo.setErrorCode(SBErrorMessage.CATEGORY_PRODUCTTYPE_CHECK.getCode());
+			productTypeResponseVo.setErrorString(SBErrorMessage.CATEGORY_PRODUCTTYPE_CHECK.getMessage());
 		}
 		return productTypeResponseVo;
 	}

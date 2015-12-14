@@ -37,7 +37,9 @@ public enum SBErrorMessage {
 	CART_IS_EMPTY("E0026","Your Cart Is Empty"),
 	PRODUCTTYPE_EXIST("E0027","This product type already exist"),
 	CITY_ID_NOT_VALID("E0028","City id not valid"),
-	CITY_ID_NOT_AVAILABLE("E0029","City id is not available");
+	CITY_ID_NOT_AVAILABLE("E0029","City id is not available"),
+	CATEGORY_PRODUCT_CHECK("E0030","This category having some products."),
+	CATEGORY_PRODUCTTYPE_CHECK("E0031","This product type having some products.");
 	
 
 	private final String erroeCode;
