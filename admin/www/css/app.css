@@ -37,63 +37,81 @@ input{
 }
 
 /* width style */
+
 	.wid-50{width:50%;}
 	.full_wid{width:100%; outline:0;}
+	.m-wid140{min-width: 140px;}
 
 /* Floating */
+
 .pull-left{float: left;}
 .pull-right{float: right;}
 
 /* Padding */
+
 .padd-50{padding:0px 50px;}
 .padd-t30{padding-top: 30px;}
 .padd-b30{padding-bottom: 30px;}
+.padd-b15{padding-bottom: 15px;}
 .padd-5-3{padding:5px 3px;}
 .padd-lr5{padding:0px 3px;}
 .padd-l8{ padding-left:8px;}
 .padd-tr5-lb8{padding:5px 5px 8px 8px;}
 .nopaddtop{padding-top:0px;}
-.nopadd{padding:0px;}
+.nopadd{padding:0px ! important;}
 .paddtb-8{padding: 8px 0px;}
 .padd-0{padding: 0;}
+.padd-5{padding: 5px;}
+
+.remove-padd .md-select-value{padding:1px ! important;}
 
 /* Margin */
+
 .marg-t25{margin-top: 25px ! important;}
 .marg-t10{margin-top: 10px;}
+.marg-t7{margin-top: 7px ! important;}
 .mgn-b10{margin-bottom:10px;}
 .svgstyle svg{margin-top:5px;height: 20px;width: 20px;}
-
+.marg-r5{margin-right: 5px;}
 /* linkstyle */
 .fgt-link a{text-decoration: none ! important; color: lightblue;}
+.marg-r13{margin-right: 13px;}
+
 
 /* Aligntext */
+
 .text-left{text-align:left;}
 .text-right{text-align:right;}
 .text-center{text-align:center;}
 .text-justify{text-align:justify;}
 
 /* Font-size */
+
 .ft-18{font-size:18px;}
 .ft-14{font-size:14px;}
 .ft-12{font-size:12px;}
 
 /* Font-color */
+
 .hash_color{fill:#666666;color:#666666;}
 .hash_color:hover{fill:color:#aaa;;color:color:#aaa;}
 .ft-black{color:#000;}
 .icon-white{fill:#023904;}
 .ft_ltgreen{color: rgb(165, 255, 46) !important;}
+.ft-red{color: red;}
+.ft-white{color: #fff;}
 
 /* bg-color  */
-.bg_white{
-background-color:#fff;}
 
+.bg_white{background-color:#fff;}
 
 /* bg-img  */
+
 .slide-bg{background:url("images/bg.png");}
 
 
-/* btn */1 - 1 of 1
+/* btn */
+
 .md-success{background-color:#77A20C !important;color:#fff !important; }
 .md-cancel{background-color:#aaa  !important;color:#fff !important;}
 
@@ -102,9 +120,10 @@ a:link {
     text-decoration: none;
 }	
 
+.noborder{border:none !important;}
 
 .nodisplay{display:none;}
-
+.display-blk{display: block !important;}
 .edit-container{padding:10px 20px 20px 24px;}
 .edit-container label{color:grey;}
 
@@ -267,6 +286,9 @@ md-select .md-select-value{
 	border: 1px solid #ddd ! important;
 	padding: 5px;
  }
+ md-select .md-select-value span{
+	font-size: 16px;padding-left: 5px;
+ }
  
 .ctg{
 	margin:5px; color: grey;
@@ -334,7 +356,7 @@ md-select .md-select-value{
 .custom-excel-input {
 	display: inline-block;
 	position: relative;
-	color: #000 ! important;
+	color: #FFF ! important;
 	outline: none ! important;
 }
 .custom-excel-input input {
@@ -545,7 +567,7 @@ md-toolbar:not(.md-menu-toolbar) md-icon{color: grey ! important; margin: 0px ! 
 
 .md-select-menu-container.md-pagination-select md-content md-option .md-text{ font-size:16px;}
 
-
+.sales-orderfab{right:0px;top:48px;}
 
 
 
