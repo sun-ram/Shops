@@ -326,34 +326,22 @@ public class ProductRestService {
 			ProductCategory productCategory = productCategoryService
 					.getCategoryById(productVo.getProductCategory()
 							.getProductCategoryId());
-			if (productCategory.getParentCategory() != null) {
-				List<Product> productList = getProductService()
-						.getProductListByCategoty(productCategory);
-				List<ProductVo> productVoList = new ArrayList<ProductVo>();
-				for (Product product : productList) {
-					ProductVo productVos = productService.setProductVo(product);
-					productVoList.add(productVos);
-				}
-				productResponse.setProducts(productVoList);
-				productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
-			} else {
-				List<ProductCategory> productCategoryList = productCategoryService
-						.getParentCategory(productCategory);
-				List<ProductVo> productVoList = new ArrayList<ProductVo>();
-				for (ProductCategory pr : productCategoryList) {
-					ProductCategory productCategory1 = productCategoryService
-							.getCategoryById(pr.getProductCategoryId());
-					List<Product> productList = getProductService()
-							.getProductListByCategoty(productCategory1);
-					for (Product product : productList) {
-						ProductVo productVos = productService
-								.setProductVo(product);
-						productVoList.add(productVos);
-					}
-				}
-				productResponse.setProducts(productVoList);
-				productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+			List<Product> productList = productCategory.getProducts();
+			if (productList.isEmpty()) {
+				List<ProductCategory> childCategories = productCategory
+						.getProductCategories();
+				productList = getProductsFromCatogories(productList,
+						childCategories);
 			}
+			List<ProductVo> productVoList = new ArrayList<ProductVo>();
+			for (Product product : productList) {
+				ProductVo productVos = productService.setProductVo(product);
+				productVoList.add(productVos);
+			}
+			productResponse.setProducts(productVoList);
+			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+			productResponse.setProducts(productVoList);
+			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -362,6 +350,49 @@ public class ProductRestService {
 		}
 		return CommonUtil.getObjectMapper(productResponse);
 
+	}
+
+	/**
+	 * @author fayaz
+	 * @param productList
+	 * @param childCategories
+	 * @return List<Product>
+	 */
+	private List<Product> getProductsFromCatogories(List<Product> productList,
+			List<ProductCategory> childCategories) {
+		for (ProductCategory childCategory : childCategories) {
+			List<Product> listOfproducts = childCategory.getProducts();
+			if (productList.isEmpty() && !listOfproducts.isEmpty()) {
+				productList = listOfproducts;
+			} else if (!listOfproducts.isEmpty()) {
+				productList.addAll(listOfproducts);
+			}
+			List<ProductCategory> listOfChildCategories = childCategory
+					.getProductCategories();
+			if (!listOfChildCategories.isEmpty()) {
+				productList = getProductsFromCatogories(productList,
+						listOfChildCategories);
+			}
+		}
+		return productList;
+	}
+
+	public ProductCategory checkHierarchyProductCategory(
+			ProductCategory productCategory) {
+		ProductCategory productCategoryHierarchy = productCategoryService
+				.getCategoryById(productCategory.getProductCategoryId());
+		List<ProductCategory> productCategoryList1 = productCategoryService
+				.getParentCategory(productCategoryHierarchy);
+		if (productCategoryList1.size() == 0) {
+
+		} else {
+			for (ProductCategory pr : productCategoryList1) {
+				checkHierarchyProductCategory(pr);
+
+			}
+		}
+
+		return null;
 	}
 
 	@Path("/gettopproduct")
