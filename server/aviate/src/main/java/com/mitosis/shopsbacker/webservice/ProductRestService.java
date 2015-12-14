@@ -114,6 +114,16 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
+			List<Product> checkUniqueProducts = getProductService().getProductListByName(productVo.getName(),merchant);
+						if (!checkUniqueProducts.isEmpty()) {
+						response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+								.getCode());
+							response.setErrorString(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+								.getMessage());
+							response.setStatus(SBMessageStatus.FAILURE.getValue());
+							return response;
+						}
+						
 
 			boolean isUpdateProcess = productVo.getProductId() != null ? true
 					: false;

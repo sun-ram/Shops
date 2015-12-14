@@ -44,4 +44,6 @@ public interface ProductService<T> {
 	public Product setProductFromExcel(ProductVo productVo) throws Exception ;
 
 	public Product getProductByName(String param, Merchant merchant);
+	
+	public List<Product> getProductListByName(String name,Merchant merchant);
 }

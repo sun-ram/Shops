@@ -71,6 +71,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			ProductCategory productCategory) {
 		return productDao.getProductListByCategoty(productCategory);
 	}
+	@Override
+		public List<Product> getProductListByName(String name,Merchant merchant) {
+			return productDao.getProductListByName(name,merchant);
+		}
+
 
 	@Override
 	public void deleteProduct(Product product) throws Exception {

@@ -39,8 +39,9 @@ public enum SBErrorMessage {
 	CITY_ID_NOT_VALID("E0028","City id not valid"),
 	CITY_ID_NOT_AVAILABLE("E0029","City id is not available"),
 	CATEGORY_PRODUCT_CHECK("E0030","This category having some products."),
-	CATEGORY_PRODUCTTYPE_CHECK("E0031","This product type having some products.");
-	
+	CATEGORY_PRODUCTTYPE_CHECK("E0031","This product type having some products."),
+	PRODUCT_NAME_ALREADY_EXIST("E0032","Product name already exist.");
+
 
 	private final String erroeCode;
 	  private final String errorMessage;

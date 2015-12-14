@@ -168,4 +168,21 @@ ProductDao<T>, Serializable{
 			throw(e);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Product> getProductListByName(String name,Merchant merchant) {
+		try{
+		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+		criteria.add(Restrictions.eq("name", name));
+
+		criteria.add(Restrictions.eq("merchant", merchant));
+		
+		return (List<Product>) findAll(criteria);
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
 }
