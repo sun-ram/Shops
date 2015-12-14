@@ -564,7 +564,9 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 		};
 		
 		function postStore (data){
-			$scope.totalStores = (data) ? data.Books.length : 0;
+			
+			data.Books = _.reject(data.Books, function(book){ return book.MERCHANT_ID != $rootScope.user.merchantId; });
+			$scope.totalStores = data.Books.length;
 			var newStoresToday = 0,
 				newStoresLastDay = 0;
 			var tempDateObj;
