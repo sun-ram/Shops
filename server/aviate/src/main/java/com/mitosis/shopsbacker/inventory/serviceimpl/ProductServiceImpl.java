@@ -160,6 +160,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		}
 		product.setName(productVo.getName());
 		product.setPrice(productVo.getPrice());
+		product.setWasPrice(productVo.getWasPrice());
 		product.setEdibleType(productVo.getEdibleType());
 		product.setGroupCount(productVo.getGroupCount());
 		product.setBrand(productVo.getBrand());
@@ -187,6 +188,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setBrand(product.getBrand());
 		productVo.setDescription(product.getDescription());
 		productVo.setPrice(product.getPrice());
+		productVo.setWasPrice(product.getWasPrice());
 		productVo.setUnit(product.getUnit());
 		productVo.setEdibleType(product.getEdibleType());
 		productVo.setGroupCount(product.getGroupCount());

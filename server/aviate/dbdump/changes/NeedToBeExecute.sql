@@ -188,3 +188,8 @@ INSERT INTO `shopsbacker`.`area`(`AREA_ID`,`NAME`,`CITY_ID`,`ISACTIVE`) VALUES
 
 ALTER TABLE `shopsbacker`.`address` 
 ADD COLUMN `FORMATTED_ADDRESS` VARCHAR(250) NULL AFTER `NAME`;
+
+----   14-12-2015 -------- Riyaz Khan----------------- Was_price filed added in product table ------
+
+ALTER TABLE `shopsbacker`.`product` 
+ADD COLUMN `WAS_PRICE` DECIMAL(15,2) NULL DEFAULT '0.00' AFTER `DESCRIPTION`;

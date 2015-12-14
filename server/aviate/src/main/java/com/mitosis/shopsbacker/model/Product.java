@@ -51,6 +51,7 @@ public class Product implements java.io.Serializable {
 	private Integer groupCount;
 	private String brand;
 	private BigDecimal price;
+	private BigDecimal wasPrice;
 	private Character isYourHot;
 	private BigDecimal unit;
 	private Date created;
@@ -71,7 +72,7 @@ public class Product implements java.io.Serializable {
 	public Product(String productId, String createdby,
 			String updatedby, Merchant merchant,
 			ProductCategory productCategory, Uom uom, ProductType productType,
-			String name, BigDecimal price, BigDecimal unit, Date created,
+			String name, BigDecimal price,BigDecimal wasPrice, BigDecimal unit, Date created,
 			Date updated, char isactive) {
 		this.productId = productId;
 		this.createdby = createdby;
@@ -82,6 +83,7 @@ public class Product implements java.io.Serializable {
 		this.productType = productType;
 		this.name = name;
 		this.price = price;
+		this.wasPrice = wasPrice;
 		this.unit = unit;
 		this.created = created;
 		this.updated = updated;
@@ -92,7 +94,7 @@ public class Product implements java.io.Serializable {
 			String updatedby, Image image, Merchant merchant,
 			Discount discount, ProductCategory productCategory, Uom uom,
 			ProductType productType, String name, String edibleType,
-			Integer groupCount, String brand, BigDecimal price,
+			Integer groupCount, String brand, BigDecimal price,BigDecimal wasPrice,
 			Character isYourHot, BigDecimal unit, Date created, Date updated,
 			char isactive, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts,
 			List<SalesOrderLine> salesOrderLines, List<MovementLine> movementLines, List<ProductImage> productImages,
@@ -111,6 +113,7 @@ public class Product implements java.io.Serializable {
 		this.groupCount = groupCount;
 		this.brand = brand;
 		this.price = price;
+		this.wasPrice = wasPrice;
 		this.isYourHot = isYourHot;
 		this.unit = unit;
 		this.created = created;
@@ -256,6 +259,15 @@ public class Product implements java.io.Serializable {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	
+	@Column(name = "WAS_PRICE", precision = 15)
+	public BigDecimal getWasPrice() {
+		return this.wasPrice;
+	}
+	
+	public void setWasPrice(BigDecimal wasPrice) {
+		this.wasPrice = wasPrice;
 	}
 
 	@Column(name = "IS_YOUR_HOT", length = 1)

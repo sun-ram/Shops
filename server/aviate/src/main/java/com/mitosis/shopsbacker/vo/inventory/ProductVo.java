@@ -31,6 +31,7 @@ public class ProductVo {
 	private Integer groupCount;
 	private String brand;
 	private BigDecimal price;
+	private BigDecimal wasPrice; 
 	private boolean isYourHot;
 	private BigDecimal unit;
 	private String description;
@@ -124,6 +125,13 @@ public class ProductVo {
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	
+	public BigDecimal getWasPrice() {
+		return wasPrice;
+	}
+	public void setWasPrice(BigDecimal wasPrice) {
+		this.wasPrice = wasPrice;
 	}
 	public boolean getIsYourHot() {
 		return isYourHot;
