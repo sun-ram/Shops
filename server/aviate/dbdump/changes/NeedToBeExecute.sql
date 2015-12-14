@@ -127,7 +127,7 @@ INSERT INTO `shopsbacker`.`city` VALUES ('1024','Mumbai (Bombay)','1316','Y'),('
 
 ----   13-12-2015 -------- Anbukkani Gajendran ----------------- Added Area Table ------
 
-CREATE TABLE `area` (
+CREATE TABLE `shopsbacker`.`area` (
   `AREA_ID` varchar(32) NOT NULL,
   `NAME` varchar(100) NOT NULL,
   `CITY_ID` varchar(32) NOT NULL,
