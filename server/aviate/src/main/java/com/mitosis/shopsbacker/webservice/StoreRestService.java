@@ -280,14 +280,15 @@ public class StoreRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public StoreResponseVo getStoreList() {
+	public String getStoreList() {
+		String responseStr = "";
 		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getStoreList();
 			List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			for (Store store : stores) {
 				storeVo = storeService.setStoreVo(store);
-				storeVo.setMerchant(null);
+				storeVo.setMerchant(setMerchantDetails(store));
 				storeVoList.add(storeVo);
 			}
 			storeResponse.setStore(storeVoList);
@@ -297,7 +298,13 @@ public class StoreRestService<T> {
 			storeResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			log.error(e.getMessage());
 		}
-		return storeResponse;
+		try {
+			responseStr = CommonUtil.getObjectMapper(storeResponse);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
 
 	@Path("/getstorelistbycity")

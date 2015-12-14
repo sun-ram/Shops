@@ -174,8 +174,8 @@ public class Address implements java.io.Serializable {
 		this.address2 = address2;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CITY_ID", nullable = false)	
+	@ManyToOne
+	@JoinColumn(name = "CITY_ID")	
 	public City getCity() {
 		return this.city;
 	}
