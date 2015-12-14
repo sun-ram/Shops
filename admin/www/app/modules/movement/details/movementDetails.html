@@ -7,7 +7,7 @@
 	    	<span flex layout-align="end center" style="padding-left: 20px;" hd-show="isMovementAdded">{{movement.name}} &nbsp; &nbsp; {{movement.warehouse.name}}</span>
 	    </div>
 	    </div>
-	    <md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMovement(movement);$event.stopPropagation();">
+	    <md-button ng-hide="movement.ismoved == 'Y'" class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectToEditMovement(movement);$event.stopPropagation();">
 		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
 		</md-button>
 		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.physical_inv">
@@ -23,10 +23,31 @@
 		--> 
     </md-toolbar>
     
-<md-card flex-gt-sm="90" flex-gt-md="80" >
-   <md-card-content style="padding: 0px 0px 16px 0px;">
+<md-card>
+<md-data-table-container>
+  <table md-data-table>
+    <thead>
+      <tr>
+        <th name="Product" ></th>
+        <th name="Storage Bin"></th>
+        <th name="Qty" ></th>
+      </tr>
+    </thead>
     
-       	<md-list>
+	   <tr md-auto-select ng-repeat="movementLine in movement.movementLines">
+	   	<td>
+	   		{{movementLine.product.name}}
+	   	</td>
+	   	<td>
+	   		{{movementLine.toStoragebin.name}} ({{movementLine.toStoragebin.stack}} - {{movementLine.toStoragebin.row}} - {{movementLine.toStoragebin.level}})
+	   	</td>
+	   	<td>
+	   		{{movementLine.qty}}
+	   	</td>
+	   </tr>
+   </table>
+ </md-data-table-container>
+       	<!-- <md-list>
 			
 			  <div layout layout-sm="column" ng-repeat = "movementLine in movement.movementLines">
 			  <div layout-padding  flex><span>{{movementLine.product.name}}</span></div>
@@ -34,8 +55,7 @@
 			     <div layout-padding  flex><span>{{movementLine.qty}}</span></div>
 			  </div>
 	    	
-    	</md-list>
-  </md-card-content>
+    	</md-list> -->
 </md-card>
 </div>
 

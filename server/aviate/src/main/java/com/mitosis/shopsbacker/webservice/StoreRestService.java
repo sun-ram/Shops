@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
@@ -156,6 +158,26 @@ public class StoreRestService<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
+			
+			Map<String, JsonNode> addressNodeMap=getLatLongByAddress(storeVo);
+			JsonNode location = addressNodeMap.get("location");
+
+			if (location == null) {
+				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
+				response.setErrorString(SBErrorMessage.INVALID_ADDRESS
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+
+			JsonNode loc = location.findValue("lat".toString());
+			storeVo.getUser().getAddress().setLatitude(loc.toString());
+			loc = location.findValue("lng".toString());
+			storeVo.getUser().getAddress().setLongitude(loc.toString());
+			
+			JsonNode formattedAddress = addressNodeMap.get("formattedAddress");
+			storeVo.getUser().getAddress().setFormattedAddress(formattedAddress.toString());
+			
 			store = storeService.setStore(storeVo);
 			store.getUser().setMerchant(merchant);
 			store.setMerchant(merchant);
@@ -177,6 +199,26 @@ public class StoreRestService<T> {
 	public ResponseModel updateStoreDetails(StoreVo storeVo) {
 		response = new ResponseModel();
 		try {
+			
+			Map<String, JsonNode> addressNodeMap=getLatLongByAddress(storeVo);
+			JsonNode location = addressNodeMap.get("location");
+
+			if (location == null) {
+				response.setErrorCode(SBErrorMessage.INVALID_ADDRESS.getCode());
+				response.setErrorString(SBErrorMessage.INVALID_ADDRESS
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				return response;
+			}
+
+			JsonNode loc = location.findValue("lat".toString());
+			storeVo.getUser().getAddress().setLatitude(loc.toString());
+			loc = location.findValue("lng".toString());
+			storeVo.getUser().getAddress().setLongitude(loc.toString());
+			
+			JsonNode formattedAddress = addressNodeMap.get("formattedAddress");
+			storeVo.getUser().getAddress().setFormattedAddress(formattedAddress.toString());
+			
 			store = storeService.setStore(storeVo);
 			storeService.updateStore(store);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
@@ -441,5 +483,15 @@ public class StoreRestService<T> {
 		return userVo;
 
 	}
-
+	public Map<String, JsonNode> getLatLongByAddress(StoreVo storeVo) {
+		String full_address = storeVo.getUser().getAddress().getAddress1()
+				+ "," + storeVo.getUser().getAddress().getAddress2() + ","
+				+ storeVo.getUser().getAddress().getCity() + ","
+				+ storeVo.getUser().getAddress().getState().getName() + ","
+				+ storeVo.getUser().getAddress().getCountry().getName()
+				+ "," + storeVo.getUser().getAddress().getPinCode();
+		Map<String, JsonNode> addressNodeMap=CommonUtil.getLatLong(full_address);
+		JsonNode location = addressNodeMap.get("location");
+		return addressNodeMap;
+	}
 }

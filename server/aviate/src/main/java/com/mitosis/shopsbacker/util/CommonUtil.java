@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -299,8 +301,10 @@ public final class CommonUtil {
 	 * @param full_address
 	 * @return JsonNode
 	 */
-	public static JsonNode getLatLong(String full_address) {
+	public static Map<String, JsonNode> getLatLong(String full_address) {
+		Map<String, JsonNode> addressNodeMap=new HashMap<String, JsonNode>();
 		JsonNode location = null;
+		JsonNode formattedAddress = null;
 		try{
 		full_address=full_address.replaceAll(" ", "%20");
 		full_address=full_address.replaceAll("#", "");
@@ -309,11 +313,14 @@ public final class CommonUtil {
 		JSONObject res =new JSONObject(resource.accept(MediaType.APPLICATION_JSON).get(String.class));
 		JsonNode rootNode = new ObjectMapper().readTree(res.toString());
 		location = rootNode.findValue("location");
+		addressNodeMap.put("location", location);
+		formattedAddress = rootNode.findValue("formatted_address");
+		addressNodeMap.put("formattedAddress", formattedAddress);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return location;
+		return addressNodeMap;
 	}
 	
 	/**

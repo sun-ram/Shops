@@ -18,7 +18,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.bins = warehouse.storagebins;
 				$scope.movement.warehouse = warehouse;
 				$scope.movement.movementLines = [{}];
-			}
+			};
 			
 			$scope.getMovement = function(){
 				$scope.movement = movementServices.getMovementObj();
@@ -26,9 +26,17 @@ angular.module('aviateAdmin.controllers')
 				if($scope.movement){
 					$scope.bins = $scope.movement.warehouse.storagebins;
 					localStorage.setItem('physicalinventoryDetails',JSON.stringify($scope.movement));
+					$scope.isMovementEdit = true;
+					$scope.movement.movementLines.push({});
 				}else if($scope.temp && $scope.temp != 'undefined'){
 					$scope.movement = JSON.parse($scope.temp);
 					$scope.isMovementEdit = true;
+					if($scope.movement 
+							&& $scope.movement.movementLines 
+							&& $scope.movement.movementLines[$scope.movement.movementLines.length-1] != {}){
+						$scope.movement.movementLines.push({});
+					}
+					
 					$scope.bins = $scope.movement.warehouse.storagebins;
 					/*$scope.movement.warehouse = $scope.movement.warehouse;*/
 				}else{
@@ -125,7 +133,7 @@ angular.module('aviateAdmin.controllers')
 						}
 					}
 				}
-			}
+			};
 			
 			$scope.addNewRow = function(index){
 				
@@ -151,7 +159,7 @@ angular.module('aviateAdmin.controllers')
 						$scope.addMovementLine($scope.movement.movementLines[index], index);
 					}
 				}
-			}
+			};
 
 			$scope.processMovement = function(movement) {
 				$scope.warehouseData = {};
@@ -169,6 +177,46 @@ angular.module('aviateAdmin.controllers')
 				} else {
 					$state.go('app.physical_inv');
 				}
-			}
+			};
+			$scope.copyToeditMovementLine = function(movementLine){
+				$scope.editMovementLine = angular.copy(movementLine);
+			};
+			
+			$scope.copyToMovementLine = function(movementLine , el){
+				movementLine = angular.copy(el);
+			};
+			
+			$scope.copyObject = function(obj, copy){
+
+			    // Handle the 3 simple types, and null or undefined
+			    if (null == obj || "object" != typeof obj) return obj;
+
+			    // Handle Date
+			    if (obj instanceof Date) {
+			        copy = new Date();
+			        copy.setTime(obj.getTime());
+			        return copy;
+			    }
+
+			    // Handle Array
+			    if (obj instanceof Array) {
+			        copy = [];
+			        for (var i = 0, len = obj.length; i < len; i++) {
+			            copy[i] = $scope.copyObject(obj[i], copy);
+			        }
+			        return copy;
+			    }
+
+			    // Handle Object
+			    if (obj instanceof Object) {
+			        copy = {};
+			        for (var attr in obj) {
+			            if (obj.hasOwnProperty(attr)) copy[attr] = $scope.copyObject(obj[attr], copy);
+			        }
+			        return copy;
+			    }
+
+			    throw new Error("Unable to copy obj! Its type isn't supported.");
+			};
 			
 		}]);

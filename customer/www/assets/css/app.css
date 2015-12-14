@@ -29,7 +29,7 @@ url("../fonts/roboto-medium-webfont.svg#robotomedium") format("svg");
   src: local('Material Icons'), local('MaterialIcons-Regular'), url("../fonts/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2") format('woff2');
 }
 
-body,html{ font-family:Roboto; height:100%; width:100%; }
+body,html{ font-family:Roboto; height:100%; width:100%; background-color:#f5f5f5 !important}
 
 
 *{outline:none;}
@@ -165,6 +165,7 @@ md-dialog {border-radius:0px; display: block ! important;}
 .cart-count .md-icon-button:hover{background: #494949 ! important;}
 .mycart-img{width: 80px; height: 80px;}
 .cart-btm-btns{color: #fff; padding: 5px 15px;}
+.cart-remove{margin-top: 15px ! important;}
 /* ------------ Floating ----------*/
 
 
@@ -453,7 +454,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 
 .del-address{ list-style-type:none; padding-left:0px;}
 .del-address li span{ width:30px; float:left; font-weight:600;}
-ui-view{ background-color:#EEEEEE !important;}
+
 
 
 @media screen and (max-width: 384px){
@@ -461,9 +462,11 @@ ui-view{ background-color:#EEEEEE !important;}
 	.marg-l-15{margin-left: -15px ! important;}
 	.padd-l10{padding-left: 10px ! important;}
 	.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 11px; margin: 0px;}	
+	.font-16{font-size: 16px ! important;}
+	.font-14{font-size: 14px ! important;}
 }
 @media screen and (max-width: 450px){
-	.cart-count .md-icon-button{border-radius: 50% ! important; height: 25px ! important; width: 25px ! important; min-height: 0 ! important;}
+	.cart-count .md-icon-button{border-radius: 50% ! important; height: 25px ! important; width: 25px ! important; min-height: 0 ! important; margin-left: 3px;}
 	.cart-btm-btns{width: 100%;}
 }
 
