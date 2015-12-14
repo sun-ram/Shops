@@ -62,9 +62,9 @@ md-checkbox.md-checked .md-icon{background:#72a308 !important;}
 
 /*.bg-wh-tran, .md-subheader-inner{background: rgba(255,255,255, 0.5);}*/
 
-.bg-white{background:white !important;}
+.bg-white{background:white !important; color: #000 ! important;}
 
-.bg-black{background:black !important;}
+.bg-black{background:black !important; color: #fff ! important;}
 
 .bg_gray{background: #ddd !important;}
 
@@ -143,6 +143,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .height50{height:50px !important;min-height: 50px !important;}
 .height30{height:30px !important;min-height:30px !important;}
 .ht55{min-height: 55px !important;height:55px !important;}
+.ht45{min-height: 45px !important;height:45px !important; border-bottom: 2px solid lightgrey;}
 .category md-tabs-canvas {height: 150px;}
 .feature md-tabs-canvas {height: 290px;}
 
@@ -381,6 +382,10 @@ md-backdrop.md-sidenav-backdrop{ z-index:-59;}
 .mylistsliderlist_img{width:100px;height:100px; margin:5px;}
 .mylistsliderlist_img img{width:100%;height:100%;}
 
+.scroll-cart{
+	min-height:245px; width:100%; position: absolute; overflow: auto; height: 245px;
+}
+
 .scroll-cart::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
@@ -397,8 +402,10 @@ md-backdrop.md-sidenav-backdrop{ z-index:-59;}
 .scroll-cart::-webkit-scrollbar-thumb
 {
 	border-radius: 5px;
-	background-color: #8BC34A;
+	background-color: #333;
+	border: none ! important;
 }
+
 .toptool{transition: 0.3s ease-in all; width: calc(100% - 220px)}
 .toptoolrem{width: 100%;}
 ul.nav-menu1{margin-left: 210px ! important;}
@@ -795,6 +802,8 @@ font-size: 12px !important;
     opacity: 0;
     border-radius: 2px;
     height: 100% !important;
-    background-color: #FFF !important;
-    left: 1065px !important;
+    box-shadow: inherit;
+}
+.cart-dropdown{
+	height:100% !important; margin-top: 77px; width:320px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
 }
