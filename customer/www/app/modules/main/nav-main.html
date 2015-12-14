@@ -1,18 +1,56 @@
 <md-toolbar ng-class="topbar"  style="background-color:transparent; position: fixed; top: 0px;">
 <div class="md-whiteframe-3dp md-toolbar-tools header_color height30 padd_righ8 nomargin ">
 	<span flex></span>
-</div>
-
-
-<div layout-gt-md="row" layout-sm="column" layout-md="column"
-	class="nopadd nomargin tran nav-bar-subheader" style="padding:0px 0px !important;">
+	<!-- <md-button class="wid_60 md-icon-button" aria-label="Favorite" >
+	<md-icon md-svg-icon="assets/img/icon/magnifying47.svg" md-ink-ripple="" md-menu-align-target style="color: white;"></md-icon> </md-button> -->
+	<!-- <md-button class="md-icon-button wid_60 height50 bg-yellow nomargin" aria-label="Favorite">
+		<md-icon md-svg-icon="assets/img/icon/hd-basket.svg" style="color: white;"></md-icon>
+	</md-button> -->
 	
+
+
+
+
+</div>
+<md-subheader layout layout-align="row"
+	class="nopadd nomargin tran nav-bar-subheader" style="padding:0px 0px !important;">
+	<!-- <md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
+		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+	</md-button> -->
+	
+	<!-- 
+	<md-button ng-click="toggleLeft('left')" class="md-icon-button" aria-label="Menu" >
+		
+		<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
+		<md-tooltip md-direction="bottom">Menu</md-tooltip>
+	</md-button>
+	
+	 <div style="position: absolute;top: -60px;left:60px;width:118px;height:118px; padding-top:10px;" class="bg-yellow">
+		<img src="assets/img/useravat.png"  width="118" height="80" class="md-card-image" alt="Washed Out">
+	</div> 
+	<div >
+	
+	</div>
+	
+	<div ng-if="store.merchantLogo"  class="merch-logo merch-marg bg-yellow" >
+		<img src="{{store.merchantLogo}}"  width="118" height="80" class="md-card-image" alt="Washed Out">
+	</div>
+	<ul  ng-if="store.merchantLogo" class="nav-menu nav-menu1">
+		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
+		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+	</ul>
+	<ul  ng-if="!store.merchantLogo" class="nav-menu">
+		<li style="color:#FFC234 !important" ui-sref="app.home"><md-button style="color:#E8D935 !important; font-size:16px !important;">Home</md-button></li>
+		<li ng-click="changeStore()"><md-button>Change store</md-button></li>
+	</ul>
+
+	 -->
 	 
-	<div flex-gt-lg="25" flex-lg="35" flex-md="100" flex-sm="100">
+	<span style=" height: 20px; width: 50px; position:absolute; font-size: 12px; transform: rotate(270deg); -moz-transform: rotate(270deg);     left: -14px;color: #FFFFFF; top: 9px; -webkit-transform: rotate(270deg);">MENU</span>
 	 	<md-button ng-click="toggleLeft('left')" style="float:left;" class="md-icon-button" aria-label="Menu" >
 	 		
 			<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
-			<md-tooltip md-direction="bottom">Menu</md-tooltip>
+		<!-- 	<md-tooltip md-direction="bottom">Menu</md-tooltip> -->
 		</md-button>
 		<div class="sa-logo">
 		<img src="assets/img/useravat.png"  width="200" height="46" class="md-card-image" alt="Washed Out">
@@ -22,65 +60,58 @@
 		<div ng-if="store.merchantLogo"  class="merch-logo merch-marg bg-yellow" >
 			<img src="{{store.merchantLogo}}"  width="118" height="80" class="md-card-image" alt="Washed Out">
 		</div>
-		
-	</div>
-	 <div flex-gt-lg="75" flex-lg="65" flex-md="100" flex-sm="100" layout="row">	
-	 
-	 
-	 
-	 <div flex> 
 		<ul  ng-if="store.merchantLogo" class="nav-menu nav-menu1">
-			<li ui-sref="app.home" class="width-sm"><md-button class="nopadd-sm nomar-sm"> <md-icon class="webTooltext hgt-34"><span class="icon-20">home</span></md-icon><span hide-sm> Home</span></md-button></li>
-			<li ng-click="changeStore()"><md-button><md-icon class="webTooltext hgt-34"><span class="icon-20">repeat</span></md-icon> Change store</md-button></li>
+			<li ui-sref="app.home"><md-button> <md-icon class="webTooltext">home</md-icon>Home</md-button></li>
+			<li ng-click="changeStore()"><md-button><md-icon class="webTooltext">repeat</md-icon>Change store</md-button></li>
 		</ul>
 		<ul  ng-if="!store.merchantLogo" class="nav-menu">
-			<li ui-sref="app.home" class="width-sm"><md-button class="nopadd-sm nomar-sm">  <md-icon class="webTooltext hgt-34"><span class="icon-20">home</span></md-icon><span hide-sm> Home</span></md-button></li>
-			<li ng-click="changeStore()"><md-button>  <md-icon class="webTooltext hgt-34"><span class="icon-20">repeat</span></md-icon> Change store</md-button></li>
+			<li ui-sref="app.home"><md-button >  <md-icon class="webTooltext">home</md-icon> Home</md-button></li>
+			<li ng-click="changeStore()"><md-button>  <md-icon class="webTooltext">repeat</md-icon>Change store</md-button></li>
 		</ul>
-	
 	 </div>
+	
 	 
 	 
 	 
 	 
-	 <div  style="float:right">
+	 <div style="float:right; ">
 	 
-		 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && favouriteList.length > 0">
-		   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
-		        <md-icon md-svg-icon="assets/img/icon/favourite.svg" style="color: white; width: 20px;"></md-icon>
-		        <md-tooltip md-direction="bottom">
-		          Favourite
-		        </md-tooltip>
-		    </md-button>
-		   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 74px; box-shadow:0px 2px 3px rgba(0,0,0,0.4)">
-		       <md-content>
-		         	 <md-list>
-					      <md-list-item layout="row" ng-repeat="favourite in favouriteList">
-					      		<div flex ng-click="viewProductInFavourite(favourite.favouriteId)"> {{favourite.name}} </div>
-					      		<div flex layout="row" layout-align="end end"><span ng-click="deleteFavourite(favourite.favouriteId)"><ng-md-icon icon="highlight_remove" style="fill: #F96D57" size="20"></ng-md-icon> </span></div>
-					      </md-list-item>
-	                      
-		       		 </md-list>
-		         </md-content>
-		      </md-menu-content>
-	       </md-menu>
-			<span class="cart-amt" ng-if="myCart.cartItem.length !=0">Rs {{myCart.grossAmount | number:2}}</span> 
-		<md-menu style="margin-top: -8px; height:100%; " md-position-mode="target-right target">
-		    <md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" style="border-radius:0px;" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
-		    <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length > 0">{{myCart.cartItem.length}}</div>
-		       <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length == 0 || myCart.cartItem.length == undefined">0</div>
-		        <i class="icon28 icon ion-android-cart"></i>
-		        <md-tooltip md-direction="bottom">
-		          My cart
-		        </md-tooltip>
-		    </md-button>
-		    
-		    
-		    <cartsidenav ></cartsidenav>
-		    
-		    
-		    
-		        </md-menu>
+	 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && favouriteList.length > 0">
+	   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
+	        <md-icon md-svg-icon="assets/img/icon/favourite.svg" style="color: white; width: 20px;"></md-icon>
+	        <md-tooltip md-direction="bottom">
+	          Favourite
+	        </md-tooltip>
+	    </md-button>
+	   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 74px; box-shadow:0px 2px 3px rgba(0,0,0,0.4)">
+	       <md-content>
+	         	 <md-list>
+				      <md-list-item layout="row" ng-repeat="favourite in favouriteList">
+				      		<div flex ng-click="viewProductInFavourite(favourite.favouriteId)"> {{favourite.name}} </div>
+				      		<div flex layout="row" layout-align="end end"><span ng-click="deleteFavourite(favourite.favouriteId)"><ng-md-icon icon="highlight_remove" style="fill: #F96D57" size="20"></ng-md-icon> </span></div>
+				      </md-list-item>
+                      
+	       		 </md-list>
+	         </md-content>
+	      </md-menu-content>
+       </md-menu>
+	<span class="cart-amt" ng-if="myCart.cartItem.length !=0">Rs {{myCart.grossAmount | number:2}}</span> 
+<md-menu style="margin-top: -8px" md-position-mode="target-right target">
+    <md-button ng-click="$mdOpenMenu($event);$event.stopPropagation();" style="border-radius:0px;" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
+    <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length > 0">{{myCart.cartItem.length}}</div>
+       <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length == 0 || myCart.cartItem.length == undefined">0</div>
+        <i class="icon28 icon ion-android-cart"></i>
+        <md-tooltip md-direction="bottom">
+          My cart
+        </md-tooltip>
+    </md-button>
+    
+    
+    <cartsidenav></cartsidenav>
+    
+    
+    
+        </md-menu>
         
         
         
@@ -88,60 +119,60 @@
         
         
 
-				<md-menu style="margin-top: -8px" md-position-mode="target-right target">
-					<md-button style="position:relative; top:-5px;" ng-click="$mdOpenMenu($event);$event.stopPropagation(); addpos()" class=" wid_60 nomargin  md-icon-button" aria-label="User">
-					 <md-icon class="_textcolor" >more_vert</md-icon>
-				   
-					</md-button>
-					
-					<md-menu-content width="3" style="margin-top: 74px;     box-shadow: 0px 2px 3px rgba(0,0,0,0.4); position: absolute; margin-left: 0px;">
-						<md-menu-item ng-hide="user">
-							<md-button ng-click="signUpPopup($event)">
-								<div layout="row">
-									<p flex="" style="text-decoration:underline; color:#ED6663;">New User? Register here.</p>
-								</div>
-							</md-button>
-						</md-menu-item>
-						<md-menu-item ng-hide="user">
-							<md-button ng-click="signInPopup($event)">
-								<div layout="row">
-									<md-button style="width:100%;margin:0px; background-color:#72a308 ; color:#ffffff;" class="md-raised">Sign In</md-button>
-								</div>
-							</md-button> 
-						</md-menu-item> 
-						<md-menu-item class="menu-item" ng-show="user"> 
-			               
-							<md-button>
-								<div layout="row">
-									<p flex="" style="font-size: 20px; font-weight: bold;">{{user.userName}}</p>
-								</div>
-							</md-button> 
-						</md-menu-item> 
-			            <md-menu-item class="menu-item" ng-show="user"> 
-							 <md-button ng-click="orderHistory();">
-								<div layout="row">
-									<p flex="" style="font-size: 20px; font-weight: bold;">order history</p>
-								</div>
-							</md-button> 
-						</md-menu-item>
-						<md-menu-item class="menu-item" ng-show="user && favouriteList.length > 0"> 
-							<md-button ui-sref="app.favouriteList">
-								<div layout="row">
-									<p flex="" style="font-size: 18px;">Favourite List</p>
-								</div>
-							</md-button> 
-						</md-menu-item> 
-						<md-menu-item ng-show="user"> 
-							<md-button ng-click="logout()">
-								<div layout="row">
-									<md-button style="width:100%;margin:0px; background-color:#72a308 ; color:#ffffff;" class="md-raised">Logout</md-button>
-								</div>
-							</md-button>
-						</md-menu-item>
-					</md-menu-content>
-				</md-menu> 
+	<md-menu style="margin-top: -8px" md-position-mode="target-right target">
+		<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation(); addpos()" class="height50 wid_60 nomargin  md-icon-button" aria-label="User">
+		 <md-icon class="_textcolor">more_vert</md-icon>
+	   
+		</md-button>
+		
+		<md-menu-content width="3" style="margin-top: 77px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4); position: absolute; margin-left: 0px;">
+			<md-menu-item ng-hide="user">
+				<md-button ng-click="signUpPopup($event)">
+					<div layout="row">
+						<p flex="" style="text-decoration:underline; color:#ED6663;">New User? Register here.</p>
+					</div>
+				</md-button>
+			</md-menu-item>
+			<md-menu-item ng-hide="user">
+				<md-button ng-click="signInPopup($event)">
+					<div layout="row">
+						<md-button style="width:100%;margin:0px; background-color:#72a308 ; color:#ffffff;" class="md-raised">Sign In</md-button>
+					</div>
+				</md-button> 
+			</md-menu-item> 
+			<md-menu-item class="menu-item" ng-show="user"> 
+               
+				<md-button>
+					<div layout="row">
+						<p flex="" style="font-size: 20px; font-weight: bold;">{{user.userName}}</p>
+					</div>
+				</md-button> 
+			</md-menu-item> 
+            <md-menu-item class="menu-item" ng-show="user"> 
+				 <md-button ng-click="orderHistory();">
+					<div layout="row">
+						<p flex="" style="font-size: 20px; font-weight: bold;">order history</p>
+					</div>
+				</md-button> 
+			</md-menu-item>
+			<!-- <md-menu-item class="menu-item" ng-show="user && favouriteList.length > 0"> 
+				<md-button ui-sref="app.favouriteList">
+					<div layout="row">
+						<p flex="" style="font-size: 18px;">Favourite List</p>
+					</div>
+				</md-button> 
+			</md-menu-item> --> 
+			<md-menu-item ng-show="user"> 
+				<md-button ng-click="logout()">
+					<div layout="row">
+						<md-button style="width:100%;margin:0px; background-color:#72a308 ; color:#ffffff;" class="md-raised">Logout</md-button>
+					</div>
+				</md-button>
+			</md-menu-item>
+		</md-menu-content>
+	</md-menu>
 	 
-	</div>
+
 	 
 </div>
 
@@ -155,5 +186,5 @@
 	
 	
 	
-</div>
+</md-subheader>
  </md-toolbar>
