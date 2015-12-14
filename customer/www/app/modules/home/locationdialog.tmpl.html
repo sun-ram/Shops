@@ -46,7 +46,7 @@ width: 30px;fill: gray;}
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select City<span style="color:red">*</span></label>
              <md-select ng-model="selectedcity" ng-required="true" ng-change="searchByCity(selectedcity)">
-                <md-option ng-repeat="shop in allStoreList track by $index" value="{{shop}}">
+                <md-option ng-repeat="shop in allStoreList track by $index" ng-value="shop">
                   {{shop.name}}
                 </md-option>
               </md-select>
