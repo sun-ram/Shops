@@ -12,7 +12,7 @@ angular.module('aviate.directives')
 			$scope.back=false;
 			
 			$scope.toggleLeft = buildToggler('left');
-			$scope.toggleRight = buildCartToggler('right');
+			
 			
 			function buildToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
@@ -34,7 +34,7 @@ angular.module('aviate.directives')
 			function buildCartToggler(navID) {
 				var debounceFn =  $mdUtil.debounce(function(){
 					 if($rootScope.navsides == "navigate-right"){
-							$rootScope.navsides = "remove-right";
+							
                             //$rootScope.numLimit = 5;
 							
 							$scope.$watch(function(){
@@ -65,7 +65,7 @@ angular.module('aviate.directives')
 							});
 							
 							}else{
-								$rootScope.navsides = "navigate-right";
+								
                                 // $rootScope.numLimit = 3;
 								
 								$scope.$watch(function(){
