@@ -195,13 +195,29 @@ angular.module('aviate.controllers')
 
 	};
 
-	function addressDialogController($scope, address) {
+	function addressDialogController($scope, address,$timeout) {
 		$scope.address = _.clone(address) ;
 		$scope.delete = false;
 		if (address) {
 			$scope.AddUpdate = "update";
 			$scope.editName = true;
 			$scope.delete = true;
+			if($scope.countries)
+				$scope.getAddress();
+			else{
+				$timeout(function(){
+					$scope.getAddress();
+				},3000);
+			}
+			
+			$scope.getAddress = function(){
+				$scope.country = $scope.address.country;
+				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
+				$scope.state = $scope.address.state;
+				$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				$scope.cty = $scope.address.city;
+				
+			};
 
 		} else {
 			$scope.editName = false;
@@ -214,12 +230,13 @@ angular.module('aviate.controllers')
 		$scope.addAddress = function(address) {
 			$scope.address.country = {};
 			$scope.address.state = {};
-			$scope.cnt = JSON.parse($scope.country);
-			$scope.address.country.countryId = $scope.cnt.countryId;
-			$scope.address.country.name = $scope.cnt.name;
-			$scope.sta = JSON.parse($scope.state);
-			$scope.address.state.stateId = $scope.sta.stateId;
-			$scope.address.state.name = $scope.sta.name;
+			$scope.address.city={};
+			$scope.address.country.countryId = $scope.country.countryId;
+			$scope.address.country.name = $scope.country.name;
+			$scope.address.state.stateId = $scope.state.stateId;
+			$scope.address.state.name = $scope.state.name;
+			$scope.address.city.cityId=$scope.cty.cityId;
+			$scope.address.city.name=$scope.cty.name;
 			address.customer={};
 			address.customer.customerId=$rootScope.user.userId;
 			addAddress(address);
@@ -232,9 +249,12 @@ angular.module('aviate.controllers')
 		};
 		
 		$scope.getState = function(country){
-			$scope.cunt = JSON.parse(country);
-			$scope.states = $scope.cunt.states;
+			$scope.states = country.states;
 		};
+		
+		$scope.getCity = function(states){
+			$scope.cities = states.city;
+		}
 		
 		$scope.getCountries = function(){
 			if($localStorage.countries){

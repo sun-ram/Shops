@@ -1,40 +1,45 @@
 <md-sidenav flex class="md-sidenav-left md-whiteframe-z2 customerSideNav" md-component-id="left" ng-mouseleave="togglemouseLeave('left');">
-    
 
-    <script type="text/ng-template" id="productTypeList">
-        <md-menu-item>
-            <md-button ng-class="pt.selectionClass" class="btn-sub">
-                <div layout="row">{{pt.name}}</div>
-            </md-button>
-        </md-menu-item>
-    </script>
 
-    <script type="text/ng-template" id="productCategoryList">
-        <md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(c.rootParent>=0)" ng-click="getProductsByCategoryId(c.productCategoryId); activemenu($event)">
-            <md-button ng-class="c.selectionClass" class="btn-menu">
-                <div layout="row">{{c.name}}</div>
-            </md-button>
-        </md-menu-item>
+	<script type="text/ng-template" id="productTypeList">
+		<md-menu-item>
+			<md-button ng-class="pt.selectionClass" class="btn-sub">
+				<div layout="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{pt.name}}</div>
+			</md-button>
+		</md-menu-item>
+	</script>
 
-        <md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(!c.rootParent && c.rootParent!=0)" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId); activemenu($event)">
-            <md-button ng-class="c.selectionClass" class="btn-sub">{{c.name}}
-            </md-button>
-        </md-menu-item>
+	<script type="text/ng-template" id="productCategoryList">
+	
+		<md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(c.rootParent>=0)" ng-click="getProductsByCategoryId(c.productCategoryId); activemenu($event)">
+			<md-button ng-class="c.selectionClass" class="btn-menu">
+				<div layout="row">
+					<ng-md-icon icon="{{c.extrIconName}}" style="fill:#ffffff; width:20px;height:20px;transform: translateY(40%);"></ng-md-icon>
+					&nbsp;&nbsp;&nbsp;{{c.name}}</div>
+			</md-button>
+		</md-menu-item>
 
-        <ul ng-hide="c.hide" ng-if="c.categoriesVo.length == 0" style="padding-left: 0px;">
-            <li ng-class="c.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productTypes" class='has-sub others' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId); activemenu($event)"></li>
-        </ul>
+		<md-menu-item ng-class="c.selectionClass" class="others" ng-hide="c.hide" ng-if="(!c.rootParent && c.rootParent!=0)" ng-click="subcat = ! subcat;getProductsByCategoryId(c.productCategoryId); activemenu($event)">
+			<md-button ng-class="c.selectionClass" class="btn-menu">
+				<ng-md-icon icon="layers" style="fill:#ffffff; width:10px;height:10px;transform: translateY(40%);"></ng-md-icon>
+					&nbsp;{{c.name}}</div>
+			</md-button>
+		</md-menu-item>
 
-        <ul ng-hide="c.hide" ng-if="c.categoriesVo.length> 0" style="padding-left: 0px;">
-            <li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub others' ng-repeat="c in c.categoriesVo" ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
-        </ul>
-    </script>
+		<ul ng-hide="c.hide" ng-if="c.categoriesVo.length == 0" style="padding-left: 0px;">
+			<li ng-class="c.selectionClass" ng-hide="pt.hide" ng-repeat="pt in c.productTypes" class='has-sub others' ng-include="'productTypeList'" ng-click="getProductsByProductTypeId(pt.productTypeId); activemenu($event)"></li>
+		</ul>
 
-    <div id='cssmenu' style="color: #f2f2f2;">
-        <ul ng-repeat="c in categoryList" class="menu-list">
-            <li class='has-sub ' ng-include="'productCategoryList'"></li>
+		<ul ng-hide="c.hide" ng-if="c.categoriesVo.length> 0" style="padding-left: 0px;">
+			<li ng-class="c.selectionClass" ng-hide="c.hide" class='has-sub others' ng-repeat="c in c.categoriesVo" ng-include="'productCategoryList'" ng-click="getProductsByProductTypeId(c.productTypeId);"></li>
+		</ul>
+	</script>
 
-        </ul>
-    </div>
+	<div id='cssmenu' style="color: #f2f2f2;">
+		<ul ng-repeat="c in categoryList" class="menu-list">
+			<li class='has-sub ' ng-include="'productCategoryList'"></li>
+
+		</ul>
+	</div>
 
 </md-sidenav>

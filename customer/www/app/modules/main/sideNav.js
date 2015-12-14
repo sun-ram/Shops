@@ -22,6 +22,7 @@ angular.module('aviate.directives').directive('sideNav', [
                     
                 	$scope.optimizeInnerData = function (data){
 //                		console.log("Data --->",data);
+						data.extrIconName = "keyboard_arrow_right";
                         if(typeof data.rootParent == 'undefined'){
                             data.hide = true;
                         }
@@ -71,25 +72,9 @@ angular.module('aviate.directives').directive('sideNav', [
                            });
                       }
                     $rootScope.categoryList();
-                	
-                  $scope.todos = [
-      {
-        productImage : 'assets/images/fruit.jpg',
-        quantity: '1 x Rs.250',
-        productName: 'South Indian Banana',
-        weight : '2Kg'
-        
-      },
-      {
-        productImage : 'assets/images/fruit.jpg',
-        quantity: '1 x Rs.550',
-        productName: 'Strawberry',
-        weight : '2Kg'
-        
-      }
-    ];
-                    
+                	                    
                     $scope.manipulateSubtree = function (newData, parentId, parentchanged){
+						//resetting selected class property to unselect to all elements
                          newData.selectionClass="";
                             if(newData.productCategoryId && newData.productCategoryId == parentId){
                                      newData.selectionClass="selectedField";
@@ -98,6 +83,7 @@ angular.module('aviate.directives').directive('sideNav', [
                                     }
                             }
                             if(newData.parentCategoryId && newData.parentCategoryId == parentId  && !parentchanged){
+								
                                   newData.hide = !newData.hide;
                                   parentchanged=true;
                             }
@@ -134,6 +120,7 @@ angular.module('aviate.directives').directive('sideNav', [
                     $scope.executeGetRoot = function (data, keyCatId, currentRoot){
                         if(data.productCategoryId == keyCatId){
                             currentRootCatagoryIndex = currentRoot;
+							data.extrIconName = (data.extrIconName == 'keyboard_arrow_right') ? 'keyboard_arrow_down': 'keyboard_arrow_right';
                         }
                         for(var j=0;data.categoriesVo && data.categoriesVo[j];j++){
                             $scope.executeGetRoot(data.categoriesVo[j], keyCatId, currentRoot);

@@ -187,12 +187,44 @@ public class ProductCategoryRestServices<T> {
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		ProductCategory productCategory = productCategoryService
 				.getCategoryById(productCategoryVo.getProductCategoryId());
-		if (productCategory != null) {
+		List<Product> productList = productCategory.getProducts();
+		if (productList.isEmpty()) {
+			List<ProductCategory> childCategories = productCategory
+					.getProductCategories();
+			productList = getProductsFromCatogories(productList,
+					childCategories);
+		}
+		if (productCategory != null && productList.size()==0) {
 			productCategoryService.deleteCategory(productCategory);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 		}
+		else{
+			productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
+					.getValue());
+			productCategoryResponseVo.setErrorCode(SBErrorMessage.CATEGORY_PRODUCT_CHECK.getCode());
+			productCategoryResponseVo.setErrorString(SBErrorMessage.CATEGORY_PRODUCT_CHECK.getMessage());
+		}
 		return productCategoryResponseVo;
+	}
+	
+	private List<Product> getProductsFromCatogories(List<Product> productList,
+			List<ProductCategory> childCategories) {
+		for (ProductCategory childCategory : childCategories) {
+			List<Product> listOfproducts = childCategory.getProducts();
+			if (productList.isEmpty() && !listOfproducts.isEmpty()) {
+				productList = listOfproducts;
+			} else if (!listOfproducts.isEmpty()) {
+				productList.addAll(listOfproducts);
+			}
+			List<ProductCategory> listOfChildCategories = childCategory
+					.getProductCategories();
+			if (!listOfChildCategories.isEmpty()) {
+				productList = getProductsFromCatogories(productList,
+						listOfChildCategories);
+			}
+		}
+		return productList;
 	}
 
 	@Path("/getcategories")

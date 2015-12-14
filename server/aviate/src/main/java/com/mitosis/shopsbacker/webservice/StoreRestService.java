@@ -2,12 +2,9 @@ package com.mitosis.shopsbacker.webservice;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
@@ -29,6 +26,7 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.common.service.ImageService;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
@@ -41,6 +39,7 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
+import com.mitosis.shopsbacker.vo.common.CityVo;
 import com.mitosis.shopsbacker.vo.common.GeoLocation;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
@@ -280,14 +279,15 @@ public class StoreRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public StoreResponseVo getStoreList() {
+	public String getStoreList() {
+		String responseStr = "";
 		storeResponse = new StoreResponseVo();
 		try {
 			List<Store> stores = getStoreService().getStoreList();
 			List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			for (Store store : stores) {
 				storeVo = storeService.setStoreVo(store);
-				storeVo.setMerchant(null);
+				storeVo.setMerchant(setMerchantDetails(store));
 				storeVoList.add(storeVo);
 			}
 			storeResponse.setStore(storeVoList);
@@ -297,7 +297,13 @@ public class StoreRestService<T> {
 			storeResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			log.error(e.getMessage());
 		}
-		return storeResponse;
+		try {
+			responseStr = CommonUtil.getObjectMapper(storeResponse);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
 
 	@Path("/getstorelistbycity")
@@ -438,8 +444,17 @@ public class StoreRestService<T> {
 		storeResponse = new StoreResponseVo();
 		String responseStr = "";
 		try {
-			SortedSet<String>  cityList = new TreeSet<String>(storeService.getShopCityList());
-			storeResponse.setCityList(cityList);
+			List<City> cities = storeService.getShopCityList();
+						List<CityVo> cityVos= new ArrayList<CityVo>();
+					for(City city:cities){
+						if(city==null){
+							continue;
+						}
+						CityVo cityVo = addessService.setCityVo(city);
+						cityVos.add(cityVo);
+					}
+					//	SortedSet<CityVo>  cityList = new TreeSet<String>();
+						storeResponse.setCityList(cityVos);
 		} catch (Exception e) {
 			e.printStackTrace();
 			storeResponse.setErrorString(e.getMessage());
@@ -486,7 +501,7 @@ public class StoreRestService<T> {
 	public Map<String, JsonNode> getLatLongByAddress(StoreVo storeVo) {
 		String full_address = storeVo.getUser().getAddress().getAddress1()
 				+ "," + storeVo.getUser().getAddress().getAddress2() + ","
-				+ storeVo.getUser().getAddress().getCity() + ","
+				+ storeVo.getUser().getAddress().getCity().getName() + ","
 				+ storeVo.getUser().getAddress().getState().getName() + ","
 				+ storeVo.getUser().getAddress().getCountry().getName()
 				+ "," + storeVo.getUser().getAddress().getPinCode();

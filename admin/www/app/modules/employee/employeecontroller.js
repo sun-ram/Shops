@@ -62,12 +62,10 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.cnt = $scope.country;
 		$scope.user.address.country.countryId = $scope.cnt.countryId;
 		$scope.user.address.country.name = $scope.cnt.name;
-		$scope.sta = $scope.state;
-		$scope.ct = $scope.cty;
 
-		$scope.user.address.state = $scope.sta;
-		$scope.user.address.city.cityId= $scope.ct.cityId;
-		$scope.user.address.city.name=$scope.ct.name;
+		$scope.user.address.state = $scope.state;
+		$scope.user.address.city.cityId= $scope.cty.cityId;
+		$scope.user.address.city.name=$scope.cty.name;
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
 			$scope.user.store.storeId = $rootScope.user.storeId
@@ -85,8 +83,9 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.cnt = $scope.country;
 		$scope.user.address.country.countryId = $scope.cnt.countryId;
 		$scope.user.address.country.name = $scope.cnt.name;
-		$scope.sta = $scope.state;
-		$scope.user.address.state = $scope.sta;
+		$scope.user.address.state = $scope.state;
+		$scope.user.address.city.cityId= $scope.cty.cityId;
+		$scope.user.address.city.name=$scope.cty.name;
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
 			$scope.user.store.storeId = $rootScope.user.storeId

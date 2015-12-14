@@ -1,20 +1,19 @@
 package com.mitosis.shopsbacker.responsevo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.common.CityVo;
 
 public class StoreResponseVo extends ResponseModel {
 
 	public List<StoreVo> store = new ArrayList<StoreVo>();
 	
-	public SortedSet<String> cityList = new TreeSet<String>();
+	public  List<CityVo> cityList = new ArrayList<CityVo>();
 
 	public List<StoreVo> getStore() {
 		return store;
@@ -24,11 +23,11 @@ public class StoreResponseVo extends ResponseModel {
 		this.store = store;
 	}
 
-	public SortedSet<String> getCityList() {
+	public List<CityVo> getCityList() {
 		return cityList;
 	}
 
-	public void setCityList(SortedSet<String> cityList) {
+	public void setCityList(List<CityVo> cityList) {
 		this.cityList = cityList;
 	}
 	

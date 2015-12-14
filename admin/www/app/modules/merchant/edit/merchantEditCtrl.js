@@ -70,17 +70,15 @@ angular.module('aviateAdmin.controllers')
             
 			$scope.updateMerchant = function(){
 				$scope.cnt = $scope.country;
-				$scope.st = $scope.state;
-				$scope.ct = $scope.cty;
 				$scope.merchantDetail.user.address.country = {};
 				$scope.merchantDetail.user.address.state = {};
 				$scope.merchantDetail.user.address.city = {};
 				$scope.merchantDetail.user.address.country.countryId = $scope.cnt.countryId;
 				$scope.merchantDetail.user.address.country.name = $scope.cnt.name;
-				$scope.merchantDetail.user.address.state.stateId = $scope.st.stateId;
-				$scope.merchantDetail.user.address.state.name = $scope.st.name;
-				$scope.merchantDetail.user.address.city.cityId=$scope.ct.cityId;
-				$scope.merchantDetail.user.address.city.name=$scope.ct.name;
+				$scope.merchantDetail.user.address.state.stateId = $scope.state.stateId;
+				$scope.merchantDetail.user.address.state.name = $scope.state.name;
+				$scope.merchantDetail.user.address.city.cityId=$scope.cty.cityId;
+				$scope.merchantDetail.user.address.city.name=$scope.cty.name;
 				
 				if ($scope.merchantLogo != "" && $scope.merchantLogo != undefined && $scope.merchantLogo != null) {
 					$scope.merchantDetail.logo = {};

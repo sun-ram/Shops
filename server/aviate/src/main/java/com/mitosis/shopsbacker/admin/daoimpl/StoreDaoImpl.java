@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.admin.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.mitosis.shopsbacker.admin.dao.StoreDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Address;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
 
@@ -124,15 +126,29 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	}
 
 	@Override
-	public List<String> getShopCityList() {
+	public List<City> getShopCityList() {
 		try {
-			DetachedCriteria criteria = DetachedCriteria
-					.forClass(Address.class);
+			
+			Criteria criteria = getSession().createCriteria(Store.class,"store");
+			criteria.createAlias("store.user", "user");
+			criteria.createAlias("user.address", "address");
+			//criteria.createAlias("address.city", "city");
+			
 			ProjectionList proList = Projections.projectionList();
-			proList.add(Projections.property("city"));
+			proList.add(Projections.property("address.city"));
 			criteria.setProjection(proList);
 			criteria.add(Restrictions.eq("isactive", 'Y'));
-			return ((List<String>) findAll(criteria));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY); 
+			List<City>	cities	=criteria.list();
+			
+			
+//			DetachedCriteria criteria = DetachedCriteria
+//					.forClass(Address.class);
+//			ProjectionList proList = Projections.projectionList();
+//			proList.add(Projections.property("city"));
+//			criteria.setProjection(proList);
+//			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return cities;// ((List<String>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
