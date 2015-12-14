@@ -195,14 +195,13 @@ angular.module('aviate.controllers')
 
 	};
 
-	function addressDialogController($scope, address, $timeout) {
+	function addressDialogController($scope, address,$timeout) {
 		$scope.address = _.clone(address) ;
 		$scope.delete = false;
 		if (address) {
 			$scope.AddUpdate = "update";
 			$scope.editName = true;
 			$scope.delete = true;
-			
 			if($scope.countries)
 				$scope.getAddress();
 			else{
@@ -232,9 +231,8 @@ angular.module('aviate.controllers')
 			$scope.address.country = {};
 			$scope.address.state = {};
 			$scope.address.city={};
-			$scope.cnt = JSON.parse($scope.country);
-			$scope.address.country.countryId = $scope.cnt.countryId;
-			$scope.address.country.name = $scope.cnt.name;
+			$scope.address.country.countryId = $scope.country.countryId;
+			$scope.address.country.name = $scope.country.name;
 			$scope.address.state.stateId = $scope.state.stateId;
 			$scope.address.state.name = $scope.state.name;
 			$scope.address.city.cityId=$scope.cty.cityId;
@@ -251,8 +249,7 @@ angular.module('aviate.controllers')
 		};
 		
 		$scope.getState = function(country){
-			$scope.cunt = JSON.parse(country);
-			$scope.states = $scope.cunt.states;
+			$scope.states = country.states;
 		};
 		
 		$scope.getCity = function(states){
