@@ -15,7 +15,7 @@ width: 30px;fill: gray;}
 .chs-img{height: 60px ! important; width: 60px ! important; border-radius: 50% ! important;}
 </style>
 
-<md-dialog aria-label="CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET"  ng-cloak>
+<md-dialog aria-label="CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET"  ng-cloak class="locDialog">
   <md-toolbar>
     <div class="md-toolbar-tools chg-tool">
       <h4>CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET</h4>
@@ -91,4 +91,77 @@ width: 30px;fill: gray;}
     <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 5%;">
     <md-button class="md-raised md-primary btn-success" ng-model="checked" ng-click="checked=true">SEARCH  SUPER MARKET</md-button>
   	</section>
+
+
+<!--<md-content layout-padding layout="column">
+    <form ng-submit="$event.preventDefault()">
+     <div>
+        Get your groceries delivered NOW!
+     </div>
+    <div layout="row" flex>
+      <div flex="20">
+        <md-autocomplete
+       
+          md-selected-item="selectedItem"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Enter your state"
+          md-menu-class="autocomplete-custom-template">
+        <md-item-template>
+          <span class="item-title">
+            <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+            <span> {{item.name}} </span>
+          </span>
+          <span class="item-metadata">
+            <span class="item-metastat">
+              <strong>{{item.watchers}}</strong> watchers
+            </span>
+            <span class="item-metastat">
+              <strong>{{item.forks}}</strong> forks
+            </span>
+          </span>
+        </md-item-template>
+      </md-autocomplete>
+      </div>
+      <div flex="50">
+        <md-autocomplete
+       
+          md-selected-item="selectedItem"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="Enter your Location"
+          md-menu-class="autocomplete-custom-template">
+        <md-item-template>
+          <span class="item-title">
+            <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+            <span> {{item.name}} </span>
+          </span>
+          <span class="item-metadata">
+            <span class="item-metastat">
+              <strong>{{item.watchers}}</strong> watchers
+            </span>
+            <span class="item-metastat">
+              <strong>{{item.forks}}</strong> forks
+            </span>
+          </span>
+        </md-item-template>
+      </md-autocomplete>
+      </div>
+      <div flex hide-sm hide-xs>
+        <md-button class="md-raised">Start Shopping</md-button>
+      </div>
+    </div>
+      
+    </form>
+  </md-content>-->
+
+
 </md-dialog>

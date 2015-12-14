@@ -807,3 +807,7 @@ font-size: 12px !important;
 .cart-dropdown{
 	height:100% !important; margin-top: 77px; width:320px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
 }
+.locDialog{
+    width: 800px !important;
+    height: 441px !important;
+}

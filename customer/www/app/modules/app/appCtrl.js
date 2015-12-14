@@ -162,6 +162,17 @@ angular.module('aviate.controllers')
 							$mdDialog.cancel();
 							$state.go('app.home',{},{reload: true});
 						}
+                        
+                        
+                  
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
 
 					}
 				})	
