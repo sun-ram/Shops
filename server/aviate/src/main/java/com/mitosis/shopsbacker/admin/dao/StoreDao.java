@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.admin.dao;
 
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
 
@@ -25,7 +26,7 @@ public interface StoreDao<T> {
 
 	public List<Store> getShopList(String city, String address);
 
-	public List<String> getShopCityList();
+	public List<City> getShopCityList();
 	
 	public List<Store> getStoreListByName(String name, Merchant merchant);
 

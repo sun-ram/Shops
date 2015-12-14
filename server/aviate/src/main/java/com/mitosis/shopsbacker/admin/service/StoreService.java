@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.admin.service;
 
 import java.util.List;
 
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Storagebin;
@@ -28,7 +29,7 @@ public interface StoreService<T> {
 
 	public List<Store> getShopList(String city, String address);
 
-	public List<String> getShopCityList();
+	public List<City> getShopCityList();
 
 	public List<Store> getStoreListByName(String name, Merchant merchant);
 	

@@ -12,6 +12,7 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.RoleService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
+import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Role;
 import com.mitosis.shopsbacker.model.Storagebin;
@@ -116,7 +117,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 	}
 
 	@Override
-	public List<String> getShopCityList() {
+	public List<City> getShopCityList() {
 		return storeDao.getShopCityList();
 	}
 
