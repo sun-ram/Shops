@@ -14,10 +14,11 @@
   		</div>
     	 <md-input-container flex="35" layout-align="center end">
        			<label>Warehouse<span style="color:red">*</span></label>
-         		<md-select ng-model="whouse" ng-required="true">
+         		<md-select ng-model="whouse" ng-change="sortListByWarehouse(whouse);" ng-required="true">
 		            <md-option ng-repeat="warehouse in listOfWarehouse" value="{{warehouse.warehouseId}}" >
 		              {{warehouse.name}}
 		            </md-option>
+		            <md-option value="All">All</md-option>
 		       	</md-select>
     	 </md-input-container>
 	 <!-- <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">

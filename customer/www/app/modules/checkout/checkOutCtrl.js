@@ -195,13 +195,30 @@ angular.module('aviate.controllers')
 
 	};
 
-	function addressDialogController($scope, address) {
+	function addressDialogController($scope, address, $timeout) {
 		$scope.address = _.clone(address) ;
 		$scope.delete = false;
 		if (address) {
 			$scope.AddUpdate = "update";
 			$scope.editName = true;
 			$scope.delete = true;
+			
+			if($scope.countries)
+				$scope.getAddress();
+			else{
+				$timeout(function(){
+					$scope.getAddress();
+				},3000);
+			}
+			
+			$scope.getAddress = function(){
+				$scope.country = $scope.address.country;
+				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
+				$scope.state = $scope.address.state;
+				$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				$scope.cty = $scope.address.city;
+				
+			};
 
 		} else {
 			$scope.editName = false;
