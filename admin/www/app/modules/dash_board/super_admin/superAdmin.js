@@ -468,33 +468,57 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					$scope.testdata.push(angular.copy(tmpAvgObj));
 
 				}
-			}
-			x1 = {};
-			storeIds1 = [];
-			for (var i = 0; i < tempArray.length; ++i) {
-				var obj = tempArray[i];
-				if (x1[obj.CUSTOMER_ID] === undefined && obj.CUSTOMER_ID) {
-					x1[obj.CUSTOMER_ID] = [getCustomerNameById(obj.CUSTOMER_ID)];
-					storeIds1.push(obj.CUSTOMER_ID);
-				}
-				if (obj.CUSTOMER_ID)
-					x1[obj.CUSTOMER_ID].push(obj.NET_AMOUNT);
-			};
-			
+			}			
 			tmpAvgObj = {};
-			for (var j = 0; j < storeIds1.length; j++) {
-				totalAmount = 0;
-				for (var i = 1; i < x1[storeIds1[j]].length; i++) {
-					totalAmount = totalAmount + x1[storeIds1[j]][i];
+			var billMinestone = [0,0,0,0,0,0];
+			for(var i=0;i < tempArray.length; i++){
+				tempArray[i].NET_AMOUNT
+				if(tempArray[i].NET_AMOUNT > 10000){
+					billMinestone[5]++;
+				}else if(tempArray[i].NET_AMOUNT >= 5000){
+					billMinestone[4]++;
+				}else if(tempArray[i].NET_AMOUNT >= 1000){
+					billMinestone[3]++;
+				}else if(tempArray[i].NET_AMOUNT >= 500 ){
+					billMinestone[2]++;
+				}else if(tempArray[i].NET_AMOUNT >= 100 ){
+					billMinestone[1]++;
+				}else if(tempArray[i].NET_AMOUNT < 100){
+					billMinestone[0]++;
 				}
+			}
+			for(i=billMinestone.length-1; i >= 0 ; i--){
+			
 				if (totalAmount > 0) {
 					tmpAvgObj = {};
-					tmpAvgObj.label =  x1[storeIds1[j]][0]+j;
-					tmpAvgObj.value = Math.round((commition / 100) * totalAmount);
+					switch (i) {
+						case 0:
+							tmpAvgObj.label = 'Bill < 100';
+							break;
+						case 1:
+							tmpAvgObj.label = '100< Bill <=500';
+							break;
+						case 2:
+							tmpAvgObj.label = '500< Bill <=1000';
+							break;
+						case 3:
+							tmpAvgObj.label = '1000< Bill <=5000';
+							break;
+						case 4:
+							tmpAvgObj.label = '5000< Bill <=10000';
+							break;
+						case 5:
+							tmpAvgObj.label = '10000 < Bill';
+							break;
+						default:
+							console.log("Something went wrong in sales milestone count calculation");
+					}
+					tmpAvgObj.value = parseInt(billMinestone[i]);
 					$scope.historicalBarChart2[0].values.push(angular.copy(tmpAvgObj));
 
 				}
 			}
+			
 			console.log("$scope.historicalBarChart2--->",$scope.historicalBarChart2);
 			
 			$scope.drawPiechart();
@@ -594,12 +618,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }];
 
 			sendHttpRequest('salesOrder').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.log("salesOrder Exected success case ", data);
 				postSalesOrder(data);
 			});
 		};
 		$scope.proceedSalesOrderLine = function (callback) {
 			sendHttpRequest('salesOrderLine').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.salesOrderLines = data;
 				console.log("Sales order Line =>", data);
 			});
@@ -610,6 +636,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.ProceedMerchant = function (callback) {
 			//Merchants
 			sendHttpRequest('merchant').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.merchants = data;
 				console.log("merchant Line =>", data);
 				postMerchant(data);
@@ -617,6 +644,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedStore = function (callback) {			
 			sendHttpRequest('store').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.stores = data;
 				console.log("Store success case -- ", data);
 				postStore(data);
@@ -626,6 +654,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedAddresses = function (callback) {		
 			sendHttpRequest('address').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.addresses = data;
 				console.log("proceedAddresses Line =>", data);
 				$scope.locateMerchants(data);
@@ -633,6 +662,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedUsers = function (callback) {
 			sendHttpRequest('users').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.users = data;
 				console.log("users --->", data);
 			});
@@ -640,6 +670,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 		$scope.proceedCustomer = function (callback) {
 			sendHttpRequest('customer').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.log("Customers--->",data);
 				$scope.customers = data;
 				postCustomer(data);

@@ -451,12 +451,14 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
             }];
 
 			sendHttpRequest('salesOrder').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.log("salesOrder Exected success case ", data);
 				postSalesOrder(data);
 			});
 		};
 		$scope.proceedSalesOrderLine = function (callback) {
 			sendHttpRequest('salesOrderLine').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.salesOrderLines = data;
 				console.log("Sales order Line =>", data);
 			});
@@ -467,6 +469,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.ProceedMerchant = function (callback) {
 			//Merchants
 			sendHttpRequest('merchant').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.merchants = data;
 				console.log("merchant Line =>", data);
 				postMerchant(data);
@@ -474,6 +477,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedStore = function (callback) {			
 			sendHttpRequest('store').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.stores = data;
 				console.log("Store success case -- ", data);
 				postStore(data);
@@ -482,6 +486,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedAddresses = function (callback) {		
 			sendHttpRequest('address').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.addresses = data;
 				console.log("proceedAddresses Line =>", data);
 				/*$scope.locateStores(data);*/
@@ -489,6 +494,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedUsers = function (callback) {
 			sendHttpRequest('users').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.users = data;
 				console.log("users --->", data);
 			});
@@ -496,6 +502,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 		$scope.proceedCustomer = function (callback) {
 			sendHttpRequest('customer').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.log("Customers--->",data);
 				$scope.customers = data;
 				postCustomer(data);

@@ -581,25 +581,6 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 					newStoresLastDay = newStoresLastDay + 1;
 				}
 			}
-			/*len1 = $scope.stores.Books.length;
-			var tempStore;
-			for(var i=0; i < len1; i++){
-				tempStore = $scope.stores.Books[i];
-				count = 0;
-				if(tempStore.MERCHANT_ID == $rootScope.user.merchantId){
-					for(var j = 0; j < len ; j++){
-						if(tempStore.STORE_ID == $scope.salesOrders.Books[j].STORE_ID){
-							count = count +1;
-						}
-					}
-					tmpAvgObj = {};
-					tmpAvgObj.label = tempStore.NAME;
-					tmpAvgObj.value = count;
-					$scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
-				}
-			}
-			console.log("$scope.historicalBarChart",$scope.historicalBarChart);
-			$scope.drawBarChart();*/
 			console.log("Stores Yesterday and to Today", newStoresLastDay, " & ", newStoresToday);
 			$scope.storeGrowthToday = (newStoresLastDay) ? (((newStoresToday - newStoresLastDay) / newStoresLastDay) * 100) : 0;
 			$scope.storeGrowthToday = (Math.round($scope.storeGrowthToday  * 100) / 100);
@@ -616,12 +597,14 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
             }];
 
 			sendHttpRequest('salesOrder').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.log("salesOrder Exected success case ", data);
 				postSalesOrder(data);
 			});
 		};
 		$scope.proceedSalesOrderLine = function (callback) {
 			sendHttpRequest('salesOrderLine').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.salesOrderLines = data;
 				console.log("Sales order Line =>", data);
 			});
@@ -632,6 +615,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 		$scope.ProceedMerchant = function (callback) {
 			//Merchants
 			sendHttpRequest('merchant').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.merchants = data;
 				console.log("merchant Line =>", data);
 				postMerchant(data);
@@ -639,6 +623,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 		};
 		$scope.proceedStore = function (callback) {			
 			sendHttpRequest('store').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.stores = data;
 				console.log("Store success case -- ", data);
 				postStore(data);
@@ -647,6 +632,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 		};
 		$scope.proceedAddresses = function (callback) {		
 			sendHttpRequest('address').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.addresses = data;
 				console.log("proceedAddresses Line =>", data);
 				/*$scope.locateStores(data);*/
@@ -654,6 +640,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 		};
 		$scope.proceedUsers = function (callback) {
 			sendHttpRequest('users').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.users = data;
 				console.log("users --->", data);
 			});
@@ -661,6 +648,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 
 		$scope.proceedCustomer = function (callback) {
 			sendHttpRequest('customer').then(function (data) {
+				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.log("Customers--->",data);
 				$scope.customers = data;
 				postCustomer(data);
