@@ -52,7 +52,7 @@ public class Discount implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private List<Product> products = new ArrayList<Product>();
-	private List<Store> stores = new ArrayList<Store>();
+	Store store;
 
 	public Discount() {
 	}
@@ -70,7 +70,7 @@ public class Discount implements java.io.Serializable {
 			Double discountPercentage, BigDecimal discountAmount,
 			Integer minQty, Integer maxQty, Date startDate, Date endDate,
 			Date startTime, Date endTime, BigDecimal minAmount, char isactive,
-			Date created, Date updated, List<Product> products,List<Store> stores) {
+			Date created, Date updated, List<Product> products,Store store) {
 		this.discountId = discountId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -89,7 +89,7 @@ public class Discount implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.products = products;
-		this.stores = stores;
+		this.store = store;
 	}
 
 	@Id
@@ -262,13 +262,14 @@ public class Discount implements java.io.Serializable {
 		this.products = products;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
-	public List<Store> getStores() {
-		return this.stores;
+	@ManyToOne
+	@JoinColumn(name = "STORE_ID")
+	public Store getStore() {
+		return store;
 	}
 
-	public void setStores(List<Store> stores) {
-		this.stores = stores;
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 }

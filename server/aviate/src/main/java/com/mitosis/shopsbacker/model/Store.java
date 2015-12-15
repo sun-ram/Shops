@@ -5,6 +5,7 @@ package com.mitosis.shopsbacker.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,6 +57,7 @@ public class Store implements java.io.Serializable {
 	private List<Movement> movements = new ArrayList<Movement>();
 	private List<ProductType> productTypes = new ArrayList<ProductType>();
 	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
+	private List<Discount> discounts = new ArrayList<Discount>();
 
 	public Store() {
 	}
@@ -79,7 +81,7 @@ public class Store implements java.io.Serializable {
 			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
 			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,
 			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
-			List<ProductType> productTypes, List<ProductInventory> productInventories) {
+			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -103,6 +105,7 @@ public class Store implements java.io.Serializable {
 		this.movements = movements;
 		this.productTypes = productTypes;
 		this.productInventories = productInventories;
+		this.discounts = discounts;
 	}
 
 	@Id
@@ -316,6 +319,15 @@ public class Store implements java.io.Serializable {
 
 	public void setProductInventories(List<ProductInventory> productInventories) {
 		this.productInventories = productInventories;
+	}
+	
+	@OneToMany(mappedBy = "store")
+	public List<Discount>  getDiscounts() {
+		return this.discounts;
+	}
+
+	public void setDiscounts(List<Discount> discounts) {
+		this.discounts = discounts;
 	}
 
 }

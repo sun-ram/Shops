@@ -97,20 +97,17 @@ public class DiscountServiceImpl<T> implements DiscountService<T>, Serializable 
 		discountVo.setMaxQty(discount.getMaxQty());
 		discountVo.setStartDate(discount.getStartDate());
 		discountVo.setEndDate(discount.getEndDate());
-		discountVo.setStartTime(discountVo.getStartTime());
-		discountVo.setEndTime(discountVo.getEndTime());
-		List<StoreVo> storeVos = new ArrayList<StoreVo>();
-		for(Store store:discount.getStores()){
-			StoreVo storevo = storeService.setStoreVo(store);
-			storeVos.add(storevo);
-		}
-		discountVo.setStoresVo(storeVos);
+		discountVo.setStartTime(discount.getStartTime());
+		discountVo.setEndTime(discount.getEndTime());
+			StoreVo storevo = storeService.setStoreVo(discount.getStore());
+			
+		discountVo.setStore(storevo);
 		List<ProductVo> productVos = new ArrayList<ProductVo>();
 		for(Product product:discount.getProducts()){
 			ProductVo productVo = productService.setProductVo(product) ;
 			productVos.add(productVo);
 		}
-		discountVo.setProductsVo(productVos);
+		discountVo.setProducts(productVos);
 		return discountVo;
 	}
 

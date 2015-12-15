@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 
@@ -29,8 +30,8 @@ public class DiscountVo {
 	private Date startTime;
 	private Date endTime;
 	private BigDecimal minAmount;
-	private List<ProductVo> productsVo = new ArrayList<ProductVo>();
-	private List<StoreVo> storesVo = new ArrayList<StoreVo>();
+	private List<ProductVo> products = new ArrayList<ProductVo>();
+	private StoreVo store;
 	
 	public String getDiscountId() {
 		return discountId;
@@ -104,17 +105,17 @@ public class DiscountVo {
 	public void setMinAmount(BigDecimal minAmount) {
 		this.minAmount = minAmount;
 	}
-	public List<ProductVo> getProductsVo() {
-		return productsVo;
+	public List<ProductVo> getProducts() {
+		return products;
 	}
-	public void setProductsVo(List<ProductVo> productsVo) {
-		this.productsVo = productsVo;
+	public void setProducts(List<ProductVo> productsVo) {
+		this.products = productsVo;
 	}
-	public List<StoreVo> getStoresVo() {
-		return storesVo;
+	public StoreVo getStore() {
+		return store;
 	}
-	public void setStoresVo(List<StoreVo> storesVo) {
-		this.storesVo = storesVo;
+	public void setStore(StoreVo store) {
+		this.store = store;
 	}
 	
 	

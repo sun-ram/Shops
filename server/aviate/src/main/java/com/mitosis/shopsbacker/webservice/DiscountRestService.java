@@ -62,20 +62,16 @@ public class DiscountRestService {
 		try{
 			Merchant merchant = merchantService.getMerchantById(discountVo
 					.getMerchantVo().getMerchantId());
-			List<Store> stores = new ArrayList<Store>();
-			for(StoreVo storesVo:discountVo.getStoresVo()){
-				Store store = storeService.getStoreById(storesVo.getStoreId());
-				stores.add(store);
-			}
+				Store store = storeService.getStoreById(discountVo.getStore().getStoreId());
 			
 			List<Product> products = new ArrayList<Product>();
-			for(ProductVo productsVo:discountVo.getProductsVo()){
+			for(ProductVo productsVo:discountVo.getProducts()){
 				Product product = productService.getProduct(productsVo.getProductId());
 					products.add(product);
 			}
 			Discount discount = discountService.setDiscount(discountVo);
 			
-			discount.setStores(stores);
+			discount.setStore(store);
 			discount.setMerchant(merchant);
 			discount.setProducts(products);
 			discountService.addDiscount(discount);
