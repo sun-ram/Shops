@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -26,6 +24,7 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.UserService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.common.service.ImageService;
+import com.mitosis.shopsbacker.model.Area;
 import com.mitosis.shopsbacker.model.City;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
@@ -39,6 +38,7 @@ import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.common.AddressVo;
+import com.mitosis.shopsbacker.vo.common.AreaVo;
 import com.mitosis.shopsbacker.vo.common.CityVo;
 import com.mitosis.shopsbacker.vo.common.GeoLocation;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
@@ -400,15 +400,7 @@ public class StoreRestService<T> {
 				List<Store> storeList = storeService.getShopList(geoLocation
 						.getCity());
 				for (Store store : storeList) {
-					storeVo = new StoreVo();
-					System.out.println(store);
-					storeVo.setStoreId(store.getStoreId());
-					storeVo.setName(store.getName());
-					merchantVo = setMerchantDetails(store);
-					userVo = setUserDetails(store);
-					storeVo.setMerchant(merchantVo);
-					storeVo.setUser(userVo);
-					storeVoList.add(storeVo);
+					setStoreVoList(storeVoList, store);
 				}
 				storeResponseVo.setStore(storeVoList);
 				storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
@@ -417,15 +409,7 @@ public class StoreRestService<T> {
 				List<Store> storeList = storeService.getShopList(
 						geoLocation.getCity(), geoLocation.getArea());
 				for (Store store : storeList) {
-					storeVo = new StoreVo();
-					System.out.println(store);
-					storeVo.setStoreId(store.getStoreId());
-					storeVo.setName(store.getName());
-					merchantVo = setMerchantDetails(store);
-					userVo = setUserDetails(store);
-					storeVo.setMerchant(merchantVo);
-					storeVo.setUser(userVo);
-					storeVoList.add(storeVo);
+					setStoreVoList(storeVoList, store);
 				}
 				storeResponseVo.setStore(storeVoList);
 				storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
@@ -434,6 +418,52 @@ public class StoreRestService<T> {
 		}
 
 	}
+
+	public void setStoreVoList(List<StoreVo> storeVoList, Store store)
+			throws IOException {
+		StoreVo	storeVo = new StoreVo();
+		storeVo.setStoreId(store.getStoreId());
+		storeVo.setName(store.getName());
+		merchantVo = setMerchantDetails(store);
+		userVo = setUserDetails(store);
+		storeVo.setMerchant(merchantVo);
+		storeVo.setUser(userVo);
+		storeVoList.add(storeVo);
+	}
+	
+	@Path("/getshoplistbyarea")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String getStoreListBasedOnArea(AreaVo areaVo){
+		StoreResponseVo	storeResponseVo = new StoreResponseVo();
+	String responseStr = "";
+		try{
+		List<StoreVo> storeVoList = new ArrayList<StoreVo>();
+		if(areaVo.getAreaId()!=null){
+		Area area=addessService.getArea(areaVo.getAreaId());
+				List<Store> storeList = storeService.getShopList(area.getCity(), area.getName());
+				for (Store store : storeList) {
+					setStoreVoList(storeVoList, store);
+				}
+				storeResponseVo.setStore(storeVoList);
+				storeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+		}
+		}catch(Exception e){
+			storeResponseVo.setErrorString(CommonUtil.getErrorMessage(e));
+			storeResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+		}
+		try {
+			responseStr=CommonUtil.getObjectMapper(storeResponseVo);
+		} catch (Exception e) {
+			log.error(CommonUtil.getErrorMessage(e));
+			e.printStackTrace();
+		}
+		
+		return responseStr ;
+	}
+
 
 	@Path("/getcity")
 	@POST

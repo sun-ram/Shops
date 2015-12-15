@@ -43,5 +43,5 @@ public interface StoreService<T> {
 	
 	public StoragebinVo setStoragebinVO(Storagebin storagebin);
 	
-	
+	public List<Store> getShopList(City city, String areaName);
 }

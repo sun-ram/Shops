@@ -34,4 +34,6 @@ public interface StoreDao<T> {
 	
 	public int inActiveStores(Merchant merchant);
 	
+	public List<Store> getShopList(City city, String areaName);
+	
 }

@@ -37,6 +37,39 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 	
+	this.getAreaByCity = function(location){
+		var d = $q.defer();
+		api.Location.getAreaByCity(location, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result.areas);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+	
+	this.getStoreByArea = function(area){
+		var d = $q.defer();
+		api.Location.getStoreByArea(area, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result.store);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+	
+	
 	this.getCity = function(location){
 		var d = $q.defer();
 		api.Location.getCity(location, function(err, result){

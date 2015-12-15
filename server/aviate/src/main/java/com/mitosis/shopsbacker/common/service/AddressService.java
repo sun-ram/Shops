@@ -50,5 +50,7 @@ public interface AddressService<T> {
 	public List<Area> getAreas(City city);
 	
 	public CityVo setCityVo(City city);
+	
+	public Area getArea(String id);
 
 }

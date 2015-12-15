@@ -37,5 +37,7 @@ public interface AddressDao<T> {
 	public City getCity(String id);
 
 	public List<Area> getAreas(City city);
+	
+	public Area getArea(String id);
 
 }

@@ -211,6 +211,10 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 		return addressDao.getAreas(city);
 	}
 	
+	public Area getArea(String id){
+		return addressDao.getArea(id);
+	}
+	
 	public  City getCity(String id){
 		return addressDao.getCity(id);
 	}

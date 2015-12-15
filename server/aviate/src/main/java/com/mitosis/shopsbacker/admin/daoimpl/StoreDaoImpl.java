@@ -23,7 +23,7 @@ import com.mitosis.shopsbacker.model.Store;
 /**
  * @author JAI BHARATHI
  * 
- * Reviewed by Sundaram 28/11/2015
+ *         Reviewed by Sundaram 28/11/2015
  */
 @Repository
 public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
@@ -67,9 +67,9 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
 			criteria.add(Restrictions.eq("storeId", id));
-			Store store=(Store)findUnique(criteria);
-		//	Store store=(Store) getSession().get(Store.class, id);
-		//	Hibernate.initialize(store.getWarehouses());
+			Store store = (Store) findUnique(criteria);
+			// Store store=(Store) getSession().get(Store.class, id);
+			// Hibernate.initialize(store.getWarehouses());
 			return store;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,26 +130,26 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	@Override
 	public List<City> getShopCityList() {
 		try {
-			
-			Criteria criteria = getSession().createCriteria(Store.class,"store");
+
+			Criteria criteria = getSession().createCriteria(Store.class,
+					"store");
 			criteria.createAlias("store.user", "user");
 			criteria.createAlias("user.address", "address");
-			//criteria.createAlias("address.city", "city");
-			
+			// criteria.createAlias("address.city", "city");
+
 			ProjectionList proList = Projections.projectionList();
 			proList.add(Projections.property("address.city"));
 			criteria.setProjection(proList);
 			criteria.add(Restrictions.eq("isactive", 'Y'));
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY); 
-			List<City>	cities	=criteria.list();
-			
-			
-//			DetachedCriteria criteria = DetachedCriteria
-//					.forClass(Address.class);
-//			ProjectionList proList = Projections.projectionList();
-//			proList.add(Projections.property("city"));
-//			criteria.setProjection(proList);
-//			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			List<City> cities = criteria.list();
+
+			// DetachedCriteria criteria = DetachedCriteria
+			// .forClass(Address.class);
+			// ProjectionList proList = Projections.projectionList();
+			// proList.add(Projections.property("city"));
+			// criteria.setProjection(proList);
+			// criteria.add(Restrictions.eq("isactive", 'Y'));
 			return cities;// ((List<String>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,14 +162,14 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
 					"store");
-			
+
 			criteria.add(Restrictions.eq("name", name));
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
 
@@ -182,15 +182,31 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		}
 	}
 
 	public int inActiveStores(Merchant merchant) {
-				Query updateQuery = getSession().createQuery(
-						"update Store set isactive='N' where merchant = :merchant");
-				updateQuery.setParameter("merchant", merchant);
-				return updateQuery.executeUpdate();
-			}
-	
+		Query updateQuery = getSession().createQuery(
+				"update Store set isactive='N' where merchant = :merchant");
+		updateQuery.setParameter("merchant", merchant);
+		return updateQuery.executeUpdate();
+	}
+
+	public List<Store> getShopList(City city, String areaName) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class,
+					"store");
+			criteria.createAlias("store.user.address", "address");
+			criteria.add(Restrictions.like("address.city.cityId",
+					"%" + city.getCityId() + "%"));
+			criteria.add(Restrictions.like("address.formattedAddress", "%"
+					+ areaName + "%").ignoreCase());
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Store>) findAll(criteria));
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

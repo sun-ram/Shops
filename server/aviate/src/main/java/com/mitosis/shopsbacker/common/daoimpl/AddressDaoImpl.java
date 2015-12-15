@@ -123,4 +123,8 @@ public class AddressDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	public City getCity(String id) {
 		return (City) getSession().get(City.class, id);
 	}
+	
+	public Area getArea(String id){
+		return (Area) getSession().get(Area.class, id);
+	}
 }

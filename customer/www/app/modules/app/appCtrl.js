@@ -119,16 +119,34 @@ angular.module('aviate.controllers')
 							$scope.allStoreList=data;
 						});
 
-						$scope.searchByCity = function(selectedcity){
-							$scope.selectedcity=selectedcity.name;
+//						$scope.searchByCity = function(selectedcity){
+//							$scope.selectedcity=selectedcity.name;
+//							var request ={
+//									city:$scope.selectedcity
+//							}
+//							LocationService.getStoreByLocation(request).then(function(data) {
+//								$scope.addressList = data;
+//							});
+//						}
+						
+							
+						$scope.searchAreaByCity = function(selectedcity){
+							$scope.selectedcity=selectedcity;
 							var request ={
 									city:$scope.selectedcity
 							}
-							LocationService.getStoreByLocation(request).then(function(data) {
-								$scope.addressList = data;
+							LocationService.getAreaByCity(request).then(function(data) {
+								$scope.areaList = data;
 							});
 						}
-
+						
+						$scope.searchByArea = function(area){
+							LocationService.getStoreByArea(area).then(function(data) {
+								$scope.filterStoreList = data;
+								$log.debug(data);
+							});
+						}
+						
 						$scope.searchByAddress = function(selectedaddress){
 							var request ={area:selectedaddress,city:$scope.selectedcity}
 							LocationService.getStoreByLocation(request).then(function(data) {

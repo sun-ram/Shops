@@ -231,7 +231,35 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Location.getAreaByCity = function (location, callback) {
+			httpRequest("POST", "common/areas", location, function (err, data) {
+				if (err) {
 
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.Location.getStoreByArea = function (location, callback) {
+			httpRequest("POST", "store/getshoplistbyarea", location, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		apiClass.Location.getCity = function (location, callback) {
 			httpRequest("POST", "store/getcity", location, function (err, data) {
 				if (err) {
