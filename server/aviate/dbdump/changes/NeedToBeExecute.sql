@@ -210,3 +210,8 @@ ADD CONSTRAINT `FK_ADDRESS_CITY`
   REFERENCES `shopsbacker`.`city` (`CITY_ID`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+  ----   15-12-2015 -------- Riyaz Khan----------------- is_bundle in product ------
+
+  ALTER TABLE `shopsbacker`.`product` 
+ADD COLUMN `IS_BUNDLE` CHAR(1) NOT NULL DEFAULT 'N' AFTER `WAS_PRICE`;

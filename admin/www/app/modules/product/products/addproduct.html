@@ -106,11 +106,16 @@
 		<md-input-container> <label>Brand<span style="color:red">*</span></label> <input
 			type="text" ng-model="product.brand" ng-required="true" /> 
 		</md-input-container>
+		
+		
+		<h4 layout="row" class="md-layout-column">
+			<input layout-align="start center" type="checkBox" ng-model="groupCount" />
+			<label layout-align="end center" style="padding-left: 20px;">Want To Add Group Count</label>
+		</h4>
 
-
-		<md-input-container> <label>Group Count<span style="color:red">*</span></label> <input
+		<md-input-container ng-show="groupCount"> <label>Group Count</label> <input
 			type="text" ng-model="product.groupCount" valid-number
-			ng-required="true" /> 
+			 /> 
 		</md-input-container>
 
 	<div flex layout="row">

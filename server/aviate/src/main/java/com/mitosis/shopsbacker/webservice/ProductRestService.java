@@ -114,6 +114,7 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
+		if(productVo.getProductId() == null){	
 			List<Product> checkUniqueProducts = getProductService().getProductListByName(productVo.getName(),merchant);
 						if (!checkUniqueProducts.isEmpty()) {
 						response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
@@ -124,7 +125,7 @@ public class ProductRestService {
 							return response;
 						}
 						
-
+		}
 			boolean isUpdateProcess = productVo.getProductId() != null ? true
 					: false;
 

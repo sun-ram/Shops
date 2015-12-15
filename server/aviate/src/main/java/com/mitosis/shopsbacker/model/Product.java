@@ -53,6 +53,7 @@ public class Product implements java.io.Serializable {
 	private BigDecimal price;
 	private BigDecimal wasPrice;
 	private Character isYourHot;
+	private Character isBundle;
 	private BigDecimal unit;
 	private Date created;
 	private Date updated;
@@ -95,7 +96,7 @@ public class Product implements java.io.Serializable {
 			Discount discount, ProductCategory productCategory, Uom uom,
 			ProductType productType, String name, String edibleType,
 			Integer groupCount, String brand, BigDecimal price,BigDecimal wasPrice,
-			Character isYourHot, BigDecimal unit, Date created, Date updated,
+			Character isYourHot,Character isBundle, BigDecimal unit, Date created, Date updated,
 			char isactive, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts,
 			List<SalesOrderLine> salesOrderLines, List<MovementLine> movementLines, List<ProductImage> productImages,
 			List<ProductOffer> productOffers, List<ProductInventory> productInventories) {
@@ -115,6 +116,7 @@ public class Product implements java.io.Serializable {
 		this.price = price;
 		this.wasPrice = wasPrice;
 		this.isYourHot = isYourHot;
+		this.isBundle = isBundle;
 		this.unit = unit;
 		this.created = created;
 		this.updated = updated;
@@ -277,6 +279,15 @@ public class Product implements java.io.Serializable {
 
 	public void setIsYourHot(Character isYourHot) {
 		this.isYourHot = isYourHot;
+	}
+	
+	@Column(name = "IS_BUNDLE", length = 1)
+	public Character getIsBundle() {
+		return this.isBundle;
+	}
+
+	public void setIsBundle(Character isBundle) {
+		this.isBundle = isBundle;
 	}
 
 	@Column(name = "UNIT", nullable = false, precision = 15)

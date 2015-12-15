@@ -176,6 +176,14 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		}else{
 			product.setIsYourHot('N');
 		}
+		
+				if(productVo.getGroupCount() != null){
+						product.setGroupCount(productVo.getGroupCount());
+						product.setIsBundle('Y');
+					}else{
+						product.setGroupCount(1);
+						product.setIsBundle('N');
+			 		}
 /*
 		Image image = imageService.setImage(productVo.getImage());
 		product.setImage(image);*/
@@ -198,6 +206,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setEdibleType(product.getEdibleType());
 		productVo.setGroupCount(product.getGroupCount());
 		productVo.setProductId(product.getProductId());
+				if(product.getIsYourHot() == 'Y'){
+						productVo.setIsYourHot(true);
+					}else{
+						productVo.setIsYourHot(false);
+					}
 		if(product.getImage() != null){
 		ImageVo image = imageService.setImageVo(product.getImage());
 		productVo.setImage(image);
