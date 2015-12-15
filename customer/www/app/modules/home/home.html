@@ -122,17 +122,17 @@
 	                        
      		  			</div>
                         <div layout="row" layout-align="center center" class="bg-gray">
-	                       
-	     		  			<div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
-					        </div>	
+	                       <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+	     		  		
 					        <div flex>
 					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</div>
 	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
 	                    	</div>
-	                        <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
+	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
+					        </div>	
      		  			</div>
      		  			
      		  			
@@ -230,16 +230,16 @@
 	                        
      		  			</div>
                         <div layout="row" layout-align="center center" class="bg-gray">
-	                       
-	     		  			<div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
-					        </div>	
-					        <div flex>
-	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div>
-	                    	</div>
 	                        <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
 	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
 	     		  			</div>
+	     		  			
+					        <div flex>
+	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div>
+	                    	</div>
+	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
+					        </div>	
      		  			</div>
      		  			
      		  			
