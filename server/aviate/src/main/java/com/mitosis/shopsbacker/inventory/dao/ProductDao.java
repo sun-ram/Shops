@@ -39,4 +39,7 @@ public interface ProductDao<T> {
 
 	 public List<Product> getProductListByName(String param,Merchant merchant);
 
+	public List<Product> getProductName(String productId, String name,
+			Merchant merchant);
+
 }

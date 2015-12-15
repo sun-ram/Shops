@@ -126,6 +126,18 @@ public class ProductRestService {
 						}
 						
 		}
+		if(productVo.getProductId() != null){	
+
+			List<Product> productsList = getProductService().getProductName(productVo.getProductId(),productVo.getName(),merchant);
+			if (productsList.size() > 0) {
+				response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+						.getCode());
+					response.setErrorString(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+						.getMessage());
+					response.setStatus(SBMessageStatus.FAILURE.getValue());
+					return response;
+			}
+			}
 			boolean isUpdateProcess = productVo.getProductId() != null ? true
 					: false;
 
@@ -217,7 +229,7 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
-
+			
 			ProductCategory productCategory = productCategoryService
 					.getCategoryById(productVo.getProductCategory()
 							.getProductCategoryId());

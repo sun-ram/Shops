@@ -46,4 +46,7 @@ public interface ProductService<T> {
 	public Product getProductByName(String param, Merchant merchant);
 	
 	public List<Product> getProductListByName(String name,Merchant merchant);
+
+	public List<Product> getProductName(String productId, String name,
+			Merchant merchant);
 }

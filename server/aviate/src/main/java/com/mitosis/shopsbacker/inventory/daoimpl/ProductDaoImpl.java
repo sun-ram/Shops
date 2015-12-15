@@ -16,7 +16,9 @@ import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
  * @author RiyazKhan.M
@@ -183,6 +185,22 @@ ProductDao<T>, Serializable{
 		catch (Throwable e) {
 			e.printStackTrace();
 			throw(e);
+		}
+	}
+	
+	@Override
+	public List<Product> getProductName(String productId,String name, Merchant merchant) {
+		DetachedCriteria criteria = null;
+		try {
+			criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.ne("productId", productId));
+			criteria.add(Restrictions.eq("name", name));
+			criteria.add(Restrictions.eq("merchant", merchant));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Product>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 }

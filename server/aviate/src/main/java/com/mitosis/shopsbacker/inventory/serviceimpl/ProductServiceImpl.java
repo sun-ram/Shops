@@ -24,7 +24,9 @@ import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
+import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
@@ -283,5 +285,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	public Product getProductByName(String param, Merchant merchant) {
 		return productDao.getProductByName(param, merchant);
 	}
+	@Override
+	public List<Product> getProductName(String productId, String name,
+			Merchant merchant){
+		return productDao.getProductName(productId,name,merchant);
+	}
+	
 
 }
