@@ -538,6 +538,15 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 					$scope.historicalBarChart[0].values.push(angular.copy(tmpAvgObj));
 				}
 			}
+			function compare(a,b) {
+  					if (a.value < b.value)
+    					return 1;
+					if (a.value > b.value)
+    					return -1;
+  					return 0;
+				}
+
+			$scope.historicalBarChart[0].values.sort(compare);
 			console.log("$scope.historicalBarChart",$scope.historicalBarChart);
 			$scope.drawBarChart();
 			
