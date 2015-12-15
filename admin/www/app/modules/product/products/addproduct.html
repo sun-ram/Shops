@@ -30,7 +30,7 @@
 			</md-input-container>
 
 			<md-input-container> <label>Product
-				Category<span style="color:red">*</span></label> <md-select placeholder="Select Product Category"
+				Category<span style="color:red">*</span></label> <md-select placeholder="Select Product Category*"
 				ng-change="getProductType(product.productCategory.productCategoryId)"
 				ng-model="product.productCategory.productCategoryId"
 				ng-required="true"> <md-option
@@ -40,7 +40,7 @@
 
 			<md-input-container> <label>Product Type<span style="color:red">*</span></label>
 	
-			<md-select placeholder="Select Product Type"
+			<md-select placeholder="Select Product Type*"
 				ng-model="product.productType.productTypeId" ng-required="true">
 			<md-option ng-value="item.productTypeId"
 				ng-repeat="item in productTypeVo">
@@ -49,7 +49,7 @@
 			<md-input-container> <label>Product
 				Description</label> <textarea id="title2" name="title2" rows="5"
 				style="border: 1px solid #ddd;" class="materialize-textarea"
-				ng-model="product.description" ng-maxlength="250" required></textarea> 
+				ng-model="product.description" ng-maxlength="250"></textarea> 
 				<span ng-message="required" ng-show="addProductForm.title2.$error.maxlength" style="color:red;">
 				       	Enter Product Description within 250 characters
 				      	</span>
@@ -131,7 +131,7 @@
 		    </div> 
 		  </div>
 		  <div layout-align="center center">
-		  	<span style="line-height: 6; font-weight: bold; padding-left: 10px; font-size: 18px;">Original Front Image</span>
+		  	<span style="line-height: 6; font-weight: bold; padding-left: 10px; font-size: 18px;">Original Front Image<span style="color:red">*</span></span>
 		  </div>
 	</div>
 		

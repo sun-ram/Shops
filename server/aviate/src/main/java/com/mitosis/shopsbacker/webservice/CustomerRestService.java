@@ -190,8 +190,10 @@ public class CustomerRestService<T> {
 				Customer customer = customerService
 						.getCustomerInfoById(addressVo.getCustomer()
 								.getCustomerId());
-				customer.setName(addressVo.getCustomer().getName());
-				customerService.updateCustomer(customer);
+				if(customer.getAddresses().size() == 0){
+				    customer.setName(addressVo.getName());
+				    customerService.updateCustomer(customer);
+				}
 				Address address = addressService.setAddress(addressVo);
 				address.setCustomer(customer);
 				if (addressVo.getAddressId() == null) {
