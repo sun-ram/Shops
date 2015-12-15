@@ -42,10 +42,14 @@
 	  
 	  <div flex>
 		<div layout-padding>  
-		    <md-input-container layout-padding  flex>
-		       <label>City<span style="color:red">*</span></label>
-		      <input ng-model="warehouse.address.city" ng-required="true" maxlength="45">
-		    </md-input-container>
+		    <md-input-container>
+		       			<label>City<span style="color:red">*</span></label>
+		         		<md-select ng-model="cty" ng-required="true" ng-model-options="{trackBy: '$value.cityId'}">
+				            <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
+				              {{city.name}}
+				            </md-option>
+		          		</md-select>
+		    		</md-input-container>
 		     <md-input-container layout-padding flex>
        			<label>Country<span style="color:red">*</span></label>
          		<md-select ng-model="country" ng-required="true" ng-model-options="{trackBy: '$value.countryId'}" ng-change = "getState(country);">
@@ -56,7 +60,7 @@
     		</md-input-container>
 	        <md-input-container layout-padding flex>
        			<label>State<span style="color:red">*</span></label>
-         		<md-select ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}">
+         		<md-select ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}" ng-change = "getCity(state);">
 		            <md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
 		              {{state.name}}
 		            </md-option>

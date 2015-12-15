@@ -16,6 +16,11 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	$scope.getState = function(country){
 		$scope.states = country.states;
 	}
+  $scope.getCity = function(states){
+	  console.log('states.city',states.city);
+			$scope.cities = states.city;
+		}
+		
 	
 	var populateCountries = function(){
 		$scope.warehouse = JSON.parse(localStorage.getItem('warehouse'));
@@ -28,7 +33,9 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
 				console.log('populated state is ',$scope.states);
 				$scope.state = $scope.warehouse.address.state;
-				console.log('populated state is ',$scope.state);
+				console.log('ware hosue address is ',$scope.warehouse.address);
+				$scope.cities = $scope.state.cities;
+				$scope.cty = $scope.warehouse.address.city;
 			}
 		}
 	}
@@ -70,10 +77,15 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.st = $scope.state;
 		$scope.warehouse.address.country = {};
 		$scope.warehouse.address.state = {};
+		$scope.warehouse.address.city = {};
+
 		$scope.warehouse.address.country.countryId = $scope.cnt.countryId;
 		$scope.warehouse.address.country.name = $scope.cnt.name;
 		$scope.warehouse.address.state.stateId = $scope.st.stateId;
 		$scope.warehouse.address.state.name = $scope.st.name;
+		//$scope.warehouse.address.city.cityId=$scope.cty.cityId;
+		//$scope.warehouse.address.city.name=$scope.cty.name;
+		$scope.warehouse.address.city = $scope.cty;
 		
 		WarehouseService.saveWarehouse($scope.warehouse).then(function(data) {
 			$scope.warehouse = {};
@@ -90,12 +102,18 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		
 		$scope.cnt = $scope.country;
 		$scope.st = $scope.state;
+		
+
 		$scope.warehouse.address.country = {};
 		$scope.warehouse.address.state = {};
+		$scope.warehouse.address.city = {};
+
 		$scope.warehouse.address.country.countryId = $scope.cnt.countryId;
 		$scope.warehouse.address.country.name = $scope.cnt.name;
 		$scope.warehouse.address.state.stateId = $scope.st.stateId;
 		$scope.warehouse.address.state.name = $scope.st.name;
+		$scope.warehouse.address.city.cityId=$scope.cty.cityId;
+		$scope.warehouse.address.city.name=$scope.cty.name;
 		
 		
 		WarehouseService.updateWarehouse($scope.warehouse).then(function(data) {
