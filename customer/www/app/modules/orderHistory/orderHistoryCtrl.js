@@ -6,10 +6,15 @@ angular.module('aviate.controllers')
                  $scope.data = data.salesOrderList;
                  console.log("data :: ", $scope.data );
              });
-            
-        $scope.showListBottomSheet = function($event) {
-          
-            
+            $scope.showDetails = "";
+            $scope.expand = false;
+        $scope.showListBottomSheet = function(show) {
+        	$scope.expand = true;
+        	if($scope.showDetails === show){
+        		$scope.showDetails = "";
+        	}else{
+        		$scope.showDetails = show;
+        	}
             
         };
  

@@ -67,12 +67,13 @@
            	</span>
             <span flex layout-align="start center" layout>
             <span flex class="hash_color merch-addr">{{ordersHis.status}}
-            <ng-md-icon ng-click="showListBottomSheet($event); showDetails = ! showDetails " icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> 
+            <md-icon style="float: right; margin: 10px;" class="_subheader md-icon-button" ng-click="showListBottomSheet(ordersHis.salesOrderId);">{{(ordersHis.salesOrderId == showDetails) ? 'arrow_drop_up' : 'arrow_drop_down'}}</md-icon>
+            <!-- <ng-md-icon ng-click="showListBottomSheet($event); showDetails = ! showDetails " icon="more_vert" style="fill: grey; float: right; padding-top: 5px;" size="20"></ng-md-icon> --> 
             </span>
            	</span>            
             </div>
          </md-item-content>
-         <md-item-content layout="column" ng-show="showDetails" style="padding:0px 20px;" >
+         <md-item-content layout="column"  ng-show="ordersHis.salesOrderId == showDetails" style="padding:0px 20px;" >
            <div flex ng-repeat="productOrders in ordersHis.salesOrderLineVo" class="padd-lr30 padd-t30">
            <div layout="row">
            <span flex="10"><img width="80" height="80" ng-src="{{productOrders.productVo.image.url}}"/></span>
