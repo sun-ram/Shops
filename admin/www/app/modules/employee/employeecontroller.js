@@ -64,8 +64,10 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.user.address.country.name = $scope.cnt.name;
 
 		$scope.user.address.state = $scope.state;
-		$scope.user.address.city.cityId= $scope.cty.cityId;
-		$scope.user.address.city.name=$scope.cty.name;
+		/*$scope.user.address.city.cityId= $scope.cty.cityId;
+		$scope.user.address.city.name=$scope.cty.name;*/
+		$scope.user.address.city = $scope.cty;
+
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
 			$scope.user.store.storeId = $rootScope.user.storeId
@@ -145,8 +147,11 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 				$scope.country = $scope.user.address.country;
 				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
 				$scope.state = $scope.user.address.state;
-				$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				/*$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
+				$scope.cty = $scope.user.address.city;*/
+				$scope.cities = $scope.state.cities;
 				$scope.cty = $scope.user.address.city;
+
 			}	
 		}
 	}
