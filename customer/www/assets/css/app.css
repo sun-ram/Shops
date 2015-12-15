@@ -101,6 +101,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .padd-l30{padding-left:30px ! important;}
 .padd-l20{padding-left: 20px ! important;}
 .padd-t30{padding-top: 30px;}
+.padd-tb20{padding: 20px 0px;}
 
 
 
@@ -506,6 +507,10 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 	.product-details-pname .md-title{font-size: 14px;}	
 	.mycart-img{width: 50px ! important; height: 50px ! important;}	
 	}
+@media screen and (max-width: 864px) {
+	.padd-tb20{padding: 20px 0px;}
+	.padd-lr10{padding: 0px 10px;}	
+}
 @media screen and (max-width: 700px) {
 	.product-details-pname{padding-left: 10%;}
 	}
@@ -522,6 +527,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 	}
 @media screen and (max-width: 950px) {
 	.order-table{width: 950px;}		
+	.locDialog{height: auto ! important;}
 }
 @media screen and (max-width: 1090px) {
 	.padd-lr0{padding-left: 0px ! important;}
@@ -816,8 +822,8 @@ font-size: 12px !important;
 	height:100% !important; margin-top: 77px; width:320px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
 }
 .locDialog{
-    width: 800px !important;
-    height: 441px !important;
+    width: 800px;
+    /* height: 441px !important; */
 }
 
 
@@ -879,7 +885,18 @@ font-size: 12px !important;
 
 .pro-search input[type='text']{ border:1px solid rgba(0,0,0,0.1); margin-top:19px; padding:13px 10px !important; width:96%}
 
-
+md-autocomplete input:not(.md-input){
+	font-size: 18px; background: #fff; padding: 0 30px; border: 1px solid lightgrey;
+}
+.arrow_color md-tabs-wrapper md-icon{
+	fill: #d2d2d2 ! important;
+	width: 50px;
+	height: 50px;
+}
+md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
+	color: #333;
+	font-weight: bold;
+}
 
 
 

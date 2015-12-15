@@ -9,10 +9,8 @@ md-ink-bar{top:115px;}
 .chg-tool{
 	background: #ED6663 ! important;
 }
-.arrow_color md-tabs-wrapper md-icon{height: 30px;
-width: 30px;fill: gray;}
 .btn-success{background: #72A308 ! important; padding: 5px 20px;}
-.chs-img{height: 60px ! important; width: 60px ! important; border-radius: 50% ! important;}
+.chs-img{height: 60px ! important; width: 60px ! important; border-radius: 4px ! important;}
 </style>
 
 <md-dialog aria-label="CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET"  ng-cloak class="locDialog">
@@ -45,7 +43,7 @@ width: 30px;fill: gray;}
       
         <md-input-container ng-if="checked" style="margin:1% 8%;">
            <label>Select City<span style="color:red">*</span></label>
-             <md-select ng-model="selectedcity" ng-required="true" ng-change="searchAreaByCity(selectedcity)">
+             <md-select ng-model="selectedcity" ng-required="true" ng-change="searchByCity(selectedcity)">
                 <md-option ng-repeat="shop in allStoreList track by $index" ng-value="shop">
                   {{shop.name}}
                 </md-option>
@@ -54,9 +52,9 @@ width: 30px;fill: gray;}
    
         <md-input-container ng-if="checked" style="margin:1% 8%;padding-bottom: 18px;">
            <label>Select Area<span style="color:red">*</span></label>
-             <md-select ng-model="selectedarea" ng-required="true" ng-change="searchByArea(selectedarea)">
-                <md-option ng-repeat="area in areaList | orderBy: 'name' "  ng-value="area">
-                  {{area.name}}
+             <md-select ng-model="selectedaddress" ng-required="true" ng-change="searchByAddress(selectedaddress)">
+                <md-option ng-repeat="address in addressList track by $index" value="{{address.user.address.address1}}">
+                  {{address.user.address.address1}}
                 </md-option>
               </md-select>
         </md-input-container>
@@ -71,21 +69,21 @@ width: 30px;fill: gray;}
     </md-content>
   
     
-   <!--   <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" md-stretch-tabs="auto">
+    <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" md-stretch-tabs="auto">
      <div>
       <md-tab ng-click = "changeStore(store)" ng-repeat="store in filterStoreList">
       <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
       <label>{{store.name}}</label>
       </md-tab>
       </div>
-    </md-tabs> -->
+    </md-tabs> 
     
-   <!--  <div ng-if="((checked)&&(filterStoreList.length>0))" class="storelist" md-stretch-tabs="auto" layout>
+    <div ng-if="((checked)&&(filterStoreList.length>0))" class="storelist" md-stretch-tabs="auto" layout>
     	<div ng-click = "changeStore(store)" ng-repeat="store in filterStoreList" flex="25">
     		<img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
       		<label>{{store.name}}</label>
     	</div>
-    </div> -->
+    </div> 
    
     <h4 ng-if="!checked" style="color:black;text-align: center;font-family:sans-serif; margin: 5px 0px; ">or</h4>
     <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 5%;">
@@ -93,15 +91,19 @@ width: 30px;fill: gray;}
   	</section>
 
 
-<!--<md-content layout-padding layout="column">
+ <!-- <md-content layout-padding style="background-color: transparent;">
+ 	<md-button class="md-icon-button" style="float: right; margin-right: -9px;" ng-click="cancel()">
+ 	<ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
+        <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
+    </md-button>
+	<div layout="row" layout-align="center">
+		<h2>Get Your Groceries Delivered Now !</h2>
+	</div>
     <form ng-submit="$event.preventDefault()">
-     <div>
-        Get your groceries delivered NOW!
-     </div>
-    <div layout="row" flex>
-      <div flex="20">
+     <div layout="row" layout-sm="column" layout-md="column" class="padd-lr10" flex >
+      <div flex="25" flex-sm="100" flex-md="100" class="padd-tb20">
+      	<ng-md-icon icon="location_on" style="fill: #d2d2d2; z-index: 1; position: absolute; padding-top: 6px; padding-left: 5px;" size="28"></ng-md-icon>
         <md-autocomplete
-       
           md-selected-item="selectedItem"
           md-search-text-change="searchTextChange(searchText)"
           md-search-text="searchText"
@@ -109,7 +111,7 @@ width: 30px;fill: gray;}
           md-items="item in querySearch(searchText)"
           md-item-text="item.name"
           md-min-length="0"
-          placeholder="Enter your state"
+          placeholder="Find Your City"
           md-menu-class="autocomplete-custom-template">
         <md-item-template>
           <span class="item-title">
@@ -127,9 +129,9 @@ width: 30px;fill: gray;}
         </md-item-template>
       </md-autocomplete>
       </div>
-      <div flex="50">
-        <md-autocomplete
-       
+      <div flex="50" flex-sm="100" flex-md="100" class="padd-tb20">
+      	<ng-md-icon icon="search" style="fill: #d2d2d2; z-index: 1; position: absolute; padding-top: 6px; padding-left: 5px;" size="28"></ng-md-icon> 
+        <md-autocomplete       
           md-selected-item="selectedItem"
           md-search-text-change="searchTextChange(searchText)"
           md-search-text="searchText"
@@ -137,9 +139,9 @@ width: 30px;fill: gray;}
           md-items="item in querySearch(searchText)"
           md-item-text="item.name"
           md-min-length="0"
-          placeholder="Enter your Location"
-          md-menu-class="autocomplete-custom-template">
-        <md-item-template>
+          placeholder="Find your Location"
+          md-menu-class="autocomplete-custom-template">                   
+        <md-item-template>        
           <span class="item-title">
             <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
             <span> {{item.name}} </span>
@@ -155,13 +157,48 @@ width: 30px;fill: gray;}
         </md-item-template>
       </md-autocomplete>
       </div>
-      <div flex hide-sm hide-xs>
-        <md-button class="md-raised">Start Shopping</md-button>
+      <div flex="25" flex-sm="100" flex-md="100" class="padd-tb20">
+      	<md-button class="md-raised ft_size18" style="width:100%; background-color:#0F9D58 ; color:white; margin: 0px; line-height: 40px;">Search</md-button>
       </div>
     </div>
       
     </form>
-  </md-content>-->
-
+  </md-content>
+	<md-content class="md-padding" style="background: transparent;">
+    <md-tabs class="arrow_color" md-stretch-tabs="auto">
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="md-avatar chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+      <md-tab>
+     <img  ng-src="assets/images/reliance.png" class="chs-img"></br>
+      <label>Store Name</label>
+      </md-tab>
+    </md-tabs>
+    </md-content>  -->
 
 </md-dialog>
