@@ -110,7 +110,7 @@
                       
                         <h2>{{product.name}}</h2>
                       <!--  <p>{{product.description}}</p>-->
-                          <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                          <p>{{product.description}}</p>
                          
                          <div layout="row" layout-align="center center">
 	                        	
@@ -154,7 +154,7 @@
                             			</div>
                             		</div>
                             		<div flex="60">
-                            			<div class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;30 </strike></div> 
+                            			<div ng-if="product.wasPrice > product.price" class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
                 			</div>  
@@ -216,7 +216,7 @@
                       
                         <h2>{{product.name}}</h2>
                         <!--<p>{{product.description}}</p>-->
-                         <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                         <p>{{product.description}}</p>
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
@@ -259,13 +259,10 @@
                             			</div>
                             		</div>
                             		<div flex="60">
-                            			<div class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;30 </strike></div> 
+                            			<div ng-if="product.wasPrice>product.price"class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
-                			</div> 
-                            
-                            
-                            
+                			</div>                           
                             
 						</div>
 						
