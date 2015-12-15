@@ -469,6 +469,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 				}
 			}			
+			$scope.historicalBarChart2 = [{key: "Cumulative Return1",values: []}];
 			tmpAvgObj = {};
 			var billMinestone = [0,0,0,0,0,0];
 			for(var i=0;i < tempArray.length; i++){
