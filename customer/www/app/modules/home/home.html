@@ -72,9 +72,9 @@
 
         <section ng-if="topcategories.length > 0"  style=" padding:20px;">
  			<div>
- 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">Hot Products </h2>
- 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) <span ng-if="topcategories.length > 1">Items</span> <span ng-if="topcategories.length <= 1">Item</span> 
+ 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Hot Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{topcategories.length}}) <span ng-if="topcategories.length > 1">Items</span> <span ng-if="topcategories.length <= 1">Item</span> 
  						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
  					</span>
  				</div>
@@ -94,7 +94,9 @@
                             <div class="views view-first">
                             	<div layout="row">
                             		<div flex layout-align="start start">
-                            			 
+                            			 <div class="pro-offer off-50-above">
+                            			 	50%
+                            			 </div>
                             		</div>
                             		<div flex>
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
@@ -115,7 +117,7 @@
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">+ more</md-button>
+	                    		<md-button class="more">more</md-button>
 	                    	</div>
 	                        
      		  			</div>
@@ -125,7 +127,8 @@
 					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
 					        </div>	
 					        <div flex>
-	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div>
+					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</div>
+	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
 	                    	</div>
 	                        <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
 	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
@@ -150,11 +153,11 @@
                             	<div layout="row">
                             		<div flex>
                             			<div  layout-padding >
-                            				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
                             		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
                 			</div>  
@@ -183,9 +186,9 @@
           <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct">
            
  			<div ng-if="category.products.length" >
- 				<div class="prod-headings" flex ng-hide="category.products.length ==0" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">{{category.name}}</h2>
- 					<span style="float:left;     margin: 22px 0px 0px 10px;"  class="md-subhead">
+ 				<div class="prod-headings" flex ng-hide="category.products.length ==0" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">{{category.name}}</h2>
+ 					<span style="float:left;     margin: 13px 0px 0px 10px;"  class="md-subhead">
  				({{category.products.length}}) <span ng-if="category.products.length > 1">Items</span> <span ng-if="category.products.length <= 1">Item</span> 
  				    <a ng-if="category.products.length > $root.numLimit" href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a>
  				    </span>
@@ -222,7 +225,7 @@
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">+ more</md-button>
+	                    		<md-button class="more">more</md-button>
 	                    	</div>
 	                        
      		  			</div>
@@ -257,11 +260,11 @@
                             	<div layout="row">
                             		<div flex>
                             			<div  layout-padding >
-                            				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            				<div class=" pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
                             		<div flex ng-if="product.wasPrice>product.price">
-                            			<div class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            			<div  layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
                 			</div>                           

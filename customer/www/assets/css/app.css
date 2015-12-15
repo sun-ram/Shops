@@ -431,7 +431,7 @@ ul.nav-menu1{margin-left: 210px ! important;}
 nav.mainslider-tab ul li{ }
 nav.mainslider-tab ul li a{ width:100% !important; height:100% !important; border:1px solid #999999; border-radius:0px;}
 nav.mainslider-tab ul li a md-subhead,nav.mainslider-tab ul li a md-caption{ width:100%;float:left;}
-.prod-headings h2{ color:#4eaf4c; }
+.prod-headings h2{ color:#4eaf4c; text-transform: uppercase; }
 .prod-headings a{ color:#CF3721; }
 .footer-nav{ margin:0px; padding:0px; }
 .footer-nav li{ list-style-type:none;display:inline-block;}
@@ -862,7 +862,7 @@ font-size: 12px !important;
 .pro-img{ height:150px; width:100%;}
 .icon-large-border{color:#FFFFFF; font-size:20px;}
 .pro-btns{ padding:10px; background-color:rgba(0, 0, 0, 0.8); color:#FFFFFF;}
-.bg-gray{  padding:10px;}
+.bg-gray{  margin:10px; background-color:rgba(0, 0, 0, 0.8);}
 .border-l-r{ border-left:1px solid rgba(255,255,255,0.5);  border-right:1px solid rgba(255,255,255,0.5);}
 
 .more{
