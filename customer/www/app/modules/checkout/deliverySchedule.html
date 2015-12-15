@@ -70,7 +70,7 @@ background: #ebf6eb;
  			 			<span flex layout="column" layput-padding class=" marg-15 border-right border-light">
  			 			<div layout="row" class="ft_gray">
  			 				<md-icon md-svg-icon="assets/img/icon/time36.svg" style="padding: 0px 5px 0px 10px;"></md-icon> 
- 			 				 <strong flex class="ft_size20 ft-grn"> 9AM to 10PM </strong>			 				 
+ 			 				 <strong flex class="ft_size20 ft-grn"> {{filter12HrTime(deliveryTime.fromTime)}} to {{filter12HrTime(deliveryTime.toTime)}} </strong>			 				 
  			 			</div>
  			 			 	<span flex class="padd-l10 text-small">Your store is available for delivery from </span>
  			 			</span> 			 			
@@ -78,9 +78,10 @@ background: #ebf6eb;
  			 		<div class="" flex>
  			 			<span flex layout="column" layput-padding class="marg-15 ft_gray">
  			 			 <div layout="row">
- 			 			 <span class=" ft-grn">Your basket is expected to be delivered within <span class="text-small ft_gray">90 minutes *</span> </span>
- 			 			 </div>
+ 			 			 <span class=" ft-grn" ng-hide="textDesign">Your basket is expected to be delivered within <span class="text-small ft_gray">60 minutes* </span> </span>
  			 			 
+ 			 			 </div>
+ 			 			 <span class="ft_size18 ft-grn" ng-hide="hidenext">Your basket will be delivered at {{expectedTime}}</span>
  			 			 </span>
  			 		</div>
  			 		<div >
@@ -93,7 +94,7 @@ background: #ebf6eb;
     <div flex></div>
     <div layout="row" layout-align="end center">
         <md-button class="md-raised" ng-click="goPrevious('address')">Back</md-button>
-        <md-button class="md-primary md-raised" style="background-color:#6EAB10 !important" ng-click="goNext('deliverySchedule')">Next</md-button>
+        <md-button class="md-primary md-raised" ng-disabled="hidenext" style="background-color:#6EAB10 !important" ng-click="goNext('deliverySchedule')">Next</md-button>
     </div>
 
 </section>

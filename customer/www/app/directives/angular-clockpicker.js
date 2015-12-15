@@ -8,7 +8,9 @@ angular.module('aviate.directives')
 		scope: {
 			datetime: "=ngModel"
 		},
-		controller: function ($scope) {
+		controller: function ($scope,$rootScope,$mdDialog) {
+			$rootScope.hidenext=true;
+			$rootScope.textDesign=false;
 			$scope.hourOptions = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 			$scope.minuteOptions = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 			$scope.periodOptions = ['am', 'pm'];
@@ -59,10 +61,121 @@ angular.module('aviate.directives')
 			});
 			$scope.$watch("hour + period", function () {
 				$scope.datetime.setHours($scope.period == "pm" ? $scope.hour + 12 : $scope.hour);
+				$rootScope.totalHours=$scope.datetime.getTime();
+				$rootScope.hour = $scope.datetime.getHours();
+				$rootScope.period = $scope.period;
+				
+				/*------------------------------------*/
+				$rootScope.deliveryTimeValidation();
+				/*--------------------------------------*/
 			});
 			$scope.$watch("minute", function (value) {
 				$scope.datetime.setMinutes(value);
+				$rootScope.minute = value;
+				
+				
+				/*Checking For minutes*/
+				$rootScope.deliveryTimeValidation();
+				/*End*/
 			});
+			$rootScope.totalHours=$scope.datetime.getTime();
+			$rootScope.hour = $scope.datetime.getHours();
+			$rootScope.minute = $scope.minute;
+			$rootScope.period = $scope.period;
+			
+			
+			//Manual Method
+			 $scope.filter12HrTime = function(time){
+			        var temp = time.split(':'),hours = temp[0],
+			            ampm = hours >= 12 ? 'PM' : 'AM';
+			        hours = hours % 12;
+			        temp.splice(2);
+			        temp[0] = hours ? hours : 12;
+			        return  temp.join(':') +" "+ampm;
+			    };
+			    
+			    $rootScope.deliveryTimeValidation=function(){
+			    	 var selectedDate = new Date($rootScope.delivery.date);
+					 selectedDate.setHours($rootScope.hour);
+			         selectedDate.setMinutes($rootScope.minute);
+		             var selectedDateValue=selectedDate.getTime();
+		             
+		             var fromDate=new Date(($rootScope.delivery.date).toString());
+		                fromDate.setHours($rootScope.deliveryTime.fromTime.substring(0, 2));
+		                fromDate.setMinutes($rootScope.deliveryTime.fromTime.substring(3, 5));
+		                var fromDateValue=fromDate.getTime();
+		                
+		                var toDate=new Date(($rootScope.delivery.date).toString());
+		                toDate.setHours($rootScope.deliveryTime.toTime.substring(0, 2));
+		                toDate.setMinutes($rootScope.deliveryTime.toTime.substring(3, 5));
+		                var toDateValue=toDate.getTime();
+		                
+		                var currentdate = new Date();
+		                var d=currentdate.toString().substring(16,24);
+		                
+		                if(selectedDateValue>=fromDate && selectedDateValue<=toDate){
+		                	if(currentdate.getTime()<=selectedDateValue){
+		                		currentdate.setMinutes(currentdate.getMinutes()+60);
+		                		if(currentdate.getTime()<=selectedDateValue){
+		                			var check = $scope.filter12HrTime(selectedDate.toString().substring(16,24));
+		                			$rootScope.expectedTime=check;
+		                			$rootScope.hidenext=false;
+		                			$rootScope.textDesign=true;
+		                		}
+		                		else{
+		                			var check= $scope.filter12HrTime(currentdate.toString().substring(16,24));
+		                			$rootScope.expectedTime=check;
+		                			$rootScope.hidenext=false;
+		                			$rootScope.textDesign=true;
+		                		}
+		                	}
+		                	else{
+		                		if(currentdate.getTime()>=selectedDateValue){
+			                		$rootScope.hidenext=true;
+			                		$rootScope.textDesign=false;
+			                    	$mdDialog.show(
+			        						$mdDialog.alert()
+			        						.parent(angular.element(document.querySelector('#popupContainer')))
+			        						.clickOutsideToClose(true)
+			        						//.title('Alert')
+			        						.content('Please choose Future delivery time '+$scope.filter12HrTime($rootScope.deliveryTime.fromTime)+' to '+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+'.')
+			        						.ariaLabel('Alert Dialog Demo')
+			        						.ok('Ok')
+			        						.targetEvent()
+			        				);
+		                		}
+		                		else{
+			                		$rootScope.hidenext=true;
+			                		$rootScope.textDesign=false;
+			                    	$mdDialog.show(
+			        						$mdDialog.alert()
+			        						.parent(angular.element(document.querySelector('#popupContainer')))
+			        						.clickOutsideToClose(true)
+			        						//.title('Alert')
+			        						.content('Please choose delivery time '+$scope.filter12HrTime(d)+' to '+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+'.')
+			        						.ariaLabel('Alert Dialog Demo')
+			        						.ok('Ok')
+			        						.targetEvent()
+			        				);
+		                		}
+		                	}
+		                	
+		                }
+		                else{
+		                	$rootScope.hidenext=true;
+		                	$rootScope.textDesign=false;
+		                	$mdDialog.show(
+		    						$mdDialog.alert()
+		    						.parent(angular.element(document.querySelector('#popupContainer')))
+		    						.clickOutsideToClose(true)
+		    						//.title('Alert')
+		    						.content('Please choose delivery time '+$scope.filter12HrTime($rootScope.deliveryTime.fromTime)+' to '+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+'.')
+		    						.ariaLabel('Alert Dialog Demo')
+		    						.ok('Ok')
+		    						.targetEvent()
+		    				);
+		                }
+			    };
 		}
 	};
 })

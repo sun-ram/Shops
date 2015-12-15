@@ -11,6 +11,9 @@ angular.module('aviate.controllers')
 	$scope.delivery = {
 			date: new Date()
 	};
+	$rootScope.delivery = {
+			date: new Date()
+	};
 	$scope.currentOrder = CheckOutServices.currentOrder;
 	$scope.timeLineStatus = CheckOutServices.timeLineStatus;
 	
@@ -81,6 +84,7 @@ angular.module('aviate.controllers')
 		CheckOutServices.getTimeSlot({'merchant':{'merchantId':$rootScope.store.merchant.merchantId}}).then(function(data) {
 			$scope.deliveryTimeSlots = data;
 			$scope.deliveryTime = $scope.deliveryTimeSlots[0];
+			$rootScope.deliveryTime = $scope.deliveryTimeSlots[0];
 			$scope.deliveryTime.index = 0;
 		});
 	}
@@ -181,15 +185,16 @@ angular.module('aviate.controllers')
 			  
 			  })*/;		
 			  
-			  controller: function($scope){
-		    	  $scope.removeAddress = function(){
-		    		  $mdDialog.cancel();
-		    		  removeAddress(address);
-				  }; 
-				  
-				  $scope.close = function(){
-		    		  $mdDialog.cancel();
-				  }; 
+			  $mdDialog.show({
+			      controller: function($scope){
+			    	  $scope.removeAddress = function(){
+			    		  $mdDialog.cancel();
+			    		  removeAddress(address);
+					  }; 
+					  
+					  $scope.close = function(){
+			    		  $mdDialog.cancel();
+					  }; 
 			      },
 			      templateUrl: 'app/modules/checkout/deleteAddressPrompt.html',
 			      parent: angular.element(document.body),
@@ -199,7 +204,7 @@ angular.module('aviate.controllers')
 			      $scope.status = 'You said the information was "' + answer + '".';
 			    }, function() {
 			      $scope.status = 'You cancelled the dialog.';
-			    });
+			    }); 
 		
 
 	};
@@ -357,7 +362,7 @@ angular.module('aviate.controllers')
 			break;
 		case "deliverySchedule":
 			//if ($scope.delivery.time && $scope.delivery.date) {
-				$scope.currentOrder.delivery.fromTime = $scope.deliveryTime.fromTime;
+				$scope.currentOrder.delivery.fromTime =$rootScope.expectedTime;
 				$scope.currentOrder.delivery.toTime = $scope.deliveryTime.toTime;
 				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'MM/dd/yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
  				$scope.currentOrder.items = $rootScope.myCard;
@@ -431,6 +436,8 @@ angular.module('aviate.controllers')
     console.log('formatter choosed date is ',$scope.choosedDate);
     $scope.formateSelectedDate = function(date){
     	$scope.choosedDate = $filter('date')(date,'EEEE,MMMM,dd,yyyy').split(',');
+    	$rootScope.delivery.date=date;
+   	    $rootScope.deliveryTimeValidation();
     };
     
 	console.log("card items",$rootScope.myCard);
