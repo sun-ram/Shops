@@ -22,7 +22,7 @@ angular.module('aviate.directives').directive('sideNav', [
                     
                 	$scope.optimizeInnerData = function (data){
 //                		console.log("Data --->",data);
-						data.extrIconName = "keyboard_arrow_right";
+						data.extrIconName = "arrow_drop_down";
                         if(typeof data.rootParent == 'undefined'){
                             data.hide = true;
                         }
@@ -120,7 +120,7 @@ angular.module('aviate.directives').directive('sideNav', [
                     $scope.executeGetRoot = function (data, keyCatId, currentRoot){
                         if(data.productCategoryId == keyCatId){
                             currentRootCatagoryIndex = currentRoot;
-							data.extrIconName = (data.extrIconName == 'keyboard_arrow_right') ? 'keyboard_arrow_down': 'keyboard_arrow_right';
+							data.extrIconName = (data.extrIconName == 'arrow_drop_down') ? 'arrow_drop_up': 'arrow_drop_down';
                         }
                         for(var j=0;data.categoriesVo && data.categoriesVo[j];j++){
                             $scope.executeGetRoot(data.categoriesVo[j], keyCatId, currentRoot);
