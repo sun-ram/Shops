@@ -4,6 +4,8 @@ angular.module('aviate.controllers')
 		 function($scope, $state, toastr, CONSTANT,$http,$rootScope, MyCartFactory,MyCartServices) {
 			MyCartFactory.myCartTotalPriceCalculation();
 			
+			$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
+			
 			$scope.productDetail = function(products){ 
 				$state.go('app.productsdetails',{productId:products.productId});
 			}

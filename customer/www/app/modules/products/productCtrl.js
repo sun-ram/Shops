@@ -3,7 +3,8 @@ angular.module('aviate.controllers')
 		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products', '$rootScope', 'ipCookie', 'MyCartFactory', 'MyCartServices','$mdDialog','MyListServices',
 		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory, MyCartServices,$mdDialog,MyListServices) {
 
-
+			$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
+			
 			$scope.addToMyList = function(product,index){
 				if($rootScope.user == null || $rootScope.user == undefined){
 					$rootScope.signInPopup();

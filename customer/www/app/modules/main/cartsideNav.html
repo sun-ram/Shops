@@ -33,7 +33,7 @@
 							<h4>{{item.product.unit}}{{item.product.uom.name}}</h4>
 							<h4>Rs {{item.product.price}}</h4>
 					        </div>
-					        <h4 style="margin: 25px 10px; font-weight: 400;">₹ {{item.product.price * item.qty}}</h4>
+					        <h4 style="margin: 25px 10px; font-weight: 400;" ng-bind-html="item.product.price * item.qty | currency : rupeesSymbol"></h4>
 <!-- 					         <md-icon aria-label="Menu" icon="highlight_remove" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 20px;"></md-icon> -->
 <!-- 					         <i class="icon ion-ios-trash" style="cursor:pointer; margin-top: 20px; font-size: 20px; color: #F96D57;"></i> -->
 <!-- 					         <i class="icon ion-trash-b" style="cursor:pointer; margin-top: 22px; font-size: 15px; fill: #F96D57;"></i>  -->
@@ -43,7 +43,7 @@
 					      </md-list-item> 
 					      <div layout="row" style="border-bottom: 1px solid #e5e5e5; background: #f5f5f5; padding: 0px 10px;" layout-align="start">
 			                    <span style="width: 100%;"><span style="line-height: 4;" ng-show="myCart.cartItem.length == 1">Total {{myCart.cartItem.length}} Item</span><span style="line-height: 4;" ng-show="myCart.cartItem.length > 1">Total {{myCart.cartItem.length}} Items </span>
-			                        <h3 style="float: right;">₹ {{myCart.cartTotalAmount }}</h3>
+			                        <h3 style="float: right;" ng-bind-html="myCart.cartTotalAmount | currency : rupeesSymbol"></h3>
 			                    </span>
 		                    <!-- <span flex></span>
 		     			 	<md-button layout-align="end" class="md-icon-button" ng-click="toggleRight()">
@@ -63,19 +63,19 @@
 		      
 		      
 					<div layout="row" style="line-height: 0;font-size:12px; padding:0px 15px;"><p flex>Sub total </p>
-                        <p flex class="tright"> ₹  {{myCart.cartTotalAmount | number:2}}</p></div>
+                        <p flex class="tright" ng-bind-html="myCart.cartTotalAmount | number:2 | currency : rupeesSymbol"></p></div>
                         
 					<div ng-repeat="tax in myCart.taxs">	
                          <div layout="row" style="line-height: 0;font-size:12px; padding:0px 15px;"><p flex>{{tax.name}} ({{tax.taxPercentage}}%)</p>					                        
-                            <p flex class="tright"> ₹  {{tax.rate| number:2}}</p> 
+                            <p flex class="tright" ng-bind-html="tax.rate| number:2 | currency : rupeesSymbol"></p> 
                           </div>
                      </div>  
                         
                          <div layout="row" style="line-height: 0;font-size:12px; padding:0px 15px;"><p flex> Shipping Charges</p>					                        
-                            <p flex class="tright"> ₹  {{myCart.shippingCharges | number:2}}</p> </div>
+                            <p flex class="tright" ng-bind-html="myCart.shippingCharges | number:2 | currency : rupeesSymbol"></p> </div>
                             
                          <div layout="row" style="line-height: 0; padding:0px 15px;"><h3 flex>Total </h3>					                        
-                            <h3 flex class="tright"> ₹  {{myCart.grossAmount | number:2}}</h3></div>                        
+                            <h3 flex class="tright" ng-bind-html="myCart.grossAmount | number:2 | currency : rupeesSymbol"></h3></div>                        
                     	
                     	<div layout="row" style="line-height: 0;">
                     	<md-button class="md-raised ft_size18" style="width:100%; background-color:#0F9D58 ;color:white;" ng-click="checkOut();toggleRight('right')">CHECKOUT</md-button>

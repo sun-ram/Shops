@@ -1,7 +1,7 @@
 
 angular.module('aviate.directives').directive('cartsidenav', [
-        '$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdSidenav', '$mdUtil', '$log','CategoryService',
-        function($rootScope, $document, $state, ipCookie, $timeout,$mdSidenav, $mdUtil, $log, CategoryService ) {
+        '$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdSidenav', '$mdUtil', '$log','CategoryService','CONSTANT',
+        function($rootScope, $document, $state, ipCookie, $timeout,$mdSidenav, $mdUtil, $log, CategoryService, CONSTANT) {
             return {
                 // scope: false,
                 restrict: 'E',
@@ -12,6 +12,8 @@ angular.module('aviate.directives').directive('cartsidenav', [
                 	/*$scope.toggleSidenav = function(menuId) {
                 		$mdSidenav(menuId).toggle();
                 	};*/
+                	
+                	$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
                    
                 	$scope.toggleSubList = function(id){
                         alert("djhasd");

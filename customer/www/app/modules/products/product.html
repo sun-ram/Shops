@@ -71,7 +71,7 @@
 					<span flex class="md-body-1 text-left">{{product.unit}}{{product.uom.name}}</span>
 					<span flex class="md-body-1 text-right">
 						<md-icon style="height:12px; width:12px; color:red;" md-svg-src="assets/img/icon/currency.svg"></md-icon>
-						₹{{product.price}}
+						 <span ng-bind-html="product.price | currency : rupeesSymbol"></span> 
 					</span>
 				</div>
 							<div layout="row" flex>

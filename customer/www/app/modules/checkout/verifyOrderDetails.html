@@ -212,20 +212,20 @@
     		<div layout="column" flex class="order-total" >
 	    		<div flex layout="row">
 	    			<span flex="60" layout-align="start center">Subtotal</span>
-	    			<span flex="40" >{{myCart.cartTotalAmount | number:2 | currency: rupeesSymbol}}</span>
+	    			<span flex="40" ng-bind-html="myCart.cartTotalAmount | number:2 | currency: rupeesSymbol"></span>
 	    		</div>
 	    		
 	    		<div flex layout="row" ng-repeat="tax in myCart.taxs">
 	    			<span flex="60">{{tax.name}} ({{tax.taxPercentage}}%)</span>
-	    			<span flex="40">{{tax.rate | number:2 | currency: rupeesSymbol}}</span>
+	    			<span flex="40" ng-bind-html="tax.rate | number:2 | currency: rupeesSymbol"></span>
 	    		</div>
 	    		<div flex layout="row">
 	    			<span flex="60">Shipping Charges</span>
-	    			<span flex="40">{{myCart.shippingCharges | number:2 | currency: rupeesSymbol}}</span>
+	    			<span flex="40" ng-bind-html="myCart.shippingCharges | number:2 | currency: rupeesSymbol"></span>
 	    		</div>
 	    		<div flex layout="row">
 	    			<span flex="60" class="md-title">Total</span>
-	    			<span flex="40" class="md-title">{{myCart.grossAmount | number:2 | currency: rupeesSymbol}} </span>
+	    			<span flex="40" class="md-title" ng-bind-html="myCart.grossAmount | number:2 | currency: rupeesSymbol"></span>
 	    		</div>
     		</div>
     		    		

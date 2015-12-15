@@ -36,6 +36,6 @@ angular.module('aviate.constant').constant('CONSTANT', {
 
 		},
 		
-		RUPEESSYMBOL :"'&#8377'"
+		RUPEESSYMBOL :"&#8377;"
 
 });
