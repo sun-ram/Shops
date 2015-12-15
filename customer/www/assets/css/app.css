@@ -683,6 +683,8 @@ font-size: 12px !important;
    color: #fff;
    padding: 10px 20px 20px;
    text-align: center;
+   height:75px;
+   width:calc(100% - 40px);
 }
 .views a.info {
    display: inline-block;
@@ -719,6 +721,7 @@ font-size: 12px !important;
    -ms-transition: all 0.4s ease-in-out;
    transition: all 0.4s ease-in-out;
 }
+.mask{ width:100%;}
 .view-first h2 {
    -webkit-transform: translateY(-100px);
    -moz-transform: translateY(-100px);
@@ -859,10 +862,15 @@ font-size: 12px !important;
 .pro-img{ height:150px; width:100%;}
 .icon-large-border{color:#FFFFFF; font-size:20px;}
 .pro-btns{ padding:10px; background-color:rgba(0, 0, 0, 0.8); color:#FFFFFF;}
-.bg-gray{ background-color:rgba(0, 0, 0, 0.8); padding:10px;}
+.bg-gray{  padding:10px;}
 .border-l-r{ border-left:1px solid rgba(255,255,255,0.5);  border-right:1px solid rgba(255,255,255,0.5);}
 
 .more{
     color: #FFF !important;
 }
+
+.pro-offer{ position:absolute; transform:rotate(-45deg); left:-38px; text-align:center; color:#FFFFFF; top:-15px; padding-right:20px;   height:25px; padding-top:15px; width:100px;}
+.off-70-above{  background-color:#E8D133;}
+.off-50-above{  background-color:#7BB3AA;}
+.off-50-below{  background-color:#AA6B5C;}
 

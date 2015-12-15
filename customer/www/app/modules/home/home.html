@@ -115,7 +115,7 @@
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">+ More</md-button>
+	                    		<md-button class="md-icon-button" aria-label="More"><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
 	                    	</div>
 	                        
      		  			</div>
@@ -148,12 +148,12 @@
                             	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
                             	<div layout="row">
-                            		<div flex="40">
+                            		<div flex>
                             			<div  layout-padding >
                             				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
-                            		<div flex="60">
+                            		<div flex>
                             			<div ng-if="product.wasPrice > product.price" class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
@@ -198,9 +198,11 @@
     					<div layout="row" flex layout-wrap  ng-repeat="product in category.products | orderBy:groupCount | limitTo:$root.numLimit">
      						
                             <div class="views view-first">
-                            	<div layout="row">
+                            	<div layout="row" style="overflow:hidden;">
                             		<div flex layout-align="start start">
-                            			 
+                            			 <div class="pro-offer off-70-above">
+                            			 	70%
+                            			 </div>
                             		</div>
                             		<div flex>
                             			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
@@ -220,7 +222,7 @@
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">+ More</md-button>
+	                    		<md-button class="md-icon-button" aria-label="More"><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
 	                    	</div>
 	                        
      		  			</div>
@@ -253,12 +255,12 @@
                             	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
                             	<div layout="row">
-                            		<div flex="40">
+                            		<div flex>
                             			<div  layout-padding >
                             				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
-                            		<div flex="60">
+                            		<div flex>
                             			<div ng-if="product.wasPrice>product.price"class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
