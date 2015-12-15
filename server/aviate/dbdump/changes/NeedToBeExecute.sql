@@ -215,3 +215,24 @@ ADD CONSTRAINT `FK_ADDRESS_CITY`
 
   ALTER TABLE `shopsbacker`.`product` 
 ADD COLUMN `IS_BUNDLE` CHAR(1) NOT NULL DEFAULT 'N' AFTER `WAS_PRICE`;
+
+  ----   15-12-2015 -------- Riyaz Khan----------------- DISCOUNT_AMOUNT in productOfferLine ------
+ALTER TABLE `shopsbacker`.`product_offer_line` 
+ADD COLUMN `DISCOUNT_AMOUNT` DECIMAL(15,2) NOT NULL DEFAULT '0.00' AFTER `DISCOUNT_PERCENTAGE`;
+
+  ----   15-12-2015 -------- Riyaz Khan----------------- OFFER_AMOUNT in productOffer and QTY ------
+  
+ALTER TABLE `shopsbacker`.`product_offer` 
+ADD COLUMN `OFFER_AMOUNT` DECIMAL(15,2) NULL DEFAULT '0.00' AFTER `END_TIME`;
+
+ALTER TABLE `shopsbacker`.`product_offer` 
+ADD COLUMN `QTY` INT(11) NULL DEFAULT '0' AFTER `OFFER_AMOUNT`;
+
+  ----   15-12-2015 -------- Riyaz Khan----------------- OFFER_AMOUNT in product ------
+
+ALTER TABLE `shopsbacker`.`product` 
+ADD COLUMN `IS_KID` CHAR(1) NULL DEFAULT 'N' AFTER `IS_BUNDLE`;
+ALTER TABLE `shopsbacker`.`product` 
+ADD COLUMN `IS_CHILD` CHAR(1) NULL DEFAULT 'N' AFTER `IS_KIT`;
+
+

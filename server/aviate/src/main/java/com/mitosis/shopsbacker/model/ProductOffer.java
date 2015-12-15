@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +41,8 @@ public class ProductOffer implements java.io.Serializable {
 	private Product product;
 	private String name;
 	private String description;
+	private int qty;
+	private BigDecimal offerAmount;
 	private Date fromDate;
 	private Date todate;
 	private Date startTime;
@@ -55,7 +58,7 @@ public class ProductOffer implements java.io.Serializable {
 
 	public ProductOffer(String productOfferId, String createdby,
 			String updatedby, Merchant merchant, Product product,
-			String name, Date fromDate, Date todate, Date startTime,
+			String name,int qty,BigDecimal offerAmount, Date fromDate, Date todate, Date startTime,
 			Date endTime, char isactive, Date created, Date updated) {
 		this.productOfferId = productOfferId;
 		this.createdby = createdby;
@@ -63,6 +66,8 @@ public class ProductOffer implements java.io.Serializable {
 		this.merchant = merchant;
 		this.product = product;
 		this.name = name;
+		this.qty = qty;
+		this.offerAmount = offerAmount;
 		this.fromDate = fromDate;
 		this.todate = todate;
 		this.startTime = startTime;
@@ -74,7 +79,7 @@ public class ProductOffer implements java.io.Serializable {
 
 	public ProductOffer(String productOfferId, String createdby,
 			String updatedby, Merchant merchant, Product product,
-			String name, String description, Date fromDate, Date todate,
+			String name, String description,int qty,BigDecimal offerAmount, Date fromDate, Date todate,
 			Date startTime, Date endTime, char isactive, Date created,
 			Date updated, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts) {
 		this.productOfferId = productOfferId;
@@ -84,6 +89,8 @@ public class ProductOffer implements java.io.Serializable {
 		this.product = product;
 		this.name = name;
 		this.description = description;
+		this.qty = qty;
+		this.offerAmount = offerAmount;
 		this.fromDate = fromDate;
 		this.todate = todate;
 		this.startTime = startTime;
@@ -159,6 +166,24 @@ public class ProductOffer implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Column(name = "QTY")
+	public int getQty() {
+		return this.qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	
+	@Column(name = "OFFER_AMOUNT")
+	public BigDecimal getOfferAmount() {
+		return this.offerAmount;
+	}
+	
+	public void setOfferAmount(BigDecimal offerAmount) {
+		this.offerAmount = offerAmount;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.vo.inventory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ public class ProductOfferVo {
 	private ProductVo productVo;
 	private String name;
 	private String description;
+	private int qty;
+	private BigDecimal offerAmount;
 	private Date fromDate;
 	private Date todate;
 	private Date startTime;
@@ -50,6 +53,19 @@ public class ProductOfferVo {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	public BigDecimal getOfferAmount() {
+		return offerAmount;
+	}
+	public void setOfferAmount(BigDecimal offerAmount) {
+		this.offerAmount = offerAmount;
 	}
 	public Date getFromDate() {
 		return fromDate;

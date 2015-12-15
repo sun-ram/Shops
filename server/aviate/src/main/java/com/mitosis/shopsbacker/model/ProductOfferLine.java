@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,7 @@ public class ProductOfferLine implements java.io.Serializable {
 	private Product product;
 	private ProductOffer productOffer;
 	private double discountPercentage;
+	private BigDecimal discountAmount;
 	private char isactive;
 	private Date created;
 	private Date updated;
@@ -47,20 +49,21 @@ public class ProductOfferLine implements java.io.Serializable {
 
 	public ProductOfferLine(String productOfferLineId, String createdby,
 			String updatedby, Product product, ProductOffer productOffer,
-			double discountPercentage, char isactive, Date updated) {
+			double discountPercentage,BigDecimal discountAmount, char isactive, Date updated) {
 		this.productOfferLineId = productOfferLineId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
 		this.product = product;
 		this.productOffer = productOffer;
 		this.discountPercentage = discountPercentage;
+		this.discountAmount = discountAmount;
 		this.isactive = isactive;
 		this.updated = updated;
 	}
 
 	public ProductOfferLine(String productOfferLineId, String createdby,
 			String updatedby, Product product, ProductOffer productOffer,
-			double discountPercentage, char isactive, Date created,
+			double discountPercentage,BigDecimal discountAmount, char isactive, Date created,
 			Date updated, List<MyCart> myCarts) {
 		this.productOfferLineId = productOfferLineId;
 		this.createdby = createdby;
@@ -68,6 +71,7 @@ public class ProductOfferLine implements java.io.Serializable {
 		this.product = product;
 		this.productOffer = productOffer;
 		this.discountPercentage = discountPercentage;
+		this.discountAmount = discountAmount;
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
@@ -129,7 +133,16 @@ public class ProductOfferLine implements java.io.Serializable {
 	public void setDiscountPercentage(double discountPercentage) {
 		this.discountPercentage = discountPercentage;
 	}
+	
+	@Column(name = "DISCOUNT_AMOUNT", nullable = false, precision = 22, scale = 0)
+	public BigDecimal getDiscountAmount() {
+		return this.discountAmount;
+	}
 
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+	
 	@Column(name = "ISACTIVE", nullable = false, length = 1)
 	public char getIsactive() {
 		return this.isactive;

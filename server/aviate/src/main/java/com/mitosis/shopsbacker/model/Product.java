@@ -54,6 +54,8 @@ public class Product implements java.io.Serializable {
 	private BigDecimal wasPrice;
 	private Character isYourHot;
 	private Character isBundle;
+	private Character isKit;
+	private Character isChild;
 	private BigDecimal unit;
 	private Date created;
 	private Date updated;
@@ -96,7 +98,7 @@ public class Product implements java.io.Serializable {
 			Discount discount, ProductCategory productCategory, Uom uom,
 			ProductType productType, String name, String edibleType,
 			Integer groupCount, String brand, BigDecimal price,BigDecimal wasPrice,
-			Character isYourHot,Character isBundle, BigDecimal unit, Date created, Date updated,
+			Character isYourHot,Character isBundle,Character isKit,Character isChild, BigDecimal unit, Date created, Date updated,
 			char isactive, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts,
 			List<SalesOrderLine> salesOrderLines, List<MovementLine> movementLines, List<ProductImage> productImages,
 			List<ProductOffer> productOffers, List<ProductInventory> productInventories) {
@@ -117,6 +119,8 @@ public class Product implements java.io.Serializable {
 		this.wasPrice = wasPrice;
 		this.isYourHot = isYourHot;
 		this.isBundle = isBundle;
+		this.isKit = isKit;
+		this.isChild = isChild;
 		this.unit = unit;
 		this.created = created;
 		this.updated = updated;
@@ -288,6 +292,24 @@ public class Product implements java.io.Serializable {
 
 	public void setIsBundle(Character isBundle) {
 		this.isBundle = isBundle;
+	}
+	
+	@Column(name = "IS_KIT", length = 1)
+	public Character getIsKit() {
+		return this.isKit;
+	}
+
+	public void setIsKit(Character isKit) {
+		this.isKit = isKit;
+	}
+	
+	@Column(name = "IS_CHILD", length = 1)
+	public Character getIsChild() {
+		return this.isChild;
+	}
+
+	public void setIsChild(Character isChild) {
+		this.isChild = isChild;
 	}
 
 	@Column(name = "UNIT", nullable = false, precision = 15)

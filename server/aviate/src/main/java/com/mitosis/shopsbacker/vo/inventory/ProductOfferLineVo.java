@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.vo.inventory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class ProductOfferLineVo {
 	private ProductVo productVo;
 	private ProductOfferVo productOfferVo;
 	private double discountPercentage;
+	private BigDecimal discountAmount;
 	private List<MyCartVo> myCartsVo = new ArrayList<MyCartVo>();
 	public String getProductOfferLineId() {
 		return productOfferLineId;
@@ -42,6 +44,12 @@ public class ProductOfferLineVo {
 	}
 	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
 		this.myCartsVo = myCartsVo;
+	}
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
+	}
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 	
 	
