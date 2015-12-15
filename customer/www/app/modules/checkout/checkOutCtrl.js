@@ -4,6 +4,8 @@ angular.module('aviate.controllers')
 
 	MyCartFactory.myCartTotalPriceCalculation();
 	
+	$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
+	
 	$scope.time = new Date();
 	$scope.addresses = [];
 	$scope.delivery = {

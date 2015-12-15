@@ -160,7 +160,7 @@
 							</div>
 							<div flex>
 								<span>{{currentOrder.address.address}}</span>
-			                    <span>{{currentOrder.address.city}}, {{currentOrder.address.state.name}}, {{currentOrder.address.country.name}}, {{currentOrder.address.postalCode}}.</span>
+			                    <span>{{currentOrder.address.city.name}}, {{currentOrder.address.state.name}}, {{currentOrder.address.country.name}}, {{currentOrder.address.postalCode}}.</span>
 							</div>
 	    				</div>
     				</div>
@@ -212,23 +212,23 @@
     		<div layout="column" flex class="order-total" >
 	    		<div flex layout="row">
 	    			<span flex="60" layout-align="start center">Subtotal</span>
-	    			<span flex="40" >{{myCart.cartTotalAmount | number:2}}</span>
+	    			<span flex="40" >{{myCart.cartTotalAmount | number:2 | currency: rupeesSymbol}}</span>
 	    		</div>
 	    		
 	    		<div flex layout="row" ng-repeat="tax in myCart.taxs">
 	    			<span flex="60">{{tax.name}} ({{tax.taxPercentage}}%)</span>
-	    			<span flex="40">{{tax.rate | number:2}}</span>
+	    			<span flex="40">{{tax.rate | number:2 | currency: rupeesSymbol}}</span>
 	    		</div>
 	    		<div flex layout="row">
 	    			<span flex="60">Shipping Charges</span>
-	    			<span flex="40">{{myCart.shippingCharges | number:2}}</span>
+	    			<span flex="40">{{myCart.shippingCharges | number:2 | currency: rupeesSymbol}}</span>
 	    		</div>
 	    		<div flex layout="row">
 	    			<span flex="60" class="md-title">Total</span>
-	    			<span flex="40" class="md-title">{{myCart.grossAmount | number:2}}</span>
+	    			<span flex="40" class="md-title">{{myCart.grossAmount | number:2 | currency: rupeesSymbol}} </span>
 	    		</div>
     		</div>
-    		
+    		    		
     		<div class="payment-method" >
     			<div class="md-headline">Payment Method</div>
             	<md-radio-group ng-model="data.group1" ng-change="redirectUrl();">

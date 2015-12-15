@@ -21,7 +21,7 @@ angular.module('aviate.constant').constant('CONSTANT', {
 				PRODUCTINCRCREASED:'Product Increased Successfully',
 				PRODUCTDECREASED:'Product Decreased Successfully',
 				PASSWORDCHANGED: 'Password changed successfully',
-				FAVOURITEDELETED: 'Favourite Removed Successfully'	
+				FAVOURITEDELETED: 'Favourite Removed Successfully'
 		},
 
 		ERROR_CODE:{
@@ -34,6 +34,8 @@ angular.module('aviate.constant').constant('CONSTANT', {
 			FORGETPASSWORDNEEDMAILID:'Enter email-id',
 			ADDTHEADDERSS: 'Add The Delivery Address'
 
-		}
+		},
+		
+		RUPEESSYMBOL :"'&#8377'"
 
 });
