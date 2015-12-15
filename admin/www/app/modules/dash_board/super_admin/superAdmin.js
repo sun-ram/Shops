@@ -302,7 +302,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			len = $scope.merchants.Books.length;
 			for(;i<len;i++){
 				tmpArray = [];
-				red=green=yellow=0;
+				red=green=yellow=0.5;
 				var j=0,solen = $scope.salesOrders.Books.length;
 				for(;j<solen;j++){
 					if($scope.salesOrders.Books[j].MERCHANT_ID == $scope.merchants.Books[i].MERCHANT_ID && $scope.salesOrders.Books[j].DELIVERY_DATE){
