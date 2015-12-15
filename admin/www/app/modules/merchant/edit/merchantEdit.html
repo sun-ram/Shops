@@ -19,7 +19,7 @@
   </md-toolbar>
  <md-card flex-gt-sm="90" flex-gt-md="80"> 
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-    <form name="merchantForm" novalidate>
+    <form name="merchantForm">
     	
     	
     	
@@ -60,18 +60,17 @@
 				        <input type="email" ng-model="merchantDetail.user.emailid" ng-required="true" ng-disabled="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
 <!-- 			       	<span ng-message="required" ng-show="merchantForm.userName.$error.email || (!merchantForm.userName.$error.required && !merchantForm.userName.$valid)" style="color:red;">Email Invalid.</span>
  -->				    </md-input-container>
+ 					<md-input-container>
+				    	<label>Phone<span style="color:red">*</span></label>
+			  			<input ng-model="merchantDetail.user.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
+				      	<span ng-message="required" ng-show="merchantForm.phoneNo.$error.maxlength" style="color:red;">
+				       	Enter phoneNo within 20 digit
+				      	</span>
+				    </md-input-container>
    					<md-input-container>
 				       <label>Postal Code<span style="color:red">*</span></label>
 				       <input valid-number ng-model="merchantDetail.user.address.pinCode" ng-required="true">
 				   	</md-input-container>
-				    <md-input-container>
-		       			 <label>State<span style="color:red">*</span></label>
-                        <md-select ng-model="state" ng-required="true" ng-change = " getCity(state);" ng-model-options="{trackBy: '$value.stateId'}">
-                        <md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
-                        {{state.name}}
-                       </md-option>
-                </md-select>
-		    		</md-input-container>
 		  		</div>
 		  	</div>
 		  	<div flex="40">
@@ -90,34 +89,33 @@
 		      			Enter address within 150 characters
 		      		  </span>
 				    </md-input-container>
-				    
-				    <!-- <md-input-container>
-				      <label>City<span style="color:red">*</span></label>
-				      <input ng-model="merchantDetail.user.address.city" ng-required="true">
-				    </md-input-container> -->
-				    <md-input-container>
-		       			 <label>City<span style="color:red">*</span></label>
-                        <md-select ng-model="cty" ng-required="true" ng-model-options="{trackBy: '$value.cityId'}">
-                        <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
-                        {{city.name}}
-                       </md-option>
-              		  </md-select>
-		    		</md-input-container>
-				    <md-input-container>
-				    	<label>Phone<span style="color:red">*</span></label>
-			  			<input ng-model="merchantDetail.user.phoneNo" name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
-				      	<span ng-message="required" ng-show="merchantForm.phoneNo.$error.maxlength" style="color:red;">
-				       	Enter phoneNo within 20 digit
-				      	</span>
-				    </md-input-container>
-				  
-				   	  <md-input-container>
+				     <md-input-container>
 		       			 <label>Country<span style="color:red">*</span></label>
-         				 <md-select ng-model="country" ng-required="true" ng-change = "getState(country);" ng-model-options="{trackBy: '$value.countryId'}">
+         				 <md-select class="remove-padd" ng-model="country" ng-required="true" ng-change = "getState(country);state=null;cty=null;" ng-model-options="{trackBy: '$value.countryId'}">
              		       <md-option ng-repeat="cnt in countries | orderBy:'name'" ng-value="cnt">
                		         {{cnt.name}}
                			     </md-option>
                			 </md-select>
+		    		</md-input-container>
+				    <!-- <md-input-container>
+				      <label>City<span style="color:red">*</span></label>
+				      <input ng-model="merchantDetail.user.address.city" ng-required="true">
+				    </md-input-container> -->
+				     <md-input-container>
+		       			 <label>State<span style="color:red">*</span></label>
+                        <md-select class="remove-padd" ng-model="state" ng-required="true" ng-change = "getCity(state);cty=null;" ng-model-options="{trackBy: '$value.stateId'}">
+                   	     <md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
+                    	    {{state.name}}
+                    	   </md-option>
+            		    </md-select>
+		    		</md-input-container>
+				    <md-input-container>
+		       			 <label>City<span style="color:red">*</span></label>
+                        <md-select class="remove-padd" ng-model="cty" ng-required="true" ng-model-options="{trackBy: '$value.cityId'}">
+                        <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
+                        {{city.name}}
+                       </md-option>
+              		  </md-select>
 		    		</md-input-container>
 		  		</div>
 		  	</div>

@@ -80,7 +80,7 @@
 				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
 				</md-select></td> -->
 			<td>{{salesOrder.orderNo}}</td>	
-			<td>{{salesOrder.addressVo.address1}},{{salesOrder.address.city}}</td>
+			<td>{{salesOrder.addressVo.address1}},{{salesOrder.addressVo.address2}} {{salesOrder.addressVo.city.name}}</td>
 			<td>{{salesOrder.status}}</td>
 			<td>{{salesOrder.fromDate}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>

@@ -50,7 +50,6 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			criteria.addOrder(Order.desc("created"));
-
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,6 +65,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("status", status.toString()));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,6 +85,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.le("deliveryDate",
 					CommonUtil.stringToDate(toDate)));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,6 +105,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.le("deliveryDate",
 					CommonUtil.stringToDate(toDate)));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,7 +153,6 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			criteria.addOrder(Order.desc("created"));
-
 			return (List<SalesOrder>) findAll(criteria);
 			
 		} catch (Exception e) {
@@ -187,6 +188,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("customer", customer));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -91,6 +91,7 @@ angular.module('aviate.controllers')
 		    };
 	
 	$scope.confirmOrder = function() {
+		$scope.orderBtn = true;
 		var menuJson = {
 				"customer":{
 					"customerId":$rootScope.user.userId
@@ -180,9 +181,15 @@ angular.module('aviate.controllers')
 			  
 			  })*/;		
 			  
-			  $mdDialog.show({
-			      controller: function(){
-			    	  
+			  controller: function($scope){
+		    	  $scope.removeAddress = function(){
+		    		  $mdDialog.cancel();
+		    		  removeAddress(address);
+				  }; 
+				  
+				  $scope.close = function(){
+		    		  $mdDialog.cancel();
+				  }; 
 			      },
 			      templateUrl: 'app/modules/checkout/deleteAddressPrompt.html',
 			      parent: angular.element(document.body),
