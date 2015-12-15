@@ -98,7 +98,7 @@
                             		</div>
                             		<div flex>
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
-									        <md-icon class="icon-black" fill="black">shopping_cart</md-icon>
+									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
 									      </md-button>
 									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
                             		</div>
@@ -115,7 +115,7 @@
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="md-icon-button" aria-label="More"><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
+	                    		<md-button class="more">+ more</md-button>
 	                    	</div>
 	                        
      		  			</div>
@@ -153,8 +153,8 @@
                             				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
-                            		<div flex>
-                            			<div ng-if="product.wasPrice > product.price" class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
                 			</div>  
@@ -206,7 +206,7 @@
                             		</div>
                             		<div flex>
                             			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
-									        <md-icon class="icon-black" fill="black">shopping_cart</md-icon>
+									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
 									      </md-button>
 									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
                             		</div>
@@ -222,7 +222,7 @@
                          <div layout="row" layout-align="center center">
 	                        	
 					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="md-icon-button" aria-label="More"><i class="icon ion-arrow-resize icon-xlarge"></i></md-button>
+	                    		<md-button class="more">+ more</md-button>
 	                    	</div>
 	                        
      		  			</div>
@@ -260,8 +260,8 @@
                             				<div class="pull-right pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div>
-                            		<div flex>
-                            			<div ng-if="product.wasPrice>product.price"class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		<div flex ng-if="product.wasPrice>product.price">
+                            			<div class="pull-left" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
                             	</div>
                 			</div>                           
