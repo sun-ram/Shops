@@ -91,7 +91,7 @@ angular.module('aviate.factories')
 		$rootScope.myCart.cartTotalAmount = _totalAmount;
 		
 		//shipping charge
-		if($rootScope.shippingCharges != undefined && $rootScope.shippingCharges.length !=0){
+		if(_totalAmount != 0 && $rootScope.shippingCharges != undefined && $rootScope.shippingCharges.length !=0){
 		for(var i =0;i<$rootScope.shippingCharges.length;i++){
 				if(_totalAmount <= $rootScope.shippingCharges[i].amountRange){
 				$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[i].chargingAmount;
