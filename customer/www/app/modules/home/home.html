@@ -45,7 +45,7 @@
         	<div flex-gt-md="20" hide-sm hide-md class="slider-left" style="background:#F96D57;">
         	</div>
         	<div flex-gt-md="60" flex-sm="100" flex-md="100" higgidy-carousel='images' timeout="5000">
-        		<ul higgidy-carousel-images >
+        		 <ul higgidy-carousel-images >
 	                <li ng-repeat="image in images">
 	                    <a href="{{image.link}}">
 	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" style="width: 100%; max-height:200px"/>
@@ -62,7 +62,7 @@
 	                    </li> 
 	                    
 	                </ul>
-	            </nav>
+	            </nav> 
         	</div>
         	<div flex-gt-md="20" hide-sm hide-md class="slider-right" style="background:#F2CB6E;">
         	</div>
@@ -183,11 +183,11 @@
         
         
         
-          <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct">
+          <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct" class="">
            
  			<div ng-if="category.products.length" >
- 				<div class="prod-headings" flex ng-hide="category.products.length ==0" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">{{category.name}}</h2>
+ 				<div class="prod-headings" l flex ng-hide="category.products.length ==0" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left; " class="md-headline">{{category.name}}</h2>
  					<span style="float:left;     margin: 13px 0px 0px 10px;"  class="md-subhead">
  				({{category.products.length}}) <span ng-if="category.products.length > 1">Items</span> <span ng-if="category.products.length <= 1">Item</span> 
  				    <a ng-if="category.products.length > $root.numLimit" href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a>

@@ -10,10 +10,11 @@
     	<div flex>
     		<section>
     		
-    			<div layout="row" class="prod-headings flex" ng-hide="category.products.length ==0" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; " aria-hidden="false">
- 					<h2 flex style="margin:10px 0px 0px 0px; float:left;" class="md-display-1 ng-binding">Products</h2>
- 					 <div class="" flex layout="row" layout-sm="50" layout layout-align="">                   
-                       <span flex layout-padding style="color:#000000;">
+    			<div layout-sm="column" layout-gt-sm="row" class="prod-headings flex" ng-hide="category.products.length ==0" style="width:100%; float:left; margin:0px 7px;  padding-bottom:10px; " aria-hidden="false">
+ 					<h2 flex style="margin:33px 0px 0px 0px; float:left;" class="md-display-1 ng-binding">Products</h2>
+ 					 <div class="" flex layout="row" layout-sm="50" layout layout-align=""> 
+ 					                   
+                     <span flex layout-padding style="color:#000000;" class="pro-sort">
                             <md-input-container flex class="nopadd ft_size14">
                               <label ng-style="margin-top: 0px; color:#000000;" class="mg-primary">Sort By</label>
                               <md-select ng-model="orderList" >
@@ -23,13 +24,17 @@
                                 <md-option value="-price"> Price - High to Low </md-option>
                               </md-select>
                             </md-input-container>
-                     </span>
-                     <span flex >
-                        <md-input-container flex class="nopadd ft_size14">
-                            <label style="margin-top: 8px;">Search</label>
+                     </span> 
+                     
+                     
+                    <span flex class="pro-search" layout-padding>
+                        <!-- <md-input-container flex class="nopadd ft_size14">
+                            <label>Search</label>
                             <input ng-model="searchProduct">
-                        </md-input-container >
-                     </span>
+                        </md-input-container > -->
+                        <input type="text" placeholder="search" ng-model="searchProduct">
+                     </span> 
+                    
                     </div> 
  				</div>
  				

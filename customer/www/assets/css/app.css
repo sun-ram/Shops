@@ -873,4 +873,16 @@ font-size: 12px !important;
 .off-70-above{  background-color:#E8D133;}
 .off-50-above{  background-color:#7BB3AA;}
 .off-50-below{  background-color:#AA6B5C;}
+.pro-sort .md-select-value{ border:1px solid rgba(0,0,0,0.1); padding:10px !important; }
+
+.pro-sort md-select{ border:none;}
+
+.pro-search input[type='text']{ border:1px solid rgba(0,0,0,0.1); margin-top:19px; padding:13px 10px !important; width:96%}
+
+
+
+
+
+
+
 
