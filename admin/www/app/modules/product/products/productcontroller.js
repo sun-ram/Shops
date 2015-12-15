@@ -39,6 +39,15 @@ angular.module('aviateAdmin.controllers')
 	};
 
 	$scope.update = function(){
+		if ($scope.product.price == 0) {
+			toastr.warning("Product Price should be greater than Zero");
+			return;
+		} 
+		if ($scope.product.wasPrice == 0) {
+			toastr.warning("Product WasPrice should be greater than Zero");
+			return;
+		} 
+
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}
@@ -114,6 +123,15 @@ angular.module('aviateAdmin.controllers')
 	}
 
 	$scope.addproduct = function() {
+		
+		if ($scope.product.price == 0) {
+			toastr.warning("Product Price should be greater than Zero");
+			return;
+		} 
+		if ($scope.product.wasPrice == 0) {
+			toastr.warning("Product WasPrice should be greater than Zero");
+			return;
+		} 
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}else{
