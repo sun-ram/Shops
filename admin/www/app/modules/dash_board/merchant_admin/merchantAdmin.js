@@ -468,34 +468,60 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 
 				}
 			}
-			x1 = {};
-			storeIds1 = [];
-			for (var i = 0; i < tempArray.length; ++i) {
-				var obj = tempArray[i];
-				if (x1[obj.CUSTOMER_ID] === undefined && obj.CUSTOMER_ID) {
-					x1[obj.CUSTOMER_ID] = [getCustomerNameById(obj.CUSTOMER_ID)];
-					storeIds1.push(obj.CUSTOMER_ID);
-				}
-				if (obj.CUSTOMER_ID)
-					x1[obj.CUSTOMER_ID].push(obj.NET_AMOUNT);
-			};
-			
+			$scope.historicalBarChart2 = [{key: "Cumulative Return1",values: []}];
 			tmpAvgObj = {};
-			for (var j = 0; j < storeIds1.length; j++) {
-				totalAmount = 0;
-				for (var i = 1; i < x1[storeIds1[j]].length; i++) {
-					totalAmount = totalAmount + x1[storeIds1[j]][i];
+			var billMinestone = [0,0,0,0,0,0];
+			for(var i=0;i < tempArray.length; i++){
+				tempArray[i].NET_AMOUNT
+				if(tempArray[i].NET_AMOUNT > 10000){
+					billMinestone[5]++;
+				}else if(tempArray[i].NET_AMOUNT >= 5000){
+					billMinestone[4]++;
+				}else if(tempArray[i].NET_AMOUNT >= 1000){
+					billMinestone[3]++;
+				}else if(tempArray[i].NET_AMOUNT >= 500 ){
+					billMinestone[2]++;
+				}else if(tempArray[i].NET_AMOUNT >= 100 ){
+					billMinestone[1]++;
+				}else if(tempArray[i].NET_AMOUNT < 100){
+					billMinestone[0]++;
 				}
+			}
+			for(i=billMinestone.length-1; i >= 0 ; i--){
+			
 				if (totalAmount > 0) {
 					tmpAvgObj = {};
-					tmpAvgObj.label =  x1[storeIds1[j]][0]+j;
-					tmpAvgObj.value = Math.round(totalAmount);
+					switch (i) {
+						case 0:
+							tmpAvgObj.label = 'Bill < 100';
+							break;
+						case 1:
+							tmpAvgObj.label = '100< Bill <=500';
+							break;
+						case 2:
+							tmpAvgObj.label = '500< Bill <=1000';
+							break;
+						case 3:
+							tmpAvgObj.label = '1000< Bill <=5000';
+							break;
+						case 4:
+							tmpAvgObj.label = '5000< Bill <=10000';
+							break;
+						case 5:
+							tmpAvgObj.label = '10000 < Bill';
+							break;
+						default:
+							console.log("Something went wrong in sales milestone count calculation");
+					}
+					tmpAvgObj.value = parseInt(billMinestone[i]);
 					$scope.historicalBarChart2[0].values.push(angular.copy(tmpAvgObj));
 
 				}
 			}
+	
 			console.log("$scope.historicalBarChart2--->",$scope.historicalBarChart2);
 			len1 = $scope.stores.Books.length;
+			$scope.historicalBarChart = [{key: "Cumulative Return",values: []}];
 			var tempStore;
 			for(var i=0; i < len1; i++){
 				tempStore = $scope.stores.Books[i];
@@ -520,6 +546,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 			$scope.drawBarChart2();
 			$scope.compSalesToday();
 			getQualityStats();
+			$scope.locateStores();
 			/*callback();*/
 		};
 
@@ -584,7 +611,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 			console.log("Stores Yesterday and to Today", newStoresLastDay, " & ", newStoresToday);
 			$scope.storeGrowthToday = (newStoresLastDay) ? (((newStoresToday - newStoresLastDay) / newStoresLastDay) * 100) : 0;
 			$scope.storeGrowthToday = (Math.round($scope.storeGrowthToday  * 100) / 100);
-			$scope.locateStores();
+			/*$scope.locateStores();*/
 		};
 
 

@@ -526,6 +526,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			$scope.drawBarChart2();
 			$scope.compSalesToday();
 			getQualityStats();
+			$scope.locateMerchants();
 			/*callback();*/
 		};
 
@@ -619,7 +620,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 			sendHttpRequest('salesOrder').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
-				console.log("salesOrder Exected success case ", data);
+				console.info("salesOrder Exected success case ", data);
 				postSalesOrder(data);
 			});
 		};
@@ -627,7 +628,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			sendHttpRequest('salesOrderLine').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.salesOrderLines = data;
-				console.log("Sales order Line =>", data);
+				console.info("Sales order Line =>", data);
 			});
 
 		};
@@ -638,7 +639,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			sendHttpRequest('merchant').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.merchants = data;
-				console.log("merchant Line =>", data);
+				console.info("merchant Line =>", data);
 				postMerchant(data);
 			});
 		};
@@ -646,7 +647,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			sendHttpRequest('store').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.stores = data;
-				console.log("Store success case -- ", data);
+				console.info("Store success case -- ", data);
 				postStore(data);
 				/*groupedBarChart();*/
 			});
@@ -656,22 +657,22 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			sendHttpRequest('address').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.addresses = data;
-				console.log("proceedAddresses Line =>", data);
-				$scope.locateMerchants(data);
+				console.info("proceedAddresses Line =>", data);
+				/*$scope.locateMerchants(data);*/
 			});
 		};
 		$scope.proceedUsers = function (callback) {
 			sendHttpRequest('users').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
 				$scope.users = data;
-				console.log("users --->", data);
+				console.info("users --->", data);
 			});
 		};
 
 		$scope.proceedCustomer = function (callback) {
 			sendHttpRequest('customer').then(function (data) {
 				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
-				console.log("Customers--->",data);
+				console.info("Customers--->",data);
 				$scope.customers = data;
 				postCustomer(data);
 			});
