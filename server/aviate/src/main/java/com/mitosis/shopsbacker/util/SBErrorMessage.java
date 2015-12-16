@@ -15,7 +15,7 @@ public enum SBErrorMessage {
 	INVALID_USERNAME("E0003","Invalid username or password"),
 	STORE_NAME_ALREADY_EXIST("E0005","Store name already exist."),
 	CATEGORY_ALREADY_HAS_PRODUCT_TYPE("E0006","This category already has a product"),
-	PRODUCT_CATEGORY_ALREADY_EXITS("E0007","This product name already exists"),
+	PRODUCT_CATEGORY_ALREADY_EXITS("E0007","This product category name already exists"),
 	UOM_ALREDY_ASSIGNED_IN_PRODUCT("E0008","You can not able to delete this Unit Of Measurement. Because it is already assigned some product."),
 	TAX_NAME_ALREADY_EXIST("E0009","Tax name already exist."),
 	EMAILID_EXISTS("E0010","EmailId already registered."),
