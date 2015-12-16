@@ -73,7 +73,6 @@
 		color: #fff;
 		overflow: hidden;
 		margin: 10px 5px;
-		border-radius: 2px;
 		text-align: center;
 	}
 	
@@ -100,6 +99,10 @@
 	
 	.white-text {
 		color: #fff ! important;
+	}
+	
+	.skyblue {
+		background: #3ca2e0 !important
 	}
 	
 	.ft-green {
@@ -240,31 +243,23 @@
 		margin-top: 10px;
 	}
 </style>
-<div ng-cloak class="testBlock">
-	<md-card class="nomarg marg-t10">
-		<md-card-title>
-			<md-card-title-text>
-				<h2 layout-padding layout-margin style="float:left" class="ft-black"> Dashboard </h2>
+<div ng-cloak class="testBlock applyFlatUI commonBackground">
+	<md-card class="nomarg marg-t10 applyFlatUI">
+		<md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
+			<md-card-title-text >
+				<h2 layout-padding layout-margin style="float:left;font-family:Roboto;font-weight: 300;" class="ft-black"> Dashboard </h2>
 			</md-card-title-text>
-			<md-input-container style="float:right">
-				<md-select placeholder="Weekly" ng-model="report" style="min-width: 200px;" ng-change="onReportChanged(report.value)">
+			<md-input-container style="float: right;padding: 5px 5px 2px;">
+				<md-select placeholder="Weekly" ng-model="report" style="width:100%;min-width: 200px;background-color:white;" ng-change="onReportChanged(report.value)">
 					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
 				</md-select>
 			</md-input-container>
 		</md-card-title>
 	</md-card>
 
-	<div layout="row" layout-sm="column" class="md-whiteframe-1dp">
-		<!--<div class="card green" flex flex-sm="100">
-			<div class="card-content  green white-text">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
-				<h4 class="card-stats-number">{{totalMerchants}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
-				</p>
-			</div>
-		</div>-->
+	<div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
 		<div class="card pink" flex flex-sm="100">
-			<div class="card-content white-text">
+			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
 				<h4 class="card-stats-number">{{totalStores}}</h4>
 				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
@@ -272,7 +267,7 @@
 			</div>
 		</div>
 		<div class="card purple" flex flex-sm="100">
-			<div class="card-content white-text">
+			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
 				<h4 class="card-stats-number">{{totalCustomers}}</h4>
 				<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
@@ -281,7 +276,7 @@
 
 		</div>
 		<div class="card green" flex flex-sm="100">
-			<div class="card-content  green white-text">
+			<div class="card-content  green white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
 				<h4 class="card-stats-number">{{totalSalesRevenue}}</h4>
 				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> INR(₹)
@@ -289,7 +284,7 @@
 			</div>
 		</div>
 		<div class="card grey" flex flex-sm="100">
-			<div class="card-content white-text">
+			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Today Sales Revenue</p>
 				<h4 class="card-stats-number">{{todayTotSale}}</h4>
 				<p class="card-stats-compare" style="line-height: 3; background: #455a64; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
@@ -299,22 +294,22 @@
 
 	</div>
 
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10">
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
 
 		<!-- </md-card>-->
 		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp">
-			<div layout="column" layout-sm="row" class="chart_header br_green">
-				<div>
-					<h4 style="float:left">Sales By Stores</h4>
+			<div layout="column" layout-sm="row" class="chart_header applyFlatUI">
+				<div class="dashboardHeader">
+					<h4 style="font-family:Roboto;font-weight: 300;">Sales By Stores</h4>
 				</div>
 				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
 			</div>
 
 		</md-card>
-		<md-card flex flex-md="100" class="md-whiteframe-4dp br_blue" flex-sm="100">
-			<div layout="column" class="chart_header " layout-sm="row">
-				<div>
-					<h4 style="float:left">Sales Revenue In Percentage</h4>
+		<md-card flex flex-md="100" class="md-whiteframe-4dp applyFlatUI" flex-sm="100">
+			<div layout="column" class="chart_header applyFlatUI" layout-sm="row">
+				<div class="dashboardHeader applyFlatUI">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Sales Revenue In Percentage</h4>
 
 				</div>
 				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
@@ -322,11 +317,11 @@
 		</md-card>
 	</div>
 
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp br_yellow">
-				<div>
-					<h4 style="float:left">Store and SalesOrders</h4>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp applyFlatUI">
+				<div class="dashboardHeader applyFlatUI">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Store and SalesOrders</h4>
 				</div>
 				<div id="chart1">
 					<svg class="svgss"></svg>
@@ -335,11 +330,11 @@
 		</md-card>
 
 	</div>
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp br_yellow">
-				<div>
-					<h4 style="float:left">SalesOrder Count and Milestones (&#x20B9;)</h4>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp applyFlatUI">
+				<div class="dashboardHeader applyFlatUI">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
 
 				</div>
 				<div id="barChart2">
@@ -349,11 +344,11 @@
 		</md-card>
 
 	</div>
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp br_yellow">
-				<div>
-					<h4 style="float:left">Stores and Quality</h4>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp applyFlatUI">
+				<div class="dashboardHeader applyFlatUI">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Stores and Quality</h4>
 				</div>
 				<div id="grouperBarChart">
 					<svg class="svgss"></svg>
@@ -364,7 +359,7 @@
 
 
 
-	<md-card class="md-whiteframe-1dp" layout-sm="column" layout-md="column" style="background: #00bcd4;">
+	<md-card class="md-whiteframe-1dp applyFlatUI" layout-sm="column" layout-md="column" style="background: #00bcd4;border-style: groove; border-color: rgb(249, 241, 241);border-width: 1px;">
 		<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
 			<ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onMarkerClicked">
 
