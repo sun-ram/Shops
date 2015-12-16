@@ -393,6 +393,13 @@ angular.module('app')
 		url: '/ordernumber/edit',
 		templateUrl: 'app/modules/order_number/edit/orderNumberEdit.html',
 		controller : 'orderNumberEditCtrl'
+	})
+	
+	//Discounts
+		.state('app.discount', {
+		url: '/discount',
+		templateUrl: 'app/modules/discount/discount.html',
+		controller : 'discountController'
 	});
 
 

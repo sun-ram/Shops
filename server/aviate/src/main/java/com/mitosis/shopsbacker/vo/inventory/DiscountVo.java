@@ -19,7 +19,7 @@ import com.mitosis.shopsbacker.vo.admin.StoreVo;
 public class DiscountVo {
 	
 	private String discountId;
-	private MerchantVo merchantVo;
+	private MerchantVo merchant;
 	private String name;
 	private Double discountPercentage;
 	private BigDecimal discountAmount;
@@ -40,10 +40,10 @@ public class DiscountVo {
 		this.discountId = discountId;
 	}
 	public MerchantVo getMerchantVo() {
-		return merchantVo;
+		return merchant;
 	}
-	public void setMerchantVo(MerchantVo merchantVo) {
-		this.merchantVo = merchantVo;
+	public void setMerchantVo(MerchantVo merchant) {
+		this.merchant = merchant;
 	}
 	public String getName() {
 		return name;
