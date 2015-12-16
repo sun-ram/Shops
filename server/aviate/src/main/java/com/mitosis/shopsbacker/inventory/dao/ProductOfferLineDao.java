@@ -13,4 +13,6 @@ public interface ProductOfferLineDao<T> {
 	
 	public void deleteProductOfferLine(ProductOfferLine productOfferLine);
 	
+	public ProductOfferLine getProductOfferLine(String id);
+	
 }

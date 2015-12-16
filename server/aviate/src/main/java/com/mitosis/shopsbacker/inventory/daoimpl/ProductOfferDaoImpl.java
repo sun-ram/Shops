@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferDao;
 import com.mitosis.shopsbacker.model.Discount;
+import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
 /**
  * @author RiyazKhan.M
@@ -68,6 +70,29 @@ ProductOfferDao<T>, Serializable{
 			throw(e);
 		}
 		
+	}
+
+	@Override
+	public ProductOffer getProductOffer(String id) {
+		try {
+			return (ProductOffer) getSession().get(ProductOffer.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
+	@Override
+	public List<ProductOffer> getProductOfferByMerchant(Merchant merchant) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(ProductOffer.class);
+			criteria.add(Restrictions.eq("merchant", merchant));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<ProductOffer>) findAll(criteria));
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
 	}
 
 }

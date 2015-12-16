@@ -1621,6 +1621,68 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		/*Product Offer Modules*/
+		apiClass.ProductOffer = {
+				name: ""
+		};
+
+		apiClass.ProductOffer.getList = function (productoffer, callback) {
+			httpRequest("POST", "productoffer/getofferbyMerchant", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.ProductOffer.addNewProductOffer = function (productoffer, callback) {
+			httpRequest("POST", "productoffer/addoffer", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.ProductOffer.updateProductOffer = function (productoffer, callback) {
+			httpRequest("POST", "productoffer/updateoffer", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.ProductOffer.deleteProductOffer = function (productoffer, callback) {
+			httpRequest("POST", "productoffer/deleteoffer", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
 		return apiClass;
 	}];
 

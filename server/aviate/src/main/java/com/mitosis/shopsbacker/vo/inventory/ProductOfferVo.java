@@ -17,8 +17,8 @@ public class ProductOfferVo {
 	private String description;
 	private int qty;
 	private BigDecimal offerAmount;
-	private Date fromDate;
-	private Date todate;
+	private String fromDate;
+	private String todate;
 	private Date startTime;
 	private Date endTime;
 	private List<ProductOfferLineVo> productOfferLinesVo = new ArrayList<ProductOfferLineVo>();
@@ -67,16 +67,28 @@ public class ProductOfferVo {
 	public void setOfferAmount(BigDecimal offerAmount) {
 		this.offerAmount = offerAmount;
 	}
-	public Date getFromDate() {
+	public List<ProductOfferLineVo> getProductOfferLinesVo() {
+		return productOfferLinesVo;
+	}
+	public void setProductOfferLinesVo(List<ProductOfferLineVo> productOfferLinesVo) {
+		this.productOfferLinesVo = productOfferLinesVo;
+	}
+	public List<MyCartVo> getMyCartsVo() {
+		return myCartsVo;
+	}
+	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
+		this.myCartsVo = myCartsVo;
+	}
+	public String getFromDate() {
 		return fromDate;
 	}
-	public void setFromDate(Date fromDate) {
+	public void setFromDate(String fromDate) {
 		this.fromDate = fromDate;
 	}
-	public Date getTodate() {
+	public String getTodate() {
 		return todate;
 	}
-	public void setTodate(Date todate) {
+	public void setTodate(String todate) {
 		this.todate = todate;
 	}
 	public Date getStartTime() {
@@ -91,18 +103,5 @@ public class ProductOfferVo {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public List<ProductOfferLineVo> getProductOfferLinesVo() {
-		return productOfferLinesVo;
-	}
-	public void setProductOfferLinesVo(List<ProductOfferLineVo> productOfferLinesVo) {
-		this.productOfferLinesVo = productOfferLinesVo;
-	}
-	public List<MyCartVo> getMyCartsVo() {
-		return myCartsVo;
-	}
-	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
-		this.myCartsVo = myCartsVo;
-	}
-	
 	
 }

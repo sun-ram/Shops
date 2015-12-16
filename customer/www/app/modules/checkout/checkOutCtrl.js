@@ -116,6 +116,7 @@ angular.module('aviate.controllers')
 		}
 		
 		CheckOutServices.confirmOrder(menuJson).then(function(data) {
+			$scope.orderBtn = false;
 			console.log("OrderNo", data);
 			$scope.orderNo = data.orderNo;
 			$scope.salesOrderId = data.salesOrderId;

@@ -407,6 +407,18 @@ angular.module('app')
 		url: '/discount',
 		templateUrl: 'app/modules/discount/discount.html',
 		controller : 'discountController'
+	})
+	
+	//Product Offer
+	.state('app.productoffer', {
+		url: '/productoffer',
+		templateUrl: 'app/modules/productoffer/productoffer.html',
+		controller : 'productoffercontroller'
+	})
+	.state('app.newproductoffer', {
+		url: '/productoffer/new',
+		templateUrl: 'app/modules/productoffer/Add/addProductOffer.html',
+		controller : 'productoffercontroller'
 	});
 
 

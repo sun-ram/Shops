@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferLineDao;
+import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 
 /**
@@ -52,6 +53,16 @@ ProductOfferLineDao<T>, Serializable{
 			throw(e);
 		}
 		
+	}
+
+	@Override
+	public ProductOfferLine getProductOfferLine(String id) {
+		try {
+			return (ProductOfferLine) getSession().get(ProductOfferLine.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
 	}
 
 }
