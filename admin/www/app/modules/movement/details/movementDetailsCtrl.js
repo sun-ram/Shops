@@ -5,14 +5,14 @@ angular.module('aviateAdmin.controllers')
 			
 			$scope.getMovement = function(){
 				$scope.movement = movementServices.getMovementObj();
-				$scope.temp = localStorage.getItem('physicalinventoryDetails');
+				$scope.temp = localStorage.getItem('movementDetails');
 				if($scope.movement){
-					localStorage.setItem('physicalinventoryDetails',JSON.stringify($scope.movement));
+					localStorage.setItem('movementDetails',JSON.stringify($scope.movement));
 				}else if($scope.temp && $scope.temp != 'undefined'){
 					$scope.movement = JSON.parse($scope.temp);
 				}else{
-					localStorage.removeItem('physicalinventoryDetails');
-					$state.go('app.newphysicalinventory');
+					localStorage.removeItem('movementDetails');
+					$state.go('app.newmovement');
 				}
 			};
 
@@ -20,8 +20,7 @@ angular.module('aviateAdmin.controllers')
 
 			$scope.redirectToEditMovement = function(movement){
 				movementServices.setMovementObj(movement);
-				$rootScope.fromDetails = true;
-				$state.go('app.newphysicalinventory');
-			}
+				$state.go('app.editmovement',{'movementId': movement.movementId});
+			};
 
 		}]);

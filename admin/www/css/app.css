@@ -55,7 +55,7 @@ input{
 .padd-b15{padding-bottom: 15px;}
 .padd-5-3{padding:5px 3px;}
 .padd-lr5{padding:0px 3px;}
-.padd-l8{ padding-left:8px;}
+.padd-l8{ padding-left:8px !important;}
 .padd-tr5-lb8{padding:5px 5px 8px 8px;}
 .nopaddtop{padding-top:0px;}
 .nopadd{padding:0px ! important;}
@@ -569,7 +569,24 @@ md-toolbar:not(.md-menu-toolbar) md-icon{color: grey ! important; margin: 0px ! 
 
 .sales-orderfab{right:0px;top:48px;}
 
+.table-border > tr > td{
+	border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+.table-border > tr > td:nth-child(1){
+     border-left:0px;
+}
+.table-border > tr > td:nth-child(2){
+	 border-left:0px;
+ 	border-right:0px;
+ }   
+.table-border > tr > td:nth-child(4){
+ 	border-left:0px;
+ 	border-right:0px;
+ } 
+.noborderimg .md-select-value{border:0px !important;background-image: none !important;}
 
+.noborderimg{background-image: none !important;}
 
 
 

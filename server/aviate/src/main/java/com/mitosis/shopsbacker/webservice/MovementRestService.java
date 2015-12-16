@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -359,6 +361,32 @@ public class MovementRestService<T> {
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
 		return response;
+	}
+	
+	@Path("/movement/{movementId}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String getMovement(@PathParam("movementId") String movementId) {
+		String responseStr = "";
+		MovementResponseVo response = new MovementResponseVo();
+		try {
+			Movement movement = movementService.getMovement(movementId);
+			MovementVo movementvo = setMovementVo(movement);
+			response.setMovement(movementvo);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			response.setErrorString(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+		}
+		try {
+			responseStr = CommonUtil.getObjectMapper(response);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		return responseStr;
 	}
 
 	@Path("/save/line")

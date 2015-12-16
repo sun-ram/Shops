@@ -13,7 +13,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 	var http = null;
 	var httpRequest = function (method, path, data, callback) {
-		if (http == null) callback({
+		if (http === null) callback({
 			error: true,
 			errorCode: "HTTP_NULL"
 		}, null);
@@ -41,7 +41,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 	};
 	
 	var httpRequest1 = function (method, path, data, callback) {
-		if (http == null) callback({
+		if (http === null) callback({
 			error: true,
 			errorCode: "HTTP_NULL"
 		}, null);
@@ -74,7 +74,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 	this.$get = ['$http', function ($http) {
 		http = $http;
 
-		var apiClass = {}
+		var apiClass = {};
 
 		apiClass.User = {
 				name: ""
@@ -311,7 +311,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 						}
 					});
 				
-				}
+				};
 				
 				apiClass.DeliveryTimeSlot.save = function (deliveryTimeSlot,callback){
 		
@@ -327,7 +327,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 						}
 					});
 				
-				}
+				};
 				apiClass.DeliveryTimeSlot.deleteDeliveryTimeSlot = function (deliveryTimeSlot,callback){
 					
 					httpRequest("POST", "deliverytimeslot/delete", deliveryTimeSlot, function (err, data) {
@@ -342,7 +342,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 						}
 					});
 				
-				}
+				};
 		
 
 		/* UnitOfMeasure Modules*/
@@ -640,32 +640,32 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.Product.getAllProductList = function (product, callback) {
-									httpRequest("POST", "productcategory/getallleafcategorylist", product, function (err, data) {
-										if (err) {
-						
-											callback(err, null);
-						
-										} else {
-						
-											callback(null, data);
-						
-										}
-									});
-								};
-								
-								apiClass.Product.getAllProductListByMerchant = function (product, callback) {
-									httpRequest("POST", "product/getproductlist", product, function (err, data) {
-										if (err) {
-						
-											callback(err, null);
-						
-										} else {
-						
-											callback(null, data);
-						
-										}
-									});
-								};
+				httpRequest("POST", "productcategory/getallleafcategorylist", product, function (err, data) {
+					if (err) {
+	
+						callback(err, null);
+	
+					} else {
+	
+						callback(null, data);
+	
+					}
+				});
+			};
+			
+			apiClass.Product.getAllProductListByMerchant = function (product, callback) {
+				httpRequest("POST", "product/getproductlist", product, function (err, data) {
+					if (err) {
+	
+						callback(err, null);
+	
+					} else {
+	
+						callback(null, data);
+	
+					}
+				});
+			};
 		
 		apiClass.Product.updateProduct = function (product, callback) {
 			httpRequest("POST", "update/product/update", product, function (err, data) {
@@ -726,12 +726,12 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
                     a.download = data.fileInByteArrayString;
 
                     // Append anchor to body.
-                    document.body.appendChild(a)
+                    document.body.appendChild(a);
                     a.click();
 
 
                     // Remove anchor from body
-                    document.body.removeChild(a)
+                    document.body.removeChild(a);
 					callback(null, data);
 
 				}
@@ -842,8 +842,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
-		/*apiClass.PhysicalInventory.getInventoryWarehouse = function (warehouses, callback) {
-			httpRequest("POST", "inventory/warehouselist", warehouses, function (err, data) {
+		apiClass.PhysicalInventory.getMovement = function (movementId, callback) {
+			httpRequest("GET", "movement/movement/"+movementId, null, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -854,7 +854,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};*/
+		};
 
 		apiClass.PhysicalInventory.removeMovement = function (movement, callback) {
 			httpRequest("POST", "movement/delete", movement, function (err, data) {
@@ -946,7 +946,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		apiClass.PhysicalInventoryLine ={
 
 				name: ""
-		}
+		};
 
 
 		apiClass.PhysicalInventoryLine.getProducts = function (products, callback) {
@@ -1589,7 +1589,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 		return apiClass;
-	}]
+	}];
 
 
 });

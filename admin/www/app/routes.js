@@ -226,15 +226,16 @@ angular.module('app')
 		controller : 'warehousecontroller'
 	})
 
-	// physical inventory module
-	.state('app.physical_inv', {
+	// Movement
+	.state('app.movement', {
 		url: '/movement',
 		templateUrl: 'app/modules/movement/movementList.html',
 		controller : 'movementcontroller',
 		resolve:   {
 			movementLists:  function(movementServices, $http, $stateParams, $rootScope){
 				return movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
-					localStorage.removeItem('physicalinventoryDetails');
+					localStorage.removeItem('movementDetails');
+					$rootScope.isNewMovement = false;
 					return data;
 				});
 
@@ -242,29 +243,30 @@ angular.module('app')
 		}
 
 	})
-	.state('app.newphysicalinventory', {
+	.state('app.newmovement', {
 		url: '/movement/new',
 		templateUrl: 'app/modules/movement/add/movementCreate.html',
 		controller : 'movementCreateCtrl'
 	})
-	.state('app.physicalinventorydetails', {
+	.state('app.editmovement', {
+		url: '/movement/edit/:movementId',
+		templateUrl: 'app/modules/movement/add/movementCreate.html',
+		controller : 'movementEditCtrl',
+		resolve:   {
+			movement:  function(movementServices, $http, $stateParams, $rootScope){
+				return movementServices.getMovement($stateParams.movementId).then(function(data){
+					return data;
+				});
+
+			}
+		}
+	})
+	.state('app.movementdetails', {
 		url: '/movement/details',
 		templateUrl: 'app/modules/movement/details/movementDetails.html',
 		controller : 'movementDetailsCtrl'
 	})
-	.state('app.editphysicalinventory', {
-		url: '/movement/edit',
-		templateUrl: 'app/modules/movement/edit/movementEdit.html',
-		controller : 'movementEditCtrl'
-	})
-
-
-	.state('app.addInventoryLines', {
-		url: '/movementLines',
-		templateUrl: 'app/modules/movement/movementLine/movementLine.html',
-		controller : 'movementLineCtrl'
-	})
-
+	
 	.state('app.viewproductstock', {
 		url: '/productstock',
 		templateUrl: 'app/modules/product_stock/productStock.html',

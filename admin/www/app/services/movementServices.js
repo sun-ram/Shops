@@ -140,6 +140,23 @@ angular.module('aviateAdmin.services')
 		});
 		return d.promise;
 	};
+	
+	this.getMovement = function(movementId){
+		var d = $q.defer();
+		api.PhysicalInventory.getMovement(movementId, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					d.resolve(result.movement);
+				}else{
+					toastr.error(result.errorString);	
+				}
+			}
+			else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 
 
 	this.setMovementObj = function(movement){
