@@ -123,7 +123,7 @@
                             	<div layout="row">
                             		<div flex>
                             			<div  layout-padding >
-                            				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            				<div class="pro-price"><span class="actual-prices" ng-bind-html="product.price | currency : rupeesSymbol"></span></div>
                             			</div>
                             		</div>
                             		<div flex ng-if="product.wasPrice > product.price">
