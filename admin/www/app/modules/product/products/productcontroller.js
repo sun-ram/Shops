@@ -27,6 +27,16 @@ angular.module('aviateAdmin.controllers')
 		$state.go('app.productdetailsview');
 	};
 
+	$scope.checkPrice = function(price, wasPrice){
+		if((price != undefined || price !="") && (wasPrice != undefined || wasPrice != "")){
+			if(wasPrice < price){
+				$scope.product.wasPrice = undefined;
+				toastr.warning("WasPrice Should Be Greater Than Or Equal To Price");
+			}else{
+				return;
+			}
+		}
+	}
 
 	$scope.getAllProductList = function() {
 		$scope.product = {};

@@ -56,6 +56,9 @@
       <input type="text" ng-model="productDetail.price" readonly=true/>
     </md-input-container>
     
+    <md-input-container> <label>Was Price</label>
+	<input type="text" name="wasPrice" ng-model="productDetail.wasPrice" readonly=true/>
+	</md-input-container>
    
     </div>
         
@@ -72,10 +75,13 @@
 			type="text" ng-model="productDetail.brand" ng-required="true" readonly=true/> 
 		</md-input-container>
 
+        <h4 layout="row" class="md-layout-column">
+			<input layout-align="start center" type="checkBox" ng-model="groupCount" />
+			<label layout-align="end center" style="padding-left: 20px;">Want To Add Group Count</label>
+		</h4>
 
-		<md-input-container> <label>Group Count</label> <input
-			type="text" ng-model="productDetail.groupCount"
-			ng-required="true" readonly=true /> 
+		<md-input-container ng-show="groupCount"> <label>Group Count</label> <input
+			type="text" ng-model="productDetail.groupCount" valid-number /> 
 		</md-input-container>
 	    <div class="padd-lrtb30">
 	    <div class="md-layout-row layout-align-start-center pt_relat" readonly>	 
