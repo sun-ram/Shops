@@ -1,4 +1,4 @@
-<section class="address-section" layout="column">
+<!-- <section class="address-section" layout="column">
     <p class="address-title md-headline">What is your delivery address</p>
     <div class="address-container" layout="row" layout-wrap layout-align="center">
  
@@ -67,6 +67,7 @@
     </div>
 </section>
 
+ -->
 
 
 
@@ -79,70 +80,85 @@
 
 
 
-
-<div layout-sm="column" layout-gt-sm="row" >
-	<div flex layout-padding layout="column">
-	
-		<div class="address-box" ng-repeat="address in addresses track by $index" ng-class="{selected:address.selected}" layout="row" layout-wrap>
+<div layout-sm="column" layout-gt-sm="row" class="responsive-container">
+	<div flex-sm="100" flex-gt-sm="60"   layout-padding layout-margin layout="column" class="address-container">
+		<span class="md-headline">Choose Your Delivery Address</span>
+		<div class="address-container address padd_tb10" ng-repeat="address in addresses track by $index" ng-class="{selected:address.selected}" layout="row" layout-wrap>
 			<div flex-gt-lg="100" flex-lg="100" flex-md="100" flex-sm="100" layout="row">
-				<div flex-sm="100" flex-md="60" flex-gt-md="50">
-					<span class="md-title">{{address.name}}</span>
+				<div flex-sm="100" flex-md="60" flex-gt-md="50" class="address-user-name" ng-click="selectAddress(address.addressId)" layout-padding>
+					<span  class="md-title">{{address.name}}</span>
 				</div>
 			</div>
-			<div flex-gt-lg="70" flex-lg="60" flex-md="60" flex-sm="70">
-				<div flex layout="column">
-					<div flex><span class="md-body-1"><ng-md-icon icon="place" style="fill: #333333" size="24"></ng-md-icon> {{address.address1}}, {{address.address2}}, {{address.city.name}},  {{address.state.name}}, {{address.country.name}}, {{address.pinCode}}.</span></div>
-					<div flex><span class="md-body-2"><ng-md-icon icon="phone" style="fill: #333333" size="16"></ng-md-icon> {{address.phoneNo}}</span></div>
+			<div flex-gt-lg="100" flex-lg="100" flex-md="100" flex-sm="100" layout="row"  class="address-box">
+				<div flex-gt-lg="80" flex-lg="60"  flex-md="60" flex-sm="70" ng-click="selectAddress(address.addressId)">
+					<div flex layout="column">
+						<div flex><span class="address-icon"><i class="icon ion-ios-location "></i></span><span class="md-subhead address-pull-left">  {{address.address1}}, {{address.address2}}, {{address.city.name}},  {{address.state.name}}, {{address.country.name}}, {{address.pinCode}}.</span></div>
+						<div flex><span class="address-icon"><i class="icon ion-ios-telephone"></i></span><span class="md-subhead address-pull-left"> {{address.phoneNo}}</span></div>
+					</div>
 				</div>
-			</div>
-			<div flex-gt-lg="30" layout="row" flex-lg="40" flex-md="40" flex-sm="30">
-				<md-button  class="md-icon-button launch" >
-			        <md-icon>edit</md-icon>
-			    </md-button>
-			    <md-button  class="md-icon-button launch" >
-			        <md-icon>close</md-icon>
-			    </md-button>
+				<div flex-gt-lg="20" flex-lg="40" flex-md="40" flex-sm="30"  layout="row">
+					<md-button  class="md-icon-button launch" >
+				        <md-icon>edit</md-icon>
+				    </md-button>
+				    <md-button  class="md-icon-button launch" >
+				        <md-icon>close</md-icon>
+				    </md-button>
+				</div>
 			</div>
 		</div>
 		
 	</div>
 	
 	
-	<div flex layout-padding layout-wrap layout-sm="column" layout-md="column" layout-gt-md="row">
-		<div flex-sm="100" flex-md="100" flex-gt-md="50">
-		hvhgvghg
+	<div flex-sm="100" flex-gt-sm="40" flex layout-padding layout-margin layout-wrap layout-sm="column" class="add-address-form" layout-md="column" layout-padding layout-gt-md="row">
+		<span class="md-headline">Add New Delivery Address</span>
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5">
+	        <!-- <label>Name phone address1 address2 country state city pincode</label> -->
+	        <input type="text" placeholder="Name" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5">
+	        <input type="text" placeholder="Phone" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5">
+	        <input type="text" placeholder="Address-1" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5">
+	        <input type="text" placeholder="Address-2" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5">
+	        <input type="text" placeholder="Country" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5" >
+	        <input type="text" placeholder="State" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5" >
+	        <input type="text" placeholder="City" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+		<div flex-sm="100" flex-md="100" flex-gt-md="100" class="padd_tb5">
+	        <input type="text" placeholder="Postal Code" />
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
+
+		<div flex="100" layout="column" >
+			<div flex class="padd_tb5">
+				Check
+			</div>
+			<div flex>
+				<section class="contact-details md-action pull-right" layout="row">
+					<div flex></div>
+				   
+				    <div layout="row" layout-align="end center">
+				        <span ng-hide="change">
+				        <md-button class="md-raised" ng-click="cancel1()">Back</md-button>
+				      </span>
+				       <span ng-show="change">
+				        <md-button class="md-raised" ng-click="back()">Back</md-button>
+				       </span>
+				        <md-button class="md-raised" ng-click="goNext('address')" style="background-color:#72a308 ; color:#FFFFFF;">Next</md-button>
+				    </div>
+				</section>
+			</div>
+			
 		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
-		</div>
-		<div flex-sm="100" flex-gt-sm="50">
-		hvhgvghg
-		</div>
-		
 	</div>
 	
 </div> 
