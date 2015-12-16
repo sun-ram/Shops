@@ -202,7 +202,7 @@
     					<div class="md-subhead">{{product.product.unit}}{{product.product.uom.name}}</div>
     				</div>
     				<div flex="35">
-    					<div class="md-title">{{product.qty}} x Rs.{{product.product.price}} = Rs.{{product.product.price * product.qty}}</div>
+    					<div class="md-title">{{product.qty}} x Rs.{{product.product.price}} = Rs.{{product.product.price * product.qty | number:2}}</div>
     				</div>
     			</div>
     		</div>

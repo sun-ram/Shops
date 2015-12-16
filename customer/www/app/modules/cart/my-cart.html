@@ -77,7 +77,7 @@
                     </div>
                     
                     <div class="md-list-item-text padd-l30 padd-lr0 marg-l-15" flex="20" flex-md="20" flex-sm="25">
-					<span class="md-title font-16">Rs.{{product.product.price * product.qty}}</span>				
+					<span class="md-title font-16">Rs.{{product.product.price * product.qty | number:2}}</span>				
 				</div>
 					<div class="md-list-item-text marg-l-15" flex="10" flex-md="10" flex-sm="10" layout-align="end">
                    <md-button class="md-icon-button cart-remove" aria-label="More" ng-click="removeFromMyCart(product,$index);">
@@ -132,7 +132,7 @@
 						</div>						
 				</div>
 				<div flex layout="column" layout-align="end end" layout-align-sm="start start">
-					<span layout="row" class="md-title">Cart Total Amount : <span ng-bind-html="myCart.grossAmount | number:2 | currency : rupeesSymbol"></span>			
+					<span layout="row" class="md-title">Cart Total Amount : <span ng-bind-html="myCart.grossAmount | currency : rupeesSymbol"></span>			
 					</span>
 				</div>
 			</div>
