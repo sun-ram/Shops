@@ -652,8 +652,9 @@ font-size: 12px !important;
 
 .icon-20{ font-size:20px;}
 .hgt-34{ height:34px;}
+.home-products .views{  width: 300px;}
 .views {
-   width: 300px;
+ 
    /* height: 300px; */
    margin: 10px;
    float: left;
