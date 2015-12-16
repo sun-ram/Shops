@@ -68,7 +68,7 @@
         
        </md-item>
        
-       <md-item class="data-table-list" md-data-table ng-repeat="storagebin in listOfStoragebins | filter:searchText | orderBy: storagebinPagination.order | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
+       <md-item class="data-table-list" md-data-table ng-repeat="storagebin in listOfStoragebins | orderBy:sortByCreatedDate:true | filter:searchText | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid tbl-body">           		      
            	<span flex=15 layout layout-align="start center" >           		

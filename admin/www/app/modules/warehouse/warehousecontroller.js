@@ -190,6 +190,11 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		});
 	};
 	
+	
+	$scope.sortByCreatedDate = function(storagebins) {
+	    var date = new Date(storagebins.created);
+	    return date;
+	};
 	$scope.sortListByWarehouse = function(warehouse){
 		
 		if(warehouse == 'All'){
