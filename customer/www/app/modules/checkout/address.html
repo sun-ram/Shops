@@ -124,3 +124,16 @@
 	
 	
 </div> 
+<section class="contact-details md-action" layout="row">
+	<div flex></div>
+   
+    <div layout="row" layout-align="end center">
+        <span ng-hide="change">
+        <md-button class="md-raised" ng-click="cancel1()">Back</md-button>
+      </span>
+       <span ng-show="change">
+        <md-button class="md-raised" ng-click="back()">Back</md-button>
+       </span>
+        <md-button class="md-raised" ng-click="goNext('address')" style="background-color:#72a308 ; color:#FFFFFF;">Next</md-button>
+    </div>
+</section>
