@@ -1608,7 +1608,19 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
+		apiClass.Discount.saveDiscount = function (discount, callback) {
+			httpRequest("POST", "discount/savediscount", discount, function (err, data) {
+				if (err) {
 
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 		return apiClass;
 	}];
 

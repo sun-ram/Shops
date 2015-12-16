@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.model.Store;
@@ -16,6 +18,7 @@ import com.mitosis.shopsbacker.vo.admin.StoreVo;
  *
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class DiscountVo {
 	
 	private String discountId;
@@ -39,10 +42,11 @@ public class DiscountVo {
 	public void setDiscountId(String discountId) {
 		this.discountId = discountId;
 	}
-	public MerchantVo getMerchantVo() {
+
+	public MerchantVo getMerchant() {
 		return merchant;
 	}
-	public void setMerchantVo(MerchantVo merchant) {
+	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
 	public String getName() {

@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "discount", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"NAME", "MERCHANT_ID" }))
+		"NAME", "STORE_ID" }))
 public class Discount implements java.io.Serializable {
 
 	/**

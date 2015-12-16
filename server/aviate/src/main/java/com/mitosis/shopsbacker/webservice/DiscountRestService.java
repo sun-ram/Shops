@@ -53,7 +53,7 @@ public class DiscountRestService {
 	@Autowired
 	DiscountService<T> discountService;
 	
-	@Path("/adddiscount")
+	@Path("/savediscount")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,7 +62,7 @@ public class DiscountRestService {
 		ResponseModel response = new ResponseModel();
 		try{
 			Merchant merchant = merchantService.getMerchantById(discountVo
-					.getMerchantVo().getMerchantId());
+					.getMerchant().getMerchantId());
 				Store store = storeService.getStoreById(discountVo.getStore().getStoreId());
 			
 			List<Product> products = new ArrayList<Product>();
