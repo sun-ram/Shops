@@ -6,8 +6,9 @@
     </section> -->
     
     
-    <md-card layout="column" layout-padding layout-margin style="margin:20px;">
-    	<div flex>
+    <div layout="column">
+    	<div flex layout="column" style="background-color:#FFFFFF; padding:20px; ">
+    		<div flex >
     		<section>
     		
     			<div layout-sm="column" layout-gt-sm="row" class="prod-headings flex" ng-hide="category.products.length ==0" style="width:100%; float:left; margin:0px 7px;  padding-bottom:10px; " aria-hidden="false">
@@ -52,13 +53,14 @@
  				</div>
     		</section>
     	</div>
-    	<div flex>
+    	</div>
+    	<div flex style="padding:20px;">
     		<section>
     		
     		
     		
     			 <div layout="row" layout-wrap flex >
-     <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct | productType : type" flex-sm="50" flex-lg="25" flex-gt-lg="20" layout-padding flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
+     <div class="producutItem" flex="auto" ng-repeat="product in productList | orderBy: orderList | filter :searchProduct | productType : type" flex-sm="50" flex-lg="25" flex-gt-lg="20"  flex-md="33" layout="column" style="min-width:230px;max-width:230px;">
          <div class="views view-first">
                             	<div layout="row">
                             		<div flex layout-align="start start">
@@ -135,7 +137,7 @@
 		
     		</section>
     	</div>
-    </md-card>
+    </div>
     
     
     

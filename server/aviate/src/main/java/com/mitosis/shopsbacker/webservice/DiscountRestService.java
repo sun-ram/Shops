@@ -26,6 +26,7 @@ import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.responsevo.DiscountResponseVo;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.inventory.DiscountVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
@@ -127,15 +128,15 @@ public class DiscountRestService {
 		return discountResponse;
 	}
 	
-	@Path("/getdiscountList")
+	@Path("/getmerchantdiscountList")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public DiscountResponseVo getDiscountList(Merchant merchant) {
+	public DiscountResponseVo getMerchantDiscountList(MerchantVo merchantVo) {
 		DiscountResponseVo discountResponse = new DiscountResponseVo();
 		try {
-			
+			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
 			List<Discount> discountList = discountService.getAllDiscountByMerchant(merchant);
 			List<DiscountVo> discountVoList = new ArrayList<DiscountVo>();
 			for(Discount discount:discountList){

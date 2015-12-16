@@ -5,7 +5,7 @@
     <div class="md-toolbar-tools">
       <h2 class="ft-white">Create {{categoryHeading}}</h2>
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="cancel()">
+      <md-button class="md-icon-button"  type="button" ng-click="cancel()">
         <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
       </md-button>
     </div>
@@ -14,13 +14,13 @@
    
         
    <md-input-container layout-padding flex> <label>Enter a {{categoryHeading}} name<span
-			class="ft-red">*</span></label> <input ng-model="productCategory.Name"> </md-input-container>
+			class="ft-red">*</span></label> <input ng-model="productCategory.Name" ng-required="true"> </md-input-container>
 			   
   </md-dialog-content>
   <div class="md-actions" flex>
   <span flex> </span>  
-    <md-button class="md-raised md-success" type="submit">Add</md-button>
-	<md-button class="md-raised md-cancel marg-r13" ng-click="cancel()">Cancel</md-button>
+    <md-button class="md-raised md-success" type="submit"  ng-disabled="!productCategory.Name">Add</md-button>
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
   <span flex></span>
    <!--   <md-button type="submit">
      Add

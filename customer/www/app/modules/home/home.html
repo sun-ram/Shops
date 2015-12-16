@@ -70,7 +70,7 @@
         
         <!-- ------------------ -->
 
-        <section ng-if="topcategories.length > 0"  style=" padding:20px;">
+        <section ng-if="topcategories.length > 0"  style=" padding:20px;" class="home-products">
  			<div>
  				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Hot Products </h2>
@@ -183,7 +183,7 @@
         
         
         
-          <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct" class="">
+          <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct" class="home-products">
            
  			<div ng-if="category.products.length" >
  				<div class="prod-headings" l flex ng-hide="category.products.length ==0" style="width:100%; float:left;  margin:0px 7px;   ">

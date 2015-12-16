@@ -234,7 +234,14 @@
 		              	</div>
 		           	</md-list-item>
 	       		</a>
-       
+ 	       		<a ui-sref="app.discount" ng-click="tabChoosen('discount');">
+		            <md-list-item ng-class="{optionSelected : (currentOption == 'discount')}">
+		           		<div layout="row" layout-align="start center">
+		               		<ng-md-icon icon="border_outer" class="svgicon_style"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Discounts</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>      
         
  
         <md-divider></md-divider>

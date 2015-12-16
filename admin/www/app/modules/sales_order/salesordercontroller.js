@@ -163,14 +163,28 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			$scope.storeFilter= function(){
 				var request = {
-						"storeId":$scope.storeId
+				"storeId":$scope.storeId
 				};
 				$scope.search=$scope.storeId;
 				/*SalesOrderServices.getSalesOrderByStore(request).then(function(data) {
+				$localStorage.salesorderfilter = data;
+				$scope.salesOrderList = $localStorage.salesorderfilter;
+				});*/
+				};
+
+			$scope.getSalesByStore= function(store){
+				 
+				
+				$scope.salesdOrderVo={};
+				$scope.salesdOrderVo.store={};
+				$scope.salesdOrderVo.store.storeId=store.storeId;
+				SalesOrderServices.getSalesOrder($scope.salesdOrderVo).then(function(data) {
+				
 					$localStorage.salesorderfilter = data;
 					$scope.salesOrderList = $localStorage.salesorderfilter;
+					$scope.count=data.length;
 
-				});*/
+				});
 			};
 
 			$scope.getSalesByDate = function () {

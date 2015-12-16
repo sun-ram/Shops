@@ -1525,6 +1525,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		
 
 		/*Order Number Modules*/
 		apiClass.OrderNumber = {
@@ -1575,6 +1577,25 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 		apiClass.OrderNumber.deleteOrderNumber = function (orderNumber, callback) {
 			httpRequest("POST", "ordernumber/delete", orderNumber, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		//Discount
+		apiClass.Discount = {
+				name: ""
+		};
+
+		apiClass.Discount.getMerchantDicountList = function (discount, callback) {
+			httpRequest("POST", "discount/getmerchantdiscountList", discount, function (err, data) {
 				if (err) {
 
 					callback(err, null);
