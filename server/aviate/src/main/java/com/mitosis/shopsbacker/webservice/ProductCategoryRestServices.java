@@ -66,41 +66,12 @@ public class ProductCategoryRestServices<T> {
 		boolean flag = false;
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		try {
-			Merchant merchant = merchantService
-					.getMerchantById(productCategoryVo.getMerchant()
-							.getMerchantId());
-			if (merchant != null) {
-				List<ProductCategory> productCategoryList = productCategoryService
-						.getRootProductCategoryList(merchant);
-				for (ProductCategory pd : productCategoryList) {
-					if (pd.getName().equalsIgnoreCase(
-							productCategoryVo.getName())) {
-						flag = true;
-						break;
-					} else {
-						flag = false;
-					}
-
-				}
-				if (!flag) {
-					ProductCategory productCategory = setProductCategoryDetails(productCategoryVo);
-					productCategory.setIsactive('Y');
-					productCategoryService.addCategory(productCategory);
-					if (productCategory.getProductCategoryId() == null) {
-						productCategoryResponseVo
-								.setStatus(SBMessageStatus.FAILURE.getValue());
-						productCategoryResponseVo
-								.setErrorCode(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
-										.getCode());
-						productCategoryResponseVo
-								.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
-										.getMessage());
-						return productCategoryResponseVo;
-					} else {
-						productCategoryResponseVo
-								.setStatus(SBMessageStatus.SUCCESS.getValue());
-					}
-				} else {
+			flag = productCategoryNameChecking(productCategoryVo);
+			if (!flag) {
+				ProductCategory productCategory = setProductCategoryDetails(productCategoryVo);
+				productCategory.setIsactive('Y');
+				productCategoryService.addCategory(productCategory);
+				if (productCategory.getProductCategoryId() == null) {
 					productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
 					productCategoryResponseVo
@@ -110,8 +81,21 @@ public class ProductCategoryRestServices<T> {
 							.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
 									.getMessage());
 					return productCategoryResponseVo;
-
+				} else {
+					productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+							.getValue());
 				}
+			} else {
+				productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
+						.getValue());
+				productCategoryResponseVo
+						.setErrorCode(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+								.getCode());
+				productCategoryResponseVo
+						.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+								.getMessage());
+				return productCategoryResponseVo;
+
 			}
 
 		} catch (Exception e) {
@@ -195,17 +179,66 @@ public class ProductCategoryRestServices<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo updateCategory(
 			ProductCategoryVo productCategoryVo) {
+		boolean flag = false;
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
-		ProductCategory productCategory = productCategoryService
-				.getCategoryById(productCategoryVo.getProductCategoryId());
-		if (productCategory != null) {
-			productCategory.setName(productCategoryVo.getName());
-			productCategoryService.updateCategory(productCategory);
-			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
-					.getValue());
+		if (productCategoryVo.getCategoryType().equalsIgnoreCase("Category")) {
+			flag=productCategoryNameChecking(productCategoryVo);
+			if(!flag){
+				ProductCategory productCategory = productCategoryService
+						.getCategoryById(productCategoryVo.getProductCategoryId());
+				if (productCategory != null) {
+					productCategory.setName(productCategoryVo.getName());
+					productCategoryService.updateCategory(productCategory);
+					productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+							.getValue());
+					return productCategoryResponseVo;
+				}
+			}
+			else{
+				productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
+						.getValue());
+				productCategoryResponseVo
+						.setErrorCode(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+								.getCode());
+				productCategoryResponseVo
+						.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+								.getMessage());
+				return productCategoryResponseVo;
+			}
+
+		} else {
+			ProductCategory productCategory = productCategoryService
+					.getCategoryById(productCategoryVo.getProductCategoryId());
+			if (productCategory != null) {
+				productCategory.setName(productCategoryVo.getName());
+				productCategoryService.updateCategory(productCategory);
+				productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
+						.getValue());
+			}
+
 		}
 		return productCategoryResponseVo;
+	}
 
+	private boolean productCategoryNameChecking(
+			ProductCategoryVo productCategoryVo) {
+		boolean flag = false;
+		Merchant merchant = merchantService.getMerchantById(productCategoryVo
+				.getMerchant().getMerchantId());
+		if (merchant != null) {
+			List<ProductCategory> productCategoryList = productCategoryService
+					.getRootProductCategoryList(merchant);
+			for (ProductCategory pd : productCategoryList) {
+				if (pd.getName().equalsIgnoreCase(productCategoryVo.getName())) {
+					flag = true;
+					break;
+				} else {
+					flag = false;
+				}
+
+			}
+		}
+		return flag;
 	}
 
 	@Path("/removecategory")

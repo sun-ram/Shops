@@ -22,6 +22,8 @@ public class ProductCategoryVo {
 	
 	private String name;
 	
+	private String categoryType;
+	
 	private MerchantVo merchant;
 	
 	private String merchantId;
@@ -108,6 +110,16 @@ public class ProductCategoryVo {
 	public void setProducts(List<ProductVo> products) {
 		this.products = products;
 	}
+
+	public String getCategoryType() {
+		return categoryType;
+	}
+
+	public void setCategoryType(String categoryType) {
+		this.categoryType = categoryType;
+	}
+	
+	
 	
 	
 
