@@ -297,7 +297,17 @@ angular.module('aviate.directives')
 						});
 					};
 					
-
+					$scope.checkValue = function(email, phone){
+				   		if((email == undefined || email == "") && (phone == undefined || phone == "")){
+				   			$scope.emailReq = true;
+				   			$scope.phoneReq = true;
+				   		}else if((email == undefined || email == "") && (phone != undefined || phone != "")){
+				   			$scope.emailReq = false;
+				   		}else if((email != undefined || email != "") && (phone == undefined || phone == "")){
+				   			$scope.phoneReq = false;
+				   		}
+				   	}
+				 
 					$scope.signUp = function(user) {
 						//user.role = CONSTANT.SUCCESS_CODE.ROLE;
 						if(user.password !== $scope.confirmPassword){
