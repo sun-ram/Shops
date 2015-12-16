@@ -141,10 +141,11 @@ md-content.md-default-theme {
 }
 
 md-card {
-  background-color: #fff; margin: 1px !important;
+  background-color: #fff; margin: 5px !important; box-shadow: 0px 0px 0px #5a5a5a !important;
+	border-radius:0px !important;
 }
 md-card h2:first-of-type {1 - 1 of 1
-  margin-top: 0;
+  margin-top: 0; box-shadow: 0px 0px 0px #5a5a5a !important;margin: 1px
 }
 
 md-toolbar .md-button.md-default-theme {
@@ -587,6 +588,19 @@ md-toolbar:not(.md-menu-toolbar) md-icon{color: grey ! important; margin: 0px ! 
 .noborderimg .md-select-value{border:0px !important;background-image: none !important;}
 
 .noborderimg{background-image: none !important;}
+
+.applyFlatUI {
+	box-shadow: 0px 0px 0px #5a5a5a !important;
+}
+
+.dashboardHeader {
+	background-color: #b3b6b7 !important;
+	/*font-family: Roboto' !important;*/
+}
+
+.commonBackground {
+	background-color: #e5e5e5 !important;
+}
 
 
 

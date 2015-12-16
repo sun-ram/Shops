@@ -5,8 +5,8 @@
 
    <div layout="column" flex layout  class="relative" layout-fill role="main">
     <main-nav></main-nav>
-     <md-content ng-class="{bodyContentFloatRight : !sidebarHidden ,bodyContentFloatLeft : sidebarHidden,}" flex md-scroll-y layout-padding>
-       <ui-view layout="column" layout-fill layout-padding>
+     <md-content class="commonBackground" ng-class="{bodyContentFloatRight : !sidebarHidden ,bodyContentFloatLeft : sidebarHidden,}" flex md-scroll-y layout-padding>
+       <ui-view layout="column" class="commonBackground" layout-fill layout-padding>
        </ui-view>
      </md-content>
    </div>
