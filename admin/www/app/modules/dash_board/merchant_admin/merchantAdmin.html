@@ -245,7 +245,7 @@
 </style>
 <div ng-cloak class="testBlock applyFlatUI commonBackground">
 	<md-card class="nomarg marg-t10 applyFlatUI">
-		<md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
+	<!-- 	<md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
 			<md-card-title-text >
 				<h2 layout-padding layout-margin style="float:left;font-family:Roboto;font-weight: 300;" class="ft-black"> Dashboard </h2>
 			</md-card-title-text>
@@ -254,7 +254,19 @@
 					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
 				</md-select>
 			</md-input-container>
-		</md-card-title>
+		</md-card-title> -->
+		<md-card-title flex layout="row" class="dashboardHeader" style="background-color: #E2E4E5 !important;">
+			<span flex layout layout-align="start center">
+				<h2 layout-padding layout-margin class="ft-black marg-t7"> Dashboard </h2>
+			</span>
+			<span flex layout layout-align="end center">
+			<md-input-container class="padd-5">
+				<md-select placeholder="Weekly" ng-model="report" class="m-wid140" ng-change="onReportChanged(report.value)">
+ 					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
+ 				</md-select>
+ 			</md-input-container>
+			</span>
+			</md-card-title>
 	</md-card>
 
 	<div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">

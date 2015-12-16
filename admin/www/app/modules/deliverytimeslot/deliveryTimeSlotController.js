@@ -6,7 +6,8 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 	$scope.count = 3;
 	$scope.srch = true;
 	$scope.uom = $localStorage.uom;
-
+	$scope.time = new Date();
+	
 	$scope.getDeliveryTimeSlots = function() {
 		if($scope.deliveryTimeSlot.length !=0){
 			$scope.deliveryTimeSlot = $scope.deliveryTimeSlot[0];
@@ -152,6 +153,42 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 	$scope.cancel = function(){
 		$state.go('app.deliveryTimeSlot');
 	}*/
+	
+    /*calendar initialization part*/
+	$scope.selectedDate = null;
+    $scope.firstDayOfWeek = 0;
+    $scope.direction = "horizontal";
+   
+    $scope.selectedDates = [];
+   
+    $scope.setDirection = function (direction) {
+        $scope.direction = direction;
+    };
+    
+    Date.prototype.withoutTime = function () {
+        var d = new Date(this);
+        d.setHours(0, 0, 0, 0, 0);
+        return d
+    }
+    
+    $scope.selectedDates.push(new Date().withoutTime());
+    
+    for(var i = 0 ; i < 5 ; i++){
+        $scope.selectedDates.push(new Date($scope.selectedDates[i].getTime() + 24 * 60 * 60 * 1000).withoutTime());
+    }
+    
+    $scope.nextMonth = function(){
+    	
+    }
+    $scope.prevMonth = function(){
+    	
+    }
+    $scope.dayClick = function(){
+    	
+    }
+    
+    /*calendar initilization work complete*/
+    
 }
 ]);
 

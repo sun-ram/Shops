@@ -1,0 +1,111 @@
+<style>
+.highlight {
+	background: #4eaf4c !important;
+	border: solid 3px #fff;
+}
+
+.hover {
+	border: solid 4px #fff;
+	transition: border;
+}
+
+.date-content {
+	margin: auto;
+	height: 50px;
+	font-size: 20px;
+	width: 50px;
+	border-radius: 100%;
+	text-align: center;
+	position: relative;
+}
+
+.date-value {
+	position: absolute;
+	top: 12px;
+	left: 20px;
+}
+
+.week-days {
+	background-color: #00BCD4;
+	text-align: center;
+	font-size: 24px;
+	/* color: #117280; */
+	color: #bbb;
+	border:0px;
+}
+
+.holiday-icon-style {
+	color: #fff;
+	margin-top: 8px !important;
+	height: 30px;
+	width: 30px;
+}
+</style>
+<md-card layout='column' layout-fill flex style="background:url('images/ss.jpg') repeat fixed center;" >
+ <md-content
+	layout='column' layout-fill flex md-swipe-left='next()'
+	md-swipe-right='prev()' style="background-color: rgba(0, 0, 0, 0.3);"> <md-toolbar
+	style="background-color:transparent;border: 1px solid #ccc;max-height: 60px;">
+<div class="month-nav" layout='row' style="margin-top: 5px">
+	<md-button class="md-icon-button" ng-click='prev()'> <md-icon
+		aria-label='Previous month' md-menu-origin
+		md-svg-icon="img/leftArrow.svg"></md-icon> </md-button>
+	<div flex></div>
+	<div layout="column" style="height: 100px; text-align: center">
+		<h2 class='calendar-md-title' flex="80" style="margin: auto;color:#fff;">
+			<span>{{ calendar.start | date:titleFormat:timezone }}</span>
+		</h2>
+		<!--<date-time flex="20" style="font-size:30px"></date-time>-->
+	</div>
+	<div flex></div>
+	<md-button class="md-icon-button" ng-click='next()'> <md-icon
+		aria-label='Next month' md-menu-origin
+		md-svg-icon="img/rightArrow.svg"></md-icon> </md-button>
+</div>
+</md-toolbar> <!-- agenda view --> <md-content style="height:0px"
+	ng-if='weekLayout === columnWeekLayout' class='agenda'>
+<div ng-repeat='week in calendar.weeks track by $index'>
+	<div ng-if='sameMonth(day)' ng-class='{ active: active === day }'
+		ng-click='handleDayClick(day)' ng-repeat='day in week' layout>
+		<md-tooltip ng-if='::tooltips()'>{{ day |
+		date:dayTooltipFormat:timezone }}</md-tooltip>
+		<div>{{ day | date:dayFormat:timezone }}</div>
+		<div flex ng-bind-html='getDayContent(day)'></div>
+	</div>
+</div>
+</md-content> <!-- calendar view --> 
+<md-content	style="height:0px;background-color:transparent !important;color:#fff"
+	ng-if='weekLayout !== columnWeekLayout' flex layout='column'
+	class='calendar'>
+<div layout='row' layout-fill class='subheader week-days'>
+	<div layout-padding class='subheader-day' flex
+		ng-repeat='day in calendar.weeks[0]'>
+		<!--<md-tooltip ng-if='::tooltips()'>{{ day | date:dayLabelTooltipFormat }}</md-tooltip>-->
+		{{ day | date:dayLabelFormat }}
+	</div>
+</div>
+<div ng-if='week.length'
+	ng-repeat='week in calendar.weeks track by $index' flex layout='row'
+	layout-fill>
+	<div
+		tabindex='{{ sameMonth(day) ? (day | date:dayFormat:timezone) : 0 }}'
+		ng-repeat='day in week track by $index' ng-click='handleDayClick(day)'
+		flex layout layout-padding ng-focus='focus = true;'
+		ng-blur='focus = false;' ng-mouseleave='hover = false'
+		ng-mouseenter='hover = true'
+		ng-class='{disabled : ! sameMonth(day), active: (isItActive = isActive(day))}'>
+		<!--<md-tooltip ng-if='::tooltips()'>{{ day | date:dayTooltipFormat }}</md-tooltip>-->
+		<div class="date-content" ng-if="!isItActive" ng-class="{hover:hover}">
+			<span class="date-value">{{ day | date:dayFormat }}</span>
+		</div>
+		<div class="date-content" ng-if="isItActive"
+			ng-class="{highlight:isItActive}">
+			<!--  <span class="date-value">{{ day | date:dayFormat }}</span> -->
+			<!--<img src="img/close.png" height="40px" width="40px">-->
+			<md-icon md-svg-icon="images/svg/holiday.svg"
+				class="nomarg padd-l10-r5 holiday-icon-style" style="color:#fff;"></md-icon>
+		</div>
+		<!--<div flex ng-bind-html='data[dayKey(day)]'></div>-->
+	</div>
+</div>
+</md-content> </md-content> </md-card>
