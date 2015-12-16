@@ -16,6 +16,7 @@ import com.mitosis.shopsbacker.inventory.dao.ProductInventoryDao;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductInventory;
+import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
 
 @Repository
@@ -85,6 +86,24 @@ public class ProductInventoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
         
 		criteria.add(Restrictions.eq("merchant", merchant));
 		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ProductInventory> getProductInventory(Product product,
+			Storagebin storagebinByToBinId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ProductInventory.class);
+		criteria.add(Restrictions.eq("storagebin", storagebinByToBinId));
+		criteria.add(Restrictions.eq("product", product));
+		return ((List<ProductInventory>) findAll(criteria));
+	}
+
+	@SuppressWarnings("unchecked")
+	public void updateInventory(ProductInventory productInventory) {
+		try {
+			update((T) productInventory);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*@SuppressWarnings("unchecked")

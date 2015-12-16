@@ -22,6 +22,8 @@ public interface MovementService<T> {
 	public Movement getMovement(String movementId);
 	
 	public List<Movement> getMovementListByStore(Store store);
+
+	public void processMovement(String string) throws Exception;
 	
 
 }

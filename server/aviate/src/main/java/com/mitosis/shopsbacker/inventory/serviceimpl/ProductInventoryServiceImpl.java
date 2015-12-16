@@ -9,21 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.inventory.dao.MovementDao;
 import com.mitosis.shopsbacker.inventory.dao.ProductInventoryDao;
 import com.mitosis.shopsbacker.inventory.service.ProductInventoryService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductInventory;
-import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
-import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.responsevo.ProductStockResponseVo;
-import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.vo.common.AddressVo;
-import com.mitosis.shopsbacker.vo.inventory.ProductInventoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductStockVo;
-import com.mitosis.shopsbacker.vo.inventory.StoragebinVo;
-import com.mitosis.shopsbacker.vo.inventory.WarehouseVo;
 
 @Service("productInventoryServiceImpl") 
 public class ProductInventoryServiceImpl<T> implements
@@ -42,7 +36,7 @@ public class ProductInventoryServiceImpl<T> implements
 	
 	@Autowired
 	MerchantService<T> merchantService;
-
+	
 	public ProductInventoryDao<T> getProductInventoryDao() {
 		return productInventoryDao;
 	}

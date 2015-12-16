@@ -23,6 +23,7 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.MovementLineService;
 import com.mitosis.shopsbacker.inventory.service.MovementService;
+import com.mitosis.shopsbacker.inventory.service.ProductInventoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.StoragebinService;
 import com.mitosis.shopsbacker.inventory.service.WarehouseService;
@@ -74,6 +75,9 @@ public class MovementRestService<T> {
 
 	@Autowired
 	StoragebinService<T> storeagebinService;
+	
+	@Autowired
+	ProductInventoryService<T> productInventoryService;
 
 	@Path("/save")
 	@POST
@@ -327,14 +331,11 @@ public class MovementRestService<T> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel conformMovement(JSONObject inventoryId) {
 		ResponseModel response = new ResponseModel();
 		try {
-			Movement movement = movementService.getMovement(inventoryId
+			movementService.processMovement(inventoryId
 					.getString("movementId"));
-			movement.setIsmoved('Y');
-			movementService.updateMovement(movement);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			response.setErrorString(e.getMessage());
