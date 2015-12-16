@@ -44,7 +44,6 @@ angular.module('aviateAdmin.services')
 		api.PhysicalInventory.addMovement(movement, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					toastr.success(CONSTANT.ADDPHYSICALINVENTORY);
 					d.resolve(result);
 				} else {
 					toastr.error(result.message);
@@ -61,7 +60,6 @@ angular.module('aviateAdmin.services')
 		api.PhysicalInventory.addMovementLine(movementLine, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
-					toastr.success(CONSTANT.ADDPHYSICALINVENTORY);
 					d.resolve(result);
 				} else {
 					toastr.error(result.message);
