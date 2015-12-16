@@ -63,13 +63,13 @@ public class Merchant implements java.io.Serializable {
 	private List<CustomerFeedback> customerFeedbacks = new ArrayList<CustomerFeedback>();
 	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
 	private List<ProductOffer> productOffers = new ArrayList<ProductOffer>();
+	private List<StoreHoliday> storeHolidays = new ArrayList<StoreHoliday>();
 
 	public Merchant() {
 	}
 
-	public Merchant(String merchantId, String updatedby,
-			String createdby, String name, char isactive, Date created,
-			Date updated) {
+	public Merchant(String merchantId, String updatedby, String createdby,
+			String name, char isactive, Date created, Date updated) {
 		this.merchantId = merchantId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -79,15 +79,21 @@ public class Merchant implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public Merchant(String merchantId, String updatedby,
-			String createdby, String name, User user, Image logo,
-			char isactive, Date created, Date updated, List<ProductCategory> productCategories,
-			List<Favourite> favourites, List<ProductType> productTypes, List<Banner> banners, List<Discount> discounts,
-			List<Store> stores, List<Tax> taxes, List<Warehouse> warehouses, List<ShippingCharges> shippingChargeses,
-			List<MyCart> myCarts, List<OrderTax> orderTaxes, List<Storagebin> storagebins, List<OrderNumber> orderNumbers,
-			List<User> users, List<ProductInventory> productInventories, List<Movement> movements, List<Product> products,
-			List<MissingProduct> missingProducts, List<CustomerFeedback> customerFeedbacks, List<DeliveryTimeSlot> deliveryTimeSlots,
-			List<ProductOffer> productOffers) {
+	public Merchant(String merchantId, String updatedby, String createdby,
+			String name, User user, Image logo, char isactive, Date created,
+			Date updated, List<ProductCategory> productCategories,
+			List<Favourite> favourites, List<ProductType> productTypes,
+			List<Banner> banners, List<Discount> discounts, List<Store> stores,
+			List<Tax> taxes, List<Warehouse> warehouses,
+			List<ShippingCharges> shippingChargeses, List<MyCart> myCarts,
+			List<OrderTax> orderTaxes, List<Storagebin> storagebins,
+			List<OrderNumber> orderNumbers, List<User> users,
+			List<ProductInventory> productInventories,
+			List<Movement> movements, List<Product> products,
+			List<MissingProduct> missingProducts,
+			List<CustomerFeedback> customerFeedbacks,
+			List<DeliveryTimeSlot> deliveryTimeSlots,
+			List<ProductOffer> productOffers, List<StoreHoliday> storeHolidays) {
 		this.merchantId = merchantId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -118,6 +124,7 @@ public class Merchant implements java.io.Serializable {
 		this.customerFeedbacks = customerFeedbacks;
 		this.deliveryTimeSlots = deliveryTimeSlots;
 		this.productOffers = productOffers;
+		this.storeHolidays = storeHolidays;
 	}
 
 	@Id
@@ -131,7 +138,7 @@ public class Merchant implements java.io.Serializable {
 	public void setMerchantId(String merchantId) {
 		this.merchantId = merchantId;
 	}
-	
+
 	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
@@ -158,8 +165,8 @@ public class Merchant implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_ID")
 	public User getUser() {
 		return this.user;
@@ -168,9 +175,9 @@ public class Merchant implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-	@JoinColumn(name="LOGO_ID")
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "LOGO_ID")
 	public Image getLogo() {
 		return this.logo;
 	}
@@ -395,6 +402,15 @@ public class Merchant implements java.io.Serializable {
 
 	public void setProductOffers(List<ProductOffer> productOffers) {
 		this.productOffers = productOffers;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "merchant")
+	public List<StoreHoliday> getStoreHolidays() {
+		return storeHolidays;
+	}
+
+	public void setStoreHolidays(List<StoreHoliday> storeHolidays) {
+		this.storeHolidays = storeHolidays;
 	}
 
 }
