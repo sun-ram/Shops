@@ -155,3 +155,101 @@
     background-size: cover;
     background-position: 50% 50%;
 }
+
+.original{
+    float: left;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+}
+.original img{
+	width: 300px ! important;
+	height: 300px ! important;
+	padding: 4px;
+}
+
+ .zoomed{
+ 	float: left;
+    position: absolute;
+    overflow: hidden;
+    height: 300px ! important;
+    width: 300px ! important;
+    border-radius: 50%;
+    margin: 0px;    
+}
+.zoomed:hover{
+	border: 4px solid rgb(136, 136, 136);
+    padding: 4px;
+}
+
+.zoomed img{    
+    position: relative;
+}
+.image img:hover {
+    opacity: 0.5 ! important;}
+ /* .mark {
+    opacity: .3;
+    border: 6px dotted #fff;
+    background: #eee;
+} 
+ */
+.hide {
+    visibility: hidden;
+}
+
+.pro-box{ background-color:#FFFFFF; box-shadow:0px 0px 2px rgba(0,0,0,0.5); min-height:300px; padding:10px 15px !important;}
+	.text-primary{ color:#72a308}
+	.text-left{ text-align:left;}
+	.text-right{ text-align:right;}
+	.addtocart-btn{ border:2px solid #72a308; height:50px; cursor: pointer;}
+	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
+	.bg-white{ background-color:#ffffff;}
+	.text-primary{color:#72a308;}
+.detail-unit span{min-width: 90px; display: inline-block;}
+.quantity-product span{min-width: 90px; display: inline-block;  float: left; padding-top: 7px;}
+.prod-count{width: 138px; min-height: 34px; border: 1px solid #cbcbcb; margin-top: 15px;}
+.prod-count .md-icon-button { border-radius: 0px; background: #fff; height: 34px; line-height: inherit;
+}
+.padd-7{padding: 7px;}
+
+.detail-price{
+font-size: 24px;
+margin-top: 20px;
+margin-bottom: 20px;
+color: #f13340;
+border-top: 1px solid #e5e5e5;
+padding: 15px 0 0;
+}
+.price-compare{
+	color: #333;
+}
+.prd-btns { color: #fff; padding: 0px 10px; background: #0F9D58;}
+.product-detail-dialog{
+	width: 800px;
+}
+
+md-tabs-canvas {
+    height: 100px;
+    margin-top: 10px;    
+}
+md-ink-bar{top:115px;}
+.md-tab{
+	padding: 28px ! important;
+}
+.chg-tool{
+	background: #ED6663 ! important;
+}
+md-card{box-shadow: none;}
+ /* md-dialog {width: 93%;
+min-width: 85%; } */
+
+
+.tab-img md-tab-item{
+max-width: 100px !important;
+padding: 5px 4px!important;
+border: 1px solid #eee;
+margin-right: 15px;
+height: 100px;}
+.padd-tb16{padding: 16px 0px;}
+md-tabs-canvas.md-paginated{margin: 0 16px;}
+md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
