@@ -1,7 +1,7 @@
 <section class="address-section" layout="column">
     <p class="address-title md-headline">What is your delivery address</p>
     <div class="address-container" layout="row" layout-wrap layout-align="center">
-        <!-- <div flex="40"> -->
+ 
             <md-card flex="45" ng-repeat="address in addresses track by $index" class="address"  ng-class="{selected:address.selected}">
                 <md-card-content>
                      <div layout="row" class="address-header">
@@ -33,53 +33,11 @@
                         </ul>
                     </div>
                     
-                    <!-- <div layout="row" class="delivery-address"  layout-align="center center">
-                    	<div layout="column" flex="85" flex-gt-md="85" flex-md="80" ng-click="selectAddress(address.addressId)" style="padding:20px;">
-                    		<div flex layout="row" >
-                    			<div style="width:30px;">
-                    				<ng-md-icon icon="person" style="fill: #333333" size="24"></ng-md-icon> 
-                    			</div> 
-                    			<div flex  ><span class="md-headline">{{address.name}}</span></div>
-                    		</div>
-                    		<div flex layout="row"  >
-                    			<div style="width:30px;">
-                    				<ng-md-icon icon="place" style="fill: #333333" size="24"></ng-md-icon> 
-                    			</div>
-                    			<div flex>
-                    			 	{{address.address1}}, {{address.address2}}, {{address.city}}, {{address.state.name}}, {{address.country.name}} - {{address.pinCode}}
-                    			</div> 	
-                    		</div>
-                    		<div flex layout="row"  >
-                    			<div style="width:30px;">
-                    				<ng-md-icon icon="phone" style="fill: #333333" size="16"></ng-md-icon> 
-                    			</div>
-                    			<div flex>
-                    				{{address.phoneNo}}
-                    			</div>
-                    		</div>
-                    	</div>
-                    	<div flex="15" flex-gt-md="15" flex-md="20" layout="column" style="padding:20px 10px;">
-                    		<div flex>
-                    			 <md-button class="md-icon-button" aria-label="More" ng-click="editAddress(address,$event)">
-	                                <md-icon md-svg-icon="assets/img/checkout/edit.svg" ></md-icon>
-	                                <ng-md-icon icon="edit" style="fill: #333333" size="22"></ng-md-icon> 
-	                             </md-button>
-                    		</div>
-                    		<div flex>
-                    			<md-button class="md-icon-button" aria-label="More" ng-click="removeAddress(address);">
-                                	<md-icon md-svg-icon="assets/img/checkout/close.svg"></md-icon>
-                                	<ng-md-icon icon="clear" style="fill: #333333" size="22"></ng-md-icon> 
-                            	</md-button>
-                    		</div>
-                    	</div>
-                    </div> -->
+                 
                 </md-card-content>
             </md-card>
-        <!-- </div> -->
-        <!-- <div flex="10">
-
-        </div> -->
-        <!-- <div flex="40"> -->
+        
+     
             <md-card flex="45" layout-align="center center" ng-click="openAddressDialog($event,'add')" style="cursor:pointer;">
                 <div layout="column">
                     <div flex></div>
@@ -92,17 +50,12 @@
                     <div flex></div>
                 </div>
             </md-card>
-       <!--  </div> -->
+      
     </div>
 </section>
 <section class="contact-details md-action" layout="row">
 	<div flex></div>
-    <!-- <div style="float:right">
-        <md-input-container flex layout-padding>
-            <label style="color: green;">Contact Number <span style="color:red">*</span></label>   
-            <input ng-model="currentOrder.contactNumber" valid-number ng-required="true">
-        </md-input-container>
-    </div>     -->
+   
     <div layout="row" layout-align="end center">
         <span ng-hide="change">
         <md-button class="md-raised" ng-click="cancel1()">Back</md-button>
@@ -113,3 +66,83 @@
         <md-button class="md-raised" ng-click="goNext('address')" style="background-color:#72a308 ; color:#FFFFFF;">Next</md-button>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div layout-sm="column" layout-gt-sm="row" >
+	<div flex layout-padding layout="column">
+	
+		<div class="address-box" ng-repeat="address in addresses track by $index" ng-class="{selected:address.selected}" layout="row" layout-wrap>
+			<div flex-gt-lg="100" flex-lg="100" flex-md="100" flex-sm="100" layout="row">
+				<div flex-sm="100" flex-md="60" flex-gt-md="50">
+					<span class="md-title">{{address.name}}</span>
+				</div>
+			</div>
+			<div flex-gt-lg="70" flex-lg="60" flex-md="60" flex-sm="70">
+				<div flex layout="column">
+					<div flex><span class="md-body-1"><ng-md-icon icon="place" style="fill: #333333" size="24"></ng-md-icon> {{address.address1}}, {{address.address2}}, {{address.city.name}},  {{address.state.name}}, {{address.country.name}}, {{address.pinCode}}.</span></div>
+					<div flex><span class="md-body-2"><ng-md-icon icon="phone" style="fill: #333333" size="16"></ng-md-icon> {{address.phoneNo}}</span></div>
+				</div>
+			</div>
+			<div flex-gt-lg="30" layout="row" flex-lg="40" flex-md="40" flex-sm="30">
+				<md-button  class="md-icon-button launch" >
+			        <md-icon>edit</md-icon>
+			    </md-button>
+			    <md-button  class="md-icon-button launch" >
+			        <md-icon>close</md-icon>
+			    </md-button>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<div flex layout-padding layout-wrap layout-sm="column" layout-md="column" layout-gt-md="row">
+		<div flex-sm="100" flex-md="100" flex-gt-md="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		<div flex-sm="100" flex-gt-sm="50">
+		hvhgvghg
+		</div>
+		
+	</div>
+	
+</div> 
