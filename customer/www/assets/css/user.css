@@ -242,7 +242,10 @@ md-ink-bar{top:115px;}
 md-card{box-shadow: none;}
  /* md-dialog {width: 93%;
 min-width: 85%; } */
-
+.font15{
+    font-size: 15px ! important;
+    color: #0D904F;
+}
 
 .tab-img md-tab-item{
 max-width: 100px !important;
@@ -253,3 +256,9 @@ height: 100px;}
 .padd-tb16{padding: 16px 0px;}
 md-tabs-canvas.md-paginated{margin: 0 16px;}
 md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
+
+.addTitle{
+    text-transform: uppercase !important;
+    color: #0D904F !important;
+    font-size: 15px !important;
+}
