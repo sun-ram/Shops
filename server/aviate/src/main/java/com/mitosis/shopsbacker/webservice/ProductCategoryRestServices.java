@@ -63,26 +63,57 @@ public class ProductCategoryRestServices<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductCategoryResponseVo addparentcategory(
 			ProductCategoryVo productCategoryVo) {
-
+		boolean flag = false;
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		try {
-			ProductCategory productCategory = setProductCategoryDetails(productCategoryVo);
-			productCategory.setIsactive('Y');
-			productCategoryService.addCategory(productCategory);
-			if (productCategory.getProductCategoryId() == null) {
-				productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
-						.getValue());
-				productCategoryResponseVo
-						.setErrorCode(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
-								.getCode());
-				productCategoryResponseVo
-						.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
-								.getMessage());
-				return productCategoryResponseVo;
-			} else {
-				productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
-						.getValue());
+			Merchant merchant = merchantService
+					.getMerchantById(productCategoryVo.getMerchant()
+							.getMerchantId());
+			if (merchant != null) {
+				List<ProductCategory> productCategoryList = productCategoryService
+						.getRootProductCategoryList(merchant);
+				for (ProductCategory pd : productCategoryList) {
+					if (pd.getName().equalsIgnoreCase(
+							productCategoryVo.getName())) {
+						flag = true;
+						break;
+					} else {
+						flag = false;
+					}
+
+				}
+				if (!flag) {
+					ProductCategory productCategory = setProductCategoryDetails(productCategoryVo);
+					productCategory.setIsactive('Y');
+					productCategoryService.addCategory(productCategory);
+					if (productCategory.getProductCategoryId() == null) {
+						productCategoryResponseVo
+								.setStatus(SBMessageStatus.FAILURE.getValue());
+						productCategoryResponseVo
+								.setErrorCode(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+										.getCode());
+						productCategoryResponseVo
+								.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+										.getMessage());
+						return productCategoryResponseVo;
+					} else {
+						productCategoryResponseVo
+								.setStatus(SBMessageStatus.SUCCESS.getValue());
+					}
+				} else {
+					productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
+							.getValue());
+					productCategoryResponseVo
+							.setErrorCode(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+									.getCode());
+					productCategoryResponseVo
+							.setErrorString(SBErrorMessage.PRODUCT_CATEGORY_ALREADY_EXITS
+									.getMessage());
+					return productCategoryResponseVo;
+
+				}
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -194,20 +225,23 @@ public class ProductCategoryRestServices<T> {
 			productList = getProductsFromCatogories(productList,
 					childCategories);
 		}
-		if (productCategory != null && productList.size()==0) {
+		if (productCategory != null && productList.size() == 0) {
 			productCategoryService.deleteCategory(productCategory);
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
-		}
-		else{
+		} else {
 			productCategoryResponseVo.setStatus(SBMessageStatus.FAILURE
 					.getValue());
-			productCategoryResponseVo.setErrorCode(SBErrorMessage.CATEGORY_PRODUCT_CHECK.getCode());
-			productCategoryResponseVo.setErrorString(SBErrorMessage.CATEGORY_PRODUCT_CHECK.getMessage());
+			productCategoryResponseVo
+					.setErrorCode(SBErrorMessage.CATEGORY_PRODUCT_CHECK
+							.getCode());
+			productCategoryResponseVo
+					.setErrorString(SBErrorMessage.CATEGORY_PRODUCT_CHECK
+							.getMessage());
 		}
 		return productCategoryResponseVo;
 	}
-	
+
 	private List<Product> getProductsFromCatogories(List<Product> productList,
 			List<ProductCategory> childCategories) {
 		for (ProductCategory childCategory : childCategories) {
@@ -286,21 +320,25 @@ public class ProductCategoryRestServices<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public String getallleafcategorylist(
-			ProductCategoryVo productCategoryVo) throws Exception {
-		ObjectMapper mapper =CommonUtil.getObjectMapper();
-		String responseString=null;
+	public String getallleafcategorylist(ProductCategoryVo productCategoryVo)
+			throws Exception {
+		ObjectMapper mapper = CommonUtil.getObjectMapper();
+		String responseString = null;
 		ProductCategoryResponseVo productCategoryResponseVo = new ProductCategoryResponseVo();
 		List<ProductCategory> productCategoryLeafList = new ArrayList<ProductCategory>();
 		List<ProductCategoryVo> productCategoryLeafListVo = new ArrayList<ProductCategoryVo>();
 		Merchant merchant = null;
-		if(productCategoryVo.getMerchant()!=null && productCategoryVo.getMerchant().getMerchantId()!=null ){
-			merchant = merchantService.getMerchantById(productCategoryVo.getMerchant().getMerchantId());
-		}else if(productCategoryVo.getMerchantId()!=null){
-			merchant=  merchantService.getMerchantById(productCategoryVo.getMerchantId());
-		}else if(productCategoryVo.getStoreId()!=null){
-			Store store = storeService.getStoreById(productCategoryVo.getStoreId());
-			merchant =store.getMerchant();
+		if (productCategoryVo.getMerchant() != null
+				&& productCategoryVo.getMerchant().getMerchantId() != null) {
+			merchant = merchantService.getMerchantById(productCategoryVo
+					.getMerchant().getMerchantId());
+		} else if (productCategoryVo.getMerchantId() != null) {
+			merchant = merchantService.getMerchantById(productCategoryVo
+					.getMerchantId());
+		} else if (productCategoryVo.getStoreId() != null) {
+			Store store = storeService.getStoreById(productCategoryVo
+					.getStoreId());
+			merchant = store.getMerchant();
 		}
 		if (merchant != null) {
 			productCategoryLeafList = productCategoryService
@@ -310,12 +348,14 @@ public class ProductCategoryRestServices<T> {
 				productCategoryLeaf.setProductCategoryId(productSingleLeaf
 						.getProductCategoryId());
 				productCategoryLeaf.setName(productSingleLeaf.getName());
-				
-				List<ProductType> productTypes = productSingleLeaf.getProductTypes();
+
+				List<ProductType> productTypes = productSingleLeaf
+						.getProductTypes();
 				List<ProductTypeVo> productTypeVos = new ArrayList<ProductTypeVo>();
-				for(ProductType productType:productTypes){
-					ProductTypeVo productTypeVo= new ProductTypeVo();
-					productTypeVo.setProductTypeId(productType.getProductTypeId());
+				for (ProductType productType : productTypes) {
+					ProductTypeVo productTypeVo = new ProductTypeVo();
+					productTypeVo.setProductTypeId(productType
+							.getProductTypeId());
 					productTypeVo.setName(productType.getName());
 					productTypeVo.setProductCategory(null);
 					productTypeVos.add(productTypeVo);
@@ -330,7 +370,8 @@ public class ProductCategoryRestServices<T> {
 			productCategoryResponseVo.setStatus(SBMessageStatus.SUCCESS
 					.getValue());
 		}
-		responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productCategoryResponseVo);
+		responseString = mapper.writerWithDefaultPrettyPrinter()
+				.writeValueAsString(productCategoryResponseVo);
 		return responseString;
 
 	}
