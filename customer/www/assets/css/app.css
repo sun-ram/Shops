@@ -876,9 +876,9 @@ font-size: 12px !important;
 }
 
 .pro-offer{ position:absolute; transform:rotate(-45deg); left:-38px; text-align:center; color:#FFFFFF; top:-15px; padding-right:20px;   height:25px; padding-top:15px; width:100px;}
-.off-70-above{  background-color:#E8D133;}
-.off-50-above{  background-color:#7BB3AA;}
-.off-50-below{  background-color:#AA6B5C;}
+.off-70-above{  background-color:#7BB3AA;}
+.off-50-above{  background-color:#AA6B5C;}
+.off-50-below{  background-color:#E8D133;}
 .pro-sort .md-select-value{ border:1px solid rgba(0,0,0,0.1); padding:10px !important; }
 
 .pro-sort md-select{ border:none;}
