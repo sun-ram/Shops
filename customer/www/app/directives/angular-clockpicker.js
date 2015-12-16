@@ -130,7 +130,7 @@ angular.module('aviate.directives')
 		                		}
 		                	}
 		                	else{
-		                		if(currentdate.getTime()>=selectedDateValue){
+		                		if(currentdate.getTime()>=toDateValue){
 			                		$rootScope.hidenext=true;
 			                		$rootScope.textDesign=false;
 			                    	$mdDialog.show(
@@ -152,7 +152,7 @@ angular.module('aviate.directives')
 			        						.parent(angular.element(document.querySelector('#popupContainer')))
 			        						.clickOutsideToClose(true)
 			        						//.title('Alert')
-			        						.content('Please choose delivery time '+$scope.filter12HrTime(d)+' to '+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+'.')
+			        						.content('Please choose future delivery time '+$scope.filter12HrTime(d)+' to '+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+'.')
 			        						.ariaLabel('Alert Dialog Demo')
 			        						.ok('Ok')
 			        						.targetEvent()
