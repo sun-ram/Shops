@@ -700,6 +700,8 @@ font-size: 12px !important;
    text-align: center;
    height:75px;
    width:calc(100% - 40px);
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 .views a.info {
    display: inline-block;
