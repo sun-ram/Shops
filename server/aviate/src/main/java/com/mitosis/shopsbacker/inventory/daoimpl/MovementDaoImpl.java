@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -97,6 +98,7 @@ public class MovementDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 					.forClass(Movement.class);
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.desc("created"));
 			return ((List<Movement>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();

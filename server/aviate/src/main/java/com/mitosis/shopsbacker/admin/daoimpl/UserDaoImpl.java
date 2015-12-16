@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,6 +120,7 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		criteria.add(Restrictions.eq("store", store));
 		criteria.add(Restrictions.in("role", role));
 		criteria.add(Restrictions.eq("isactive",'Y'));
+		criteria.addOrder(Order.desc("created"));
 		return (List<User>) findAll(criteria);
 	}
 
@@ -129,6 +131,7 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		criteria.add(Restrictions.eq("merchant", merchant));
 		criteria.add(Restrictions.in("role", role));
 		criteria.add(Restrictions.eq("isactive",'Y'));
+		criteria.addOrder(Order.desc("created"));
 		return (List<User>) findAll(criteria);
 	}
 

@@ -3,6 +3,8 @@
  */
 package com.mitosis.shopsbacker.vo.inventory;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,12 +29,22 @@ public class StoragebinVo {
 	private String row;
 	private String stack;
 	private String level;
+	private Date created;
+
 
 	/**
 	 * @return the storagebinId
 	 */
 	public String getStoragebinId() {
 		return storagebinId;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	/**

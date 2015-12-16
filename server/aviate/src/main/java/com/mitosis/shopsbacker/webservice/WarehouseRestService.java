@@ -104,9 +104,11 @@ public class WarehouseRestService {
 		try{
 			String storeId=warehouseVo.getStore().getStoreId();	
 			Store store=storeService.getStoreById(storeId);
-			List<Warehouse> listOfWarehouses = store.getWarehouses();
-			List<WarehouseVo> listOFwarehouseVo= new ArrayList<WarehouseVo>();
-		//	List<Warehouse> listOfWarehouses = warehouseService.getWarehouse(store);
+			List<Warehouse> listOfWarehouses = warehouseService.getWarehouse(store);
+
+/*			List<Warehouse> listOfWarehouses = store.getWarehouses();
+*/			List<WarehouseVo> listOFwarehouseVo= new ArrayList<WarehouseVo>();
+		
 			for(Warehouse warehouse:listOfWarehouses){
 				WarehouseVo warehouseVoObj = setWarehouseVO(warehouse);
 				  List<Storagebin> storagebins = warehouse.getStoragebins();

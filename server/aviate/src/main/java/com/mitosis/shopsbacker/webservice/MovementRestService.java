@@ -289,7 +289,7 @@ public class MovementRestService<T> {
 		MovementResponseVo response = new MovementResponseVo();
 		try {
 			Store store =storeService.getStoreById(movementVo.getStore().getStoreId());
-			List<Movement> movements = store.getMovements();
+			List<Movement> movements = movementService.getMovementListByStore(store); 
 			List<MovementVo> movementVos = new ArrayList<MovementVo>();
 			for (Movement movement : movements) {
 				MovementVo movementvo = setMovementVo(movement);

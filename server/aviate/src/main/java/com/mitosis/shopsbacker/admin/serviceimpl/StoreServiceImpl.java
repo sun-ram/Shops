@@ -185,6 +185,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 		storagebinVo.setRow(storagebin.getRow());
 		storagebinVo.setStack(storagebin.getStack());
 		storagebinVo.setStoragebinId(storagebin.getStoragebinId());
+		storagebinVo.setCreated(storagebin.getCreated());
 		return storagebinVo;
 	}
 

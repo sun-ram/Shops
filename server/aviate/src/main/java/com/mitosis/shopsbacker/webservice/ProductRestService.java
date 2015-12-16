@@ -485,7 +485,7 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
-			List<Product> productList = merchant.getProducts();
+			List<Product> productList = getProductService().getProductByMerchant(merchant);;
 			List<ProductVo> productVoList = new ArrayList<ProductVo>();
 			for (Product product : productList) {
 				ProductVo productVos = productService.setProductVo(product);

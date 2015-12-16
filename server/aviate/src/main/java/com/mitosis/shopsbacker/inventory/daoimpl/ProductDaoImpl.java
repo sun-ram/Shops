@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -137,6 +138,7 @@ ProductDao<T>, Serializable{
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("merchant",merchant));
+			criteria.addOrder(Order.desc("created"));
 			return ((List<Product>) findAll(criteria));
 		} catch (Throwable e) {
 			e.printStackTrace();
