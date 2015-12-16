@@ -259,8 +259,11 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 			$scope.updateproductCategory=function(categoryId,name,categoryName){
 				var product = {
 						productCategoryId : categoryId,
+						merchant:{},
+						categoryType : categoryName,
 						name : name
 					};
+				product.merchant.merchantId=$rootScope.user.merchantId;
 				ProductCategoryServices.updateproductCategory(product).then(function(data){
 					toastr.success("Product "+categoryName+" Updated Successfully");
 					$rootScope.parentCategoryListValue();
