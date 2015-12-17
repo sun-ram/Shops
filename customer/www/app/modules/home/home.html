@@ -107,11 +107,16 @@
      							
                             <div class="views view-first">
                             	<div layout="row">
-                            		<div flex layout-align="start start">
+                            		<div ng-show="product.discount.discountPercentage" flex layout-align="start start">
                             			 <div class="pro-offer off-50-above">
-                            			 	50%
+                            			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
                             		</div>
+                            		<div ng-hide="product.discount.discountPercentage" flex layout-align="start start">
+                            			 <div class="pro-offer off-50-above">
+                            			 	Hot Sale
+                            			 </div>
+                            		</div>                            		
                             		<div flex>
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
@@ -216,11 +221,16 @@
      						
                             <div class="views view-first">
                             	<div layout="row" style="overflow:hidden;">
-                            		<div flex layout-align="start start">
+                            		<div ng-show="product.discount.discountPercentage"  flex layout-align="start start">
                             			 <div class="pro-offer off-70-above">
-                            			 	70%
+                            			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
                             		</div>
+                            		<div ng-hide="product.discount.discountPercentage"  flex layout-align="start start">
+                            			 <div class="pro-offer off-70-above">
+                            			 	Sale
+                            			 </div>
+                            		</div>                            		
                             		<div flex>
                             			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>

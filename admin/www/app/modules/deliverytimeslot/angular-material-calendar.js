@@ -161,6 +161,7 @@ angular.module("materialCalendar").directive("calendarMd", ["$compile", "$timeou
             onNextMonth: "=?",
             calendarDirection: "=?",
             dayContent: "&?",
+            dateContent:"=",
             timezone: "=?",
             titleFormat: "=?",
             dayFormat: "=?",
@@ -276,12 +277,17 @@ angular.module("materialCalendar").directive("calendarMd", ["$compile", "$timeou
             };
 
             $scope.handleDayClick = function (date) {
-
+            	/*hide the pop  up on next ng-elemnt click*/
+            	   if(angular.element('.reason-box').length){
+            		  angular.element('.reason-box')[0].remove();
+            	   }
+            	/*end*/
                 var active = angular.copy($scope.active);
                 if (angular.isArray(active)) {
                     var idx = dateFind(active, date);
                     if (idx > -1) {
                         active.splice(idx, 1);
+                        delete $scope.data[getDayKey(date)];
                     } else {
                         active.push(date);
                     }
@@ -337,7 +343,7 @@ angular.module("materialCalendar").directive("calendarMd", ["$compile", "$timeou
                 return [date.getFullYear(), date.getMonth() + 1, date.getDate()].join("-");
             };
 
-            $scope.data = {};
+            $scope.data = $scope.dateContent || {};
             $scope.dayKey = getDayKey;
 
             var getDayContent = function (date) {
@@ -357,7 +363,7 @@ angular.module("materialCalendar").directive("calendarMd", ["$compile", "$timeou
                     result.then(function (html) {
                         $scope.data[getDayKey(date)] = html;
                     });
-                } else {
+                } else if(result){
                     $scope.data[getDayKey(date)] = result;
                 }
 
@@ -368,6 +374,18 @@ angular.module("materialCalendar").directive("calendarMd", ["$compile", "$timeou
                     angular.forEach(week, getDayContent);
                 });
             };
+            
+            $scope.setReason = function(date,reason){
+            	
+            	$scope.data[getDayKey(date)] = reason || "";
+            		
+            }
+            
+            $scope.isReasonPresent = function(date){
+            	
+            	return $scope.data[getDayKey(date)] ? true : false;
+            	
+            }
 
             window.data = $scope.data;
 

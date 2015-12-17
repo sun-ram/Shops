@@ -31,7 +31,7 @@
 	font-size: 18px;
 	/* color: #117280; */
 	color: #bbb;
-	border:0px;
+	border: 0px;
 }
 
 .holiday-icon-style {
@@ -40,11 +40,36 @@
 	height: 30px;
 	width: 30px;
 }
+
+.reason-box {
+	position: absolute;
+	height: 80px;
+	width: 150px;
+	background: #4EAF4C;
+	z-index: 999;
+	padding:5px;
+}
+
+.reason-box .left-arrow {
+	position: absolute;
+	left: -14px;
+	top: 18px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 15px solid #4EAF4C;
+	border-bottom: 10px solid transparent;
+}
+.reason-box input{
+   width:146px;
+   height:30px;
+}
 </style>
-<md-card layout='column' layout-fill flex style="background:url('images/ss.jpg') repeat center;" >
- <md-content
+<md-card layout='column' layout-fill flex
+	style="background:url('images/ss.jpg') repeat center;"> <md-content
 	layout='column' layout-fill flex md-swipe-left='next()'
-	md-swipe-right='prev()' style="background-color: rgba(0, 0, 0, 0.3);"> <md-toolbar
+	md-swipe-right='prev()' style="background-color: rgba(0, 0, 0, 0.3);">
+<md-toolbar
 	style="background-color:transparent;border: 1px solid #ccc;max-height: 60px;">
 <div class="month-nav" layout='row' style="margin-top: 5px">
 	<md-button class="md-icon-button" ng-click='prev()'> <md-icon
@@ -52,8 +77,10 @@
 		md-svg-icon="images/svg/Holiday-calendar/leftArrow.svg"></md-icon> </md-button>
 	<div flex></div>
 	<div layout="column" style="height: 100px; text-align: center">
-		<h2 class='calendar-md-title' flex="80" style="margin: auto;color:#fff;">
-			<span class="ft-32">{{ calendar.start | date:titleFormat:timezone }}</span>
+		<h2 class='calendar-md-title' flex="80"
+			style="margin: auto; color: #fff;">
+			<span class="ft-32">{{ calendar.start |
+				date:titleFormat:timezone }}</span>
 		</h2>
 		<!--<date-time flex="20" style="font-size:30px"></date-time>-->
 	</div>
@@ -73,8 +100,8 @@
 		<div flex ng-bind-html='getDayContent(day)'></div>
 	</div>
 </div>
-</md-content> <!-- calendar view --> 
-<md-content	style="height:0px;background-color:transparent !important;color:#fff"
+</md-content> <!-- calendar view --> <md-content
+	style="height:0px;background-color:transparent !important;color:#fff"
 	ng-if='weekLayout !== columnWeekLayout' flex layout='column'
 	class='calendar'>
 <div layout='row' layout-fill class='subheader week-days'>
@@ -89,21 +116,31 @@
 	layout-fill>
 	<div
 		tabindex='{{ sameMonth(day) ? (day | date:dayFormat:timezone) : 0 }}'
-		ng-repeat='day in week track by $index' ng-click='handleDayClick(day)'
-		flex layout layout-padding ng-focus='focus = true;'
-		ng-blur='focus = false;' ng-mouseleave='hover = false'
-		ng-mouseenter='hover = true'
+		ng-repeat='day in week track by $index' flex layout layout-padding
+		ng-focus='focus = true;' ng-blur='focus = false;'
+		ng-mouseleave='hover = false' ng-mouseenter='hover = true'
 		ng-class='{disabled : ! sameMonth(day), active: (isItActive = isActive(day))}'>
 		<!--<md-tooltip ng-if='::tooltips()'>{{ day | date:dayTooltipFormat }}</md-tooltip>-->
-		<div class="date-content" ng-if="!isItActive" ng-class="{hover:hover}">
+		<div ng-click='handleDayClick(day)' class="date-content"
+			ng-if="!isItActive" ng-class="{hover:hover}">
 			<span class="date-value">{{ day | date:dayFormat }}</span>
 		</div>
-		<div class="date-content" ng-if="isItActive"
-			ng-class="{highlight:isItActive}">
-			<!--  <span class="date-value">{{ day | date:dayFormat }}</span> -->
-			<!--<img src="img/close.png" height="40px" width="40px">-->
+		<div ng-click='handleDayClick(day)' class="date-content"
+			ng-if="isItActive" ng-class="{highlight:isItActive}">
 			<md-icon md-svg-icon="images/svg/holiday.svg"
 				class="nomarg padd-l10-r5 holiday-icon-style" style="color:#fff;"></md-icon>
+				
+				<md-tooltip md-direction="top" ng-if="isReasonPresent(day)" style="color:#fff;background:#4EAF4C;font-size:15px !important">
+            		{{data[dayKey(day)]}}
+        		</md-tooltip>
+		</div>
+		<div class="reason-box" ng-if="isItActive && !isReasonPresent(day)" ng-hide="hideRP">
+			<div class="left-arrow"></div>
+		 	<input ng-model="holidayReason" placeholder="Reason">
+		 	<div layout="row">
+		 		<md-button flex  style="color:#fff;height:20px;min-width:20px;" ng-click="hideRP = !hideRP">Cancel</md-button>
+		 		<md-button flex  style="color:#fff;height:20px;min-width:20px;" ng-click="setReason(day,holidayReason)">Ok</md-button>    
+		 	</div>
 		</div>
 		<!--<div flex ng-bind-html='data[dayKey(day)]'></div>-->
 	</div>

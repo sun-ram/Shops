@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers')
-.controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig','$mdDialog',
-                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig, $mdDialog) {
+.controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig','$mdDialog','DiscountService',
+                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig, $mdDialog,DiscountService) {
 	/*==========Get All Product Details==========*/
 
 	$scope.downloadExcel = myConfig.backend;
@@ -309,6 +309,18 @@ angular.module('aviateAdmin.controllers')
 			$scope.uploadedImages = [];
 		}
 		$scope.uploadedImages.push({});
+	}
+	
+	$scope.getDiscount = function(){
+		$scope.store ={};
+		$scope.store.storeId = $rootScope.user.storeId;
+		
+		DiscountService.storeDiscountList($scope.store).then(function(data) {
+			$scope.discountList = data.discountVos;
+		})
+		
+	
+		
 	}
 
 }

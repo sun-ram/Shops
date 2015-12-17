@@ -38,11 +38,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.common.service.ImageService;
+import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductImageService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
+import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
@@ -93,6 +95,9 @@ public class ProductRestService {
 
 	@Autowired
 	ProductImageService<T> productImageService;
+	
+	@Autowired
+	DiscountService<T> discountService;
 
 	public ProductService<T> getProductService() {
 		return productService;
@@ -148,6 +153,8 @@ public class ProductRestService {
 			ProductType productType = ProductTypeService
 					.getProductTypeById(productVo.getProductType()
 							.getProductTypeId());
+			
+			Discount discount = discountService.getDiscountById(productVo.getDiscount().getDiscountId());
 
 			Uom uom = uomService.getUOMById(productVo.getUom().getUomId());
 			if (productVo.getImage().getImage() != null) {
@@ -162,6 +169,7 @@ public class ProductRestService {
 			product.setMerchant(merchant);
 			product.setProductCategory(productCategory);
 			product.setProductType(productType);
+			product.setDiscount(discount);
 			product.setUom(uom);
 			ProductImage productImage = new ProductImage();
 

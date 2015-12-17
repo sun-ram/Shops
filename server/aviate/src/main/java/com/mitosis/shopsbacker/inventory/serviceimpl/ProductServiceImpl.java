@@ -14,10 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
+import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
+import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
@@ -29,6 +31,7 @@ import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.inventory.DiscountVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
@@ -56,6 +59,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	
 	@Autowired
 	ProductTypeService<T> productTypeService;
+	
+	@Autowired
+	DiscountService<T> discountService;
 	
 
 	@Override
@@ -222,9 +228,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 		ProductTypeVo productTypeVo = productTypeService.setProductTypeVo(product.getProductType());
 		productVo.setProductType(productTypeVo);
-		
+		if(product.getDiscount() !=null){
+		DiscountVo discountVo = discountService.setDiscountVo(product.getDiscount());
+		productVo.setDiscount(discountVo);
+		}
 		UomVo uomVo = uomService.setUomVo(product.getUom());
-		
 		productVo.setUom(uomVo);
 		
 		List<ProductImage> productImages = product.getProductImages();

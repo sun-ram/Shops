@@ -103,12 +103,6 @@ public class DiscountServiceImpl<T> implements DiscountService<T>, Serializable 
 			StoreVo storevo = storeService.setStoreVo(discount.getStore());
 			storeVoList.add(storevo);	
 		discountVo.setStoreList(storeVoList);
-		List<ProductVo> productVos = new ArrayList<ProductVo>();
-		for(Product product:discount.getProducts()){
-			ProductVo productVo = productService.setProductVo(product) ;
-			productVos.add(productVo);
-		}
-		discountVo.setProducts(productVos);
 		return discountVo;
 	}
 
