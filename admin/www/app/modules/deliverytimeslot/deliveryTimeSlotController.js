@@ -172,10 +172,12 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
     }
     
     $scope.selectedDates.push(new Date().withoutTime());
-    
+    $scope.holidayReasons = {};
     for(var i = 0 ; i < 5 ; i++){
         $scope.selectedDates.push(new Date($scope.selectedDates[i].getTime() + 24 * 60 * 60 * 1000).withoutTime());
+        $scope.holidayReasons[$filter('date')($scope.selectedDates[i],"yyyy-M-d")] = "test";
     }
+    console.log('holiday contents ',$scope.holidayReasons);
     
     $scope.nextMonth = function(){
     	

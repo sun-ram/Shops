@@ -15,32 +15,37 @@ height: 20px;}
 </style> -->
 
 
-<md-toolbar class=" md-default-theme" style="background-color:transparent;">
-    <div class="md-toolbar-tools">
-        <h2 class="md-flex" style="margin-left:-10px;">Delivery Time Slot and Holiday</h2>
-        <!--  <span class="close_box">
+<md-toolbar class=" md-default-theme"
+	style="background-color:transparent;">
+<div class="md-toolbar-tools">
+	<h2 class="md-flex" style="margin-left: -10px;">Delivery Time Slot
+		and Holiday</h2>
+	<!--  <span class="close_box">
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span>  -->
-    </div>
+</div>
 </md-toolbar>
-<md-card flex-gt-sm="90" flex-gt-md="80">
-    <md-content layout-padding layout="column" layout-sm="column">    	    
-        <div layout layout="row" layout-sm="column" layout-margin>
-        	<div layout="column" flex>
-        		<span style="font-size:20px;" layout-margin >Delivery Time Slot</span>        		
-        		<div layout="row" flex layout-padding>
-        			<div layout="column" flex layout-align="none" ng-model="date" class=" calender-style ">
- 						<span style="font-size:18px;color:#aaa;">Start Time</span>
- 						 <clockpicker ng-model="time" />
- 					 </div>        				
- 				
- 				<div layout="column" flex layout-align="none" ng-model="date" class=" calender-style">
- 					<span style="font-size:18px;color:#aaa;">End Time</span>
-        				 <clockpicker ng-model="time" /> 				 
- 				 </div>
- 				</div>
-        		</div>
-        	</div>
-        	<!--<div layout="column" flex="30">
+<md-card flex-gt-sm="90" flex-gt-md="80"> <md-content
+	layout-padding layout="column" layout-sm="column">
+<div layout layout="row" layout-sm="column" layout-margin>
+	<div layout="column" flex>
+		<span style="font-size: 20px;" layout-margin>Delivery Time
+			Slot</span>
+		<div layout="row" flex layout-padding>
+			<div layout="column" flex layout-align="none" ng-model="date"
+				class=" calender-style ">
+				<span style="font-size: 18px; color: #aaa;">Start Time</span>
+				<clockpicker ng-model="time" />
+			</div>
+
+			<div layout="column" flex layout-align="none" ng-model="date"
+				class=" calender-style">
+				<span style="font-size: 18px; color: #aaa;">End Time</span>
+				<clockpicker ng-model="time" />
+			</div>
+		</div>
+	</div>
+</div>
+<!--<div layout="column" flex="30">
         		 <span style="font-size:20px;">Holiday Time Slot</span>
         			<div layout="column" flex layout-margin>
         			<md-card layout  style="width: 250px;height: 280px;position: relative;background-color: #2ECD71;color: #FFF;">
@@ -54,74 +59,75 @@ height: 20px;}
 					</md-card-content> 
 					</md-card>
 					</div> 
-        	</div>-->
-        
-        <!-- <div layout="row"> -->
-        
-<!--
+        	</div>--> <!-- <div layout="row"> --> <!--
             <md-input-container>
                 <label>From Time<span style="color:red">*</span></label>                
    <input type="time" id="exampleInput" name="input" ng-model="deliveryTimeSlot.fromTime"
        placeholder="HH:mm:ss" required />
 
             </md-input-container>
--->     
-            
-<!-- 
+--> <!-- 
             <md-input-container>
                 <label>To Time<span style="color:red">*</span></label>
                 <input type="time" id="exampleInput" name="input" ng-model="deliveryTimeSlot.toTime" placeholder="HH:mm:ss" min="deliveryTimeSlot.fromTime" max="24:00:00" required />
             </md-input-container>
--->
-            <!-- <div flex="5"></div> -->
-           
-             <div layout="row" layout-sm="column" layout-align="none start" class="marg-tb15 border-light border-top border-bottom">    
- 			 
- 			 		<div class="" flex> 			 		
- 			 			<span flex layout="column" layput-padding class=" marg-15 border-right border-light">
- 			 			<div layout="row" class="ft_gray">
- 			 				<md-icon md-svg-icon="images/svg/time36.svg" class="nomarg padd-l10-r5" ></md-icon> 
- 			 					<span flex class="padd-t5">Your store is available for delivery from </span>		 				 
- 			 			</div>
- 			 			 	
- 			 			 <strong flex class="ft_size20 ft-grn padd-l10 marg-t7"> 9AM to 10PM </strong>
- 			 			</span> 			 			
- 			 		</div>
- 			 		<div class="" flex>
- 			 			<span flex layout="column" layput-padding class="marg-15 ft_gray">
- 			 			 <div layout="row">
- 			 			 <span class=" ft-grn">Your basket is expected to be delivered within <span class="ft-12 ft_gray">90 minutes *</span> </span>
- 			 			 </div>
- 			 			 
- 			 			 </span>
- 			 		</div>
- 			 		<div >
- 			 	</div>
- 			 </div>
-            
-          <div layout="column" layout-margin>
-        	<span style="font-size:20px;line-height: 2;" layout-margin >Holiday Setting</span>  
-         		<div style="height:500px">
-        			 <calendar-md  flex layout layout-fill calendar-direction="direction" on-prev-month="prevMonth" on-next-month="nextMonth" on-day-click="dayClick" title-format="'MMMM y'" ng-model='selectedDates' day-format="'d'" day-label-format="'EEE'" day-label-tooltip-format="'EEEE'" day-tooltip-format="'fullDate'" week-starts-on="firstDayOfWeek" day-content="setDayContent" template-url="'http://localhost:8080/app/modules/deliverytimeslot/angular-material-calendar.html'"></calendar-md>	
-        		 </div>
-        		 </div>
-         <div layout="column" layout-margin>
-        	  <div layout layout-sm="column">
-    
-        <md-input-container layout-padding flex>
-      <label>Reason<span style="color:red">*</span></label>
-      <input ng-model="tax.name" ng-trim="false" name="taxName" required ng-maxlength="30">
-      <span ng-message="required" ng-show="storeForm.taxName.$error.maxlength" style="color:red;" >
-       Enter Tax Name within 30 Characters</span>
-    </md-input-container>
-    </div>
-    
-        	</div>
-        <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-                <md-button class="md-raised md-success padd-50" ng-show="deliveryTimeSlot.deliveryTimeSlotId" ng-click="updateDeliveryTimeSlot(deliveryTimeSlot);">Update</md-button>
-                <md-button class="md-raised md-success padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="saveDeliveryTimeSlot(deliveryTimeSlot);" ng-disabled="uoms.$invalid">Create</md-button>
-               <!--  <md-button class="md-raised md-cancel padd-50"  ui-sref="app.super_admin_dashboard">Cancel</md-button> -->
-                <!-- <md-button class="md-raised md-cancel padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="cancel();">Cancel</md-button> -->
-        </section>
-    </md-content>
-</md-card>
+--> <!-- <div flex="5"></div> -->
+
+<div layout="row" layout-sm="column" layout-align="none start"
+	class="marg-tb15 border-light border-top border-bottom">
+
+	<div class="" flex>
+		<span flex layout="column" layput-padding
+			class=" marg-15 border-right border-light">
+			<div layout="row" class="ft_gray">
+				<md-icon md-svg-icon="images/svg/time36.svg"
+					class="nomarg padd-l10-r5"></md-icon>
+				<span flex class="padd-t5">Your store is available for
+					delivery from </span>
+			</div> <strong flex class="ft_size20 ft-grn padd-l10 marg-t7"> 9AM
+				to 10PM </strong>
+		</span>
+	</div>
+	<div class="" flex>
+		<span flex layout="column" layput-padding class="marg-15 ft_gray">
+			<div layout="row">
+				<span class=" ft-grn">Your basket is expected to be delivered
+					within <span class="ft-12 ft_gray">90 minutes *</span>
+				</span>
+			</div>
+
+		</span>
+	</div>
+	<div></div>
+</div>
+
+<div layout="column" layout-margin>
+	<span style="font-size: 20px; line-height: 2;" layout-margin>Holiday
+		Setting</span>
+	<div style="height: 500px">
+		<calendar-md flex layout layout-fill calendar-direction="direction"
+			on-prev-month="prevMonth" on-next-month="nextMonth"
+			on-day-click="dayClick" title-format="'MMMM y'"
+			ng-model='selectedDates' day-format="'d'" day-label-format="'EEE'"
+			day-label-tooltip-format="'EEEE'" day-tooltip-format="'fullDate'"
+			week-starts-on="firstDayOfWeek" day-content="setDayContent"
+			template-url="'http://localhost:8080/app/modules/deliverytimeslot/angular-material-calendar.html'"
+			date-content="holidayReasons"></calendar-md>
+	</div>
+</div>
+
+
+
+<section layout="row" layout-sm="column" layout-align="start center"
+	layout-wrap>
+	<md-button class="md-raised md-success padd-50"
+		ng-show="deliveryTimeSlot.deliveryTimeSlotId"
+		ng-click="updateDeliveryTimeSlot(deliveryTimeSlot);">Update</md-button>
+	<md-button class="md-raised md-success padd-50"
+		ng-hide="deliveryTimeSlot.deliveryTimeSlotId"
+		ng-click="saveDeliveryTimeSlot(deliveryTimeSlot);"
+		ng-disabled="uoms.$invalid">Create</md-button>
+	<!--  <md-button class="md-raised md-cancel padd-50"  ui-sref="app.super_admin_dashboard">Cancel</md-button> -->
+	<!-- <md-button class="md-raised md-cancel padd-50" ng-hide="deliveryTimeSlot.deliveryTimeSlotId" ng-click="cancel();">Cancel</md-button> -->
+</section>
+</md-content> </md-card>

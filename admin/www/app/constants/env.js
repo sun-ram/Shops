@@ -1,6 +1,5 @@
 angular.module('aviateAdmin.constant').constant('myConfig', {
-    'backend': 'http://localhost:8081/aviate/json/',
-	'node_server_url' : 'http://www.shopsbacker.com:3000/shopsbacker/',
+    'backend': 'http://192.168.1.100:8080/aviate/json/',
     'version': 0.1,
     'debug': true,
 	
