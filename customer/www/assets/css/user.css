@@ -18,31 +18,6 @@
     left: -100%;
 }
 
-/* .left {
-    width: 50%;
-    height: 100%;
-    background: #2C3034;
-    left: 0;
-    position: absolute;
-} */
-
-/* .right {
-    width: 50%;
-    height: 100%;
-    background: #F9F9F9;
-    right: 0;
-    position: absolute;
-} */
-/* 
-#ic {
-    width: 250px;
-    margin: 0 auto;
-    top: 50%;
-    margin-top: -162px;
-    position: absolute;
-    left: 50%;
-    margin-left: -125px;
-} */
 
 .left {
     width: 50%;
@@ -51,25 +26,28 @@
     left: 0;
     position: absolute;
     padding: 0px 40px;
-    margin: 50px auto;
 }
 
 .right {
-background: #fff;
-width: 50%;
-height: 100%;
-right: 0;
-position: absolute;
-padding: 0px 40px;
-margin: 60px auto;
+	background: #fff;
+	width: 50%;
+	height: 100%;
+	right: 0;
+	position: absolute;
+	padding: 0px 40px;
+}
+.left #ic{
+ 	margin: 50px auto;
+} 
 
 }
-/* #ic {
-	margin: 50px auto;
-} */
-/* .left #ic {
-    margin-top: -232px;
-} */
+.right #ic{
+	margin: 60px auto;
+}
+
+#ic .frgt-pwddiv{
+	margin: 90px auto;
+}
 
 #ic p {
     font-size: 15px;
@@ -159,9 +137,6 @@ margin: 60px auto;
     width: 50%;
     height: 100%;
     background:#0F9D58;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .kayitback {
@@ -170,9 +145,6 @@ margin: 60px auto;
     width: 50%;
     height: 100%;
     background: #0F9D58;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 .green_btn_clr{
 	width: 100%;
@@ -190,9 +162,14 @@ margin: 60px auto;
 .md-green span{
 	font-size: 14px;
 }
-.auth_input md-icon{
+.auth_input md-icon, ng-md-icon{
 	margin-top: 30px;
 	margin-left: 6px;
+	fill: #0F9D58;
+}
+.frgtpwd_input ng-md-icon{
+	margin-top: 24px;
+	fill: #0F9D58;
 }
 .auth_input label input{
 	padding-left: 15px ! important; 
@@ -298,6 +275,10 @@ md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
 	.prd-btns { color: #fff; padding: 0px 10px; background: #0F9D58;}
 	.product-detail-dialog{
 		width: 800px;
+	}
+	.sigin-upask{
+		margin: 10px auto;
+		cursor: pointer;
 	}
 
 .font15{

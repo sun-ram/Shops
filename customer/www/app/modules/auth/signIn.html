@@ -2,7 +2,18 @@
 <md-button class="md-icon-button" style="float: right; width: auto; z-index: 100;" ng-click="cancel();">
         <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
 </md-button>
-<div id="fback" flex><div  class="girisback"></div><div class="kayitback"></div></div>
+<div id="fback" flex>
+
+<div class="girisback">
+<img layout-align="center" src="assets/img/useravat.png"/>
+<span>Great stores. Great choices.</span>
+</div>
+<div class="kayitback">
+<img layout-align="center" src="assets/img/useravat.png"/>
+<span>Great stores. Great choices.</span>
+</div>
+
+</div>
 
 <div id="textbox">
   <div class="toplam">
@@ -13,22 +24,22 @@
 		<div flex ng-if="isSignup">	
 		<span flex layout="row" layout-align="center" style="font-weight: bold;">SIGN UP</span>
 		<form name="userForm" layout-padding>			
-        <md-input-container flex class="padd_btm10 auth_input">
-          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+        <md-input-container flex class="auth_input">
+          <ng-md-icon icon="email" style="fill: #0F9D58; margin: 28px 0px 0px 0px; position: absolute;" size="18"></ng-md-icon> 
           <label class="padd-l22">Email</label>
           <input class="padd-l22" ng-model="user.email" type="email" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
         </md-input-container >
-         <md-input-container flex class="padd_btm10 auth_input">
+         <md-input-container flex class="auth_input">
          <md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>
           <label class="padd-l22">Mobile No</label>
           <input class="padd-l22" ng-model="user.phoneNo"valid-number ng-required="true">
         </md-input-container >
-	      <md-input-container flex class="padd_btm10 auth_input">
+	      <md-input-container flex class="auth_input">
 	      	<md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
 	        <label class="padd-l22">Password</label>
 	        <input class="padd-l22" ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')" ng-required="true" >
 	      </md-input-container>
-	      <md-input-container flex class="padd_btm10 auth_input">
+	      <md-input-container flex class="auth_input">
 	      <md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
 	        <label class="padd-l22">Confirm Password</label>
 	        <input class="padd-l22" ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
@@ -39,7 +50,7 @@
 		    </md-button>		    
 		  </div>
 		  <div layout="row" class="mg_t15">
-		  <span  ng-click="goSignIn()">
+		  <span  ng-click="goSignIn()" class="sigin-upask">
 		      <span> Already have an account? </span><span class="text-green" > signIn </span>
 		   </span>
 		   </div>
@@ -48,28 +59,25 @@
           
           
            <!--// forget password-->
-      <div flex ng-if="isForgetPassword">
+      <div flex ng-if="isForgetPassword" class="frgt-pwddiv">
           <span flex layout="row" layout-align="center" style="font-weight: bold;">Forget Password</span>
 	<form name="userForgetPassForm">			
-        <md-input-container flex class="padd_btm10 auth_input">
-          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+        <md-input-container flex class="frgtpwd_input">
+          <ng-md-icon icon="email" style="fill: #0F9D58; margin: 28px 0px 0px 0px; position: absolute;" size="18"></ng-md-icon>
           <label class="padd-l22">Email</label>
-          <input ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+          <input class="padd-l22" ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
         </md-input-container >
 	      <div layout="row">
 		      <div flex>
 		      </div>
 		    </div> 
-		  <div class="md-actions padd_btm20" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
+		  <div layout="row">
+		    <md-button class="md-raised green_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
 		      SUBMIT
-		    </md-button>
-		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;isSignIn=true;title = 'SIGN IN'" style="margin-right:20px;" >
-		      CANCEL
-		    </md-button>
-		  </div>
+		    </md-button>		    
+		  </div>		  
           <div layout="row" class="mg_t15">
-		  <span   ng-click="goSignIn()" >
+		  <span   ng-click="goSignIn()" class="sigin-upask">
 		      <span> Already have an account? </span><span class="text-green"> signIn </span>
 		   </span>
 		   </div>
@@ -86,12 +94,12 @@
     <div flex ng-if="isSignIn">
 	<span flex layout="row" layout-align="center" style="font-weight: bold;">SIGN IN</span>
 	  <form name="userLoginForm" layout-padding ng-hide="isSignUp">			
-        <md-input-container flex class="padd_btm10 auth_input">
-          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+        <md-input-container flex class="auth_input">
+          <ng-md-icon icon="email" style="fill: #0F9D58; margin: 28px 0px 0px 0px; position: absolute;" size="18"></ng-md-icon>
           <label class="padd-l22">Email/Mobile No</label>
           <input class="padd-l22" ng-model="user.email" type="text" ng-required="true" >
         </md-input-container >
-	      <md-input-container flex class="padd_btm10 auth_input">
+	      <md-input-container flex class="auth_input">
 	      	<md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
 	        <label class="padd-l22">Password</label>
 	        <input class="padd-l22" ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')"  ng-required="true">
@@ -104,14 +112,14 @@
 		      </div>
 		          
 		    </div> 
-		  <div class="md-actions" layout="row">
+		  <div layout="row">
 		    <md-button class="md-raised green_btn_clr" flex ng-disabled="userLoginForm.$invalid" ng-click="signIn(user);">
 		      SIGN IN
 		    </md-button>		    
 		  </div>
 		  <div class="mg-tb25">
 		  <div layout="row">
-		  <span ng-click="goSignup()">
+		  <span ng-click="goSignup()" class="sigin-upask">
 		  <span>New to Shopsbacker?</span> <span class="text-green">Join Today</span> 
 		  </span>
 		  </div>

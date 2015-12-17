@@ -333,7 +333,11 @@ angular.module('aviate.directives')
 							$mdDialog.cancel();
 						};
 
-                        
+						$scope.$watch(function(){
+						       return $window.innerWidth;
+						    }, function(value) {
+						       $scope.windowsize = value;
+						   });          
     $scope.isSignIn = true;
     $scope.goSignup = function () {
         $scope.isSignup = true;
@@ -374,13 +378,23 @@ angular.module('aviate.directives')
         $scope.isForgetPassword = false;
         $scope.isGuest = false;
         $scope.isSignIn = true;
-        $('#textbox').animate({
-            'marginLeft': "50%" //moves right
-        });
+        
+        if($scope.windowsize < 855){        	
+        	$('#textbox').animate({
+	            'marginLeft': "0%" //moves right
+	        });
+	        $('.toplam').animate({
+	            'marginLeft': "0" //moves right
+	        });
+		}else{			
+			$('#textbox').animate({
+	            'marginLeft': "50%" //moves right
+	        });
 
-        $('.toplam').animate({
-            'marginLeft': "0" //moves right
-        });
+	        $('.toplam').animate({
+	            'marginLeft': "0" //moves right
+	        });
+		}        
     }
                         
                         
