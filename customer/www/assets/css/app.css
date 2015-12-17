@@ -955,5 +955,186 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
 
 
 
+/* carousel slider */
+body {
+  margin: 1em 1%;
+}
+
+.wrapper {
+  width: 100%;
+  
+}
+
+  /*------------------------------------*\
+    $CAROUSEL
+\*------------------------------------*/
+@-moz-keyframes carousel {
+ 
+  0% {
+    left: 0;
+  }
+  9% {
+    left: -100%;
+  }
+  18% {
+    left: -100%;
+  }
+  27% {
+    left: -200%;
+  }
+  36% {
+    left: -200%;
+  }
+  45% {
+    left: -300%;
+  }
+  54% {
+    left: -300%;
+  }
+  63% {
+    left: -200%;
+  }
+  72% {
+    left: -200%;
+  }
+  81% {
+    left: -100%;
+  }
+  91% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+  
+}
+@-webkit-keyframes carousel {
+ 
+  0% {
+    left: 0;
+  }
+  9% {
+    left: -100%;
+  }
+  18% {
+    left: -100%;
+  }
+  27% {
+    left: -200%;
+  }
+  36% {
+    left: -200%;
+  }
+  45% {
+    left: -300%;
+  }
+  54% {
+    left: -300%;
+  }
+  63% {
+    left: -200%;
+  }
+  72% {
+    left: -200%;
+  }
+  81% {
+    left: -100%;
+  }
+  91% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+  
+} 
+@keyframes carousel {
+ 
+  0% {
+    left: 0;
+  }
+  9% {
+    left: -100%;
+  }
+  18% {
+    left: -100%;
+  }
+  27% {
+    left: -200%;
+  }
+  36% {
+    left: -200%;
+  }
+  45% {
+    left: -300%;
+  }
+  54% {
+    left: -300%;
+  }
+  63% {
+    left: -200%;
+  }
+  72% {
+    left: -200%;
+  }
+  81% {
+    left: -100%;
+  }
+  91% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+  
+}
+.carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.panes {
+  list-style: none;
+  position: relative;
+  width: 400%;
+  /* Number of panes * 100% */
+  overflow: hidden;
+  /* This is used solely to clear floats, it does not add functionality. */
+  -moz-animation: carousel 30s infinite;
+  -webkit-animation: carousel 30s infinite;
+  animation: carousel 30s infinite;
+  margin: 0;
+  padding: 0;
+}
+
+.panes > li {
+  position: relative;
+  float: left;
+  width: 25%;
+  /* 100 / number of panes */
+  margin: 0;
+  padding: 0;
+}
+
+.carousel img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.carousel h2 {
+  font-size: 1em;
+  padding: 0.5em;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  text-align: right;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+
+
 
 
