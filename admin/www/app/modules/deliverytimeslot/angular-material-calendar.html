@@ -28,7 +28,7 @@
 .week-days {
 	background-color: #00BCD4;
 	text-align: center;
-	font-size: 24px;
+	font-size: 18px;
 	/* color: #117280; */
 	color: #bbb;
 	border:0px;
@@ -41,7 +41,7 @@
 	width: 30px;
 }
 </style>
-<md-card layout='column' layout-fill flex style="background:url('images/ss.jpg') repeat fixed center;" >
+<md-card layout='column' layout-fill flex style="background:url('images/ss.jpg') repeat center;" >
  <md-content
 	layout='column' layout-fill flex md-swipe-left='next()'
 	md-swipe-right='prev()' style="background-color: rgba(0, 0, 0, 0.3);"> <md-toolbar
@@ -49,18 +49,18 @@
 <div class="month-nav" layout='row' style="margin-top: 5px">
 	<md-button class="md-icon-button" ng-click='prev()'> <md-icon
 		aria-label='Previous month' md-menu-origin
-		md-svg-icon="img/leftArrow.svg"></md-icon> </md-button>
+		md-svg-icon="images/svg/Holiday-calendar/leftArrow.svg"></md-icon> </md-button>
 	<div flex></div>
 	<div layout="column" style="height: 100px; text-align: center">
 		<h2 class='calendar-md-title' flex="80" style="margin: auto;color:#fff;">
-			<span>{{ calendar.start | date:titleFormat:timezone }}</span>
+			<span class="ft-32">{{ calendar.start | date:titleFormat:timezone }}</span>
 		</h2>
 		<!--<date-time flex="20" style="font-size:30px"></date-time>-->
 	</div>
 	<div flex></div>
 	<md-button class="md-icon-button" ng-click='next()'> <md-icon
 		aria-label='Next month' md-menu-origin
-		md-svg-icon="img/rightArrow.svg"></md-icon> </md-button>
+		md-svg-icon="images/svg/Holiday-calendar/rightArrow.svg"></md-icon> </md-button>
 </div>
 </md-toolbar> <!-- agenda view --> <md-content style="height:0px"
 	ng-if='weekLayout === columnWeekLayout' class='agenda'>

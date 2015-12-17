@@ -16,7 +16,7 @@ var aviateAdmin = angular.module('app', ['toastr',
                                          'ngMdIcons',
                                          'md.data.table',
                                          'ngDraggable', 'uiGmapgoogle-maps',
-                                         'scDateTime'
+                                         'scDateTime','materialCalendar','ngSanitize'
                                          ]);
 
 
