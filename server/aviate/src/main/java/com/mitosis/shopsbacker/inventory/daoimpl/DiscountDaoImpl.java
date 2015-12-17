@@ -101,4 +101,18 @@ DiscountDao<T>, Serializable{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Discount> getUniqeName(String name) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Discount.class);
+			criteria.add(Restrictions.eq("name", name));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Discount>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
 }

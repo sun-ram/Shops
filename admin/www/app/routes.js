@@ -403,6 +403,16 @@ angular.module('app')
 		controller : 'discountController'
 	})
 	
+		.state('app.editdiscount', {
+		url: '/editdiscount',
+		templateUrl: 'app/modules/discount/editDiscount.html',
+		controller : 'discountController'
+	})
+		.state('app.detaildiscount', {
+		url: '/detailsdiscount',
+		templateUrl: 'app/modules/discount/detailsDiscount.html',
+		controller : 'discountController'
+	})	
 		.state('app.discount', {
 		url: '/discount',
 		templateUrl: 'app/modules/discount/discount.html',

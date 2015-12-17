@@ -66,11 +66,21 @@ public class DiscountRestService {
 			for(StoreVo storevo: storeVos){	
 				Store store = storeService.getStoreById(storevo.getStoreId());
 				Merchant merchant = store.getMerchant();
-				
+			List<Discount> checkUniqueDiscount = discountService.getUniqeName(discountVo.getName());
+			if (checkUniqueDiscount.isEmpty()) {
 			Discount discount = discountService.setDiscount(discountVo);
 			discount.setStore(store);
 			discount.setMerchant(merchant);
 			discountService.addDiscount(discount);
+			}else{
+				
+				Discount discount = discountService.setDiscount(discountVo);
+				discount.setStore(store);
+				discount.setMerchant(merchant);
+				discountService.updateDiscount(discount);
+				
+				
+			}
 		}
 	}
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());

@@ -215,7 +215,7 @@ public class Discount implements java.io.Serializable {
 		this.endTime = endTime;
 	}
 
-	@Column(name = "MIN_AMOUNT", nullable = false, precision = 15)
+	@Column(name = "MIN_AMOUNT", precision = 15)
 	public BigDecimal getMinAmount() {
 		return this.minAmount;
 	}

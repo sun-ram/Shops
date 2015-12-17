@@ -99,9 +99,10 @@ public class DiscountServiceImpl<T> implements DiscountService<T>, Serializable 
 		discountVo.setEndDate(discount.getEndDate());
 		discountVo.setStartTime(discount.getStartTime());
 		discountVo.setEndTime(discount.getEndTime());
+		List<StoreVo> storeVoList = new ArrayList<StoreVo>();
 			StoreVo storevo = storeService.setStoreVo(discount.getStore());
-			
-		discountVo.setStore(storevo);
+			storeVoList.add(storevo);	
+		discountVo.setStoreList(storeVoList);
 		List<ProductVo> productVos = new ArrayList<ProductVo>();
 		for(Product product:discount.getProducts()){
 			ProductVo productVo = productService.setProductVo(product) ;
@@ -119,6 +120,11 @@ public class DiscountServiceImpl<T> implements DiscountService<T>, Serializable 
 	@Override
 	public List<Discount> getAllDiscountByStore(Store store) {
 		return discountDao.getAllDiscountByStore(store);
+	}
+
+	@Override
+	public List<Discount> getUniqeName(String name) {
+		return discountDao.getUniqeName(name);
 	}
 
 }

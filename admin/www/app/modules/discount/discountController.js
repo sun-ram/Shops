@@ -77,5 +77,32 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			})
 		 
 	 }
+	 
+	 $scope.discountDetails =function(discount){
+		 $rootScope.discountViews = discount;
+		 $state.go('app.detaildiscount');
+	 }
+	 $scope.discountView = $rootScope.discountViews;
+	 
+		$scope.close = function () {
+			$state.go('app.discount');
+		};
+		
+		$scope.editDiscount = function(discount){
+			 $rootScope.discountEdit = discount;
+			$state.go('app.editdiscount');
+		}
+		$scope.discountEdit = $rootScope.discountEdit;
+		
+	$scope.updateDiscount = function(discount){
+		
+	 	$scope.discount = discount;
+		DiscountService.saveDiscount($scope.discount).then(function(data) {
+			$scope.results = data;
+			$scope.getDiscountByMerchant();
+			$state.go('app.discount');
+		})
+		
+	}	
 }
 ]);

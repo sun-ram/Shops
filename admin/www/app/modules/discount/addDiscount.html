@@ -1,8 +1,7 @@
 <div>
    <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
-      <h3 ng-show="discount.discountId" class="md-flex" style="margin-left:-10px;">Update Discount</h3> 
-      <h3 ng-hide="discount.discountsId" class="md-flex" style="margin-left:-10px;">Create Discount</h3> 
+      <h3 class="md-flex" style="margin-left:-10px;">Create Discount</h3> 
       
     </div>
   </md-toolbar>
@@ -80,10 +79,8 @@
 	</div>	
 
 	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-	    	<md-button class="md-raised md-success padd-50" ng-show="discount.discountId" ng-click="updateEmployee();"  ng-disabled="discountForm.$invalid">Update</md-button>
-	    	<md-button class="md-raised md-success padd-50" ng-hide="discount.discountId" ng-click="saveDiscount(discount);" ng-disabled="discountForm.$invalid">Create</md-button>
-	    	<md-button class="md-raised md-cancel padd-50" ng-show="discount.discountId" ng-click="redirectToEmployeeDetails();">Cancel</md-button>
-	    	<md-button class="md-raised md-cancel padd-50" ng-hide="discount.discountId" ui-sref="app.aviateemployees">Cancel</md-button>
+	    	<md-button class="md-raised md-success padd-50"  ng-click="saveDiscount(discount);" ng-disabled="discountForm.$invalid">Create</md-button>
+	    	<md-button class="md-raised md-cancel padd-50"  ui-sref="app.aviateemployees">Cancel</md-button>
 	    </section>
     </form>
     </md-content>

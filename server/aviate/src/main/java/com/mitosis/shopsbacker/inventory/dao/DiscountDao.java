@@ -21,5 +21,7 @@ public interface DiscountDao<T> {
 	public List<Discount> getAllDiscountByStore(Store store);
 	
 	public Discount getDiscountById(String discountId);
+	
+	public List<Discount> getUniqeName(String name);
 
 }
