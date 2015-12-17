@@ -1,0 +1,107 @@
+
+ 
+     <md-toolbar style="background-color:transparent;">
+		<div class="md-toolbar-tools" >
+			<div layout="row" layout-align="start center">	 
+		     	<h3 layout="column" style="margin-left:-10px;">{{discountView.name}}</h3>   
+		    </div>       
+		</div>
+		
+		<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="user.status='true';editDiscount(discountView,true)">
+			<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ng-click="close()">
+			<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+	</md-toolbar>
+<md-card flex-gt-sm="90" flex-gt-md="80">
+  <md-card-content style="padding: 0px 0px 16px 0px;">	
+	<md-list>
+	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountView.name}}</span>
+	           	<span class="hash_color ft-14">Name</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{discountView.storeList[0].name}}</span>
+           		 <span class="hash_color ft-14">Store</span>
+           	</span>  
+        </md-item>
+      </div>
+      
+ 	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountView.discountPercentage}}</span>
+	           	<span class="hash_color ft-14">Discount Percentage</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{discountView.discountAmount}}</span>
+           		 <span class="hash_color ft-14">Discount Amount</span>
+           	</span>  
+        </md-item>
+      </div>
+ 	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountView.minQty}}</span>
+	           	<span class="hash_color ft-14">Minimum Quantity</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{discountView.maxQty}}</span>
+           		 <span class="hash_color ft-14">Maximum Quantity</span>
+           	</span>  
+        </md-item>
+      </div>       
+      
+ 	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountView.startDate| date:'MM/dd/yyyy'}}</span>
+	           	<span class="hash_color ft-14">Start Date</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{discountView.endDate | date:'MM/dd/yyyy'}}</span>
+           		 <span class="hash_color ft-14">End Date</span>
+           	</span>  
+        </md-item>
+      </div> 
+      
+ 	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountView.startTime}}</span>
+	           	<span class="hash_color ft-14">Start Time</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{discountView.endTime}}</span>
+           		 <span class="hash_color ft-14">End Time</span>
+           	</span>  
+        </md-item>
+      </div>
+       	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountView.minAmount}}</span>
+	           	<span class="hash_color ft-14">Minimum Amount</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           	</span>  
+        </md-item>
+      </div>                 
+     </md-list>
+   </md-card-content>
+</md-card>

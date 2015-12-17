@@ -41,7 +41,7 @@
 		   </div>    
 		   <div layout-padding flex>
 		       <label></span>To Date</label>
-		       <md-datepicker ng-model="discount.endDate" md-placeholder="End date"></md-datepicker>
+		       <md-datepicker ng-model="discount.endDate" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
 		    </div>
 	    </div>
 	    
@@ -80,7 +80,7 @@
 
 	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
 	    	<md-button class="md-raised md-success padd-50"  ng-click="saveDiscount(discount);" ng-disabled="discountForm.$invalid">Create</md-button>
-	    	<md-button class="md-raised md-cancel padd-50"  ui-sref="app.aviateemployees">Cancel</md-button>
+	    	<md-button class="md-raised md-cancel padd-50"  ui-sref="app.discount">Cancel</md-button>
 	    </section>
     </form>
     </md-content>
