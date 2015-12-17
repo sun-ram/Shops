@@ -201,8 +201,8 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 			criteria.add(Restrictions.like("address.city.cityId",
 					"%" + city.getCityId() + "%"));
 			criteria.add(Restrictions.or(Restrictions.like("address.formattedAddress", "%"
-					+ areaName + "%").ignoreCase(),Restrictions.like("address.address", "%"
-							+ areaName + "%").ignoreCase(),Restrictions.like("address.address1", "%"
+					+ areaName + "%").ignoreCase(),Restrictions.like("address.address1", "%"
+							+ areaName + "%").ignoreCase(),Restrictions.like("address.address2", "%"
 									+ areaName + "%").ignoreCase()));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Store>) findAll(criteria));
