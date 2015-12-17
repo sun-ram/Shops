@@ -40,8 +40,8 @@ public enum SBErrorMessage {
 	CITY_ID_NOT_AVAILABLE("E0029","City id is not available"),
 	CATEGORY_PRODUCT_CHECK("E0030","This category having some products."),
 	CATEGORY_PRODUCTTYPE_CHECK("E0031","This product type having some products."),
-	PRODUCT_NAME_ALREADY_EXIST("E0032","Product name already exist.");
-
+	PRODUCT_NAME_ALREADY_EXIST("E0032","Product name already exist."),
+	PRODUCT_SUB_CATEGORY_ALREADY_EXIST("E0033","This category already has sub-category");
 
 	private final String erroeCode;
 	  private final String errorMessage;
