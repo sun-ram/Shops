@@ -1594,8 +1594,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				name: ""
 		};
 
-		apiClass.Discount.getMerchantDicountList = function (discount, callback) {
-			httpRequest("POST", "discount/getmerchantdiscountList", discount, function (err, data) {
+		apiClass.Discount.getMerchantDicountList = function (merchant, callback) {
+			httpRequest("POST", "discount/getmerchantdiscountList", merchant, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -1607,6 +1607,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Discount.getStoreDicountList = function (store, callback) {
+			httpRequest("POST", "discount/getstorediscountList", store, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};		
 
 		apiClass.Discount.saveDiscount = function (discount, callback) {
 			httpRequest("POST", "discount/savediscount", discount, function (err, data) {

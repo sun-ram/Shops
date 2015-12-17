@@ -14,6 +14,18 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
+	this.storeDiscountList = function(store){
+		var d = $q.defer();
+		api.Discount.getStoreDicountList(store, function(err, result){
+			if (result.status == 'SUCCESS') {
+				d.resolve(result);
+			} else {
+				toastr.error(result.errorString);
+			}
+		})
+		return d.promise;
+	};
+	
 	this.saveDiscount = function(discount){
 		var d = $q.defer();
 		api.Discount.saveDiscount(discount, function(err, result){

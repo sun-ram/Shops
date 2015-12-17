@@ -7,6 +7,7 @@ angular.module('aviate.controllers')
 	$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
 	
 	$scope.time = new Date();
+	$scope.time.setMinutes($scope.time.getMinutes()+60);
 	$scope.addresses = [];
 	$scope.delivery = {
 			date: new Date()
@@ -107,7 +108,7 @@ angular.module('aviate.controllers')
 					"storeId":$rootScope.store.storeId
 				},
 				"deliveryDate":$scope.currentOrder.delivery.date,
-				"deliveryTimeSlot":$scope.currentOrder.delivery.fromTime +" "+ $scope.currentOrder.delivery.toTime
+				"deliveryTimeSlot":$scope.currentOrder.delivery.fromTime
 		}
 		
 		if($scope.data.group1=="Cash on delivery"){

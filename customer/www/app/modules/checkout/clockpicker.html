@@ -3,7 +3,7 @@
 		     <div class="uiclockpick">
 		     <div class='ui-clockpicker-line' style='{{lineStyle()}}'></div>
 		     <ol class='ui-clockpicker-time'>
-		       <li ng-repeat='option in options' 
+		       <li class="_clockul" ng-repeat='option in options' 
 		         ng-class='{selected: selectionMode ? hour == option : minute == option }' 
 		         ng-click='selectValue(option)'>{{option}}</li>
 		     </ol>
@@ -12,7 +12,7 @@
 		        ng-class='{selected: period == periodOption }' 
 		         ng-click='selectPeriod(periodOption)'>{{periodOption}}</li>
 		    </ol> -->
-		    <a class="ui-ampm" ng-click='togglePeriod()'>{{period}}</a>
+		    <a class="ui-ampm _clock" ng-click='togglePeriod()'>{{period}}</a>
 		  </div>
 		  </div>
 		    <div class='ui-clockpicker-selection'>

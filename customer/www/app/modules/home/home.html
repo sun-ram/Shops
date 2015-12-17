@@ -42,10 +42,10 @@
         </section> -->
         
         <section layout="row">
-        	<div flex-gt-md="20" hide-sm hide-md class="slider-left" style="background:#F96D57;">
+        	<div flex-gt-md="20" hide-sm hide-md class="slider-left" layout-margin>
         	</div>
         	<div flex-gt-md="60" flex-sm="100" flex-md="100" higgidy-carousel='images' timeout="5000">
-        		 <ul higgidy-carousel-images >
+        		 <!--<ul higgidy-carousel-images >
 	                <li ng-repeat="image in images">
 	                    <a href="{{image.link}}">
 	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" style="width: 100%; max-height:200px"/>
@@ -62,9 +62,23 @@
 	                    </li> 
 	                    
 	                </ul>
-	            </nav> 
+	            </nav> -->
+                
+                
+				<div class="wrapper">
+					<div class=carousel>
+					  <ul class=panes>
+					    <li ng-repeat="image in images">
+					        <a href="{{image.link}}">
+					            <img ng-src="{{image.image.url}}" alt="{{img.alt}}" style="width: 100%; "/>
+					        </a>
+					    </li>
+					  </ul>
+					</div>
+				</div>
+                
         	</div>
-        	<div flex-gt-md="20" hide-sm hide-md class="slider-right" style="background:#F2CB6E;">
+        	<div flex-gt-md="20" hide-sm hide-md class="slider-right" layout-margin>
         	</div>
         </section>
         
@@ -78,8 +92,8 @@
  						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
  					</span>
  				</div>
- 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left; border-bottom:3px solid #4eaf4c; margin:0px 7px;  padding-bottom:10px; ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-display-1">Hot Products </h2>
+ 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Hot Products </h2>
  					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) 
  						<a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a>
  					</span>
@@ -93,11 +107,16 @@
      							
                             <div class="views view-first">
                             	<div layout="row">
-                            		<div flex layout-align="start start">
+                            		<div ng-show="product.discount.discountPercentage" flex layout-align="start start">
                             			 <div class="pro-offer off-50-above">
-                            			 	50%
+                            			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
                             		</div>
+                            		<div ng-hide="product.discount.discountPercentage" flex layout-align="start start">
+                            			 <div class="pro-offer off-50-above">
+                            			 	Hot Sale
+                            			 </div>
+                            		</div>                            		
                             		<div flex>
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
@@ -202,11 +221,16 @@
      						
                             <div class="views view-first">
                             	<div layout="row" style="overflow:hidden;">
-                            		<div flex layout-align="start start">
+                            		<div ng-show="product.discount.discountPercentage"  flex layout-align="start start">
                             			 <div class="pro-offer off-70-above">
-                            			 	70%
+                            			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
                             		</div>
+                            		<div ng-hide="product.discount.discountPercentage"  flex layout-align="start start">
+                            			 <div class="pro-offer off-70-above">
+                            			 	Sale
+                            			 </div>
+                            		</div>                            		
                             		<div flex>
                             			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>

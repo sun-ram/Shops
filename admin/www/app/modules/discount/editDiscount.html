@@ -1,0 +1,84 @@
+<div>
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+    <div class="md-toolbar-tools">
+      <h3 class="md-flex" style="margin-left:-10px;">Update Discount</h3> 
+      
+    </div>
+  </md-toolbar>
+  <md-card flex-gt-sm="90" flex-gt-md="80">
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+      <form name="discountForm" novalidate>
+      	<div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{discountEdit.name}}</span>
+	           	<span class="hash_color ft-14">Name</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{discountEdit.storeList[0].name}}</span>
+           		 <span class="hash_color ft-14">Store Name</span>
+           	</span>  
+        </md-item>
+    	</div>
+     	<div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		       <label></span>Discount Percentage<span style="color:red">*</span></label>
+		      <input ng-model="discountEdit.discountPercentage" ng-required="true" valid-number>
+		    </md-input-container>   
+		    <md-input-container layout-padding flex>
+		       <label></span>Discount Amount</label>
+		      <input ng-model="discountEdit.discountAmount"valid-number ng-maxlength="2">
+		    </md-input-container>
+	    </div>   	
+     	<div layout layout-sm="column">
+    		<md-input-container layout-padding flex>
+		       <label></span>Minimum Quantity</label>
+		      <input ng-model="discountEdit.minQty"valid-number ng-maxlength="2">
+		    </md-input-container>
+		    
+		    <md-input-container layout-padding flex>
+		       <label></span>Maximum Quantity</label>
+		      <input ng-model="discountEdit.maxQty" valid-number>
+		    </md-input-container>   
+	    </div>
+	    <div layout layout-sm="column">
+	       <div layout-padding flex>
+		       <label></span>From Date</label>
+		       <md-datepicker ng-model="discountEdit.startDate" md-placeholder="From date"  md-min-date="minDate"></md-datepicker>
+		   </div>    
+		   <div layout-padding flex>
+		       <label></span>To Date</label>
+		       <md-datepicker ng-model="discountEdit.endDate" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
+		    </div>
+	    </div>
+	    <div layout layout-sm="column">
+    		<md-input-container layout-padding flex>
+		       <label></span>Start Time</label>
+		      <input type="time" ng-model="discountEdit.startTime" value="{{discountEdit.startTime}}">
+		    </md-input-container>
+		    <md-input-container layout-padding flex>
+		       <label></span>End Time</label>
+		      <input type="time" ng-model="discountEdit.endTime" value="{{discountEdit.endTime}}">
+		    </md-input-container>   
+	    </div>
+	    
+	  <div layout layout-sm="column">
+    		<md-input-container layout-padding flex>
+		       <label></span>Minimum amount</label>
+		      <input ng-model="discountEdit.minAmount"valid-number ng-maxlength="20">
+		    </md-input-container>
+		    
+		    <md-input-container layout-padding flex>
+		    </md-input-container>   
+	    </div>	       	
+ 	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+	    	<md-button class="md-raised md-success padd-50" ng-click="updateDiscount(discountEdit);"  ng-disabled="discountForm.$invalid">Update</md-button>
+	    	<md-button class="md-raised md-cancel padd-50"  ui-sref="app.discount">Cancel</md-button>
+	    </section>
+    </form>
+    </md-content>
+</md-card>
+</div>
+    	

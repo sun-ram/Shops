@@ -1,4 +1,5 @@
 .signing_dialog{min-width:60%; min-height:500px;border-radius:0px;}
+.address-dialog{min-width:60%; border-radius:0px;}
 #textbox {
     width: 50%;
     max-height: 100%;
@@ -157,7 +158,7 @@ margin: 60px auto;
     right: 0;
     width: 50%;
     height: 100%;
-    background: #FFF url(../images/Layer-217.png);
+    background:#0F9D58;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -168,7 +169,7 @@ margin: 60px auto;
     left: 0;
     width: 50%;
     height: 100%;
-    background: #FFF url(../images/Layer-217.png);
+    background: #0F9D58;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -281,6 +282,7 @@ md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
 	.prod-count .md-icon-button { border-radius: 0px; background: #fff; height: 34px; line-height: inherit;
 	}
 	.padd-7{padding: 7px;}
+	.padd-lr20{padding-left: 20px; padding-right: 20px;}
 
 	.detail-price{
 	font-size: 24px;
@@ -298,6 +300,74 @@ md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
 		width: 800px;
 	}
 
+.font15{
+        font-size: 15px !important;
+        color: #0F9D58 !important;
+}
+._clock{
+        position: absolute;
+    top: 67px;
+    padding: 8px 5px;
+    background: #4caf63;
+    left: 72px;
+    border-radius: 80%;
+    color: #fff;
+    z-index: 1;
+    width: 25px !important;
+    height: 19px !important;
+    text-align: center !important;
+}
+._clockul{
+        position: absolute;
+    font-size: 16px;
+   padding: 7px 11px !important;
+    border-radius: 50%;
+    width: 7px !important;
+    height: 15px !important;
+    text-align: center !important;
+}
+
+
+.delivery_slot .md-datepicker-input-container{width: 0px;visibility: hidden;margin: 0px;
+}
+.delivery_slot .md-datepicker-button{width: 25px;height: 25px;z-index: 200;line-height: 15px;margin: 2px 3px;
+}
+.delivery_slot{position: absolute;right:0px;top: 0px;z-index: 1;background-color: transparent;color: #fff;}
+.delivery_slot .md-datepicker-button .md-datepicker-calendar-icon{color: #4eaf4c;
+height: 20px;}
+ .delivery_slot .md-datepicker-button .md-datepicker-calendar-icon:hover{color: #fff;}
+
+.address-title .md-headline{margin:15px 20px;}
+.calendar-date{font-size: 8em; text-align: center;font-weight: 600;}
+.calendar-month{font-size: 1.5em;line-height: 0.9em; text-align: center !important;}
+.calendar-day{text-align: center !important;font-size: 1em;line-height: 1.8em;}
+.calender-style{color:#4eaf4c;}
+.calender-style:hover{background-color:#4eaf4c;color:#fff !important;}
+.calender-style:hover .md-datepicker-button .md-datepicker-calendar-icon{color: #fff;}
+.calender-style:hover .border-light { border-color: rgba(255, 255,255, 0.4);}
+.md-datepicker-open .md-datepicker-calendar-icon {
+fill: #4eaf4c;
+}
+.md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator {
+border: 1px solid #4eaf4c;
+}
+.md-calendar-date-selection-indicator:hover {
+background: #D2EBD1;
+}
+.md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator, .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+background: #4caf63;}
+.md-calendar {
+color: #60b95e;
+}
+.md-calendar-day-header {
+background: #ebf6eb;
+}
+._slat{
+    text-align: center !important;
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+    color: #0D904F !important;
+}
 
 
 @media screen and (max-width: 950px) {

@@ -22,7 +22,7 @@ public class ProductVo {
 	private String productId;
 	private ImageVo image;
 	private MerchantVo merchant;
-	private Discount discount;
+	private DiscountVo discount;
 	private ProductCategoryVo productCategory;
 	private UomVo uom;
 	private ProductTypeVo productType;
@@ -72,10 +72,11 @@ public class ProductVo {
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
-	public Discount getDiscount() {
+
+	public DiscountVo getDiscount() {
 		return discount;
 	}
-	public void setDiscount(Discount discount) {
+	public void setDiscount(DiscountVo discount) {
 		this.discount = discount;
 	}
 	public ProductCategoryVo getProductCategory() {

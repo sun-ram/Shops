@@ -26,7 +26,16 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 	       }
 
 	  }  
-	$scope.getDiscountByMerchant = function(){
+	$scope.getDiscountList = function(){
+		if($rootScope.user.storeId){
+			$scope.store ={};
+			$scope.store.storeId = $rootScope.user.storeId;
+			
+			DiscountService.storeDiscountList($scope.store).then(function(data) {
+				$scope.discountList = data.discountVos;
+			})
+			
+		}else{		
 		
 		$scope.merchant ={};
 		$scope.merchant.merchantId = $rootScope.user.merchantId;
@@ -34,8 +43,9 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		DiscountService.merchantDiscountList($scope.merchant).then(function(data) {
 			$scope.discountList = data.discountVos;
 		})
-			
+		}	
 	}
+	
 	
 	
 	$scope.addDiscount = function(){
@@ -57,12 +67,16 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			$scope.discount.merchant ={};
 			$scope.discount.merchant.merchantId = $rootScope.user.merchantId;
 			$scope.discount.storeList =[];
+			if($rootScope.user.storeId){
+				$scope.discount.storeList.push({"storeId":$rootScope.user.storeId});
+			}else{
 			for(var i=0;i<$scope.selection.length;i++){
 				$scope.discount.storeList.push({"storeId":$scope.selection[i]});
 				}
+			}
 			DiscountService.saveDiscount($scope.discount).then(function(data) {
 				$scope.results = data;
-				$scope.getDiscountByMerchant();
+				$scope.getDiscountList();
 				$state.go('app.discount');
 			})
 
@@ -72,7 +86,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		 $scope.discount = {};
 		 $scope.discount.discountId = discountId;
 			DiscountService.deleteDiscount($scope.discount).then(function(data) {
-				$scope.getDiscountByMerchant();
+				$scope.getDiscountList();
 				$state.go('app.discount');
 			})
 		 
@@ -99,7 +113,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 	 	$scope.discount = discount;
 		DiscountService.saveDiscount($scope.discount).then(function(data) {
 			$scope.results = data;
-			$scope.getDiscountByMerchant();
+			$scope.getDiscountList();
 			$state.go('app.discount');
 		})
 		

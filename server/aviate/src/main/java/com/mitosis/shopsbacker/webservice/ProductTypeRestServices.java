@@ -52,25 +52,34 @@ public class ProductTypeRestServices<T> {
 		ProductCategory productCategory = productCategoryService
 				.getCategoryById(productTypeVo.getProductCategory()
 						.getProductCategoryId());
-		boolean flag=productTypeService.checkProductTypeWithname(productCategory,productTypeVo.getName());
-		if(flag){
-		productType = setProductTypeDetails(productTypeVo);
-		productType.setName(productTypeVo.getName());
-		productType.setProductCategory(productCategory);
-		productType.setIsactive('Y');
-		productTypeService.addProductType(productType);
-		if (productType.getProductTypeId() == null) {
+		List<ProductCategory> productCategoryList=productCategory.getProductCategories();
+		if(productCategoryList.size()!=0){
 			productTypeResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
-		} else {
-			productTypeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
-		}
-		return productTypeResponseVo;
+			productTypeResponseVo.setErrorCode(SBErrorMessage.PRODUCT_SUB_CATEGORY_ALREADY_EXIST.getCode());
+			productTypeResponseVo.setErrorString(SBErrorMessage.PRODUCT_SUB_CATEGORY_ALREADY_EXIST.getMessage());
+			return productTypeResponseVo;
 		}
 		else{
-			productTypeResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
-			productTypeResponseVo.setErrorCode(SBErrorMessage.PRODUCTTYPE_EXIST.getCode());
-			productTypeResponseVo.setErrorString(SBErrorMessage.PRODUCTTYPE_EXIST.getMessage());
+			boolean flag=productTypeService.checkProductTypeWithname(productCategory,productTypeVo.getName());
+			if(flag){
+			productType = setProductTypeDetails(productTypeVo);
+			productType.setName(productTypeVo.getName());
+			productType.setProductCategory(productCategory);
+			productType.setIsactive('Y');
+			productTypeService.addProductType(productType);
+			if (productType.getProductTypeId() == null) {
+				productTypeResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+			} else {
+				productTypeResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+			}
 			return productTypeResponseVo;
+			}
+			else{
+				productTypeResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+				productTypeResponseVo.setErrorCode(SBErrorMessage.PRODUCTTYPE_EXIST.getCode());
+				productTypeResponseVo.setErrorString(SBErrorMessage.PRODUCTTYPE_EXIST.getMessage());
+				return productTypeResponseVo;
+			}
 		}
 	}
 

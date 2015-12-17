@@ -2,14 +2,14 @@
 <md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
 	<ng-md-icon icon="add" size="35" class="icon-white" ng-click="addDiscount()"></ng-md-icon>
 </md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getDiscountByMerchant();" class="tbl-body">
+<md-card  flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
 		<div class="md-toolbar-tools" layout="row">
 	  		<h3 layout-align="start">Discount</h3>
-	  		<div class="tbl-search">
+	  		<div  class="tbl-search" ng-init="getDiscountList();">
 	  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
 	  			<input ng-model="searchText" type="text" placeholder="Search">
-	  		</div>
+	  		</div> 		
     </div>
    </md-toolbar>
 
@@ -22,7 +22,7 @@
 	           	 <span flex=10 style="padding-left:10px;" layout-align="start center" layout>
 	             	Name
 	           	 </span>
-	           	 <span flex=10 style="padding-left:10px;" layout-align="start center" layout>
+	           	 <span ng-if="user.role == 'MERCHANTADMIN'" flex=10 style="padding-left:10px;" layout-align="start center" layout>
 	             	Store
 	           	 </span>
 	           	 <span flex=10 layout-align="start center" layout>
@@ -52,7 +52,7 @@
          
        </md-item>
        
-       <md-item ng-repeat="discount in discountList" class="md-table-content-row">
+       <md-item ng-repeat="discount in filteredParticipantsResults=(discountList |  filter:searchText) | orderBy: discountPagination.order | limitTo: discountPagination.limit: (discountPagination.page - 1) * discountPagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid tbl-body">
            		<span flex=10  layout layout-align="start center" ng-click="discountDetails(discount)">
@@ -60,7 +60,7 @@
              			{{discount.name}}
              		</span>
            		</span>
-           		<span flex=10  layout layout-align="start center" ng-click="discountDetails(discount)">
+           		<span ng-if="user.role == 'MERCHANTADMIN'" flex=10  layout layout-align="start center" ng-click="discountDetails(discount)">
              		<span layout-padding class="shopname">
              			{{discount.storeList[0].name}}
              		</span>
@@ -101,5 +101,6 @@
 </md-card>
 
     <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+		
 		<md-data-table-pagination md-limit="discountPagination.limit" md-page="discountPagination.page" md-total="{{discountList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>

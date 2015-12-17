@@ -36,7 +36,7 @@
   left: 86px;
   width: 2px;
   height: 60px;
-  background: #86CA85;
+  background-color: transparent;
   z-index: 1;
   transform-origin: 0 0;
   -webkit-transform-origin: 0 0;

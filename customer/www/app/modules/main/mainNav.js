@@ -308,9 +308,9 @@ angular.module('aviate.directives')
 				   		}
 				   	}
 				 
-					$scope.signUp = function(user) {
+					$scope.signUp = function(user, confirmPassword) {
 						//user.role = CONSTANT.SUCCESS_CODE.ROLE;
-						if(user.password !== $scope.confirmPassword){
+						if(user.password !== confirmPassword){
 							toastr.warning(CONSTANT.WARNING_CODE.MISSMATCHPASSWORD);
 							return;
 						}
@@ -333,6 +333,58 @@ angular.module('aviate.directives')
 							$mdDialog.cancel();
 						};
 
+                        
+    $scope.isSignIn = true;
+    $scope.goSignup = function () {
+        $scope.isSignup = true;
+        $scope.isSignIn = false;
+        $scope.isForgetPassword = false;
+        $('#textbox').animate({
+            'marginLeft': "0" //moves left
+        });
+        $('.toplam').animate({
+            'marginLeft': "100%" //moves right
+        });
+    };
+    $scope.goForgetPassword = function () {
+        $scope.isSignup = false;
+        $scope.isSignIn = false;
+        $scope.isForgetPassword = true;
+        $('#textbox').animate({
+            'marginLeft': "0" //moves left
+        });
+        $('.toplam').animate({
+            'marginLeft': "100%" //moves right
+        });
+    };
+
+    $scope.goGuest = function () {
+        $scope.isSignup = false;
+        $scope.isSignIn = false;
+        $scope.isGuest = true;
+        $('#textbox').animate({
+            'marginLeft': "0" //moves left
+        });
+        $('.toplam').animate({
+            'marginLeft': "100%" //moves right
+        });
+    };
+    $scope.goSignIn = function () {
+        $scope.isSignup = false;
+        $scope.isForgetPassword = false;
+        $scope.isGuest = false;
+        $scope.isSignIn = true;
+        $('#textbox').animate({
+            'marginLeft': "50%" //moves right
+        });
+
+        $('.toplam').animate({
+            'marginLeft': "0" //moves right
+        });
+    }
+                        
+                        
+                        
 					}
 				})
 				.then(function() {

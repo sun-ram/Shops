@@ -1,109 +1,4 @@
-<md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:60%; min-height:500px;border-radius:0px;">
-  <md-toolbar class="md-dialog-header" style="min-height:50px !important;">
-    <div class="md-toolbar-tools" style="min-height:50px !important;background-color:#ED6663;">
-      <h2 ng-show="isSignIn" class="text-center wid_100">SIGN IN</h2>
-      <h2 ng-show="isSignUp" class="text-center wid_100">SIGN UP</h2>
-      <h2 ng-show="forgetPass" class="text-center wid_100">FORGET PASSWORD</h2>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="cancel()">
-        <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
-  <md-dialog-content ng-hide="forgetPass" style="padding:0px;">
-  	<md-radio-group ng-change="clearFormValues(user)" ng-model="isSignUp" layout="row" >
-  		<md-radio-button ng-value="false" ng-click="isSignIn=true" flex class="md-primary md-headline">Existing customer</md-radio-button>
-         <md-radio-button ng-value="true" ng-click="isSignIn=false" flex class="md-primary  md-headline">New customer</md-radio-button>
-         
-    </md-radio-group>
-    
-    <div layout>
-    	<div flex>
-	  <form name="userLoginForm" layout-padding ng-hide="isSignUp">			
-        <md-input-container flex class="padd_btm10">
-          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email/Mobile No</label>
-          <input ng-model="user.email" type="text" ng-required="true" >
-        </md-input-container >
-	      <md-input-container flex class="padd_btm10 ">
-	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
-	        <input ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')"  ng-required="true">
-	      </md-input-container>
-	      <div layout="row">
-		      <div flex>
-		       <md-checkbox  class="md-green" ng-model="rememberme" aria-label="Checkbox 1">
-		          	<span>Remember me</span>
-		        </md-checkbox>
-		      </div>
-		      <div flex class="tright">
-		       <md-button type="button" class="text-orange" ng-click="forgetPass = true;isSignIn=false;title = 'Forgot password?'">Forgot password?</md-button>
-		      </div>     
-		    </div> 
-		  <div class="md-actions" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userLoginForm.$invalid" ng-click="signIn(user);">
-		      SIGN IN
-		    </md-button>
-		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
-		      CANCEL
-		    </md-button>
-		  </div>
-	  </form>
-	  	</div>
-    	<div flex>
-   <form name="userRegistrationForm" layout-padding ng-show="isSignUp" ng-init="emailReq = true;phoneReq = true;">			
-        <md-input-container flex class="padd_btm10">
-          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="user.email" type="email" ng-blur="checkValue(user.email, user.phoneNo)" ng-required="emailReq"  pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
-        </md-input-container >
-         <md-input-container flex class="padd_btm10">
-          <label><md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>Mobile No</label>
-          <input ng-model="user.phoneNo" valid-number ng-blur="checkValue(user.email, user.phoneNo)" ng-required="phoneReq">
-        </md-input-container >
-	      <md-input-container flex class="padd_btm10 ">
-	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Password</label>
-	        <input ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')" ng-required="true" >
-	      </md-input-container>
-	      <md-input-container flex class="padd_btm10 ">
-	        <label><md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>Confirm Password</label>
-	        <input ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
-	      </md-input-container>
-	       <div class="md-actions" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userRegistrationForm.$invalid" ng-click="signUp(user);">
-		      SIGN UP
-		    </md-button>
-		    <md-button  type="button" class="md-raised md-warning text-white" flex ng-click="cancel()" style="margin-right:20px;" >
-		      CANCEL
-		    </md-button>
-		  </div>
-	  </form>
-  		</div>
-  		
-	  </div>
-  </md-dialog-content>
-  <md-dialog-content ng-show="forgetPass" style="max-width:800px;max-height:810px;">
-	  <form name="userForgetPassForm">			
-        <md-input-container flex class="padd_btm10">
-          <label><md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>Email</label>
-          <input ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
-        </md-input-container >
-	      <div layout="row">
-		      <div flex>
-		      </div>
-		    </div> 
-		  <div class="md-actions padd_btm20" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
-		      SUBMIT
-		    </md-button>
-		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;isSignIn=true;title = 'SIGN IN'" style="margin-right:20px;" >
-		      CANCEL
-		    </md-button>
-		  </div>
-	  </form>
-  </md-dialog-content>
-
-</md-dialog>
-
-
-<!-- <md-dialog aria-label="Sign Up"  ng-cloak  class="signing_dialog">
+ <md-dialog aria-label="Sign Up"  ng-cloak  class="signing_dialog">
 <md-button class="md-icon-button" style="float: right; width: auto; z-index: 100;" ng-click="cancel();">
         <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
 </md-button>
@@ -112,10 +7,10 @@
 <div id="textbox">
   <div class="toplam">
 
-    <div class="left" id="left" flex>
+    <div class="left" id="left" flex >
       <div id="ic">
        
-		<div flex>	
+		<div flex ng-if="isSignup">	
 		<span flex layout="row" layout-align="center" style="font-weight: bold;">SIGN UP</span>
 		<form name="userForm" layout-padding>			
         <md-input-container flex class="padd_btm10 auth_input">
@@ -139,23 +34,56 @@
 	        <input class="padd-l22" ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
 	      </md-input-container>
 	       <div layout="row">
-		    <md-button class="md-raised green_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user);">
+		    <md-button class="md-raised green_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user,confirmPassword);">
 		      SIGN UP
 		    </md-button>		    
 		  </div>
 		  <div layout="row" class="mg_t15">
-		  <span id="moveright">
-		      <span> Already have an account? </span><span class="text-green"> signIn </span>
+		  <span  ng-click="goSignIn()">
+		      <span> Already have an account? </span><span class="text-green" > signIn </span>
 		   </span>
 		   </div>
 	  </form>
 	  </div>
+          
+          
+           <!--// forget password-->
+      <div flex ng-if="isForgetPassword">
+          <span flex layout="row" layout-align="center" style="font-weight: bold;">Forget Password</span>
+	<form name="userForgetPassForm">			
+        <md-input-container flex class="padd_btm10 auth_input">
+          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+          <label class="padd-l22">Email</label>
+          <input ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+        </md-input-container >
+	      <div layout="row">
+		      <div flex>
+		      </div>
+		    </div> 
+		  <div class="md-actions padd_btm20" layout="row">
+		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
+		      SUBMIT
+		    </md-button>
+		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;isSignIn=true;title = 'SIGN IN'" style="margin-right:20px;" >
+		      CANCEL
+		    </md-button>
+		  </div>
+          <div layout="row" class="mg_t15">
+		  <span   ng-click="goSignIn()" >
+		      <span> Already have an account? </span><span class="text-green"> signIn </span>
+		   </span>
+		   </div>
+	  </form>
+      </div>   
+          
+          
+          
 </div>
 </div>
 
 <div class="right" id="right" flex>
   <div id="ic">
-    <div flex>
+    <div flex ng-if="isSignIn">
 	<span flex layout="row" layout-align="center" style="font-weight: bold;">SIGN IN</span>
 	  <form name="userLoginForm" layout-padding ng-hide="isSignUp">			
         <md-input-container flex class="padd_btm10 auth_input">
@@ -183,92 +111,18 @@
 		  </div>
 		  <div class="mg-tb25">
 		  <div layout="row">
-		  <span id="moveleft">
+		  <span ng-click="goSignup()">
 		  <span>New to Shopsbacker?</span> <span class="text-green">Join Today</span> 
 		  </span>
 		  </div>
-		  <div layout="row">
+		  <div layout="row" ng-click="goForgetPassword()">
 		       <span class="text-green frgt-pwd" ng-click="forgetPass = true;isSignIn=false;title = 'Forgot password?'">Forgot your password?</span>		  
 		  </div>
 		  </div>
 	  </form>
-	  </div>
+	  </div>      
+</div>  
 </div>
-
 </div>
-	
-	<div id="ic">
-	<div flex>
-	<span flex layout="row" layout-align="center" style="font-weight: bold;">Forget Password</span>
-	<form name="userForgetPassForm">			
-        <md-input-container flex class="padd_btm10 auth_input">
-          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
-          <label class="padd-l22">Email</label>
-          <input ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
-        </md-input-container >
-	      <div layout="row">
-		      <div flex>
-		      </div>
-		    </div> 
-		  <div class="md-actions padd_btm20" layout="row">
-		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
-		      SUBMIT
-		    </md-button>
-		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;isSignIn=true;title = 'SIGN IN'" style="margin-right:20px;" >
-		      CANCEL
-		    </md-button>
-		  </div>
-	  </form>
-	 </div>
-	 </div>
-	  
-</div>
-  </div>  
-    
+</div>  
 </md-dialog>
-<script>
-if ( $(window).width() > 949) {     
-	$('#moveleft').click(function() {
-		$('#textbox').animate({
-		'marginLeft': "0" //moves left
-		});
-
-		$('.toplam').animate({
-		'marginLeft': "100%" //moves right
-		});
-		});
-
-		$('#moveright').click(function() {
-		$('#textbox').animate({
-		'marginLeft': "50%" //moves right
-		});
-
-		$('.toplam').animate({
-		'marginLeft': "0" //moves right
-		});
-		});
-}
-else{
-	$('#moveleft').click(function() {
-		$('#textbox').animate({
-		'marginLeft': "0" //moves left
-		});
-
-		$('.toplam').animate({
-		'marginLeft': "100%" //moves right
-		});
-		});
-
-		$('#moveright').click(function() {
-		$('#textbox').css({
-		'marginLeft': "0" //moves right
-		});
-
-		$('.toplam').animate({
-		'marginLeft': "0" //moves right
-		});
-		});
-}
-	
-
-</script> -->
