@@ -35,6 +35,7 @@ public class DiscountVo {
 	private BigDecimal minAmount;
 	private List<ProductVo> products = new ArrayList<ProductVo>();
 	private StoreVo store;
+	private List<StoreVo> storeList = new ArrayList<StoreVo>();
 	
 	public String getDiscountId() {
 		return discountId;
@@ -120,6 +121,12 @@ public class DiscountVo {
 	}
 	public void setStore(StoreVo store) {
 		this.store = store;
+	}
+	public List<StoreVo> getStoreList() {
+		return storeList;
+	}
+	public void setStoreList(List<StoreVo> storeList) {
+		this.storeList = storeList;
 	}
 	
 	

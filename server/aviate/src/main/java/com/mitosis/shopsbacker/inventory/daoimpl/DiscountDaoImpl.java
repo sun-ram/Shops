@@ -80,7 +80,7 @@ DiscountDao<T>, Serializable{
 	@Override
 	public Discount getDiscountById(String discountId) {
 		try {
-			return (Discount) getSession().get(Product.class, discountId);
+			return (Discount) getSession().get(Discount.class, discountId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw(e);

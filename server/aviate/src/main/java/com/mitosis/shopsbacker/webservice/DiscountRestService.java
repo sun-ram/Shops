@@ -61,21 +61,18 @@ public class DiscountRestService {
 	public ResponseModel addDiscount(DiscountVo discountVo) {
 		ResponseModel response = new ResponseModel();
 		try{
-			Merchant merchant = merchantService.getMerchantById(discountVo
-					.getMerchant().getMerchantId());
-				Store store = storeService.getStoreById(discountVo.getStore().getStoreId());
-			
-			List<Product> products = new ArrayList<Product>();
-			for(ProductVo productsVo:discountVo.getProducts()){
-				Product product = productService.getProduct(productsVo.getProductId());
-					products.add(product);
-			}
+			if(discountVo.getStoreList().size() !=0){
+			List<StoreVo> storeVos = discountVo.getStoreList();
+			for(StoreVo storevo: storeVos){	
+				Store store = storeService.getStoreById(storevo.getStoreId());
+				Merchant merchant = store.getMerchant();
+				
 			Discount discount = discountService.setDiscount(discountVo);
-			
 			discount.setStore(store);
 			discount.setMerchant(merchant);
-			discount.setProducts(products);
 			discountService.addDiscount(discount);
+		}
+	}
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();

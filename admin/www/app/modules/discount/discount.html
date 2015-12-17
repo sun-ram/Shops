@@ -55,37 +55,37 @@
        <md-item ng-repeat="discount in discountList" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid tbl-body">
-           		<span flex=15  layout layout-align="start center" ng-click="employeeDetails(employee)">
+           		<span flex=15  layout layout-align="start center" ng-click="discountDetails(discount)">
              		<span layout-padding class="shopname">
              			{{discount.name}}
              		</span>
            		</span>
            	
-           		<span flex=10 layout layout-align="start center" ng-click="employeeDetails(employee)">
+           		<span flex=10 layout layout-align="start center" ng-click="discountDetails(discount)">
              	 	<span class="hash_color ">{{discount.discountPercentage}}%</span>
            		</span>
            	
-           	   	<span flex=10 layout layout-align="center center" ng-click="employeeDetails(employee)">
+           	   	<span flex=10 layout layout-align="center center" ng-click="discountDetails(discount)">
               		<span class="hash_color">{{discount.discountAmount}}</span>
            	 	</span>
-            	<span flex=10 layout layout-align="center center" ng-click="employeeDetails(employee)">
+            	<span flex=10 layout layout-align="center center" ng-click="discountDetails(discount)">
               		<span class="hash_color">{{discount.startDate | date:'MM/dd/yyyy'}}</span>
            	 	</span>  
-           	   	<span flex=10 layout layout-align="center center" ng-click="employeeDetails(employee)">
+           	   	<span flex=10 layout layout-align="center center" ng-click="discountDetails(discount)">
               		<span class="hash_color">{{discount.endDate | date:'MM/dd/yyyy'}}</span>
            	 	</span>   
-           	   	<span flex=10 layout layout-align="center center" ng-click="employeeDetails(employee)">
+           	   	<span flex=10 layout layout-align="center center" ng-click="discountDetails(discount)">
               		<span class="hash_color">{{discount.startTime}}</span>
            	 	</span>
-            	<span flex=10 layout layout-align="center center" ng-click="employeeDetails(employee)">
+            	<span flex=10 layout layout-align="center center" ng-click="discountDetails(discount)">
               		<span class="hash_color">{{discount.endTime}}</span>
            	 	</span>
-             	<span flex=10 layout layout-align="center center" ng-click="employeeDetails(employee)">
+             	<span flex=10 layout layout-align="center center" ng-click="discountDetails(discount)">
               		<span class="hash_color">{{discount.minAmount}}</span>
            	 	</span>           	 	            	 	        	 	           	 	        	 	
              	<span flex=15 layout="row" layout-align="center center">
              		<md-button class="md-icon-button md-primary"  ng-click="editEmployee(employee);$event.stopPropagation();"><ng-md-icon style="z-index:500;" icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon></md-button>
-             		<md-button class="md-icon-button md-primary" ng-click="deleteEmployee(employee.userId);$event.stopPropagation();"><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color btn-danger" ></ng-md-icon></md-button>
+             		<md-button class="md-icon-button md-primary" ng-click="deleteDiscount(discount.discountId);$event.stopPropagation();"><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color btn-danger" ></ng-md-icon></md-button>
              	</span>           
             </div>       	
            </div>

@@ -1,0 +1,91 @@
+<div>
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+    <div class="md-toolbar-tools">
+      <h3 ng-show="discount.discountId" class="md-flex" style="margin-left:-10px;">Update Discount</h3> 
+      <h3 ng-hide="discount.discountsId" class="md-flex" style="margin-left:-10px;">Create Discount</h3> 
+      
+    </div>
+  </md-toolbar>
+  <md-card flex-gt-sm="90" flex-gt-md="80">
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+      <form name="discountForm" novalidate>
+      	<div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		       <label>Name<span style="color:red">*</span></label>
+		      <input ng-model="discount.name" ng-required="true">
+    	</div>
+    	<div layout layout-sm="column">
+		    <md-input-container layout-padding flex>
+		       <label></span>Discount Percentage<span style="color:red">*</span></label>
+		      <input ng-model="discount.discountPercentage" ng-required="true" valid-number>
+		    </md-input-container>   
+		    <md-input-container layout-padding flex>
+		       <label></span>Discount Amount</label>
+		      <input ng-model="discount.discountAmount"valid-number ng-maxlength="2">
+		    </md-input-container>
+	    </div>
+    	<div layout layout-sm="column">
+    		<md-input-container layout-padding flex>
+		       <label></span>Minimum Quantity</label>
+		      <input ng-model="discount.minQty"valid-number ng-maxlength="2">
+		    </md-input-container>
+		    
+		    <md-input-container layout-padding flex>
+		       <label></span>Maximum Quantity</label>
+		      <input ng-model="discount.maxQty" valid-number>
+		    </md-input-container>   
+	    </div>
+	    <div layout layout-sm="column">
+	       <div layout-padding flex>
+		       <label></span>From Date</label>
+		       <md-datepicker ng-model="discount.startDate" md-placeholder="From date"  md-min-date="minDate"></md-datepicker>
+		   </div>    
+		   <div layout-padding flex>
+		       <label></span>To Date</label>
+		       <md-datepicker ng-model="discount.endDate" md-placeholder="End date"></md-datepicker>
+		    </div>
+	    </div>
+	    
+	    <div layout layout-sm="column">
+    		<md-input-container layout-padding flex>
+		       <label></span>Start Time</label>
+		      <input type="time" ng-model="discount.startTime">
+		    </md-input-container>
+		    
+		    <md-input-container layout-padding flex>
+		       <label></span>End Time</label>
+		      <input type="time" ng-model="discount.endTime">
+		    </md-input-container>   
+	    </div>
+	    
+	  <div layout layout-sm="column">
+    		<md-input-container layout-padding flex>
+		       <label></span>Minimum amount</label>
+		      <input ng-model="discount.minAmount"valid-number ng-maxlength="20">
+		    </md-input-container>
+		    
+		    <md-input-container layout-padding flex>
+		    </md-input-container>   
+	    </div>
+	    
+	<div class="panel" ng-init="getStores();">
+	 <label></span>Select the Stores<span style="color:red">*</span></label>
+ 		<div ng-repeat="store in storeList">
+ 			 <div class="action-checkbox">
+  			 <input id="{{store.name}}" type="checkbox" value="{{store.name}}" ng-checked="selection.indexOf(store.storeId) > -1" ng-click="toggleSelection(store.storeId)" />
+  			 <label for="{{store.name}}"></label>
+   			{{store.name}}
+ 		 </div>
+	</div>
+	</div>	
+
+	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+	    	<md-button class="md-raised md-success padd-50" ng-show="discount.discountId" ng-click="updateEmployee();"  ng-disabled="discountForm.$invalid">Update</md-button>
+	    	<md-button class="md-raised md-success padd-50" ng-hide="discount.discountId" ng-click="saveDiscount(discount);" ng-disabled="discountForm.$invalid">Create</md-button>
+	    	<md-button class="md-raised md-cancel padd-50" ng-show="discount.discountId" ng-click="redirectToEmployeeDetails();">Cancel</md-button>
+	    	<md-button class="md-raised md-cancel padd-50" ng-hide="discount.discountId" ui-sref="app.aviateemployees">Cancel</md-button>
+	    </section>
+    </form>
+    </md-content>
+</md-card>
+</div>

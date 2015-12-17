@@ -56,14 +56,26 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		 	$scope.discount = discount;
 			$scope.discount.merchant ={};
 			$scope.discount.merchant.merchantId = $rootScope.user.merchantId;
-			$scope.discount.store ={};
+			$scope.discount.storeList =[];
 			for(var i=0;i<$scope.selection.length;i++){
-				$scope.discount.store.storeId = $scope.selection[i];
+				$scope.discount.storeList.push({"storeId":$scope.selection[i]});
+				}
 			DiscountService.saveDiscount($scope.discount).then(function(data) {
-				$scope.discountList = data;
+				$scope.results = data;
+				$scope.getDiscountByMerchant();
+				$state.go('app.discount');
 			})
-			}
-			$state.go('app.discount');
+
+	 }
+	 
+	 $scope.deleteDiscount = function(discountId){
+		 $scope.discount = {};
+		 $scope.discount.discountId = discountId;
+			DiscountService.deleteDiscount($scope.discount).then(function(data) {
+				$scope.getDiscountByMerchant();
+				$state.go('app.discount');
+			})
+		 
 	 }
 }
 ]);
