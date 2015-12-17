@@ -10,8 +10,6 @@
       </md-button>
     </div>
   </md-toolbar>
-  
-<!-- Signin -->
   <md-dialog-content ng-hide="forgetPass" style="padding:0px;">
   	<md-radio-group ng-change="clearFormValues(user)" ng-model="isSignUp" layout="row" >
   		<md-radio-button ng-value="false" ng-click="isSignIn=true" flex class="md-primary md-headline">Existing customer</md-radio-button>
@@ -81,8 +79,6 @@
   		
 	  </div>
   </md-dialog-content>
-  
-  <!-- Forget Pass -->
   <md-dialog-content ng-show="forgetPass" style="max-width:800px;max-height:810px;">
 	  <form name="userForgetPassForm">			
         <md-input-container flex class="padd_btm10">
@@ -107,62 +103,172 @@
 </md-dialog>
 
 
-<!--<md-dialog aria-label="Sign Up"  ng-cloak  style="min-width:60%; min-height:500px;border-radius:0px;">
-  
-<div id="fback"><div class="girisback"></div><div class="kayitback"></div></div>
+<!-- <md-dialog aria-label="Sign Up"  ng-cloak  class="signing_dialog">
+<md-button class="md-icon-button" style="float: right; width: auto; z-index: 100;" ng-click="cancel();">
+        <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
+</md-button>
+<div id="fback" flex><div  class="girisback"></div><div class="kayitback"></div></div>
 
 <div id="textbox">
   <div class="toplam">
 
-    <div class="left">
+    <div class="left" id="left" flex>
       <div id="ic">
-        <h2>Sign Up</h2>
-        <p>Synth polaroid bitters chillwave pickled. Vegan disrupt tousled.</p>
-        <form id="girisyap" name="signup_form" id="signup_form" method="post" enctype="multipart/form-data" onsubmit="return false;">
-
-<input type="submit" name="signup_submit" id="signup_submit" value="Sign Up" class="girisbtn"  />
-</form>
-
-<button id="moveright">Login</button>
+       
+		<div flex>	
+		<span flex layout="row" layout-align="center" style="font-weight: bold;">SIGN UP</span>
+		<form name="userForm" layout-padding>			
+        <md-input-container flex class="padd_btm10 auth_input">
+          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+          <label class="padd-l22">Email</label>
+          <input class="padd-l22" ng-model="user.email" type="email" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+        </md-input-container >
+         <md-input-container flex class="padd_btm10 auth_input">
+         <md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>
+          <label class="padd-l22">Mobile No</label>
+          <input class="padd-l22" ng-model="user.phoneNo"valid-number ng-required="true">
+        </md-input-container >
+	      <md-input-container flex class="padd_btm10 auth_input">
+	      	<md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
+	        <label class="padd-l22">Password</label>
+	        <input class="padd-l22" ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')" ng-required="true" >
+	      </md-input-container>
+	      <md-input-container flex class="padd_btm10 auth_input">
+	      <md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
+	        <label class="padd-l22">Confirm Password</label>
+	        <input class="padd-l22" ng-model="confirmPassword" type="password" ng-trim="false" ng-change="confirmPassword = confirmPassword.split(' ').join('')" ng-required="true">
+	      </md-input-container>
+	       <div layout="row">
+		    <md-button class="md-raised green_btn_clr" flex ng-disabled="userForm.$invalid" ng-click="signUp(user);">
+		      SIGN UP
+		    </md-button>		    
+		  </div>
+		  <div layout="row" class="mg_t15">
+		  <span id="moveright">
+		      <span> Already have an account? </span><span class="text-green"> signIn </span>
+		   </span>
+		   </div>
+	  </form>
+	  </div>
 </div>
 </div>
 
-<div class="right">
+<div class="right" id="right" flex>
   <div id="ic">
-    <h2>Login</h2>
-    <p>Synth polaroid bitters chillwave pickled. Vegan disrupt tousled.</p>
-    <form name="login-form" id="girisyap" id="sidebar-user-login" method="post" onsubmit="return false;">
+    <div flex>
+	<span flex layout="row" layout-align="center" style="font-weight: bold;">SIGN IN</span>
+	  <form name="userLoginForm" layout-padding ng-hide="isSignUp">			
+        <md-input-container flex class="padd_btm10 auth_input">
+          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+          <label class="padd-l22">Email/Mobile No</label>
+          <input class="padd-l22" ng-model="user.email" type="text" ng-required="true" >
+        </md-input-container >
+	      <md-input-container flex class="padd_btm10 auth_input">
+	      	<md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
+	        <label class="padd-l22">Password</label>
+	        <input class="padd-l22" ng-model="user.password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')"  ng-required="true">
+	      </md-input-container>
+	      <div layout="row">
+		      <div flex>
+		       <md-checkbox  class="md-green" ng-model="rememberme" aria-label="Checkbox 1">
+		          	<span>Keep me signed in</span>
+		        </md-checkbox>
+		      </div>
+		          
+		    </div> 
+		  <div class="md-actions" layout="row">
+		    <md-button class="md-raised green_btn_clr" flex ng-disabled="userLoginForm.$invalid" ng-click="signIn(user);">
+		      SIGN IN
+		    </md-button>		    
+		  </div>
+		  <div class="mg-tb25">
+		  <div layout="row">
+		  <span id="moveleft">
+		  <span>New to Shopsbacker?</span> <span class="text-green">Join Today</span> 
+		  </span>
+		  </div>
+		  <div layout="row">
+		       <span class="text-green frgt-pwd" ng-click="forgetPass = true;isSignIn=false;title = 'Forgot password?'">Forgot your password?</span>		  
+		  </div>
+		  </div>
+	  </form>
+	  </div>
+</div>
 
-  <input type="submit" value="Login" class="girisbtn" tabindex="100" />
-  </form>
-
-<button id="moveleft">Sign Up</button>
 </div>
+	
+	<div id="ic">
+	<div flex>
+	<span flex layout="row" layout-align="center" style="font-weight: bold;">Forget Password</span>
+	<form name="userForgetPassForm">			
+        <md-input-container flex class="padd_btm10 auth_input">
+          <md-icon md-svg-src="assets/img/icon/email5.svg" class="svgstyle name"></md-icon>
+          <label class="padd-l22">Email</label>
+          <input ng-model="users.emailid" type="email" ng-required="true" pattern="^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)$">
+        </md-input-container >
+	      <div layout="row">
+		      <div flex>
+		      </div>
+		    </div> 
+		  <div class="md-actions padd_btm20" layout="row">
+		    <md-button class="md-raised signup_btn_clr" flex ng-disabled="userForgetPassForm.$invalid || isForPassSubBtnDisabled" ng-click="forGetPassword(users);">
+		      SUBMIT
+		    </md-button>
+		    <md-button type="button" class="md-raised md-warning text-white" flex ng-click="forgetPass = false;isSignIn=true;title = 'SIGN IN'" style="margin-right:20px;" >
+		      CANCEL
+		    </md-button>
+		  </div>
+	  </form>
+	 </div>
+	 </div>
+	  
 </div>
-
-</div>
-</div>
-    
+  </div>  
     
 </md-dialog>
 <script>
-$('#moveleft').click(function() {
-$('#textbox').animate({
-'marginLeft': "0" //moves left
-});
+if ( $(window).width() > 949) {     
+	$('#moveleft').click(function() {
+		$('#textbox').animate({
+		'marginLeft': "0" //moves left
+		});
 
-$('.toplam').animate({
-'marginLeft': "100%" //moves right
-});
-});
+		$('.toplam').animate({
+		'marginLeft': "100%" //moves right
+		});
+		});
 
-$('#moveright').click(function() {
-$('#textbox').animate({
-'marginLeft': "50%" //moves right
-});
+		$('#moveright').click(function() {
+		$('#textbox').animate({
+		'marginLeft': "50%" //moves right
+		});
 
-$('.toplam').animate({
-'marginLeft': "0" //moves right
-});
-});
-</script>-->
+		$('.toplam').animate({
+		'marginLeft': "0" //moves right
+		});
+		});
+}
+else{
+	$('#moveleft').click(function() {
+		$('#textbox').animate({
+		'marginLeft': "0" //moves left
+		});
+
+		$('.toplam').animate({
+		'marginLeft': "100%" //moves right
+		});
+		});
+
+		$('#moveright').click(function() {
+		$('#textbox').css({
+		'marginLeft': "0" //moves right
+		});
+
+		$('.toplam').animate({
+		'marginLeft': "0" //moves right
+		});
+		});
+}
+	
+
+</script> -->
