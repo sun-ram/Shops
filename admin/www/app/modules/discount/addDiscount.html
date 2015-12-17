@@ -67,7 +67,7 @@
 		    </md-input-container>   
 	    </div>
 	    
-	<div class="panel" ng-init="getStores();">
+	<div ng-if="user.role == 'MERCHANTADMIN'" class="panel" ng-init="getStores();">
 	 <label></span>Select the Stores<span style="color:red">*</span></label>
  		<div ng-repeat="store in storeList">
  			 <div class="action-checkbox">

@@ -123,8 +123,8 @@ public class DiscountServiceImpl<T> implements DiscountService<T>, Serializable 
 	}
 
 	@Override
-	public List<Discount> getUniqeName(String name) {
-		return discountDao.getUniqeName(name);
+	public List<Discount> getUniqeName(Store store,String name) {
+		return discountDao.getUniqeName(store,name);
 	}
 
 }

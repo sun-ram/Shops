@@ -29,6 +29,6 @@ public interface DiscountService<T> {
 	
 	public DiscountVo setDiscountVo(Discount discount) throws Exception;
 	
-	public List<Discount> getUniqeName(String name);
+	public List<Discount> getUniqeName(Store store,String name);
 
 }

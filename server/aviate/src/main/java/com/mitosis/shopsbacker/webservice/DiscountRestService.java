@@ -66,14 +66,14 @@ public class DiscountRestService {
 			for(StoreVo storevo: storeVos){	
 				Store store = storeService.getStoreById(storevo.getStoreId());
 				Merchant merchant = store.getMerchant();
-			List<Discount> checkUniqueDiscount = discountService.getUniqeName(discountVo.getName());
+			List<Discount> checkUniqueDiscount = discountService.getUniqeName(store,discountVo.getName());
 			if (checkUniqueDiscount.isEmpty()) {
 			Discount discount = discountService.setDiscount(discountVo);
 			discount.setStore(store);
 			discount.setMerchant(merchant);
 			discountService.addDiscount(discount);
 			}else{
-				
+				discountVo.setDiscountId(checkUniqueDiscount.get(0).getDiscountId());
 				Discount discount = discountService.setDiscount(discountVo);
 				discount.setStore(store);
 				discount.setMerchant(merchant);
@@ -162,5 +162,33 @@ public class DiscountRestService {
 		}
 		return discountResponse;
 	}
+	
+	@Path("/getstorediscountList")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public DiscountResponseVo getStoreDiscountList(StoreVo storeVo) {
+		DiscountResponseVo discountResponse = new DiscountResponseVo();
+		try {
+			Store store = storeService.getStoreById(storeVo.getStoreId());
+			List<Discount> discountList = discountService.getAllDiscountByStore(store);
+			List<DiscountVo> discountVoList = new ArrayList<DiscountVo>();
+			for(Discount discount:discountList){
+				
+				DiscountVo discountVo = discountService.setDiscountVo(discount);
+				discountVoList.add(discountVo);
+			}			
+			discountResponse.setDiscountVos(discountVoList);
+			discountResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			discountResponse.setErrorString(e.getMessage());
+			discountResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+		
+		}
+		return discountResponse;
+	}	
 
 }
