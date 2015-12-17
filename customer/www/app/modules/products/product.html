@@ -7,7 +7,7 @@
     
     
     <div layout="column">
-    	<div flex layout="column" style="background-color:#FFFFFF; padding:20px; ">
+    	<div flex layout="column" style="" class="pro-header">
     		<div flex >
     		<section>
     		
@@ -46,11 +46,26 @@
     	<div flex>
     		<section>
     			<div layout flex>
- 					 <md-button ng-click="setType($event);type=null" ng-class="activeprod" style="min-width: 0px; padding: 0px; border-radius: 0;"><span>All</span></md-button>
-					 <div ng-repeat="types in productTypes">
-					 	<md-button ng-click="setType($event,types.productTypeName);" class="others" style="min-width: 0px; padding: 0px; border-radius: 0;" ><span>{{types.productTypeName}}</span></md-button>
-					 </div>
+ 					<!-- <md-tabs md-dynamic-height md-border-bottom>
+				  		 <md-button ng-click="setType($event);type=null" ng-class="activeprod" style="min-width: 0px; padding: 0px; border-radius: 0;"><span>All</span></md-button>
+						 <div ng-repeat="types in productTypes">
+						 	<md-button ng-click="setType($event,types.productTypeName);" class="others" style="min-width: 0px; padding: 0px; border-radius: 0;" ><span>{{types.productTypeName}}</span></md-button>
+						 </div>
+				    </md-tabs> --> 
+				    
+				   <md-tabs md-dynamic-height style="width:100%; height: 60px;" id="pro-type">
+				      <md-tab label="All" ng-click="setType($event);type=null" ng-class="activeprod" >
+				      	
+				      </md-tab>
+				      <md-tab  ng-repeat="types in productTypes" ng-click="setType($event,types.productTypeName);" class="others"  label="{{types.productTypeName}}">
+				        
+				      </md-tab>
+				      
+       				<md-tabs>	
  				</div>
+ 				
+ 				
+      
     		</section>
     	</div>
     	</div>

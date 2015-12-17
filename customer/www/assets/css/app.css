@@ -496,23 +496,27 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
     .nomar-sm{ margin:6px 0px !important;}
     .width-sm{width:50px !important; float:left; padding:0px !important;}
 	.responsive-container{ width:100%;}
-	
+	.pro-header{ height:250px;}
 }
 
 @media screen and (max-width: 960px) {
 	.mainapp-container{ margin-top:130px; }
+	.user-dropdown,.cart-dropdown{margin-top: 127px; }
 }
 @media screen and (min-width: 960px) {
-	.mainapp-container{ margin-top:82px; }
+    .mainapp-container{ margin-top:82px; }
+    .user-dropdown,.cart-dropdown{margin-top: 77px; }
 }
 
 @media screen and (min-width: 601px) and (max-width: 960px) {
     .product-detail-dialog{}
     .responsive-container{ width:100%;}
+    .pro-header{ height:250px;}
 }
 @media screen and (min-width: 961px) {
     .product-detail-dialog{width:100%; height:auto;}
     .responsive-container{ width:80%;}
+    .pro-header{ height:190px;}
 }
 
 
@@ -839,7 +843,7 @@ font-size: 12px !important;
     box-shadow: inherit;
 }
 .cart-dropdown{
-	height:100% !important; margin-top: 77px; width:320px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
+	height:100% !important; width:320px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
 }
 .locDialog{
     width: 800px;
@@ -941,3 +945,14 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 300, from(rgba(0,0,0,0.5)), to(#fff));
 }
 .mainapp-container{width:100%; overflow: visible; background-color: #F5F5F5 !important;}
+.user-dropdown{box-shadow: 0px 2px 3px rgba(0,0,0,0.4); position: absolute; margin-left: 0px;}
+
+#pro-type .md-tab{ padding:14px 15px !important;}
+#pro-type md-tabs-canvas{ height:50px !important;}
+#pro-type md-tabs-canvas.md-paginated{ margin: 0 25px;}
+.pro-header{ background-color:#FFFFFF; padding:10px 20px; }
+
+
+
+
+
