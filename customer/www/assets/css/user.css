@@ -1,4 +1,5 @@
 .signing_dialog{min-width:60%; min-height:500px;border-radius:0px;}
+.address-dialog{min-width:60%; border-radius:0px;}
 #textbox {
     width: 50%;
     max-height: 100%;
@@ -281,6 +282,7 @@ md-tabs-wrapper md-next-button, md-tabs-wrapper md-prev-button{width:15px;}
 	.prod-count .md-icon-button { border-radius: 0px; background: #fff; height: 34px; line-height: inherit;
 	}
 	.padd-7{padding: 7px;}
+	.padd-lr20{padding-left: 20px; padding-right: 20px;}
 
 	.detail-price{
 	font-size: 24px;
