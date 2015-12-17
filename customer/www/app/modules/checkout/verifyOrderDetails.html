@@ -1,5 +1,5 @@
 <section class="verification-section">
-    <p class="verification-section-title md-display-1">Review your order</p>
+    <p class="verification-section-title md-display-1 _slat">Review your order</p>
     <!-- <div layout="row" class="address-datetime">
         <div layout="column" flex="65" >
             <div class="address-verify" layout="row" flex>
@@ -192,7 +192,7 @@
     		</div>
     		<!--  Order lists  -->
     		<div flex layout-margin>
-    			<div class="md-headline text-center" layout-margin>Items to be delivered</div>
+    			<div class="md-headline text-center _slat" layout-margin>Items to be delivered</div>
     			<div layout-sm="column" layout-gt-sm="row" class="del-items" layout-padding ng-repeat="product in myCart.cartItem" layout-align-gt-sm="center center" layout-align-sm="center center">
     				<div flex="25">
     					 <img src="{{product.product.image.url}}" height="100px" width="100px">
@@ -212,7 +212,7 @@
     	<div flex-sm="100" flex-md="100" layout-margin flex-gt-md="30" >
     		<div layout="column" flex class="order-total" >
 	    		<div flex layout="row">
-	    			<span flex="60" layout-align="start center">Subtotal</span>
+	    			<span flex="60" layout-align="start center _slat">Subtotal</span>
 	    			<span flex="40" ng-bind-html="myCart.cartTotalAmount | number:2 | currency: rupeesSymbol"></span>
 	    		</div>
 	    		
@@ -231,7 +231,7 @@
     		</div>
     		    		
     		<div class="payment-method" >
-    			<div class="md-headline">Payment Method</div>
+    			<div class="md-headline _slat">Payment Method</div>
             	<md-radio-group ng-model="data.group1" ng-change="redirectUrl();">
 			      <md-radio-button value="Cash on delivery" class="md-primary">Cash on delivery</md-radio-button>
 			      <md-radio-button value="Credit / Debit / Netbanking" class="md-primary" ng-disabled="true">Credit / Debit / Netbanking</md-radio-button> 
