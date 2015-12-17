@@ -2,13 +2,13 @@
 <md-button class="md-fab" aria-label="Eat cake" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
 	<ng-md-icon icon="add" size="35" class="icon-white" ng-click="addemployee()"></ng-md-icon>
 </md-button>
-<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getEmployee();" class="tbl-body">
+<md-card flex-gt-sm="90" flex-gt-md="80" search-text ng-init="getEmployee();" class="tbl-body">
 	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
 		<div class="md-toolbar-tools" layout="row">
 	  		<h3 layout-align="start">Employees</h3>
 	  		<div class="tbl-search">
 	  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-	  			<input ng-model="searchText" type="text" placeholder="Search">
+	  			<input ng-model="searchText" type="text" placeholder="Search" search-text ng-change="onChangeSearch(searchText, data, employeePagination)">
 	  		</div>
 	  		
 	    	<!-- <span class="flex"></span>
@@ -55,7 +55,7 @@
        </md-item>
        
        
-       <md-item ng-repeat="employee in filteredParticipantsResults=(data |  filter:searchText) | orderBy: employeePagination.order | limitTo: employeePagination.limit: (employeePagination.page - 1) * employeePagination.limit" class="md-table-content-row">
+       <md-item ng-repeat="employee in data |  filter:searchText:strict | orderBy: employeePagination.order | limitTo: employeePagination.limit: (employeePagination.page - 1) * employeePagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row" layout-wrap class="full_wid tbl-body">
            		<span flex=5 >
@@ -88,7 +88,9 @@
 	</md-data-table-container>
    </md-card-content>
      <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-		<md-data-table-pagination md-limit="employeePagination.limit" md-page="employeePagination.page" md-total="{{data.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+ <md-data-table-pagination md-limit="employeePagination.limit" md-page="employeePagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination> 
+		<!-- <dir-pagination-controls max-size="5" direction-links="true"boundary-links="true" > -->
+				</dir-pagination-controls>
 	</div>
    
 </md-card>

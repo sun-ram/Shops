@@ -1,5 +1,5 @@
-aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$location','$state','$mdDialog','EmployeeService','toastr','CONSTANT','$rootScope','CommonServices','StoreServices','$timeout',
-                                              function($scope,$localStorage, $location,$state,$mdDialog,EmployeeService,toastr,CONSTANT, $rootScope, CommonServices, StoreServices,$timeout) {
+aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$location','$state','$mdDialog','EmployeeService','toastr','CONSTANT','$rootScope','CommonServices','StoreServices','$timeout','filterFilter',
+                                              function($scope,$localStorage, $location,$state,$mdDialog,EmployeeService,toastr,CONSTANT, $rootScope, CommonServices, StoreServices,$timeout, filterFilter) {
 
 	if (angular.isDefined($localStorage.userDetails)) {
 		$scope.user = $localStorage.userDetails;
@@ -28,7 +28,8 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		//$scope.shopList();
 		EmployeeService.employeeList($scope.employee).then(function(data) {
 			$scope.data = data;
-
+			$scope.oldData = data;
+			$scope.noOfRecords = $scope.data.length;
 		});
 	};
 	
@@ -199,3 +200,4 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 	}
 }
 ]);
+
