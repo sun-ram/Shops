@@ -52,7 +52,7 @@
 				</div>
 				
 				<div id="product-price" class="detail-price">
-				<del class="price-compare">$499.00</del>
+				<del  class="price-compare" ng-if="productDetails.wasPrice>productDetails.price" >MRP &#8377; {{productDetails.wasPrice}} </del>
 				<span> Rs. {{productDetails.price}}</span>  
                 </div>
                 
