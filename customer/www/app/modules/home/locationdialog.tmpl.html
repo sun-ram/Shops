@@ -14,7 +14,7 @@ md-ink-bar{top:115px;}
 </style>
 
 <md-dialog aria-label="CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET"  ng-cloak class="locDialog">
-  <md-toolbar>
+  <!-- <md-toolbar>
     <div class="md-toolbar-tools chg-tool">
       <h4>CHANGE / CHOOSE YOUR RELIABLE SUPER MARKET</h4>
       <span flex></span>
@@ -22,14 +22,17 @@ md-ink-bar{top:115px;}
         <md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
       </md-button>
     </div>
-  </md-toolbar>
-  <div>
+  </md-toolbar> -->
+  
       
       <div class="">
    <md-content flex layout-padding>
-   <h2 ng-if="checked" style="color:black;text-align: center;font-family:sans-serif;"><u>Search Super Market</u></h2>
-   <h2 ng-if="!checked" style="color:black;text-align: center;font-family:sans-serif;"><u>YOUR NEAREST SUPER MARKETS</u></h2>
-   <p style="color:black;text-align: center;font-family:sans-serif;">Choose from here</p>
+   <md-button style="float: right;" class="md-icon-button" ng-click="cancel()">
+        <ng-md-icon icon="close" style="fill: #333" size="25"></ng-md-icon>
+      </md-button>
+   <h2 ng-if="checked" style="color: #0F9D58;text-align: center;font-family:sans-serif;">SEARCH SUPER MARKET</h2>
+   <h2 ng-if="!checked" style="color: #0F9D58;text-align: center;font-family:sans-serif;">YOUR NEAREST SUPER MARKETS</h2>
+   <p style="color:black;text-align: center;font-family:sans-serif;font-size: 18px;">Choose from here</p>
  	</md-content>
   </div> 
  	      <md-content class="md-padding">
@@ -68,7 +71,7 @@ md-ink-bar{top:115px;}
     </md-tabs>
     </md-content>
    
-    <h4 ng-if="!checked" style="color:black;text-align: center;font-family:sans-serif; margin: 5px 0px; ">or</h4>
+    <h4 ng-if="!checked" style="text-align: center;font-family:sans-serif; margin: 5px 0px; font-size: 20px ">or</h4>
     <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 5%;">
     <md-button class="md-raised md-primary btn-success" ng-model="checked" ng-click="checked=true">SEARCH  SUPER MARKET</md-button>
   	</section>
