@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers').controller("movementcontroller", 
-		['$scope','$rootScope','$localStorage','$state','movementServices','movementLists',
-		 function($scope,$rootScope,$localStorage,$state, movementServices, movementLists) {
+		['$scope','$rootScope','$localStorage','$mdDialog','$state','movementServices','movementLists',
+		 function($scope,$rootScope,$localStorage,$mdDialog,$state, movementServices, movementLists) {
 
 			$scope.count = 3;
 			$scope.movements = movementLists;
@@ -31,11 +31,22 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 			};
 			
 			$scope.removeMovement = function(movement){
-				movementServices.removeMovement(movement).then(function(data){
-					movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
-						$scope.movements = data;
-    				});
-				});
+				var confirm = $mdDialog.confirm()
+		        .title('Would you like to delete Movement?')
+				        .ok('Delete')
+				        .cancel('Cancel');
+				  $mdDialog.show(confirm).then(function() {
+			
+					  movementServices.removeMovement(movement).then(function(data){
+							movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+								$scope.movements = data;
+		    				});
+						});
+					
+		  }, function() {
+					  
+					  });	
+				
 			};
 
 			$rootScope.conformInventroy = function(inventoryId) {
