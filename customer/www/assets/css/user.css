@@ -348,8 +348,19 @@ background: #ebf6eb;
     font-size: 15px !important;
     color: #0D904F !important;
 }
-
-
+._logotext{
+        position: absolute;
+    top: 48%;
+    right: 10%;
+    font-size: 20px;
+    color: #FFF !important;
+    text-transform: uppercase;
+}
+._logo{
+    position: absolute; 
+    top: 33%; 
+    right: 25%;
+}
 @media screen and (max-width: 950px) {
 		#textbox { width: 100%; margin-left: 0; }
 		.signing_dialog{min-width:90%;}
