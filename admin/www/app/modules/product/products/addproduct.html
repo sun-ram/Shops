@@ -1,4 +1,4 @@
- <div ng-init="getMeasurementUnit();getproductCategory();getProductType(product.productCategory.productCategoryId)">
+ <div ng-init="getMeasurementUnit();getproductCategory();getProductType(product.productCategory.productCategoryId);getDiscount()">
 
 	<md-toolbar	class=" md-default-theme" style="background-color:transparent;">
 		<div class="md-toolbar-tools">
@@ -117,7 +117,14 @@
 			type="text" ng-model="product.groupCount" valid-number
 			 /> 
 		</md-input-container>
-
+		
+	<md-input-container> <label>Discount<span style="color:red">*</span></label>
+	
+			<md-select placeholder="Discount"
+				ng-model="product.discount.discountId" ng-required="true">
+			<md-option ng-value="item.discountId"
+				ng-repeat="item in discountList">
+			{{item.name}} </md-option> </md-select> </md-input-container>
 	<div flex layout="row">
   		<div layout="row" layout-sm="column" layout-align="start start">
 		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
