@@ -82,12 +82,11 @@
      </md-list>
 	</md-data-table-container>
    </md-card-content>
-   
+  <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
+	<md-data-table-pagination md-limit="warehousePagination.limit" md-page="warehousePagination.page" md-total="{{getWarehouseList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	</div> 
 </md-card>
 
-<div layout layout="row"  class="table-pagination-bg" layout-align="end end">
-	<md-data-table-pagination md-limit="warehousePagination.limit" md-page="warehousePagination.page" md-total="{{getWarehouseList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
-	</div>
 
 
 
