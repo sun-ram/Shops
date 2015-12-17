@@ -295,9 +295,13 @@ angular.module('aviateAdmin.controllers')
 		}
 		$scope.product.image.image=$scope.excelFile.file.split(",")[1];
 		$scope.product.image.type=$scope.excelFile.file ? ($scope.excelFile.file.substring(11).split(";")[0]) : "";
-		ProductService.uploadExcelFile($scope.product).then(function(data) {
-			
-		})
+		if($scope.product.image.type=="ation/vnd.ms-excel" || $scope.product.image.type=="ation/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+			ProductService.uploadExcelFile($scope.product).then(function(data) {
+				$state.go("app.products");
+			})
+		}else{
+			toastr.error("Invalid Excel File");
+		}
 	}
 
 	$scope.addNewImageToList = function(){

@@ -606,6 +606,7 @@ public class ProductRestService {
 			Merchant merchant) {
 		ProductUploadVO response = new ProductUploadVO();
 		Product product = new Product();
+		Uom uom = null;
 		boolean isNew = false;
 		try {
 			FileInputStream file = new FileInputStream(new File(path));
@@ -727,6 +728,23 @@ public class ProductRestService {
 										.equalsIgnoreCase("BRAND")) {
 									product.setBrand(cell.getStringCellValue()
 											.trim());
+								}else if (labels.get(cellPosition)
+										.equalsIgnoreCase("MEASURE")){
+									uom = uomService.getUomByName(cell.getStringCellValue()
+											.trim());
+									if(uom!=null){
+										product.setUom(uom);	
+									}else{
+										uom = new Uom();
+										uom = (Uom) CommonUtil
+												.setAuditColumnInfo(Uom.class.getName());
+										uom.setName(cell.getStringCellValue()
+												.trim());
+										uom.setDescription(cell.getStringCellValue()
+												.trim());
+									    uomService.addUOM(uom);
+									    product.setUom(uom);
+									}
 								}
 								break;
 
