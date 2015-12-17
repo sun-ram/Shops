@@ -405,7 +405,7 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 					var addressObj = $scope.getLatLongByUserId($scope.stores.Books[i].USER_ID);
 					locationObj.latitude 	= 	parseFloat(addressObj.LATITUDE);
 					locationObj.longitude 	= 	parseFloat(addressObj.LONGITUDE);
-					locationObj.title 		= 	$scope.merchants.Books[i].NAME;
+					locationObj.title 		= 	$scope.stores.Books[i].NAME;
 					if (!$scope.tempMarkers || $scope.tempMarkers.length < 1) {
 						locationObj.id = 1;
 					} else {
@@ -418,7 +418,24 @@ aviateAdmin.controller("merchantDashboardCtrl", ['$scope', '$localStorage', '$lo
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
 		};
+ /*$scope.randomMarkers = [{
+                    "latitude": 12.916149,
+                    "longitude": 80.152353,
+                    "title": "Jayam SuperMarket",
+                    "id": 0
+                }, {
+                    "latitude": 12.915115,
+                    "longitude": 80.153115,
+                    "title": "AGS SuperMarket",
+                    "id": 1
+                }, {
+                    "latitude": 12.922847,
+                    "longitude": 80.151881,
 
+                    "title": "Coffee Day",
+                    "id": 2
+                }];*/
+		
 		function postSalesOrder(data) {
 			
 			var tempDateObj;
