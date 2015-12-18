@@ -41,19 +41,15 @@
 					         <md-divider ></md-divider>
 					         
 					      </md-list-item> 
-					      <div layout="row" style="border-bottom: 1px solid #e5e5e5; background: #f5f5f5; padding: 0px 10px;" layout-align="start">
-			                    <span style="width: 100%;"><span style="line-height: 4;" ng-show="myCart.cartItem.length == 1">Total {{myCart.cartItem.length}} Item</span><span style="line-height: 4;" ng-show="myCart.cartItem.length > 1">Total {{myCart.cartItem.length}} Items </span>
-			                        <h3 style="float: right;" ng-bind-html="myCart.cartTotalAmount | currency : rupeesSymbol"></h3>
-			                    </span>
-		                    <!-- <span flex></span>
-		     			 	<md-button layout-align="end" class="md-icon-button" ng-click="toggleRight()">
-		      			  		<md-icon md-svg-src="assets/img/icon/close.svg" aria-label="Close dialog"></md-icon>
-		    				 </md-button> -->
-		                </div>
+					      
 			         </div>
 				</div>
-            	<div style="height:auto; background: #fff; width:100%; position: absolute; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);"">
-            	
+            	<div style="height:auto; background: #fff; width:100%; position: absolute; box-shadow: 0px 2px 3px rgba(0,0,0,0.4); margin-top: -80px;">
+            	<div layout="row" style="border-bottom: 1px solid #e5e5e5; background: #f5f5f5; padding: 0px 10px;" layout-align="start">
+			                    <span style="width: 100%;"><span style="line-height: 4;" ng-show="myCart.cartItem.length == 1">Total {{myCart.cartItem.length}} Item</span><span style="line-height: 4;" ng-show="myCart.cartItem.length > 1">Total {{myCart.cartItem.length}} Items </span>
+			                        <h3 style="float: right;" ng-bind-html="myCart.cartTotalAmount | currency : rupeesSymbol"></h3>
+			                    </span>		       				 
+		                </div>
             	<md-list-item layout-align="end center"   ng-show="myCart.cartItem.length > 0" ui-sref="app.cart">
 		       <md-button ui-sref="app.cart" class="md-raised ft_size18" style="width: 100%; padding:0px; margin-bottom:5px;background-color:#333 !important; color:white;font-size: 14px;">View Cart</md-button>
 		           

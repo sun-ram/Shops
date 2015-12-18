@@ -56,8 +56,13 @@
 			</md-input-container>
 
 			<md-input-container> <label>Product
-				Measurement<span style="color:red">*</span></label> <input type="text" ng-model="product.unit" valid-number
-				ng-required="true" />
+				Measurement<span style="color:red">*</span></label> <input type="text" ng-model="product.unit"
+				ng-required="true" pattern="\d+(\.\d{1,2})?" / name="measurement">
+				<span
+				ng-message="required"
+				ng-show="addProductForm.measurement.$error.measurement || (!addProductForm.measurement.$error.required && !addProductForm.measurement.$valid)"
+				style="color: red;">Product Measurement Should allow upto 2 digits
+				decimal point.</span> 
 			</md-input-container>
 
 			<md-input-container> <label>Measurement
@@ -113,7 +118,7 @@
 			<label layout-align="end center" style="padding-left: 20px;">Is Bundle</label>
 		</h4>
 
-		<md-input-container ng-show="groupCount"> <label>Group Count</label> <input
+		<md-input-container ng-show="groupCount"> <label>Bundle</label> <input
 			type="text" ng-model="product.groupCount" valid-number
 			 /> 
 		</md-input-container>
