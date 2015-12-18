@@ -1,7 +1,4 @@
 <style>
-md-tabs-canvas {
-    height: 140px;
-}
 md-ink-bar{top:115px;}
 .md-tab{
 	padding: 28px ! important;
@@ -9,7 +6,6 @@ md-ink-bar{top:115px;}
 .chg-tool{
 	background: #ED6663 ! important;
 }
-.btn-success{background: #72A308 ! important; padding: 5px 20px;}
 .chs-img{height: 60px ! important; width: 60px ! important; border-radius: 4px ! important;}
 </style>
 
@@ -25,19 +21,19 @@ md-ink-bar{top:115px;}
   </md-toolbar> -->
   
       
-      <div class="">
-   <md-content flex layout-padding>
-   <md-button style="float: right;" class="md-icon-button" ng-click="cancel()">
-        <ng-md-icon icon="close" style="fill: #333" size="25"></ng-md-icon>
-      </md-button>
-   <h2 ng-if="checked" style="color: #0F9D58;text-align: center;font-family:sans-serif;">SEARCH SUPER MARKET</h2>
-   <h2 ng-if="!checked" style="color: #0F9D58;text-align: center;font-family:sans-serif;">YOUR NEAREST SUPER MARKETS</h2>
+    <div class="">
+   <md-content flex>
+   
+        <ng-md-icon icon="close" style="fill: #333; float: right; margin: 0; cursor: pointer;" size="25" ng-click="cancel()"></ng-md-icon>
+      
+   <h3 ng-if="checked" style="color: #0F9D58;text-align: center;font-family:sans-serif;">SEARCH SUPER MARKET</h3>
+   <h3 ng-if="!checked" style="color: #0F9D58;text-align: center;font-family:sans-serif;">YOUR NEAREST SUPER MARKETS</h3>
    <p style="color:black;text-align: center;font-family:sans-serif;font-size: 18px;">Choose from here</p>
  	</md-content>
   </div> 
  	      <md-content class="md-padding">
-    	 <md-tabs ng-if="((!checked)&&(storeList.length>0))"  class="arrow_color" md-stretch-tabs="auto">
-      <md-tab  ng-click = "changeStore(store)" ng-repeat="store in storeList">
+    	 <md-tabs ng-if="((!checked)&&(storeList.length>0))"  class="arrow_color tab-img-store" md-stretch-tabs="auto">
+      <md-tab  class="tab-img-store" ng-click = "changeStore(store)" ng-repeat="store in storeList">
      <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
       <label>{{store.name}}</label>
       </md-tab>
@@ -72,8 +68,8 @@ md-ink-bar{top:115px;}
     </md-content>
    
     <h4 ng-if="!checked" style="text-align: center;font-family:sans-serif; margin: 5px 0px; font-size: 20px ">or</h4>
-    <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 5%;">
-    <md-button class="md-raised md-primary btn-success" ng-model="checked" ng-click="checked=true">SEARCH  SUPER MARKET</md-button>
+    <section ng-hide="checked" layout="row" layout-align="center" style="margin-bottom: 10px;">
+    <md-button class="green_btn_clr" style="width: auto;" ng-model="checked" ng-click="checked=true">SEARCH  SUPER MARKET</md-button>
   	</section>
 
 
