@@ -126,7 +126,7 @@
 	<md-input-container> <label>Discount<span style="color:red">*</span></label>
 	
 			<md-select placeholder="Discount"
-				ng-model="product.discount.discountId" ng-required="true">
+				ng-model="product.discount.discountId">
 			<md-option ng-value="item.discountId"
 				ng-repeat="item in discountList">
 			{{item.name}} </md-option> </md-select> </md-input-container>
