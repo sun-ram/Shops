@@ -695,27 +695,26 @@ font-size: 12px !important;
    position: relative;
 }
 .views h2 {
-   text-transform: uppercase;
-   color: #fff;
-   text-align: center;
-   position: relative;
-   font-size: 17px;
-   padding: 10px;
-   background: rgba(0, 0, 0, 0.8);
-   margin: 10px 0 0 0;
+    text-transform: uppercase;
+    color: #0F9D58;
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    padding: 10px;
+    background: transparent;
+    margin: 10px 0 0 0;
 }
 .views p {
-   font-family: Georgia, serif;
-   font-style: italic;
-   font-size: 12px;
-   position: relative;
-   color: #fff;
-   padding: 10px 20px 20px;
-   text-align: center;
-   height:75px;
-   width:calc(100% - 40px);
-   overflow: hidden;
-   text-overflow: ellipsis;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    position: relative;
+    color: #000;
+    padding: 10px 20px 20px;
+    text-align: center;
+    height: 75px;
+    width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .views a.info {
    display: inline-block;
@@ -745,7 +744,7 @@ font-size: 12px !important;
    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
    filter: alpha(opacity=0);
    opacity: 0;
-    background-color: rgba(15,157,88, 0.7);
+   background-color: rgba(255,255,255, 0.7);
    -webkit-transition: all 0.4s ease-in-out;
    -moz-transition: all 0.4s ease-in-out;
    -o-transition: all 0.4s ease-in-out;
