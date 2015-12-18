@@ -59,6 +59,7 @@ public class Store implements java.io.Serializable {
 	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
 	private List<Discount> discounts = new ArrayList<Discount>();
 	private List<StoreHoliday> storeHolidays = new ArrayList<StoreHoliday>();
+	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
 
 	public Store() {
 	}
@@ -80,7 +81,7 @@ public class Store implements java.io.Serializable {
 			User user, Merchant merchant, String name, char isactive,
 			Date created, Date updated, List<Warehouse> warehouses, List<OrderNumber> orderNumbers,
 			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
-			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,
+			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,List<DeliveryTimeSlot> deliveryTimeSlots,
 			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
 			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts,List<StoreHoliday> storeHolidays) {
 		this.storeId = storeId;
@@ -108,6 +109,7 @@ public class Store implements java.io.Serializable {
 		this.productInventories = productInventories;
 		this.discounts = discounts;
 		this.storeHolidays = storeHolidays;
+		this.deliveryTimeSlots=deliveryTimeSlots;
 	}
 
 	@Id
@@ -339,5 +341,15 @@ public class Store implements java.io.Serializable {
 		public void setStoreHolidays(List<StoreHoliday> storeHolidays) {
 			this.storeHolidays = storeHolidays;
 		}
-	
+		
+		@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+		public List<DeliveryTimeSlot> getDeliveryTimeSlots() {
+			return deliveryTimeSlots;
+		}
+
+		public void setDeliveryTimeSlots(List<DeliveryTimeSlot> deliveryTimeSlots) {
+			this.deliveryTimeSlots = deliveryTimeSlots;
+		}
+
+		
 }

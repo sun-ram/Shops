@@ -30,7 +30,7 @@ public class StoreHoliday {
 	private String reason;
 	private Merchant merchant;
 	private Store store;
-	private Date holidayDate;
+	private String holidayDate;
 	private char isactive;
 	private Date created;
 	private Date updated;
@@ -42,7 +42,7 @@ public class StoreHoliday {
 	}
 
 	public StoreHoliday(String storeHolidayId, String reason,
-			Merchant merchant, Store store, Date holidayDate, char isactive,
+			Merchant merchant, Store store, String holidayDate, char isactive,
 			Date created, Date updated, String updatedby, String createdby) {
 		this.storeHolidayId = storeHolidayId;
 		this.reason = reason;
@@ -68,7 +68,7 @@ public class StoreHoliday {
 		this.storeHolidayId = storeHolidayId;
 	}
 
-	@Column(name = "REASON", length = 200)
+	@Column(name = "REASON", length = 1000)
 	public String getReason() {
 		return reason;
 	}
@@ -97,13 +97,12 @@ public class StoreHoliday {
 		this.store = store;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "HOLIDAY_DATE", nullable = false, length = 19)
-	public Date getHolidayDate() {
+	@Column(name = "HOLIDAY_DATE", nullable = false, length = 500)
+	public String getHolidayDate() {
 		return holidayDate;
 	}
 
-	public void setHolidayDate(Date holidayDate) {
+	public void setHolidayDate(String holidayDate) {
 		this.holidayDate = holidayDate;
 	}
 

@@ -21,7 +21,7 @@ public class StoreHolidayVo {
 	private String reason;
 	private MerchantVo merchant;
 	private StoreVo store;
-	private Date holidayDate;
+	private String holidayDate;
 	
 	public String getStoreHolidayId() {
 		return storeHolidayId;
@@ -47,10 +47,10 @@ public class StoreHolidayVo {
 	public void setStore(StoreVo store) {
 		this.store = store;
 	}
-	public Date getHolidayDate() {
+	public String getHolidayDate() {
 		return holidayDate;
 	}
-	public void setHolidayDate(Date holidayDate) {
+	public void setHolidayDate(String holidayDate) {
 		this.holidayDate = holidayDate;
 	}
 	

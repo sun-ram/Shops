@@ -3,7 +3,9 @@
  */
 package com.mitosis.shopsbacker.vo.order;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 
@@ -18,6 +20,9 @@ public class DeliveryTimeSlotVo {
 	private Date fromTime;
 	private Date toTime;
 	private String storeId;
+	private String holidayReasons;
+	private List<Date> holidayDates= new ArrayList<Date>();
+	
 	
 	public String getStoreId() {
 		return storeId;
@@ -49,5 +54,16 @@ public class DeliveryTimeSlotVo {
 	public void setToTime(Date toTime) {
 		this.toTime = toTime;
 	}
-	
+	public String getHolidayReasons() {
+		return holidayReasons;
+	}
+	public void setHolidayReasons(String holidayReasons) {
+		this.holidayReasons = holidayReasons;
+	}
+	public List<Date> getHolidayDates() {
+		return holidayDates;
+	}
+	public void setHolidayDates(List<Date> holidayDates) {
+		this.holidayDates = holidayDates;
+	}
 }

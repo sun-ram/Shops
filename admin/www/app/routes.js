@@ -133,9 +133,7 @@ angular.module('app')
 		controller : 'deliveryTimeSlot',
 		resolve:   {
 			deliverTimes:  function(deliveryTimeSlotService, $http, $stateParams){
-				return deliveryTimeSlotService.getDeliveryTimeSlots().then(function(data) {
-					return data;
-				});
+				return deliveryTimeSlotService.getDeliveryTimeSlots();
 
 			}
 		}

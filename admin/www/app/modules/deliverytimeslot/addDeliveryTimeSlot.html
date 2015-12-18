@@ -34,13 +34,13 @@ height: 20px;}
 			<div layout="column" flex layout-align="none" ng-model="date"
 				class=" calender-style ">
 				<span style="font-size: 18px; color: #aaa;">Start Time</span>
-				<clockpicker ng-model="time" />
+				<clockpicker ng-model="deliveryTimeSlot.fromTime" />
 			</div>
 
 			<div layout="column" flex layout-align="none" ng-model="date"
 				class=" calender-style">
 				<span style="font-size: 18px; color: #aaa;">End Time</span>
-				<clockpicker ng-model="time" />
+				<clockpicker ng-model="deliveryTimeSlot.toTime" />
 			</div>
 		</div>
 	</div>
@@ -108,10 +108,10 @@ height: 20px;}
 		<calendar-md flex layout layout-fill calendar-direction="direction"
 			on-prev-month="prevMonth" on-next-month="nextMonth"
 			on-day-click="dayClick" title-format="'MMMM y'"
-			ng-model='selectedDates' day-format="'d'" day-label-format="'EEE'"
+			ng-model='holidayDates' day-format="'d'" day-label-format="'EEE'"
 			day-label-tooltip-format="'EEEE'" day-tooltip-format="'fullDate'"
 			week-starts-on="firstDayOfWeek" day-content="setDayContent"
-			template-url="'http://localhost:8080/app/modules/deliverytimeslot/angular-material-calendar.html'"
+			template-url="'/app/modules/deliverytimeslot/angular-material-calendar.html'"
 			date-content="holidayReasons"></calendar-md>
 	</div>
 </div>
