@@ -59,8 +59,8 @@ md-ink-bar{top:115px;}
         </md-input-container>
  
     <md-content class="md-padding">
-    	 <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" class="arrow_color" md-stretch-tabs="auto">
-      <md-tab  ng-click = "changeStore(store)" ng-repeat="store in filterStoreList">
+    	 <md-tabs ng-if="((checked)&&(filterStoreList.length>0))" class="arrow_color tab-img-store" md-stretch-tabs="auto">
+      <md-tab class="tab-img-store" ng-click = "changeStore(store)" ng-repeat="store in filterStoreList">
      <img  ng-src="{{store.merchant.logo.url}}" class="md-avatar chs-img"></br>
       <label>{{store.name}}</label>
       </md-tab>
