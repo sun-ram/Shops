@@ -310,6 +310,10 @@ angular.module('aviate.directives')
 				 
 					$scope.signUp = function(user, confirmPassword) {
 						//user.role = CONSTANT.SUCCESS_CODE.ROLE;
+						if((user.email == undefined || user.email == "") && (user.phoneNo == undefined || user.phoneNo == "")){
+							toastr.error("Please Enter Email or Phone Number");
+							return;
+						}
 						if(user.password !== confirmPassword){
 							toastr.warning(CONSTANT.WARNING_CODE.MISSMATCHPASSWORD);
 							return;
