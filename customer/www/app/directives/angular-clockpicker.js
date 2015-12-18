@@ -8,7 +8,7 @@ angular.module('aviate.directives')
 		scope: {
 			datetime: "=ngModel"
 		},
-		controller: function ($scope,$rootScope,$mdDialog) {
+		controller: function ($scope,$rootScope,$mdDialog,toastr) {
 			$rootScope.hidenext=true;
 			$rootScope.textDesign=false;
 			$scope.hourOptions = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -17,7 +17,7 @@ angular.module('aviate.directives')
 			$scope.selectionMode = true;
 
 			var timeMatches = /(\d{2}):(\d{2}):(\d{2})/.exec($scope.datetime.toString());
-
+			
 			$scope.hour = timeMatches[1];
 			$scope.minute = timeMatches[2];
 			$scope.period = "am";
@@ -133,7 +133,7 @@ angular.module('aviate.directives')
 		                		if(currentdate.getTime()>=toDateValue){
 			                		$rootScope.hidenext=true;
 			                		$rootScope.textDesign=false;
-			                    	$mdDialog.show(
+			                    	/*$mdDialog.show(
 			        						$mdDialog.alert()
 			        						.parent(angular.element(document.querySelector('#popupContainer')))
 			        						.clickOutsideToClose(true)
@@ -142,12 +142,13 @@ angular.module('aviate.directives')
 			        						.ariaLabel('Alert Dialog Demo')
 			        						.ok('Ok')
 			        						.targetEvent()
-			        				);
+			        				);*/
+			                		toastr.error("Please choose Future delivery time "+$scope.filter12HrTime($rootScope.deliveryTime.fromTime)+" to "+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+".");
 		                		}
 		                		else{
 			                		$rootScope.hidenext=true;
 			                		$rootScope.textDesign=false;
-			                    	$mdDialog.show(
+			                    	/*$mdDialog.show(
 			        						$mdDialog.alert()
 			        						.parent(angular.element(document.querySelector('#popupContainer')))
 			        						.clickOutsideToClose(true)
@@ -156,7 +157,8 @@ angular.module('aviate.directives')
 			        						.ariaLabel('Alert Dialog Demo')
 			        						.ok('Ok')
 			        						.targetEvent()
-			        				);
+			        				);*/
+			                		toastr.error("Please choose Future delivery time "+$scope.filter12HrTime(d)+" to "+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+".");
 		                		}
 		                	}
 		                	
@@ -164,7 +166,7 @@ angular.module('aviate.directives')
 		                else{
 		                	$rootScope.hidenext=true;
 		                	$rootScope.textDesign=false;
-		                	$mdDialog.show(
+		                	/*$mdDialog.show(
 		    						$mdDialog.alert()
 		    						.parent(angular.element(document.querySelector('#popupContainer')))
 		    						.clickOutsideToClose(true)
@@ -173,7 +175,8 @@ angular.module('aviate.directives')
 		    						.ariaLabel('Alert Dialog Demo')
 		    						.ok('Ok')
 		    						.targetEvent()
-		    				);
+		    				);*/
+		                	toastr.error("Please choose Future delivery time "+$scope.filter12HrTime($rootScope.deliveryTime.fromTime)+" to "+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+".");
 		                }
 			    };
 		}
