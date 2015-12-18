@@ -274,3 +274,27 @@ ADD CONSTRAINT `FK_DISCOUNT_STORE`
 ALTER TABLE `shopsbacker`.`discount` 
 DROP INDEX `DISCOUNT_UNIQUE_NAME` ,
 ADD UNIQUE INDEX `DISCOUNT_UNIQUE_NAME` (`NAME` ASC, `STORE_ID` ASC);
+
+ ----   17-12-2015 -------- Anbukkani Gajendran----------------- store_holiday date has changed as string------
+ALTER TABLE `shopsbacker`.`store_holiday` 
+CHANGE COLUMN `HOLIDAY_DATE` `HOLIDAY_DATE` VARCHAR(500) NOT NULL ,
+CHANGE COLUMN `REASON` `REASON` VARCHAR(1000) NULL ;
+
+----   17-12-2015 -------- Anbukkani Gajendran----------------- store added in delivery time slot ------
+DELETE FROM `shopsbacker`.`delivery_time_slot` WHERE `ISACTIVE`='Y';
+
+ALTER TABLE `shopsbacker`.`delivery_time_slot` 
+ADD COLUMN `STORE_ID` VARCHAR(32) NOT NULL AFTER `UPDATED`,
+ADD INDEX `FK_DELIV_TIME_SLOT_STORE_idx` (`STORE_ID` ASC);
+ALTER TABLE `shopsbacker`.`delivery_time_slot` 
+ADD CONSTRAINT `FK_DELIV_TIME_SLOT_STORE`
+  FOREIGN KEY (`STORE_ID`)
+  REFERENCES `shopsbacker`.`store` (`STORE_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+ALTER TABLE `shopsbacker`.`delivery_time_slot` 
+DROP INDEX `TIME_SLOT_UNIQUE` ,
+ADD UNIQUE INDEX `TIME_SLOT_UNIQUE` (`FROM_TIME` ASC, `TO_TIME` ASC, `STORE_ID` ASC);
+
