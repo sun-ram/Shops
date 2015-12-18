@@ -427,6 +427,16 @@ angular.module('app')
 		url: '/productoffer/new',
 		templateUrl: 'app/modules/productoffer/Add/addProductOffer.html',
 		controller : 'productoffercontroller'
+	})
+	.state('app.productofferline', {
+		url: '/productofferline/:offerId',
+		templateUrl: 'app/modules/productoffer/productOfferLine.html',
+		controller : 'productoffercontroller'
+	})
+	.state('app.newproductofferline', {
+		url: '/productofferline/new/:offerId',
+		templateUrl: 'app/modules/productoffer/Add/addProductOfferLine.html',
+		controller : 'productoffercontroller'
 	});
 
 

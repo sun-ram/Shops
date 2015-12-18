@@ -94,6 +94,7 @@ public class ProductOfferRestServices<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addProductOffer(ProductOfferVo productOfferVo) {
 		productOffer = new ProductOffer();
+		response = new ResponseModel();
 		try {
 			Merchant merchant = merchantService.getMerchantById(productOfferVo.
 												   getMerchantVo().getMerchantId());
@@ -147,7 +148,8 @@ public class ProductOfferRestServices<T> {
 		productOffer = new ProductOffer();
 		try {
 			productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
-			productOfferService.deleteProductOffer(productOffer);
+			productOffer.setIsactive('N');
+			productOfferService.updateProductOffer(productOffer);
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());

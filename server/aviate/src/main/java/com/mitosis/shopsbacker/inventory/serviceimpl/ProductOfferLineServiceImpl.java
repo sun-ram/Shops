@@ -2,6 +2,7 @@
 package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferLineDao;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
@@ -74,6 +76,7 @@ private static final long serialVersionUID = 1L;
 	
 	public ProductOfferLineVo setProductOfferLineVo(ProductOfferLine productOfferLine) throws Exception{
 		ProductOfferLineVo productOfferLineVo = new ProductOfferLineVo();
+		productOfferLineVo.setProductOfferLineId(productOfferLine.getProductOfferLineId());
 		productOfferLineVo.setDiscountAmount(productOfferLine.getDiscountAmount());
 		productOfferLineVo.setDiscountPercentage(productOfferLine.getDiscountPercentage());
 		productOfferLineVo.setProductVo(productService.setProductVo(productOfferLine.getProduct()));
@@ -83,6 +86,11 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public ProductOfferLine getProductOfferLine(String id) {
 		return productOfferLineDao.getProductOfferLine(id);
+	}
+
+	@Override
+	public List<ProductOfferLine> getProductOfferLine(ProductOffer productOffer) {
+		return productOfferLineDao.getProductOfferLine(productOffer);
 	} 
 	
 

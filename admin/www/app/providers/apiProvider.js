@@ -1696,6 +1696,64 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.ProductOffer.addNewProductOfferLine = function (productoffer, callback) {
+			httpRequest("POST", "productofferline/addofferline", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.ProductOffer.getOfferLineList = function (productoffer, callback) {
+			httpRequest("POST", "productofferline/getofferline", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.ProductOffer.deleteProductOfferLine = function (productofferline, callback) {
+			httpRequest("POST", "productofferline/deleteofferline", productofferline, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.ProductOffer.updateProductOfferLine = function (productoffer, callback) {
+			httpRequest("POST", "productofferline/updateofferline", productoffer, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		
 		apiClass.Discount.deleteDiscount = function (discount, callback) {
 					httpRequest("POST", "discount/deletediscount", discount, function (err, data) {
 							if (err) {

@@ -17,8 +17,8 @@ public class ProductOfferVo {
 	private String description;
 	private int qty;
 	private BigDecimal offerAmount;
-	private String fromDate;
-	private String todate;
+	private Date fromDate;
+	private Date todate;
 	private Date startTime;
 	private Date endTime;
 	private List<ProductOfferLineVo> productOfferLinesVo = new ArrayList<ProductOfferLineVo>();
@@ -79,18 +79,6 @@ public class ProductOfferVo {
 	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
 		this.myCartsVo = myCartsVo;
 	}
-	public String getFromDate() {
-		return fromDate;
-	}
-	public void setFromDate(String fromDate) {
-		this.fromDate = fromDate;
-	}
-	public String getTodate() {
-		return todate;
-	}
-	public void setTodate(String todate) {
-		this.todate = todate;
-	}
 	public Date getStartTime() {
 		return startTime;
 	}
@@ -102,6 +90,18 @@ public class ProductOfferVo {
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	public Date getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+	public Date getTodate() {
+		return todate;
+	}
+	public void setTodate(Date todate) {
+		this.todate = todate;
 	}
 	
 }

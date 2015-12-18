@@ -3,12 +3,11 @@ package com.mitosis.shopsbacker.responsevo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
 
-public class ProductOfferLineResponse extends ResponseModel{
-		
+public class ProductOfferLineResponseVo extends ResponseModel {
+	
 	List<ProductOfferLineVo> productOfferLineList = new ArrayList<ProductOfferLineVo>();
 
 	public List<ProductOfferLineVo> getProductOfferLineList() {
@@ -19,5 +18,5 @@ public class ProductOfferLineResponse extends ResponseModel{
 			List<ProductOfferLineVo> productOfferLineList) {
 		this.productOfferLineList = productOfferLineList;
 	}
-
+	
 }

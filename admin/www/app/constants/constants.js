@@ -44,6 +44,9 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	PERCENTAGE_LIMIT_EXCEED:"Value should not exceed {}",
 	ADDEDDISCOUNT:'Discount Added Successfully',
 	DELETEDISCOUNT:'Discount Deleted Successfully',
+	ADDPRODUCTOFFER:'Product Offer Added successfully',
+	DELETEPRODUCTOFFER:'Product Offer Deleted successfully',
+	UPDATEPRODUCTOFFER:'Product Offer Updated Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
