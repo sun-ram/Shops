@@ -28,12 +28,11 @@
 		</div>
 		<div class="product-details-pname" flex-sm="100" flex-md="100" flex="60" style="padding: 0px 30px;">
 			<div>
-				<h2>{{productDetails.name}}</h2>
-				<div style="width:100%; min-height:100px; color: #888; margin-bottom: 40px;">{{productDetails.description}} 
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+				<h2 style="color: #0D904F !important;    text-transform: uppercase !important;">{{productDetails.name}}</h2>
+				<div style="width:100%; min-height:100px; color: #000; margin-bottom: 40px;">{{productDetails.description}} 
 				</div>
 				<div class="detail-unit"><span>Unit:</span>{{productDetails.unit}} {{productDetails.uom.name}}</div>
-				<div class="quantity-product"><span>Quantity :</span>
+				<div class="quantity-product" ><span >Quantity :</span>
 				
 					<div class="prod-count" layout="row">
 		       		<md-button class="md-icon-button" style="border-right: 1px solid #cbcbcb;" aria-label="More" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
