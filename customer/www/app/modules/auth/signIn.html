@@ -32,7 +32,11 @@
          <md-input-container flex class="auth_input">
          <md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>
           <label class="padd-l22">Mobile No</label>
-          <input class="padd-l22" ng-model="user.phoneNo" ng-blur="checkValue(user.email,user.phoneNo)" valid-number ng-required="phoneReq">
+          <input class="padd-l22" ng-model="user.phoneNo" ng-blur="checkValue(user.email,user.phoneNo)" valid-number ng-required="phoneReq" name="phoneNo" ng-maxlength="20">
+         
+				      	<span ng-message="required" ng-show="userForm.phoneNo.$error.maxlength" style="color:red;">
+				       	Enter phoneNo within 20 digit
+				      	</span>
         </md-input-container >
 	      <md-input-container flex class="auth_input">
 	      	<md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>
