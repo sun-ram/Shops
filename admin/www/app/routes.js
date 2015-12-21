@@ -231,7 +231,7 @@ angular.module('app')
 		controller : 'movementcontroller',
 		resolve:   {
 			movementLists:  function(movementServices, $http, $stateParams, $rootScope){
-				return movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+				return movementServices.getMovementsByStore({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 					localStorage.removeItem('movementDetails');
 					$rootScope.isNewMovement = false;
 					return data;
@@ -265,12 +265,76 @@ angular.module('app')
 		controller : 'movementDetailsCtrl'
 	})
 	
+	//Physical Inventory Adjustment
+	.state('app.physicalInventoryAdjustment', {
+		url: '/inventory/adjustments',
+		templateUrl: 'app/modules/physical_inventory_adjustment/inventories.html',
+		controller : 'physicaInventoryCtrl',
+		resolve:   {
+			inventories:  function(physicalInventoryService, $http, $stateParams, $rootScope){
+				return physicalInventoryService.getPhysicalInventoriesByStore().then(function(data){
+					return data;
+				});
+
+			}
+		}
+	})
+	
+	.state('app.addNewInventory', {
+		url: '/inventory/new/:inventoryId',
+		templateUrl: 'app/modules/physical_inventory_adjustment/add/inventoryCreate.html',
+		controller : 'physicalInventoryCreateCtrl',
+		resolve:   {
+			inventory:  function(physicalInventoryService, $http, $stateParams, $rootScope){
+				if($stateParams.inventoryId){
+					return physicalInventoryService.getPhysicalInventory($stateParams.inventoryId).then(function(data){
+						return data;
+					});
+				}else{
+					return {};
+				}
+			}
+		}
+	})
+	
+	.state('app.editInventory', {
+		url: '/inventory/Edit/:inventoryId',
+		templateUrl: 'app/modules/physical_inventory_adjustment/add/inventoryCreate.html',
+		controller : 'physicalInventoryCreateCtrl',
+		resolve:   {
+			inventory:  function(physicalInventoryService, $http, $stateParams, $rootScope){
+				if($stateParams.inventoryId){
+					return physicalInventoryService.getPhysicalInventory($stateParams.inventoryId).then(function(data){
+						return data;
+					});
+				}else{
+					return {};
+				}
+			}
+		}
+	})
+	
+	.state('app.physicalInventoryDetail', {
+		url: '/inventory/detail/:inventoryId',
+		templateUrl: 'app/modules/physical_inventory_adjustment/details/inventoryDetails.html',
+		controller : 'inventoryDetailsCtrl',
+		resolve:   {
+			inventory:  function(physicalInventoryService, $http, $stateParams, $rootScope){
+				return physicalInventoryService.getPhysicalInventory($stateParams.inventoryId).then(function(data){
+					return data;
+				});
+
+			}
+		}
+	})
+	
+	//Product stock
 	.state('app.viewproductstock', {
 		url: '/productstock',
 		templateUrl: 'app/modules/product_stock/productStock.html',
 		controller : 'productstockcontroller'
 	})
-
+	
 	// user module
 	.state('app.user', {
 		url: '/user',

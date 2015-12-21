@@ -1,0 +1,46 @@
+<div>
+
+ 	<md-toolbar style="background-color:transparent;">
+		<div class="md-toolbar-tools">
+		<div layout="row" layout-align="start center" class="full_wid">	 
+	  		<h3 flex layout-align="start center">Physical Inventory</h3>
+	    </div>
+	    </div>
+	    <md-button ng-hide="inventory.isupdated == 'Y'" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.editInventory({'inventoryId':inventory.movementId})">
+		<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.physicalInventoryAdjustment">
+			<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+    </md-toolbar>
+    
+<md-card>
+<md-data-table-container>
+  <table md-data-table>
+    <thead>
+      <tr>
+        <th name="Product" ></th>
+        <th name="Storage Bin"></th>
+        <th name="Qty" ></th>
+      </tr>
+    </thead>
+	   <tr md-auto-select ng-repeat="movementLine in inventory.movementLines">
+	   	<td>
+	   		{{movementLine.product.name}}
+	   	</td>
+	   	<td>
+	   		{{movementLine.toStoragebin.name}} ({{movementLine.toStoragebin.stack}} - {{movementLine.toStoragebin.row}} - {{movementLine.toStoragebin.level}})
+	   	</td>
+	   	<td>
+	   		{{movementLine.qty}}
+	   	</td>
+	   </tr>
+   </table>
+ </md-data-table-container>
+</md-card>
+</div>
+
+
+
+
+

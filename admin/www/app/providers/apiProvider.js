@@ -824,12 +824,12 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};*/
 		
 		
-		//physical Inventory Module
-		apiClass.PhysicalInventory ={
+		//Movement Module
+		apiClass.movement ={
 				name:""
 		};
-		apiClass.PhysicalInventory.getInventory = function (physicalinventories, callback) {
-			httpRequest("POST", "movement/getmovement", physicalinventories, function (err, data) {
+		apiClass.movement.getMovementsByStore = function (store, callback) {
+			httpRequest("POST", "movement/getmovement", store, function (err, data) {
 				if (err) {
 
 					callback(err, null);
@@ -842,7 +842,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
-		apiClass.PhysicalInventory.getMovement = function (movementId, callback) {
+		apiClass.movement.getMovement = function (movementId, callback) {
 			httpRequest("GET", "movement/movement/"+movementId, null, function (err, data) {
 				if (err) {
 
@@ -856,7 +856,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.PhysicalInventory.removeMovement = function (movement, callback) {
+		apiClass.movement.removeMovement = function (movement, callback) {
 			httpRequest("POST", "movement/delete", movement, function (err, data) {
 				if (err) {
 
@@ -870,7 +870,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.PhysicalInventory.addMovement = function (movement, callback) {
+		apiClass.movement.addMovement = function (movement, callback) {
 			httpRequest("POST", "movement/save", movement, function (err, data) {
 				if (err) {
 
@@ -884,7 +884,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
-		apiClass.PhysicalInventory.removeMovementLine = function (movementLine, callback) {
+		apiClass.movement.removeMovementLine = function (movementLine, callback) {
 			httpRequest("POST", "movement/delete/line", movementLine, function (err, data) {
 				if (err) {
 
@@ -899,7 +899,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 
 		
-		apiClass.PhysicalInventory.addMovementLine = function (movementLine, callback) {
+		apiClass.movement.addMovementLine = function (movementLine, callback) {
 			httpRequest("POST", "movement/save/line", movementLine, function (err, data) {
 				if (err) {
 
@@ -913,7 +913,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.PhysicalInventory.updatePhysicalInventory = function (physicalinventories, callback) {
+		/*apiClass.movement.updatePhysicalInventory = function (physicalinventories, callback) {
 			httpRequest("POST", "inventory/updateinventory", physicalinventories, function (err, data) {
 				if (err) {
 
@@ -925,9 +925,9 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 		
-		apiClass.PhysicalInventory.processMovement = function (movement, callback) {
+		apiClass.movement.processMovement = function (movement, callback) {
 			httpRequest("POST", "movement/process", movement, function (err, data) {
 				if (err) {
 
@@ -943,13 +943,13 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 
-		apiClass.PhysicalInventoryLine ={
+		/*apiClass.movementLine ={
 
 				name: ""
-		};
+		};*/
 
 
-		apiClass.PhysicalInventoryLine.getProducts = function (products, callback) {
+		/*apiClass.movementLine.getProducts = function (products, callback) {
 			httpRequest("POST", "inventoryline/productlist", products, function (err, data) {
 				if (err) {
 
@@ -961,9 +961,9 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 
-		apiClass.PhysicalInventoryLine.productUom = function (physicalinventories, callback) {
+		/*apiClass.movementLine.productUom = function (physicalinventories, callback) {
 			httpRequest("POST", "inventoryline/getUomList", physicalinventories, function (err, data) {
 				if (err) {
 
@@ -977,7 +977,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.PhysicalInventoryLine.productUom = function (uom, callback) {
+		apiClass.movementLine.productUom = function (uom, callback) {
 			httpRequest("POST", "inventoryline/getUomList", uom, function (err, data) {
 				if (err) {
 
@@ -989,10 +989,10 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 
 
-		apiClass.PhysicalInventoryLine.warehouseBin = function (bin, callback) {
+		/*apiClass.movementLine.warehouseBin = function (bin, callback) {
 			httpRequest("POST", "inventoryline/storagebinlist", bin, function (err, data) {
 				if (err) {
 
@@ -1004,7 +1004,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 				}
 			});
-		};
+		};*/
 
 
 
@@ -1050,6 +1050,111 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};*/
 
+		/*Physical Inventory*/
+		apiClass.PhysicalInventory ={
+				name:""
+		};
+		
+		apiClass.PhysicalInventory.addPhysicalInventory = function (inventory, callback) {
+			httpRequest("POST", "inventory/save", inventory, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.addPhysicalInventoryLine = function (inventoryLine, callback) {
+			httpRequest("POST", "inventory/save/Inventoryline", inventoryLine, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.deletePhysicalInventory = function (inventoryId, callback) {
+			httpRequest("DELETE", "inventory/delete/"+inventoryId, null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.deletePhysicalInventoryLine = function (inventoryLineId, callback) {
+			httpRequest("DELETE", "inventory/delete/inventoryline/"+inventoryLineId, null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.getPhysicalInventoriesByStore = function (storeId, callback) {
+			httpRequest("GET", "inventory/getinventories/"+storeId, null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.getPhysicalInventory = function (inventoryId, callback) {
+			httpRequest("GET", "inventory/inventory/"+inventoryId, null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		apiClass.PhysicalInventory.physicalInventoryIsUpdate = function (inventoryId, callback) {
+			httpRequest("PUT", "inventory/isupdate/"+inventoryId, null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		
+		
 		/*Sales Order*/
 
 		apiClass.SalesOrder = {

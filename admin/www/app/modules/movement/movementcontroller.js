@@ -6,11 +6,11 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 			$scope.movements = movementLists;
 			$scope.srch = true;
 			
-			$scope.redirectGetPhysicalInventory = function(){
+			/*$scope.redirectGetPhysicalInventory = function(){
 				movementServices.getInventory({'storeId':$rootScope.user.storeId}).then(function(data){
 					$scope.physicalinventoryData=data;
 				});
-			};
+			};*/
 
 			$scope.redirectToMovementDetails = function(movement){
 				movementServices.setMovementObj(movement);
@@ -24,7 +24,7 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 			$scope.processMovement = function(movement) {
 				$scope.warehouseData = {};
 				movementServices.processMovement({'movementId': movement.movementId}).then(function(data){
-					movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+					movementServices.getMovementsByStore({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 						$scope.movements = data;
     				});
 				});
@@ -38,7 +38,7 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 				  $mdDialog.show(confirm).then(function() {
 			
 					  movementServices.removeMovement(movement).then(function(data){
-							movementServices.getInventory({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
+							movementServices.getMovementsByStore({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 								$scope.movements = data;
 		    				});
 						});

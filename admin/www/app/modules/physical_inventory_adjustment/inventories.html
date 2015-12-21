@@ -1,0 +1,137 @@
+<a ui-sref="app.addNewInventory">
+	<md-button class="md-fab" aria-label="ADD" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
+		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
+	</md-button>
+</a>
+
+	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+         <div class="md-toolbar-tools " layout="row">
+         		<h3 layout="column" style="padding: 0px 10px;">Physical Inventory Adjustment</h3>
+         		<div class="tbl-search">
+		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+		  			<input ng-model="sreach" type="text"  placeholder="Search">
+		  		</div>
+         	</div>
+         </md-toolbar>
+
+<md-content laout="column" flex>
+<md-card>
+<md-data-table-container>
+  <table md-data-table>
+    <thead>
+      <tr>
+        <th name="Inventory Name" ></th>
+        <th name="Warehouse Name"></th>
+        <th name="Update & View"></th>
+        <th name="Action"></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr md-auto-select ng-repeat="inventory in physicalInventories | filter:sreach | limitTo: physicalInventoryAdjustmentPagination.limit: (physicalInventoryAdjustmentPagination.page - 1) * physicalInventoryAdjustmentPagination.limit" class="md-table-content-row" ui-sref="app.physicalInventoryDetail({inventoryId:inventory.movementId})">
+        <td>
+              {{inventory.name}} 
+        </td>
+        <td>
+              {{inventory.warehouse.name}}
+        </td>
+        <td>
+          <md-button ng-hide="inventory.isupdated == 'Y'" class="md-raised md-success  prdct-btns" ng-click="updateInventory(inventory.movementId);$event.stopPropagation();">Process</md-button>
+          <md-button class="md-raised md-success  prdct-btns" ui-sref="app.physicalInventoryDetail({inventoryId:inventory.movementId})">View Line</md-button>
+        </td>
+        <td flex layout-align="center center" layout>
+   			<md-button ng-click="$event.stopPropagation();" ng-hide="inventory.isupdated == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ui-sref="app.editInventory({inventoryId:inventory.movementId})" aria-label="Edit">
+     			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
+   			</md-button>
+          	<md-button ng-hide="inventory.isupdated == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="removeInventory(inventory);$event.stopPropagation();" aria-label="Delete">
+          		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+          	</md-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</md-data-table-container>
+<md-data-table-pagination md-limit="physicalInventoryAdjustmentPagination.limit" md-page="physicalInventoryAdjustmentPagination.page" md-total="{{physicalInventories.length}}" md-trigger="onpagechange">
+</md-data-table-pagination>
+</md-card>
+</md-content>
+
+
+<!-- <a ui-sref="app.addNewInventory">
+	<md-button class="md-fab" aria-label="ADD" style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
+		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
+	</md-button>
+</a>
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
+   
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+         <div class="md-toolbar-tools " layout="row">
+         		<h3 layout="column" style="padding: 0px 10px;">Physical Inventory Adjustment</h3>
+         		<div class="tbl-search">
+		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+		  			<input ng-model="sreach" type="text"  placeholder="Search">
+		  		</div>
+         	</div>
+         </md-toolbar>
+
+   <md-card-content class="nopadd">
+	<md-data-table-container>
+     <md-list>
+     
+     <md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row">
+          <div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex layout-align="start center" layout-padding style="padding-right: 0;">
+             	Inventory Name
+           	</span>
+         	<span flex layout-align="start center" layout>
+             	Warehouse Name
+           	</span>
+           	<span flex layout-align="start center" layout>
+                Update & View
+             </span>
+           	<span flex layout-align="center center" layout>
+                Action
+             </span>	
+            </div>
+         </md-item-content>
+        
+       </md-item>
+       
+       <md-item class="data-table-list" md-data-table ng-repeat="inventory in physicalInventories | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row" ng-click="redirectToInventoryDetails(inventory);">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+         
+           	<span flex layout layout-align="start center">
+             <span class="shopname" class="ft-14 hash_color">{{inventory.name}}</span>             
+           	</span>
+           	
+           	<span flex layout layout-align="start center">
+           	<span class="shopname" class="ft-14 hash_color">{{inventory.warehouse.name}}</span>
+        	</span>
+        	
+        	<span flex layout layout="row" layout-align="start center">
+        	<md-button ng-hide="inventory.isupdated == 'Y'" class="md-raised md-success  prdct-btns" ng-click="processInventory(inventory);$event.stopPropagation();">Process</md-button>
+          	<md-button class="md-raised md-success  prdct-btns" ng-click="redirectToInventoryDetails(inventory);$event.stopPropagation();">View Line</md-button>
+            </span>
+            
+            <span flex layout layout="row" layout-align="center center">
+            	<md-button ng-hide="inventory.isupdated == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="redirectToEditInventory(inventory);$event.stopPropagation();" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
+      			</md-button>
+             	<md-button ng-hide="inventory.isupdated == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ng-click="removeInventory(inventory);$event.stopPropagation();" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+            </div>
+           </div>
+         </md-item-content>
+        </md-item>
+     </md-list>
+	</md-data-table-container>
+   </md-card-content>    
+</md-card>
+<div layout layout="row"  class="table-pagination-bg" layout-align="end center">
+<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{movements.length}}" md-trigger="onpagechange">
+</md-data-table-pagination>
+</div>
+ -->

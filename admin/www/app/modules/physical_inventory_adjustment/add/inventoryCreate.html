@@ -1,0 +1,62 @@
+<md-data-table-toolbar>
+  <h3 flex="30">Add Inventory</h3>
+  <h3 ng-show = "physicalInventory.movementId" flex >Name: {{physicalInventory.name}} &nbsp;&nbsp;  Warehouse: {{physicalInventory.warehouse.name}}</h3>
+  <md-input-container flex ng-hide="movement.movementId" layout-align="end center">
+	<md-select ng-show = "!physicalInventory.movementId"  placeholder="Warehouse" ng-model="Warehouse" style="min-width: 200px;" ng-change = "setStoragebin(warehouse)">
+           <md-option ng-value="{{warehouse}}" ng-repeat="warehouse in warehouseData  | orderBy:'name'">
+               {{warehouse.name}}
+           </md-option>
+       </md-select>
+   </md-input-container>
+</md-data-table-toolbar>
+
+<md-content laout="column" flex>
+<md-card>
+<md-data-table-container>
+  <table md-data-table>
+    <thead>
+      <tr>
+        <th name="Product" ></th>
+        <th name="Storage Bin"></th>
+        <th name="Actual Quantity"></th>
+        <th name="Update Quantity"></th>
+        <th name="Action"></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr md-auto-select ng-repeat="stocks in productStockList">
+        <td>
+              {{stocks.productName}}
+        </td>
+        <td>
+              {{stocks.storagebinName}} ( {{stocks.stack}} - {{stocks.row}} - {{stocks.level}} )
+        </td>
+        <td>
+       		  {{stocks.availableQty}}
+        </td>
+        <td ng-init="stocks.isMovementExist=false;changeIsExistMovement(stocks);">
+           <md-input-container ng-if="stocks.isMovementExist">
+              <input  ng-model="physicalInventoryList[stocks.inventoryIndex].qty" class="noborderimg padd-l8" ng-enter="updateInventory(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);" aria-label="Product Quantity">
+           </md-input-container>
+           <md-input-container ng-if="!stocks.isMovementExist">
+              <input  ng-model="stocks.inventoryQty" class="noborderimg padd-l8" ng-enter="addInventory(stocks);" aria-label="Product Quantity" valid-number>
+           </md-input-container>
+           
+        </td>
+        <td flex layout-align="center center" layout>
+      		<div layout="row" flex layout-padding>
+               <md-button ng-hide = "stocks.isMovementExist" class="md-icon-button md-primary" flex  ng-click="addInventory(stocks);"><ng-md-icon icon="done" size="20" class="icons hash_color" ></ng-md-icon><md-tooltip md-direction="bottom">Add</md-tooltip></md-button>
+               <md-button ng-show = "stocks.isMovementExist" class="md-icon-button md-primary" flex  ng-click="updateInventoryLine(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);"><ng-md-icon icon="done" size="20" class="icons hash_color" ></ng-md-icon><md-tooltip md-direction="bottom">Update</md-tooltip></md-button>
+               <md-button ng-show = "stocks.isMovementExist" class="md-icon-button md-primary" flex  ng-click="removeInventoryLine(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);"><ng-md-icon icon="close" size="20" class="icons hash_color" ></ng-md-icon><md-tooltip md-direction="bottom">Delete</md-tooltip></md-button>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  			<section layout="row" layout-align="start center" layout-wrap>
+                <md-button ng-hide="physicalInventory.movementId == undefined" class="md-raised md-success  prdct-btns" ng-click="updateInventory();" ng-disabled="physicalInventory.movementId == undefined">Process</md-button>
+                <md-button class="md-raised md-cancel prdct-btns" ui-sref="app.physicalInventoryAdjustment">Cancel</md-button>
+            </section>
+</md-data-table-container>
+</md-card>
+</md-content>

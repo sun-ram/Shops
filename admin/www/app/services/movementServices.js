@@ -1,8 +1,8 @@
 angular.module('aviateAdmin.services')
 .service('movementServices',['$q','api','toastr','CONSTANT', function($q,api, toastr,CONSTANT) {
-	this.getInventory = function(physicalinventories){
+	this.getMovementsByStore = function(physicalinventories){
 		var d = $q.defer();
-		api.PhysicalInventory.getInventory(physicalinventories, function(err, result){
+		api.movement.getMovementsByStore(physicalinventories, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result.movements);
@@ -17,31 +17,31 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.getInventoryWarehouse = function(warehouses){
+	/*this.getInventoryWarehouse = function(warehouses){
 		var d = $q.defer();
 		
-		api.PhysicalInventory.getInventoryWarehouse(warehouses, function(err, result){
+		api.movement.getInventoryWarehouse(warehouses, function(err, result){
 			if(result){
 				d.resolve(result);
 			
 
 				
-				/*if (result.status === CONSTANT.STATUS.SUCCESS) {
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
 				}else{
 					toastr.error(result.errorString);	
-				}*/
+				}
 			}
 			else{
 				toastr.error(err.errorCode);
 			}
 		});
 		return d.promise;
-	};
+	};*/
 	
 	this.addMovement = function(movement){
 		var d = $q.defer();
-		api.PhysicalInventory.addMovement(movement, function(err, result){
+		api.movement.addMovement(movement, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
@@ -57,7 +57,7 @@ angular.module('aviateAdmin.services')
 	
 	this.addMovementLine = function(movementLine){
 		var d = $q.defer();
-		api.PhysicalInventory.addMovementLine(movementLine, function(err, result){
+		api.movement.addMovementLine(movementLine, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
@@ -71,9 +71,9 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
-	this.updatePhysicalInventory = function(physicalinventories){
+	/*this.updatePhysicalInventory = function(physicalinventories){
 		var d = $q.defer();
-		api.PhysicalInventory.updatePhysicalInventory(physicalinventories, function(err, result){
+		api.movement.updatePhysicalInventory(physicalinventories, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.ADDPHYSICALINVENTORY);
@@ -86,11 +86,11 @@ angular.module('aviateAdmin.services')
 			}
 		});
 		return d.promise;
-	};
+	};*/
 	
 	this.removeMovement = function(movement){
 		var d = $q.defer();
-		api.PhysicalInventory.removeMovement(movement, function(err, result){
+		api.movement.removeMovement(movement, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.DELETEPHYSICALINVENTORY);
@@ -107,7 +107,7 @@ angular.module('aviateAdmin.services')
 	
 	this.removeMovementLine = function(movementLine){
 		var d = $q.defer();
-		api.PhysicalInventory.removeMovementLine(movementLine, function(err, result){
+		api.movement.removeMovementLine(movementLine, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.DELETEPHYSICALINVENTORY);
@@ -124,7 +124,7 @@ angular.module('aviateAdmin.services')
 	
 	this.processMovement = function(movement){
 		var d = $q.defer();
-		api.PhysicalInventory.processMovement(movement, function(err, result){
+		api.movement.processMovement(movement, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					toastr.success(CONSTANT.INV_PROCESSED);
@@ -141,7 +141,7 @@ angular.module('aviateAdmin.services')
 	
 	this.getMovement = function(movementId){
 		var d = $q.defer();
-		api.PhysicalInventory.getMovement(movementId, function(err, result){
+		api.movement.getMovement(movementId, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result.movement);

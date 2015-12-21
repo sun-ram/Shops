@@ -58,6 +58,11 @@ angular.module('aviateAdmin.controllers')
 					page: 1
 			};
 			
+			$scope.physicalInventoryAdjustmentPagination = {
+					limit: 5,
+					page: 1
+			};
+			
 			$scope.storagebinPagination={
 					limit: 5,
 					page: 1
@@ -70,11 +75,11 @@ angular.module('aviateAdmin.controllers')
 			
 			$scope.getCity = function(states){
 				$scope.cities = states.city;
-			}
+			};
 			
 			$scope.getState = function(country){
 				$scope.states = country.states;
-			}
+			};
 			
 			$scope.getCountries = function(){
 				if(!$localStorage.countries){
@@ -93,7 +98,7 @@ angular.module('aviateAdmin.controllers')
 				}else{
 					$scope.countries=$localStorage.countries;
 				}
-			}
+			};
 			$scope.getCountries();
 			
 		}]);
