@@ -10,6 +10,9 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		var today = new Date();
 		var todayDateObj = new Date(today.toISOString().substring(0, 10));
 		var yesterdayDateObj = new Date(today.toISOString().substring(0, 10));
+		yesterdayDateObj.setTime(todayDateObj.getTime() - millisecondsPerday);
+		var tomorrowDateObj = new Date(angular.copy(today.toISOString().substring(0, 10)));
+		tomorrowDateObj.setTime(angular.copy(todayDateObj.getTime() + millisecondsPerday));
 		var dateAndMonth = [];
 		var month = new Array();
 		month[0] = "Jan";
@@ -24,7 +27,6 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		month[9] = "Oct";
 		month[10] = "Nov";
 		month[11] = "Dec";
-		yesterdayDateObj.setTime(todayDateObj.getTime() - millisecondsPerday);
 		$scope.salesOrders = {Books:[]};
 		$scope.merchants;
 		$scope.stores;
@@ -35,6 +37,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.totalStores = 0;
 		$scope.salesGrowthToday = 0;
 		$scope.totalSalesRevenue = 0;
+		$scope.totalCustomers = 0;
 		$scope.historicalBarChart = [
 			{
 				key: "Cumulative Return",
@@ -322,7 +325,8 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 				var j=0,solen = $scope.salesOrders.Books.length;
 				for(;j<solen;j++){
 					tempDateObj = new Date(($scope.salesOrders.Books[j].DELIVERY_DATE).substring(0, 10));
-					if(tempDateObj.getTime() == tempStoreDate.getTime() && $scope.salesOrders.Books[j].STORE_ID == $rootScope.user.storeId && $scope.salesOrders.Books[j].DELIVERY_DATE){
+					tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);
+					if(tempDateObj.getTime() == tempStoreDate.getTime() && $scope.salesOrders.Books[j].STORE_ID == $rootScope.user.storeId && $scope.salesOrders.Books[j].DELIVERED_TIME){
 						createdTime = new Date($scope.salesOrders.Books[j].CREATED);
 						deliveredTime = new Date($scope.salesOrders.Books[j].DELIVERED_TIME);
 						if((deliveredTime.getTime() - createdTime.getTime()) <= deliveryTimeSpan){
@@ -356,7 +360,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 				})
 				.error(function (data, status) {
 					defer.reject(data);
-					console.log("merchant error case ", data);
+					console.log(service+" error case ", data);
 				});
 			return  defer.promise;
 		}
@@ -386,7 +390,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 			for (; i < len; i++) {
 				if($rootScope.user.storeId == $scope.salesOrders.Books[i].STORE_ID){
 					tempDateObj = new Date(($scope.salesOrders.Books[i].DELIVERY_DATE).substring(0, 10));
-					/*tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);*/
+					tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);
 					if (tempDateObj.getTime() == todayDateObj.getTime()) {
 						$scope.todayTotSale = $scope.todayTotSale + $scope.salesOrders.Books[i].NET_AMOUNT;
 					} else if (tempDateObj.getTime() == yesterdayDateObj.getTime()) {
@@ -458,8 +462,8 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 			
 			for (; i < len; i++) {
 				tempDateObj = new Date((data.Books[i].DELIVERY_DATE).substring(0, 10));
-				/*tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);*/
-				if ($rootScope.user.storeId == data.Books[i].STORE_ID && tempDateObj.getTime() > endDateObj.getTime()) {
+				tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);
+				if (tempDateObj.getTime() >= endDateObj.getTime() && tempDateObj.getTime() < tomorrowDateObj.getTime()) {
 					tempArray[index] = data.Books[i];
 					index++;
 					totalAmount = totalAmount + data.Books[i].NET_AMOUNT;
@@ -513,7 +517,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 				len = tempArray.length;
 				for (i=0; i < len; i++) {
 					tempDateObj = new Date((tempArray[i].DELIVERY_DATE).substring(0, 10));
-						/*tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);*/
+						tempDateObj.setTime(tempDateObj.getTime() + millisecondsPerday);
 						if ($rootScope.user.storeId == data.Books[i].STORE_ID && tempDateObj.getTime() == (todayDateObj.getTime() - (millisecondsPerday * j))) {
 							soCount = soCount +1;
 							totalamt = totalamt + tempArray[i].NET_AMOUNT;
@@ -561,7 +565,7 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 			$scope.merchantGrowthToday  = (Math.round($scope.merchantGrowthToday  * 100) / 100);
 		};
 
-		function postCustomer(data) {
+		function filteredCustomers(data) {
 			$scope.totalCustomers = (data) ? data.Books.length : 0;
 			var newCustomerToday = 0,
 				newCustomerLastDat = 0;
@@ -614,14 +618,14 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
             }];
 
 			sendHttpRequest('salesOrder').then(function (data) {
-				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
+				data.Books = _.reject(data.Books, function(book){ return ($rootScope.user.storeId != book.STORE_ID);});
 				console.log("salesOrder Exected success case ", data);
 				postSalesOrder(data);
 			});
 		};
 		$scope.proceedSalesOrderLine = function (callback) {
 			sendHttpRequest('salesOrderLine').then(function (data) {
-				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
+				data.Books = _.reject(data.Books, function(book){ return ($rootScope.user.storeId != book.STORE_ID);});
 				$scope.salesOrderLines = data;
 				console.log("Sales order Line =>", data);
 			});
@@ -665,10 +669,11 @@ aviateAdmin.controller("storeDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 		$scope.proceedCustomer = function (callback) {
 			sendHttpRequest('customer').then(function (data) {
-				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
+				var activeCustomers = angular.copy(data);
+				activeCustomers.Books = _.reject(activeCustomers.Books, function(book){ return book.ISACTIVE != 'Y';});
+				filteredCustomers(activeCustomers);
 				console.log("Customers--->",data);
 				$scope.customers = data;
-				postCustomer(data);
 			});
 		};
 		
