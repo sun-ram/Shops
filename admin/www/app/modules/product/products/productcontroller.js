@@ -29,9 +29,11 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.checkPrice = function(price, wasPrice){
 		if((price != undefined || price !="") && (wasPrice != undefined || wasPrice != "")){
-			if(wasPrice < price){
+			if(wasPrice <= price){
 				$scope.product.wasPrice = undefined;
-				toastr.warning("WasPrice Should Be Greater Than Or Equal To Price");
+				toastr.warning("WasPrice Should Be Greater Than To Price");
+				return;
+
 			}else{
 				return;
 			}

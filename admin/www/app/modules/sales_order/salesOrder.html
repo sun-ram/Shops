@@ -70,7 +70,7 @@
             </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="salesOrder in salesOrderList | orderBy: salesOrderPagination.order | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:search">
+		<tr ng-repeat="salesOrder in salesOrderList | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:search">
 		<td ng-if="salesOrder.status=='Placed' ||  salesOrder.status=='Shoper_Assigned'"><md-button class="md-icon-button md-primary" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status!='Placed' &&  salesOrder.status!='Shoper_Assigned'"><md-button  class="md-icon-button md-primary" ng-disabled="true" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status=='Packed' ||  salesOrder.status=='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
