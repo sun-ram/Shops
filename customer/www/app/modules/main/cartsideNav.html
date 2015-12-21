@@ -37,7 +37,7 @@
 <!-- 					         <md-icon aria-label="Menu" icon="highlight_remove" md-svg-icon="assets/images/cross.svg" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="width: 10px;cursor:pointer;margin-top: 20px;"></md-icon> -->
 <!-- 					         <i class="icon ion-ios-trash" style="cursor:pointer; margin-top: 20px; font-size: 20px; color: #F96D57;"></i> -->
 <!-- 					         <i class="icon ion-trash-b" style="cursor:pointer; margin-top: 22px; font-size: 15px; fill: #F96D57;"></i>  -->
-					          <ng-md-icon icon="highlight_remove" size="25" ng-click="removeFromMyCart(item, $index);$event.stopPropagation();" style="cursor:pointer;margin-top: 22px; fill: #F96D57;"></ng-md-icon>
+					          <ng-md-icon icon="highlight_remove" size="25" ng-mouseup="removeFromMyCart(item, $index);" style="cursor:pointer;margin-top: 22px; fill: #F96D57;"></ng-md-icon>
 					         <md-divider ></md-divider>
 					         
 					      </md-list-item> 

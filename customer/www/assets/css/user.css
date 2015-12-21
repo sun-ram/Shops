@@ -161,7 +161,7 @@
 .md-green span{
 	font-size: 14px;
 }
-.auth_input md-icon, ng-md-icon{
+.auth_input md-icon {
 	margin-top: 30px;
 	margin-left: 6px;
 	fill: #0F9D58;
