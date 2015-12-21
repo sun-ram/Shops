@@ -17,4 +17,7 @@ public interface ProductInventoryService<T> {
 	public List<ProductInventory> getProductInventoryByMerchant(Merchant merchant);
 	
 	public ProductStockResponseVo setProductStockVo (List productInventoryList);
+	
+	public void updateInventory(ProductInventory productInventory);
+
 }

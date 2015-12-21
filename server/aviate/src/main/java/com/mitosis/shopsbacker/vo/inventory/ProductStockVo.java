@@ -6,10 +6,12 @@ public class ProductStockVo {
 	private String productName;
 	private String productId;
 	private String storagebinName;
+	private String storagebinId;
 	private String row;
 	private String stack;
 	private String level;
 	private String warehouseName;
+	private String warehouseId;
 	public String getProductInventoryId() {
 		return productInventoryId;
 	}
@@ -63,6 +65,18 @@ public class ProductStockVo {
 	}
 	public void setWarehouseName(String warehouseName) {
 		this.warehouseName = warehouseName;
+	}
+	public String getStoragebinId() {
+		return storagebinId;
+	}
+	public void setStoragebinId(String storagebinId) {
+		this.storagebinId = storagebinId;
+	}
+	public String getWarehouseId() {
+		return warehouseId;
+	}
+	public void setWarehouseId(String warehouseId) {
+		this.warehouseId = warehouseId;
 	}
 	
 }

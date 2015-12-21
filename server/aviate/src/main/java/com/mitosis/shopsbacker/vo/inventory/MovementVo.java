@@ -18,6 +18,7 @@ public class MovementVo {
 	private char isupdated;
 	private char isactive;
 	private Date created;
+	private char isMovement;
 	private List<MovementLineVo> movementLines = new ArrayList<MovementLineVo>();
 	
 	public String getMovementId() {
@@ -79,6 +80,12 @@ public class MovementVo {
 	}
 	public void setMovementLines(List<MovementLineVo> movementLines) {
 		this.movementLines = movementLines;
+	}
+	public char getIsMovement() {
+		return isMovement;
+	}
+	public void setIsMovement(char isMovement) {
+		this.isMovement = isMovement;
 	}
 	
 

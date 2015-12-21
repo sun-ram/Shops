@@ -328,3 +328,7 @@ CREATE TABLE `discount_product` (
   CONSTRAINT `fk_DISC_PROD_PRODUCT` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`PRODUCT_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_DISC_PROD_STORE` FOREIGN KEY (`STORE_ID`) REFERENCES `store` (`STORE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--- 21-12-2015 ------- Prabakaran A -------------------------- for physical inventory adjustment, need to add is movement column------
+ALTER TABLE `shopsbacker`.`movement` 
+ADD COLUMN `ISMOVEMENT` CHAR(1) NOT NULL DEFAULT 'Y' AFTER `ISUPDATED`;

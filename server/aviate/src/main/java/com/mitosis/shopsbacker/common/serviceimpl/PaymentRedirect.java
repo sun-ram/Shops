@@ -16,7 +16,7 @@ import com.mitosis.shopsbacker.order.serviceimpl.SalesOrderServiceImpl;
 /**
  * Servlet implementation class PaymentRedirect
  */
-@WebServlet("/product")
+@WebServlet("/transaction")
 public class PaymentRedirect<T> extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

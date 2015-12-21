@@ -57,6 +57,8 @@ public class ProductInventoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
         proList.add(Projections.property("storagebin.stack"), "stack");
         proList.add(Projections.property("storagebin.level"), "level");
         proList.add(Projections.property("warehouse.name"), "warehouseName");
+        proList.add(Projections.property("warehouse.warehouseId"), "warehouseId");
+        proList.add(Projections.property("storagebin.storagebinId"), "storagebinId");
         criteria.setProjection(proList);
         
 		criteria.add(Restrictions.eq("store", store));
@@ -82,6 +84,8 @@ public class ProductInventoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
         proList.add(Projections.property("storagebin.stack"), "stack");
         proList.add(Projections.property("storagebin.level"), "level");
         proList.add(Projections.property("warehouse.name"), "warehouseName");
+        proList.add(Projections.property("warehouse.warehouseId"), "warehouseId");
+        proList.add(Projections.property("storagebin.storagebinId"), "storagebinId");
         criteria.setProjection(proList);
         
 		criteria.add(Restrictions.eq("merchant", merchant));

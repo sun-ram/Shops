@@ -44,6 +44,7 @@ public interface SalesOrderService<T> {
 	public SalesOrder getSalesOrder(String orderNo);
 
 	public SalesOrderVo setSalesOrderVoEmp(SalesOrder salesOrder) throws Exception;
-
+	
+	public void productStockReduce(SalesOrder salesOrder) throws Exception;
 
 }

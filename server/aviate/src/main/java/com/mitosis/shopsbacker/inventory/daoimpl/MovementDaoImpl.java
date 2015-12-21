@@ -98,6 +98,23 @@ public class MovementDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 					.forClass(Movement.class);
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("isMovement", 'Y'));
+			criteria.addOrder(Order.desc("created"));
+			return ((List<Movement>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
+
+	@Override
+	public List<Movement> getInventories(Store store) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(Movement.class);
+			criteria.add(Restrictions.eq("store", store));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("isMovement", 'N'));
 			criteria.addOrder(Order.desc("created"));
 			return ((List<Movement>) findAll(criteria));
 		} catch (Exception e) {

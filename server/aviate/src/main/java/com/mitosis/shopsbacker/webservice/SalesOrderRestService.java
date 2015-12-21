@@ -376,6 +376,10 @@ public class SalesOrderRestService<T> {
 			salesOrder.setMerchant(store.getMerchant());
 
 			salesOrderService.saveSalesOrder(salesOrder);
+			
+			/*Reduce Stock*/
+			salesOrderService.productStockReduce(salesOrder);
+			
 			int numberOfEntityDeleted = 0;
 			if (salesOrderVo.getPaymentMethod() != null
 					&& salesOrderVo.getPaymentMethod().equals("COD")) {

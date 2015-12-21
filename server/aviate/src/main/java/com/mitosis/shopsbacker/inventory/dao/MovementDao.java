@@ -24,4 +24,6 @@ public interface MovementDao<T> {
 	public Movement getMovement(String movementId);
 
 	public List<Movement> getMovementListByStore(Store store);
+
+	public List<Movement> getInventories(Store store);
 }

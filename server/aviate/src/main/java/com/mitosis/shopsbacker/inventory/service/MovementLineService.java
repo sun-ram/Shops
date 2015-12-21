@@ -16,7 +16,7 @@ public interface MovementLineService<T> {
 	
 	public void updateMovementLine(MovementLine movementLine);
 
-	public void removeMovementLine(MovementLine movementLine);
+	public void removeMovementLine(String movementLineId);
 
 	public void removeMovementLineByMovement(Movement movement);
 

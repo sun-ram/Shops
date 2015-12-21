@@ -14,11 +14,18 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
+import com.mitosis.shopsbacker.inventory.dao.ProductInventoryDao;
+import com.mitosis.shopsbacker.inventory.dao.WarehouseDao;
+import com.mitosis.shopsbacker.inventory.service.ProductInventoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Product;
+import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
+import com.mitosis.shopsbacker.model.Storagebin;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
@@ -62,6 +69,15 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	
 	@Autowired
 	ProductService<T> productService;
+	
+	@Autowired
+	WarehouseDao<T> warehouseDao;
+		
+	@Autowired
+	ProductInventoryService<T> productInventoryService;
+		
+	@Autowired
+	ProductInventoryDao<T> productInventoryDao;
 	
 	
 	public SalesOrderDao<T> getSalesOrderDao() {
@@ -324,4 +340,88 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		return addressVo;
 
 	}*/
+	
+	public void productStockReduce(SalesOrder salesOrder) throws Exception {
+		for (SalesOrderLine salesOrderLine : salesOrder.getSalesOrderLines()) {
+			
+			Store store = salesOrder.getStore();
+			Product product = salesOrderLine.getProduct();
+			
+			List<ProductInventory> productInventories = productInventoryDao.getProductInventory(store, product);
+			int soldOutQuantity = salesOrderLine.getQty();
+			if(!productInventories.isEmpty()){
+				int balanceQty = soldOutQuantity;
+				for(int i = 0; i < productInventories.size(); i++){
+					ProductInventory pi = productInventories.get(i);
+					if(balanceQty>0){
+					if(balanceQty >= pi.getAvailableQty()){
+							if(i == productInventories.size()-1){
+								balanceQty = pi.getAvailableQty()-balanceQty;
+								pi.setAvailableQty(balanceQty);
+							} else{
+								balanceQty = balanceQty-pi.getAvailableQty();
+								pi.setAvailableQty(balanceQty);
+							}
+						} else {
+							balanceQty = pi.getAvailableQty()-balanceQty;
+							pi.setAvailableQty(balanceQty);
+						}
+					}else{
+						break;
+					}
+					productInventoryService.updateInventory(pi);
+				}
+			}else{/*
+				ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName());
+				Storagebin storagebinForSalesorder = new Storagebin();
+				if(!store.getWarehouses().isEmpty()){
+					Warehouse warehouse = store.getWarehouses().get(0);
+					if(!store.getWarehouses().get(0).getStoragebins().isEmpty()){
+						storagebinForSalesorder = store.getWarehouses().get(0).getStoragebins().get(0);
+					}else{
+						Storagebin storagebin = createNewBinForNegativeStock(warehouse);
+						storagebin.setStore(store);
+						warehouse.getStoragebins().add(storagebin);
+						warehouseDao.updateWarehouse(warehouse);
+						storagebinForSalesorder = storagebin;
+					}
+				}else{
+					Warehouse warehouse = (Warehouse) CommonUtil.setAuditColumnInfo(Warehouse.class.getName());
+					warehouse.setName("Sales Order");
+					warehouse.setIsactive('Y');
+					warehouse.setDescription("Sales Order Does not have Stock");
+					Storagebin storagebin = createNewBinForNegativeStock(warehouse);
+					storagebin.setStore(store);
+					storagebin.setMerchant(store.getMerchant());
+					warehouse.getStoragebins().add(storagebin);
+					warehouse.setMerchant(salesOrder.getMerchant());
+					warehouse.setStore(store);
+					
+					//TODO: Need clarification
+					warehouse.setAddress(store.getUser().getAddress());
+					storagebin.setWarehouse(warehouse);
+					warehouseDao.addWarehouse(warehouse);
+					storagebinForSalesorder = storagebin;
+				}
+				productInventory.setIsactive('Y');
+				productInventory.setMerchant(salesOrder.getMerchant());
+				productInventory.setStore(salesOrder.getStore());
+			productInventory.setAvailableQty(-salesOrderLine.getQty());
+				productInventory.setStoragebin(storagebinForSalesorder);
+			productInventory.setProduct(salesOrderLine.getProduct());
+				productInventoryService.updateInventory(productInventory);
+			*/}
+		}
+	}
+		
+		/*private Storagebin createNewBinForNegativeStock(Warehouse warehouse) throws Exception {
+			Storagebin storagebin = (Storagebin) CommonUtil.setAuditColumnInfo(Storagebin.class.getName());
+			storagebin.setIsactive('Y');
+			storagebin.setName("Sales Order");
+			storagebin.setDescription("Sales order has created this bin");
+			storagebin.setRow("0-row");
+			storagebin.setLevel("0-Level");
+			storagebin.setStack("0-Stack");
+			return storagebin;
+		}*/
 }

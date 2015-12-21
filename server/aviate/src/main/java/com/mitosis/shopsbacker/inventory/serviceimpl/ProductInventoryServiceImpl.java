@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
@@ -62,8 +63,6 @@ public class ProductInventoryServiceImpl<T> implements
 		this.merchantService = merchantService;
 	}
 
-	@Override
-	@Transactional
 	public List<ProductInventory> getProductInventory(Store store,
 			Product product) {
 		return getProductInventoryDao().getProductInventory(store, product);
@@ -91,14 +90,22 @@ public class ProductInventoryServiceImpl<T> implements
 			productStockVo.setAvailableQty((int) projection[1]); 
 			productStockVo.setProductName((String) projection[2]); 
 			productStockVo.setProductId((String) projection[3]); 
-			productStockVo.setStoragebinName((String) projection[4]); 
+			productStockVo.setStoragebinName((String) projection[4]);
 			productStockVo.setRow((String) projection[5]); 
 			productStockVo.setStack((String) projection[6]); 
 			productStockVo.setLevel((String) projection[7]);
 			productStockVo.setWarehouseName((String) projection[8]);
+			
+			productStockVo.setWarehouseId((String) projection[9]);
+			productStockVo.setStoragebinId((String) projection[10]);
+			
 			productResponse.getProductListVo().add(productStockVo);
 		}
 		return productResponse;
+	}
+	
+	public void updateInventory(ProductInventory productInventory) {
+		productInventoryDao.updateInventory(productInventory);
 	}
 	
 }

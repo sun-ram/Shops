@@ -40,6 +40,7 @@ public class Movement implements java.io.Serializable {
 	private Store store;
 	private String name;
 	private char ismoved;
+	private char isMovement;
 	private char isupdated;
 	private char isactive;
 	private Date created;
@@ -51,7 +52,7 @@ public class Movement implements java.io.Serializable {
 
 	public Movement(String movementId, String createdby,
 			String updatedby, char ismoved, char isupdated, char isactive,
-			Date created, Date updated) {
+			Date created, Date updated, char isMovement) {
 		this.movementId = movementId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -60,12 +61,13 @@ public class Movement implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.isMovement = isMovement;
 	}
 
 	public Movement(String movementId, String createdby,
 			String updatedby, Merchant merchant, Warehouse warehouse,
 			Store store, String name, char ismoved, char isupdated,
-			char isactive, Date created, Date updated, List<MovementLine> movementLines) {
+			char isactive, Date created, Date updated, List<MovementLine> movementLines, char isMovement) {
 		this.movementId = movementId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -79,6 +81,7 @@ public class Movement implements java.io.Serializable {
 		this.created = created;
 		this.updated = updated;
 		this.movementLines = movementLines;
+		this.isMovement = isMovement;
 	}
 
 	@Id
@@ -202,6 +205,14 @@ public class Movement implements java.io.Serializable {
 
 	public void setMovementLines(List<MovementLine> movementLines) {
 		this.movementLines = movementLines;
+	}
+	@Column(name = "ISMOVEMENT", nullable = false, length = 1)
+	public char getIsMovement() {
+		return isMovement;
+	}
+
+	public void setIsMovement(char isMovement) {
+		this.isMovement = isMovement;
 	}
 
 }

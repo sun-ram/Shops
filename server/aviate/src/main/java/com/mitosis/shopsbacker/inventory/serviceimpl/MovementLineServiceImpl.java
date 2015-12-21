@@ -37,9 +37,8 @@ Serializable {
 	}
 
 	@Override
-	public void removeMovementLine(MovementLine movementLine) {
-		movementLineDao.removeMovementLine(movementLine);
-
+	public void removeMovementLine(String movementLineId) {
+		movementLineDao.removeMovementLine(getMovementLine(movementLineId));
 	}
 
 	@Override
