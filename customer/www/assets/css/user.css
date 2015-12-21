@@ -352,10 +352,14 @@ color: #60b95e;
 background: #ebf6eb;
 }
 ._slat{
-    text-align: center !important;
+    text-align: left !important;
     text-transform: uppercase !important;
     font-size: 15px !important;
     color: #0D904F !important;
+}
+._slat-del{
+	font-size: 22px !important;
+	text-align: left !important;
 }
 ._logotext{
           position: absolute;
