@@ -7,6 +7,14 @@ angular.module('aviateAdmin.controllers')
 	$scope.productOfferLine = ProductOfferServices.getProductOfferLineObj();
 	$scope.offerId = $stateParams.offerId;
 	
+	$scope.query = {
+			limit: 5,
+			page: 1
+	};
+	
+	$scope.count = 3;
+	$scope.srch = true;
+	
 	$scope.getProductOfferList = function () {
 		$scope.productOffer ={};
 		if($rootScope.user.role == "STOREADMIN"){
