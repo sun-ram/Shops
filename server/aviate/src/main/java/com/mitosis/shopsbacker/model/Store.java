@@ -59,6 +59,7 @@ public class Store implements java.io.Serializable {
 	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
 	private List<Discount> discounts = new ArrayList<Discount>();
 	private List<StoreHoliday> storeHolidays = new ArrayList<StoreHoliday>();
+	private List<DiscountProduct> discountProducts = new ArrayList<DiscountProduct>();
 	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
 
 	public Store() {
@@ -83,7 +84,7 @@ public class Store implements java.io.Serializable {
 			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
 			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,List<DeliveryTimeSlot> deliveryTimeSlots,
 			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
-			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts,List<StoreHoliday> storeHolidays) {
+			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts,List<StoreHoliday> storeHolidays,List<DiscountProduct> discountProducts) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -109,6 +110,7 @@ public class Store implements java.io.Serializable {
 		this.productInventories = productInventories;
 		this.discounts = discounts;
 		this.storeHolidays = storeHolidays;
+		this.discountProducts=discountProducts;
 		this.deliveryTimeSlots=deliveryTimeSlots;
 	}
 
@@ -341,6 +343,15 @@ public class Store implements java.io.Serializable {
 		public void setStoreHolidays(List<StoreHoliday> storeHolidays) {
 			this.storeHolidays = storeHolidays;
 		}
+		
+				@OneToMany(mappedBy = "store")
+				public List<DiscountProduct>  getDiscountProducts() {
+					return this.discountProducts;
+				}
+		
+				public void setDiscountProducts(List<DiscountProduct> discountProducts) {
+					this.discountProducts = discountProducts;
+				}		
 		
 		@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
 		public List<DeliveryTimeSlot> getDeliveryTimeSlots() {

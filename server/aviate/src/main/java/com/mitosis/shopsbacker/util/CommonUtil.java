@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -450,6 +451,47 @@ public final class CommonUtil {
 		}catch(Exception e){
 
 		}
+	}
+	
+	public static Boolean validDiscount(Date startDate,Date endDate,Date startTime,Date endTime){
+		
+	   Date date = new Date();
+		   Boolean checkDate;
+		   Boolean checkTime;
+		   
+		   Calendar cal = Calendar.getInstance();
+		   cal.setTime(startDate);
+		   cal.add(Calendar.DATE, -1);
+		   Date fromDate = cal.getTime();
+		   startDate.setTime(startTime.getTime());
+		   if(fromDate !=null && endDate !=null){
+		    checkDate = fromDate.compareTo(date) * date.compareTo(endDate) > 0;
+		   } else if(fromDate ==null && endDate !=null){
+			   checkDate = date.compareTo(endDate) > 0;
+		   }
+		   else{
+			   checkDate =true;
+		   }
+		   
+		   cal.setTime(date);  
+		   int currentTimeInMinute= (cal.get(Calendar.HOUR_OF_DAY)*60)+cal.get(Calendar.MINUTE);
+		   cal.setTime(startTime);
+		   int startTimeInMinute= (cal.get(Calendar.HOUR_OF_DAY)*60)+cal.get(Calendar.MINUTE);
+		   cal.setTime(endTime);
+		   int endTimeInMinute= (cal.get(Calendar.HOUR_OF_DAY)*60)+cal.get(Calendar.MINUTE);
+		   
+		   if(startTime !=null && endTime !=null){
+		   checkTime = ((startTimeInMinute <= currentTimeInMinute) && (currentTimeInMinute <= endTimeInMinute));
+		   }else if(startTime ==null && endTime !=null){
+			   checkTime = (currentTimeInMinute <= endTimeInMinute);
+		   }else{
+			   checkTime=true;
+		   }
+		   
+		   if(checkDate && checkTime){
+			   return true;
+		   }
+		   return checkDate;
 	}
 	
 }

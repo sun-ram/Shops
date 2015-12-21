@@ -298,3 +298,11 @@ ALTER TABLE `shopsbacker`.`delivery_time_slot`
 DROP INDEX `TIME_SLOT_UNIQUE` ,
 ADD UNIQUE INDEX `TIME_SLOT_UNIQUE` (`FROM_TIME` ASC, `TO_TIME` ASC, `STORE_ID` ASC);
 
+ ----   18-12-2015 -------- Riyaz Khan----------------- discount in product ------
+
+
+ALTER TABLE `shopsbacker`.`product` 
+DROP FOREIGN KEY `FK_PROD_DISCOUNT`;
+ALTER TABLE `shopsbacker`.`product` 
+DROP COLUMN `DISCOUNT_ID`,
+DROP INDEX `FK_PROD_DISCOUNT_idx` ;

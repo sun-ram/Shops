@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
@@ -19,21 +18,16 @@ import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
-import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductType;
-import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
-import com.mitosis.shopsbacker.model.Warehouse;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
-import com.mitosis.shopsbacker.vo.inventory.DiscountVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
-import com.mitosis.shopsbacker.vo.inventory.ProductImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
@@ -228,10 +222,13 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		
 		ProductTypeVo productTypeVo = productTypeService.setProductTypeVo(product.getProductType());
 		productVo.setProductType(productTypeVo);
-		if(product.getDiscount() !=null){
+/*		if(product.getDiscount() !=null){
 		DiscountVo discountVo = discountService.setDiscountVo(product.getDiscount());
-		productVo.setDiscount(discountVo);
+		Boolean Vaild = CommonUtil.validDiscount(discountVo.getStartDate(), discountVo.getEndDate(), discountVo.getStartTime(), discountVo.getEndTime());
+		if(Vaild){
+			productVo.setDiscount(discountVo);
 		}
+		}*/
 		UomVo uomVo = uomService.setUomVo(product.getUom());
 		productVo.setUom(uomVo);
 		

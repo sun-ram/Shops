@@ -51,7 +51,7 @@ public class Discount implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-	private List<Product> products = new ArrayList<Product>();
+	private List<DiscountProduct> discountProducts = new ArrayList<DiscountProduct>();
 	Store store;
 
 	public Discount() {
@@ -70,7 +70,7 @@ public class Discount implements java.io.Serializable {
 			Double discountPercentage, BigDecimal discountAmount,
 			Integer minQty, Integer maxQty, Date startDate, Date endDate,
 			Date startTime, Date endTime, BigDecimal minAmount, char isactive,
-			Date created, Date updated, List<Product> products,Store store) {
+			Date created, Date updated, List<Product> products,Store store,List<DiscountProduct> discountProducts ) {
 		this.discountId = discountId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -88,8 +88,8 @@ public class Discount implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
-		this.products = products;
 		this.store = store;
+		this.discountProducts=discountProducts;
 	}
 
 	@Id
@@ -253,15 +253,6 @@ public class Discount implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
-	public List<Product> getProducts() {
-		return this.products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-	
 	@ManyToOne
 	@JoinColumn(name = "STORE_ID")
 	public Store getStore() {
@@ -272,4 +263,14 @@ public class Discount implements java.io.Serializable {
 		this.store = store;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
+	public List<DiscountProduct> getDiscountProducts() {
+		return discountProducts;
+	}
+
+	public void setDiscountProducts(List<DiscountProduct> discountProducts) {
+		this.discountProducts = discountProducts;
+	}
+	
+	
 }
