@@ -13,6 +13,12 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			$scope.deliveryTimeSlot = $scope.deliveryTimeSlot[0];
 			$scope.deliveryTimeSlot.fromTime = $scope.convertToTime($scope.deliveryTimeSlot.fromTime);
 			$scope.deliveryTimeSlot.toTime = $scope.convertToTime($scope.deliveryTimeSlot.toTime);
+			if($scope.deliveryTimeSlot.holidayDates){
+				$scope.deliveryTimeSlot.holidayDates.forEach(function(date){
+					$scope.holidayDates.push(new Date(date));
+				});
+			}
+			$scope.holidayReasons = JSON.parse($scope.deliveryTimeSlot.holidayReasons);
 		}else{
 			$scope.deliveryTimeSlot = {fromTime:new Date(),toTime:new Date()};
 		}
@@ -23,6 +29,14 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			toastr.error('Please select delivery time slot');
 			return;
 		}
+		var reasons = {};
+		$scope.holidayDates.forEach(function(date){
+			var dateKey = $filter('date')(date,"yyyy-M-d");
+			reasons[dateKey] = $scope.holidayReasons[dateKey] || " ";
+		});
+		deliveryTimeSlot.storeId=$rootScope.user.storeId;
+		deliveryTimeSlot.holidayDates = $scope.holidayDates;
+		deliveryTimeSlot.holidayReasons = JSON.stringify(reasons);
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
 			var confirm = $mdDialog.confirm()
 			.title('Are You Delivering In Night Shift?')
@@ -49,6 +63,14 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			toastr.error('Please select delivery time slot');
 			return;
 		}
+		var reasons = {};
+		$scope.holidayDates.forEach(function(date){
+			var dateKey = $filter('date')(date,"yyyy-M-d");
+			reasons[dateKey] = $scope.holidayReasons[dateKey] || "";
+		});
+		deliveryTimeSlot.holidayDates = $scope.holidayDates;
+		deliveryTimeSlot.holidayReasons = JSON.stringify(reasons);
+		
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
 			var confirm = $mdDialog.confirm()
 			.title('Are You Delivering In Night Shift?')
@@ -56,6 +78,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			.cancel('Cancel');
 			$mdDialog.show(confirm).then(function() {
 				deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
+				deliveryTimeSlot.storeId=$rootScope.user.storeId;
 				deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
 					toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
 					$state.go('app.addDeliveryTimeSlot',{},{reload: true});
@@ -64,6 +87,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 
 			});
 		}else{
+			deliveryTimeSlot.storeId=$rootScope.user.storeId;
 			deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
 			deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
 				toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
@@ -76,8 +100,6 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		var timeTokens = timeString.split(':');
 		return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
 	}
-	
-	$scope.getDeliveryTimeSlots();
 	
 	/*
 	if($scope.deliveryTimeSlot && $scope.deliveryTimeSlot.fromTime) 
@@ -159,8 +181,8 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
     $scope.firstDayOfWeek = 0;
     $scope.direction = "horizontal";
    
-    $scope.selectedDates = [];
-   
+    $scope.holidayDates = [];
+    $scope.holidayReasons = {};
     $scope.setDirection = function (direction) {
         $scope.direction = direction;
     };
@@ -171,13 +193,6 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
         return d
     }
     
-    $scope.selectedDates.push(new Date().withoutTime());
-    $scope.holidayReasons = {};
-    for(var i = 0 ; i < 5 ; i++){
-        $scope.selectedDates.push(new Date($scope.selectedDates[i].getTime() + 24 * 60 * 60 * 1000).withoutTime());
-        $scope.holidayReasons[$filter('date')($scope.selectedDates[i],"yyyy-M-d")] = "test";
-    }
-    console.log('holiday contents ',$scope.holidayReasons);
     
     $scope.nextMonth = function(){
     	
@@ -190,7 +205,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
     }
     
     /*calendar initilization work complete*/
-    
+    $scope.getDeliveryTimeSlots();
 }
 ]);
 

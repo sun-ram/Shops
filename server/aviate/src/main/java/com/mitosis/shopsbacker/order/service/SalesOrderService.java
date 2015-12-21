@@ -43,5 +43,7 @@ public interface SalesOrderService<T> {
 	
 	public SalesOrder getSalesOrder(String orderNo);
 
+	public SalesOrderVo setSalesOrderVoEmp(SalesOrder salesOrder) throws Exception;
+
 
 }

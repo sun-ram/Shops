@@ -1,8 +1,10 @@
 package com.mitosis.shopsbacker.order.serviceimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -10,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.common.service.AddressService;
+import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
-import com.mitosis.shopsbacker.model.Address;
-import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
@@ -24,8 +26,8 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
-import com.mitosis.shopsbacker.vo.common.AddressVo;
-import com.mitosis.shopsbacker.vo.customer.CustomerVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
+import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 /**
@@ -34,7 +36,7 @@ import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 @Service("salesOrderServiceImpl")
 public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		Serializable {
-
+	final static Logger log = Logger.getLogger(SalesOrderServiceImpl.class.getName());
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -51,6 +53,16 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	
 	@Autowired
 	AddressService<T> addessService;
+	
+	@Autowired
+	AddressService<T> addressService;
+	
+	@Autowired
+	CustomerService<T> customerService;
+	
+	@Autowired
+	ProductService<T> productService;
+	
 	
 	public SalesOrderDao<T> getSalesOrderDao() {
 		return salesOrderDao;
@@ -160,7 +172,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 			salesOrder.setPaymentMethod(paymentMethod);
 			updateSalesOrder(salesOrder);
 			int numberOfEntityDeleted = mycartService.deleteCartProduct(salesOrder.getCustomer().getCustomerId(),salesOrder.getStore().getStoreId());
-
+			log.info("No Of Row Deleted deleted from cart in Payment success: "+numberOfEntityDeleted);
 			
 			/*Set<WarehouseModel> warehouseModelSet=new HashSet<WarehouseModel>();
 			Map<WarehouseModel,Map<BinProductModel,Long>> warehouseModelMap=new HashMap<WarehouseModel,Map<BinProductModel,Long>>();
@@ -203,11 +215,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		return salesOrder;
 	}
 	
-	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception {
+	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder) throws Exception {
 		SalesOrderVo salesOrderVo = new SalesOrderVo();
 		salesOrderVo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrderVo.setAmount(salesOrder.getAmount());
-		salesOrderVo.setCustomer(setCustomerDetails(salesOrder.getCustomer()));
+		salesOrderVo.setCustomer(customerService.setCustomerVo(salesOrder.getCustomer()));
 		salesOrderVo.setDeliveryDate(CommonUtil.dateToString(salesOrder.getDeliveryDate()));
 		salesOrderVo.setDeliveryFlag(salesOrder.getDeliveryFlag());
 		salesOrderVo.setStore(getStoreService().setStoreVo((salesOrder.getStore())));
@@ -216,6 +228,8 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
 		salesOrderVo.setOrderPlacedTime(salesOrder.getCreated());
+		salesOrderVo.setDeliveryTimeSlot(salesOrder.getDeliveryTimeSlot());
+		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
 		MerchantVo merchantVo=new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
 		if(salesOrder.getDeliveredTime() != null){
@@ -251,14 +265,42 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setMerchant(merchantVo);
 		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
 		salesOrderVo.setOrderNo(salesOrder.getOrderNo());
-		salesOrderVo.setAddressVo(setAddressVo(salesOrder.getAddress()));
+		salesOrderVo.setAddressVo(addressService.setAddressVo(salesOrder
+				.getAddress()));
 		salesOrderVo.setStatus(salesOrder.getStatus());
 		salesOrderVo.setFromDate(CommonUtil.dateToString(salesOrder.getCreated()));
 		salesOrderVo.setSalesOrderLineVo(salesOrderLine.setSalesOrderLineVo(salesOrder.getSalesOrderLines()));
 		return salesOrderVo;
 	}
 	
-	public CustomerVo setCustomerDetails(Customer customer) {
+	//deployed DEC-19 need to remove this method after mobile team okay
+	public SalesOrderVo setSalesOrderVoEmp(SalesOrder salesOrder) throws Exception {
+		SalesOrderVo salesOrdervo = new SalesOrderVo();
+		salesOrdervo.setSalesOrderId(salesOrder.getSalesOrderId());
+		salesOrdervo.setOrderNo(salesOrder.getOrderNo());
+		salesOrdervo.setStatus(salesOrder.getStatus());
+		salesOrdervo.setAddress(addressService.setAddressVo(salesOrder
+				.getAddress()));
+		salesOrdervo.setCustomer(customerService.setCustomerVo(salesOrder
+				.getCustomer()));
+		List<SalesOrderLine> orderLines = salesOrder.getSalesOrderLines();
+		List<SalesOrderLineVo> orderLineVos = new ArrayList<SalesOrderLineVo>();
+		for (SalesOrderLine orderLine : orderLines) {
+			SalesOrderLineVo salesOrderLineVo = new SalesOrderLineVo();
+			ProductVo productVo = productService.setProductVo(orderLine
+					.getProduct());
+			salesOrderLineVo.setProductVo(productVo);
+			salesOrderLineVo.setQty(orderLine.getQty());
+			salesOrderLineVo.setSalesOrderLineId(orderLine
+					.getSalesOrderLineId());
+			orderLineVos.add(salesOrderLineVo);
+		}
+		salesOrdervo.setSalesOrderLineVo(orderLineVos);
+		return salesOrdervo;
+	}
+	
+	
+	/*public CustomerVo setCustomerDetails(Customer customer) {
 		CustomerVo customerVo = new CustomerVo();
 		customerVo.setCustomerId(customer.getCustomerId());
 		customerVo.setName(customer.getName());
@@ -268,9 +310,9 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		customerVo.setDeviceType(customer.getDeviceType());
 		return customerVo;
 
-	}
+	}*/
 	
-	public AddressVo setAddressVo(Address address) throws Exception {
+	/*public AddressVo setAddressVo(Address address) throws Exception {
 		AddressVo addressVo = new AddressVo();
 		addressVo.setAddress1(address.getAddress1());
 		addressVo.setAddress2(address.getAddress2());
@@ -281,5 +323,5 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		addressVo.setLongitude(address.getLongitude());
 		return addressVo;
 
-	}
+	}*/
 }

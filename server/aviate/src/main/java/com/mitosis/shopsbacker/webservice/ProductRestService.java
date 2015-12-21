@@ -154,7 +154,7 @@ public class ProductRestService {
 					.getProductTypeById(productVo.getProductType()
 							.getProductTypeId());
 			
-			Discount discount = discountService.getDiscountById(productVo.getDiscount().getDiscountId());
+			//Discount discount = discountService.getDiscountById(productVo.getDiscount().getDiscountId());
 
 			Uom uom = uomService.getUOMById(productVo.getUom().getUomId());
 			if (productVo.getImage().getImage() != null) {
@@ -169,7 +169,7 @@ public class ProductRestService {
 			product.setMerchant(merchant);
 			product.setProductCategory(productCategory);
 			product.setProductType(productType);
-			product.setDiscount(discount);
+			//product.setDiscount(discount);
 			product.setUom(uom);
 			ProductImage productImage = new ProductImage();
 

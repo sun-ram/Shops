@@ -135,6 +135,7 @@ angular.module('aviateAdmin.services')
 				toastr.success("Excel updated Successfully");
 			} else {
 				toastr.error(result.errorString);
+				d.resolve(result);
 			}
 		})
 		return d.promise;

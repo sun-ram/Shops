@@ -82,7 +82,7 @@
 
 <div layout-sm="column" layout-gt-sm="row" class="responsive-container">
 	<div ng-hide="addresses.length == 0"  flex  layout-padding layout-margin layout="column" class="address-container" >
-		<span  class="md-headline addTitle font15" >CHOSE YOUR DELIVERY ADDRESS</span>
+		<span  class="md-headline addTitle font15" >CHOOSE YOUR DELIVERY ADDRESS</span>
 		<div class="address-container address padd_tb10" ng-repeat="address in addresses track by $index" ng-class="{selected:address.selected}" layout="row" layout-wrap>
 			<div flex-gt-lg="100" flex-lg="100" flex-md="100" flex-sm="100" layout="row">
 				<div flex-sm="100" flex-md="60" flex-gt-md="50" class="address-user-name" ng-click="selectAddress(address.addressId)" layout-padding>
@@ -134,6 +134,6 @@
        <span ng-show="change">
         <md-button class="md-raised" ng-click="back()">Back</md-button>
        </span>
-        <md-button class="md-raised" ng-click="goNext('address')" style="background-color:#72a308 ; color:#FFFFFF;">Next</md-button>
+        <md-button class="green_btn_clr" ng-click="goNext('address')" style="width: auto;">Next</md-button>
     </div>
 </section>

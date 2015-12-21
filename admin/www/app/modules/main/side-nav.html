@@ -139,14 +139,6 @@
 		              	</div>
 		           	</md-list-item>
 	       		</a>
-	       		<a ui-sref="app.addDeliveryTimeSlot" ng-click="tabChoosen('deliverytimeslots');">
-		            <md-list-item ng-class="{optionSelected : (currentOption == 'deliverytimeslots')}">
-		           		<div layout="row" layout-align="start center">
-		               		<ng-md-icon icon="access_time" class="svgicon_style"></ng-md-icon>
-		               		<span class="textOnMenu" ng-hide="sidebarHidden">Delivery Time Slots</span>
-		              	</div>
-		           	</md-list-item>
-	       		</a>
           	  <a ui-sref="app.discount" ng-click="tabChoosen('discount');">
 		            <md-list-item ng-class="{optionSelected : (currentOption == 'discount')}">
 		           		<div layout="row" layout-align="start center">
@@ -224,6 +216,14 @@
                 </div>
             </md-list-item>
         </a>
+        <a ui-sref="app.productoffer" ng-click="tabChoosen('productoffer');">
+            <md-list-item ng-class="{optionSelected : (currentOption == 'productoffer')}">
+                <div layout="row" layout-align="start center">
+                    <ng-md-icon icon="description" class="svgicon_style"></ng-md-icon>
+                    <span class="textOnMenu" ng-hide="sidebarHidden">Product Offer</span>
+                </div>
+            </md-list-item>
+        </a>
         <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"></ng-md-icon><span class="menuSubHeading" style="padding-left: 10px;">Warehouse & Storagebins</span></md-subheader>
 	           <a ui-sref="app.warehouse" ng-click="tabChoosen('warehouse');">
 		            <md-list-item ng-class="{optionSelected : (currentOption == 'warehouse')}">
@@ -246,6 +246,14 @@
 		           		<div layout="row" layout-align="start center">
 		               		<ng-md-icon icon="border_outer" class="svgicon_style"></ng-md-icon>
 		               		<span class="textOnMenu" ng-hide="sidebarHidden">Discounts</span>
+		              	</div>
+		           	</md-list-item>
+	       		</a>
+	       		<a ui-sref="app.addDeliveryTimeSlot" ng-click="tabChoosen('deliverytimeslots');">
+		            <md-list-item ng-class="{optionSelected : (currentOption == 'deliverytimeslots')}">
+		           		<div layout="row" layout-align="start center">
+		               		<ng-md-icon icon="access_time" class="svgicon_style"></ng-md-icon>
+		               		<span class="textOnMenu" ng-hide="sidebarHidden">Delivery Time Slots</span>
 		              	</div>
 		           	</md-list-item>
 	       		</a>      

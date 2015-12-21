@@ -315,17 +315,27 @@ angular.module('aviateAdmin.controllers')
 		$scope.uploadedImages.push({});
 	}
 	
-	$scope.getDiscount = function(){
-		$scope.store ={};
-		$scope.store.storeId = $rootScope.user.storeId;
-		
-		DiscountService.storeDiscountList($scope.store).then(function(data) {
-			$scope.discountList = data.discountVos;
-		})
-		
-	
-		
-	}
+ 	$scope.getDiscount = function(){
+ 				if($rootScope.user.storeId){
+ 					$scope.store ={};
+ 					$scope.store.storeId = $rootScope.user.storeId;
+ 					
+ 					DiscountService.storeDiscountList($scope.store).then(function(data) {
+ 						$scope.discountList = data.discountVos;
+ 					})
+ 					
+ 				}else{		
+ 		 		
+ 				$scope.merchant ={};
+ 				$scope.merchant.merchantId = $rootScope.user.merchantId;
+ 				
+ 				DiscountService.merchantDiscountList($scope.merchant).then(function(data) {
+ 		 			$scope.discountList = data.discountVos;
+ 		 		})
+ 				
+ 				}	
+ 		 	}
+ 		 
 
 }
 ]);

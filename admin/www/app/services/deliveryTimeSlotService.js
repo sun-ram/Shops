@@ -3,7 +3,8 @@ angular.module('aviateAdmin.services')
 	
 	this.getDeliveryTimeSlots = function(){
 		var deliverTime = {
-				"merchant":{"merchantId":$rootScope.user.merchantId}
+				"merchant":{"merchantId":$rootScope.user.merchantId},
+				"storeId":$rootScope.user.storeId
 				
 		};
 		var d = $q.defer();

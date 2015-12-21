@@ -1,5 +1,8 @@
 package com.mitosis.shopsbacker.inventory.dao;
 
+import java.util.List;
+
+import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 
 /**
@@ -14,5 +17,8 @@ public interface ProductOfferLineDao<T> {
 	public void deleteProductOfferLine(ProductOfferLine productOfferLine);
 	
 	public ProductOfferLine getProductOfferLine(String id);
+	
+	public List<ProductOfferLine> getProductOfferLine(ProductOffer productOffer);
+
 	
 }

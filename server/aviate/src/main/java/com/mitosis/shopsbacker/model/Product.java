@@ -42,7 +42,6 @@ public class Product implements java.io.Serializable {
 	private String updatedby;
 	private Image image;
 	private Merchant merchant;
-	private Discount discount;
 	private ProductCategory productCategory;
 	private Uom uom;
 	private ProductType productType;
@@ -68,6 +67,7 @@ public class Product implements java.io.Serializable {
 	private List<ProductImage> productImages = new ArrayList<ProductImage>();
 	private List<ProductOffer> productOffers = new ArrayList<ProductOffer>();
 	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
+	private List<DiscountProduct> discountProducts = new ArrayList<DiscountProduct>();
 
 	public Product() {
 	}
@@ -95,19 +95,18 @@ public class Product implements java.io.Serializable {
 
 	public Product(String productId, String createdby,
 			String updatedby, Image image, Merchant merchant,
-			Discount discount, ProductCategory productCategory, Uom uom,
+			 ProductCategory productCategory, Uom uom,
 			ProductType productType, String name, String edibleType,
 			Integer groupCount, String brand, BigDecimal price,BigDecimal wasPrice,
 			Character isYourHot,Character isBundle,Character isKit,Character isChild, BigDecimal unit, Date created, Date updated,
 			char isactive, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts,
 			List<SalesOrderLine> salesOrderLines, List<MovementLine> movementLines, List<ProductImage> productImages,
-			List<ProductOffer> productOffers, List<ProductInventory> productInventories) {
+			List<ProductOffer> productOffers, List<ProductInventory> productInventories,List<DiscountProduct> discountProducts ) {
 		this.productId = productId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
 		this.image = image;
 		this.merchant = merchant;
-		this.discount = discount;
 		this.productCategory = productCategory;
 		this.uom = uom;
 		this.productType = productType;
@@ -132,6 +131,7 @@ public class Product implements java.io.Serializable {
 		this.productImages = productImages;
 		this.productOffers = productOffers;
 		this.productInventories = productInventories;
+		this.discountProducts=discountProducts; 
 	}
 
 	@Id
@@ -180,16 +180,6 @@ public class Product implements java.io.Serializable {
 
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DISCOUNT_ID")
-	public Discount getDiscount() {
-		return this.discount;
-	}
-
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
 	}
 
 	@ManyToOne
@@ -421,4 +411,14 @@ public class Product implements java.io.Serializable {
 		this.description = description;
 	}
 
+	@OneToMany(mappedBy = "product")
+	public List<DiscountProduct> getDiscountProducts() {
+		return discountProducts;
+	}
+
+	public void setDiscountProducts(List<DiscountProduct> discountProducts) {
+		this.discountProducts = discountProducts;
+	}
+
+	
 }

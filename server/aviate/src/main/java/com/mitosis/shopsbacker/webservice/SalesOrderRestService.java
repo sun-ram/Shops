@@ -53,8 +53,6 @@ import com.mitosis.shopsbacker.util.RoleName;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
-import com.mitosis.shopsbacker.vo.inventory.ProductVo;
-import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 /**
@@ -383,7 +381,7 @@ public class SalesOrderRestService<T> {
 					&& salesOrderVo.getPaymentMethod().equals("COD")) {
 				numberOfEntityDeleted = myCartService.deleteCartProduct(salesOrder.getCustomer().getCustomerId(),salesOrder.getStore().getStoreId());
 			}
-			
+			log.info("No Of Row Deleted deleted from cart in sales order complete: "+numberOfEntityDeleted);
 			response.setOrderNo(salesOrder.getOrderNo());
 			response.setSalesOrderId(salesOrder.getSalesOrderId());
 		} catch (Exception e) {
@@ -420,7 +418,7 @@ public class SalesOrderRestService<T> {
 									|| OrderStatus.Picked.toString()
 											.equalsIgnoreCase(
 													salesOrder.getStatus())) {
-								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
+								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
 						}
@@ -453,7 +451,7 @@ public class SalesOrderRestService<T> {
 									|| OrderStatus.Backer_Started.toString()
 											.equalsIgnoreCase(
 													salesOrder.getStatus())) {
-								SalesOrderVo salesOrdervo = setSalesOrderVo(salesOrder);
+								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
 							salesOrderResponse
@@ -480,30 +478,7 @@ public class SalesOrderRestService<T> {
 		return responseStr;
 	}
 
-	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder) throws Exception {
-		SalesOrderVo salesOrdervo = new SalesOrderVo();
-		salesOrdervo.setSalesOrderId(salesOrder.getSalesOrderId());
-		salesOrdervo.setOrderNo(salesOrder.getOrderNo());
-		salesOrdervo.setStatus(salesOrder.getStatus());
-		salesOrdervo.setAddress(addressService.setAddressVo(salesOrder
-				.getAddress()));
-		salesOrdervo.setCustomer(customerService.setCustomerVo(salesOrder
-				.getCustomer()));
-		List<SalesOrderLine> orderLines = salesOrder.getSalesOrderLines();
-		List<SalesOrderLineVo> orderLineVos = new ArrayList<SalesOrderLineVo>();
-		for (SalesOrderLine orderLine : orderLines) {
-			SalesOrderLineVo salesOrderLineVo = new SalesOrderLineVo();
-			ProductVo productVo = productService.setProductVo(orderLine
-					.getProduct());
-			salesOrderLineVo.setProductVo(productVo);
-			salesOrderLineVo.setQty(orderLine.getQty());
-			salesOrderLineVo.setSalesOrderLineId(orderLine
-					.getSalesOrderLineId());
-			orderLineVos.add(salesOrderLineVo);
-		}
-		salesOrdervo.setSalesOrderLineVo(orderLineVos);
-		return salesOrdervo;
-	}
+	
 
 	public void customerSign(SalesOrder salesOrder, SalesOrderVo salesOrderVo)
 			throws IOException, Exception {

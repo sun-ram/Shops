@@ -23,7 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "delivery_time_slot", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"FROM_TIME", "TO_TIME", "MERCHNAT_ID" }))
+		"FROM_TIME", "TO_TIME", "STORE_ID" }))
 public class DeliveryTimeSlot implements java.io.Serializable {
 
 	/**
@@ -39,12 +39,13 @@ public class DeliveryTimeSlot implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
-
+	private Store store;
+	
 	public DeliveryTimeSlot() {
 	}
 
 	public DeliveryTimeSlot(String deliveryTimeSlotId, String createdby,
-			String updatedby, Merchant merchant, Date fromTime,
+			String updatedby, Merchant merchant, Date fromTime,Store store,
 			Date toTime, char isactive, Date created, Date updated) {
 		this.deliveryTimeSlotId = deliveryTimeSlotId;
 		this.createdby = createdby;
@@ -55,6 +56,7 @@ public class DeliveryTimeSlot implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.store=store;
 	}
 
 	@Id
@@ -143,6 +145,15 @@ public class DeliveryTimeSlot implements java.io.Serializable {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+	@ManyToOne
+	@JoinColumn(name = "STORE_ID")
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 }

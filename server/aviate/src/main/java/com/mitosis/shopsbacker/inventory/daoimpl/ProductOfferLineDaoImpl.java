@@ -1,7 +1,10 @@
 package com.mitosis.shopsbacker.inventory.daoimpl;
 
 import java.io.Serializable;
+import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -60,6 +63,19 @@ ProductOfferLineDao<T>, Serializable{
 		try {
 			return (ProductOfferLine) getSession().get(ProductOfferLine.class, id);
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
+	@Override
+	public List<ProductOfferLine> getProductOfferLine(ProductOffer productOffer) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(ProductOfferLine.class);
+			criteria.add(Restrictions.eq("productOffer", productOffer));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<ProductOfferLine>) findAll(criteria));
+		}catch (Exception e) {
 			e.printStackTrace();
 			throw(e);
 		}

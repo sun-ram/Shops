@@ -1,5 +1,8 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,10 +19,13 @@ import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Product;
+import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
+import com.mitosis.shopsbacker.responsevo.ProductOfferLineResponse;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 
 /**
  * @author JAI BHARATHI
@@ -79,11 +85,14 @@ public class ProductOfferLineRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addProductOfferLine(ProductOfferLineVo productOfferLineVo) {
+		response = new ResponseModel();
 		productOfferLine = new ProductOfferLine();
 		try {
 			Product product = productService.getProduct(productOfferLineVo.getProductVo().getProductId());
-			productOfferLine.setProduct(product);
+			ProductOffer productOffer = productOfferService.getProductOffer(productOfferLineVo.getProductOfferVo().getProductOfferId());
 			productOfferLine = productOfferLineService.setProductOfferLine(productOfferLineVo,productOfferLine);
+			productOfferLine.setProduct(product);
+			productOfferLine.setProductOffer(productOffer);
 			productOfferLineService.addProductOfferLine(productOfferLine);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -135,6 +144,33 @@ public class ProductOfferLineRestService<T> {
 			response.setErrorString(e.getMessage());
 		}
 		return response;
+		
+	}
+	
+	@Path("/getofferline")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ProductOfferLineResponse getProductOfferLine(ProductOfferVo productOfferVo) {
+		ProductOfferLineResponse productOfferLineResponse = new ProductOfferLineResponse();
+		List<ProductOfferLine> productOfferLine = new ArrayList<ProductOfferLine>();
+		ProductOffer productOffer = new ProductOffer();
+		try {
+			productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
+			productOfferLine = productOfferLineService.getProductOfferLine(productOffer);
+			for(ProductOfferLine offerLine : productOfferLine){
+				ProductOfferLineVo productOfferLineVo = new ProductOfferLineVo();
+				productOfferLineVo=productOfferLineService.setProductOfferLineVo(offerLine);
+				productOfferLineResponse.getProductOfferLineList().add(productOfferLineVo);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+		}
+		return productOfferLineResponse;
 		
 	}
 	

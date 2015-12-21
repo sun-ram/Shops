@@ -1,6 +1,12 @@
 <md-toolbar ng-class="topbar"  style="background-color:transparent; position: fixed; top: 0px;">
 <div class="md-whiteframe-3dp md-toolbar-tools header_color height30 padd_righ8 nomargin ">
 	<span flex></span>
+	<div layout="row" layout-align="end">
+			<span flex  style="font-size: 15px; right: 220px; position: relative; cursor: pointer;" ng-show="user" ng-click="orderHistory();"> order history </span>
+			<span flex  style="font-size: 15px; margin-right: 10px; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>
+			<span flex style="font-size: 15px; right: 80px; position: absolute; " ng-show="user">{{user.userName}} | </span>
+			<span flex style="font-size: 15px; right: 10px; position: absolute; cursor: pointer;" ng-show="user" ng-click="logout()">Logout <I class="icon ion-power" style="font-size: 14px;"></I></span>
+	</div>
 </div>
 
 
@@ -89,24 +95,24 @@
         
         
 
-				<md-menu style="margin-top: -8px" md-position-mode="target-right target">
+				<!-- <md-menu style="margin-top: -8px" md-position-mode="target-right target">
 					<md-button ng-click="$mdOpenMenu($event);$event.stopPropagation(); addpos()" class="height50 wid_60 nomargin  md-icon-button" aria-label="User">
 					 <md-icon class="_textcolor">more_vert</md-icon>
 				   
 					</md-button>
 					
 					<md-menu-content width="3" class="user-dropdown">
-						<!--<md-menu-item ng-hide="user">
+						<md-menu-item ng-hide="user">
 							<md-button ng-click="signUpPopup($event)">
 								<div layout="row">
 									<p flex="" style="text-decoration:underline; color:#ED6663;">New User? Register here.</p>
 								</div>
 							</md-button>
-						</md-menu-item>-->
+						</md-menu-item>
 						<md-menu-item ng-hide="user">
 							<md-button ng-click="signInPopup($event)">
 								<div layout="row">
-									<md-button style="width:100%;margin:0px; background-color:#72a308 ; color:#ffffff;" class="md-raised">Sign In / Sign Up</md-button>
+									<md-button class="green_btn_clr">Sign In / Sign Up</md-button>
 								</div>
 							</md-button> 
 						</md-menu-item> 
@@ -135,12 +141,12 @@
 						<md-menu-item ng-show="user"> 
 							<md-button ng-click="logout()">
 								<div layout="row">
-									<md-button style="width:100%;margin:0px; background-color:#72a308 ; color:#ffffff;" class="md-raised">Logout</md-button>
+									<md-button class="green_btn_clr">Logout</md-button>
 								</div>
 							</md-button>
 						</md-menu-item>
 					</md-menu-content>
-				</md-menu> 
+				</md-menu> --> 
 	 
 	</div>
 	 

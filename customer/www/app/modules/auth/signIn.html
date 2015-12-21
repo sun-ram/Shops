@@ -27,12 +27,12 @@
         <md-input-container flex class="auth_input">
           <ng-md-icon icon="email" style="fill: #0F9D58; margin: 28px 0px 0px 0px; position: absolute;" size="18"></ng-md-icon> 
           <label class="padd-l22">Email</label>
-          <input class="padd-l22" ng-model="user.email" type="email" ng-required="true" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+          <input class="padd-l22" ng-model="user.email" type="email" ng-blur="checkValue(user.email,user.phoneNo)" ng-required="emailReq" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
         </md-input-container >
          <md-input-container flex class="auth_input">
          <md-icon md-svg-src="assets/img/icon/iphone26.svg" class="svgstyle name"></md-icon>
           <label class="padd-l22">Mobile No</label>
-          <input class="padd-l22" ng-model="user.phoneNo"valid-number ng-required="true">
+          <input class="padd-l22" ng-model="user.phoneNo" ng-blur="checkValue(user.email,user.phoneNo)" valid-number ng-required="phoneReq">
         </md-input-container >
 	      <md-input-container flex class="auth_input">
 	      	<md-icon md-svg-src="assets/img/icon/pwdd.svg" class="svgstyle name"></md-icon>

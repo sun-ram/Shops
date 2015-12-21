@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferDao;
+import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductOffer;
+import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 /**
@@ -28,6 +30,9 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	
 	@Autowired
 	ProductService<T> productService;
+	
+	@Autowired
+	ProductOfferLineService<T> productOfferLineService;
 	
 	ProductOffer productOffer = null;
 	
@@ -66,8 +71,8 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productOffer.setOfferAmount(productOfferVo.getOfferAmount());
 		productOffer.setQty(productOfferVo.getQty());
 		productOffer.setDescription(productOfferVo.getDescription());
-		productOffer.setFromDate(CommonUtil.stringToDate(productOfferVo.getFromDate()));
-		productOffer.setTodate(CommonUtil.stringToDate(productOfferVo.getTodate()));
+		productOffer.setFromDate(productOfferVo.getFromDate());
+		productOffer.setTodate(productOfferVo.getTodate());
 		productOffer.setStartTime(productOfferVo.getStartTime());
 		productOffer.setEndTime(productOfferVo.getEndTime());
 		return productOffer;
@@ -75,14 +80,18 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	
 	public ProductOfferVo setProductOfferVo(ProductOffer productOffer) throws Exception{
 		ProductOfferVo productOfferVo = new ProductOfferVo();
+		productOfferVo.setProductOfferId(productOffer.getProductOfferId());
 		productOfferVo.setName(productOffer.getName());
 		productOfferVo.setOfferAmount(productOffer.getOfferAmount());
 		productOfferVo.setQty(productOffer.getQty());
 		productOfferVo.setDescription(productOffer.getDescription());
-		productOfferVo.setFromDate(CommonUtil.dateToString(productOffer.getFromDate()));
-		productOfferVo.setTodate(CommonUtil.dateToString(productOffer.getTodate()));
+		productOfferVo.setFromDate(productOffer.getFromDate());
+		productOfferVo.setTodate(productOffer.getTodate());
 		productOfferVo.setStartTime(productOffer.getStartTime());
 		productOfferVo.setEndTime(productOffer.getEndTime());
+		for(ProductOfferLine productOfferLine : productOffer.getProductOfferLines()){
+			productOfferVo.getProductOfferLinesVo().add(productOfferLineService.setProductOfferLineVo(productOfferLine));
+		}
 		productOfferVo.setProductVo(productService.setProductVo(productOffer.getProduct()));
 		return productOfferVo;
 	}

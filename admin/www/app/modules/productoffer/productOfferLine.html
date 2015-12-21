@@ -1,0 +1,91 @@
+<md-button ng-click="addOfferLine();" class="md-fab"
+   aria-label="Eat cake"
+   style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
+   <ng-md-icon icon="add" size="35" style="fill: white;"></ng-md-icon>
+</md-button>
+
+<md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80" ng-init="getProductOfferLineList();">
+	
+	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+         <div class="md-toolbar-tools " layout="row">
+         		<h3 layout="column" style="padding: 0px 10px;">Products Offers</h3>
+         		<div class="tbl-search">
+		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+		  			<input ng-model="searchTxt" type="text"  placeholder="Search">
+		  		</div>
+         	</div>
+         	<md-button class="md-fab edit-btn sales-orderfab" aria-label="Eat cake" ui-sref="app.productoffer">
+		<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
+      </md-toolbar>
+      
+   <md-card-content class="nopadd">
+   
+   <md-data-table-container>
+     <md-list>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header ">
+      
+      	<div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex="20" layout-align="start center" layout>
+	         	Product Name
+            </span>
+         	<span flex="20" layout-align="start center" layout>
+	        	Product Price
+            </span>
+            <span flex="20" layout-align="start center" layout>
+	         	Discount Amount
+            </span>
+            <span flex="20" layout-align="start center" layout>
+	         	Discount Percentage
+            </span>
+           
+        </div>
+        </md-item-content>
+        </md-item>
+        
+      <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferLine | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
+          
+      		<span flex="20" layout-align="start center" layout>
+			<span flex class="shopname">{{productOffer.productVo.name}}</span>
+			</span>
+			 <span flex="20" layout-align="start center" layout>
+			<span flex class="shopname">{{productOffer.productVo.price}}</span>
+			</span> 
+      		<span flex="20" layout-align="start center" layout>
+      		<span flex class="shopname">{{productOffer.discountAmount }}</span>
+      		</span>
+      		<span flex="20" layout-align="start center" layout>
+      		<span flex class="shopname">{{productOffer.discountPercentage }}</span>
+      		</span>      		
+      		 <span flex=20 layout-align="start center" layout>
+                <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=product.productId;productEdit=product;" aria-label="Inline Edit">
+             		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+                <md-button class="md-icon-button md-primary" ng-click="editProductOfferLine(productOffer)" aria-label="Edit">
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>        			
+      			</md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="deleteProductOfferLine(productOffer.productOfferLineId);$event.stopPropagation();" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+             
+      	</div>
+      	
+      </md-item-content>
+      </md-item>
+      
+     </md-list>
+     </md-data-table-container>
+   </md-card-content> 
+   <div layout="row" layout-align="end end" >
+   		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
+		 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{productOfferLine.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+		</div>
+	</div>        
+</md-card> 
+

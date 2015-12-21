@@ -3,6 +3,7 @@
  */
 package com.mitosis.shopsbacker.webservice;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.StoreHolidayService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.model.DeliveryTimeSlot;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.model.StoreHoliday;
 import com.mitosis.shopsbacker.order.service.DeliveryTimeSlotService;
 import com.mitosis.shopsbacker.responsevo.DeliveryTimeSlotResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
@@ -52,6 +55,9 @@ public class DeliveryTimeSlotRestService {
 	@Autowired
 	StoreService<T> storeService;
 
+	@Autowired
+	StoreHolidayService<T> storeHolidayService;
+
 	@Path("/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -63,12 +69,14 @@ public class DeliveryTimeSlotRestService {
 		try {
 			String merchantId = deliveryTimeSlotVo.getMerchant()
 					.getMerchantId();
+			String storeId = deliveryTimeSlotVo.getStoreId();
+			Store store = storeService.getStoreById(storeId);
 			Merchant merchant = merchantService.getMerchantById(merchantId);
 
 			if (deliveryTimeSlotVo.getDeliveryTimeSlotId() != null) {
 				DeliveryTimeSlot deliveryTimeSlot = deliveryTimeSlotService
 						.get(deliveryTimeSlotVo.getDeliveryTimeSlotId());
-				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant,
+				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant, store,
 						deliveryTimeSlot);
 				deliveryTimeSlot.setUpdated(new Date());
 				deliveryTimeSlot.setUpdatedby("123");
@@ -76,12 +84,31 @@ public class DeliveryTimeSlotRestService {
 			} else {
 				DeliveryTimeSlot deliveryTimeSlot = (DeliveryTimeSlot) CommonUtil
 						.setAuditColumnInfo(DeliveryTimeSlot.class.getName());
-				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant,
+				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant, store,
 						deliveryTimeSlot);
 				deliveryTimeSlot.setIsactive('Y');
 				deliveryTimeSlotService.save(deliveryTimeSlot);
-				response.setStatus(SBMessageStatus.SUCCESS.getValue());
 			}
+
+			// String storeId = deliveryTimeSlotVo.getStoreId();
+			// Store store=storeService.getStoreById(storeId);
+			List<StoreHoliday> storeHolidays = store.getStoreHolidays();
+			if (!storeHolidays.isEmpty()) {
+				StoreHoliday storeHoliday = storeHolidays.get(0);
+				storeHoliday.setUpdated(new Date());
+				storeHoliday.setUpdatedby("123");
+				setStoreHoliday(deliveryTimeSlotVo, merchant, store,
+						storeHoliday);
+				storeHolidayService.update(storeHoliday);
+			} else {
+				StoreHoliday storeHoliday = (StoreHoliday) CommonUtil
+						.setAuditColumnInfo(StoreHoliday.class.getName());
+				storeHoliday.setIsactive('Y');
+				setStoreHoliday(deliveryTimeSlotVo, merchant, store,
+						storeHoliday);
+				storeHolidayService.add(storeHoliday);
+			}
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 			response.setErrorString(CommonUtil.getErrorMessage(e));
@@ -89,6 +116,20 @@ public class DeliveryTimeSlotRestService {
 
 		return response;
 
+	}
+
+	public void setStoreHoliday(DeliveryTimeSlotVo deliveryTimeSlotVo,
+			Merchant merchant, Store store, StoreHoliday storeHoliday) {
+		String holidayDate = StringUtils.join(
+				deliveryTimeSlotVo.getHolidayDates(), ',');
+		storeHoliday.setHolidayDate(holidayDate);
+		storeHoliday.setReason(deliveryTimeSlotVo.getHolidayReasons());
+		storeHoliday.setStore(store);
+		if (merchant != null) {
+			storeHoliday.setMerchant(merchant);
+		} else {
+			storeHoliday.setMerchant(store.getMerchant());
+		}
 	}
 
 	@Path("/get")
@@ -102,8 +143,9 @@ public class DeliveryTimeSlotRestService {
 		DeliveryTimeSlotResponseVo response = new DeliveryTimeSlotResponseVo();
 		try {
 			Merchant merchant = new Merchant();
+			Store store = null;
 			if (deliveryTimeSlotVo.getStoreId() != null) {
-				Store store = storeService.getStoreById(deliveryTimeSlotVo
+				store = storeService.getStoreById(deliveryTimeSlotVo
 						.getStoreId());
 				merchant = store.getMerchant();
 			} else if (deliveryTimeSlotVo.getMerchant().getMerchantId() != null) {
@@ -114,10 +156,12 @@ public class DeliveryTimeSlotRestService {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return CommonUtil.getObjectMapper(response);
 			}
-			List<DeliveryTimeSlot> deliveryTimeSlots = merchant
+			List<DeliveryTimeSlot> deliveryTimeSlots = store
 					.getDeliveryTimeSlots();
 			List<DeliveryTimeSlotVo> deliveryTimeSlotVos = new ArrayList<DeliveryTimeSlotVo>();
-			for (DeliveryTimeSlot deliveryTimeSlot : deliveryTimeSlots) {
+			// for (DeliveryTimeSlot deliveryTimeSlot : deliveryTimeSlots) {
+			if (!deliveryTimeSlots.isEmpty()) {
+				DeliveryTimeSlot deliveryTimeSlot = deliveryTimeSlots.get(0);
 				DeliveryTimeSlotVo deliveryTimeSlotvo = new DeliveryTimeSlotVo();
 				deliveryTimeSlotvo.setDeliveryTimeSlotId(deliveryTimeSlot
 						.getDeliveryTimeSlotId());
@@ -128,6 +172,25 @@ public class DeliveryTimeSlotRestService {
 				merchantVo.setName(merchant.getName());
 				merchantVo.setMerchantId(merchant.getMerchantId());
 				deliveryTimeSlotvo.setMerchant(merchantVo);
+				List<StoreHoliday> storeHolidays = store.getStoreHolidays();
+				if (!storeHolidays.isEmpty()) {
+					StoreHoliday storeHoliday = storeHolidays.get(0);
+					String holidayDate = storeHoliday.getHolidayDate();
+					List<Date> holidays = new ArrayList<Date>();
+					if (!holidayDate.isEmpty()) {
+						String[] holidayDates = holidayDate.split(",");
+						for (String holiday : holidayDates) {
+							SimpleDateFormat formatter = new SimpleDateFormat(
+									"E MMM dd HH:mm:ss Z yyyy");
+							Date date = formatter.parse(holiday);
+							holidays.add(date);
+						}
+					}
+					deliveryTimeSlotvo.setHolidayDates(holidays);
+					deliveryTimeSlotvo.setHolidayReasons(storeHoliday
+							.getReason());
+				}
+
 				deliveryTimeSlotVos.add(deliveryTimeSlotvo);
 			}
 			response.setDeliveryTimeSlot(deliveryTimeSlotVos);
@@ -174,9 +237,10 @@ public class DeliveryTimeSlotRestService {
 	}
 
 	private void setDeliveryTimeSlot(DeliveryTimeSlotVo deliveryTimeSlotVo,
-			Merchant merchant, DeliveryTimeSlot deliveryTimeSlot) {
+			Merchant merchant, Store store, DeliveryTimeSlot deliveryTimeSlot) {
 		deliveryTimeSlot.setFromTime(deliveryTimeSlotVo.getFromTime());
 		deliveryTimeSlot.setMerchant(merchant);
+		deliveryTimeSlot.setStore(store);
 		deliveryTimeSlot.setToTime(deliveryTimeSlotVo.getToTime());
 	}
 }

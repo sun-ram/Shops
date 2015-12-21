@@ -123,9 +123,9 @@
 					</div>
 				</div>
 			</div> -->
-			
 			<div layout="row" layout-sm="column" layout-padding>
 				<div flex layout="column" layout-align="start" class="cart-btm">
+				      <span class="md-subhead">Sub total -  <span ng-bind-html="myCart.cartTotalAmount | currency : rupeesSymbol"></span></span>
 						<span class="md-subhead">Shipping Charges -  <span ng-bind-html="myCart.shippingCharges | number:2 | currency : rupeesSymbol"></span></span>
 						<div ng-repeat="tax in myCart.taxs">
 						<span class="md-subhead">{{tax.name}} ({{tax.taxPercentage}}%) - <span ng-bind-html="tax.rate | number:2 | currency : rupeesSymbol"></span></span>
@@ -144,7 +144,7 @@
 					
 				</div>
 				<div flex layout="column" layout-align="end end" layout-align-sm="center center" ng-show="myCart.cartItem.length > 0">
-					<md-button class="cart-btm-btns"style="background: #72a308;"  ng-click="checkOutfromcart();">Proceed To Checkout</md-button>
+					<md-button class="cart-btm-btns green_btn_clr" style="width: auto;"  ng-click="checkOutfromcart();">Proceed To Checkout</md-button>
 				</div>
 			</div>
 		</div>
