@@ -514,7 +514,7 @@ md-sidenav md-icon {
 }
 
  .tool-h1{
-	color: #fff; position: absolute; top: 0; padding-left: 30px;
+	color: #fff;  padding-right: 50px; margin-top: 6px;
 }
 
 /* custom scroll */

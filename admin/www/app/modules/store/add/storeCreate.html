@@ -28,9 +28,7 @@
 			Store Admin Name<span style="color: red">*</span>
 		</label> <input ng-model="store.user.name" ng-required="true" maxlength="45"> </md-input-container>
 	
-		<md-input-container layout-padding flex > <label>User
-			Name<span style="color: red">*</span>
-		</label> <input ng-model="store.user.userName" ng-required="true" ng-maxlength="45"  maxlength="45"> </md-input-container>
+		
 		<md-input-container layout-padding flex> <label>Email<span
 			style="color: red">*</span></label> <input type="email" name="emailId"
 			ng-model="store.user.emailid" ng-required="true" maxlength="45"
@@ -38,6 +36,10 @@
 			ng-message="required"
 			ng-show="storeForm.emailId.$error.email || (!storeForm.emailId.$error.required && !storeForm.emailId.$valid)"
 			style="color: red;">Email Invalid.</span> </md-input-container>
+		
+		<md-input-container layout-padding flex > <label>User
+			Name<span style="color: red">*</span>
+		</label> <input ng-model="store.user.userName" ng-required="true" ng-maxlength="45"  maxlength="45"> </md-input-container>	
 	
 		<md-input-container layout-padding flex> <label>Password<span
 			style="color: red">*</span></label> <input ng-model="store.user.password"
