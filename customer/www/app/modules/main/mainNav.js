@@ -10,7 +10,6 @@ angular.module('aviate.directives')
 		link: function($scope, iElm, iAttrs, controller, AuthServices, CONSTANT,toastr){
 			$scope.bar= true;
 			$scope.back=false;
-			
 			$scope.toggleLeft = buildToggler('left');
 			
 			

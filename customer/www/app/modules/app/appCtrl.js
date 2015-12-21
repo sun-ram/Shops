@@ -3,7 +3,39 @@ angular.module('aviate.controllers')
 		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices','$localStorage',
 		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices,$localStorage) {
 			
-		
+			var storeHoliday = $localStorage.storeHoliday; //ipCookie('myCart');
+			if (storeHoliday !== undefined || storeHoliday !== null) {
+				$scope.storeHoliday = null;
+				$scope.storeHoliday = storeHoliday;
+			}else{
+				$scope.storeHoliday = {};
+				$scope.storeHoliday.storeHoliday = [];
+			}
+			var isTodayHoliday = $localStorage.isTodayHoliday;  
+			if (isTodayHoliday !== undefined || isTodayHoliday !== null) {
+				$rootScope.isTodayHoliday = null;
+				$rootScope.isTodayHoliday = isTodayHoliday;
+			}else{
+				$rootScope.isTodayHoliday = {};
+			}
+			
+			var holidayReasons = $localStorage.holidayReasons; //ipCookie('myCart');
+			if (holidayReasons !== undefined || holidayReasons !== null) {
+				$rootScope.holidayReasons = null;
+				$rootScope.holidayReasons = holidayReasons;
+			}else{
+				$rootScope.holidayReasons = {};
+			}
+			
+			var nextWorkingDate = $localStorage.nextWorkingDate; //ipCookie('myCart');
+			if (nextWorkingDate !== undefined || nextWorkingDate !== null) {
+				$rootScope.nextWorkingDate = null;
+				$rootScope.nextWorkingDate = nextWorkingDate;
+			}else{
+				$rootScope.nextWorkingDate = {};
+			}
+			
+			
 		$scope.checkOut = function() {
 			if($rootScope.user != null){
 				$rootScope.change=false;
@@ -71,7 +103,7 @@ angular.module('aviate.controllers')
 					parent: angular.element(document.body),
 					clickOutsideToClose:false,
 					escapeToClose : false,
-					controller: function($scope, $mdDialog,LocationService,$rootScope,$log,toastr,$state,ipCookie){
+					controller: function($scope, $mdDialog,LocationService,$rootScope,$log,toastr,$state,ipCookie, $filter){
 						$scope.checked=ev;
 						$scope.hide = function() {
 							$mdDialog.hide();
@@ -176,22 +208,78 @@ angular.module('aviate.controllers')
 							$rootScope.categoryList();
 							$rootScope.shippingCharge();
 							$rootScope.getTax();
+							$scope.getStoreHolidays();
 							$log.debug(storedetails);
 							$mdDialog.cancel();
 							$state.go('app.home',{},{reload: true});
 						}
-                        
-                        
-                  
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-
+						
+						$scope.getStoreHolidays = function(){
+				            homePageServices.getStoreHolidays({"storeId":$rootScope.store.storeId}).then(function(data){
+				            	$scope.holidayDates = [];
+				                $scope.holidayReasons = {};
+				            	if(data.holidays){
+				    				data.holidays.forEach(function(date){
+				    					$scope.holidayDates.push(new Date(date));
+				    				});
+				    			}
+				    			$rootScope.holidayReasons = JSON.parse(data.reason);
+				    			
+				            	$localStorage.storeHoliday = $scope.holidayDates;
+				                $scope.storeHoliday = $scope.holidayDates;
+				                $localStorage.holidayReasons = undefined;
+				                $localStorage.isTodayHoliday = undefined;
+				                
+						 		var storeHoliday =$localStorage.storeHoliday;
+						 		storeHoliday.forEach(function(date){
+						 			var d=new Date();
+						 			d.setHours(0, 0, 0, 0, 0);
+						 			if(date.getTime() == d.getTime()){
+						 				if($rootScope.holidayReasons){
+						 					var convertedDate=$filter('date')(date, "yyyy-MM-dd");
+							 				var reason=$rootScope.holidayReasons[convertedDate];
+							 				$localStorage.holidayReasons = reason;
+							 				$rootScope.holidayReasons =reason;
+						 				}
+						 				$rootScope.isTodayHoliday= true;
+						 				$localStorage.isTodayHoliday = true;
+						 				var tomorrow = new Date();
+						 				tomorrow.setHours(0, 0, 0, 0, 0);
+						 				tomorrow.setDate(d.getDate()+1);
+						 				var count=1;
+						 				$scope.isTmwHoliday = false;
+						 				while(count==1){ 
+						 				$scope.isTomorrowHoliday(tomorrow,storeHoliday);
+						 				if(!$scope.isTmwHoliday){
+						 					$rootScope.nextWorkingDate = $filter('date')(tomorrow, "dd-MM-yyyy");
+						 					$localStorage.nextWorkingDate=$rootScope.nextWorkingDate;
+						 					count++;
+						 				}else{
+						 					$scope.isTmwHoliday = false;
+						 					tomorrow.setDate(tomorrow.getDate()+1);
+						 				}
+						 			}
+						 			}
+						 		});
+						 		if(!$localStorage.isTodayHoliday){
+						 			$rootScope.isTodayHoliday= false;
+					 				$localStorage.isTodayHoliday = false;
+						 		}
+				            })
+						}
+						
+						$scope.isTomorrowHoliday=function(date,storeHoliday){
+							/*date.setHours(0, 0, 0, 0, 0);*/
+							storeHoliday.forEach(function(date1){
+								if(date1.getTime() == date.getTime()){
+									$scope.isTmwHoliday = true;
+								}
+							})
+					/*		
+							if(!$scope.isTmwHoliday){
+								$scope.isTmwHoliday = false;
+							}*/
+						}
 					}
 				})	
 				.then(function(answer) {
@@ -277,6 +365,7 @@ angular.module('aviate.controllers')
 	                $rootScope.shippingCharges = data;
 	            })
 			}
+			
 			$rootScope.getTax =function(){
 				$scope.tax ={};
 				$scope.merchant = $rootScope.store.merchant;

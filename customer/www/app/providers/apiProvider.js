@@ -568,6 +568,28 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		/*Store Holiday Charge*/
+		
+		apiClass.storeHolidays = {
+				name: ""
+		};
+		
+		apiClass.storeHolidays.getStoreHolidays=function (storeHoliday, callback) {
+			httpRequest("POST", "storeholiday/storeholidays", storeHoliday, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+		
+		
+		
 		/*Shipping Charge*/
 		
 		apiClass.shippingCharge = {

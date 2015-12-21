@@ -3,7 +3,9 @@
  */
 package com.mitosis.shopsbacker.vo.admin;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,7 +23,16 @@ public class StoreHolidayVo {
 	private String reason;
 	private MerchantVo merchant;
 	private StoreVo store;
+	private String storeId;
 	private String holidayDate;
+	List<Date> holidays = new ArrayList<Date>();
+	
+	public List<Date> getHolidays() {
+		return holidays;
+	}
+	public void setHolidays(List<Date> holidays) {
+		this.holidays = holidays;
+	}
 	
 	public String getStoreHolidayId() {
 		return storeHolidayId;
@@ -53,5 +64,12 @@ public class StoreHolidayVo {
 	public void setHolidayDate(String holidayDate) {
 		this.holidayDate = holidayDate;
 	}
+	public String getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
+
 	
 }

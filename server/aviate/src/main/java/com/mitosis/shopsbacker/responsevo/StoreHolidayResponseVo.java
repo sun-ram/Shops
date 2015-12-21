@@ -15,13 +15,13 @@ import com.mitosis.shopsbacker.vo.admin.StoreHolidayVo;
  */
 public class StoreHolidayResponseVo extends ResponseModel {
 
-	List<StoreHolidayVo> StoreHolidays=new ArrayList<StoreHolidayVo>();
+	StoreHolidayVo storeHoliday;
 
-	public List<StoreHolidayVo> getStoreHolidays() {
-		return StoreHolidays;
+	public  StoreHolidayVo  getStoreHoliday() {
+		return storeHoliday ;
 	}
 
-	public void setStoreHolidays(List<StoreHolidayVo> storeHolidays) {
-		StoreHolidays = storeHolidays;
+	public void setStoreHoliday( StoreHolidayVo  storeHoliday ) {
+		this.storeHoliday = storeHoliday ;
 	}
 }

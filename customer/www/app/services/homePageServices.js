@@ -85,6 +85,20 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 	
+	
+	this.getStoreHolidays = function(storeHoliday){
+		var d = $q.defer();
+		api.storeHolidays.getStoreHolidays(storeHoliday, function(err, result){
+			if(result){
+				d.resolve(result.storeHoliday);
+			}
+			else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
+	
 	this.getTax = function(merchant){
 		var d = $q.defer();
 		api.tax.getTax(merchant, function(err, result){

@@ -3,7 +3,10 @@
  */
 package com.mitosis.shopsbacker.webservice;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -19,6 +22,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.StoreHolidayService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.StoreHoliday;
 import com.mitosis.shopsbacker.responsevo.StoreHolidayResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -36,6 +41,9 @@ public Logger log=Logger.getLogger(StoreHolidayRestService.class);
 
 @Autowired
 StoreHolidayService<T> storeHolidayService;
+
+@Autowired
+StoreService<T> storeService;
 
 	@Path("/add")
 	@POST
@@ -83,7 +91,29 @@ StoreHolidayService<T> storeHolidayService;
 		StoreHolidayResponseVo response = new StoreHolidayResponseVo();
 	String	responseStr="";
 		try {
-			storeHolidayService.delete(storeHolidayVo.getStoreHolidayId());
+			String storeId = storeHolidayVo.getStoreId();
+			Store store = storeService.getStoreById(storeId);
+			List<StoreHoliday> storeHolidays = store.getStoreHolidays();
+			StoreHolidayVo storeHolidayvo= new StoreHolidayVo();
+			if(!storeHolidays.isEmpty()){
+				StoreHoliday storeHoliday = storeHolidays.get(0);
+				String holidayDate = storeHoliday.getHolidayDate();
+				List<Date> holidays = new ArrayList<Date>();
+				if (!holidayDate.isEmpty()) {
+					String[] holidayDates = holidayDate.split(",");
+					for (String holiday : holidayDates) {
+						SimpleDateFormat formatter = new SimpleDateFormat(
+								"E MMM dd HH:mm:ss Z yyyy");
+						Date date = formatter.parse(holiday);
+						holidays.add(date);
+					}
+				}
+				storeHolidayvo.setStoreHolidayId(storeHoliday.getStoreHolidayId());
+				storeHolidayvo.setReason(storeHoliday.getReason());
+				storeHolidayvo.setHolidays(holidays);
+			}
+			
+			response.setStoreHoliday(storeHolidayvo);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -91,7 +121,7 @@ StoreHolidayService<T> storeHolidayService;
 			response.setErrorString(e.getMessage());
 		}
 		try {
-			responseStr=CommonUtil.getObjectMapper(response);
+			responseStr=CommonUtil.getObjectMapperWithSerializationFeature(response);
 		} catch (Exception e) {
 			log.error(CommonUtil.getErrorMessage(e));
 			e.printStackTrace();
