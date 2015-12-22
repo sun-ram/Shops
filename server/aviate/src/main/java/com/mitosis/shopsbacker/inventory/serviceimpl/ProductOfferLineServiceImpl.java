@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferLineDao;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 @Service("productofferlineserviceimpl")
 public class ProductOfferLineServiceImpl<T> implements ProductOfferLineService<T> {
@@ -79,7 +81,12 @@ private static final long serialVersionUID = 1L;
 		productOfferLineVo.setProductOfferLineId(productOfferLine.getProductOfferLineId());
 		productOfferLineVo.setDiscountAmount(productOfferLine.getDiscountAmount());
 		productOfferLineVo.setDiscountPercentage(productOfferLine.getDiscountPercentage());
-		productOfferLineVo.setProductVo(productService.setProductVo(productOfferLine.getProduct()));
+		Product product =productOfferLine.getProduct();
+		ProductVo productVo=new ProductVo();
+		productVo.setName(product.getName());
+		productVo.setPrice(product.getPrice());
+		productVo.setProductId(product.getProductId());
+		productOfferLineVo.setProductVo(productVo);
 		return productOfferLineVo;
 	}
 

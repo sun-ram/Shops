@@ -15,6 +15,14 @@ angular.module('aviateAdmin.controllers')
 	$scope.count = 3;
 	$scope.srch = true;
 	
+	var myDate = new Date();
+
+	var previousDay = new Date(myDate);
+
+	previousDay.setDate(myDate.getDate()-1);
+	
+	$scope.minDate = previousDay;
+	
 	$scope.getProductOfferList = function () {
 		$scope.productOffer ={};
 		if($rootScope.user.role == "STOREADMIN"){
@@ -58,7 +66,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOffer.productVo = {};
 		//$scope.productOffer.productOfferLinesVo = {};
 		//$scope.productOffer.productOfferLinesVo=productLineList;
-		$scope.productOffer.productVo = $scope.product;
+		$scope.productOffer.productVo.productId = $scope.product.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
 		ProductOfferServices.addProductOffer($scope.productOffer).then(function(data) {
 			$scope.results = data;
@@ -70,7 +78,7 @@ angular.module('aviateAdmin.controllers')
     $scope.saveProductOfferLine = function(productOfferLine){
     	$scope.productOfferLine={};
     	$scope.productOfferLine.productVo ={};
-		$scope.productOfferLine.productVo = productOfferLine.productVo;
+		$scope.productOfferLine.productVo.productId = productOfferLine.productVo.productId;
     	$scope.productOfferLine.discountAmount=productOfferLine.discountAmount;
     	$scope.productOfferLine.discountPercentage=productOfferLine.discountPercentage;
 		$scope.productOfferLine.productOfferVo ={};
@@ -100,7 +108,7 @@ angular.module('aviateAdmin.controllers')
    $scope.updateProductOffer = function(productOffer){
 		$scope.productOffer.merchantVo ={};
 		$scope.productOffer.productVo ={};
-		$scope.productOffer.productVo = $scope.product;
+		$scope.productOffer.productVo.productId = $scope.product.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
 		ProductOfferServices.updateProductOffer($scope.productOffer).then(function(data) {
 			$scope.results = data;
@@ -145,7 +153,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOfferLine.productOfferLineId=productOffer.productOfferLineId;
 		$scope.productOfferLine.discountAmount=productOffer.discountAmount;
 		$scope.productOfferLine.discountPercentage=productOffer.discountPercentage;
-		$scope.productOfferLine.productVo = productOffer.productVo;
+		$scope.productOfferLine.productVo.productId = productOffer.productVo.productId;
 		ProductOfferServices.updateProductOfferLine($scope.productOfferLine).then(function(data) {
 			$scope.results = data;
 			 $scope.getProductOfferLineList(); 

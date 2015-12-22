@@ -12,10 +12,12 @@ import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
  * @author RiyazKhan.M
  */
@@ -94,6 +96,12 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 			productOfferVo.getProductOfferLinesVo().add(productOfferLineService.setProductOfferLineVo(productOfferLine));
 		}
 		}
+		Product product =productOffer.getProduct();
+		ProductVo productVo=new ProductVo();
+		productVo.setName(product.getName());
+		productVo.setPrice(product.getPrice());
+		productVo.setProductId(product.getProductId());
+		productOfferVo.setProductVo(productVo);
 		return productOfferVo;
 	}
 
