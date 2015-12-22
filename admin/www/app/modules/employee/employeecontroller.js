@@ -28,7 +28,7 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		//$scope.shopList();
 		EmployeeService.employeeList($scope.employee).then(function(data) {
 			$scope.data = data;
-			$scope.oldData = data;
+			$scope.originalList = data;
 			$scope.noOfRecords = $scope.data.length;
 		});
 	};

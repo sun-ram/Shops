@@ -2,7 +2,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
                                             function($scope,$http,$localStorage, $location,$state,$rootScope,$mdDialog,toastr,CONSTANT,deliveryTimeSlotService,$filter,deliverTimes) {
 
 	$scope.deliveryTimeSlot = deliverTimes.deliveryTimeSlots;
-
+		
 	$scope.count = 3;
 	$scope.srch = true;
 	$scope.uom = $localStorage.uom;
@@ -10,6 +10,8 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 	
 	$scope.getDeliveryTimeSlots = function() {
 		if($scope.deliveryTimeSlot.length !=0){
+			$scope.fromDeliveryTime = $scope.deliveryTimeSlot[0].fromTime;
+			$scope.toDeliveryTime = $scope.deliveryTimeSlot[0].toTime;
 			$scope.deliveryTimeSlot = $scope.deliveryTimeSlot[0];
 			$scope.deliveryTimeSlot.fromTime = $scope.convertToTime($scope.deliveryTimeSlot.fromTime);
 			$scope.deliveryTimeSlot.toTime = $scope.convertToTime($scope.deliveryTimeSlot.toTime);
@@ -45,6 +47,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			$mdDialog.show(confirm).then(function() {
 				deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
 					toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
+					$state.go('app.addDeliveryTimeSlot',{},{reload: true});
 				});
 			}, function() {
 
@@ -52,6 +55,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		}else{
 			deliveryTimeSlotService.UpdateDeliveryTimeSlot(deliveryTimeSlot).then(function(data) {
 				toastr.success(CONSTANT.UPDATEDELIVERYTIMESLOT);
+				$state.go('app.addDeliveryTimeSlot',{},{reload: true});
 			});	
 		}
 	};		
@@ -100,6 +104,14 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		var timeTokens = timeString.split(':');
 		return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
 	}
+	
+	 $scope.filter12HrTime = function(time){
+	        var temp = time.split(':'),hours = temp[0],
+	            ampm = hours >= 12 ? 'PM' : 'AM';
+	        hours = hours % 12;
+	        temp[0] = hours ? hours : 12;
+	        return  temp[0]+':'+temp[1]+" "+ampm;
+	    };
 	
 	/*
 	if($scope.deliveryTimeSlot && $scope.deliveryTimeSlot.fromTime) 
@@ -161,13 +173,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		$state.go('app.addDeliveryTimeSlot');
 
 	}
-    $scope.filter12HrTime = function(time){
-        var temp = time.split(':'),hours = temp[0],
-            ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        temp[0] = hours ? hours : 12;
-        return  temp.join(':') +" "+ampm;
-    };*/
+   */
 	/*$scope.cancelEdit = function(){
 		$state.go('app.deliveryTimeSlot');
 

@@ -84,8 +84,10 @@ height: 20px;}
 					class="nomarg padd-l10-r5"></md-icon>
 				<span flex class="padd-t5">Your store is available for
 					delivery from </span>
-			</div> <strong flex class="ft_size20 ft-grn padd-l10 marg-t7"> 9AM
-				to 10PM </strong>
+			</div><strong ng-hide="fromDeliveryTime && toDeliveryTime" flex class="ft_size20 ft-grn padd-l10 marg-t7"> 8:00 AM
+				to 8:00 PM </strong> 
+			<strong ng-show="fromDeliveryTime && toDeliveryTime" flex class="ft_size20 ft-grn padd-l10 marg-t7"> {{filter12HrTime(fromDeliveryTime)}}
+				to {{filter12HrTime(toDeliveryTime)}} </strong>
 		</span>
 	</div>
 	<div class="" flex>

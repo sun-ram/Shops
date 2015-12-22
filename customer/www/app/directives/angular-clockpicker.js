@@ -8,7 +8,7 @@ angular.module('aviate.directives')
 		scope: {
 			datetime: "=ngModel"
 		},
-		controller: function ($scope,$rootScope,$mdDialog,toastr) {
+		controller: function ($scope,$rootScope,$mdDialog,toastr,$localStorage) {
 			$rootScope.hidenext=true;
 			$rootScope.textDesign=false;
 			$scope.hourOptions = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -95,7 +95,20 @@ angular.module('aviate.directives')
 			    };
 			    
 			    $rootScope.deliveryTimeValidation=function(){
+			    	 $scope.isHoliday = false;
+			    	 var holiday = $localStorage.storeHoliday; 
 			    	 var selectedDate = new Date($rootScope.delivery.date);
+			    	 selectedDate.setHours(0, 0, 0, 0, 0);
+			    	
+			    	 holiday.forEach(function(date1){
+							if(date1.getTime() == selectedDate.getTime()){
+								$scope.isHoliday = true; 
+								toastr.error("Selected Date is Holiday");
+								return;
+							}
+					 })
+					 
+					 if(!$scope.isHoliday){
 					 selectedDate.setHours($rootScope.hour);
 			         selectedDate.setMinutes($rootScope.minute);
 		             var selectedDateValue=selectedDate.getTime();
@@ -176,8 +189,9 @@ angular.module('aviate.directives')
 		    						.ok('Ok')
 		    						.targetEvent()
 		    				);*/
-		                	toastr.error("Please choose Future delivery time "+$scope.filter12HrTime($rootScope.deliveryTime.fromTime)+" to "+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+".");
+		                	toastr.error("Please choose Valid delivery time "+$scope.filter12HrTime($rootScope.deliveryTime.fromTime)+" to "+$scope.filter12HrTime($rootScope.deliveryTime.toTime)+".");
 		                }
+					 }
 			    };
 		}
 	};

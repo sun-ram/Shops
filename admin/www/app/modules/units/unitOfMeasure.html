@@ -3,15 +3,15 @@
 	</md-button>
 	
 	
-<div ng-init="getmeasurementunit()">
+<div  ng-init="getmeasurementunit();">
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
  	<md-toolbar class=" md-default-theme"  style="background-color:transparent;">
 		<div class="md-toolbar-tools" layout="row">
 	  		<h3 layout-align="start" style="margin-left:-10px;">Units Of Measurement</h3>
 	  		
 	  		<div class="tbl-search">
-	  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-	  			<input ng-model="searchText" type="text"  placeholder="Search">
+	  		  	<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+	  		 <search-text  original-list="originalList" filtered-list="uoms" pagination="unitsPagination" total-records="noOfRecords"/> 
 	  		</div>	
   		
   		
@@ -84,7 +84,7 @@
    </md-card-content>
    
    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-   	<md-data-table-pagination md-limit="unitsPagination.limit" md-page="unitsPagination.page" md-total="{{uoms.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+   	<md-data-table-pagination md-limit="unitsPagination.limit" md-page="unitsPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
    	</div>
 </div>
 </md-card>

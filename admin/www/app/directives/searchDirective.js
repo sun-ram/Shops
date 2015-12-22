@@ -1,23 +1,28 @@
 angular.module('aviateAdmin.directives')
 
-.directive('searchText', function(toastr, filterFilter) {
+.directive('searchText', function(filterFilter) {
 	return {
-		require: '?ngModel',
+		restrict: 'E',
+		scope:{
+			originalList:"=",
+			filteredList:"=",
+			pagination:"=",
+			totalRecords:"="
+		},
+		template: '<input ng-model="searchText" type="text" placeholder="Search" ng-change="onChangeSearch(searchText)">',
 		link: function(scope, element, attrs) {
-			
-			scope.oldData = scope.data;
 		
-			scope.onChangeSearch = function (term, data, pagination) {
+			scope.onChangeSearch = function (term) {
 			
 				if(term != ""){
-					data = filterFilter(scope.oldData, term);
-				    scope.noOfRecords = data.length;
-				    pagination.limit = 5;
-				    pagination.page = 1;
+					scope.filteredList = filterFilter(scope.originalList, term);
+				    scope.totalRecords = scope.filteredList.length;
+				    scope.pagination.limit = 5;
+				    scope.pagination.page = 1;
 				    
 				}else{
-					data = scope.oldData;
-					scope.noOfRecords = data.length;
+					scope.filteredList = scope.originalList;
+					scope.totalRecords = scope.filteredList.length;
 				}
 				
 			};

@@ -6,17 +6,18 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 			    page: 1
 			  };*/
 
-	$scope.count = 3;
 	$scope.srch = true;
 	$scope.uom = $localStorage.uom;
-
-	$scope.getmeasurementunit = function() {
+  
+    $scope.getmeasurementunit = function() {
 
 		var uom ={
 		}
 		UnitService.UnitList(uom).then(function(data) {
 			$scope.uoms =[];
 			$scope.uoms = data.uom;
+			$scope.originalList = $scope.uoms;
+			$scope.noOfRecords = $scope.uoms.length;
 		});
 	};
 
