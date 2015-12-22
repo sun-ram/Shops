@@ -217,9 +217,9 @@ top: 0px;}
 }
 
 md-list-item {
-    width: 260px;
+    /* width: 260px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: hidden; */
     height: 40px;
     min-height: 35px;
 }
@@ -411,7 +411,7 @@ md-select .md-select-value{
 .md-sidenav-left, md-sidenav{top:66px;overflow: hidden;}
 .data-table-list{ cursor:pointer; outline:0;}
 .data-table-list:nth-child(odd)  md-item-content{ background-color:#f5f6f8;}
-md-list{ padding:0px;}
+md-list{ padding:0px; overflow: auto;}
 
 md-data-table-pagination div{font-size:16px !important; color:#023904 !important; border: none;}
 .md-fab ng-md-icon{ color:#FFFFFF; fill:#FFFFFF;} 
