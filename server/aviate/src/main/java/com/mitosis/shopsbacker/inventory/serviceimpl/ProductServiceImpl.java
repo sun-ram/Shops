@@ -15,6 +15,7 @@ import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
 import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
+import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
@@ -23,11 +24,13 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductImage;
+import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
@@ -57,7 +60,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	@Autowired
 	DiscountService<T> discountService;
 	
-
+	@Autowired
+	ProductOfferService<T>  productOfferService;
+	
 	@Override
 	public List<Product> getProductListByType(ProductType productType) {
 		return productDao.getProductListByType(productType);
@@ -208,11 +213,25 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setEdibleType(product.getEdibleType());
 		productVo.setGroupCount(product.getGroupCount());
 		productVo.setProductId(product.getProductId());
+		productVo.setIsBundle(product.getIsBundle());
+		productVo.setIsChild(product.getIsChild());
+		productVo.setIsKit(product.getIsKit());
 				if(product.getIsYourHot() == 'Y'){
 						productVo.setIsYourHot(true);
 					}else{
 						productVo.setIsYourHot(false);
 					}
+		if(product.getProductOffers() != null || product.getProductOffers().size() != 0){
+			List<ProductOfferVo> productOfferVos = new  ArrayList<ProductOfferVo>();
+		
+		List<ProductOffer> productOffers = product.getProductOffers();
+		for(ProductOffer productOffer:productOffers){
+			
+			ProductOfferVo productOfferVo = productOfferService.setProductOfferVo(productOffer);
+			productOfferVos.add(productOfferVo);
+		}
+		productVo.setProductOfferLines(productOfferVos);
+		}
 		if(product.getImage() != null){
 		ImageVo image = imageService.setImageVo(product.getImage());
 		productVo.setImage(image);

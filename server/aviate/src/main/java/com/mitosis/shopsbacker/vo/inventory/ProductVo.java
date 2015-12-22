@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.ProductImage;
+import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 
@@ -36,9 +37,12 @@ public class ProductVo {
 	private BigDecimal unit;
 	private String description;
 	private String productTypeId;
+	private Character isKit;
+	private Character isChild;
+	private Character isBundle;
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	private List<ImageVo> images = new ArrayList<ImageVo>();
-	
+	private List<ProductOfferVo> productOffer = new ArrayList<ProductOfferVo>();
 	
 	public List<ImageVo> getImages() {
 		return images;
@@ -160,6 +164,30 @@ public class ProductVo {
 	}
 	public void setYourHot(boolean isYourHot) {
 		this.isYourHot = isYourHot;
+	}
+	public Character getIsKit() {
+		return isKit;
+	}
+	public void setIsKit(Character isKit) {
+		this.isKit = isKit;
+	}
+	public Character getIsChild() {
+		return isChild;
+	}
+	public void setIsChild(Character isChild) {
+		this.isChild = isChild;
+	}
+	public Character getIsBundle() {
+		return isBundle;
+	}
+	public void setIsBundle(Character isBundle) {
+		this.isBundle = isBundle;
+	}
+	public List<ProductOfferVo> getProductOffer() {
+		return productOffer;
+	}
+	public void setProductOfferLines(List<ProductOfferVo> productOffer) {
+		this.productOffer = productOffer;
 	}
 
 

@@ -89,10 +89,11 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productOfferVo.setTodate(productOffer.getTodate());
 		productOfferVo.setStartTime(productOffer.getStartTime());
 		productOfferVo.setEndTime(productOffer.getEndTime());
+		if(productOffer.getProductOfferLines() != null){
 		for(ProductOfferLine productOfferLine : productOffer.getProductOfferLines()){
 			productOfferVo.getProductOfferLinesVo().add(productOfferLineService.setProductOfferLineVo(productOfferLine));
 		}
-		productOfferVo.setProductVo(productService.setProductVo(productOffer.getProduct()));
+		}
 		return productOfferVo;
 	}
 
