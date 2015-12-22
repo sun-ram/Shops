@@ -1,3 +1,96 @@
+<style>
+/*body {
+  background-color: #ccc;
+  padding: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+}*/
+
+.off-screen {
+  height: 1px;
+  left: -50000px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+#progress-bar {
+  position: relative;
+  padding-top: 5px;
+  margin-bottom: 1.5em;
+  color: #4d483f;
+  left: 10%;
+  top: 33px;
+	
+}
+#progress-bar #progress-steps {
+  height: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fff;
+  position: relative;
+  list-style-type: none;
+  counter-reset: item;
+}
+#progress-bar .progress-step {
+  width: 16.66%;
+  height: 8px;
+  float: left;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+#progress-bar .count:before {
+  content: counter(item) " ";
+  counter-increment: item;
+  display: block;
+  width: 5px;
+  height: 12px;
+  background-color: #fff;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  position: absolute;
+  right: -10px;
+  top: -6px;
+  padding: 2px 0 0 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+#progress-bar .highlight-index:before {
+  background-color: #3cb0a5;
+  color: #fff;
+}
+#progress-bar .highlight-index {
+  background-color: #3cb0a5;
+  display: block;
+  height: 100%;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  height:5px;
+}
+#progress-bar .description {
+  display: block;
+  text-align: center;
+  width: 64%;
+  right: -32%;
+  position: absolute;
+  bottom: 9px;
+  font-size: 0.9em;
+}
+#progress-bar .bolded-step {
+  font-weight: normal !important;
+}
+</style>
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
  <md-toolbar class=" md-default-theme" style="background-color:transparent; z-index: 0;">
 	<div class="md-toolbar-tools" layout="row">
@@ -74,6 +167,32 @@
             </div>
          </md-item-content>
          <md-item-content layout="column"  ng-show="ordersHis.salesOrderId == showDetails" style="padding:0px 20px;" >
+			<div id="progress-bar">
+				<span>Order Status </span>
+				  <ol id="progress-steps">
+					<li class="progress-step" style="width: 20%;">
+						<span class="description">Packing in Progress</span>
+					  <span ng-class="order[0]" class="count highlight-index"></span>
+					  
+					</li>
+					<li class="progress-step" style="width: 20%;">
+						<span class="description">Packing Completed</span>
+					  <span ng-class="order[1]" class="count highlight-index"></span>
+					  
+					</li>
+					  <li class="progress-step" style="width: 20%;">
+						  <span class="description">Delivery Started</span>
+					  <span ng-class="order[2]" class="count highlight-index"></span>
+					  
+					</li>
+					<li class="progress-step" style="width: 20%;">
+						 <span class="description">Delivered</span>
+					  <span ng-class="order[3]" class="count highlight-index"></span>
+					 
+					</li>
+				  </ol>
+			</div>
+			 <hr>
            <div flex ng-repeat="productOrders in ordersHis.salesOrderLineVo" class="padd-lr30 padd-t30">
            <div layout="row">
            <span flex="10"><img width="80" height="80" ng-src="{{productOrders.productVo.image.url}}"/></span>
