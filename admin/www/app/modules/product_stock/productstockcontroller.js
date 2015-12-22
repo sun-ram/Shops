@@ -29,7 +29,7 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 			};
 			
 			$scope.getStockListByStore = function () {
-
+				var salesOrderVo = {};
 				salesOrderVo.storevo= {
 						"storeId":$scope.storesId
 				};

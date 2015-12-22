@@ -31,7 +31,7 @@
   			<input ng-model="search" type="text"  placeholder="Search">
   		</div>
   		</div>
-    	 <md-input-container flex="30" layout-align="center end">
+    	 <md-input-container flex="30" layout-align="center end" ng-hide="user.role == 'STOREADMIN'">
        			<label>Store<span style="color:red">*</span></label>
          		<md-select name="myModel" ng-model="storesId" ng-change="getStockListByStore()" ng-required="true">
 		            <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >
