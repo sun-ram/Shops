@@ -27,18 +27,19 @@ angular.module('aviateAdmin.controllers')
 		$state.go('app.productdetailsview');
 	};
 
-	$scope.checkPrice = function(price, wasPrice){
+	/*$scope.checkPrice = function(price, wasPrice){
 		if((price != undefined || price !="") && (wasPrice != undefined || wasPrice != "")){
 			if(wasPrice <= price){
 				$scope.product.wasPrice = undefined;
 				toastr.warning("WasPrice Should Be Greater Than To Price");
-				return;
+				
 
 			}else{
+				
 				return;
 			}
 		}
-	}
+	}*/
 
 	$scope.getAllProductList = function() {
 		$scope.product = {};
@@ -59,6 +60,13 @@ angular.module('aviateAdmin.controllers')
 			toastr.warning("Product WasPrice should be greater than Zero");
 			return;
 		} 
+		 if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
+				if($scope.product.wasPrice <= $scope.product.price){
+					toastr.warning("WasPrice Should Be Greater Than To Price");
+					return;
+
+				}
+			}
 
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
@@ -135,7 +143,7 @@ angular.module('aviateAdmin.controllers')
 	}
 
 	$scope.addproduct = function() {
-		
+
 		if ($scope.product.price == 0) {
 			toastr.warning("Product Price should be greater than Zero");
 			return;
@@ -144,6 +152,13 @@ angular.module('aviateAdmin.controllers')
 			toastr.warning("Product WasPrice should be greater than Zero");
 			return;
 		} 
+		 if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
+				if($scope.product.wasPrice <= $scope.product.price){
+					toastr.warning("WasPrice Should Be Greater Than To Price");
+					return;
+
+				}
+			}
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}else{

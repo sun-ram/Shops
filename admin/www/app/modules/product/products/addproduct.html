@@ -79,7 +79,7 @@
 
 			<md-input-container> <label>Price<span style="color:red">*</span></label> <!--    <input type="text" class="decimalnumber" ng-model="product.productPrice.price" />  -->
 			<input type="text" name="price" ng-model="product.price"
-				pattern="\d+(\.\d{1,2})?"  valid-number1 ng-required="true" ng-blur="checkPrice(product.price, product.wasPrice)" /> <span
+				pattern="\d+(\.\d{1,2})?"  valid-number1 ng-required="true"/> <span
 				ng-message="required"
 				ng-show="addProductForm.price.$error.price || (!addProductForm.price.$error.required && !addProductForm.price.$valid)"
 				style="color: red;">Price Should allow upto 2 digits
@@ -88,7 +88,7 @@
 			
 			<md-input-container> <label>Was Price</label>
 			<input type="text" name="wasPrice" ng-model="product.wasPrice"
-				pattern="\d+(\.\d{1,2})?"  valid-number1 ng-blur="checkPrice(product.price, product.wasPrice)" /> <span
+				pattern="\d+(\.\d{1,2})?"  valid-number1/> <span
 				ng-message="required"
 				ng-show="addProductForm.wasPrice$error.price || (!addProductForm.wasPrice.$error.required && !addProductForm.wasPrice.$valid)"
 				style="color: red;">Price Should allow upto 2 digits
