@@ -6,7 +6,9 @@ angular.module('aviateAdmin.controllers')
 	$scope.productOffer =ProductOfferServices.getProductOfferObj();
 	$scope.productOfferLine = ProductOfferServices.getProductOfferLineObj();
 	$scope.offerId = $stateParams.offerId;
-	
+	$scope.addNew=false;
+	$scope.lineEdit=true;
+
 	$scope.query = {
 			limit: 5,
 			page: 1
@@ -62,22 +64,22 @@ angular.module('aviateAdmin.controllers')
 	};
 	
 	$scope.saveProductOffer = function(productOffer){
+		$scope.productId = productOffer.productVo.productId;
 		$scope.productOffer.merchantVo = {};
 		$scope.productOffer.productVo = {};
-		//$scope.productOffer.productOfferLinesVo = {};
-		//$scope.productOffer.productOfferLinesVo=productLineList;
-		$scope.productOffer.productVo.productId = $scope.product.productId;
+		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
 		ProductOfferServices.addProductOffer($scope.productOffer).then(function(data) {
-			$scope.results = data;
-		    $state.go('app.productoffer');
+			$scope.results = data.productOfferList;
+		    $state.go('app.productofferline',{'offerId':$scope.results[0].productOfferId});
 		})
 
     };
     
     $scope.saveProductOfferLine = function(productOfferLine){
+		$scope.lineEdit=false;
     	$scope.productOfferLine={};
-    	$scope.productOfferLine.productVo ={};
+    	$scope.productOfferLine.productVo={};
 		$scope.productOfferLine.productVo.productId = productOfferLine.productVo.productId;
     	$scope.productOfferLine.discountAmount=productOfferLine.discountAmount;
     	$scope.productOfferLine.discountPercentage=productOfferLine.discountPercentage;
@@ -106,9 +108,10 @@ angular.module('aviateAdmin.controllers')
    };
    
    $scope.updateProductOffer = function(productOffer){
+		$scope.productId = productOffer.productVo.productId;
 		$scope.productOffer.merchantVo ={};
 		$scope.productOffer.productVo ={};
-		$scope.productOffer.productVo.productId = $scope.product.productId;
+		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
 		ProductOfferServices.updateProductOffer($scope.productOffer).then(function(data) {
 			$scope.results = data;
@@ -128,6 +131,7 @@ angular.module('aviateAdmin.controllers')
    }
    
    $scope.deleteProductOfferLine = function(productOfferLineId){
+	   $scope.lineEdit=false;
        $scope.productOfferLine ={};
        $scope.productOfferLine.productOfferLineId=productOfferLineId;
 	   ProductOfferServices.deleteProductOfferLine($scope.productOfferLine).then(function(data) {
@@ -137,17 +141,17 @@ angular.module('aviateAdmin.controllers')
    };
    
    $scope.getProductOfferLineList = function () {
-	   console.log($scope.showInLineEdit);
+	   $scope.lineEdit=false;
 		$scope.productOffervo ={};
 		$scope.productOffervo.productOfferId=$stateParams.offerId;
 		ProductOfferServices.getProductOfferLine($scope.productOffervo).then(function(data) {
 			$scope.productOfferLine = data;
+			$scope.lineEdit=true;
 			$localStorage.productOfferList = data;
 		});
 	};
 	$scope.updateProductOfferLine = function(productOffer){
-		console.log($scope.showInLineEdit);
-		$scope.showInLineEdit=null
+		$scope.lineEdit=false;
 		$scope.productOfferLine={};
 		$scope.productOfferLine.productVo ={};
 		$scope.productOfferLine.productOfferLineId=productOffer.productOfferLineId;
@@ -156,9 +160,9 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOfferLine.productVo.productId = productOffer.productVo.productId;
 		ProductOfferServices.updateProductOfferLine($scope.productOfferLine).then(function(data) {
 			$scope.results = data;
-			 $scope.getProductOfferLineList(); 
-			//$state.go('app.productofferline',{'offerId':$stateParams.offerId});
-		})
+			$scope.getProductOfferLineList(); 
+		//	$state.go('app.productofferline',{'offerId':$stateParams.offerId});
+		});
    };
    
    $scope.offerDetails = function(offer){

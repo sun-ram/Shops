@@ -12,6 +12,12 @@
 		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.productoffer">
 			<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
 		</md-button>
+		<md-button style="right:150px" class="md-fab edit-btn" aria-label="Eat cake" ng-click="redirectOfferLine(productOffer)">
+			<ng-md-icon  icon="question_answer" size="20" style="fill: white;"></ng-md-icon>
+			<md-tooltip md-visible="true" md-direction="top">
+       View Offer Products
+      </md-tooltip>
+		</md-button>
 	</md-toolbar>
 <md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getOfferDetails();">
   <md-card-content style="padding: 0px 0px 16px 0px;">	
@@ -74,7 +80,6 @@
        </div>
        
      </md-list>
-          <md-button class="md-raised md-success padd-50" ng-click="redirectOfferLine(productOffer);">View Offer Products</md-button>
      
    </md-card-content>
 </md-card>

@@ -26,5 +26,5 @@ public interface ProductOfferService<T> {
 	
 	public List<ProductOffer> getProductOfferByMerchant(Merchant merchant);
 
-
+	public ProductOffer checkUniqueName(String params);
 }

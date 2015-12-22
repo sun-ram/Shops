@@ -94,5 +94,20 @@ ProductOfferDao<T>, Serializable{
 			throw(e);
 		}
 	}
+	
+	@Override
+	public ProductOffer checkUniqueName(String params) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(ProductOffer.class);
+			criteria.add(Restrictions.eq("name", params));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return (ProductOffer) findUnique(criteria);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+	
+	
 
 }

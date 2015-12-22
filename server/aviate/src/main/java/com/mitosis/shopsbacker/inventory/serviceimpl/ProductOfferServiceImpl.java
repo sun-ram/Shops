@@ -113,6 +113,11 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	@Override
 	public List<ProductOffer> getProductOfferByMerchant(Merchant merchant) {
 		return productOfferDao.getProductOfferByMerchant(merchant);
+	}
+
+	@Override
+	public ProductOffer checkUniqueName(String params) {
+		return productOfferDao.checkUniqueName(params);
 	} 
 
 }

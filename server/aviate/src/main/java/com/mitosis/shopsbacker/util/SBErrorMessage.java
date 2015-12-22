@@ -41,7 +41,9 @@ public enum SBErrorMessage {
 	CATEGORY_PRODUCT_CHECK("E0030","This category having some products."),
 	CATEGORY_PRODUCTTYPE_CHECK("E0031","This product type having some products."),
 	PRODUCT_NAME_ALREADY_EXIST("E0032","Product name already exist."),
-	PRODUCT_SUB_CATEGORY_ALREADY_EXIST("E0033","This category already has sub-category");
+	PRODUCT_SUB_CATEGORY_ALREADY_EXIST("E0033","This category already has sub-category"),
+	OFFER_NAME_ALREADY_EXIST("E0001","Product Offer name already exist.");
+
 
 	private final String erroeCode;
 	  private final String errorMessage;

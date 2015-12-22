@@ -23,6 +23,7 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.responsevo.ProductOfferResponseVo;
+import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
@@ -35,24 +36,24 @@ import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 @Path("productoffer")
 @Controller("productOfferRestServices")
 public class ProductOfferRestServices<T> {
-	
+
 	final static Logger log = Logger.getLogger(ProductInventoryRestService.class
 			.getName());
-	
+
 	@Autowired
 	ProductService<T> productService;
-	
+
 	@Autowired
 	MerchantService<T> merchantService;
-	
+
 	@Autowired
 	StoreService<T> storeService;
-	
+
 	@Autowired
 	ProductOfferService<T> productOfferService;
-	
+
 	ProductOffer productOffer = null;
-	
+
 	public ProductService<T> getProductService() {
 		return productService;
 	}
@@ -84,25 +85,34 @@ public class ProductOfferRestServices<T> {
 	public void setProductOfferService(ProductOfferService<T> productOfferService) {
 		this.productOfferService = productOfferService;
 	}
-	
+
 	ResponseModel response = new ResponseModel();
-	
+
 	@Path("/addoffer")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel addProductOffer(ProductOfferVo productOfferVo) {
+	public ProductOfferResponseVo addProductOffer(ProductOfferVo productOfferVo) {
 		productOffer = new ProductOffer();
-		response = new ResponseModel();
+		ProductOfferResponseVo response = new ProductOfferResponseVo();
 		try {
-			Merchant merchant = merchantService.getMerchantById(productOfferVo.
-												   getMerchantVo().getMerchantId());
-			Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
-			productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
-			productOffer.setMerchant(merchant);
-			productOffer.setProduct(product);
-			productOfferService.addProductOffer(productOffer);
+			productOffer=productOfferService.checkUniqueName(productOfferVo.getName());
+			if(productOffer==null){
+				Merchant merchant = merchantService.getMerchantById(productOfferVo.
+						getMerchantVo().getMerchantId());
+				Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
+				productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
+				productOffer.setMerchant(merchant);
+				productOffer.setProduct(product);
+				productOfferService.addProductOffer(productOffer);
+				productOfferVo.setProductOfferId(productOffer.getProductOfferId());
+				response.getProductOfferList().add(productOfferVo);
+			}else{
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				response.setErrorCode(SBErrorMessage.OFFER_NAME_ALREADY_EXIST.getCode());
+				response.setErrorString(SBErrorMessage.OFFER_NAME_ALREADY_EXIST.getMessage());
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -110,20 +120,21 @@ public class ProductOfferRestServices<T> {
 			response.setErrorString(e.getMessage());
 		}
 		return response;
-		
+
 	}
-	
+
 	@Path("/updateoffer")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateProductOffer(ProductOfferVo productOfferVo) {
+		response = new ResponseModel();
 		productOffer = new ProductOffer();
 		try {
 			productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
 			Merchant merchant = merchantService.getMerchantById(productOfferVo.
-												   getMerchantVo().getMerchantId());
+					getMerchantVo().getMerchantId());
 			Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
 			productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
 			productOffer.setMerchant(merchant);
@@ -136,9 +147,9 @@ public class ProductOfferRestServices<T> {
 			response.setErrorString(e.getMessage());
 		}
 		return response;
-		
+
 	}
-	
+
 	@Path("/deleteoffer")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -157,9 +168,9 @@ public class ProductOfferRestServices<T> {
 			response.setErrorString(e.getMessage());
 		}
 		return response;
-		
+
 	}
-	
+
 	@Path("/getofferbyMerchant")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -170,7 +181,7 @@ public class ProductOfferRestServices<T> {
 		ProductOfferResponseVo productOfferVoList = new ProductOfferResponseVo();
 		try {
 			Merchant merchant = merchantService.getMerchantById(productOfferVo.
-					   getMerchantVo().getMerchantId());
+					getMerchantVo().getMerchantId());
 			productOfferList = productOfferService.getProductOfferByMerchant(merchant);
 			for(ProductOffer productOffer : productOfferList){
 				productOfferVoList.getProductOfferList().add(productOfferService.setProductOfferVo(productOffer));
@@ -182,6 +193,6 @@ public class ProductOfferRestServices<T> {
 			response.setErrorString(e.getMessage());
 		}
 		return productOfferVoList;
-		
+
 	}
 }

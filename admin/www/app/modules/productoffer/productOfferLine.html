@@ -64,9 +64,6 @@
                 <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=productOffer.productOfferLineId;productOfferLine=productOffer;" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
-                <md-button class="md-icon-button md-primary" ng-click="editProductOfferLine(productOffer)" aria-label="Edit">
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>        			
-      			</md-button>
              	<md-button class="md-icon-button md-primary" ng-click="deleteProductOfferLine(productOffer.productOfferLineId);$event.stopPropagation();" aria-label="Delete">
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
@@ -74,7 +71,8 @@
              
       	</div>
       	
-      		<div ng-if="productOffer.productOfferLineId == showInLineEdit" layout="row" layout-wrap class="full_wid tbl-body" layout-align="start center">
+      		<div ng-show="productOffer.productOfferLineId == showInLineEdit && lineEdit" layout="row" layout-wrap class="full_wid tbl-body" layout-align="start center">
+      		      	<form name="offerLineForm" layout layout-sm="column" novalidate>	
       		
       	    <md-input-container flex="20" class="padd-lr20">
                     <label>Product<span style="color:red">*</span></label>
@@ -91,32 +89,29 @@
 			    
       		<md-input-container flex="20" layout-align="start center" layout>
       			<label>Quantity</label>
-      			<input type="text" ng-model="productOfferLine.discountAmount" valid-number /> 
+      			<input type="text" ng-model="productOfferLine.discountAmount" ng-required="true" valid-number /> 
       		</md-input-container>	
 			
 			<md-input-container flex="20" layout-align="start center" layout>
       			<label>Offer Amount</label>
-      			<input type="text" ng-model="productOfferLine.discountPercentage"  valid-number /> 
+      			<input type="text" ng-model="productOfferLine.discountPercentage" ng-required="true" valid-number /> 
       		</md-input-container>
 
-      		<span flex=20 layout-align="center center" layout>
-                <md-button class="md-icon-button md-primary" ng-click="showInLineEdit=null;updateProductOfferLine(productOfferLine);" aria-label="Inline Edit">
+      		<span flex=20 layout-align="start center" layout>
+                <md-button class="md-icon-button md-primary" ng-disabled="offerLineForm.$invalid" ng-click="showInLineEdit=null;updateProductOfferLine(productOfferLine);" aria-label="Inline Edit">
              		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
              	</md-button>
-                <md-button class="md-icon-button md-primary" aria-label="Edit">
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color"></ng-md-icon>        			
-      			</md-button>
              	<md-button class="md-icon-button md-primary" ng-click="showInLineEdit=null;" aria-label="Delete">
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
-      		
+      		</form>
       	</div> 
       	
       </md-item-content>
       </md-item>
       
-      <div ng-show="addNew" layout="row" layout-wrap class="full_wid tbl-body" layout-align="start center">
+      <!-- <div ng-show="addNew || (productOfferLine.length==0)" layout="row" layout-wrap class="full_wid tbl-body" layout-align="start center">
        <form name="offerLineForm" novalidate>	
        <div layout layout-sm="column">	
       	    <md-input-container flex="20" class="padd-lr20">
@@ -157,7 +152,47 @@
              
       		</form>
       	</div> 
-
+ -->
+	 <div ng-show="addNew || (productOfferLine.length==0)" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
+      	<form name="offerLineForm" layout layout-sm="column" novalidate>	
+      		
+      		<md-input-container flex="20" class="padd-lr20">
+                    <label>Product<span style="color:red">*</span></label>
+                    <md-select class="remove-padd" ng-model="newproductOffer.productVo" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
+ 				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
+		              {{product.name}}
+		            </md-option>
+          		</md-select>
+            </md-input-container>
+            	
+			
+			<md-input-container flex="20">
+      		<label>Price</label>
+      		<input type="text" ng-disabled="true" ng-required="true" ng-model="newproductOffer.productVo.price" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="20">
+      		<label>Discount Amount</label>
+      		<input type="text" ng-model="newproductOffer.discountAmount" ng-required="true" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="20">
+      		<label>Discount Percentage</label>
+      		<input type="text" ng-model="newproductOffer.discountPercentage" ng-required="true" valid-number/> 
+      		</md-input-container>
+      		
+      		<span flex=20 layout-align="start center" layout>
+               <md-button class="md-icon-button md-primary" ng-disabled="offerLineForm.$invalid" ng-click="addNew=false;saveProductOfferLine(newproductOffer);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+              
+             	<md-button class="md-icon-button md-primary" ng-click="addNew=false;" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+      		</form>
+      	</div>
+      	
      </md-list>
      </md-data-table-container>
    </md-card-content> 
