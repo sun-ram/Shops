@@ -3,10 +3,10 @@
 	<span flex ng-show="isTodayHoliday && holidayReasons">Today is holiday Due to {{holidayReasons}} next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
 	<span flex ng-show="isTodayHoliday && !holidayReasons">Today is holiday next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
 	 <div layout="row" layout-align="end">
-			<span flex  style="font-size: 15px; right: 220px; position: relative; cursor: pointer;" ng-show="user" ng-click="orderHistory();"> order history </span>
-			<span flex  style="font-size: 15px; margin-right: 10px; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>
-			<span flex style="font-size: 15px; right: 80px; position: absolute; " ng-show="user">{{user.userName}} | </span>
-			<span flex style="font-size: 15px; right: 10px; position: absolute; cursor: pointer;" ng-show="user" ng-click="logout()">Logout <I class="icon ion-power" style="font-size: 14px;"></I></span>
+			<span flex  style="font-size: 15px; right: 220px; top: 5px; position: absolute; cursor: pointer;" ng-show="user" ng-click="orderHistory();"> order history </span>
+			<span flex  style="font-size: 15px; right: 10px; top: 5px; position: absolute; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>
+			<span flex style="font-size: 15px; right: 80px; top: 5px; position: absolute; cursor: pointer;" ng-show="user">{{user.userName}} | </span>
+			<span flex style="font-size: 15px; right: 10px; top: 5px; position: absolute; cursor: pointer;" ng-show="user" ng-click="logout()">Logout <I class="icon ion-power" style="font-size: 14px;"></I></span>
 	</div>  
 </div>
 
