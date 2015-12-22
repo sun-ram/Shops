@@ -4,7 +4,12 @@
 	</md-button>
 </a>
 
-	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+	
+
+
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
+
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
          <div class="md-toolbar-tools " layout="row">
          		<h3 layout="column" style="padding: 0px 10px;">Physical Inventory Adjustment</h3>
          		<div class="tbl-search">
@@ -13,9 +18,7 @@
 		  		</div>
          	</div>
          </md-toolbar>
-
-<md-content laout="column" flex>
-<md-card>
+<md-card-content class="nopadd">       
 <md-data-table-container>
   <table md-data-table>
     <thead>
@@ -35,8 +38,8 @@
               {{inventory.warehouse.name}}
         </td>
         <td>
-          <md-button ng-hide="inventory.isupdated == 'Y'" class="md-raised md-success  prdct-btns" ng-click="updateInventory(inventory.movementId);$event.stopPropagation();">Process</md-button>
-          <md-button class="md-raised md-success  prdct-btns" ui-sref="app.physicalInventoryDetail({inventoryId:inventory.movementId})">View Line</md-button>
+          <md-button class="md-raised md-success  prdct-btns" style="float: left;" ui-sref="app.physicalInventoryDetail({inventoryId:inventory.movementId})">View Line</md-button>
+          <md-button ng-hide="inventory.isupdated == 'Y'" class="md-raised md-success  prdct-btns" ng-click="updateInventory(inventory.movementId);$event.stopPropagation();">Update</md-button>
         </td>
         <td flex layout-align="center center" layout>
    			<md-button ng-click="$event.stopPropagation();" ng-hide="inventory.isupdated == 'Y'" style="z-index:500;" class="md-icon-button md-primary" ui-sref="app.editInventory({inventoryId:inventory.movementId})" aria-label="Edit">
@@ -50,10 +53,17 @@
     </tbody>
   </table>
 </md-data-table-container>
+</md-card-content>
+
+<div layout="row" layout-align="center center" >
+<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
 <md-data-table-pagination md-limit="physicalInventoryAdjustmentPagination.limit" md-page="physicalInventoryAdjustmentPagination.page" md-total="{{physicalInventories.length}}" md-trigger="onpagechange">
 </md-data-table-pagination>
+</div>
+</div>
+
 </md-card>
-</md-content>
+
 
 
 <!-- <a ui-sref="app.addNewInventory">

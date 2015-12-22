@@ -86,10 +86,10 @@
       		
       		
       		<span flex=15 layout-align="center center" layout>
-                <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=product.productId;productEdit=product;" aria-label="Inline Edit">
+                <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=product.productId;productEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
-                <md-button class="md-icon-button md-primary" ng-click="editproduct(product)" aria-label="Edit">
+                <md-button class="md-icon-button md-primary" ng-click="editproduct(product);$event.stopPropagation();" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>        			
       			</md-button>
              	<md-button class="md-icon-button md-primary" ng-click="deleteProduct(product.productId);$event.stopPropagation();" aria-label="Delete">
@@ -99,14 +99,14 @@
              
       	</div>
       	
-      	<div ng-show="product.productId == showInLineEdit" layout="row" layout-align="start center">
+      	<div ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
       		<span flex="10" layout-align="start center" layout>
       			<img style="padding:2px; border-radius:50px; border:1px solid #999999;" ng-src={{product.image.url}} width="40" height="40"/>
       		</span>
       		
       		<md-input-container flex="15">
       		<label>Product</label>
-      		<input type="text" ng-model="productEdit.name" valid-number /> 
+      		<input type="text" ng-model="productEdit.name" /> 
       		</md-input-container>	
 			
 			<md-input-container flex="10">
@@ -116,7 +116,7 @@
       		
       		<md-input-container flex="10">
       		<label>UOM</label>
-      		<input type="text" ng-model="productEdit.uom.name" valid-number /> 
+      		<input type="text" ng-model="productEdit.uom.name" /> 
       		</md-input-container>
       		
       		<md-input-container flex="10">
@@ -125,13 +125,17 @@
       		</md-input-container>
       		
       		<md-input-container flex="10">
+      		<label>Was Price</label>
+      		<input type="text" ng-model="productEdit.wasPrice" valid-number/> 
+      		</md-input-container>
+      		<md-input-container flex="10">
       		<label>Category</label>
-      		<input type="text" ng-model="productEdit.productCategory.name" valid-number /> 
+      		<input type="text" ng-model="productEdit.productCategory.name" /> 
       		</md-input-container>
       		
       		<md-input-container flex="10">
       		<label>Product Type</label>
-      		<input type="text" ng-model="productEdit.productType.name" valid-number /> 
+      		<input type="text" ng-model="productEdit.productType.name" /> 
       		</md-input-container>
       		
       		<span flex=15 layout-align="center center" layout>

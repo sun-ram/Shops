@@ -40,7 +40,7 @@
        </md-item>
        
        <md-item class="data-table-list" md-data-table ng-repeat="movement in movements | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row" ng-click="redirectToMovementDetails(movement);">
-         <md-item-content layout="row" layout-padding>
+         <md-item-content layout="row">
           <div layout="row" layout-wrap class="full_wid tbl-body">
          
            	<span flex layout layout-align="start center">

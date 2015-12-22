@@ -35,11 +35,11 @@
        		  {{stocks.availableQty}}
         </td>
         <td ng-init="stocks.isMovementExist=false;changeIsExistMovement(stocks);">
-           <md-input-container ng-if="stocks.isMovementExist">
-              <input  ng-model="physicalInventoryList[stocks.inventoryIndex].qty" class="noborderimg padd-l8" ng-enter="updateInventory(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);" aria-label="Product Quantity">
+           <md-input-container ng-if="stocks.isMovementExist" style="padding: 18px 0px 16px;">
+              <input style="border-width: thin;"  ng-model="physicalInventoryList[stocks.inventoryIndex].qty" class="noborderimg padd-l8" ng-enter="updateInventory(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);" aria-label="Product Quantity">
            </md-input-container>
-           <md-input-container ng-if="!stocks.isMovementExist">
-              <input  ng-model="stocks.inventoryQty" class="noborderimg padd-l8" ng-enter="addInventory(stocks);" aria-label="Product Quantity" valid-number>
+           <md-input-container ng-if="!stocks.isMovementExist" style="padding: 18px 0px 16px;">
+              <input style="border-width: thin;" ng-model="stocks.inventoryQty" class="noborderimg padd-l8" ng-enter="addInventory(stocks);" aria-label="Product Quantity" valid-number>
            </md-input-container>
            
         </td>
