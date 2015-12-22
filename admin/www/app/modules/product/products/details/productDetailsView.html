@@ -75,12 +75,12 @@
 			type="text" ng-model="productDetail.brand" ng-required="true" readonly=true/> 
 		</md-input-container>
 
-        <h4 layout="row" class="md-layout-column">
+        <h4 layout="row" class="md-layout-column" ng-init=checkgroupCount(productDetail);>
 			<input layout-align="start center" type="checkBox" ng-model="groupCount" />
-			<label layout-align="end center" style="padding-left: 20px;">Want To Add Group Count</label>
+			<label layout-align="end center" style="padding-left: 20px;">Is Bundle</label>
 		</h4>
 
-		<md-input-container ng-show="groupCount"> <label>Group Count</label> <input
+		<md-input-container ng-show="groupCount"> <label>Bundle</label> <input
 			type="text" ng-model="productDetail.groupCount" valid-number /> 
 		</md-input-container>
 	    <div class="padd-lrtb30">

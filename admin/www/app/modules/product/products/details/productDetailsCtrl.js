@@ -11,4 +11,12 @@ angular.module('aviateAdmin.controllers').controller("productDetailController",
 			$state.go('app.addproduct');
 
 		}
+		$scope.checkgroupCount = function(productDetail)
+
+		{
+			if(productDetail.groupCount)
+				$scope.groupCount=true;
+			else
+				$scope.groupCount=false;
+		}
 }]);

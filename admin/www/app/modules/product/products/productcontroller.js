@@ -179,9 +179,21 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.editproduct = function(products) {
 		$localStorage.product = products;
+		if(product.groupCount!=null)
+			$scope.groupCount=true;
+		else
+			$scope.groupCount=false;
+
 		$state.go('app.addproduct');
 	}
+	$scope.checkgroupCount = function(product)
 
+	{
+		if(product.groupCount)
+			$scope.groupCount=true;
+		else
+			$scope.groupCount=false;
+	}
 	if($localStorage.product){
 		$scope.product = $localStorage.product;
 		$scope.uploadedImages = $scope.product.images;
