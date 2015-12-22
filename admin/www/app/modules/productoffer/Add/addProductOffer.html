@@ -58,12 +58,12 @@
 	<div layout layout-sm="column">
     		<md-input-container layout-padding flex>
 		       <label></span>Start Time</label>
-		      <input type="time" ng-model="productOffer.startTime" ng-required="true">
+		      <input type="time" ng-model="productOffer.startTime"  value="{{productOffer.startTime}} ng-required="true">
 		    </md-input-container>
 		    
 		    <md-input-container layout-padding flex>
 		       <label></span>End Time</label>
-		      <input type="time" ng-model="productOffer.endTime" ng-required="true">
+		      <input type="time" ng-model="productOffer.endTime"  value="{{productOffer.endTime}} ng-required="true">
 		    </md-input-container>   
 	    </div>
 	    	<!-- <md-input-container layout-padding  flex>
@@ -85,6 +85,7 @@
 		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
 			    	<md-button class="md-raised md-success padd-50" ng-show="productOffer.productOfferId" ng-click="updateProductOffer(productOffer);" ng-disabled="productOfferForm.$invalid">Update</md-button>
 			    	<md-button class="md-raised md-success padd-50" ng-hide="productOffer.productOfferId" ng-click="saveProductOffer(productOffer);" ng-disabled="productOfferForm.$invalid">Create</md-button>
+			    	<md-button class="md-raised md-success padd-50" ng-click="redirectOfferLine(productOffer);">Offer Products</md-button>
 			    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==null"  ui-sref="app.productoffer">Cancel</md-button>
 			    	<!-- <md-button class="md-raised md-success padd-50" ng-click="addStore();" ng-disabled="storeForm.$invalid">Create</md-button>
 			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button> -->

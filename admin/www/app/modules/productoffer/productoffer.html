@@ -26,69 +26,50 @@
          	<span flex="10" layout-align="start center" layout>
 	         	Offer Name
             </span>
-         	<span flex="10" layout-align="start center" layout>
-	        	Description
-            </span>
-            <span flex="10" layout-align="center center" layout>
+            <span flex="15" layout-align="center center" layout>
 	         	Product Name
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex="15" layout-align="start center" layout>
 	         	From Date
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex="15" layout-align="start center" layout>
 	         	To Date
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex="15" layout-align="start center" layout>
 	         	Start Time
             </span>            
-            <span flex="10" layout-align="start center" layout>
+            <span flex="15" layout-align="start center" layout>
 	         	End Time
-            </span>
-            <span flex="10" layout-align="center center" layout>
-	         	Offer Amount
-            </span>
-            <span flex="10" layout-align="center center" layout>
-	         	Quantity
             </span>
         </div>
         </md-item-content>
         </md-item>
         
       <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferList | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
-         <md-item-content ng-click="redirectOfferLine(productOffer);" layout="row" layout-padding>
+         <md-item-content  layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
           
       		<span flex="10" layout-align="start center" layout>
 			<span flex class="shopname">{{productOffer.name}}</span>
 			</span>
-			 <span flex="10" layout-align="center center" layout>
-			<span flex class="shopname">{{productOffer.description}}</span>
-			</span> 
-      		<span flex="10" layout-align="center center" layout>
+      		<span flex="15" layout-align="center center" layout>
       		<span flex class="shopname">{{productOffer.productVo.name}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex="15" layout-align="start center" layout>
       		<span flex class="shopname">{{productOffer.fromDate | date:'MM/dd/yyyy'}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex="15" layout-align="start center" layout>
       		<span flex class="shopname">{{productOffer.todate | date:'MM/dd/yyyy'}}</span>
       		</span>      		
-      		<span flex="10" layout-align="center center" layout>
+      		<span flex="15" layout-align="center center" layout>
       		<span flex class="shopname">{{productOffer.startTime}}</span>
       		</span>
-      		<span flex="10" layout-align="center center" layout>
+      		<span flex="15" layout-align="center center" layout>
       		<span flex class="shopname">{{productOffer.endTime}}</span>
       		</span>
-      		<span flex="10" layout-align="center center" layout>
-      		<span flex class="shopname">{{productOffer.offerAmount}}</span>
-      		</span>
-      		<span flex="10" layout-align="center center" layout>
-      		<span flex class="shopname">{{productOffer.qty}}</span>
-      		</span>
       		
-      		
-      		 <span flex=10 layout-align="center center" layout>
-                <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=product.productId;productEdit=product;" aria-label="Inline Edit">
+      		 <span flex="15" layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary " ng-click="offerDetails(productOffer);" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
                 <md-button class="md-icon-button md-primary" ng-click="editProductOffer(productOffer)" aria-label="Edit">

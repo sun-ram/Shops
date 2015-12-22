@@ -501,6 +501,11 @@ angular.module('app')
 		url: '/productofferline/new/:offerId',
 		templateUrl: 'app/modules/productoffer/Add/addProductOfferLine.html',
 		controller : 'productoffercontroller'
+	})
+	.state('app.productofferdetails', {
+		url: '/productoffer/details',
+		templateUrl: 'app/modules/productoffer/details/productOfferDetails.html',
+		controller : 'productoffercontroller'
 	});
 
 

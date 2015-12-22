@@ -110,6 +110,7 @@ public class ProductOfferLineRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel updateProductOffer(ProductOfferLineVo productOfferLineVo) {
+		response = new ResponseModel();
 		productOfferLine = new ProductOfferLine();
 		try {
 			productOfferLine = productOfferLineService.getProductOfferLine(productOfferLineVo.getProductOfferLineId());
