@@ -1,0 +1,80 @@
+     <md-toolbar style="background-color:transparent;">
+		<div class="md-toolbar-tools" >
+			<div layout="row" layout-align="start center">	 
+		     	<h3 layout="column" style="margin-left:-10px;">{{offerDetails.name}}</h3>   
+			   </span> 	
+		    </div>       
+		</div>
+		
+		<md-button class="md-fab edit-btn" aria-label="Eat cake" ng-click="editProductOffer(productOffer);">
+			<ng-md-icon icon="mode_edit" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ui-sref="app.productoffer">
+			<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+	</md-toolbar>
+<md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getOfferDetails();">
+  <md-card-content style="padding: 0px 0px 16px 0px;">	
+	<md-list>
+	   <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+	           	<span class="ft-18 paddtb-8">{{offerDetails.description}}</span>
+	           	<span class="hash_color ft-14">Description</span>
+           	</span> 
+      	</md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{offerDetails.productVo.name}}</span>
+           		 <span class="hash_color ft-14">Product Name</span>
+           	</span>  
+        </md-item>
+      </div>
+      <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+         	<span  layout="column" class="detail-list" layout-align="start start">
+          		 <span class="ft-18 paddtb-8">{{offerDetails.fromDate | date:'MM/dd/yyyy'}}</span>
+          		 <span class="hash_color ft-14">From Date</span>
+         	</span> 
+         </md-item>
+          <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{offerDetails.todate | date:'MM/dd/yyyy'}}</span>
+           		 <span class="hash_color ft-14">To Date</span>
+           	</span>  
+        </md-item>
+       </div>
+       <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+          	<span  layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{offerDetails.startTime}}</span>
+           		 <span class="hash_color ft-14">Start time</span>
+          	</span> 
+        </md-item>
+        <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{offerDetails.endTime}}</span>
+           		 <span class="hash_color ft-14">End Time</span>
+           	</span> 
+        </md-item>
+   	   </div>
+       <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
+          	<span  layout="column" class="detail-list" layout-align="start start">
+          		 <span class="ft-18 paddtb-8">{{productOffer.offerAmount}}</span>
+          		 <span class="hash_color ft-14">Offer Amount</span>
+          	</span>   
+       </md-item>
+       <md-item class="md-raised" layout-padding  flex>
+           	<span  layout="column" class="detail-list" layout-align="start start">
+          		 <span class="ft-18 paddtb-8">{{productOffer.qty}}</span>
+          		 <span class="hash_color ft-14">Quantity</span>
+           	</span>           	            	          	        	
+		</md-item>
+       </div>
+       
+     </md-list>
+          <md-button class="md-raised md-success padd-50" ng-click="redirectOfferLine(productOffer);">View Offer Products</md-button>
+     
+   </md-card-content>
+</md-card>
