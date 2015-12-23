@@ -61,7 +61,7 @@ angular.module('aviateAdmin.controllers')
 			return;
 		} 
 		 if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
-				if($scope.product.wasPrice <= $scope.product.price){
+				if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
 					toastr.warning("WasPrice Should Be Greater Than To Price");
 					return;
 
@@ -153,7 +153,7 @@ angular.module('aviateAdmin.controllers')
 			return;
 		} 
 		 if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
-				if($scope.product.wasPrice <= $scope.product.price){
+				if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
 					toastr.warning("WasPrice Should Be Greater Than To Price");
 					return;
 

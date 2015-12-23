@@ -236,7 +236,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrderVo.setAmount(salesOrder.getAmount());
 		salesOrderVo.setCustomer(customerService.setCustomerVo(salesOrder.getCustomer()));
-		salesOrderVo.setDeliveryDate(CommonUtil.dateToString(salesOrder.getDeliveryDate()));
+		salesOrderVo.setDeliveryDate(CommonUtil.dateToStringForSalesOrder(salesOrder.getDeliveryDate()));
 		salesOrderVo.setDeliveryFlag(salesOrder.getDeliveryFlag());
 		salesOrderVo.setStore(getStoreService().setStoreVo((salesOrder.getStore())));
 		salesOrderVo.setDiscountAmount(salesOrder.getDiscountAmount());

@@ -70,7 +70,7 @@ public final class CommonUtil {
 	public static Date stringToDate(String strDate) {
 		Date dateformat = null;
 		try {
-			DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+			DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			dateformat = sdf.parse(strDate);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,6 +239,17 @@ public final class CommonUtil {
 		String dateString = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss") ;
+			dateString = sdf.format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dateString;
+	}
+	
+	public static String dateToStringForSalesOrder(Date date) {
+		String dateString = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy") ;
 			dateString = sdf.format(date);
 		} catch (Exception e) {
 			e.printStackTrace();

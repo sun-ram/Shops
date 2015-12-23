@@ -270,16 +270,11 @@ angular.module('aviate.controllers')
 						}
 						
 						$scope.isTomorrowHoliday=function(date,storeHoliday){
-							/*date.setHours(0, 0, 0, 0, 0);*/
 							storeHoliday.forEach(function(date1){
 								if(date1.getTime() == date.getTime()){
 									$scope.isTmwHoliday = true;
 								}
 							})
-					/*		
-							if(!$scope.isTmwHoliday){
-								$scope.isTmwHoliday = false;
-							}*/
 						}
 					}
 				})	
@@ -343,6 +338,7 @@ angular.module('aviate.controllers')
 			$rootScope.getOfferProduct = function(){
 				$scope.product = {};
 				$scope.product.merchantVo = {};
+				$scope.product.merchant = {};
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.offerProduct($scope.product).then(function(data){
              //   $rootScope.topcategories = data;
