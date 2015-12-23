@@ -15,8 +15,11 @@ var aviateAdmin = angular.module('app', ['toastr',
                                          'md.data.table',
                                          'ngStorage',
                                          'ngSanitize'
-                                         ]);
-
+                                         ]).run(['$rootScope', '$state', '$stateParams', '$location', '$window', function ($rootScope, $state, $stateParams, $location, $window) {
+                                             $rootScope.$on('$stateChangeSuccess', function() {
+                                             	   document.body.scrollTop = document.documentElement.scrollTop = 0;
+                                             	});
+                                         }]);
 
 angular.module('aviate.providers', ['ngMaterial']);
 

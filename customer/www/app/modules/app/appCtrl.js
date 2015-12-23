@@ -345,8 +345,7 @@ angular.module('aviate.controllers')
 			$rootScope.getOfferProduct = function(){
 				$scope.product = {};
 				$scope.product.merchantVo = {};
-				$scope.product.merchant = {};
-				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+				$scope.product.merchantVo.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.offerProduct($scope.product).then(function(data){
              //   $rootScope.topcategories = data;
             	 $rootScope.offerProducts = data;
