@@ -24,20 +24,23 @@
    <md-data-table-container>
      <md-list>
      	<md-item class="data-table-list " md-data-table>
-         <md-item-content layout="row" layout-padding class="tbl-header ">
+         <md-item-content layout="row" class="tbl-header padd-l8">
       
       	<div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex="20" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Product Name
             </span>
-         	<span flex="20" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	        	Product Price
             </span>
-            <span flex="20" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Discount Amount
             </span>
-            <span flex="20" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Discount Percentage
+            </span>
+            <span flex layout-align="center center" layout>
+	         	Action
             </span>
            
         </div>
@@ -45,22 +48,22 @@
         </md-item>
         
       <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferLine | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
-         <md-item-content layout="row" layout-padding>
+         <md-item-content layout="row" class="padd-l8">
           <div layout="row" layout-wrap class="full_wid tbl-body" ng-show="productOffer.productOfferLineId != showInLineEdit">
           
-      		<span flex="20" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
 			<span flex class="shopname">{{productOffer.productVo.name}}</span>
 			</span>
-			 <span flex="20" layout-align="start center" layout>
+			 <span flex layout-align="start center" layout>
 			<span flex class="shopname">{{productOffer.productVo.price}}</span>
 			</span> 
-      		<span flex="20" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{productOffer.discountAmount }}</span>
       		</span>
-      		<span flex="20" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{productOffer.discountPercentage }}</span>
       		</span>      		
-      		 <span flex=20 layout-align="start center" layout>
+      		 <span flex layout-align="center center" layout>
                 <md-button class="md-icon-button md-primary " ng-click="showInLineEdit=productOffer.productOfferLineId;productOfferLine=productOffer;" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
@@ -70,11 +73,13 @@
              </span>
              
       	</div>
-      	
-      		<div ng-show="productOffer.productOfferLineId == showInLineEdit && lineEdit" layout="row" layout-wrap class="full_wid tbl-body" layout-align="start center">
-      		      	<form name="offerLineForm" layout layout-sm="column" novalidate>	
+      	</md-item-content>
+      	 <md-item-content layout="row" class="padd-l8">
+      		<form name="offerLineForm" layout="row" novalidate class="full_wid tbl-body">
+      		<div ng-show="productOffer.productOfferLineId == showInLineEdit && lineEdit" class="full_wid" layout="row"  layout-align="start center">
+      			
       		
-      	    <md-input-container flex="20" class="padd-lr20">
+      	    <md-input-container flex>
                     <label>Product<span style="color:red">*</span></label>
                     <md-select class="remove-padd" ng-model="productOffer.productVo" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
  				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
@@ -83,21 +88,23 @@
           		</md-select>
             </md-input-container>
             
-            <span flex="20" layout-align="start center" layout>
-			<span align="center" flex class="shopname">{{productOffer.productVo.price}}</span>
+            <span flex layout>
+			<span flex class="shopname">{{productOffer.productVo.price}}</span>
 			</span> 
 			    
-      		<md-input-container flex="20" layout-align="start center" layout>
-      			<label>Quantity</label>
+      		<md-input-container flex>
+      			<label>Discount amount</label>
       			<input type="text" ng-model="productOfferLine.discountAmount" ng-required="true" valid-number /> 
       		</md-input-container>	
+      		
+      		
 			
-			<md-input-container flex="20" layout-align="start center" layout>
-      			<label>Offer Amount</label>
+			<md-input-container flex>
+      			<label>Discount Percentage</label>
       			<input type="text" ng-model="productOfferLine.discountPercentage" ng-required="true" valid-number /> 
       		</md-input-container>
 
-      		<span flex=20 layout-align="start center" layout>
+      		<span flex layout-align="center center" layout>
                 <md-button class="md-icon-button md-primary" ng-disabled="offerLineForm.$invalid" ng-click="showInLineEdit=null;updateProductOfferLine(productOfferLine);" aria-label="Inline Edit">
              		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
              	</md-button>
@@ -105,8 +112,9 @@
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
-      		</form>
+      		
       	</div> 
+      	</form>
       	
       </md-item-content>
       </md-item>
@@ -148,15 +156,18 @@
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
-                   </div>
+                   </div> 
              
       		</form>
       	</div> 
  -->
-	 <div ng-show="addNew || (productOfferLine.length==0)" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
-      	<form name="offerLineForm" layout layout-sm="column" novalidate>	
+ 	 <md-item class="data-table-list" md-data-table>
+         <md-item-content layout="row" layout-padding>
+ 	`<form name="offerLineForm" layout="row" novalidate class="full_wid tbl-body">
+	 <div ng-show="addNew || (productOfferLine.length==0)" ng-click="$event.stopPropagation();" class="full_wid" layout="row" layout-align="start center">
       		
-      		<md-input-container flex="20" class="padd-lr20">
+      		
+      		<md-input-container flex class="padd-lr20">
                     <label>Product<span style="color:red">*</span></label>
                     <md-select class="remove-padd" ng-model="newproductOffer.productVo" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
  				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
@@ -166,22 +177,22 @@
             </md-input-container>
             	
 			
-			<md-input-container flex="20">
+			<md-input-container flex>
       		<label>Price</label>
       		<input type="text" ng-disabled="true" ng-required="true" ng-model="newproductOffer.productVo.price" valid-number /> 
       		</md-input-container>
       		
-      		<md-input-container flex="20">
+      		<md-input-container flex>
       		<label>Discount Amount</label>
       		<input type="text" ng-model="newproductOffer.discountAmount" ng-required="true" valid-number /> 
       		</md-input-container>
       		
-      		<md-input-container flex="20">
+      		<md-input-container flex>
       		<label>Discount Percentage</label>
       		<input type="text" ng-model="newproductOffer.discountPercentage" ng-required="true" valid-number/> 
       		</md-input-container>
       		
-      		<span flex=20 layout-align="start center" layout>
+      		<span flex layout-align="center center" layout>
                <md-button class="md-icon-button md-primary" ng-disabled="offerLineForm.$invalid" ng-click="addNew=false;saveProductOfferLine(newproductOffer);" aria-label="Inline Edit">
              		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
              	</md-button>
@@ -190,13 +201,15 @@
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
              </span>
-      		</form>
+      		
       	</div>
-      	
+      	</form>
+      	</md-item-content>
+      	</md-item>
      </md-list>
      </md-data-table-container>
    </md-card-content> 
-   <div layout="row" layout-align="end end" >
+   <div layout="row" layout-align="center center">
    		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
 		 <md-data-table-pagination md-limit="productsPagination.limit"
       md-page="productsPagination.page" md-total="{{productOfferLine.length}}"
