@@ -3,6 +3,11 @@ angular.module('aviate.controllers')
 		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices','$localStorage',
 		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices,$localStorage) {
 			
+			$scope.ordersPagination = {
+					limit: 5,
+					page: 1
+			};
+			
 			var storeHoliday = $localStorage.storeHoliday; //ipCookie('myCart');
 			if (storeHoliday !== undefined || storeHoliday !== null) {
 				$scope.storeHoliday = null;
