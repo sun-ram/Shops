@@ -35,13 +35,16 @@
             <span flex="15" layout-align="start center" layout>
 	         	To Date
             </span>
-            <span flex="15" layout-align="start center" layout>
+            <span flex="10" layout-align="start center" layout>
 	         	Start Time
             </span>            
             <span flex="15" layout-align="start center" layout>
 	         	End Time
             </span>
-            <span flex="15" layout-align="center center" layout>
+            <span flex="10" layout-align="start center" layout>
+	         	Store
+            </span>
+             <span flex="10" layout-align="center center" layout>
 	         	Action
             </span>
         </div>
@@ -64,14 +67,17 @@
       		<span flex="15" layout-align="start center" layout>
       		<span flex class="shopname">{{productOffer.todate | date:'MM/dd/yyyy'}}</span>
       		</span>      		
-      		<span flex="15" layout-align="center center" layout>
+      		<span flex="10" layout-align="center center" layout>
       		<span flex class="shopname">{{productOffer.startTime}}</span>
       		</span>
       		<span flex="15" layout-align="center center" layout>
       		<span flex class="shopname">{{productOffer.endTime}}</span>
       		</span>
+      		<span flex="10" layout-align="center center" layout>
+      		<span flex class="shopname">{{productOffer.store.name}}</span>
+      		</span>
       		
-      		 <span flex="15" layout-align="center center" layout>
+      		 <span flex="10" layout-align="center center" layout>
                <!--  <md-button class="md-icon-button md-primary padd-t5" ng-click="offerDetails(productOffer);" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button> -->

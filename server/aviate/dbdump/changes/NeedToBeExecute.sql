@@ -332,3 +332,19 @@ CREATE TABLE `discount_product` (
 --- 21-12-2015 ------- Prabakaran A -------------------------- for physical inventory adjustment, need to add is movement column------
 ALTER TABLE `shopsbacker`.`movement` 
 ADD COLUMN `ISMOVEMENT` CHAR(1) NOT NULL DEFAULT 'Y' AFTER `ISUPDATED`;
+
+--- 23-12-2015 ------- JAI -------------------------- for Product Offer------
+
+ALTER TABLE `shopsbacker`.`product_offer` 
+ADD COLUMN `STORE_ID` VARCHAR(32) NOT NULL AFTER `MERCHANT_ID`,
+ADD INDEX `FK_PROD_OFFER_STORE_idx` (`STORE_ID` ASC);
+ALTER TABLE `shopsbacker`.`product_offer` 
+ADD CONSTRAINT `FK_PROD_OFFER_STORE`
+  FOREIGN KEY (`STORE_ID`)
+  REFERENCES `shopsbacker`.`store` (`STORE_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `shopsbacker`.`product_offer` 
+DROP INDEX `PROD_OFFER_NAME_UNIQUE` ,
+ADD UNIQUE INDEX `PROD_OFFER_NAME_UNIQUE` (`NAME` ASC, `STORE_ID` ASC);

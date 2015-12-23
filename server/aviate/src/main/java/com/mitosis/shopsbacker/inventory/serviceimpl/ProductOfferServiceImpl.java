@@ -17,6 +17,7 @@ import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
@@ -103,6 +104,11 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productVo.setPrice(product.getPrice());
 		productVo.setProductId(product.getProductId());
 		productOfferVo.setProductVo(productVo);
+		
+		StoreVo store = new StoreVo();
+		store.setStoreId(productOffer.getStore().getStoreId());
+		store.setName(productOffer.getStore().getName());
+		productOfferVo.setStore(store);
 		return productOfferVo;
 	}
 
