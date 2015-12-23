@@ -143,8 +143,9 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 				SalesOrderServices.getSalesOrder(salesOrderVo).then(function(data) {
 					$scope.salesOrderList = data;
+					$scope.originalList = data;
 					$localStorage.salesorderlist = data;
-					$scope.count=data.length;
+					$scope.noOfRecords=data.length;
 
 				});
 			};
@@ -181,8 +182,9 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				SalesOrderServices.getSalesOrder($scope.salesdOrderVo).then(function(data) {
 				
 					$localStorage.salesorderfilter = data;
+					$scope.originalList = data;
 					$scope.salesOrderList = $localStorage.salesorderfilter;
-					$scope.count=data.length;
+					$scope.noOfRecords=data.length;
 
 				});
 			};
@@ -212,8 +214,9 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 							SalesOrderServices.getSalesByDate(salesOrderVo).then(function(data) {
 								$localStorage.salesorderfilter = data;
+								$scope.originalList = data;
 								$scope.salesOrderList = $localStorage.salesorderfilter;
-								$scope.count=data.length;
+								$scope.noOfRecords=data.length;
 
 							});
 

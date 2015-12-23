@@ -28,7 +28,7 @@
   		<h3 layout-align="start">Product Stock</h3>
   		<div class="tbl-search">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-  			<input ng-model="search" type="text"  placeholder="Search">
+  			<search-text  original-list="originalList" filtered-list="productStockList" pagination="productStockPagination" total-records="noOfRecords"/>
   		</div>
   		</div>
     	 <md-input-container flex="30" layout-align="center end" ng-hide="user.role == 'STOREADMIN'">
@@ -76,7 +76,7 @@
         </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="product in productStockList | orderBy: productStockPagination.order | limitTo: productStockPagination.limit: (productStockPagination.page - 1) * productStockPagination.limit | filter:search">
+		<tr ng-repeat="product in productStockList | orderBy: productStockPagination.order | limitTo: productStockPagination.limit: (productStockPagination.page - 1) * productStockPagination.limit | filter:searchText">
 			<td>{{product.warehouseName}}</td>
 			<td>{{product.row}} {{product.stack}} {{product.level}}</td>
 			<td>{{product.productName}}</td>
@@ -89,7 +89,7 @@
 </md-card-content>
  <div layout layout="row" class="table-pagination-bg" layout-align="center center">
 <md-data-table-pagination md-limit="productStockPagination.limit" md-page="productStockPagination.page"
-	md-total="{{count}}" md-trigger="onpagechange"></md-data-table-pagination></div>
+	md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination></div>
 
 </md-card>
 

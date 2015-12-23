@@ -22,8 +22,9 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 				}
 				productStockService.getProductStockList(salesOrderVo).then(function(data) {
 					$scope.productStockList = data;
+					$scope.originalList = data;
 					$localStorage.productstocklist = data;
-					$scope.count = data.length;
+					$scope.noOfRecords = data.length;
 
 				});
 			};
@@ -35,7 +36,8 @@ angular.module('aviateAdmin.controllers').controller("productstockcontroller",
 				};
 				productStockService.getProductStockList(salesOrderVo).then(function(data) {
 					$scope.productStockList = data;
-					$scope.count = data.length;
+					$scope.originalList = data;
+					$scope.noOfRecords = data.length;
 
 				});
 			};

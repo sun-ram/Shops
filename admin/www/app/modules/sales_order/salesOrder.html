@@ -31,7 +31,7 @@
   		<h3 layout-align="start">Sales Order</h3>
   		<div class="tbl-search">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-  			<input ng-model="search" type="text"  placeholder="Search">
+  			<search-text  original-list="originalList" filtered-list="salesOrderList" pagination="salesOrderPagination" total-records="noOfRecords"/>
   		</div>
     	<div layout="row">
 		<md-datepicker style="background: none;" layout-padding
@@ -70,7 +70,7 @@
             </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="salesOrder in salesOrderList | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:search">
+		<tr ng-repeat="salesOrder in salesOrderList | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:searchText">
 		<td ng-if="salesOrder.status=='Placed' ||  salesOrder.status=='Shoper_Assigned'"><md-button class="md-icon-button md-primary" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status!='Placed' &&  salesOrder.status!='Shoper_Assigned'"><md-button  class="md-icon-button md-primary" ng-disabled="true" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status=='Packed' ||  salesOrder.status=='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
@@ -95,6 +95,6 @@
 </md-data-table-container> 
 <div layout layout="row" class="table-pagination-bg" layout-align="center center">
 <md-data-table-pagination md-limit="salesOrderPagination.limit" md-page="salesOrderPagination.page"
-	md-total="{{count}}" md-trigger="onpagechange"></md-data-table-pagination>
+	md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
 </div>
 </md-card>

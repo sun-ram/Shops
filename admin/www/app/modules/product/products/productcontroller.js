@@ -48,6 +48,8 @@ angular.module('aviateAdmin.controllers')
 		}
 		ProductService.getAllProductList($scope.product).then(function(data) {
 			$scope.productList = data.products;
+			$scope.originalList = $scope.productList;
+			$scope.noOfRecords = $scope.productList.length;
 		})
 	};
 
@@ -354,6 +356,8 @@ angular.module('aviateAdmin.controllers')
 							}
 							ProductService.getAllProductList($scope.product).then(function(data) {
 								$scope.productList = data.products;
+								$scope.originalList = $scope.productList;
+								$scope.noOfRecords = $scope.productList.length;
 							})
 						};
 						$scope.cancel = function() {
