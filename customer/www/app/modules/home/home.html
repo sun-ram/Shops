@@ -165,7 +165,10 @@
 	                        
      		  			</div>
                         <div layout="row" layout-align="center center" class="bg-gray">
-	                       <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	                       <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+	     		  			<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
 	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
 	     		  			</div>
 	     		  		
@@ -278,7 +281,10 @@
 	                        
      		  			</div>
                         <div layout="row" layout-align="center center" class="bg-gray">
-	                        <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	                        <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+	     		  			 <div ng-hide="product.noOfQuantityInCart > 0" flex ng-click="">
 	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
 	     		  			</div>
 	     		  			

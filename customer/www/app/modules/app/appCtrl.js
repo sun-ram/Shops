@@ -73,7 +73,8 @@ angular.module('aviate.controllers')
 		
 		var timeOut;
 		$scope.addToCart = function(product){
-				if(timeOut)
+		   if(product.noOfQuantityInCart > 0){
+			  if(timeOut)
 					clearTimeout(timeOut);
 				timeOut = setTimeout(function() {
 					MyCartFactory.addToCart(product,$scope.productList,  function(data){
@@ -82,6 +83,7 @@ angular.module('aviate.controllers')
 						$scope.getCartList();
 					});
 				}, 500);
+			}
 		}
 
 		$scope.getCartList = function(){
