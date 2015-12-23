@@ -326,7 +326,47 @@ angular.module('aviateAdmin.controllers')
 		$scope.product.image.type=$scope.excelFile.file ? ($scope.excelFile.file.substring(11).split(";")[0]) : "";
 		if($scope.product.image.type=="ation/vnd.ms-excel" || $scope.product.image.type=="ation/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
 			ProductService.uploadExcelFile($scope.product).then(function(data) {
-				$state.go("app.products");
+				/*$state.go("app.products");*/
+				$mdDialog.show({
+					templateUrl: 'app/modules/modals/ProductFileUploadModal.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose:false,
+					controller: function($scope,$state,$mdDialog){
+						$scope.newData=data.newData;
+						$scope.existingData=data.existingData;
+						$scope.rejectedData=data.rejectedData;
+						$scope.addFiles=function(){
+							$scope.addFilesList={};
+							$scope.addFilesList.newData=$scope.newData;
+							$scope.addFilesList.existingData=$scope.existingData;
+							$scope.addFilesList.merchant={
+									"merchantId":$rootScope.user.merchantId
+							}
+							ProductService.addProductListFiles($scope.addFilesList).then(function(data) {
+								$mdDialog.cancel();
+								$scope.getAllProductList();
+		 					})
+						}
+						$scope.getAllProductList = function() {
+							$scope.product = {};
+							$scope.product.merchant = {
+									"merchantId":$rootScope.user.merchantId
+							}
+							ProductService.getAllProductList($scope.product).then(function(data) {
+								$scope.productList = data.products;
+							})
+						};
+						$scope.cancel = function() {
+							$mdDialog.cancel();
+						};
+					}
+				
+				})
+				.then(function(answer) {	
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
 			})
 		}else{
 			toastr.error("Invalid Excel File");

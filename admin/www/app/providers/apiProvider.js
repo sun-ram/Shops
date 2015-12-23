@@ -713,6 +713,22 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 		};
 		
+		apiClass.Product.addProductListFiles = function (files, callback) {
+			httpRequest("POST", "product/addFilesData", files, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+
+
+		};
+		
 		apiClass.Product.exportExcelFile = function (storeId, callback) {
 			httpRequest("POST", "update/product/exportExcelFile", storeId, function (err, data) {
 				if (err) {

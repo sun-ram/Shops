@@ -1,0 +1,308 @@
+
+<md-dialog aria-label="Category"  ng-cloak>
+  <form ng-submit="addFiles()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="ft-white">Uploaded File Details</h2>
+      <span flex></span>
+      <md-button class="md-icon-button"  type="button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+  
+     <!-- --------------------New  Data--------------------- -->
+   <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80">
+      
+   <md-card-content class="nopadd">
+   
+   <md-data-table-container>
+     <md-list><h2>New Data</h2>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header ">
+      
+      	<div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex="10" layout-align="start center" layout>
+	         	Name
+            </span>
+         	<span flex="15" layout-align="start center" layout>
+	         	Product Category
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Type
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Measurement
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Unit
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Edible Type
+            </span>            
+            <span flex="10" layout-align="start center" layout>
+	         	Was Price
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Selling Price
+            </span>
+            <span flex="15" layout-align="center center" layout>
+	         	Brand
+            </span>
+        </div>
+        </md-item-content>
+        </md-item>
+        
+      <md-item class="data-table-list" md-data-table ng-repeat="product in newData">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+          
+      		
+			<span flex="15" layout-align="start center" layout>
+			<span flex class="shopname">{{product.name}}</span>
+			</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productCategory}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productType}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productMeasurement}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productUnit}}</span>
+      		</span>      		
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.edibleType}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.wasPrice}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.sellingPrice}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.brand}}</span>
+      		</span>
+             
+      	</div>
+      </md-item-content>
+      </md-item>
+      
+     </md-list>
+     </md-data-table-container>
+   </md-card-content> 
+  <!--  <div layout="row" layout-align="center center" >
+   		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
+		 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{productList.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+		</div>
+	</div>    -->     
+</md-card> 
+
+			<!-- -------------------------------------- -->
+   
+        <!-- --------------------Existing Data--------------------- -->
+   <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80">
+      
+   <md-card-content class="nopadd">
+   
+   <md-data-table-container>
+     <md-list><h2>Existing Data</h2>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header ">
+      
+      	<div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex="10" layout-align="start center" layout>
+	         	Name
+            </span>
+         	<span flex="15" layout-align="start center" layout>
+	         	Product Category
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Type
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Measurement
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Unit
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Edible Type
+            </span>            
+            <span flex="10" layout-align="start center" layout>
+	         	Was Price
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Selling Price
+            </span>
+            <span flex="15" layout-align="center center" layout>
+	         	Brand
+            </span>
+        </div>
+        </md-item-content>
+        </md-item>
+        
+      <md-item class="data-table-list" md-data-table ng-repeat="product in existingData">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+          
+      		
+			<span flex="15" layout-align="start center" layout>
+			<span flex class="shopname">{{product.name}}</span>
+			</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productCategory}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productType}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productMeasurement}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productUnit}}</span>
+      		</span>      		
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.edibleType}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.wasPrice}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.sellingPrice}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.brand}}</span>
+      		</span>
+             
+      	</div>
+      </md-item-content>
+      </md-item>
+      
+     </md-list>
+     </md-data-table-container>
+   </md-card-content> 
+  <!--  <div layout="row" layout-align="center center" >
+   		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
+		 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{productList.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+		</div>
+	</div>    -->     
+</md-card> 
+
+	<!-- -------------------------------------- -->
+
+   <!-- --------------------Rejected Data--------------------- -->
+   <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80">
+      
+   <md-card-content class="nopadd">
+   
+   <md-data-table-container>
+     <md-list><h2>Rejected Data</h2>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header ">
+      
+      	<div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex="10" layout-align="start center" layout>
+	         	Name
+            </span>
+         	<span flex="15" layout-align="start center" layout>
+	         	Product Category
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Type
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Measurement
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Product Unit
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Edible Type
+            </span>            
+            <span flex="10" layout-align="start center" layout>
+	         	Was Price
+            </span>
+            <span flex="10" layout-align="start center" layout>
+	         	Selling Price
+            </span>
+            <span flex="15" layout-align="center center" layout>
+	         	Brand
+            </span>
+            <span flex="15" layout-align="center center" layout>
+	         	Reason
+            </span>
+        </div>
+        </md-item-content>
+        </md-item>
+        
+      <md-item class="data-table-list" md-data-table ng-repeat="product in rejectedData">
+         <md-item-content layout="row" layout-padding>
+          <div layout="row" layout-wrap class="full_wid tbl-body">
+          
+      		
+			<span flex="15" layout-align="start center" layout>
+			<span flex class="shopname">{{product.name}}</span>
+			</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productCategory}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productType}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productMeasurement}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.productUnit}}</span>
+      		</span>      		
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.edibleType}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.wasPrice}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.sellingPrice}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.brand}}</span>
+      		</span>
+      		<span flex="10" layout-align="start center" layout>
+      		<span flex class="shopname">{{product.reason}}</span>
+      		</span>
+             
+      	</div>
+      </md-item-content>
+      </md-item>
+      
+     </md-list>
+     </md-data-table-container>
+   </md-card-content> 
+  <!--  <div layout="row" layout-align="center center" >
+   		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
+		 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{productList.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+		</div>
+	</div>    -->     
+</md-card> 
+
+<!-- -------------------------------------- -->
+			   
+  </md-dialog-content>
+  <div class="md-actions" flex>
+  <span flex> </span>  
+    <md-button class="md-raised md-success" type="submit">Add</md-button>
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
+  <span flex></span>
+  </div>
+  </form>
+</md-dialog>

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.axis2.databinding.types.soapencoding.Decimal;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -58,6 +60,7 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductUploadDataVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.sun.jersey.core.util.Base64;
@@ -95,7 +98,7 @@ public class ProductRestService {
 
 	@Autowired
 	ProductImageService<T> productImageService;
-	
+
 	@Autowired
 	DiscountService<T> discountService;
 
@@ -119,29 +122,32 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
-		if(productVo.getProductId() == null){	
-			List<Product> checkUniqueProducts = getProductService().getProductListByName(productVo.getName(),merchant);
-						if (!checkUniqueProducts.isEmpty()) {
-						response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
-								.getCode());
-							response.setErrorString(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
-								.getMessage());
-							response.setStatus(SBMessageStatus.FAILURE.getValue());
-							return response;
-						}
-						
-		}
-		if(productVo.getProductId() != null){	
-
-			List<Product> productsList = getProductService().getProductName(productVo.getProductId(),productVo.getName(),merchant);
-			if (productsList.size() > 0) {
-				response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
-						.getCode());
+			if (productVo.getProductId() == null) {
+				List<Product> checkUniqueProducts = getProductService()
+						.getProductListByName(productVo.getName(), merchant);
+				if (!checkUniqueProducts.isEmpty()) {
+					response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+							.getCode());
 					response.setErrorString(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
-						.getMessage());
+							.getMessage());
 					response.setStatus(SBMessageStatus.FAILURE.getValue());
 					return response;
+				}
+
 			}
+			if (productVo.getProductId() != null) {
+
+				List<Product> productsList = getProductService()
+						.getProductName(productVo.getProductId(),
+								productVo.getName(), merchant);
+				if (productsList.size() > 0) {
+					response.setErrorCode(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+							.getCode());
+					response.setErrorString(SBErrorMessage.PRODUCT_NAME_ALREADY_EXIST
+							.getMessage());
+					response.setStatus(SBMessageStatus.FAILURE.getValue());
+					return response;
+				}
 			}
 			boolean isUpdateProcess = productVo.getProductId() != null ? true
 					: false;
@@ -153,8 +159,9 @@ public class ProductRestService {
 			ProductType productType = ProductTypeService
 					.getProductTypeById(productVo.getProductType()
 							.getProductTypeId());
-			
-			//Discount discount = discountService.getDiscountById(productVo.getDiscount().getDiscountId());
+
+			// Discount discount =
+			// discountService.getDiscountById(productVo.getDiscount().getDiscountId());
 
 			Uom uom = uomService.getUOMById(productVo.getUom().getUomId());
 			if (productVo.getImage().getImage() != null) {
@@ -169,7 +176,7 @@ public class ProductRestService {
 			product.setMerchant(merchant);
 			product.setProductCategory(productCategory);
 			product.setProductType(productType);
-			//product.setDiscount(discount);
+			// product.setDiscount(discount);
 			product.setUom(uom);
 			ProductImage productImage = new ProductImage();
 
@@ -237,7 +244,7 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
-			
+
 			ProductCategory productCategory = productCategoryService
 					.getCategoryById(productVo.getProductCategory()
 							.getProductCategoryId());
@@ -493,7 +500,9 @@ public class ProductRestService {
 		try {
 			Merchant merchant = merchantService.getMerchantById(productVo
 					.getMerchant().getMerchantId());
-			List<Product> productList = getProductService().getProductByMerchant(merchant);;
+			List<Product> productList = getProductService()
+					.getProductByMerchant(merchant);
+			;
 			List<ProductVo> productVoList = new ArrayList<ProductVo>();
 			for (Product product : productList) {
 				ProductVo productVos = productService.setProductVo(product);
@@ -531,21 +540,34 @@ public class ProductRestService {
 
 			HSSFRow rowhead = sheet.createRow((short) 0);
 			rowhead.createCell(0).setCellValue("Name");
-			rowhead.createCell(1).setCellValue("Price");
-			rowhead.createCell(2).setCellValue("Unit");
-			rowhead.createCell(3).setCellValue("Measure");
-			rowhead.createCell(4).setCellValue("Brand");
+			rowhead.createCell(1).setCellValue("Product Category");
+			rowhead.createCell(2).setCellValue("Product Type");
+			rowhead.createCell(3).setCellValue("Product Measurement");
+			rowhead.createCell(4).setCellValue("Product Unit");
+			rowhead.createCell(5).setCellValue("Edible Type");
+			rowhead.createCell(6).setCellValue("Was Price");
+			rowhead.createCell(7).setCellValue("Selling Price");
+			rowhead.createCell(8).setCellValue("Brand");
 
 			for (int i = 0; i < productList.size(); i++) {
 				HSSFRow row = sheet.createRow((short) i + 1);
 				row.createCell(0).setCellValue(productList.get(i).getName());
 				row.createCell(1).setCellValue(
-						productList.get(i).getPrice().toString());
+						productList.get(i).getProductCategory().getName());
 				row.createCell(2).setCellValue(
-						productList.get(i).getUnit().toString());
+						productList.get(i).getProductType().getName());
 				row.createCell(3).setCellValue(
 						productList.get(i).getUom().getName());
-				row.createCell(4).setCellValue(productList.get(i).getBrand());
+				row.createCell(4).setCellValue(
+						productList.get(i).getUnit().toString());
+				row.createCell(5).setCellValue(
+						productList.get(i).getEdibleType());
+				row.createCell(6).setCellValue(
+						productList.get(i).getWasPrice().toString());
+				row.createCell(7).setCellValue(
+						productList.get(i).getPrice().toString());
+				row.createCell(8).setCellValue(productList.get(i).getBrand());
+
 			}
 			Properties properties = new Properties();
 			properties.load(getClass().getResourceAsStream(
@@ -589,8 +611,10 @@ public class ProductRestService {
 			}
 			merchant = merchantService.getMerchantById(file.getMerchant()
 					.getMerchantId());
+			List<ProductType> productType = ProductTypeService
+					.getAllProductTypeByMerchant(merchant);
 			List<Product> productList = new ArrayList<Product>();
-			response = convertXlsToModel(excelPath, 0, merchant);
+			response = convertXlsToModel(excelPath, 0, merchant, productType);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -602,12 +626,145 @@ public class ProductRestService {
 
 	}
 
-	public ProductUploadVO convertXlsToModel(String path, int sheetNo,
-			Merchant merchant) {
+	@Path("/addFilesData")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ProductUploadVO addFilesData(ProductUploadVO productUploadVO)
+			throws Exception {
 		ProductUploadVO response = new ProductUploadVO();
-		Product product = new Product();
-		Uom uom = null;
-		boolean isNew = false;
+		List<ProductUploadDataVo> newData = productUploadVO.getNewData();
+		Merchant merchant = merchantService.getMerchantById(productUploadVO
+				.getMerchant().getMerchantId());
+		List<ProductType> productTypeList = ProductTypeService
+				.getAllProductTypeByMerchant(merchant);
+		for (ProductUploadDataVo productUploadData : newData) {
+			Product product = new Product();
+			ProductCategory productCategoryAddObject = new ProductCategory();
+			ProductType productTypeAddObject = new ProductType();
+			List<Product> checkUniqueProducts = getProductService()
+					.getProductListByName(productUploadData.getName(), merchant);
+			if (checkUniqueProducts.isEmpty()) {
+				for (ProductType productType : productTypeList) {
+					if (productType.getName().equalsIgnoreCase(
+							productUploadData.getProductType())) {
+						ProductCategory productCategoryObject = productType
+								.getProductCategory();
+						if (productCategoryObject.getName().equalsIgnoreCase(
+								productUploadData.getProductCategory())) {
+							productTypeAddObject = productType;
+							productCategoryAddObject = productCategoryObject;
+						}
+
+					}
+				}
+				if (productCategoryAddObject.getProductCategoryId() != null
+						&& productTypeAddObject.getProductTypeId() != null) {
+					product = (Product) CommonUtil
+							.setAuditColumnInfo(Product.class.getName());
+					product.setName(productUploadData.getName());
+					product.setProductCategory(productCategoryAddObject);
+					product.setProductType(productTypeAddObject);
+					product.setMerchant(merchant);
+					product.setEdibleType(productUploadData.getEdibleType());
+					product.setBrand(productUploadData.getBrand());
+					product.setPrice(productUploadData.getSellingPrice());
+					product.setUnit(productUploadData.getProductUnit());
+					product.setIsYourHot('N');
+					product.setIsactive('Y');
+					product.setWasPrice(productUploadData.getWasPrice());
+					product.setIsBundle('N');
+					product.setIsKit('N');
+					product.setIsChild('N');
+					Uom uom = uomService.getUomByName(productUploadData
+							.getProductMeasurement().trim());
+					if (uom != null) {
+						product.setUom(uom);
+					} else {
+						uom = new Uom();
+						uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
+								.getName());
+						uom.setName(productUploadData.getProductMeasurement()
+								.trim());
+						uom.setDescription(productUploadData
+								.getProductMeasurement().trim());
+						uomService.addUOM(uom);
+						product.setUom(uom);
+					}
+				}
+				productService.addProduct(product);
+				
+			}
+		}
+		updateFilesData(productUploadVO, merchant, productTypeList);
+		response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		return response;
+	}
+
+	public void updateFilesData(ProductUploadVO productUploadVO,
+			Merchant merchant, List<ProductType> productTypeList) throws Exception {
+		List<ProductUploadDataVo> existingData = productUploadVO
+				.getExistingData();
+		for (ProductUploadDataVo productUploadData : existingData) {
+			Product product = productService.getProductByName(
+					productUploadData.getName(), merchant);
+			ProductCategory productCategoryAddObject = new ProductCategory();
+			ProductType productTypeAddObject = new ProductType();
+			if (product != null) {
+				for (ProductType productType : productTypeList) {
+					if (productType.getName().equalsIgnoreCase(
+							productUploadData.getProductType())) {
+						ProductCategory productCategoryObject = productType
+								.getProductCategory();
+						if (productCategoryObject.getName().equalsIgnoreCase(
+								productUploadData.getProductCategory())) {
+							productTypeAddObject = productType;
+							productCategoryAddObject = productCategoryObject;
+						}
+
+					}
+				}
+				if(productCategoryAddObject.getProductCategoryId() != null
+						&& productTypeAddObject.getProductTypeId() != null){
+					product.setUpdated(new Date());
+					product.setProductCategory(productCategoryAddObject);
+					product.setProductType(productTypeAddObject);
+					product.setEdibleType(productUploadData.getEdibleType());
+					product.setBrand(productUploadData.getBrand());
+					product.setPrice(productUploadData.getSellingPrice());
+					product.setUnit(productUploadData.getProductUnit());
+					product.setWasPrice(productUploadData.getWasPrice());
+					Uom uom = uomService.getUomByName(productUploadData
+							.getProductMeasurement().trim());
+					if (uom != null) {
+						product.setUom(uom);
+					} else {
+						uom = new Uom();
+						uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
+								.getName());
+						uom.setName(productUploadData.getProductMeasurement()
+								.trim());
+						uom.setDescription(productUploadData
+								.getProductMeasurement().trim());
+						uomService.addUOM(uom);
+						product.setUom(uom);
+					}
+				}
+				productService.updateProduct(product);
+			}
+		
+		}
+
+	}
+
+	public ProductUploadVO convertXlsToModel(String path, int sheetNo,
+			Merchant merchant, List<ProductType> productType) {
+		ProductUploadVO response = new ProductUploadVO();
+		/*
+		 * Product product = new Product(); Uom uom = null; boolean isNew =
+		 * false;
+		 */
 		try {
 			FileInputStream file = new FileInputStream(new File(path));
 			org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory
@@ -617,8 +774,13 @@ public class ProductRestService {
 			List<String> labels = new ArrayList<String>();
 			int count = 0;
 			Iterator<Row> rowIterator = sheet.iterator();
+			List<ProductUploadDataVo> newData = new ArrayList<ProductUploadDataVo>();
+			List<ProductUploadDataVo> existingData = new ArrayList<ProductUploadDataVo>();
+			List<ProductUploadDataVo> rejectedData = new ArrayList<ProductUploadDataVo>();
 			while (rowIterator.hasNext()) {
-
+				boolean newDataFlag = false;
+				boolean existingDataFlag = false;
+				boolean rejectedDataFlag = false;
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
 				if (count == 0) {
@@ -635,137 +797,171 @@ public class ProductRestService {
 					count++;
 				} else {
 					int cellPosition = 0;
+					ProductUploadDataVo productUploadDataVoSet = new ProductUploadDataVo();
 					while (cellIterator.hasNext()
 							&& cellPosition < row.getLastCellNum()) {
 						Cell cell = row.getCell(cellPosition,
 								Row.RETURN_BLANK_AS_NULL);
-
-						if (cell == null) {
-							response.setErrorString(labels.get(cellPosition)
-									+ " " + "is Empty");
-							response.setRowNo(cellPosition);
-							response.setStatus(SBMessageStatus.FAILURE
-									.getValue());
-							return response;
-						} else {
-
-							switch (cell.getCellType()) {
-
-							case Cell.CELL_TYPE_NUMERIC:
-								if (labels.get(cellPosition).equalsIgnoreCase(
-										"PRICE")) {
-									if (cell.getNumericCellValue() == 0) {
-										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_PRICE
-												.getCode());
-										response.setRowNo(cellPosition);
-										return response;
+						if (labels.get(cellPosition).equalsIgnoreCase("name")) {
+							if (cell != null) {
+								List<Product> productName = productService
+										.getProductListByName(cell
+												.getStringCellValue().trim(),
+												merchant);
+								productUploadDataVoSet.setName(cell
+										.getStringCellValue().trim());
+								if (productName.size() == 0) {
+									newDataFlag = true;
+								} else {
+									newDataFlag = false;
+								}
+							} else {
+								rejectedDataFlag = true;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"product category")) {
+							if (cell != null && !rejectedDataFlag) {
+								for (ProductType productTypeValue : productType) {
+									ProductCategory productCategoryValue = productTypeValue
+											.getProductCategory();
+									if (productCategoryValue.getName()
+											.equalsIgnoreCase(
+													cell.getStringCellValue()
+															.trim())) {
+										rejectedDataFlag = false;
+										break;
 									} else {
-										product.setPrice(BigDecimal
-												.valueOf(cell
-														.getNumericCellValue()));
-									}
-								} else if (labels.get(cellPosition)
-										.equalsIgnoreCase("UNIT")) {
-									if (cell.getNumericCellValue() == 0) {
-										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_UNIT
-												.getCode());
-										response.setRowNo(cellPosition);
-										response.setStatus(SBMessageStatus.FAILURE
-												.getValue());
-										return response;
-									} else {
-										product.setUnit(BigDecimal.valueOf(cell
-												.getNumericCellValue()));
-									}
-								} else if (labels.get(cellPosition)
-										.equalsIgnoreCase("MEASUREMENT")) {
-									if (cell.getNumericCellValue() == 0) {
-										response.setErrorString(SBErrorMessage.INVALID_PRODUCT_UNIT
-												.getCode());
-										response.setRowNo(cellPosition);
-										response.setStatus(SBMessageStatus.FAILURE
-												.getValue());
-										return response;
-									} else {
-										// TODO MEASUREMENT
+										rejectedDataFlag = true;
+										newDataFlag = false;
+										productUploadDataVoSet.setReason(labels
+												.get(cellPosition)
+												+ " name is not available");
 									}
 								}
-								break;
-
-							case Cell.CELL_TYPE_STRING:
-								if (labels.get(cellPosition).equalsIgnoreCase(
-										"NAME")) {
-									if (cell.getStringCellValue().trim() == null) {
-										response.setRowNo(cellPosition);
-										response.setErrorString(SBMessageStatus.FAILURE
-												.getValue());
-										return response;
+								productUploadDataVoSet.setProductCategory(cell
+										.getStringCellValue().trim());
+							} else {
+								rejectedDataFlag = true;
+								if (cell == null)
+									productUploadDataVoSet.setReason(labels
+											.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"product type")) {
+							if (cell != null && !rejectedDataFlag) {
+								for (ProductType productTypeValue : productType) {
+									if (productTypeValue.getName()
+											.equalsIgnoreCase(
+													cell.getStringCellValue()
+															.trim())) {
+										rejectedDataFlag = false;
+										break;
 									} else {
-										if (isNew) {
-											product = (Product) CommonUtil
-													.setAuditColumnInfo(Product.class
-															.getName());
-											product.setIsactive('Y');
-										} else {
-											product = productService
-													.getProductByName(
-															cell.getStringCellValue()
-																	.trim(),
-															merchant);
-											if (product == null) {
-												response.setStatus(SBMessageStatus.FAILURE
-														.getValue());
-												response.setErrorString(SBErrorMessage.PRODUCT_NOT_AVAILABLE
-														.getMessage());
-												response.setRowNo(cellPosition);
-												return response;
-											}
-										}
-										product.setName(cell
+										rejectedDataFlag = true;
+										newDataFlag = false;
+										productUploadDataVoSet.setReason(labels
+												.get(cellPosition)
+												+ " name is not available");
+									}
+								}
+								productUploadDataVoSet.setProductType(cell
+										.getStringCellValue().trim());
+							} else {
+								rejectedDataFlag = true;
+								if (cell == null)
+									productUploadDataVoSet.setReason(labels
+											.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"product measurement")) {
+							if (cell != null) {
+								productUploadDataVoSet
+										.setProductMeasurement(cell
 												.getStringCellValue().trim());
-									}
-								} else if (labels.get(cellPosition)
-										.equalsIgnoreCase("BRAND")) {
-									product.setBrand(cell.getStringCellValue()
-											.trim());
-								}else if (labels.get(cellPosition)
-										.equalsIgnoreCase("MEASURE")){
-									uom = uomService.getUomByName(cell.getStringCellValue()
-											.trim());
-									if(uom!=null){
-										product.setUom(uom);	
-									}else{
-										uom = new Uom();
-										uom = (Uom) CommonUtil
-												.setAuditColumnInfo(Uom.class.getName());
-										uom.setName(cell.getStringCellValue()
-												.trim());
-										uom.setDescription(cell.getStringCellValue()
-												.trim());
-									    uomService.addUOM(uom);
-									    product.setUom(uom);
-									}
-								}
-								break;
-
-							case Cell.CELL_TYPE_BLANK:
-								response.setErrorString(labels
-										.get(cellPosition) + "" + "is Empty");
-								response.setRowNo(cellPosition);
-								response.setStatus(SBMessageStatus.FAILURE
-										.getValue());
-								break;
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"product Unit")) {
+							if (cell != null) {
+								BigDecimal productUnit = new BigDecimal(
+										cell.getStringCellValue());
+								productUploadDataVoSet
+										.setProductUnit(productUnit);
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"edible type")) {
+							if (cell != null) {
+								productUploadDataVoSet.setEdibleType(cell
+										.getStringCellValue().trim());
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"was price")) {
+							if (cell != null) {
+								BigDecimal productWasPrice = new BigDecimal(
+										cell.getStringCellValue());
+								productUploadDataVoSet
+										.setWasPrice(productWasPrice);
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"selling price")) {
+							if (cell != null) {
+								BigDecimal productSellingPrice = new BigDecimal(
+										cell.getStringCellValue());
+								productUploadDataVoSet
+										.setSellingPrice(productSellingPrice);
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"brand")) {
+							if (cell != null) {
+								productUploadDataVoSet.setBrand(cell
+										.getStringCellValue().trim());
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
 							}
 						}
 						cellPosition++;
 					}
-					if (isNew) {
-						productService.addProduct(product);
+					if (newDataFlag) {
+						newData.add(productUploadDataVoSet);
+					} else if (rejectedDataFlag) {
+						rejectedData.add(productUploadDataVoSet);
 					} else {
-						productService.updateProduct(product);
+						existingData.add(productUploadDataVoSet);
 					}
 				}
 			}
+			response.setNewData(newData);
+			response.setExistingData(existingData);
+			response.setRejectedData(rejectedData);
 			file.close();
 		} catch (Exception e) {
 			e.getMessage();

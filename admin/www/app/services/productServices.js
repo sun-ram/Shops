@@ -132,7 +132,8 @@ angular.module('aviateAdmin.services')
 		var d = $q.defer();
 		api.Product.uploadExcelFile(file, function(err, result){
 			if (result.status == 'SUCCESS') {
-				toastr.success("Excel updated Successfully");
+				/*toastr.success("Excel updated Successfully");*/
+				d.resolve(result);
 			} else {
 				toastr.error(result.errorString);
 				d.resolve(result);
@@ -141,6 +142,20 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
+	
+	this.addProductListFiles = function(files){
+		var d = $q.defer();
+		api.Product.addProductListFiles(files, function(err, result){
+			if (result.status == 'SUCCESS') {
+				toastr.success("Excel updated Successfully");
+				d.resolve(result);
+			} else {
+				toastr.error(result.errorString);
+				d.resolve(result);
+			}
+		})
+		return d.promise;
+	};
 
 	this.setProductObj = function(product){
 		this.obj = product;
