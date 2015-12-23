@@ -4,9 +4,17 @@ angular.module('aviate.factories')
 	var _cart, 
 	_isExistInCart, 
 	factory = {};
+	
+	factory.checkoffer = function (_product) {
+		
+				
+	}
 
 	factory.addToCart = function (_product, _productList , callback) {
 		_isExistInCart = false;
+		if(_product.productOffers.length != 0){
+		factory.checkoffer(_product);
+		}
 		if(_product.noOfQuantityInCart > 0){
 			if($rootScope.user && $rootScope.user.userId){
 				var cartDetails = {

@@ -154,10 +154,16 @@ angular.module('aviate.controllers')
 			$scope.getProducts = function(){
 
 				$rootScope.getTopCategories();
+				$rootScope.getOfferProduct();
 				$rootScope.getAllCategoryWithProduct();
 				$rootScope.shippingCharge();
 			//	$rootScope.getStoreHolidays();
 				$rootScope.getTax();
+			}
+			
+			$scope.showOffers = function(productOffer){
+				$rootScope.productOffer = productOffer;
+				$state.go('app.productOffer');
 			}
 
 		}]);

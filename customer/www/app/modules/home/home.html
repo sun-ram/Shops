@@ -1,71 +1,12 @@
-<style>
-/*.mincardwidth:hover,
-.mincardwidth:focus,
-.mincardwidth:active {
-    transform: scale(1.1);
-    transition-duration: 0.5s;
-    transition-property: transform;
-    transition-timing-function: ease-out;
-    cursor: pointer;
-}*/
 
-</style>
 <div style="width:100%;height:100%;position: relative;" ng-init="getBannerList();getProducts();showHotProduct = 5;">
-        <!-- Products page image scrolling functionality -->
-      <!--   <section layout="row">
-        	 <div flex="20" class="slider-left" style="background:#F96D57;">
-				<h1 class="md-display-2">Hi There!</h1>
-				<strong class="md-title">Welcome to ShopsBacker</strong></br>
-			</div>
-	        <div flex="60" higgidy-carousel='images' timeout="5000" style="height:235px; " >
-	            <ul higgidy-carousel-images style="height:185px; overflow:hidden;">
-	                <li ng-repeat="image in images">
-	                    <a href="{{image.link}}">
-	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" height="185" style="width: 787px;"/>
-	                    </a>
-	                </li>
-	            </ul>
-	            <nav class="links mainslider-tab">
-	                <ul layout>
-	                    <li flex ng-repeat="image in images">
-	                        <a href="" layout="column" ng-click="show($index)" ng-class="{selected: carousel.current == $index}">
-	                        <md-subhead flex="100">{{image.tabTitleBold}} </md-subhead>
-	                        <md-caption flex="100" style="font-size:12px;">{{image.tabTitleSmall}}</md-caption>
-	                        </a>
-	                    </li>
-	                </ul>
-	            </nav>
-	        </div>
-	        <div flex="20" class="slider-right" style="background:#F2CB6E;">
-				<img src="assets\images\bannerright.png" style="height:230px; "/> 
-			</div>
-        </section> -->
         
         <section layout="row">
         	<div flex-gt-md="20" hide-sm hide-md class="slider-left">
         		<img src="assets/images/sm-banner-1.png" style="width:100%;"/>
         	</div>
         	<div flex-gt-md="60" flex-sm="100" flex-md="100" higgidy-carousel='images' timeout="5000">
-        		 <!--<ul higgidy-carousel-images >
-	                <li ng-repeat="image in images">
-	                    <a href="{{image.link}}">
-	                        <img ng-src="{{image.image.url}}" alt="{{img.alt}}" style="width: 100%; max-height:200px"/>
-	                    </a>
-	                </li>
-	            </ul>
-	            <nav class="links mainslider-tab">
-	                <ul layout>
-	                    <li flex layout ng-repeat="image in images">
-	                        <a href="" flex layout="column" ng-click="show($index)" ng-class="{selected: carousel.current == $index}">
-	                        <md-subhead flex="100">{{image.tabTitleBold}} </md-subhead>
-	                        <md-caption flex="100" style="font-size:12px;">{{image.tabTitleSmall}}</md-caption>
-	                        </a>
-	                    </li> 
-	                    
-	                </ul>
-	            </nav> -->
-                
-                
+                               
 				<div class="wrapper">
 					<div class=carousel>
 					  <ul class=panes>
@@ -82,6 +23,87 @@
         	<div flex-gt-md="20" hide-sm hide-md class="slider-right">
         		<img src="assets/images/sm-banner-2.png" style="width:100%;"/>
         	</div>
+        </section>
+    <!---------Offers----------------->
+        <section style=" padding:20px;" class="home-products">
+           
+ 			<div ng-if="offerProducts.length" >
+ 				
+ 				  <div  layout="column" style="width:100%; margin:0px auto;">
+   				 	<div flex layout="row" style="padding:10px 0px;">
+  				 	
+    					<div layout="row" flex layout-wrap  ng-repeat="product in offerProducts" | orderBy:groupCount | limitTo:$root.numLimit">
+     						
+                            <div class="views view-first">
+                            	<div layout="row" style="overflow:hidden;">
+                            		<div flex layout-align="start start">
+                            			 <div class="pro-offer off-70-above">
+                            			 	{{product.discountPercentage}}% Off
+                            			 </div>
+                            		</div>                          		
+                            		<div flex>
+                            			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
+									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
+									      </md-button>
+                            		</div>
+                            	</div>                           
+                                
+                    <div class="pro-img"><img ng-src="{{product.productOfferLinesVo[0].productVo.image.url}}" height="120" style="margin:0px auto;"/></div>
+                    <div class="mask">
+                      
+                        <h2 style="height:20px; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
+                        <!--<p>{{product.description}}</p>-->
+                         <p>{{product.description}}</p>
+                         <div layout="row" layout-align="center center">
+	                        	
+					       <!--  <div flex ui-sref="app.productOffer"> -->
+					       <div flex ng-click = "showOffers(product)">
+	                    		<md-button class="more">more</md-button>
+	                    	</div>
+	                        
+     		  			</div>
+     		  			    		  			
+                    </div>
+                    			<div layout="row">
+                            		<div flex>
+                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
+                            		</div>
+                            		<div flex>
+                            			<div  layout-padding>
+                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
+                            			</div>
+                            		</div>
+                            	</div>
+                            	
+                            	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
+                            	
+                            	<div layout="row">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div class=" pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice>product.price">
+                            			<div  layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		</div>
+                            	</div>
+                			</div>                           
+                            
+						</div>
+						
+						<div layout="row" flex layout-wrap ng-repeat="test  in remainOb(category.products.length);  track by $index"></div>
+						
+						
+						
+						
+						
+						
+					</div>
+    			</div>
+    
+    
+    
+ 			</div>
         </section>
         
         <!-- ------------------ -->

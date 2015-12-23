@@ -40,6 +40,25 @@ angular.module('aviate.services')
 		return d.promise;
 	};
 	
+	this.offerProduct = function(product){
+		var d = $q.defer();
+		api.Product.offerProduct(product, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+
+
+					//If You Want, Need to write logics
+					d.resolve(result.productOfferList);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		})
+		return d.promise;
+	};
+	
 	this.allCategoriesWithProduct = function(product){
 		var d = $q.defer();
 		api.Product.allCategoriesWithProduct(product, function(err, result){

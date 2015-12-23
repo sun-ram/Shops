@@ -67,7 +67,13 @@ angular.module('app')
 	.state('app.productsdetails', {
 		url: '/productdetails/:productId',
 		templateUrl: 'app/modules/products/productDetails/productDetails.html',
-		controller : 'productDetailsCtrl'
+		controller : 'productCtrl',
+	})
+	
+		.state('app.productOffer', {
+		url: '/productOffer',
+			templateUrl: 'app/modules/products/productOffer.html',
+		controller : 'homeCtrl'
 	})
 
 

@@ -7,15 +7,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferLineDao;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
+import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
+import com.mitosis.shopsbacker.vo.inventory.UomVo;
 
 @Service("productofferlineserviceimpl")
 public class ProductOfferLineServiceImpl<T> implements ProductOfferLineService<T> {
@@ -27,6 +33,12 @@ private static final long serialVersionUID = 1L;
 	
 	@Autowired
 	ProductService<T> productService;
+	
+	@Autowired
+	ImageService<T> imageService;
+
+	@Autowired
+	UomService<T> uomService;
 	
 	public ProductOfferLineDao<T> getProductOfferLineDao() {
 		return productOfferLineDao;
@@ -86,6 +98,14 @@ private static final long serialVersionUID = 1L;
 		productVo.setName(product.getName());
 		productVo.setPrice(product.getPrice());
 		productVo.setProductId(product.getProductId());
+		productVo.setUnit(product.getUnit());
+		UomVo uomVo = uomService.setUomVo(product.getUom());
+		productVo.setUom(uomVo);
+		
+		if(product.getImage() != null){
+		ImageVo image = imageService.setImageVo(product.getImage());
+		productVo.setImage(image);
+		}
 		productOfferLineVo.setProductVo(productVo);
 		return productOfferLineVo;
 	}

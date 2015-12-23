@@ -230,7 +230,7 @@ angular.module('aviate.controllers')
 				                $localStorage.holidayReasons = undefined;
 				                $localStorage.isTodayHoliday = undefined;
 				                
-						 		var storeHoliday = $localStorage.storeHoliday;
+						 		var storeHoliday =$localStorage.storeHoliday;
 						 		storeHoliday.forEach(function(date){
 						 			var d=new Date();
 						 			d.setHours(0, 0, 0, 0, 0);
@@ -269,11 +269,16 @@ angular.module('aviate.controllers')
 						}
 						
 						$scope.isTomorrowHoliday=function(date,storeHoliday){
+							/*date.setHours(0, 0, 0, 0, 0);*/
 							storeHoliday.forEach(function(date1){
 								if(date1.getTime() == date.getTime()){
 									$scope.isTmwHoliday = true;
 								}
 							})
+					/*		
+							if(!$scope.isTmwHoliday){
+								$scope.isTmwHoliday = false;
+							}*/
 						}
 					}
 				})	
