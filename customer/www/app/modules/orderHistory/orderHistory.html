@@ -178,29 +178,33 @@
 				  <ol id="progress-steps">
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing in Progress</span>
-						 <ng-md-icon icon="done" class="check_status" size="20"></ng-md-icon>
-					  <span ng-class="order[0]" class="count highlight-index">					 
+						 <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
+						<span ng-if="order[0] != 'none'">1</span>
+					  <span ng-class="order[0]" class="highlight-index">					 
 					  </span>
 					  
 					</li>
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing Completed</span>
-						<ng-md-icon icon="done" class="check_status" size="20"></ng-md-icon>
-					  <span ng-class="order[1]" class="count highlight-index">
+						<ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
+						<span ng-if="order[0] != 'none'">2</span>
+					  <span ng-class="order[1]" class="highlight-index">
 					  </span>
 					  
 					</li>
 					  <li class="progress-step" style="width: 20%;">
 						  <span class="description">Delivery Started</span>
-						  <ng-md-icon icon="done" class="check_status" size="20"></ng-md-icon>
-					  <span ng-class="order[2]" class="count highlight-index">
+						  <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
+						  <span ng-if="order[0] != 'none'">3</span>
+					  <span ng-class="order[2]" class="highlight-index">
 					  </span>
 					  
 					</li>
 					<li class="progress-step" style="width: 20%;">
 						 <span class="description">Delivered</span>
-					  <ng-md-icon icon="done" class="check_status" size="20"></ng-md-icon>
-					  <span ng-class="order[3]" class="count highlight-index">
+					  <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
+						<span ng-if="order[0] != 'none'">4</span>
+					  <span ng-class="order[3]" class="highlight-index">
 					  </span>
 					 
 					</li>
