@@ -28,7 +28,7 @@
          	<span flex layout-align="start center" layout>
              	Warehouse Name
            	</span>
-           	<span flex layout-align="start center" layout>
+           	<span flex layout-align="center center" layout>
                 Process & View
              </span>
            	<span flex layout-align="center center" layout>
@@ -51,7 +51,7 @@
            	<span class="shopname" class="ft-14 hash_color">{{movement.warehouse.name}}</span>
         	</span>
         	
-        	<span flex layout layout="row" layout-align="start center">
+        	<span flex layout layout="row" layout-align="center center">
         	<md-button ng-hide="movement.ismoved == 'Y'" class="md-raised md-success  prdct-btns" ng-click="processMovement(movement);$event.stopPropagation();">Process</md-button>
           	<md-button class="md-raised md-success  prdct-btns" ng-click="redirectToMovementDetails(movement);$event.stopPropagation();">View Line</md-button>
             </span>
