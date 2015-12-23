@@ -13,6 +13,7 @@ import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
+import com.mitosis.shopsbacker.model.Store;
 /**
  * @author RiyazKhan.M
  */
@@ -96,12 +97,25 @@ ProductOfferDao<T>, Serializable{
 	}
 	
 	@Override
-	public ProductOffer checkUniqueName(String params) {
+	public List<ProductOffer> checkUniqueName(String params, Store store) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(ProductOffer.class);
 			criteria.add(Restrictions.eq("name", params));
+			criteria.add(Restrictions.eq("store", store));
+			return ((List<ProductOffer>) findAll(criteria));
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	}
+
+	@Override
+	public List<ProductOffer> getProductOfferByStore(Store store) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(ProductOffer.class);
+			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
-			return (ProductOffer) findUnique(criteria);
+			return ((List<ProductOffer>) findAll(criteria));
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw(e);

@@ -86,14 +86,16 @@ public class ProductOfferLineRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel addProductOfferLine(ProductOfferLineVo productOfferLineVo) {
 		response = new ResponseModel();
-		productOfferLine = new ProductOfferLine();
 		try {
 			Product product = productService.getProduct(productOfferLineVo.getProductVo().getProductId());
-			ProductOffer productOffer = productOfferService.getProductOffer(productOfferLineVo.getProductOfferVo().getProductOfferId());
-			productOfferLine = productOfferLineService.setProductOfferLine(productOfferLineVo,productOfferLine);
-			productOfferLine.setProduct(product);
-			productOfferLine.setProductOffer(productOffer);
-			productOfferLineService.addProductOfferLine(productOfferLine);
+			for(ProductOfferVo productOffVo : productOfferLineVo.getProductOfferList()){
+				productOfferLine = new ProductOfferLine();
+				productOfferLine = productOfferLineService.setProductOfferLine(productOfferLineVo,productOfferLine);
+				productOfferLine.setProduct(product);
+				ProductOffer productOffer = productOfferService.getProductOffer(productOffVo.getProductOfferId());
+				productOfferLine.setProductOffer(productOffer);
+				productOfferLineService.addProductOfferLine(productOfferLine);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());

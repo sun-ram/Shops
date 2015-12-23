@@ -7,21 +7,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferDao;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
-import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.CommonUtil;
-import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
-import com.mitosis.shopsbacker.vo.inventory.UomVo;
 /**
  * @author RiyazKhan.M
  */
@@ -39,12 +36,6 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	
 	@Autowired
 	ProductOfferLineService<T> productOfferLineService;
-	
-	@Autowired
-		ImageService<T> imageService;
-		
-	@Autowired
-		UomService<T> uomService;
 	
 	ProductOffer productOffer = null;
 	
@@ -111,14 +102,6 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productVo.setName(product.getName());
 		productVo.setPrice(product.getPrice());
 		productVo.setProductId(product.getProductId());
-		productVo.setUnit(product.getUnit());
-		UomVo uomVo = uomService.setUomVo(product.getUom());
-		productVo.setUom(uomVo);
-
-		if(product.getImage() != null){
-			ImageVo image = imageService.setImageVo(product.getImage());
-			productVo.setImage(image);
-		}
 		productOfferVo.setProductVo(productVo);
 		return productOfferVo;
 	}
@@ -134,8 +117,13 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	}
 
 	@Override
-	public ProductOffer checkUniqueName(String params) {
-		return productOfferDao.checkUniqueName(params);
+	public List<ProductOffer> checkUniqueName(String params, Store store) {
+		return productOfferDao.checkUniqueName(params,store);
+	}
+
+	@Override
+	public List<ProductOffer> getProductOfferByStore(Store store) {
+		return productOfferDao.getProductOfferByStore(store);
 	} 
 
 }

@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -27,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "product_offer", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"NAME", "MERCHANT_ID" }))
+		"NAME", "STORE_ID" }))
 public class ProductOffer implements java.io.Serializable {
 
 	/**
@@ -38,6 +40,7 @@ public class ProductOffer implements java.io.Serializable {
 	private String createdby;
 	private String updatedby;
 	private Merchant merchant;
+	private Store store;
 	private Product product;
 	private String name;
 	private String description;
@@ -57,13 +60,14 @@ public class ProductOffer implements java.io.Serializable {
 	}
 
 	public ProductOffer(String productOfferId, String createdby,
-			String updatedby, Merchant merchant, Product product,
+			String updatedby, Merchant merchant,Store store, Product product,
 			String name,int qty,BigDecimal offerAmount, Date fromDate, Date todate, Date startTime,
 			Date endTime, char isactive, Date created, Date updated) {
 		this.productOfferId = productOfferId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
 		this.merchant = merchant;
+		this.store = store;
 		this.product = product;
 		this.name = name;
 		this.qty = qty;
@@ -78,7 +82,7 @@ public class ProductOffer implements java.io.Serializable {
 	}
 
 	public ProductOffer(String productOfferId, String createdby,
-			String updatedby, Merchant merchant, Product product,
+			String updatedby, Merchant merchant, Store store,Product product,
 			String name, String description,int qty,BigDecimal offerAmount, Date fromDate, Date todate,
 			Date startTime, Date endTime, char isactive, Date created,
 			Date updated, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts) {
@@ -86,6 +90,7 @@ public class ProductOffer implements java.io.Serializable {
 		this.createdby = createdby;
 		this.updatedby = updatedby;
 		this.merchant = merchant;
+		this.store = store;
 		this.product = product;
 		this.name = name;
 		this.description = description;
@@ -135,9 +140,19 @@ public class ProductOffer implements java.io.Serializable {
 	public Merchant getMerchant() {
 		return this.merchant;
 	}
-
+	
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STORE_ID", nullable = false)
+	public Store getStore() {
+		return this.store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -256,6 +271,7 @@ public class ProductOffer implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productOffer")
+	@Cascade({CascadeType.DELETE})
 	public List<ProductOfferLine> getProductOfferLines() {
 		return this.productOfferLines;
 	}

@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 
 public class ProductOfferVo {
 
 	private String productOfferId;
 	private MerchantVo merchantVo;
+	private StoreVo store;
 	private ProductVo productVo;
 	private String name;
 	private String description;
@@ -21,6 +23,7 @@ public class ProductOfferVo {
 	private Date todate;
 	private Date startTime;
 	private Date endTime;
+	private List<StoreVo> storeList = new ArrayList<StoreVo>();
 	private List<ProductOfferLineVo> productOfferLinesVo = new ArrayList<ProductOfferLineVo>();
 	private List<MyCartVo> myCartsVo = new ArrayList<MyCartVo>();
 	
@@ -79,18 +82,6 @@ public class ProductOfferVo {
 	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
 		this.myCartsVo = myCartsVo;
 	}
-	public Date getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-	public Date getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
 	public Date getFromDate() {
 		return fromDate;
 	}
@@ -103,5 +94,28 @@ public class ProductOfferVo {
 	public void setTodate(Date todate) {
 		this.todate = todate;
 	}
-	
+	public Date getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+	public StoreVo getStore() {
+		return store;
+	}
+	public void setStore(StoreVo store) {
+		this.store = store;
+	}
+	public List<StoreVo> getStoreList() {
+		return storeList;
+	}
+	public void setStoreList(List<StoreVo> storeList) {
+		this.storeList = storeList;
+	}
 }

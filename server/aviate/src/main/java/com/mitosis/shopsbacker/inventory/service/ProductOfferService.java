@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.ProductOffer;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 /**
  * @author RiyazKhan.M
@@ -26,5 +27,8 @@ public interface ProductOfferService<T> {
 	
 	public List<ProductOffer> getProductOfferByMerchant(Merchant merchant);
 
-	public ProductOffer checkUniqueName(String params);
+	public List<ProductOffer> checkUniqueName(String params, Store store);
+	
+	public List<ProductOffer> getProductOfferByStore(Store store);
+
 }

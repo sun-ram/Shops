@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 
 
@@ -14,7 +15,9 @@ public class ProductOfferLineVo {
 	private ProductOfferVo productOfferVo;
 	private double discountPercentage;
 	private BigDecimal discountAmount;
+	private List<ProductOfferVo> productOfferList = new ArrayList<ProductOfferVo>();
 	private List<MyCartVo> myCartsVo = new ArrayList<MyCartVo>();
+	
 	public String getProductOfferLineId() {
 		return productOfferLineId;
 	}
@@ -51,6 +54,11 @@ public class ProductOfferLineVo {
 	public void setDiscountAmount(BigDecimal discountAmount) {
 		this.discountAmount = discountAmount;
 	}
-	
+	public List<ProductOfferVo> getProductOfferList() {
+		return productOfferList;
+	}
+	public void setProductOfferList(List<ProductOfferVo> productOfferList) {
+		this.productOfferList = productOfferList;
+	}
 	
 }

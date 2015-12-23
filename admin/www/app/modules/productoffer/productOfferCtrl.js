@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers')
-.controller("productoffercontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig','$mdDialog','ProductOfferServices','$stateParams','$mdDialog',
-                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig, $mdDialog,ProductOfferServices,$stateParams,$mdDialog) {
+.controller("productoffercontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig','$mdDialog','ProductOfferServices','$stateParams','$mdDialog','StoreServices',
+                                  function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig, $mdDialog,ProductOfferServices,$stateParams,$mdDialog,StoreServices) {
 	
 	$scope.productOffer ={};
 	$scope.productOffer =ProductOfferServices.getProductOfferObj();
@@ -25,20 +25,32 @@ angular.module('aviateAdmin.controllers')
 	
 	$scope.minDate = previousDay;
 	
+	$scope.selection=[];
+	  // toggle selection for a given employee by name
+	  $scope.toggleSelection = function toggleSelection(storeId) {
+	     var idx = $scope.selection.indexOf(storeId);
+	     // is currently selected
+	     if (idx > -1) {
+	       $scope.selection.splice(idx, 1);
+	     }else {
+	         $scope.selection.push(storeId);
+	       }
+
+	  }  
+	  
 	$scope.getProductOfferList = function () {
 		$scope.productOffer ={};
-		if($rootScope.user.role == "STOREADMIN"){
+		if($rootScope.user.role == "MERCHANTADMIN"){
 			$scope.productOffer.merchantVo = {
 					"merchantId":$rootScope.user.merchantId
 			};
 		}else if($rootScope.user.role == "STOREADMIN"){
-			$scope.productOffer.storevo = {
+			$scope.productOffer.store = {
 					"storeId":$rootScope.user.storeId
 			};
 		}
 		ProductOfferServices.getProductOffer($scope.productOffer).then(function(data) {
 			$scope.productOfferList = data;
-			$localStorage.productOfferList = data;
 		});
 	};
 	
@@ -51,6 +63,15 @@ angular.module('aviateAdmin.controllers')
 			$scope.productList = data.products;
 		})
 	};
+	
+	$scope.getStores = function(){
+		$scope.merchant ={};
+		$scope.merchant.merchantId = $rootScope.user.merchantId;
+		
+		StoreServices.getStore($scope.merchant).then(function(data) {
+			$scope.storeList = data;
+		})
+	}
 	
 	$scope.redirectOfferLine = function(productOfferLine) {
 		//ProductOfferServices.setProductOfferLineObj(productOfferLine);
@@ -69,11 +90,24 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOffer.productVo = {};
 		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
-		ProductOfferServices.addProductOffer($scope.productOffer).then(function(data) {
-			$scope.results = data.productOfferList;
-		    $state.go('app.productofferline',{'offerId':$scope.results[0].productOfferId});
-		})
+		$scope.productOffer.storeList =[];
 
+		if($rootScope.user.storeId){
+			$scope.productOffer.storeList.push({"storeId":$rootScope.user.storeId});
+		}else{
+		for(var i=0;i<$scope.selection.length;i++){
+			$scope.productOffer.storeList.push({"storeId":$scope.selection[i]});
+			}
+		}
+		if($scope.productOffer.storeList.length!=0){
+			ProductOfferServices.addProductOffer($scope.productOffer).then(function(data) {
+				$scope.results = data.productOfferList;
+				$localStorage.productOfferList = data.productOfferList;
+			    $state.go('app.productofferline',{'offerId':$scope.results[0].productOfferId});
+			})
+		}else{
+			toastr.error("Select Any Store");
+		}
     };
     
     $scope.saveProductOfferLine = function(productOfferLine){
@@ -85,10 +119,17 @@ angular.module('aviateAdmin.controllers')
     	$scope.productOfferLine.discountPercentage=productOfferLine.discountPercentage;
 		$scope.productOfferLine.productOfferVo ={};
 		$scope.productOfferLine.productOfferVo.productOfferId = $stateParams.offerId;
+		if($localStorage.productOfferList==null){
+			$scope.productOfferLine.productOfferList=[];
+			$scope.productOfferLine.productOfferList.push($scope.productOfferLine.productOfferVo);
+		}else{
+			$scope.productOfferLine.productOfferList=$localStorage.productOfferList;
+		}
+		
 		ProductOfferServices.addProductOfferLine($scope.productOfferLine).then(function(data) {
 			$scope.results = data;
+			$localStorage.productOfferList=null;
 			$scope.getProductOfferLineList(); 
-			//$state.go('app.productofferline',{'offerId':$stateParams.offerId});
 
 		})
    };
@@ -113,10 +154,25 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOffer.productVo ={};
 		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
-		ProductOfferServices.updateProductOffer($scope.productOffer).then(function(data) {
-			$scope.results = data;
-		    $state.go('app.productoffer');
-		})
+		$scope.productOffer.fromDate = $filter('date')(new Date($scope.productOffer.fromDate), 'yyyy-MM-dd');
+		$scope.productOffer.todate = $filter('date')(new Date($scope.productOffer.todate), 'yyyy-MM-dd');
+		
+		if($rootScope.user.storeId){
+			$scope.productOffer.storeList.push({"storeId":$rootScope.user.storeId});
+		}else{
+		for(var i=0;i<$scope.selection.length;i++){
+			$scope.productOffer.storeList.push({"storeId":$scope.selection[i]});
+			}
+		}
+		
+		if($scope.productOffer.storeList.length!=0){
+			ProductOfferServices.updateProductOffer($scope.productOffer).then(function(data) {
+				$scope.results = data;
+			    $state.go('app.productoffer');
+			})
+		}else{
+			toastr.error("Select Any Store");
+		}
 
    };
    
@@ -147,7 +203,6 @@ angular.module('aviateAdmin.controllers')
 		ProductOfferServices.getProductOfferLine($scope.productOffervo).then(function(data) {
 			$scope.productOfferLine = data;
 			$scope.lineEdit=true;
-			$localStorage.productOfferList = data;
 		});
 	};
 	$scope.updateProductOfferLine = function(productOffer){

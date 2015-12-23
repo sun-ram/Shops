@@ -19,13 +19,16 @@ import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductOffer;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.responsevo.ProductOfferResponseVo;
 import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.StoreVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 
 /**
@@ -87,18 +90,41 @@ public class ProductOfferRestServices<T> {
 	}
 
 	ResponseModel response = new ResponseModel();
-
+	
 	@Path("/addoffer")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductOfferResponseVo addProductOffer(ProductOfferVo productOfferVo) {
-		productOffer = new ProductOffer();
 		ProductOfferResponseVo response = new ProductOfferResponseVo();
+		ProductOfferVo productOffervos = new ProductOfferVo();
 		try {
-			productOffer=productOfferService.checkUniqueName(productOfferVo.getName());
-			if(productOffer==null){
+			if(productOfferVo.getStoreList().size() !=0){
+				for(StoreVo storeVo : productOfferVo.getStoreList()){
+					productOffer = new ProductOffer();
+					Store store = storeService.getStoreById(storeVo.getStoreId());
+					Merchant merchant = store.getMerchant();
+					List<ProductOffer> productOfferList=productOfferService.checkUniqueName(productOfferVo.getName(),store);
+					if(productOfferList.isEmpty()){
+						Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
+						productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
+						productOffer.setMerchant(merchant);
+						productOffer.setStore(store);
+						productOffer.setProduct(product);
+						productOfferService.addProductOffer(productOffer);
+						productOffervos.setProductOfferId(productOffer.getProductOfferId());
+						response.getProductOfferList().add(productOffervos);
+					}else{
+						response.setStatus(SBMessageStatus.FAILURE.getValue());
+						response.setErrorCode(SBErrorMessage.OFFER_NAME_ALREADY_EXIST.getCode());
+						response.setErrorString(SBErrorMessage.OFFER_NAME_ALREADY_EXIST.getMessage());
+					}
+					}
+			}else{
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}
+			/*if(productOffer==null){
 				Merchant merchant = merchantService.getMerchantById(productOfferVo.
 						getMerchantVo().getMerchantId());
 				Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
@@ -112,7 +138,7 @@ public class ProductOfferRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				response.setErrorCode(SBErrorMessage.OFFER_NAME_ALREADY_EXIST.getCode());
 				response.setErrorString(SBErrorMessage.OFFER_NAME_ALREADY_EXIST.getMessage());
-			}
+			}*/
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -132,14 +158,21 @@ public class ProductOfferRestServices<T> {
 		response = new ResponseModel();
 		productOffer = new ProductOffer();
 		try {
-			productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
-			Merchant merchant = merchantService.getMerchantById(productOfferVo.
-					getMerchantVo().getMerchantId());
-			Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
-			productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
-			productOffer.setMerchant(merchant);
-			productOffer.setProduct(product);
-			productOfferService.updateProductOffer(productOffer);
+			if(productOfferVo.getStoreList().size() !=0){
+				for(StoreVo storeVo : productOfferVo.getStoreList()){
+				productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
+				Merchant merchant = merchantService.getMerchantById(productOfferVo.
+						getMerchantVo().getMerchantId());
+				Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
+				Store store = storeService.getStoreById(storeVo.getStoreId());
+				productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
+				productOffer.setStore(store);
+				productOffer.setMerchant(merchant);
+				productOffer.setProduct(product);
+				productOfferService.updateProductOffer(productOffer);
+				}}else{
+					response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -159,8 +192,7 @@ public class ProductOfferRestServices<T> {
 		productOffer = new ProductOffer();
 		try {
 			productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
-			productOffer.setIsactive('N');
-			productOfferService.updateProductOffer(productOffer);
+			productOfferService.deleteProductOffer(productOffer);
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -180,11 +212,19 @@ public class ProductOfferRestServices<T> {
 		List<ProductOffer> productOfferList = new ArrayList<ProductOffer>();
 		ProductOfferResponseVo productOfferVoList = new ProductOfferResponseVo();
 		try {
-			Merchant merchant = merchantService.getMerchantById(productOfferVo.
-					getMerchantVo().getMerchantId());
-			productOfferList = productOfferService.getProductOfferByMerchant(merchant);
-			for(ProductOffer productOffer : productOfferList){
-				productOfferVoList.getProductOfferList().add(productOfferService.setProductOfferVo(productOffer));
+			if(productOfferVo.getMerchantVo()!=null){
+				Merchant merchant = merchantService.getMerchantById(productOfferVo.
+						getMerchantVo().getMerchantId());
+				productOfferList = productOfferService.getProductOfferByMerchant(merchant);
+				for(ProductOffer productOffer : productOfferList){
+					productOfferVoList.getProductOfferList().add(productOfferService.setProductOfferVo(productOffer));
+				}
+			}else if (productOfferVo.getStore()!=null) {
+				Store store = storeService.getStoreById(productOfferVo.getStore().getStoreId());
+				productOfferList = productOfferService.getProductOfferByStore(store);
+				for(ProductOffer productOffer : productOfferList){
+					productOfferVoList.getProductOfferList().add(productOfferService.setProductOfferVo(productOffer));
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

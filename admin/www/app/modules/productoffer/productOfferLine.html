@@ -94,14 +94,14 @@
 			    
       		<md-input-container flex>
       			<label>Discount amount</label>
-      			<input type="text" ng-model="productOfferLine.discountAmount" ng-required="true" valid-number /> 
+      			<input type="text" ng-model="productOfferLine.discountAmount" ng-required="true"  ng-maxlength="20" valid-number /> 
       		</md-input-container>	
       		
       		
 			
 			<md-input-container flex>
       			<label>Discount Percentage</label>
-      			<input type="text" ng-model="productOfferLine.discountPercentage" ng-required="true" valid-number /> 
+      			<input type="text" ng-model="productOfferLine.discountPercentage" ng-required="true"   ng-maxlength="20" valid-number /> 
       		</md-input-container>
 
       		<span flex layout-align="center center" layout>
@@ -184,12 +184,12 @@
       		
       		<md-input-container flex>
       		<label>Discount Amount</label>
-      		<input type="text" ng-model="newproductOffer.discountAmount" ng-required="true" valid-number /> 
+      		<input type="text" ng-model="newproductOffer.discountAmount" ng-required="true"  ng-maxlength="20" valid-number /> 
       		</md-input-container>
       		
       		<md-input-container flex>
       		<label>Discount Percentage</label>
-      		<input type="text" ng-model="newproductOffer.discountPercentage" ng-required="true" valid-number/> 
+      		<input type="text" ng-model="newproductOffer.discountPercentage" ng-required="true"  ng-maxlength="20" valid-number/> 
       		</md-input-container>
       		
       		<span flex layout-align="center center" layout>

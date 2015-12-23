@@ -50,7 +50,7 @@
         
       <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferList | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
          <md-item-content  layout="row" class="padd-l8">
-          <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-click="offerDetails(productOffer);" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
           
       		<span flex="10" layout-align="start center" layout>
 			<span flex class="shopname">{{productOffer.name}}</span>
@@ -72,9 +72,9 @@
       		</span>
       		
       		 <span flex="15" layout-align="center center" layout>
-                <md-button class="md-icon-button md-primary padd-t5" ng-click="offerDetails(productOffer);" aria-label="Inline Edit">
+               <!--  <md-button class="md-icon-button md-primary padd-t5" ng-click="offerDetails(productOffer);" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
-             	</md-button>
+             	</md-button> -->
                 <md-button class="md-icon-button md-primary padd-t5" ng-click="editProductOffer(productOffer)" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>        			
       			</md-button>
