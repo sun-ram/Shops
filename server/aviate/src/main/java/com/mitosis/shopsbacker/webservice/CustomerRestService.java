@@ -107,7 +107,7 @@ public class CustomerRestService<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String userSignUp(CustomerVo customerVo) throws Exception {
 		customerLoginResponseVo = new CustomerLoginResponseVo();
-		if (customerVo.getEmail() != null) {
+		if (customerVo.getEmail() != null || customerVo.getPhoneNo() !=null) {
 			customerEmailChecking = new Customer();
 			customerPhoneNoChecking = new Customer();
 			customerEmailChecking = customerService

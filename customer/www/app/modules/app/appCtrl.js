@@ -3,6 +3,11 @@ angular.module('aviate.controllers')
 		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices','$localStorage',
 		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices,$localStorage) {
 			
+			$scope.ordersPagination = {
+					limit: 5,
+					page: 1
+			};
+			
 			var storeHoliday = $localStorage.storeHoliday; //ipCookie('myCart');
 			if (storeHoliday !== undefined || storeHoliday !== null) {
 				$scope.storeHoliday = null;
@@ -68,7 +73,8 @@ angular.module('aviate.controllers')
 		
 		var timeOut;
 		$scope.addToCart = function(product){
-				if(timeOut)
+		   if(product.noOfQuantityInCart > 0){
+			  if(timeOut)
 					clearTimeout(timeOut);
 				timeOut = setTimeout(function() {
 					MyCartFactory.addToCart(product,$scope.productList,  function(data){
@@ -77,6 +83,7 @@ angular.module('aviate.controllers')
 						$scope.getCartList();
 					});
 				}, 500);
+			}
 		}
 
 		$scope.getCartList = function(){
@@ -338,8 +345,7 @@ angular.module('aviate.controllers')
 			$rootScope.getOfferProduct = function(){
 				$scope.product = {};
 				$scope.product.merchantVo = {};
-				$scope.product.merchant = {};
-				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+				$scope.product.merchantVo.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.offerProduct($scope.product).then(function(data){
              //   $rootScope.topcategories = data;
             	 $rootScope.offerProducts = data;

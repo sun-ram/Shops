@@ -1164,5 +1164,5 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
 
 
 .payment-method{ border:2px solid #0F9D58 !important}
-
+.white-container{ background-color:#FFFFFF; padding:20px 50px; width:calc(100% - 50px) !important; margin:15px auto; border-radius:3px; border:1px solid rgba(0,0,0,0.1);}
 

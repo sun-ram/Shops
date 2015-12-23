@@ -76,6 +76,19 @@ angular.module('app')
 		controller : 'homeCtrl'
 	})
 
+	// footer pages
+	.state('app.aboutus', {
+		url: '/aboutus',
+		templateUrl: 'app/modules/footer/aboutus.html'
+	})
+	.state('app.privacypolicy', {
+		url: '/privacypolicy',
+		templateUrl: 'app/modules/footer/privacyPolicy.html'
+	})
+	.state('app.termsandconditions', {
+		url: '/termsandconditions',
+		templateUrl: 'app/modules/footer/termsAndConditions.html'
+	})
 
 
 	// Check Out module
