@@ -138,7 +138,7 @@
          </md-item-content>
         
        </md-item>
-       <md-item class="data-table-list" style="line-height: 3;" md-data-table ng-repeat="ordersHis in data | filter:searchTxt " ng-click="redirectToStoreDetails(ordersHis);">
+       <md-item class="data-table-list" style="line-height: 3;" md-data-table ng-repeat="ordersHis in data | filter:searchTxt | limitTo: ordersPagination.limit: (ordersPagination.page - 1) * ordersPagination.limit" ng-click="redirectToStoreDetails(ordersHis);">
          
         <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
