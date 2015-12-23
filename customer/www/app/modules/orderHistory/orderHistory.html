@@ -85,7 +85,6 @@
   right: -32%;
   position: absolute;
   bottom: 9px;
-  font-size: 0.9em;
 }
 #progress-bar .bolded-step {
   font-weight: normal !important;
@@ -95,6 +94,19 @@
 	position: absolute;
 	margin-top: -13px;
 	margin-left: -15px;
+}
+.count-incr{
+	background: #3cb0a5;
+	padding: 5px 10px;
+	border-radius: 50%;
+	top: 26px;
+	position: relative;
+	left: -10px;
+	color: #fff;
+}
+.statusspan{
+	position: absolute;
+	margin-top: -10px;
 }
 </style>
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
@@ -174,12 +186,12 @@
          </md-item-content>
          <md-item-content layout="column"  ng-show="ordersHis.salesOrderId == showDetails" style="padding:0px 20px;" >
 			<div id="progress-bar">
-				<span>Order Status </span>
+				<span style="margin-left: -25px;">Order Status </span>
 				  <ol id="progress-steps">
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing in Progress</span>
 						 <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
-						<span ng-if="order[0] != 'none'">1</span>
+						<span ng-if="order[0] != 'none'" class="count-incr">1</span>
 					  <span ng-class="order[0]" class="highlight-index">					 
 					  </span>
 					  
@@ -187,7 +199,7 @@
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing Completed</span>
 						<ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
-						<span ng-if="order[0] != 'none'">2</span>
+						<span ng-if="order[0] != 'none'" class="count-incr">2</span>
 					  <span ng-class="order[1]" class="highlight-index">
 					  </span>
 					  
@@ -195,7 +207,7 @@
 					  <li class="progress-step" style="width: 20%;">
 						  <span class="description">Delivery Started</span>
 						  <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
-						  <span ng-if="order[0] != 'none'">3</span>
+						  <span ng-if="order[0] != 'none'" class="count-incr">3</span>
 					  <span ng-class="order[2]" class="highlight-index">
 					  </span>
 					  
@@ -203,22 +215,31 @@
 					<li class="progress-step" style="width: 20%;">
 						 <span class="description">Delivered</span>
 					  <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>
-						<span ng-if="order[0] != 'none'">4</span>
+						<span ng-if="order[0] != 'none'" class="count-incr">4</span>
 					  <span ng-class="order[3]" class="highlight-index">
 					  </span>
 					 
 					</li>
 				  </ol>
+				  <span ng-if="order[0] != 'none'" class="count-incr">5</span>
 			</div>
 			 <hr>
+			 <div layout="row" class="padd-lr30 padd-t30">
+			 <span flex="10" class=""></span>
+			 <span flex="20"><strong>Product name</strong></span>
+			 <span flex="15"><strong>Unit</strong></span>
+			 <span flex="15"><strong>Price</strong></span>
+			 <span flex="15"><strong>Quantity</strong></span>
+			 <span flex="25" style="text-align: right;" layout-align-sm="center"><strong>Gross Amount</strong></span>
+			 </div>
            <div flex ng-repeat="productOrders in ordersHis.salesOrderLineVo" class="padd-lr30 padd-t30">
            <div layout="row">
            <span flex="10"><img width="80" height="80" ng-src="{{productOrders.productVo.image.url}}"/></span>
-           <span flex="20"><span class="title">Product name</span></br>{{productOrders.productVo.name}}</span>
-           <span flex="15"><span class="title">Unit</span></br>{{productOrders.productVo.unit}} Kg</span>
-           <span flex="15"><span class="title">Price</span></br>Rs. {{productOrders.price}}</span>           
-           <span flex="15"><span class="title">Quantity</span></br>{{productOrders.qty}}</span>
-           <span style="text-align: right;" flex="25" layout-align-sm="center"><span class="title">Gross Amount</span></br> Rs. {{productOrders.grossAmount}}</span>    
+           <span flex="20">{{productOrders.productVo.name}}</span>
+           <span flex="15">{{productOrders.productVo.unit}} Kg</span>
+           <span flex="15">Rs. {{productOrders.price}}</span>           
+           <span flex="15">{{productOrders.qty}}</span>
+           <span style="text-align: right;" flex="25" layout-align-sm="center">Rs. {{productOrders.grossAmount}}</span>    
            </div>                                  
            <md-divider></md-divider>
            </div>
