@@ -55,7 +55,7 @@
         </md-item>
         
       <md-item class="data-table-list" md-data-table ng-repeat="product in productList | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
-         <md-item-content layout="row" layout-padding>
+         <md-item-content layout="row" class="padd-l8">
           <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
           
       		<span flex="10" layout-align="start center" layout>

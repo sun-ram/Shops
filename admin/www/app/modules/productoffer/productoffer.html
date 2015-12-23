@@ -20,7 +20,7 @@
    <md-data-table-container>
      <md-list>
      	<md-item class="data-table-list " md-data-table>
-         <md-item-content layout="row" layout-padding class="tbl-header ">
+         <md-item-content layout="row" class="tbl-header padd-l8">
       
       	<div layout="row" layout-wrap class="full_wid tbl-header ">
          	<span flex="10" layout-align="start center" layout>
@@ -41,18 +41,21 @@
             <span flex="15" layout-align="start center" layout>
 	         	End Time
             </span>
+            <span flex="15" layout-align="center center" layout>
+	         	Action
+            </span>
         </div>
         </md-item-content>
         </md-item>
         
       <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferList | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
-         <md-item-content  layout="row" layout-padding>
+         <md-item-content  layout="row" class="padd-l8">
           <div layout="row" layout-wrap class="full_wid tbl-body" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
           
       		<span flex="10" layout-align="start center" layout>
 			<span flex class="shopname">{{productOffer.name}}</span>
 			</span>
-      		<span flex="15" layout-align="center center" layout>
+      		<span flex="15" layout-align="start center" layout>
       		<span flex class="shopname">{{productOffer.productVo.name}}</span>
       		</span>
       		<span flex="15" layout-align="start center" layout>
@@ -137,7 +140,7 @@
      </md-list>
      </md-data-table-container>
    </md-card-content> 
-   <div layout="row" layout-align="end end" >
+   <div layout="row" layout-align="center center" >
    		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
 		 <md-data-table-pagination md-limit="productsPagination.limit"
       md-page="productsPagination.page" md-total="{{productOfferList.length}}"

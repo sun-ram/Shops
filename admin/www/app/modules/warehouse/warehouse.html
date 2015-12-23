@@ -47,7 +47,7 @@
        
        <md-item class="data-table-list" ng-repeat="warehouse in getWarehouseList | filter:searchText | orderBy: warehousePagination.order | limitTo: warehousePagination.limit: (warehousePagination.page - 1) * warehousePagination.limit" class="md-table-content-row" ng-click="warehouseDetails(warehouse)">
          
-         <md-item-content layout="row" layout-padding>
+         <md-item-content layout="row" class="padd-l8">
             <div layout="row" layout-wrap class="full_wid tbl-body">
           		<!-- <span flex=5 class="padd-5-3"><ng-md-icon icon="store" size="30"></ng-md-icon></span> -->
            
