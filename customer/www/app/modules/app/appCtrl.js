@@ -205,6 +205,7 @@ angular.module('aviate.controllers')
 						//	$rootScope.getFutureProducts();
 							$rootScope.getTopCategories(); 
 							$rootScope.getAllCategoryWithProduct();
+							$rootScope.getOfferProduct();
 							$rootScope.categoryList();
 							$rootScope.shippingCharge();
 							$rootScope.getTax();
@@ -338,15 +339,65 @@ angular.module('aviate.controllers')
                 $rootScope.futureProducts = data;
             });
 			}
+			
+			$rootScope.getOfferProduct = function(){
+				$scope.product = {};
+				$scope.product.merchantVo = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+            homePageServices.offerProduct($scope.product).then(function(data){
+             //   $rootScope.topcategories = data;
+            	 $rootScope.offerProducts = data;
+            })
+			}
+            
             
 			$rootScope.getTopCategories = function(){
 				$scope.product = {};
 				$scope.product.merchant = {};
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.topCategories($scope.product).then(function(data){
-                $rootScope.topcategories = data;
+             //   $rootScope.topcategories = data;
+            	 $rootScope.topcategories = $rootScope.comboOffer(data);
             })
 			}
+			
+			
+			$rootScope.comboOffer = function(productList){
+				$scope.productList = productList;
+				for(var i =0;i<$scope.productList.length;i++){
+					$scope.productOffers = [];
+					for(var j =0;j<$scope.productList[i].productOffer.length;j++){
+						$scope.productOffer = {};
+						$scope.productOffer.name = $scope.productList[i].productOffer[j].name;
+						$scope.productOffer.description = $scope.productList[i].productOffer[j].description;
+						$scope.productOffer.productOfferId = $scope.productList[i].productOffer[j].productOfferId;
+						$scope.productOffer.offerLines = $scope.productOfferLines($scope.productList[i].productOffer[j].productOfferLinesVo);
+						$scope.productOffers.push({"name":$scope.productOffer.name,"description":$scope.productOffer.description,"productOfferId":$scope.productOffer.productOfferId,
+							"productOfferLines":$scope.productOffer.offerLines});
+					}
+					$scope.productList[i].productOffers = angular.copy($scope.productOffers) || [];
+				}
+				return $scope.productList;
+			}
+			
+			$scope.productOfferLines = function(productOfferLines){
+				$scope.offerLines =[];
+				for(var i =0;i<productOfferLines.length;i++){
+					
+					$scope.productOfferLineId = productOfferLines[i].productOfferLineId;
+					$scope.discountPercentage = productOfferLines[i].discountPercentage;
+					$scope.discountAmount = productOfferLines[i].discountAmount;	
+					$scope.product ={};
+					$scope.product.productId = productOfferLines[i].productVo.productId;
+					$scope.product.price = productOfferLines[i].productVo.price;
+					$scope.product.name = productOfferLines[i].productVo.name;
+					$scope.offerLines.push({"productOfferLineId":$scope.productOfferLineId,"discountPercentage":$scope.discountPercentage,
+											"discountAmount":$scope.discountAmount,"product":$scope.product})
+									
+				}
+				return $scope.offerLines;
+			}
+						
 			
 			$rootScope.getAllCategoryWithProduct = function() {
 				$scope.product = {};
