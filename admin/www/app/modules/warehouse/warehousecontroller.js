@@ -3,7 +3,6 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	
 	
  	
-	$scope.count = 3;
 	$scope.srch = true;
 	
 	$scope.warehouseDetails = function(warehouse){
@@ -186,7 +185,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		WarehouseService.getListOfStoragebin($scope.storagebin).then(function(data) {
 			$scope.listOfWarehouse = data.warehouses;
 			$scope.listOfStoragebins = data.storagebins;
-			$scope.oldlist = data.storagebins;
+			$scope.originalList = data.storagebins;
 			$scope.shopList();
 			
 		});
@@ -200,9 +199,9 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 	$scope.sortListByWarehouse = function(warehouse){
 		
 		if(warehouse == 'All'){
-			$scope.listOfStoragebins = $scope.oldlist;
+			$scope.listOfStoragebins = $scope.originalList;
 		}else{
-			var storagebins = $scope.oldlist;
+			var storagebins = $scope.originalList;
 			var len = storagebins.length;
 			$scope.sortedList = [];
 			

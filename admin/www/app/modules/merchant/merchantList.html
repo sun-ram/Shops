@@ -9,7 +9,7 @@
   		<h3 layout-align="start" >Merchants</h3>
   		<div class="tbl-search ">
   			<ng-md-icon icon="search"  class="icon-white"   style="fill: #B5B5A3;"></ng-md-icon>
-  			<input ng-model="search" type="text"  placeholder="Search">
+  			<search-text  original-list="originalList" filtered-list="merchantData" pagination="merchantPagination" total-records="noOfRecords"/>
   		</div>	
     	
 	<!--  <div class="md-toolbar-tools padd-0 wid-50" ng-show="showSearch">
@@ -55,7 +55,7 @@
        </md-item>
        
        
-       <md-item class="data-table-list" md-data-table ng-repeat="merchant in merchantData | filter:search | orderBy: merchantPagination.order | limitTo: merchantPagination.limit: (merchantPagination.page - 1) * merchantPagination.limit" class="md-table-content-row"" ng-click="redirectToMerchantDetails(merchant);">
+       <md-item class="data-table-list" md-data-table ng-repeat="merchant in merchantData | filter:searchText | orderBy: merchantPagination.order | limitTo: merchantPagination.limit: (merchantPagination.page - 1) * merchantPagination.limit" class="md-table-content-row"" ng-click="redirectToMerchantDetails(merchant);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
          	<span flex=10 layout-align="center center" layout >
@@ -87,7 +87,7 @@
 	</md-data-table-container>
    </md-card-content>
    <div style="font-size:16px;"layout layout="row" class="table-pagination-bg" layout-align="center center">
-		<md-data-table-pagination md-limit="merchantPagination.limit" md-page="merchantPagination.page" md-total="{{merchantData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+		<md-data-table-pagination md-limit="merchantPagination.limit" md-page="merchantPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </md-card>
 

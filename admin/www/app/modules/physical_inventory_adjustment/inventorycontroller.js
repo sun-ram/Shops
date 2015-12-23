@@ -4,6 +4,8 @@ angular.module('aviateAdmin.controllers').controller("physicaInventoryCtrl",
 		 function($scope,$rootScope,$localStorage,$mdDialog,$state, inventories, physicalInventoryService) {
 
 			$scope.physicalInventories = inventories;
+			$scope.originalList = $scope.physicalInventories;
+			$scope.noOfRecords = $scope.physicalInventories.length;
 			
 			console.log("movements",$scope.physicalInventories);
 			
@@ -16,6 +18,8 @@ angular.module('aviateAdmin.controllers').controller("physicaInventoryCtrl",
 					physicalInventoryService.deletePhysicalInventory(inventory.movementId).then(function(data){
 						physicalInventoryService.getPhysicalInventoriesByStore().then(function(data){
 							$scope.physicalInventories = data;
+							$scope.originalList = $scope.physicalInventories;
+							$scope.noOfRecords = $scope.physicalInventories.length;
 						});
 					});
 				}, function() {

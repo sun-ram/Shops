@@ -2,8 +2,9 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 		['$scope','$rootScope','$localStorage','$mdDialog','$state','movementServices','movementLists',
 		 function($scope,$rootScope,$localStorage,$mdDialog,$state, movementServices, movementLists) {
 
-			$scope.count = 3;
 			$scope.movements = movementLists;
+			$scope.originalList = $scope.movements;
+			$scope.noOfRecords = $scope.movements.length;
 			$scope.srch = true;
 			
 			/*$scope.redirectGetPhysicalInventory = function(){
@@ -26,6 +27,8 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 				movementServices.processMovement({'movementId': movement.movementId}).then(function(data){
 					movementServices.getMovementsByStore({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 						$scope.movements = data;
+						$scope.originalList = $scope.movements;
+						$scope.noOfRecords = $scope.movements.length;
     				});
 				});
 			};
@@ -40,6 +43,8 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 					  movementServices.removeMovement(movement).then(function(data){
 							movementServices.getMovementsByStore({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){
 								$scope.movements = data;
+								$scope.originalList = $scope.movements;
+								$scope.noOfRecords = $scope.movements.length;
 		    				});
 						});
 					

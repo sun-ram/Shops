@@ -6,14 +6,19 @@ angular.module('aviateAdmin.controllers').controller("merchantcontroller",
 					limit: 5,
 					page: 1
 			};*/
-			$scope.count = 3;
 			$scope.merchantData = merchants;
+			$scope.originalList = $scope.merchantData;
+			$scope.noOfRecords = $scope.merchantData.length;
+
 			console.info($scope.merchantData);
 			$scope.srch = true;
 			
 			$scope.redirectToMerchant=function(){
 				MerchantServices.getMerchant().then(function(data){
 					$scope.merchantData=data;
+					$scope.originalList = $scope.merchantData;
+					$scope.noOfRecords = $scope.merchantData.length;
+
 				});
 			};
 			

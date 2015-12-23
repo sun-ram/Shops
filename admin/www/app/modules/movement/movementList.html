@@ -10,7 +10,7 @@
          		<h3 layout="column" style="padding: 0px 10px;">Movements</h3>
          		<div class="tbl-search">
 		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-		  			<input ng-model="sreach" type="text"  placeholder="Search">
+		  			<search-text  original-list="originalList" filtered-list="movements" pagination="physicalInventoryListPagination" total-records="noOfRecords"/>
 		  		</div>
          	</div>
          </md-toolbar>
@@ -39,7 +39,7 @@
         
        </md-item>
        
-       <md-item class="data-table-list" md-data-table ng-repeat="movement in movements | filter:sreach | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row" ng-click="redirectToMovementDetails(movement);">
+       <md-item class="data-table-list" md-data-table ng-repeat="movement in movements | filter:searchText | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row" ng-click="redirectToMovementDetails(movement);">
          <md-item-content layout="row" class="padd-l8">
           <div layout="row" layout-wrap class="full_wid tbl-body">
          
@@ -73,7 +73,7 @@
 	</md-data-table-container>
    </md-card-content> 
    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{movements.length}}" md-trigger="onpagechange">
+	<md-data-table-pagination md-limit="physicalInventoryListPagination.limit" md-page="physicalInventoryListPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange">
 	</md-data-table-pagination>
 </div>   
 </md-card>

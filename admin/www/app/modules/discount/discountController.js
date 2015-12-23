@@ -3,7 +3,6 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 	
 	
 	
-	$scope.count = 3;
 	$scope.srch = true;
 	
 	var myDate = new Date();
@@ -33,6 +32,8 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			
 			DiscountService.storeDiscountList($scope.store).then(function(data) {
 				$scope.discountList = data.discountVos;
+				$scope.originalList = $scope.discountList;
+				$scope.noOfRecords = $scope.discountList.length;
 			})
 			
 		}else{		
@@ -42,6 +43,8 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		
 		DiscountService.merchantDiscountList($scope.merchant).then(function(data) {
 			$scope.discountList = data.discountVos;
+			$scope.originalList = $scope.discountList;
+			$scope.noOfRecords = $scope.discountList.length;
 		})
 		}	
 	}

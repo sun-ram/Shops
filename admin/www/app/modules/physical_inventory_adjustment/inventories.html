@@ -14,7 +14,7 @@
          		<h3 layout="column" style="padding: 0px 10px;">Physical Inventory Adjustment</h3>
          		<div class="tbl-search">
 		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
-		  			<input ng-model="sreach" type="text"  placeholder="Search">
+		  			<search-text  original-list="originalList" filtered-list="physicalInventories" pagination="physicalInventoryAdjustmentPagination" total-records="noOfRecords"/>
 		  		</div>
          	</div>
          </md-toolbar>
@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody >
-      <tr md-auto-select ng-repeat="inventory in physicalInventories | filter:sreach | limitTo: physicalInventoryAdjustmentPagination.limit: (physicalInventoryAdjustmentPagination.page - 1) * physicalInventoryAdjustmentPagination.limit" class="md-table-content-row" ui-sref="app.physicalInventoryDetail({inventoryId:inventory.movementId})">
+      <tr md-auto-select ng-repeat="inventory in physicalInventories | filter:searchText | limitTo: physicalInventoryAdjustmentPagination.limit: (physicalInventoryAdjustmentPagination.page - 1) * physicalInventoryAdjustmentPagination.limit" class="md-table-content-row" ui-sref="app.physicalInventoryDetail({inventoryId:inventory.movementId})">
         <td>
               {{inventory.name}} 
         </td>
@@ -57,7 +57,7 @@
 
 <div layout="row" layout-align="center center" >
 <div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
-<md-data-table-pagination md-limit="physicalInventoryAdjustmentPagination.limit" md-page="physicalInventoryAdjustmentPagination.page" md-total="{{physicalInventories.length}}" md-trigger="onpagechange">
+<md-data-table-pagination md-limit="physicalInventoryAdjustmentPagination.limit" md-page="physicalInventoryAdjustmentPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange">
 </md-data-table-pagination>
 </div>
 </div>
