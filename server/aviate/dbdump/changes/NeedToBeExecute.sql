@@ -376,15 +376,3 @@ CREATE TABLE `gallery` (
   KEY `FK_GALLERY_PARENT_GALLERY_idx` (`PARENT_GALLAERY_ID`),
   CONSTRAINT `FK_GALLERY_PARENT_GALLERY` FOREIGN KEY (`PARENT_GALLAERY_ID`) REFERENCES `gallery` (`GALLERY_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---- 24-12-2015 ------- KATHIR -------------------------- for changes in sales order------
-
-ALTER TABLE `shopsbacker`.`sales_order` 
-CHANGE COLUMN `DELIVERY_TIME_SLOT` `DELIVERY_TIME_SLOT` VARCHAR(60) NULL ;
-
-UPDATE sales_order set delivery_time_slot = ''where sales_order_id !='12414';
-
-ALTER TABLE `shopsbacker`.`sales_order` 
-CHANGE COLUMN `DELIVERY_TIME_SLOT` `DELIVERY_TIME_SLOT` TIMESTAMP NOT NULL ;
-
-UPDATE `shopsbacker`.`sales_order` SET `DELIVERY_TIME_SLOT`='1970-01-01 09:00:00' WHERE `SALES_ORDER_ID`!='12414';

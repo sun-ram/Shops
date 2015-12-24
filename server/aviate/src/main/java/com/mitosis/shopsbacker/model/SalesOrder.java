@@ -40,7 +40,7 @@ public class SalesOrder implements java.io.Serializable {
 	private Store store;
 	private String orderNo;
 	private Date deliveryDate;
-	private Date deliveryTimeSlot;
+	private String deliveryTimeSlot;
 	private char ispaid;
 	private BigDecimal amount;
 	private String paymentMethod;
@@ -73,7 +73,7 @@ public class SalesOrder implements java.io.Serializable {
 
 	public SalesOrder(String salesOrderId, Customer customer, Address address,
 			Store store, String orderNo, Date deliveryDate,
-			Date deliveryTimeSlot, char ispaid, BigDecimal amount,
+			String deliveryTimeSlot, char ispaid, BigDecimal amount,
 			BigDecimal totalTaxAmount, BigDecimal shippingCharge,
 			BigDecimal netAmount, Merchant merchant, BigDecimal discountAmount,
 			char isactive, Date created, Date updated, Date pickupStartTime, Date packedTime, Date backerStartTime) {
@@ -102,7 +102,7 @@ public class SalesOrder implements java.io.Serializable {
 	public SalesOrder(String salesOrderId, User backer,
 			Customer customer, CustomerFeedback customerFeedback,
 			Address address, User shopper, Store store, String orderNo,
-			Date deliveryDate, Date deliveryTimeSlot, char ispaid,
+			Date deliveryDate, String deliveryTimeSlot, char ispaid,
 			BigDecimal amount, String paymentMethod, String transactionNo,
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
@@ -176,13 +176,12 @@ public class SalesOrder implements java.io.Serializable {
 		this.deliveryDate = deliveryDate;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELIVERY_TIME_SLOT", nullable = false, length = 19)
-	public Date getDeliveryTimeSlot() {
+	@Column(name = "DELIVERY_TIME_SLOT", nullable = false, length = 32)
+	public String getDeliveryTimeSlot() {
 		return this.deliveryTimeSlot;
 	}
 
-	public void setDeliveryTimeSlot(Date deliveryTimeSlot) {
+	public void setDeliveryTimeSlot(String deliveryTimeSlot) {
 		this.deliveryTimeSlot = deliveryTimeSlot;
 	}
 

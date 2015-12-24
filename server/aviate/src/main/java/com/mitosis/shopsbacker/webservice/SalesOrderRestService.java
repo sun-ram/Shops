@@ -2,8 +2,6 @@ package com.mitosis.shopsbacker.webservice;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -309,12 +307,7 @@ public class SalesOrderRestService<T> {
 			salesOrder.setOrderNo(orderNo);
 			salesOrder.setDeliveryDate(CommonUtil.stringToDate(salesOrderVo
 					.getDeliveryDate()));
-			
-			String strDeliveryTime = salesOrderVo.getDeliveryTimeSlot();
-			
-			Date deliveryTime = CommonUtil.convertStringToTime(strDeliveryTime);
-			
-			salesOrder.setDeliveryTimeSlot(deliveryTime);
+			salesOrder.setDeliveryTimeSlot(salesOrderVo.getDeliveryTimeSlot());
 			salesOrder.setIspaid('N');
 			salesOrder.setStore(store);
 			salesOrder.setDiscountAmount(new BigDecimal(0));
@@ -450,8 +443,8 @@ public class SalesOrderRestService<T> {
 			} else if (salesOrderVo.getBackerId() != null) {
 				user = userService.getUser(salesOrderVo.getBackerId());
 				if (user != null) {
-					List<SalesOrder> salesOrderList = salesOrderService
-							.getSalesOrdersByBackerId(salesOrderVo.getBackerId());
+					List<SalesOrder> salesOrderList = user
+							.getSalesOrdersForBackerId();
 					List<SalesOrderVo> salesOrderVoList = new ArrayList<SalesOrderVo>();
 					Role role = user.getRole();
 					if (RoleName.BACKER.toString().equalsIgnoreCase(
