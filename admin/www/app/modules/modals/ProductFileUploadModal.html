@@ -63,7 +63,7 @@
         
       <md-item class="data-table-list" md-data-table ng-repeat="product in newData | orderBy: productFileNew.order | limitTo: productFileNew.limit: (productFileNew.page - 1) * productFileNew.limit">
          <md-item-content layout="row" layout-padding>
-          <div layout="row" layout-wrap class="full_wid tbl-body">
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-show="product.count != showInLineEdit">
           
       		
 			<span flex layout-align="start center" layout>
@@ -94,10 +94,69 @@
       		<span flex class="shopname">{{product.brand}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
-      		
+      		 <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=product.count;productNewEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
+             		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
       		</span>	
-             
       	</div>
+      	
+      	 <!-- 	Inline Edit Code -->
+      	<div ng-show="product.count == showInLineEdit" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
+      	
+      		<md-input-container flex="10">
+      		<label>Product</label>
+      		<input type="text" ng-model="productNewEdit.name" /> 
+      		</md-input-container>	
+			
+			<md-input-container flex="10">
+      		<label>Category</label>
+      		<input type="text" ng-model="productNewEdit.productCategory"/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Type</label>
+      		<input type="text" ng-model="productNewEdit.productType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Measurement</label>
+      		<input type="text" ng-model="productNewEdit.productMeasurement" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Unit</label>
+      		<input type="text" ng-model="productNewEdit.productUnit" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Type</label>
+      		<input type="text" ng-model="productNewEdit.edibleType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Was Price</label>
+      		<input type="text" ng-model="productNewEdit.wasPrice" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Selling Price</label>
+      		<input type="text" ng-model="productNewEdit.sellingPrice" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Brand</label>
+      		<input type="text" ng-model="productNewEdit.brand" /> 
+      		</md-input-container>
+      		
+      		<span flex=15 layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=null;updateProduct(productEdit);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+             </span>
+      		
+      	</div>
+      	<!-- --------------- -->
+      	
       </md-item-content>
       </md-item>
       
@@ -162,7 +221,7 @@
         
       <md-item class="data-table-list" md-data-table ng-repeat="product in existingData | orderBy: productFileExisting.order | limitTo: productFileExisting.limit: (productFileExisting.page - 1) * productFileExisting.limit">
          <md-item-content layout="row" layout-padding>
-          <div layout="row" layout-wrap class="full_wid tbl-body">
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-show="product.count != showInLineEdit">
           
       		
 			<span flex layout-align="start center" layout>
@@ -193,9 +252,69 @@
       		<span flex class="shopname">{{product.brand}}</span>
       		</span>
       		<span flex layout-align="center center" layout>
+      		 <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=product.count;productExistingEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
+             		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
       		</span>
              
       	</div>
+      	
+      <!-- 	Inline Edit Code -->
+      	<div ng-show="product.count == showInLineEdit" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
+      	
+      		<md-input-container flex="10">
+      		<label>Product</label>
+      		<input type="text" ng-model="productExistingEdit.name" /> 
+      		</md-input-container>	
+			
+			<md-input-container flex="10">
+      		<label>Category</label>
+      		<input type="text" ng-model="productExistingEdit.productCategory"/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Type</label>
+      		<input type="text" ng-model="productExistingEdit.productType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Measurement</label>
+      		<input type="text" ng-model="productExistingEdit.productMeasurement" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Unit</label>
+      		<input type="text" ng-model="productExistingEdit.productUnit" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Type</label>
+      		<input type="text" ng-model="productExistingEdit.edibleType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Was Price</label>
+      		<input type="text" ng-model="productExistingEdit.wasPrice" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Selling Price</label>
+      		<input type="text" ng-model="productExistingEdit.sellingPrice" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Brand</label>
+      		<input type="text" ng-model="productExistingEdit.brand" /> 
+      		</md-input-container>
+      		
+      		<span flex=15 layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=null;updateProduct(productEdit);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+             </span>
+      		
+      	</div>
+      	<!-- --------------- -->
       </md-item-content>
       </md-item>
       
@@ -254,13 +373,16 @@
             <span flex layout-align="center center" layout>
 	         	Reason
             </span>
+             <span flex layout-align="center center" layout>
+	         	Action
+            </span>
         </div>
         </md-item-content>
         </md-item>
         
       <md-item class="data-table-list" md-data-table ng-repeat="product in rejectedData | orderBy: productFileRejected.order | limitTo: productFileRejected.limit: (productFileRejected.page - 1) * productFileRejected.limit">
          <md-item-content layout="row" layout-padding>
-          <div layout="row" layout-wrap class="full_wid tbl-body">
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-show="product.count != showInLineEdit">
           
       		
 			<span flex layout-align="start center" layout>
@@ -293,8 +415,69 @@
       		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.reason}}</span>
       		</span>
-             
+             <span flex layout-align="center center" layout>
+      		 <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=product.count;productRejectedEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
+             		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+      		</span>
       	</div>
+      	
+      	 <!-- 	Inline Edit Code -->
+      	<div ng-show="product.count == showInLineEdit" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
+      	
+      		<md-input-container flex="10">
+      		<label>Product</label>
+      		<input type="text" ng-model="productRejectedEdit.name" /> 
+      		</md-input-container>	
+			
+			<md-input-container flex="10">
+      		<label>Category</label>
+      		<input type="text" ng-model="productRejectedEdit.productCategory"/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Type</label>
+      		<input type="text" ng-model="productRejectedEdit.productType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Measurement</label>
+      		<input type="text" ng-model="productRejectedEdit.productMeasurement" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Unit</label>
+      		<input type="text" ng-model="productRejectedEdit.productUnit" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Type</label>
+      		<input type="text" ng-model="productRejectedEdit.edibleType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Was Price</label>
+      		<input type="text" ng-model="productRejectedEdit.wasPrice" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Selling Price</label>
+      		<input type="text" ng-model="productRejectedEdit.sellingPrice" valid-number/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Brand</label>
+      		<input type="text" ng-model="productRejectedEdit.brand" /> 
+      		</md-input-container>
+      		
+      		<span flex=15 layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=null;updateProduct(productEdit);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+             </span>
+      		
+      	</div>
+      	<!-- --------------- -->
       </md-item-content>
       </md-item>
       

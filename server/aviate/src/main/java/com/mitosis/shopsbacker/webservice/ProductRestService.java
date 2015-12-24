@@ -825,6 +825,7 @@ public class ProductRestService {
 						} else if (labels.get(cellPosition).equalsIgnoreCase(
 								"product category")) {
 							if (cell != null && !rejectedDataFlag) {
+								boolean flag=newDataFlag;
 								for (ProductType productTypeValue : productType) {
 									ProductCategory productCategoryValue = productTypeValue
 											.getProductCategory();
@@ -842,6 +843,9 @@ public class ProductRestService {
 												+ " name is not available");
 									}
 								}
+								if(flag){
+									newDataFlag=true;
+								}
 								productUploadDataVoSet.setProductCategory(cell
 										.getStringCellValue().trim());
 							} else {
@@ -853,6 +857,7 @@ public class ProductRestService {
 						} else if (labels.get(cellPosition).equalsIgnoreCase(
 								"product type")) {
 							if (cell != null && !rejectedDataFlag) {
+								boolean flag=newDataFlag;
 								for (ProductType productTypeValue : productType) {
 									if (productTypeValue.getName()
 											.equalsIgnoreCase(
@@ -867,6 +872,9 @@ public class ProductRestService {
 												.get(cellPosition)
 												+ " name is not available");
 									}
+								}
+								if(flag){
+									newDataFlag=true;
 								}
 								productUploadDataVoSet.setProductType(cell
 										.getStringCellValue().trim());
@@ -963,6 +971,8 @@ public class ProductRestService {
 						}
 						cellPosition++;
 					}
+					productUploadDataVoSet.setCount(count);
+					count++;
 					if (newDataFlag) {
 						newData1.add(productUploadDataVoSet);
 					} else if (rejectedDataFlag) {
