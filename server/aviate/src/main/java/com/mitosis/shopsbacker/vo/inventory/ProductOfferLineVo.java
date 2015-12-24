@@ -11,12 +11,12 @@ import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 public class ProductOfferLineVo {
 	
 	private String productOfferLineId;
-	private ProductVo productVo;
-	private ProductOfferVo productOfferVo;
+	private ProductVo product;
+	private ProductOfferVo productOffer;
 	private double discountPercentage;
 	private BigDecimal discountAmount;
 	private List<ProductOfferVo> productOfferList = new ArrayList<ProductOfferVo>();
-	private List<MyCartVo> myCartsVo = new ArrayList<MyCartVo>();
+	private List<MyCartVo> myCarts = new ArrayList<MyCartVo>();
 	
 	public String getProductOfferLineId() {
 		return productOfferLineId;
@@ -25,16 +25,16 @@ public class ProductOfferLineVo {
 		this.productOfferLineId = productOfferLineId;
 	}
 	public ProductVo getProductVo() {
-		return productVo;
+		return product;
 	}
 	public void setProductVo(ProductVo productVo) {
-		this.productVo = productVo;
+		this.product = productVo;
 	}
 	public ProductOfferVo getProductOfferVo() {
-		return productOfferVo;
+		return productOffer;
 	}
 	public void setProductOfferVo(ProductOfferVo productOfferVo) {
-		this.productOfferVo = productOfferVo;
+		this.productOffer = productOfferVo;
 	}
 	public double getDiscountPercentage() {
 		return discountPercentage;
@@ -43,10 +43,10 @@ public class ProductOfferLineVo {
 		this.discountPercentage = discountPercentage;
 	}
 	public List<MyCartVo> getMyCartsVo() {
-		return myCartsVo;
+		return myCarts;
 	}
 	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
-		this.myCartsVo = myCartsVo;
+		this.myCarts = myCartsVo;
 	}
 	public BigDecimal getDiscountAmount() {
 		return discountAmount;

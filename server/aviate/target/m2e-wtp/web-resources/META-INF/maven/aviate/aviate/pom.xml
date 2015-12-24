@@ -64,13 +64,13 @@
 			<artifactId>jersey-multipart</artifactId>
 			<version>1.8</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
 			<artifactId>jersey-spring</artifactId>
 			<version>1.8</version>
-		</dependency>
+		</dependency> -->
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
 			<version>2.0.0</version>
@@ -80,8 +80,45 @@
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
 			<version>2.0.0</version>
+		</dependency> -->
+		<dependency>
+		    <groupId>com.sun.jersey.contribs</groupId>
+		    <artifactId>jersey-spring</artifactId>
+		    <version>1.8</version>
+		    <exclusions>
+		      <exclusion>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-core</artifactId>
+		      </exclusion>
+		      <exclusion>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-beans</artifactId>
+		      </exclusion>
+		      <exclusion>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-context</artifactId>
+		      </exclusion>
+		      <exclusion>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-web</artifactId>
+		      </exclusion>
+		      <exclusion>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-aop</artifactId>
+		      </exclusion>
+		    </exclusions>
+		  </dependency>
+		  <!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>4.0.1.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>4.0.1.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -91,7 +128,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>apache-log4j-extras</artifactId>
-			<version>1.0</version>
+			<version>1.2.17</version>
 		</dependency>
 
 		<dependency>
@@ -178,9 +215,79 @@
 
 		<dependency>
 			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.5.0-b01</version>
+	<artifactId>mail</artifactId>
+	<version>1.5.0-b01</version>
 		</dependency>
+		
+		<!-- Spring and Hibernate Added by Sundaram -->
+		<!-- Spring and Transactions -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+		
+  		<dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-context-support</artifactId>
+        	<version>4.1.0.RELEASE</version>
+    	</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>		
+				
+		<!-- Hibernate dsf-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.2.1.Final</version>
+		</dependency>
+		
+		<!--for xls reader -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.10-FINAL</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.10-FINAL</version>
+		</dependency>
+<dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-ehcache</artifactId>
+	<version>4.2.1.Final</version>
+</dependency>
 
+<dependency>
+ <groupId>org.apache.poi</groupId>
+ <artifactId>poi-ooxml</artifactId>
+ <version>3.9</version>
+</dependency>
 	</dependencies>
 </project>

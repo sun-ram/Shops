@@ -12,9 +12,9 @@ import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 public class ProductOfferVo {
 
 	private String productOfferId;
-	private MerchantVo merchantVo;
+	private MerchantVo merchant;
 	private StoreVo store;
-	private ProductVo productVo;
+	private ProductVo product;
 	private String name;
 	private String description;
 	private int qty;
@@ -24,8 +24,8 @@ public class ProductOfferVo {
 	private Date startTime;
 	private Date endTime;
 	private List<StoreVo> storeList = new ArrayList<StoreVo>();
-	private List<ProductOfferLineVo> productOfferLinesVo = new ArrayList<ProductOfferLineVo>();
-	private List<MyCartVo> myCartsVo = new ArrayList<MyCartVo>();
+	private List<ProductOfferLineVo> productOfferLines = new ArrayList<ProductOfferLineVo>();
+	private List<MyCartVo> myCarts = new ArrayList<MyCartVo>();
 	
 	public String getProductOfferId() {
 		return productOfferId;
@@ -34,16 +34,16 @@ public class ProductOfferVo {
 		this.productOfferId = productOfferId;
 	}
 	public MerchantVo getMerchantVo() {
-		return merchantVo;
+		return merchant;
 	}
 	public void setMerchantVo(MerchantVo merchantVo) {
-		this.merchantVo = merchantVo;
+		this.merchant = merchantVo;
 	}
 	public ProductVo getProductVo() {
-		return productVo;
+		return product;
 	}
 	public void setProductVo(ProductVo productVo) {
-		this.productVo = productVo;
+		this.product = productVo;
 	}
 	public String getName() {
 		return name;
@@ -71,16 +71,16 @@ public class ProductOfferVo {
 		this.offerAmount = offerAmount;
 	}
 	public List<ProductOfferLineVo> getProductOfferLinesVo() {
-		return productOfferLinesVo;
+		return productOfferLines;
 	}
 	public void setProductOfferLinesVo(List<ProductOfferLineVo> productOfferLinesVo) {
-		this.productOfferLinesVo = productOfferLinesVo;
+		this.productOfferLines = productOfferLinesVo;
 	}
 	public List<MyCartVo> getMyCartsVo() {
-		return myCartsVo;
+		return myCarts;
 	}
 	public void setMyCartsVo(List<MyCartVo> myCartsVo) {
-		this.myCartsVo = myCartsVo;
+		this.myCarts = myCartsVo;
 	}
 	public Date getFromDate() {
 		return fromDate;

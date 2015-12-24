@@ -235,4 +235,29 @@ public class ProductOfferRestServices<T> {
 		return productOfferVoList;
 
 	}
+	
+	@Path("/getofferbyId")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ProductOfferResponseVo getProductOfferById(ProductOfferVo productOfferVo) throws Exception {
+		
+		ProductOfferResponseVo productOfferResponse = new ProductOfferResponseVo();
+		try {
+			
+			ProductOffer productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
+			
+			productOfferResponse.getProductOfferList().add(productOfferService.setProductOfferVo(productOffer));
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+		}
+		
+		return productOfferResponse;
+		
+		
+	}
 }

@@ -71,9 +71,9 @@ angular.module('app')
 	})
 	
 		.state('app.productOffer', {
-		url: '/productOffer',
+			url: '/productOffer/:offerId',
 			templateUrl: 'app/modules/products/productOffer.html',
-		controller : 'homeCtrl'
+		controller : 'productOfferCtrl'
 	})
 
 	// footer pages

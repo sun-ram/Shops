@@ -224,7 +224,23 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 
 				}
 			});
+		};	
+		
+		apiClass.Product.getProductOfferById = function (product, callback) {
+			httpRequest("POST", "productoffer/getofferbyId", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
 		};		
+		
+		
 
 		/*Location Api*/
 
