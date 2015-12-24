@@ -41,6 +41,7 @@ public class Store implements java.io.Serializable {
 	private Merchant merchant;
 	private String name;
 	private char isactive;
+	private char isActivated;
 	private Date created;
 	private Date updated;
 	private List<Warehouse> warehouses = new ArrayList<Warehouse>();
@@ -66,7 +67,7 @@ public class Store implements java.io.Serializable {
 	}
 
 	public Store(String storeId, String updatedby, String createdby,
-			Merchant merchant, String name, char isactive, Date created,
+			Merchant merchant, String name, char isactive, char isActivated,Date created,
 			Date updated) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
@@ -74,12 +75,13 @@ public class Store implements java.io.Serializable {
 		this.merchant = merchant;
 		this.name = name;
 		this.isactive = isactive;
+		this.isActivated = isActivated;
 		this.created = created;
 		this.updated = updated;
 	}
 
 	public Store(String storeId, String updatedby, String createdby,
-			User user, Merchant merchant, String name, char isactive,
+			User user, Merchant merchant, String name, char isactive,char isactivated,
 			Date created, Date updated, List<Warehouse> warehouses, List<OrderNumber> orderNumbers,
 			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
 			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,List<DeliveryTimeSlot> deliveryTimeSlots,
@@ -92,6 +94,7 @@ public class Store implements java.io.Serializable {
 		this.merchant = merchant;
 		this.name = name;
 		this.isactive = isactive;
+		this.isActivated = isactivated;
 		this.created = created;
 		this.updated = updated;
 		this.warehouses = warehouses;
@@ -179,6 +182,15 @@ public class Store implements java.io.Serializable {
 
 	public void setIsactive(char isactive) {
 		this.isactive = isactive;
+	}
+	
+	@Column(name = "IS_ACTIVATED", nullable = false, length = 1)
+	public char getIsActivated() {
+		return isActivated;
+	}
+
+	public void setIsActivated(char isActivated) {
+		this.isActivated = isActivated;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

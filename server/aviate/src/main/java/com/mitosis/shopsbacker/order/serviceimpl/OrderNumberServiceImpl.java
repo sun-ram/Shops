@@ -77,6 +77,9 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 	@Override
  	public void deleteOrderNumber(String orderNumberId) {
 		orderNumber = orderNumberDao.getOrderNumberById(orderNumberId);
+		Store store = orderNumber.getStore();
+		store.setIsActivated('N');
+		storeService.updateStore(store);
  		getOrderNumberDao().deleteOrderNumber(orderNumber);
  	}
 	

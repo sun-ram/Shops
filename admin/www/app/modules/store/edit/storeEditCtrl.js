@@ -49,6 +49,13 @@ angular.module('aviateAdmin.controllers')
 				});
 			};
 			
+			$scope.activateStore = function(){
+				StoreServices.activateStore($scope.store).then(function(data){
+					
+				});
+				
+			}
+			
 			$scope.redirectToStoreDetails = function(store){
 				StoreServices.setStoreObj(store);
 				$state.go('app.storedetails');

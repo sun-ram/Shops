@@ -205,6 +205,7 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 							+ areaName + "%").ignoreCase(),Restrictions.like("address.address2", "%"
 									+ areaName + "%").ignoreCase()));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("isActivated", 'Y'));
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {
 			e.printStackTrace();

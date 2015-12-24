@@ -47,6 +47,7 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ADDPRODUCTOFFER:'Product Offer Added successfully',
 	DELETEPRODUCTOFFER:'Product Offer Deleted successfully',
 	UPDATEPRODUCTOFFER:'Product Offer Updated Successfully',
+	ACTIVATESTORE:'Store is Activated Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'

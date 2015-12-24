@@ -570,6 +570,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Store.activateStore = function (store, callback) {
+			httpRequest("POST", "store/activate", store, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 
 		/*Product Module*/

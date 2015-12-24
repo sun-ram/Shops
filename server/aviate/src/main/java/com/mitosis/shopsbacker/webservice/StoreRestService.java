@@ -248,6 +248,46 @@ public class StoreRestService<T> {
 		}
 		return response;
 	}
+	
+	@Path("/activate")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ResponseModel activateStore(StoreVo storeVo) {
+		response = new ResponseModel();
+		try {
+			store = getStoreService().getStoreById(storeVo.getStoreId());
+			if(store.getDeliveryTimeSlots().isEmpty() && store.getOrderNumbers().isEmpty()){
+				response.setErrorCode(SBErrorMessage.NO_DELIVERY_ORDER_NUMBER.getCode());
+				response.setErrorString(SBErrorMessage.NO_DELIVERY_ORDER_NUMBER
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}else if(store.getDeliveryTimeSlots().isEmpty()){
+				response.setErrorCode(SBErrorMessage.No_DELIVERY_TIME_SLOTS.getCode());
+				response.setErrorString(SBErrorMessage.No_DELIVERY_TIME_SLOTS
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}else if(store.getOrderNumbers().isEmpty()){
+				response.setErrorCode(SBErrorMessage.NO_ORDER_NUMBER.getCode());
+				response.setErrorString(SBErrorMessage.NO_ORDER_NUMBER
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+			}else{
+				store.setIsActivated('Y');
+				storeService.updateStore(store);
+				response.setStatus(SBMessageStatus.SUCCESS.getValue());	
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response = CommonUtil.addStatusMessage(e, response);
+		}
+		return response;
+	}
+	
+	
 
 	@Path("/getstorebymerchant")
 	@POST

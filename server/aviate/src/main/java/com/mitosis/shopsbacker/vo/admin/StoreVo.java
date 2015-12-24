@@ -13,6 +13,8 @@ public class StoreVo {
 	private UserVo user;
 	private MerchantVo merchant=new MerchantVo();
 	private String name;
+	private char isActivated;
+	
 	public String getStoreId() {
 		return storeId;
 	}
@@ -36,6 +38,12 @@ public class StoreVo {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public char getIsActivated() {
+		return isActivated;
+	}
+	public void setIsActivated(char isActivated) {
+		this.isActivated = isActivated;
 	}
 
 }

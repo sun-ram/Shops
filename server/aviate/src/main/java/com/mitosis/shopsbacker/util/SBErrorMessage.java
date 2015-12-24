@@ -42,7 +42,11 @@ public enum SBErrorMessage {
 	CATEGORY_PRODUCTTYPE_CHECK("E0031","This product type having some products."),
 	PRODUCT_NAME_ALREADY_EXIST("E0032","Product name already exist."),
 	PRODUCT_SUB_CATEGORY_ALREADY_EXIST("E0033","This category already has sub-category"),
-	OFFER_NAME_ALREADY_EXIST("E0001","Product Offer name already exist.");
+	OFFER_NAME_ALREADY_EXIST("E0001","Product Offer name already exist."),
+	No_DELIVERY_TIME_SLOTS("E0034","Delivery Time Slot is Not Configured, Kindly Inform to Store Admin to Configure"),
+	NO_ORDER_NUMBER("E0035","Order Number is Not Configured, Kindly Inform to Store Admin to Configure"),
+	NO_DELIVERY_ORDER_NUMBER("E0036","Delivery Time Slot and Order Number are Not Configured, Kindly Inform to Store Admin to Configure");
+	
 
 
 	private final String erroeCode;

@@ -348,3 +348,8 @@ ADD CONSTRAINT `FK_PROD_OFFER_STORE`
 ALTER TABLE `shopsbacker`.`product_offer` 
 DROP INDEX `PROD_OFFER_NAME_UNIQUE` ,
 ADD UNIQUE INDEX `PROD_OFFER_NAME_UNIQUE` (`NAME` ASC, `STORE_ID` ASC);
+
+--- 24-12-2015 ------- KATHIR -------------------------- for store activation------
+
+ALTER TABLE `shopsbacker`.`store` 
+ADD COLUMN `IS_ACTIVATED` CHAR(1) NULL AFTER `ISACTIVE`;

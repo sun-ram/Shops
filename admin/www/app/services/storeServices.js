@@ -66,6 +66,25 @@ angular.module('aviateAdmin.services')
 		});
 		return d.promise;
 	};
+	
+	this.activateStore = function(store){
+		var d = $q.defer();
+		api.Store.activateStore(store, function(err, result){
+			if(result){
+				if (result.status === CONSTANT.STATUS.SUCCESS) {
+					toastr.success(CONSTANT.ACTIVATESTORE);
+					d.resolve(result);
+				} else {
+					toastr.error(result.errorString);
+				}
+			}else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
+	
+
 
 	this.setStoreObj = function(store){
 		this.obj = store;
