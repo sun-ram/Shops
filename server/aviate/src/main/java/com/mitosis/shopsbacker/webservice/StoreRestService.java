@@ -26,7 +26,9 @@ import com.mitosis.shopsbacker.common.service.AddressService;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.model.Area;
 import com.mitosis.shopsbacker.model.City;
+import com.mitosis.shopsbacker.model.DeliveryTimeSlot;
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.OrderNumber;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.responsevo.StoreResponseVo;
@@ -258,17 +260,21 @@ public class StoreRestService<T> {
 		response = new ResponseModel();
 		try {
 			store = getStoreService().getStoreById(storeVo.getStoreId());
-			if(store.getDeliveryTimeSlots().isEmpty() && store.getOrderNumbers().isEmpty()){
+			
+			List<DeliveryTimeSlot> deliveryTimeSlotList= store.getDeliveryTimeSlots();
+			List<OrderNumber> orderNumberList= store.getOrderNumbers();
+			
+			if(deliveryTimeSlotList.isEmpty() && orderNumberList.isEmpty()){
 				response.setErrorCode(SBErrorMessage.NO_DELIVERY_ORDER_NUMBER.getCode());
 				response.setErrorString(SBErrorMessage.NO_DELIVERY_ORDER_NUMBER
 						.getMessage());
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
-			}else if(store.getDeliveryTimeSlots().isEmpty()){
+			}else if(deliveryTimeSlotList.isEmpty()){
 				response.setErrorCode(SBErrorMessage.No_DELIVERY_TIME_SLOTS.getCode());
 				response.setErrorString(SBErrorMessage.No_DELIVERY_TIME_SLOTS
 						.getMessage());
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
-			}else if(store.getOrderNumbers().isEmpty()){
+			}else if(orderNumberList.isEmpty()){
 				response.setErrorCode(SBErrorMessage.NO_ORDER_NUMBER.getCode());
 				response.setErrorString(SBErrorMessage.NO_ORDER_NUMBER
 						.getMessage());
