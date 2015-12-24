@@ -24,6 +24,120 @@
         		<img src="assets/images/sm-banner-2.png" style="width:100%;"/>
         	</div>
         </section>
+        
+  
+     <!---------IsBundle----------------->
+     <section ng-if="isBundleProducts.length > 0"  style=" padding:20px;" class="home-products">
+ 			<div>
+ 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Bundle Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{isBundleProducts.length}}) <span ng-if="isBundleProducts.length > 1">Items</span> <span ng-if="isBundleProducts.length <= 1">Item</span> 
+ 						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
+ 					</span>
+ 				</div>
+ 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Bundle Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{isBundleProducts.length}}) 
+ 						<a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a>
+ 					</span>
+ 				</div>
+ 				  <div layout="column" style="width:100%; margin:0px auto; ">
+   				 	<div flex layout="row" style="padding:10px 0px;">
+   				 	
+   				 	
+   				 	
+    					<div layout="row" flex ng-repeat="product in isBundleProducts | orderBy:groupCount | limitTo:$root.numLimit">
+     							
+                            <div class="views view-first">
+                            	<div layout="row">
+                            		<div ng-show="product.discount.discountPercentage" flex layout-align="start start">
+                            			 <div class="pro-offer off-50-above">
+                            			 	{{product.discount.discountPercentage}}% Off
+                            			 </div>
+                            		</div>
+                            		<div ng-hide="product.discount.discountPercentage" flex layout-align="start start">
+                            			 <div class="pro-offer off-50-above">
+                            			 	Hot
+                            			 </div>
+                            		</div>                            		
+                            		<div flex>
+                            			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
+									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
+									      </md-button>
+									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
+                            		</div>
+                            	</div>
+                             
+                                
+                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
+                    <div class="mask">
+                      
+                        <h2 style="height:20px; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
+                      <!--  <p>{{product.description}}</p>-->
+                          <p>{{product.description}}</p>
+                         
+                         <div layout="row" layout-align="center center">
+	                        	
+					        <div flex ng-click="productDetails($event,product);">
+	                    		<md-button class="more">more</md-button>
+	                    	</div>
+	                        
+     		  			</div>
+                        <div layout="row" layout-align="center center" class="bg-gray">
+	                       <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+	     		  			<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+	     		  		
+					        <div flex>
+					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</div>
+	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+	                    	</div>
+	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
+					        </div>	
+     		  			</div>
+     		  			
+     		  			
+                    </div>
+                    			<div layout="row">
+                            		<div flex>
+                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
+                            		</div>
+                            		<div flex>
+                            			<div  layout-padding>
+                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
+                            			</div>
+                             			<div  layout-padding>
+                            				<div class="pull-right item-type">{{product.groupCount}} pieces</div>
+                            			</div>                           			
+                            		</div>
+                            	</div>
+                            	
+                            	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
+                            	
+                            	<div layout="row">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		</div>
+                            	</div>
+                			</div>  
+
+  </div>	
+		</div>
+    			</div>
+ 			</div>
+        </section>      
+        
+        <!-- ------------------ -->
+        
     <!---------Offers----------------->
         <section style=" padding:20px;" class="home-products">
            

@@ -435,6 +435,7 @@ public class ProductCategoryRestServices<T> {
 					for (int i = 0; i < productList.size(); i++) {
 						ProductVo product = productService
 								.setProductVo(productList.get(i));
+						System.out.println(product.getProductId());
 						producVoList.add(product);
 					}
 					productCategoryLeaf.setProducts(producVoList);

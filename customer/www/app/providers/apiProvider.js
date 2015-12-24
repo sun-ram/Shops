@@ -198,6 +198,20 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};
 		
+		apiClass.Product.isBundleProduct = function (product, callback) {
+			httpRequest("POST", "product/getisbundleproduct", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};		
+		
 		apiClass.Product.offerProduct = function (product, callback) {
 			httpRequest("POST", "productoffer/getofferbyMerchant", product, function (err, data) {
 				if (err) {

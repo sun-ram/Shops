@@ -210,6 +210,7 @@ angular.module('aviate.controllers')
 							$rootScope.store = storedetails;
 							ipCookie("store", storedetails);
 						//	$rootScope.getFutureProducts();
+							$rootScope.isBundleProduct();
 							$rootScope.getTopCategories(); 
 							$rootScope.getAllCategoryWithProduct();
 							$rootScope.getOfferProduct();
@@ -352,6 +353,15 @@ angular.module('aviate.controllers')
             })
 			}
             
+			$rootScope.isBundleProduct = function(){
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+            homePageServices.isBundleProduct($scope.product).then(function(data){
+                $rootScope.isBundleProducts = data;
+            //	 $rootScope.topcategories = $rootScope.comboOffer(data);
+            })
+			}
             
 			$rootScope.getTopCategories = function(){
 				$scope.product = {};
