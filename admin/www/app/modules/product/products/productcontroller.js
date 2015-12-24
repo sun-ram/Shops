@@ -356,9 +356,19 @@ angular.module('aviateAdmin.controllers')
 							}
 							ProductService.getAllProductList($scope.product).then(function(data) {
 								$scope.productList = data.products;
-								$scope.originalList = $scope.productList;
-								$scope.noOfRecords = $scope.productList.length;
 							})
+						};
+						$scope.productFileNew={
+								limit: 5,
+								page: 1
+						};
+						$scope.productFileExisting={
+								limit: 5,
+								page: 1
+						};
+						$scope.productFileRejected={
+								limit: 5,
+								page: 1
 						};
 						$scope.cancel = function() {
 							$mdDialog.cancel();

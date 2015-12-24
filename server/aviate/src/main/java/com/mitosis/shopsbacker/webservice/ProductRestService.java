@@ -774,9 +774,9 @@ public class ProductRestService {
 			List<String> labels = new ArrayList<String>();
 			int count = 0;
 			Iterator<Row> rowIterator = sheet.iterator();
-			List<ProductUploadDataVo> newData = new ArrayList<ProductUploadDataVo>();
-			List<ProductUploadDataVo> existingData = new ArrayList<ProductUploadDataVo>();
-			List<ProductUploadDataVo> rejectedData = new ArrayList<ProductUploadDataVo>();
+			List<ProductUploadDataVo> newData1 = new ArrayList<ProductUploadDataVo>();
+			List<ProductUploadDataVo> existingData1 = new ArrayList<ProductUploadDataVo>();
+			List<ProductUploadDataVo> rejectedData1 = new ArrayList<ProductUploadDataVo>();
 			while (rowIterator.hasNext()) {
 				boolean newDataFlag = false;
 				boolean existingDataFlag = false;
@@ -797,9 +797,11 @@ public class ProductRestService {
 					count++;
 				} else {
 					int cellPosition = 0;
+					BigDecimal compareWasPrice = new BigDecimal("0");
 					ProductUploadDataVo productUploadDataVoSet = new ProductUploadDataVo();
 					while (cellIterator.hasNext()
 							&& cellPosition < row.getLastCellNum()) {
+					
 						Cell cell = row.getCell(cellPosition,
 								Row.RETURN_BLANK_AS_NULL);
 						if (labels.get(cellPosition).equalsIgnoreCase("name")) {
@@ -890,7 +892,7 @@ public class ProductRestService {
 								"product Unit")) {
 							if (cell != null) {
 								BigDecimal productUnit = new BigDecimal(
-										cell.getStringCellValue());
+										cell.toString());
 								productUploadDataVoSet
 										.setProductUnit(productUnit);
 							} else {
@@ -914,7 +916,8 @@ public class ProductRestService {
 								"was price")) {
 							if (cell != null) {
 								BigDecimal productWasPrice = new BigDecimal(
-										cell.getStringCellValue());
+										cell.toString());
+								compareWasPrice=productWasPrice;
 								productUploadDataVoSet
 										.setWasPrice(productWasPrice);
 							} else {
@@ -927,9 +930,19 @@ public class ProductRestService {
 								"selling price")) {
 							if (cell != null) {
 								BigDecimal productSellingPrice = new BigDecimal(
-										cell.getStringCellValue());
+										cell.toString());
+								int res=compareWasPrice.compareTo(productSellingPrice);
+								if(res==0 || res==1){
 								productUploadDataVoSet
 										.setSellingPrice(productSellingPrice);
+								}
+								else{
+									productUploadDataVoSet
+									.setSellingPrice(productSellingPrice);
+									rejectedDataFlag = true;
+									newDataFlag = false;
+									productUploadDataVoSet.setReason("Was price should be greather then the selling price");
+								}
 							} else {
 								rejectedDataFlag = true;
 								newDataFlag = false;
@@ -951,17 +964,17 @@ public class ProductRestService {
 						cellPosition++;
 					}
 					if (newDataFlag) {
-						newData.add(productUploadDataVoSet);
+						newData1.add(productUploadDataVoSet);
 					} else if (rejectedDataFlag) {
-						rejectedData.add(productUploadDataVoSet);
+						rejectedData1.add(productUploadDataVoSet);
 					} else {
-						existingData.add(productUploadDataVoSet);
+						existingData1.add(productUploadDataVoSet);
 					}
 				}
 			}
-			response.setNewData(newData);
-			response.setExistingData(existingData);
-			response.setRejectedData(rejectedData);
+			response.setNewData(newData1);
+			response.setExistingData(existingData1);
+			response.setRejectedData(rejectedData1);
 			file.close();
 		} catch (Exception e) {
 			e.getMessage();

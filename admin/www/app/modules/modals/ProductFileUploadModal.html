@@ -54,7 +54,7 @@
         </md-item-content>
         </md-item>
         
-      <md-item class="data-table-list" md-data-table ng-repeat="product in newData">
+      <md-item class="data-table-list" md-data-table ng-repeat="product in newData | orderBy: productFileNew.order | limitTo: productFileNew.limit: (productFileNew.page - 1) * productFileNew.limit">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
           
@@ -94,13 +94,13 @@
      </md-list>
      </md-data-table-container>
    </md-card-content> 
-  <!--  <div layout="row" layout-align="center center" >
+   <div layout="row" layout-align="center center" >
    		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
-		 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{productList.length}}"
+		 <md-data-table-pagination md-limit="productFileNew.limit"
+      md-page="productFileNew.page" md-total="{{newData.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
 		</div>
-	</div>    -->     
+	</div>       
 </md-card> 
 
 			<!-- -------------------------------------- -->
@@ -147,7 +147,7 @@
         </md-item-content>
         </md-item>
         
-      <md-item class="data-table-list" md-data-table ng-repeat="product in existingData">
+      <md-item class="data-table-list" md-data-table ng-repeat="product in existingData | orderBy: productFileExisting.order | limitTo: productFileExisting.limit: (productFileExisting.page - 1) * productFileExisting.limit">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
           
@@ -187,13 +187,13 @@
      </md-list>
      </md-data-table-container>
    </md-card-content> 
-  <!--  <div layout="row" layout-align="center center" >
+    <div layout="row" layout-align="center center" >
    		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
-		 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{productList.length}}"
+		 <md-data-table-pagination md-limit="productFileExisting.limit"
+      md-page="productFileExisting.page" md-total="{{existingData.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
 		</div>
-	</div>    -->     
+	</div>     
 </md-card> 
 
 	<!-- -------------------------------------- -->
@@ -243,7 +243,7 @@
         </md-item-content>
         </md-item>
         
-      <md-item class="data-table-list" md-data-table ng-repeat="product in rejectedData">
+      <md-item class="data-table-list" md-data-table ng-repeat="product in rejectedData | orderBy: productFileRejected.order | limitTo: productFileRejected.limit: (productFileRejected.page - 1) * productFileRejected.limit">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
           
@@ -286,13 +286,13 @@
      </md-list>
      </md-data-table-container>
    </md-card-content> 
-  <!--  <div layout="row" layout-align="center center" >
+   <div layout="row" layout-align="center center" >
    		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
-		 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{productList.length}}"
+		 <md-data-table-pagination md-limit="productFileRejected.limit"
+      md-page="productFileRejected.page" md-total="{{rejectedData.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
 		</div>
-	</div>    -->     
+	</div>      
 </md-card> 
 
 <!-- -------------------------------------- -->
