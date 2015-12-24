@@ -67,7 +67,7 @@
 		    </md-input-container>   
 	    </div>
 	    
-	    <div layout="row" class="marg-t25 marg-l10" layout-sm="column" ng-if="user.role == 'MERCHANTADMIN'" ng-init="getStores();">
+	    <div layout="row" class="marg-t25 marg-l10" layout-sm="column"  ng-hide="productOffer.productOfferId" ng-if="user.role == 'MERCHANTADMIN'" ng-init="getStores();">
 			 <label></span>Select the Stores<span style="color:red">*</span></label>
  			<div ng-repeat="store in storeList">
  			 <div class="action-checkbox">
