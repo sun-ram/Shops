@@ -78,7 +78,7 @@
 	<tbody>
 		<tr ng-repeat="product in productStockList | orderBy: productStockPagination.order | limitTo: productStockPagination.limit: (productStockPagination.page - 1) * productStockPagination.limit | filter:searchText">
 			<td>{{product.warehouseName}}</td>
-			<td>{{product.row}} {{product.stack}} {{product.level}}</td>
+			<td>{{product.storagebinName}} ({{product.row}}-{{product.stack}}-{{product.level}})</td>
 			<td>{{product.productName}}</td>
 			<td>{{product.availableQty}}</td>
 			

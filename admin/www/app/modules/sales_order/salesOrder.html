@@ -34,10 +34,10 @@
   			<search-text  original-list="originalList" filtered-list="salesOrderList" pagination="salesOrderPagination" total-records="noOfRecords"/>
   		</div>
     	<div layout="row">
-		<md-datepicker style="background: none;" layout-padding
+		<md-datepicker style="background: none;padding: 20px;" layout-padding
 			layout-align="end center" class="bg-none" ng-model="fromDate"
 			ng-change="getSalesByDate()" md-placeholder="From"></md-datepicker>
-		<md-datepicker style="background: none;" layout-padding
+		<md-datepicker style="background: none;padding: 20px;" layout-padding
 			layout-align="end center" class="bg-none" ng-model="toDate"
 			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
 		<md-input-container ng-hide="user.role == 'STOREADMIN'">
