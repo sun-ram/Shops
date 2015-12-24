@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.dao.GalleryDao;
 import com.mitosis.shopsbacker.model.Gallery;
@@ -18,6 +19,7 @@ import com.mitosis.shopsbacker.model.Image;
  * @author Anbukkani Gajendiran
  *
  */
+@Repository
 public class GalleryDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		Serializable, GalleryDao<T> {
 
