@@ -354,17 +354,17 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 				for(int i = 0; i < productInventories.size(); i++){
 					ProductInventory pi = productInventories.get(i);
 					if(balanceQty>0){
-					if(balanceQty >= pi.getAvailableQty()){
+					if(balanceQty <= pi.getAvailableQty()){
 							if(i == productInventories.size()-1){
 								balanceQty = pi.getAvailableQty()-balanceQty;
 								pi.setAvailableQty(balanceQty);
 							} else{
-								balanceQty = balanceQty-pi.getAvailableQty();
+								balanceQty = pi.getAvailableQty()-balanceQty;
 								pi.setAvailableQty(balanceQty);
 							}
-						} else {
-							balanceQty = pi.getAvailableQty()-balanceQty;
-							pi.setAvailableQty(balanceQty);
+						} else if(balanceQty > pi.getAvailableQty()){
+						//	balanceQty = pi.getAvailableQty()-balanceQty;
+							pi.setAvailableQty(0);
 						}
 					}else{
 						break;
