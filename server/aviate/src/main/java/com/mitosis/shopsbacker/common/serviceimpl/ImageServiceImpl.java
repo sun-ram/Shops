@@ -61,6 +61,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 
 		image = (Image) CommonUtil
 				.setAuditColumnInfo(Image.class.getName());
+		image.setIsactive('Y');
 		image.setName(imageVo.getName());
 		image.setType(imageVo.getType());
 		image.setUrl(imageVo.getUrl());

@@ -1,6 +1,7 @@
 package com.mitosis.shopsbacker.common.daoimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -38,7 +39,12 @@ ImageDao<T>, Serializable  {
 
 		DetachedCriteria criteria = DetachedCriteria.forClass(Image.class);
 		criteria.add(Restrictions.eq("imageId", id));
-		return ((List<Image>) findAll(criteria)).get(0);
+		 Image  image= null;
+		 List<Image> images= (List<Image>) findAll(criteria);
+		if( images.size()>0){
+			image= images.get(0);
+		}
+		return image ;
 
 	}
 	
@@ -49,6 +55,7 @@ ImageDao<T>, Serializable  {
 		public List<Image> getImages(List<String> ids){
 			DetachedCriteria criteria = DetachedCriteria.forClass(Image.class);
 			criteria.add(Restrictions.in("imageId",ids));
+			criteria.add(Restrictions.eq("isactive",'Y'));
 			return (List<Image>) findAll(criteria);
 		}
 
