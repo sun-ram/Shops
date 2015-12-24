@@ -205,4 +205,19 @@ ProductDao<T>, Serializable{
 			throw e;
 		}
 	}
+
+	@Override
+	public List<Product> getIsBundleProduct(Merchant merchant) {
+
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.eq("merchant",merchant));
+			criteria.add(Restrictions.eq("isBundle", 'Y'));
+			return ((List<Product>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	
+	}
 }

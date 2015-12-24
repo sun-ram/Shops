@@ -41,5 +41,7 @@ public interface ProductDao<T> {
 
 	public List<Product> getProductName(String productId, String name,
 			Merchant merchant);
+	
+	public List<Product> getIsBundleProduct(Merchant merchant);
 
 }

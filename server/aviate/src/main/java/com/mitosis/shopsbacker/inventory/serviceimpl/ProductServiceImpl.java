@@ -314,6 +314,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			Merchant merchant){
 		return productDao.getProductName(productId,name,merchant);
 	}
+
+	@Override
+	public List<Product> getIsBundleProduct(Merchant merchant) {
+		return productDao.getIsBundleProduct(merchant);
+	}
 	
 
 }

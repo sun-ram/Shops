@@ -35,6 +35,8 @@ public interface ProductService<T> {
 
 	public List<Product> getTopProduct(Merchant merchant);
 	
+	public List<Product> getIsBundleProduct(Merchant merchant);
+	
 	public List<Product> getProductByMerchant(Merchant merchant);
 	
 	public void productImageUpload(ImageVo imageVo,Merchant merchant) throws Exception ;
