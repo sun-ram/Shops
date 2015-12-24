@@ -186,6 +186,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 			$scope.listOfWarehouse = data.warehouses;
 			$scope.listOfStoragebins = data.storagebins;
 			$scope.originalList = data.storagebins;
+			$scope.noOfRecords = $scope.listOfStoragebins.length;
 			$scope.shopList();
 			
 		});
