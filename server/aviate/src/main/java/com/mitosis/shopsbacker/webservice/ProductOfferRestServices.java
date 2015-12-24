@@ -98,10 +98,11 @@ public class ProductOfferRestServices<T> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ProductOfferResponseVo addProductOffer(ProductOfferVo productOfferVo) {
 		ProductOfferResponseVo response = new ProductOfferResponseVo();
-		ProductOfferVo productOffervos = new ProductOfferVo();
+		ProductOfferVo productOffervos = null;
 		try {
 			if(productOfferVo.getStoreList().size() !=0){
 				for(StoreVo storeVo : productOfferVo.getStoreList()){
+					productOffervos = new ProductOfferVo();
 					productOffer = new ProductOffer();
 					Store store = storeService.getStoreById(storeVo.getStoreId());
 					Merchant merchant = store.getMerchant();
