@@ -66,6 +66,16 @@
 		      <input type="time" ng-model="productOffer.endTime" ng-required="true">
 		    </md-input-container>   
 	    </div>
+	    
+	    <div layout="row" class="marg-t25 marg-l10" layout-sm="column" ng-if="user.role == 'MERCHANTADMIN'" ng-init="getStores();">
+			 <label></span>Select the Stores<span style="color:red">*</span></label>
+ 			<div ng-repeat="store in storeList">
+ 			 <div class="action-checkbox">
+  			 <input id="{{store.name}}" type="checkbox" value="{{store.name}}" ng-required="true" ng-checked="selection.indexOf(store.storeId) > -1" ng-click="toggleSelection(store.storeId)" />
+  			 <label for="{{store.name}}"></label>
+   			{{store.name}}
+ 		 </div></div>
+    </div>
 	    	<!-- <md-input-container layout-padding  flex>
 		       <label>Postal Code<span style="color:red">*</span></label>
 		      <input md-datepicker ng-model="warehouse.address.pinCode" valid-number ng-required="true" maxlength="12">

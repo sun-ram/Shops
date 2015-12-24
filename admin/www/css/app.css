@@ -557,7 +557,9 @@ md-sidenav md-icon {
     background-color: #282D33;
 }
 
-
+.action-checkbox{
+	padding-left: 10px;
+}
 .optionSelected {
 	fill : #4a89dc;
     background-color: #282D33;

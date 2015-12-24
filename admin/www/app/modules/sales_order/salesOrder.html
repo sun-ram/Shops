@@ -63,7 +63,8 @@
               <th numeric order-by="fromDate" name="Order Date"></th>
               <th numeric order-by="deliveryDate" name="Delivery Date"></th>
               <th numeric order-by="storeVo.name" name="Store"></th>
-              <th numeric order-by="shippingCharge" name="Shipping Charge"></th>
+              <th numeric order-by="shippingCharge" name="Tax"></th>
+              <th numeric order-by="totalTaxAmount" name="Shipping Charge"></th>
               <th numeric order-by="amount" name="Net"></th>
               <th numeric order-by="netAmount" name="Gross"></th>
               <th name="View Details"></th>
@@ -75,7 +76,7 @@
 		<td ng-if="salesOrder.status!='Placed' &&  salesOrder.status!='Shoper_Assigned'"><md-button  class="md-icon-button md-primary" ng-disabled="true" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status=='Packed' ||  salesOrder.status=='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
 		<td ng-if="salesOrder.status!='Packed' &&  salesOrder.status!='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-disabled="true" ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
-			<td>{{salesOrder.customer.name}}</td>
+			<td>{{salesOrder.addressVo.name}}</td>
 			<!-- <td><md-select ng-model="dessert.type" placeholder="Other">
 				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
 				</md-select></td> -->
@@ -86,6 +87,7 @@
 			<td>{{salesOrder.deliveryDate}}</td>
 			<td>{{salesOrder.store.name}}</td>
 			<td>{{salesOrder.shippingCharge}}</td>
+			<td>{{salesOrder.totalTaxAmount}}</td>
 			<td>{{salesOrder.amount}}</td>
 			<td>{{salesOrder.netAmount}}</td>
 			<td><md-button class="md-raised md-primary" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>
