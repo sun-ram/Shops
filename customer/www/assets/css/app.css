@@ -480,7 +480,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 .succ-popup{ 
 	background-color:#FF0000; top:-10%;
 }
-
+.fav-container{}
 
 
 
@@ -513,6 +513,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 	.pro-header{ height:250px;}
 	
 	.succ-popup{ width:80%; height:80%;  position:absolute;  left:10%; }
+	.fav-container{width:100%;}
 }
 
 @media screen and (max-width: 960px) {
@@ -531,6 +532,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
      .del-prod-price{text-align:right;}
      
      .succ-popup{ width:60%; height:70%;  position:absolute; left:20%; }
+     .fav-container{width:100%;}
 }
 @media screen and (min-width: 961px) {
     .product-detail-dialog{width:100%; height:auto;}
@@ -541,11 +543,13 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 }
 @media screen and (min-width: 960px) and (max-width: 1200px) {
 	.succ-popup{ width:50%; height:50%;  position:absolute;  left:25%; }
+	.fav-container{width:90%; margin:15px auto;}
 }
 @media screen and (min-width: 1201px) {
    #ver-section{ width:80%; margin:0px auto;}
    .del-prod-price{text-align:right;}
    .succ-popup{ width:36%; height:80%;  position:absolute;  left:32%; }
+   .fav-container{width:80%; margin:15px auto;}
 }
 
 

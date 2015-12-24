@@ -1,7 +1,59 @@
 <!-- <link rel="stylesheet" href="assets/css/favourites.css"> -->
 
+<div class="fav-container">
+<div layout-gt-sm="row" layout-sm="column">
+	<div flex>
+		<div class="md-headline">
+      	 Successfully your order has been placed
+      </div>
+	</div>
+	<div flex layout-margin>
+		<div layout="column" layout-align="center center">
+      <div class="md-headline" style="margin:30px 20px 20px 20px; color:#31A9B8;'">
+      	<!-- Successfully your order has been placed -->
+      	 Create your wish list for your next one tap shop
+      </div>
+    
+      <!--  <div class="md-headline">
+      	 Create your wish list for your next one tap shop
+      </div> -->
+    </div>
+   
+    <md-card style="width:100%; padding:20px; margin:10px auto; ">
+    
+      <div  layout="column" layout-align="center center">
+      	<div flex style="width:100%;">
+      		<md-input-container class="md-block" flex-gt-sm>
+		          <label>Type your Favorite Name</label>
+		          <input ng-model="favouriteName" ng-required="true">
+		    </md-input-container>
+      	</div>
+      	<div flex style="width:100%; margin-top:5px; text-align:center;">
+      		<span>Or</span>
+      	</div>
+      	<div flex style="width:100%;">
+      		<md-input-container>
+		        <label>Choose from your default list</label>
+		        <md-select ng-model="favouriteName" >
+		          <md-option  value="Monthly List" ng-click="favouriteName = 'Monthly List';">Monthly List</md-option>
+		          <md-option  value="Weekly List" ng-click="favouriteName = 'Weekly List';">Weekly List</md-option>
+		          <md-option  value="Quarterly List" ng-click="favouriteName = 'Quarterly List';">Quarterly List</md-option>
+		          <md-option  value="Party List" ng-click="favouriteName = 'Party List';">Party List</md-option>
+		        </md-select>
+		      </md-input-container>
+      	</div>
+      	<div layout="row" flex style="width:100%;">
+      		<md-button ng-disabled="!favouriteName" class="md-raised " style="background-color:#4eaf4c; color:#FFFFFF;" ng-click="addFavourite();">ADD</md-button>
+      		<md-button class="md-raised " ui-sref="app.home">SKIP</md-button>
+      	</div>
+      </div>
+      
+      </md-card>
+	</div>
+</div>
+</div>
 
-	<div layout="column" layout-align="center center">
+<!-- 	<div layout="column" layout-align="center center">
       <div class="md-display-1" style="margin:30px 20px 20px 20px; color:#31A9B8;'">
       	Successfully your order has been placed
       </div>
@@ -40,8 +92,22 @@
       	</div>
       </div>
       
-      </md-card>
+      </md-card> -->
       
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 <!-- <md-card style="width:600px; margin:0px auto">
 <div class="content">
