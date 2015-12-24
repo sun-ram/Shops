@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,6 +42,8 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 public final class CommonUtil {
 
+	static String delivery_time_format = "HH:mm a";
+	
 	/**
 	 * changing date format
 	 * 
@@ -255,6 +258,26 @@ public final class CommonUtil {
 			e.printStackTrace();
 		}
 		return dateString;
+	}
+	
+	
+	public static Date convertStringToTime(String strDeliveryTime) {
+		SimpleDateFormat formatter = new  SimpleDateFormat(delivery_time_format);
+		Date deliveryTime =null;	
+		try {
+
+		deliveryTime = formatter.parse(strDeliveryTime);
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return deliveryTime;
+	}
+	
+	public static String convertTimeToString(Date time) {
+		SimpleDateFormat formatter = new  SimpleDateFormat(delivery_time_format);
+		String  strTime = formatter.format(time);
+		return strTime;
 	}
 
 	/**

@@ -2,8 +2,6 @@ package com.mitosis.shopsbacker.order.dao;
 
 import java.util.List;
 
-import org.hibernate.criterion.Restrictions;
-
 import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
@@ -38,5 +36,7 @@ public interface SalesOrderDao<T> {
 			String toDate, Merchant merchant);
 
 	public SalesOrder getSalesOrder(String orderNo);
+
+	public List<SalesOrder> getSalesOrdersByBackerId(String shoperId);
 
 }

@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.order.serviceimpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -175,6 +176,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	}
 	
 	@Override
+	public List<SalesOrder> getSalesOrdersByBackerId(String shoperId) {
+		return salesOrderDao.getSalesOrdersByBackerId(shoperId);
+	}
+	
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SalesOrder paymentConfimation(String orderNo, String transactionNo,
 			String paymentMethod) {
@@ -244,7 +250,9 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
 		salesOrderVo.setOrderPlacedTime(salesOrder.getCreated());
-		salesOrderVo.setDeliveryTimeSlot(salesOrder.getDeliveryTimeSlot());
+		Date deliveryTime=salesOrder.getDeliveryTimeSlot();
+		String strDeliveryTime=CommonUtil.convertTimeToString(deliveryTime);
+		salesOrderVo.setDeliveryTimeSlot(strDeliveryTime);
 		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
 		MerchantVo merchantVo=new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
