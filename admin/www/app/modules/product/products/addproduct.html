@@ -130,7 +130,7 @@
 	<div flex layout="row">
   		<div layout="row" layout-sm="column" layout-align="start start">
 		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
-	     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
+	     		<label class="cursor" style="position:relative; z-index:1; color:#000000;" id="file-uploadtest"> 
 				Upload Image
 				<input id="file-upload1" type="file" ng-model="image.originalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')" />
 				</label>
@@ -147,7 +147,7 @@
 	<div flex layout="row" ng-repeat="imgs in uploadedImages">
   		<div layout="row" layout-sm="column" layout-align="start start">
 		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
-	     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
+	     		<label class="cursor" style="position:relative; z-index:1; color:#000000;" id="file-uploadtest"> 
 				Upload Image
 				<input id="file-upload2" type="file" ng-model="imgs.image" class="nodisplay" app-filereader ng-change="uploadFile('file-name2','file-upload2')" />
 				</label>
@@ -164,7 +164,7 @@
 	  	<div ng-show="image.originalFrontImage || (uploadedImages.length >=  0)" flex layout="row">
   		<div layout="row" layout-sm="column" layout-align="start start" ng-click="addNewImageToList();">
 		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
-	     		<label class="cursor" style="position:relative; z-index:1000; color:#000000;" id="file-uploadtest"> 
+	     		<label class="cursor" style="position:relative; z-index:1	; color:#000000;" id="file-uploadtest"> 
 				Add New Image
 				</label>
 		    </div> 
