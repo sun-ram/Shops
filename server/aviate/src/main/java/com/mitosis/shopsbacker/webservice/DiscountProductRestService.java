@@ -1,5 +1,8 @@
 package com.mitosis.shopsbacker.webservice;
 
+/**
+ * @author JAI BHARATHI.S
+ */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,30 +20,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
+import com.mitosis.shopsbacker.inventory.service.DiscountProductsService;
 import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Discount;
+import com.mitosis.shopsbacker.model.DiscountProduct;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.responsevo.DiscountProductResponseVo;
 import com.mitosis.shopsbacker.responsevo.DiscountResponseVo;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.inventory.DiscountProductsVo;
 import com.mitosis.shopsbacker.vo.inventory.DiscountVo;
-import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
-
-/**
- * @author RiyazKhan
- *
- * @param <T>
- */
-@Path("discount")
-@Controller("discountRestService")
-public class DiscountRestService {
-	
+@Path("productdiscount")
+@Controller("discountProductRestService")
+public class DiscountProductRestService {
 	@Autowired
 	MerchantService<T> merchantService;
 	
@@ -53,45 +52,37 @@ public class DiscountRestService {
 	@Autowired
 	DiscountService<T> discountService;
 	
+	@Autowired
+	DiscountProductsService<T> discountProductService;
+	
 	@Path("/savediscount")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public DiscountResponseVo addDiscount(DiscountVo discountVo) {
-		DiscountResponseVo discountResponse = new DiscountResponseVo();
+	public ResponseModel addDiscountProduct(DiscountProductsVo discountProductVo) {
+		ResponseModel response = new ResponseModel();
 		try{
-			if(discountVo.getStoreList().size() !=0){
-			List<StoreVo> storeVos = discountVo.getStoreList();
-			for(StoreVo storevo: storeVos){	
-				Store store = storeService.getStoreById(storevo.getStoreId());
-				Merchant merchant = store.getMerchant();
-			List<Discount> checkUniqueDiscount = discountService.getUniqeName(store,discountVo.getName());
-			if (checkUniqueDiscount.isEmpty()) {
-			Discount discount = discountService.setDiscount(discountVo);
-			discount.setStore(store);
-			discount.setMerchant(merchant);
-			discountService.addDiscount(discount);
-			DiscountVo discountvo= new DiscountVo();
-			discountvo.setName(discount.getName());
-			discountvo.setDiscountId(discount.getDiscountId());
-			discountResponse.getDiscountVos().add(discountvo);
+			if(discountProductVo.getDiscountList().size() !=0){
+			for(DiscountVo discountVo: discountProductVo.getDiscountList()){	
+				DiscountProduct discountProduct = new DiscountProduct();
+				Merchant merchant = merchantService.getMerchantById(discountProductVo.getMerchant().getMerchantId());
+				Discount discount = discountService.getDiscountById(discountVo.getDiscountId());
+				discountProduct=discountProductService.setDiscountProduct(discountProductVo);
+				discountProduct.setMerchant(merchant);
+				discountProduct.setDiscount(discount);
+				discountProductService.addDiscountProduct(discountProduct);
+		        }
 			}else{
-				discountVo.setDiscountId(checkUniqueDiscount.get(0).getDiscountId());
-				Discount discount = discountService.setDiscount(discountVo);
-				discount.setStore(store);
-				discount.setMerchant(merchant);
-				discountService.updateDiscount(discount);
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
-		}
-	}
-			discountResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
-		} catch (Exception e) {
+			response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		}catch (Exception e) {
 			e.printStackTrace();
-			discountResponse.setErrorString(e.getMessage());
-			discountResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
-		return discountResponse;
+		return response;
 	}
 	
 	@Path("/deletediscount")
@@ -99,12 +90,12 @@ public class DiscountRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel deleteDiscount(DiscountVo discountVo) {
+	public ResponseModel deleteDiscount(DiscountProductsVo discountProduct) {
 		ResponseModel response = new ResponseModel();
 		
 		try {
-			Discount discount = discountService.getDiscountById(discountVo.getDiscountId());
-			discountService.deleteDiscount(discount);
+			DiscountProduct discountProducts = discountProductService.getDiscountProductById(discountProduct.getDiscountProductId());
+			discountProductService.deleteDiscountProduct(discountProducts);
 			response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,27 +133,22 @@ public class DiscountRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public DiscountResponseVo getMerchantDiscountList(MerchantVo merchantVo) {
-		DiscountResponseVo discountResponse = new DiscountResponseVo();
+	public DiscountProductResponseVo getMerchantDiscountList(DiscountProductsVo productDiscount) {
+		DiscountProductResponseVo discountProductResponse = new DiscountProductResponseVo();
 		try {
-			Merchant merchant = merchantService.getMerchantById(merchantVo.getMerchantId());
-			List<Discount> discountList = discountService.getAllDiscountByMerchant(merchant);
-			List<DiscountVo> discountVoList = new ArrayList<DiscountVo>();
-			for(Discount discount:discountList){
-				
-				DiscountVo discountVo = discountService.setDiscountVo(discount);
-				discountVoList.add(discountVo);
+			Discount discount = discountService.getDiscountById(productDiscount.getDiscount().getDiscountId());
+			List<DiscountProduct> productList = discountProductService.getDiscountProductByDiscount(discount);
+			for(DiscountProduct discountObj:productList){
+				DiscountProductsVo discountProductVo = discountProductService.setDiscountVo(discountObj);
+				discountProductResponse.getDiscountProductList().add(discountProductVo);
 			}			
-			discountResponse.setDiscountVos(discountVoList);
-			discountResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+			discountProductResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
-
 			e.printStackTrace();
-			discountResponse.setErrorString(e.getMessage());
-			discountResponse.setStatus(SBMessageStatus.FAILURE.getValue());
-		
+			discountProductResponse.setErrorString(e.getMessage());
+			discountProductResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
-		return discountResponse;
+		return discountProductResponse;
 	}
 	
 	@Path("/getstorediscountList")
@@ -191,6 +177,26 @@ public class DiscountRestService {
 		
 		}
 		return discountResponse;
-	}	
-
+	}
+	
+	@Path("/updatediscount")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public DiscountProductResponseVo updateDiscountProduct(DiscountProductsVo productDiscount) {
+		DiscountProductResponseVo discountProductResponse = new DiscountProductResponseVo();
+		try {
+			Product product = productService.getProduct(productDiscount.getProduct().getProductId());
+			DiscountProduct discountProduct = discountProductService.getDiscountProductById(productDiscount.getDiscountProductId());
+			discountProduct.setProduct(product);
+			discountProductService.updateDiscountProduct(discountProduct);
+		} catch (Exception e) {
+			e.printStackTrace();
+			discountProductResponse.setErrorString(e.getMessage());
+			discountProductResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+		}
+		return discountProductResponse;
+	}
+	
 }

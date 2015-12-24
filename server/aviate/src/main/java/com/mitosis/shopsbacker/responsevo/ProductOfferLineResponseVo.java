@@ -1,5 +1,8 @@
 package com.mitosis.shopsbacker.responsevo;
 
+/**
+ * @author JAI BHARATHI.S
+ */
 import java.util.ArrayList;
 import java.util.List;
 

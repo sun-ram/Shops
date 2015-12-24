@@ -1,5 +1,3 @@
-
- 
      <md-toolbar style="background-color:transparent;">
 		<div class="md-toolbar-tools" >
 			<div layout="row" layout-align="start center">	 
@@ -12,6 +10,12 @@
 		</md-button>
 		<md-button style="right:85px" class="md-fab edit-btn" aria-label="Eat cake" ng-click="close()">
 			<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+		</md-button>
+		<md-button style="right:150px" class="md-fab edit-btn" aria-label="Eat cake" ng-click="offerProductRedirect(discountView);">
+			<ng-md-icon  icon="question_answer" size="20" style="fill: white;"></ng-md-icon>
+			<md-tooltip md-visible="true" md-direction="top">
+       View Products Discounts
+      </md-tooltip>
 		</md-button>
 	</md-toolbar>
 <md-card flex-gt-sm="90" flex-gt-md="80">

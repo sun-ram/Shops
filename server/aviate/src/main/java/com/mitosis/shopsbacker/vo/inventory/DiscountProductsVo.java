@@ -1,9 +1,13 @@
 package com.mitosis.shopsbacker.vo.inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
 
 /**
@@ -18,6 +22,9 @@ public class DiscountProductsVo {
 	private DiscountVo discount;
 	private ProductVo product;
 	private StoreVo store;
+	private MerchantVo merchant;
+	private List<DiscountVo> discountList = new ArrayList<DiscountVo>();
+	
 	public String getDiscountProductId() {
 		return discountProductId;
 	}
@@ -42,6 +49,16 @@ public class DiscountProductsVo {
 	public void setStore(StoreVo store) {
 		this.store = store;
 	}
-	
-	
+	public MerchantVo getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(MerchantVo merchant) {
+		this.merchant = merchant;
+	}
+	public List<DiscountVo> getDiscountList() {
+		return discountList;
+	}
+	public void setDiscountList(List<DiscountVo> discountList) {
+		this.discountList = discountList;
+	}
 }

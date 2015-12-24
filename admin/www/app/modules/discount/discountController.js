@@ -1,7 +1,5 @@
-aviateAdmin.controller("discountController", ['$scope','$localStorage','$state','toastr','CONSTANT','$rootScope','CommonServices','StoreServices','DiscountService',
-                                              function($scope,$localStorage,$state,toastr,CONSTANT, $rootScope, CommonServices, StoreServices,DiscountService) {
-	
-	
+aviateAdmin.controller("discountController", ['$scope','$localStorage','$state','toastr','CONSTANT','$rootScope','CommonServices','StoreServices','DiscountService','$stateParams','ProductService',
+                                              function($scope,$localStorage,$state,toastr,CONSTANT, $rootScope, CommonServices, StoreServices,DiscountService,$stateParams,ProductService) {
 	
 	$scope.srch = true;
 	
@@ -10,7 +8,8 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 	var previousDay = new Date(myDate);
 
 	previousDay.setDate(myDate.getDate()-1);
-	
+	$scope.addNew=false;
+	$scope.lineEdit=true;
 	$scope.minDate = previousDay;
 	
 	  $scope.selection=[];
@@ -64,6 +63,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			$scope.storeList = data;
 		})
 	}
+	
 	 $scope.saveDiscount = function(discount){
 		 
 		 	$scope.discount = discount;
@@ -79,8 +79,8 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			}
 			DiscountService.saveDiscount($scope.discount).then(function(data) {
 				$scope.results = data;
-				$scope.getDiscountList();
-				$state.go('app.discount');
+				$localStorage.discountList = data.discountVos;
+				$state.go('app.productdiscount',{'discountId':data.discountVos[0].discountId});
 			})
 
 	 }
@@ -99,6 +99,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		 $rootScope.discountViews = discount;
 		 $state.go('app.detaildiscount');
 	 }
+	 
 	 $scope.discountView = $rootScope.discountViews;
 	 
 		$scope.close = function () {
@@ -120,6 +121,75 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			$state.go('app.discount');
 		})
 		
-	}	
+	}
+	$scope.saveProductDiscount = function(discount){
+		    $scope.productId = discount.product.productId;
+			$scope.newproductDiscount.merchant = {};
+			$scope.newproductDiscount.discount = {};
+			$scope.newproductDiscount.product = {};
+ 			$scope.newproductDiscount.merchant.merchantId = $rootScope.user.merchantId;
+			$scope.newproductDiscount.discount.discountId = $stateParams.discountId;
+			$scope.newproductDiscount.product.productId = $scope.productId;
+			if($localStorage.discountList==null){
+				$scope.newproductDiscount.discountList = [];
+				$scope.newproductDiscount.discountList.push($scope.newproductDiscount.discount);
+			}else{
+				$scope.newproductDiscount.discountList = $localStorage.discountList;
+			}
+			DiscountService.saveProductDiscount($scope.newproductDiscount).then(function(data) {
+				$scope.results = data;
+				$localStorage.discountList=null;
+				$scope.getDiscountList();
+				$state.go('app.discount');
+			})
+
+	 }
+	 
+	 $scope.offerProductRedirect = function(discount){
+			$state.go('app.productdiscount',{'discountId':discount.discountId});
+	 }
+	 
+	 $scope.getProductDiscount = function(){
+		 	$scope.productDiscount={};
+		 	$scope.productDiscount.discount={};
+		 	$scope.productDiscount.discount.discountId =  $stateParams.discountId;
+		 	
+			DiscountService.getProductDicountList($scope.productDiscount).then(function(data) {
+				$scope.discountProductList = data.discountProductList;
+			})
+
+	 }
+	 
+		$scope.getAllProductList = function() {
+			$scope.product = {};
+			$scope.product.merchant = {
+					"merchantId":$rootScope.user.merchantId
+			}
+			ProductService.getAllProductList($scope.product).then(function(data) {
+				$scope.productList = data.products;
+			})
+		};
+		
+
+		 $scope.deleteProductDiscount = function(discountProduct){
+			 $scope.discountProduct = {};
+			 $scope.discountProduct.discountProductId = discountProduct;
+				DiscountService.deleteProductDiscount($scope.discountProduct).then(function(data) {
+					$scope.getProductDiscount();
+				})
+			 
+		 }
+		 
+		 $scope.updateProductDiscount = function(discountProduct){
+			 $scope.productDiscountLine={};
+			 $scope.productDiscountLine.product={};
+			 $scope.productDiscountLine.product.productId=discountProduct.product.productId;
+			 $scope.productDiscountLine.discountProductId = discountProduct.discountProductId;
+				DiscountService.updateProductDiscount($scope.productDiscountLine).then(function(data) {
+					$scope.getProductDiscount();
+				})
+			 
+		 }
+		 	
 }
 ]);

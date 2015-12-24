@@ -480,6 +480,11 @@ angular.module('app')
 		templateUrl: 'app/modules/discount/discount.html',
 		controller : 'discountController'
 	})
+		.state('app.productdiscount', {
+		url: '/productdiscount/:discountId',
+		templateUrl: 'app/modules/discount/productDiscount.html',
+		controller : 'discountController'
+	})
 	
 	//Product Offer
 	.state('app.productoffer', {

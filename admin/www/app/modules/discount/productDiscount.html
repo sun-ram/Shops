@@ -1,0 +1,143 @@
+<md-button ng-click="addNew=true;newproductDiscount=null;" class="md-fab"
+   aria-label="Eat cake"
+   style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
+   <ng-md-icon icon="add" size="35" style="fill: white;"></ng-md-icon>
+</md-button>
+
+<md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80" ng-init="getProductDiscount();getAllProductList();">
+	
+	<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+         <div class="md-toolbar-tools " layout="row">
+         		<h3 layout="column" style="padding: 0px 10px;">Offer Product</h3>
+         		<div class="tbl-search">
+		  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+		  			<input ng-model="searchTxt" type="text"  placeholder="Search">
+		  		</div>
+         	</div>
+         	<md-button class="md-fab edit-btn sales-orderfab" aria-label="Eat cake" ui-sref="app.discount">
+		<ng-md-icon  icon="arrow_back" size="20" style="fill: white;"></ng-md-icon>
+	</md-button>
+      </md-toolbar>
+      
+   <md-card-content class="nopadd">
+   
+   <md-data-table-container>
+     <md-list>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" class="tbl-header padd-l8">
+      
+      	<div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex layout-align="start center" layout>
+	         	Product Name
+            </span>
+         	<span flex layout-align="start center" layout>
+	        	Product Price
+            </span>
+            <span flex layout-align="center center" layout>
+	         	Action
+            </span>
+           
+        </div>
+        </md-item-content>
+        </md-item>
+        
+      <md-item class="data-table-list" md-data-table ng-repeat="productDiscount in discountProductList | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
+         <md-item-content layout="row" class="padd-l8">
+          <div layout="row" layout-wrap class="full_wid tbl-body" ng-show="productDiscount.discountProductId != showInLineEdit">
+          
+      		<span flex layout-align="start center" layout>
+			<span flex class="shopname">{{productDiscount.product.name}}</span>
+			</span>
+			 <span flex layout-align="start center" layout>
+			<span flex class="shopname">{{productDiscount.product.price}}</span>
+			</span> 
+      		 <span flex layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary padd-t5" ng-click="showInLineEdit=productDiscount.discountProductId;productDiscountLine=productDiscount;" aria-label="Inline Edit">
+             		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
+             	</md-button>
+             	<md-button class="md-icon-button md-primary padd-t5" ng-click="deleteProductDiscount(productDiscount.discountProductId);$event.stopPropagation();" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+             
+      	</div>
+      	</md-item-content>
+      	 <md-item-content layout="row" class="padd-l8">
+      		<form name="offerLineForm" layout="row" novalidate class="full_wid tbl-body">
+      		<div ng-show="productDiscount.discountProductId == showInLineEdit && lineEdit" class="full_wid" layout="row"  layout-align="start center">
+      			
+      		
+      	    <md-input-container flex>
+                    <label>Product<span style="color:red">*</span></label>
+                    <md-select class="remove-padd" ng-model="productDiscountLine.product" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
+ 				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
+		              {{product.name}}
+		            </md-option>
+          		</md-select>
+            </md-input-container>
+            
+            <span flex layout>
+			<span flex class="shopname">{{productDiscountLine.product.price}}</span>
+			</span> 
+			    
+      		<span flex layout-align="center center" layout>
+                <md-button class="md-icon-button md-primary" ng-disabled="offerLineForm.$invalid" ng-click="showInLineEdit=null;updateProductDiscount(productDiscountLine);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+             	<md-button class="md-icon-button md-primary" ng-click="showInLineEdit=null;" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+      		
+      	</div> 
+      	</form>
+      	
+      </md-item-content>
+      </md-item>
+    
+ 	 <md-item class="data-table-list" md-data-table>
+         <md-item-content layout="row" layout-padding>
+ 	`<form name="offerLineForm" layout="row" novalidate class="full_wid tbl-body">
+	 <div ng-show="addNew || (discountProductList.length==0)" ng-click="$event.stopPropagation();" class="full_wid" layout="row" layout-align="start center">
+      		
+      		
+      		<md-input-container flex class="padd-lr20">
+                    <label>Product<span style="color:red">*</span></label>
+                    <md-select class="remove-padd" ng-model="newproductDiscount.product" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
+ 				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
+		              {{product.name}}
+		            </md-option>
+          		</md-select>
+            </md-input-container>
+			
+			<md-input-container flex>
+      		<label>Price</label>
+      		<input type="text" ng-disabled="true" ng-required="true" ng-model="newproductDiscount.product.price" valid-number /> 
+      		</md-input-container>
+      		
+      		<span flex layout-align="center center" layout>
+               <md-button class="md-icon-button md-primary" ng-disabled="offerLineForm.$invalid" ng-click="addNew=false;saveProductDiscount(newproductDiscount);" aria-label="Inline Edit">
+             		<ng-md-icon icon="done" size="20" class="icons hash_color btn-success"></ng-md-icon>
+             	</md-button>
+              
+             	<md-button class="md-icon-button md-primary" ng-click="addNew=false;" aria-label="Delete">
+             		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
+             	</md-button>
+             </span>
+      		
+      	</div>
+      	</form>
+      	</md-item-content>
+      	</md-item>
+     </md-list>
+     </md-data-table-container>
+   </md-card-content> 
+   <div layout="row" layout-align="center center">
+   		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
+		 <md-data-table-pagination md-limit="productsPagination.limit"
+      md-page="productsPagination.page" md-total="{{productOfferLine.length}}"
+      md-trigger="onpagechange"></md-data-table-pagination>
+		</div>
+	</div>        
+</md-card> 
+

@@ -24,6 +24,7 @@ public class DiscountProduct implements java.io.Serializable {
 	private Discount discount;
 	private Product product;
 	private Store store;
+	private Merchant merchant;
 	private char isactive;
 	private Date created;
 	private Date updated;
@@ -31,11 +32,12 @@ public class DiscountProduct implements java.io.Serializable {
 	private String updatedby;
 
 	public DiscountProduct(  String discountProductId, Discount discount, Product product,Store store,char isactive,
-			Date created,Date updated,String createdby, String updatedby){
+			Merchant merchant,Date created,Date updated,String createdby, String updatedby){
 		 this.discountProductId= discountProductId;
 		 this.discount=  discount;
 		 this.product= product;
 		  this.store=store;
+		  this.merchant=merchant;
 		  this.isactive= isactive;
 		  this.created= created;
 		  this.updated=  updated;
@@ -138,5 +140,15 @@ public class DiscountProduct implements java.io.Serializable {
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "MERCHANT_ID")
+	public Merchant getMerchant() {
+		return merchant;
+	}
 
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+	
 }
