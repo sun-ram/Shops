@@ -19,6 +19,8 @@ import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
+import com.mitosis.shopsbacker.model.Discount;
+import com.mitosis.shopsbacker.model.DiscountProduct;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
@@ -29,6 +31,7 @@ import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.inventory.DiscountVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
@@ -265,6 +268,15 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			productImageVos.add(image);
 		}
 		productVo.setImages(productImageVos);
+		
+		if(product.getDiscountProducts() != null && product.getDiscountProducts().size() != 0){
+			
+		//Product has only one discount so we using get(0).
+		Discount discount = product.getDiscountProducts().get(0).getDiscount();
+		DiscountVo discountVo = discountService.setDiscountVo(discount);
+		productVo.setDiscount(discountVo);
+		}
+		
 		return productVo;
 	}
 	

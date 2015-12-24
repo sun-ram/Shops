@@ -50,16 +50,17 @@
      							
                             <div class="views view-first">
                             	<div layout="row">
-                            		<div ng-show="product.discount.discountPercentage" flex layout-align="start start">
-                            			 <div class="pro-offer off-50-above">
+                            		<div flex layout-align="start start">
+                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
                             			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
-                            		</div>
-                            		<div ng-hide="product.discount.discountPercentage" flex layout-align="start start">
-                            			 <div class="pro-offer off-50-above">
-                            			 	Hot
-                            			 </div>
-                            		</div>                            		
+                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
+                            			 	{{product.discount.discountAmount}}&#8377; Off
+                            			 </div>    
+                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
+                            			 	Sale
+                            			 </div>                        			 
+                            		</div>                          		
                             		<div flex>
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
@@ -245,15 +246,16 @@
      							
                             <div class="views view-first">
                             	<div layout="row">
-                            		<div ng-show="product.discount.discountPercentage" flex layout-align="start start">
-                            			 <div class="pro-offer off-50-above">
+                            		<div flex layout-align="start start">
+                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
                             			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
-                            		</div>
-                            		<div ng-hide="product.discount.discountPercentage" flex layout-align="start start">
-                            			 <div class="pro-offer off-50-above">
+                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
+                            			 	{{product.discount.discountAmount}}&#8377; Off
+                            			 </div>    
+                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
                             			 	Hot
-                            			 </div>
+                            			 </div>                        			 
                             		</div>                            		
                             		<div flex>
                             			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
@@ -362,16 +364,17 @@
      						
                             <div class="views view-first">
                             	<div layout="row" style="overflow:hidden;">
-                            		<div ng-show="product.discount.discountPercentage"  flex layout-align="start start">
-                            			 <div class="pro-offer off-70-above">
+                            		<div flex layout-align="start start">
+                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
                             			 	{{product.discount.discountPercentage}}% Off
                             			 </div>
-                            		</div>
-                            		<div ng-hide="product.discount.discountPercentage"  flex layout-align="start start">
-                            			 <div class="pro-offer off-70-above">
+                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
+                            			 	{{product.discount.discountAmount}}&#8377; Off
+                            			 </div>    
+                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
                             			 	Sale
-                            			 </div>
-                            		</div>                            		
+                            			 </div>                        			 
+                            		</div>                             		
                             		<div flex>
                             			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
 									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
