@@ -1,7 +1,11 @@
 
-<md-dialog aria-label="Category"  ng-cloak>
-  <form ng-submit="addFiles()">
-  <md-toolbar>
+<md-dialog aria-label="Category"  ng-cloak style="width: 100%;">
+	<md-button layout-align="end" style="float: right; position: absolute; color: #333 ! important; right: 0;" class="md-icon-button"  type="button" ng-click="cancel()">
+        <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
+      </md-button>
+      <h2 class="text-center" style="color: #4eaf4c;">Uploaded File Details</h2>
+ 	 <form ng-submit="addFiles()">
+  <!-- <md-toolbar>
     <div class="md-toolbar-tools">
       <h2 class="ft-white">Uploaded File Details</h2>
       <span flex></span>
@@ -9,8 +13,8 @@
         <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
       </md-button>
     </div>
-  </md-toolbar>
-  <md-dialog-content style="max-width:800px;max-height:810px; ">
+  </md-toolbar> -->
+  <md-dialog-content style="padding: 5px;">
   
      <!-- --------------------New  Data--------------------- -->
    <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80">
@@ -23,32 +27,35 @@
          <md-item-content layout="row" layout-padding class="tbl-header ">
       
       	<div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex="10" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Name
             </span>
-         	<span flex="15" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Product Category
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Type
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Measurement
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Unit
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Edible Type
             </span>            
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Was Price
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Selling Price
             </span>
-            <span flex="15" layout-align="center center" layout>
+            <span flex layout-align="start center" layout>
 	         	Brand
+            </span>
+            <span flex layout-align="center center" layout>
+	         	Action
             </span>
         </div>
         </md-item-content>
@@ -59,33 +66,36 @@
           <div layout="row" layout-wrap class="full_wid tbl-body">
           
       		
-			<span flex="15" layout-align="start center" layout>
+			<span flex layout-align="start center" layout>
 			<span flex class="shopname">{{product.name}}</span>
 			</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productCategory}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productType}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productMeasurement}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productUnit}}</span>
       		</span>      		
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.edibleType}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.wasPrice}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.sellingPrice}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.brand}}</span>
       		</span>
+      		<span flex layout-align="start center" layout>
+      		
+      		</span>	
              
       	</div>
       </md-item-content>
@@ -116,32 +126,35 @@
          <md-item-content layout="row" layout-padding class="tbl-header ">
       
       	<div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex="10" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Name
             </span>
-         	<span flex="15" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Product Category
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Type
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Measurement
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Unit
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Edible Type
             </span>            
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Was Price
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Selling Price
             </span>
-            <span flex="15" layout-align="center center" layout>
+            <span flex layout-align="start center" layout>
 	         	Brand
+            </span>
+            <span flex layout-align="center center" layout>
+	         	Action
             </span>
         </div>
         </md-item-content>
@@ -152,32 +165,34 @@
           <div layout="row" layout-wrap class="full_wid tbl-body">
           
       		
-			<span flex="15" layout-align="start center" layout>
+			<span flex layout-align="start center" layout>
 			<span flex class="shopname">{{product.name}}</span>
 			</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productCategory}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productType}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productMeasurement}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productUnit}}</span>
       		</span>      		
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.edibleType}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.wasPrice}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.sellingPrice}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.brand}}</span>
+      		</span>
+      		<span flex layout-align="center center" layout>
       		</span>
              
       	</div>
@@ -209,34 +224,34 @@
          <md-item-content layout="row" layout-padding class="tbl-header ">
       
       	<div layout="row" layout-wrap class="full_wid tbl-header ">
-         	<span flex="10" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Name
             </span>
-         	<span flex="15" layout-align="start center" layout>
+         	<span flex layout-align="start center" layout>
 	         	Product Category
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Type
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Measurement
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Product Unit
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Edible Type
             </span>            
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Was Price
             </span>
-            <span flex="10" layout-align="start center" layout>
+            <span flex layout-align="start center" layout>
 	         	Selling Price
             </span>
-            <span flex="15" layout-align="center center" layout>
+            <span flex layout-align="start center" layout>
 	         	Brand
             </span>
-            <span flex="15" layout-align="center center" layout>
+            <span flex layout-align="center center" layout>
 	         	Reason
             </span>
         </div>
@@ -248,34 +263,34 @@
           <div layout="row" layout-wrap class="full_wid tbl-body">
           
       		
-			<span flex="15" layout-align="start center" layout>
+			<span flex layout-align="start center" layout>
 			<span flex class="shopname">{{product.name}}</span>
 			</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productCategory}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productType}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productMeasurement}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productUnit}}</span>
       		</span>      		
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.edibleType}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.wasPrice}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.sellingPrice}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.brand}}</span>
       		</span>
-      		<span flex="10" layout-align="start center" layout>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.reason}}</span>
       		</span>
              
@@ -294,15 +309,17 @@
 		</div>
 	</div>      
 </md-card> 
+<md-card>
+	<div layout="row" layout-align="end end">
+     <md-button class="md-raised md-success" type="submit">Add</md-button>
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
+  </div>
+</md-card>
 
 <!-- -------------------------------------- -->
 			   
   </md-dialog-content>
-  <div class="md-actions" flex>
-  <span flex> </span>  
-    <md-button class="md-raised md-success" type="submit">Add</md-button>
-	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
-  <span flex></span>
-  </div>
+   
+ 
   </form>
 </md-dialog>
