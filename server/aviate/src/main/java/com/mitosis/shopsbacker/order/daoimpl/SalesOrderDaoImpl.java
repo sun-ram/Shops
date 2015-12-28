@@ -195,4 +195,21 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			throw (e);
 		}
 	}
+	
+	
+	
+	public List<SalesOrder> getSalesOrdersByBackerId(String backerId) {
+		try {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(SalesOrder.class);
+			criteria.add(Restrictions.eq("backer.userId", backerId));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.addOrder(Order.asc("deliveryDate"));
+			criteria.addOrder(Order.asc("deliveryTimeSlot"));
+			return (List<SalesOrder>) findAll(criteria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw (e);
+		}
+	}
 }

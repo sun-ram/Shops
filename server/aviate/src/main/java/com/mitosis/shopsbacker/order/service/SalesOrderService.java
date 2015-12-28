@@ -47,4 +47,6 @@ public interface SalesOrderService<T> {
 	
 	public void productStockReduce(SalesOrder salesOrder) throws Exception;
 
+	public List<SalesOrder> getSalesOrdersByBackerId(String shoperId);
+
 }
