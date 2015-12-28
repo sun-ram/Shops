@@ -15,6 +15,9 @@ angular.module('aviate.factories')
 						product : {productId : _product.productId}, 
 						qty : _product.noOfQuantityInCart
 				}
+				if(_product.discount != null){
+					cartDetails.discountId = _product.discount.discountId;
+				}
 				//factory.myCartTotalPriceCalculation();
 				MyCartServices.addToCart(cartDetails).then(function(data){
 					console.log('Add To My Cart in factory');
@@ -33,9 +36,20 @@ angular.module('aviate.factories')
 					}
 				}
 				if(!_isExistInCart){
+					if(_product.discount){
+						if(_product.discount.discountPercentage){
+							var discountPrice = _product.price - (_product.price * _product.discount.discountPercentage/100);
+						}
+						if(_product.discount.discountAmount){
+							var discountPrice = _product.price - _product.discount.discountAmount;
+						}
+					}else{
+						var discountPrice = _product.price;
+					}	
 					$rootScope.myCart.cartItem.push({
 						product:_product,
-						qty:_product.noOfQuantityInCart
+						qty:_product.noOfQuantityInCart,
+						discountPrice : discountPrice
 					});
 				}
 				factory.myCartTotalPriceCalculation();
@@ -83,7 +97,7 @@ angular.module('aviate.factories')
 		if($rootScope.myCart && $rootScope.myCart.cartItem){
 		for(var i=0; i<$rootScope.myCart.cartItem.length; i++){
 			var _subTotal = 0;
-			_subTotal = $rootScope.myCart.cartItem[i].qty * $rootScope.myCart.cartItem[i].product.price;
+			_subTotal = $rootScope.myCart.cartItem[i].qty * $rootScope.myCart.cartItem[i].discountPrice;
 			$rootScope.myCart.cartItem[i].product.subTotal = _subTotal;
 			_totalAmount += _subTotal;
 		}

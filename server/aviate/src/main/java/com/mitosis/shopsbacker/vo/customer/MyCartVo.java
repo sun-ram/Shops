@@ -21,6 +21,10 @@ public class MyCartVo {
 
 	public int qty;
 	
+	public double discountPrice;
+	
+	public String discountId;
+	
 	
 
 	public String getProductId() {
@@ -85,6 +89,22 @@ public class MyCartVo {
 
 	public void setQty(int qty) {
 		this.qty = qty;
+	}
+
+	public String getDiscountId() {
+		return discountId;
+	}
+
+	public void setDiscountId(String discountId) {
+		this.discountId = discountId;
+	}
+
+	public double getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(double discountPrice) {
+		this.discountPrice = discountPrice;
 	}
 
 }

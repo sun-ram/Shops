@@ -119,7 +119,20 @@
                             	
                             	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
-                            	<div layout="row">
+                            	<div layout="row" ng-if="product.discount">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
+                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.price}} </strike></div> 
+                            		</div>
+                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
+                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
+                            	</div>
+                             	<div layout="row" ng-if="!product.discount">
                             		<div flex>
                             			<div  layout-padding >
                             				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
@@ -128,7 +141,7 @@
                             		<div flex ng-if="product.wasPrice > product.price">
                             			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
-                            	</div>
+                            	</div>                           	
                 			</div>  
 
   </div>	
@@ -192,16 +205,29 @@
                             	
                             	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
-                            	<div layout="row">
+                            	<div layout="row" ng-if="product.discount">
                             		<div flex>
                             			<div  layout-padding >
-                            				<div class=" pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
+                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
                             			</div>
                             		</div>
-                            		<div flex ng-if="product.wasPrice>product.price">
-                            			<div  layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.price}} </strike></div> 
                             		</div>
+                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
+                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
                             	</div>
+                             	<div layout="row" ng-if="!product.discount">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		</div>
+                            	</div> 
                 			</div>                           
                             
 						</div>
@@ -312,7 +338,20 @@
                             	
                             	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
-                            	<div layout="row">
+                            	<div layout="row" ng-if="product.discount">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
+                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.price}} </strike></div> 
+                            		</div>
+                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
+                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
+                            	</div>
+                             	<div layout="row" ng-if="!product.discount">
                             		<div flex>
                             			<div  layout-padding >
                             				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
@@ -321,7 +360,7 @@
                             		<div flex ng-if="product.wasPrice > product.price">
                             			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
                             		</div>
-                            	</div>
+                            	</div> 
                 			</div>  
 
   </div>	
@@ -428,16 +467,29 @@
                             	
                             	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
                             	
-                            	<div layout="row">
+                            	<div layout="row" ng-if="product.discount">
                             		<div flex>
                             			<div  layout-padding >
-                            				<div class=" pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
+                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
                             			</div>
                             		</div>
-                            		<div flex ng-if="product.wasPrice>product.price">
-                            			<div  layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.price}} </strike></div> 
                             		</div>
+                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
+                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
                             	</div>
+                             	<div layout="row" ng-if="!product.discount">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
+                            		</div>
+                            	</div> 
                 			</div>                           
                             
 						</div>

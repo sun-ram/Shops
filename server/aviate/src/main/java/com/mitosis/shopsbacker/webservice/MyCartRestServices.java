@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.customer.service.CustomerService;
 import com.mitosis.shopsbacker.customer.service.MyCartService;
+import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Customer;
+import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.MyCart;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.Store;
@@ -31,6 +34,7 @@ import com.mitosis.shopsbacker.vo.customer.AddToCartRequestVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartProductVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
+import com.sun.imageio.plugins.common.BogusColorSpace;
 
 @Path("mycart")
 @Controller("myCartRestServices")
@@ -47,6 +51,9 @@ public class MyCartRestServices<T> {
 
 	@Autowired
 	MyCartService<T> myCartService;
+	
+	@Autowired
+	DiscountService<T> discountService;
 
 	@Path("/addtocart")
 	@POST
@@ -59,6 +66,7 @@ public class MyCartRestServices<T> {
 			String customerId = null;
 			String storeId = null;
 			String productId = null;
+			String discountId = null;
 			
 			if(myCartVo.getProductId() != null){
 				productId = myCartVo.getProductId();
@@ -77,6 +85,8 @@ public class MyCartRestServices<T> {
 			}else {
 				customerId = myCartVo.getCustomer().getCustomerId();
 			}
+
+			
 			Product product = productService.getProduct(productId);
 			Store store = storeService.getStoreById(storeId);
 			Customer customer = customerService.getCustomerInfoById(customerId);
@@ -89,6 +99,11 @@ public class MyCartRestServices<T> {
 				myCart.setMerchant(product.getMerchant());
 				myCart.setQty(myCartVo.getQty());
 				myCart.setIsactive('Y');
+				if(myCartVo.getDiscountId() != null){
+					discountId = myCartVo.getDiscountId();
+					Discount discount = discountService.getDiscountById(discountId);
+					myCart.setDiscount(discount);
+				}
 				myCartService.addToCart(myCart);
 			} else {
 				myCart.setQty(myCartVo.getQty());
@@ -230,6 +245,18 @@ public class MyCartRestServices<T> {
 					mycartvo.setProduct(productVo);
 					mycartvo.setQty(mycart.getQty());
 					mycartvo.setMyCartId(mycart.getMyCartId());
+					if(productVo.getDiscount() != null){
+						if(productVo.getDiscount().getDiscountPercentage() != null){
+							Double price = productVo.getPrice().doubleValue() - (productVo.getPrice().doubleValue() * productVo.getDiscount().getDiscountPercentage())/100;
+							mycartvo.setDiscountPrice(price);
+						}
+						if(productVo.getDiscount().getDiscountAmount() != null){
+							Double price = productVo.getPrice().doubleValue() - productVo.getDiscount().getDiscountAmount().doubleValue();
+							mycartvo.setDiscountPrice(price);
+						}
+					}else{
+						mycartvo.setDiscountPrice(productVo.getPrice().doubleValue());
+					}
 					myCartVoList.add(mycartvo);
 				}
 			}
