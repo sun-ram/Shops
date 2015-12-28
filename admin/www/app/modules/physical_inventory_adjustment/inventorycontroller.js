@@ -29,6 +29,11 @@ angular.module('aviateAdmin.controllers').controller("physicaInventoryCtrl",
 			
 			$scope.updateInventory = function(inventoryId){
 				physicalInventoryService.physicalInventoryIsUpdate(inventoryId).then(function(data){
+					angular.forEach($scope.physicalInventories,function(inventory){
+						if(inventory.movementId == inventoryId){
+							inventory.isupdated = 'Y';
+						}
+					});
 					$state.go('app.physicalInventoryAdjustment');
 				});
 			};
