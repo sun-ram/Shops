@@ -382,7 +382,7 @@ CREATE TABLE `gallery` (
 ALTER TABLE `shopsbacker`.`sales_order` 
 CHANGE COLUMN `DELIVERY_TIME_SLOT` `DELIVERY_TIME_SLOT` VARCHAR(60) NULL ;
 
-UPDATE sales_order set delivery_time_slot = ''where sales_order_id !='12414';
+UPDATE `shopsbacker`.`sales_order` set `DELIVERY_TIME_SLOT` = null where `sales_order_id` !='12435252253';
 
 ALTER TABLE `shopsbacker`.`sales_order` 
 CHANGE COLUMN `DELIVERY_TIME_SLOT` `DELIVERY_TIME_SLOT` TIMESTAMP NOT NULL ;

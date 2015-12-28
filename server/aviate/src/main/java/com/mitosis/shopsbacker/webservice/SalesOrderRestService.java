@@ -311,7 +311,9 @@ public class SalesOrderRestService<T> {
 			String strDeliveryTime = salesOrderVo.getDeliveryTimeSlot();
 			
 			Date deliveryTime = CommonUtil.convertStringToTime(strDeliveryTime);
-			
+			/*long time = deliveryTime.getTime();
+			Date deliveryTimes = new Date();
+			deliveryTimes.setTime(time);*/
 			salesOrder.setDeliveryTimeSlot(deliveryTime);
 			salesOrder.setIspaid('N');
 			salesOrder.setStore(store);

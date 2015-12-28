@@ -262,16 +262,26 @@ public final class CommonUtil {
 	
 	
 	public static Date convertStringToTime(String strDeliveryTime) {
+		Date deliveryTime = null;	
 		SimpleDateFormat formatter = new  SimpleDateFormat(delivery_time_format);
-		Date deliveryTime =null;	
+		Date date = new Date();
+	
 		try {
-
-		deliveryTime = formatter.parse(strDeliveryTime);
-
+		Calendar cal = Calendar.getInstance();
+        deliveryTime = formatter.parse(strDeliveryTime);
+        cal.setTime(deliveryTime);
+        Calendar calNew = Calendar.getInstance();
+    
+        calNew.setTime(date);
+        calNew.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+        calNew.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+        calNew.set(Calendar.SECOND, cal.get(Calendar.SECOND));
+        date.setTime(calNew.getTimeInMillis());
+		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return deliveryTime;
+		return date;
 	}
 	
 	public static String convertTimeToString(Date time) {
