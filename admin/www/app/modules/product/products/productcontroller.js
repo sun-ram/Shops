@@ -41,15 +41,15 @@ angular.module('aviateAdmin.controllers')
 		}
 	}*/
 
-	$scope.getAllProductList = function() {
+	$rootScope.getAllProductList = function() {
 		$scope.product = {};
 		$scope.product.merchant = {
 				"merchantId":$rootScope.user.merchantId
 		}
 		ProductService.getAllProductList($scope.product).then(function(data) {
-			$scope.productList = data.products;
-			$scope.originalList = $scope.productList;
-			$scope.noOfRecords = $scope.productList.length;
+			$rootScope.productList = data.products;
+			$rootScope.originalList = $scope.productList;
+			$rootScope.noOfRecords = $scope.productList.length;
 		})
 	};
 
@@ -225,7 +225,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.product= {};
 			$scope.product.productId = productId;
 			ProductService.deleteProduct($scope.product).then(function(data) {
-				$scope.getAllProductList();
+				$rootScope.getAllProductList();
 				toastr.success("Product details have been deleted successfully!!!");
 			})
 		}, function() {
@@ -341,23 +341,15 @@ angular.module('aviateAdmin.controllers')
 							$scope.addFilesList={};
 							$scope.addFilesList.newData=$scope.newData;
 							$scope.addFilesList.existingData=$scope.existingData;
+							$scope.addFilesList.rejectedData=$scope.rejectedData;
 							$scope.addFilesList.merchant={
 									"merchantId":$rootScope.user.merchantId
 							}
 							ProductService.addProductListFiles($scope.addFilesList).then(function(data) {
 								$mdDialog.cancel();
-								$scope.getAllProductList();
+								$rootScope.getAllProductList();
 		 					})
 						}
-						$scope.getAllProductList = function() {
-							$scope.product = {};
-							$scope.product.merchant = {
-									"merchantId":$rootScope.user.merchantId
-							}
-							ProductService.getAllProductList($scope.product).then(function(data) {
-								$scope.productList = data.products;
-							})
-						};
 						$scope.productFileNew={
 								limit: 5,
 								page: 1

@@ -89,15 +89,16 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 
 	@Override
 	public void deleteProduct(Product product) throws Exception {
+		if(product.getImage()!=null){
 		Image image = imageService.getImageById(product.getImage().getImageId());
-		productDao.deleteProduct(product);
-		
 		String defaultImagePath = "";
 		Properties properties = new Properties();
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		defaultImagePath = properties.getProperty("imagePath");
 		CommonUtil.removeImage(defaultImagePath.concat(image.getUrl()));
+		}
+		productDao.deleteProduct(product);
 
 	}
 

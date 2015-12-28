@@ -631,87 +631,113 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ProductUploadVO addFilesData(ProductUploadVO productUploadVO)
+	public ProductUploadVO validatingFilesData(ProductUploadVO productUploadVO)
 			throws Exception {
 		ProductUploadVO response = new ProductUploadVO();
 		List<ProductUploadDataVo> newData = productUploadVO.getNewData();
+		List<ProductUploadDataVo> existingData = productUploadVO
+				.getExistingData();
+		List<ProductUploadDataVo> rejectedData = productUploadVO.getRejectedData();
 		Merchant merchant = merchantService.getMerchantById(productUploadVO
 				.getMerchant().getMerchantId());
 		List<ProductType> productTypeList = ProductTypeService
 				.getAllProductTypeByMerchant(merchant);
 		for (ProductUploadDataVo productUploadData : newData) {
-			Product product = new Product();
-			ProductCategory productCategoryAddObject = new ProductCategory();
-			ProductType productTypeAddObject = new ProductType();
-			List<Product> checkUniqueProducts = getProductService()
-					.getProductListByName(productUploadData.getName(), merchant);
-			if (checkUniqueProducts.isEmpty()) {
-				for (ProductType productType : productTypeList) {
-					if (productType.getName().equalsIgnoreCase(
-							productUploadData.getProductType())) {
-						ProductCategory productCategoryObject = productType
-								.getProductCategory();
-						if (productCategoryObject.getName().equalsIgnoreCase(
-								productUploadData.getProductCategory())) {
-							productTypeAddObject = productType;
-							productCategoryAddObject = productCategoryObject;
-						}
-
-					}
-				}
-				if (productCategoryAddObject.getProductCategoryId() != null
-						&& productTypeAddObject.getProductTypeId() != null) {
-					product = (Product) CommonUtil
-							.setAuditColumnInfo(Product.class.getName());
-					product.setName(productUploadData.getName());
-					product.setProductCategory(productCategoryAddObject);
-					product.setProductType(productTypeAddObject);
-					product.setMerchant(merchant);
-					product.setEdibleType(productUploadData.getEdibleType());
-					product.setBrand(productUploadData.getBrand());
-					product.setPrice(productUploadData.getSellingPrice());
-					product.setUnit(productUploadData.getProductUnit());
-					product.setIsYourHot('N');
-					product.setIsactive('Y');
-					product.setWasPrice(productUploadData.getWasPrice());
-					product.setIsBundle('N');
-					product.setIsKit('N');
-					product.setIsChild('N');
-					Uom uom = uomService.getUomByName(productUploadData
-							.getProductMeasurement().trim());
-					if (uom != null) {
-						product.setUom(uom);
-					} else {
-						uom = new Uom();
-						uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
-								.getName());
-						uom.setName(productUploadData.getProductMeasurement()
-								.trim());
-						uom.setDescription(productUploadData
-								.getProductMeasurement().trim());
-						uomService.addUOM(uom);
-						product.setUom(uom);
-					}
-				}
-				productService.addProduct(product);
-				
+			Product product = productService.getProductByName(
+					productUploadData.getName(), merchant);
+			if(product==null){
+				addFilesData(productUploadData, merchant,productTypeList);
+			}
+			else{
+				updateFilesData(productUploadData, merchant,productTypeList,product);
 			}
 		}
-		updateFilesData(productUploadVO, merchant, productTypeList);
-		response.setStatus(SBMessageStatus.SUCCESS.getValue());
-		return response;
-	}
-
-	public void updateFilesData(ProductUploadVO productUploadVO,
-			Merchant merchant, List<ProductType> productTypeList) throws Exception {
-		List<ProductUploadDataVo> existingData = productUploadVO
-				.getExistingData();
 		for (ProductUploadDataVo productUploadData : existingData) {
 			Product product = productService.getProductByName(
 					productUploadData.getName(), merchant);
+			if(product==null){
+				addFilesData(productUploadData, merchant,productTypeList);
+			}
+			else{
+				updateFilesData(productUploadData, merchant,productTypeList,product);
+			}
+		}
+		for (ProductUploadDataVo productUploadData : rejectedData) {
+			Product product = productService.getProductByName(
+					productUploadData.getName(), merchant);
+			if(product==null){
+				addFilesData(productUploadData, merchant,productTypeList);
+			}
+			else{
+				updateFilesData(productUploadData, merchant,productTypeList,product);
+			}
+		}
+		response.setStatus(SBMessageStatus.SUCCESS.getValue());
+		return response;
+	}
+	
+	public void addFilesData(ProductUploadDataVo productUploadData,Merchant merchant, List<ProductType> productTypeList) throws Exception{
+		Product product = new Product();
+		ProductCategory productCategoryAddObject = new ProductCategory();
+		ProductType productTypeAddObject = new ProductType();
+		List<Product> checkUniqueProducts = getProductService()
+				.getProductListByName(productUploadData.getName(), merchant);
+		if (checkUniqueProducts.isEmpty()) {
+			for (ProductType productType : productTypeList) {
+				if (productType.getName().equalsIgnoreCase(
+						productUploadData.getProductType())) {
+					ProductCategory productCategoryObject = productType
+							.getProductCategory();
+					if (productCategoryObject.getName().equalsIgnoreCase(
+							productUploadData.getProductCategory())) {
+						productTypeAddObject = productType;
+						productCategoryAddObject = productCategoryObject;
+					}
+
+				}
+			}
+			if (productCategoryAddObject.getProductCategoryId() != null
+					&& productTypeAddObject.getProductTypeId() != null) {
+				product = (Product) CommonUtil
+						.setAuditColumnInfo(Product.class.getName());
+				product.setName(productUploadData.getName());
+				product.setProductCategory(productCategoryAddObject);
+				product.setProductType(productTypeAddObject);
+				product.setMerchant(merchant);
+				product.setEdibleType(productUploadData.getEdibleType());
+				product.setBrand(productUploadData.getBrand());
+				product.setPrice(productUploadData.getSellingPrice());
+				product.setUnit(productUploadData.getProductUnit());
+				product.setIsYourHot('N');
+				product.setIsactive('Y');
+				product.setWasPrice(productUploadData.getWasPrice());
+				product.setIsBundle('N');
+				product.setIsKit('N');
+				product.setIsChild('N');
+				Uom uom = uomService.getUomByName(productUploadData
+						.getProductMeasurement().trim());
+				if (uom != null) {
+					product.setUom(uom);
+				} else {
+					uom = new Uom();
+					uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
+							.getName());
+					uom.setName(productUploadData.getProductMeasurement()
+							.trim());
+					uom.setDescription(productUploadData
+							.getProductMeasurement().trim());
+					uomService.addUOM(uom);
+					product.setUom(uom);
+				}
+				productService.addProduct(product);
+			}
+		}
+	}
+
+	public void updateFilesData(ProductUploadDataVo productUploadData,
+			Merchant merchant, List<ProductType> productTypeList,Product product) throws Exception {
 			ProductCategory productCategoryAddObject = new ProductCategory();
 			ProductType productTypeAddObject = new ProductType();
-			if (product != null) {
 				for (ProductType productType : productTypeList) {
 					if (productType.getName().equalsIgnoreCase(
 							productUploadData.getProductType())) {
@@ -750,12 +776,8 @@ public class ProductRestService {
 						uomService.addUOM(uom);
 						product.setUom(uom);
 					}
+					productService.updateProduct(product);
 				}
-				productService.updateProduct(product);
-			}
-		
-		}
-
 	}
 
 	public ProductUploadVO convertXlsToModel(String path, int sheetNo,
@@ -843,7 +865,7 @@ public class ProductRestService {
 												+ " name is not available");
 									}
 								}
-								if(flag){
+								if(flag && !rejectedDataFlag){
 									newDataFlag=true;
 								}
 								productUploadDataVoSet.setProductCategory(cell
@@ -873,7 +895,7 @@ public class ProductRestService {
 												+ " name is not available");
 									}
 								}
-								if(flag){
+								if(flag && !rejectedDataFlag){
 									newDataFlag=true;
 								}
 								productUploadDataVoSet.setProductType(cell
