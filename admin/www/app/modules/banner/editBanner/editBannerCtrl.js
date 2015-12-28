@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("editBannerCtrl", 
-		['$scope', '$state','toastr','CommonServices','BannerServices','$localStorage',
-		 function($scope, $state, toastr, CommonServices, BannerServices, $localStorage) {
+		['$scope','$rootScope','$state','toastr','CommonServices','BannerServices','$localStorage',
+		 function($scope,$rootScope,$state, toastr, CommonServices, BannerServices, $localStorage) {
 
 			$scope.bannerDetail = BannerServices.getBannerObj();
 
@@ -59,6 +59,7 @@ angular.module('aviateAdmin.controllers')
 				}
 				bannerDetail.image.image=$scope.bannerImage.split(",")[1];
 				bannerDetail.image.type=$scope.bannerImage ? ($scope.bannerImage.substring(11).split(";")[0]) : "";
+				$scope.bannerDetail.userId = $rootScope.user.userName;
 				BannerServices.updateBanner(bannerDetail).then(function(data){
 					$scope.bannerDetail = null;
 					$state.go('app.banner');

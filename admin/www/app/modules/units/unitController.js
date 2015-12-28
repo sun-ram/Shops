@@ -22,6 +22,8 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 	};
 
 	$scope.updateUnit = function(uom) {
+		$scope.uom.userId = $rootScope.user.userName;
+
 		UnitService.UpdateUnit(uom).then(function(data) {
 			toastr.success(CONSTANT.UPDATEUNIT);
 			$state.go('app.units');
@@ -30,6 +32,7 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 
 	$scope.saveUnit = function(uom) {
 		//unit.merchantId = $rootScope.user.merchantId
+		$scope.uom.userId = $rootScope.user.userName;
 		UnitService.saveUnit(uom).then(function(data) {
 			toastr.success(CONSTANT.ADDUNIT);
 			$state.go('app.units');
