@@ -34,6 +34,7 @@ public class MyCart implements java.io.Serializable {
 	private String createdby;
 	private ProductOffer productOffer;
 	private Customer customer;
+	private Discount discount;
 	private String updatedby;
 	private Store store;
 	private ProductOfferLine productOfferLine;
@@ -57,7 +58,7 @@ public class MyCart implements java.io.Serializable {
 	}
 
 	public MyCart(String myCartId, Merchant merchant, Product product,
-			String createdby, ProductOffer productOffer,
+			String createdby, ProductOffer productOffer,Discount discount,
 			Customer customer, String updatedby,
 			Store store, ProductOfferLine productOfferLine, int qty,
 			char isactive, Date created, Date updated) {
@@ -66,6 +67,7 @@ public class MyCart implements java.io.Serializable {
 		this.product = product;
 		this.createdby = createdby;
 		this.productOffer = productOffer;
+		this.discount = discount;
 		this.customer = customer;
 		this.updatedby = updatedby;
 		this.store = store;
@@ -124,6 +126,16 @@ public class MyCart implements java.io.Serializable {
 
 	public void setProductOffer(ProductOffer productOffer) {
 		this.productOffer = productOffer;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DISCOUNT_ID")
+	public Discount getDiscount() {
+		return this.discount;
+	}
+
+	public void setDiscount(Discount discount) {
+		this.discount = discount;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

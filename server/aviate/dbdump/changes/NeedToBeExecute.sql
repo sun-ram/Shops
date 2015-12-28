@@ -404,3 +404,16 @@ ADD CONSTRAINT `fk_DISC_PROD_STORE`
   REFERENCES `shopsbacker`.`store` (`STORE_ID`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+  -----28-12-2015-------RiyazKhan-------------- DiscountID in MyCart--------  
+ALTER TABLE `shopsbacker`.`my_cart` 
+ADD COLUMN `DISCOUNT_ID` VARCHAR(32) NULL DEFAULT NULL AFTER `UPDATED`;
+
+ALTER TABLE `shopsbacker`.`my_cart` 
+ADD INDEX `FK_MY_CART_DISCOUNT_idx` (`DISCOUNT_ID` ASC);
+ALTER TABLE `shopsbacker`.`my_cart` 
+ADD CONSTRAINT `FK_MY_CART_DISCOUNT`
+  FOREIGN KEY (`DISCOUNT_ID`)
+  REFERENCES `shopsbacker`.`discount` (`DISCOUNT_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

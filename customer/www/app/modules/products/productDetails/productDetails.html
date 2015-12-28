@@ -50,10 +50,17 @@
 									
 				</div>
 				
-				<div id="product-price" class="detail-price">
+				<div ng-if="!productDetails.discount" id="product-price" class="detail-price">
 				<del  class="price-compare" ng-if="productDetails.wasPrice>productDetails.price" >MRP &#8377; {{productDetails.wasPrice}} </del>
 				<span> Rs. {{productDetails.price}}</span>  
                 </div>
+                
+				<div ng-if="productDetails.discount" id="product-price" class="detail-price">
+				<del  class="price-compare" ng-if="productDetails.wasPrice>productDetails.price" >MRP &#8377; {{productDetails.price}} </del>
+				<span ng-if="productDetails.discount.discountPercentage">  Rs. {{productDetails.price - (productDetails.price * productDetails.discount.discountPercentage/100)}} </span>  
+				<span ng-if="productDetails.discount.discountAmount"> Rs. {{productDetails.price - productDetails.discount.discountAmount}} </span>  
+                </div>                
+			<div>
                 
             
 			<div>
