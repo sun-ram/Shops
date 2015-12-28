@@ -53,7 +53,7 @@ angular.module('aviate.controllers')
 		
 		$scope.getFavourite = function(){
 			FavouriteServices.getFavourite($scope.favourite).then(function(data){
-				$scope.favouriteList = data;
+				$rootScope.favouriteList = data;
 			});	
 	   	};
 	   	

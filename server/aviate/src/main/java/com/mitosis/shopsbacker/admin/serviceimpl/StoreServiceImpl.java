@@ -131,8 +131,8 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 		if (storeVo.getStoreId() == null) {
 			store = (Store) CommonUtil
 					.setAuditColumnInfo(Store.class.getName(), null);
+			store.setIsActivated('N');
 			store.setIsactive('Y');
-			store.setIsactive('N');
 		} else {
 			store = storeDao.getStoreById(storeVo.getStoreId());
 			store.setUpdated(new Date());

@@ -52,7 +52,7 @@
 	 
 	 <div  style="float:right">
 	 
-		 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-show="user && favouriteList.length > 0">
+		 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-if="user && favouriteList.length > 0">
 		   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
 		        <md-icon>favorite</md-icon>
 		        <md-tooltip md-direction="bottom">

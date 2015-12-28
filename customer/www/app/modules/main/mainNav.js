@@ -324,6 +324,7 @@ angular.module('aviate.directives')
 								$scope.redirectToUrl();
 							});
 						});
+						$rootScope.favouriteList=null;
 					};
 					
 					$scope.clearFormValues = function(){
@@ -412,6 +413,7 @@ angular.module('aviate.directives')
 			}
 
 			$scope.logout = function() {
+				$rootScope.favouriteList=null;	
 				$rootScope.user = null;
 				ipCookie('user', null);
 				$rootScope.myCart = {};

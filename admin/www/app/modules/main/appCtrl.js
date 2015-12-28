@@ -103,19 +103,24 @@ angular.module('aviateAdmin.controllers')
 					CommonServices.getCountries($scope.country).then(function(data){
 						$scope.countries=data;
 						$localStorage.countries=data;
-						for (var i = 0; i < data.length; i++) { 
-							if($scope.countries[i].name === 'India'){
-								$scope.country = $scope.countries[i];
-								$scope.states=$scope.countries[i].states;
-								console.log("Anbukkani " ,  $scope.states[0] );
-								//$scope.state = $scope.states[0];
-							}
-				        }
+						$scope.setDefaultCountry();
 					});
 				}else{
 					$scope.countries=$localStorage.countries;
+					$scope.setDefaultCountry();
 				}
 			};
+			
+			$scope.setDefaultCountry = function(){
+				for (var i = 0; i < $scope.countries.length; i++) { 
+					if($scope.countries[i].name === 'India'){
+						$scope.country = $scope.countries[i];
+						$scope.states=$scope.countries[i].states;
+						//$scope.state = $scope.states[0];
+					}
+				}
+			};
+			
 			$scope.getCountries();
 			
 		}]);
