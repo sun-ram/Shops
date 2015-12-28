@@ -388,3 +388,19 @@ ALTER TABLE `shopsbacker`.`sales_order`
 CHANGE COLUMN `DELIVERY_TIME_SLOT` `DELIVERY_TIME_SLOT` TIMESTAMP NOT NULL ;
 
 UPDATE `shopsbacker`.`sales_order` SET `DELIVERY_TIME_SLOT`='1970-01-01 09:00:00' WHERE `SALES_ORDER_ID`!='12414';
+
+-----24-12-2015-------JAI-------------- Discount Changes--------
+ALTER TABLE `shopsbacker`.`discount_product` 
+ADD COLUMN `MERCHANT_ID` VARCHAR(32) NOT NULL AFTER `UPDATEDBY`;
+
+ALTER TABLE `shopsbacker`.`discount_product` 
+DROP FOREIGN KEY `fk_DISC_PROD_STORE`;
+ALTER TABLE `shopsbacker`.`discount_product` 
+CHANGE COLUMN `STORE_ID` `STORE_ID` VARCHAR(32) NULL DEFAULT NULL ;
+
+ALTER TABLE `shopsbacker`.`discount_product` 
+ADD CONSTRAINT `fk_DISC_PROD_STORE`
+  FOREIGN KEY (`STORE_ID`)
+  REFERENCES `shopsbacker`.`store` (`STORE_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
