@@ -19,9 +19,16 @@ public class BannerVo {
 	private StoreVo store;
 	private String tabTitleSmall;
 	private String tabTitleBold;
+	private String userId;
+	
 	private char isShopsbackerBanner;
 	
- 
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public StoreVo getStore() {
 		return store;
 	}

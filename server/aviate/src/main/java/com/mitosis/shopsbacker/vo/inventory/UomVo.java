@@ -15,6 +15,7 @@ public class UomVo {
 	private String uomId;
 	private String name;
 	private String description;
+	private String userId;
 
 	/**
 	 * @return the uomId
@@ -27,6 +28,12 @@ public class UomVo {
 	 */
 	public void setUomId(String uomId) {
 		this.uomId = uomId;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	/**
 	 * @return the name

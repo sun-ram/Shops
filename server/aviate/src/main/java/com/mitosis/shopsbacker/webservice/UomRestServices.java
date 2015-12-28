@@ -178,13 +178,13 @@ public class UomRestServices<T> {
 		Uom productUnitOfMeasure=null;
 		if(uomVo.getUomId()==null){
 		 productUnitOfMeasure = (Uom) CommonUtil
-				.setAuditColumnInfo(Uom.class.getName(), null);
+				.setAuditColumnInfo(Uom.class.getName(), uomVo.getUserId());
 			productUnitOfMeasure.setIsactive('Y');
 		}else{
 			productUnitOfMeasure=uomService.getUOMById(uomVo.getUomId());
 			productUnitOfMeasure.setUpdated(new Date());
 			//TODO: Need to get user from session and set as Updatedby.
-			productUnitOfMeasure.setUpdatedby("1223");
+			productUnitOfMeasure.setUpdatedby(uomVo.getUserId());
 		}
 		productUnitOfMeasure.setDescription(uomVo.getDescription());
 		productUnitOfMeasure.setName(uomVo.getName());
