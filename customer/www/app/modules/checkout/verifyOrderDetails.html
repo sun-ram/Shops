@@ -1,143 +1,4 @@
 <section class="verification-section"  id="ver-section">
-    
-    <!-- <div layout="row" class="address-datetime">
-        <div layout="column" flex="65" >
-            <div class="address-verify" layout="row" flex>
-                <div class="circle">
-                   
-                </div>
-                <div class="address-holder">
-                    <h3 style="color:#8bb617">ADDRESS</h3>
-                    <p>{{currentOrder.address.address}}</p>
-                    <p></p>
-                    <p>{{currentOrder.address.city}} &nbsp;&nbsp;{{currentOrder.address.state.name}}&nbsp;&nbsp;{{currentOrder.address.country.name}} &nbsp;&nbsp;{{currentOrder.address.postalCode}}
-                    </p>
-                </div>
-                <div flex></div>
-                <div class="edit">
-                    <md-button class="md-icon-button" ng-click="goPrevious('address','edit')">
-                        <md-icon md-svg-src="assets/img/checkout/edit.svg"></md-icon>
-                    </md-button>
-                </div>
-            </div>
-            <p></p>
-            <div class="delivery-verify" layout="row" flex>
-                <div class="circle">
-                    <img src="assets/img/checkout/address.svg" height="30px" width="30px">
-                </div>
-                <div class="address-holder">
-                    <h3 style="color:#FB8C00">DELIVERY</h3>
-                    <p>{{currentOrder.delivery.fromTime}}<span></span> - {{currentOrder.delivery.toTime}} &nbsp;&nbsp;{{currentOrder.delivery.date}}</p>
-                    <p></p>
-                </div>
-                <div flex></div>
-                <div class="edit">
-                    <md-button class="md-icon-button" ng-click="goPrevious('deliverySchedule')">
-                        <md-icon md-svg-src="assets/img/checkout/edit.svg"></md-icon>
-                    </md-button>
-                </div>
-            </div>
-        </div>
-        <p flex="5"></p>
-        <div layout="column" class="consolidated-rate-holder" flex="30" layout-padding>
-            <div class="consolidate-rates" flex>
-                <div layout="row">
-                    <h4>Subtotal</h4><span flex></span>
-                    <p> {{myCart.cartTotalAmount | number:2}}</p>
-                </div>
-				<div ng-repeat="tax in myCart.taxs">
-                <div layout="row">
-                    <p>{{tax.name}} ({{tax.taxPercentage}}%)</p><span flex></span>
-                    <p>{{tax.rate | number:2}}</p>
-                </div>
-                </div>
-                <div layout="row">
-                    <p>Shipping Charges</p><span flex></span>
-                    <p>{{myCart.shippingCharges | number:2}}</p>
-                </div>
-                <md-divider></md-divider>
-                <div layout="row">
-                    <p>Total</p><span flex></span>
-                    <p>{{myCart.grossAmount | number:2}}</p>
-                </div>
-            </div>
-            <h3>
-            	Payment Method
-            	<md-radio-group ng-model="data.group1" ng-change="redirectUrl();">
-			      <md-radio-button value="Cash on delivery" class="md-primary">Cash on delivery</md-radio-button>
-			      <md-radio-button value="Credit / Debit / Netbanking" class="md-primary">Credit / Debit / Netbanking</md-radio-button>
-			    </md-radio-group>
-            </h3>
-            
-            <md-button class="md-raised md-primary" style="with:100% !important; background-color: #6EAB10 !important;" ng-click="confirmOrder(); ">CONFIRM MY ORDER</md-button>
-            
-            <form action="https://demo.globalgatewaye4.firstdata.com/payment" method="post" name="FirstData" style="display:none;">
-				<input name="x_login" value="WSP-MITOS-E2mIIgBi3g"
-					type="hidden">
-				Payment Page ID
-
-				<input name="x_fp_sequence" value="123456" type="hidden">
-				Used in x_fp_hash calculation in order to make it unique but not used otherwise
-
-				<input name="x_fp_timestamp" ng-value="timeStamp" type="hidden">
-				Time in seconds since January 1, 1970. UTC, Coordinated Universal Time,expire after 15 minutes / 900 seconds
-
-				<input name="x_amount" ng-value="TOTAL" type="hidden">
-				Total dollar amount to be charged inclusive of freight and tax
-
-				<input name="x_currency_code" value="INR" type="hidden">
-				Currency of the transaction. Case sensitive.
-
-				<input name="x_fp_hash" ng-value="hash" type="hidden">
-				x_login, x_fp_sequence, x_fp_timestamp, x_amount, and (if given) x_currency_code – all separated by the ^ character
-
-				<input name="x_show_form" value="PAYMENT_FORM" type="hidden">
-				required in order to stay compatible with the Authorize.net protocol
-
-				<div ng-repeat="list in cartItems">
-
-					<input name="x_line_item" ng-value="list.item" type="hidden">
-
-				</div>
-
-				<input name="x_freight" ng-value="shipping" type="hidden">
-
-				<input name="enable_level3_processing" type="hidden" value="TRUE" /> 
-				<input name="x_po_num" value="purchaseorder1" type="hidden"> 
-				<input name="x_invoice_num" ng-value="orderNo" type="hidden">
-				<input name="x_cust_id" value="customerid1" type="hidden"> 
-				<input name="x_email_customer" value="TRUE" type="hidden"> 
-				<input name="x_method" value="CC" type="hidden"> 
-				<input value="CONFIRM MY ORDER" class="btn btn-danger nextBtn" type="submit">
-			</form>
-        </div>
-    </div> -->
-   <!--  <div class="purchased-items-section">
-        <p class="purchased-item-title">Items to be delivered</p>
-        <div layout="row">
-            <div flex="65" layout="column">
-                <div layout="row" ng-repeat="product in myCart.cartItem" class="item-divider">
-                    <img src="{{product.product.image.url}}" height="100px" width="100px">
-                    <div flex="10"></div>
-                    <div class="item-details">
-                        <h4>{{product.product.name}}</h4>
-                        <p>{{product.product.unit}}{{product.product.uom.name}}</p>
-                        <p></p>
-                        <p>{{product.qty}}&nbsp;x {{product.product.price}}</p>
-                    </div>
-                    <div flex></div>
-                    <div class="price">
-                        Rs.{{product.product.price * product.qty}}
-                    </div>
-                </div>
-            </div>
-            <div flex="35"></div>
-        </div>
-    </div> -->
-    
-    
-    
-    
     <div layout-gt-md="row" layout-sm="column" layout-md="column">
     	
     	<div flex-sm="100" flex-md="100" flex-gt-md="70" layout="column">
@@ -162,7 +23,7 @@
 							</div>
 							<div flex>
 								<span>{{currentOrder.address.address1}},</span>
-								<span ng-if="currentOrder.address.address2";>{{currentOrder.address.address2}},</span>
+								<span ng-if="currentOrder.address.address2">{{currentOrder.address.address2}},</span>
 			                    <span>{{currentOrder.address.city.name}}, {{currentOrder.address.state.name}}, {{currentOrder.address.country.name}}, {{currentOrder.address.pinCode}}.</span>
 							</div>
 	    				</div>
@@ -234,16 +95,17 @@
     		    		
     		<div class="payment-method" layout-margin layout-padding >
     			<div class="md-headline">Payment Method</div>
-            	<md-radio-group ng-model="data.group1" ng-change="redirectUrl();">
-			      <md-radio-button value="Cash on delivery" class="md-primary">Cash on delivery</md-radio-button>
-			      <md-radio-button value="Credit / Debit / Netbanking" class="md-primary" ng-disabled="true">Credit / Debit / Netbanking</md-radio-button> 
-			    </md-radio-group>
+            	<md-radio-group ng-model="transactionType" class="md-primary">
+			        <md-radio-button ng-repeat="t in transactions" ng-value="t.key" >
+			            {{t.name}}
+			        </md-radio-button>
+    			</md-radio-group>
     		</div>
     		
     		
-    		<md-button class="green_btn_clr" style="width: auto;" ng-disabled="orderBtn" ng-click="confirmOrder(); ">CONFIRM MY ORDER</md-button>
+    		<md-button class="green_btn_clr" style="width: auto;" ng-disabled="orderBtn" ng-click="confirmOrder(transactionType); ">CONFIRM MY ORDER</md-button>
             
-            <form action="https://demo.globalgatewaye4.firstdata.com/payment" method="post" name="FirstData" style="display:none;">
+           <!--  <form action="https://demo.globalgatewaye4.firstdata.com/payment" method="post" name="FirstData" style="display:none;">
 				<input name="x_login" value="WSP-MITOS-E2mIIgBi3g"
 					type="hidden">
 				Payment Page ID
@@ -281,8 +143,43 @@
 				<input name="x_email_customer" value="TRUE" type="hidden"> 
 				<input name="x_method" value="CC" type="hidden"> 
 				<input value="CONFIRM MY ORDER" class="btn btn-danger nextBtn" type="submit">
-			</form>
+			</form> -->
 			
+			
+		<form method="post" action="https://secure.ebs.in/pg/ma/payment/request" 
+				name="frmTransaction" >  
+			<input name="account_id" type="hidden" ng-value="transactionDetails.accountId" />  
+			<input name="address" type="hidden" ng-value="transactionDetails.address" />  
+			<input name="algo" type="hidden" ng-value="transactionDetails.algo" />  
+			<input name="amount" type="hidden" ng-value="transactionDetails.amount" />  
+			<input name="channel" type="hidden" ng-value="transactionDetails.channel" />  
+			<input name="city" type="hidden" ng-value="transactionDetails.city" />  
+			<input name="country" type="hidden" ng-value="transactionDetails.country" />  
+			<input name="currency" type="hidden" ng-value="transactionDetails.currency" />
+			<input name="currency_code" type="hidden" ng-value="transactionDetails.currencyCode" />  
+			<input name="description" type="hidden" ng-value="transactionDetails.description" />  
+			<input name="email" type="hidden" ng-value="transactionDetails.email" />  
+			<input name="mode" type="hidden" ng-value="transactionDetails.mode" />  
+			<input name="name" type="hidden" ng-value="transactionDetails.name" />  
+			<input name="phone" type="hidden" ng-value="transactionDetails.phone" />  
+			<input name="postal_code" type="hidden" ng-value="transactionDetails.postalCode" />  
+			<input name="reference_no" type="hidden" ng-value="transactionDetails.referenceNo" />
+			<input name="return_url" type="hidden" ng-value="transactionDetails.returnUrl" />  
+			<input name="ship_address" type="hidden" ng-value="transactionDetails.shipAddress" /> 
+			<input name="ship_city" type="hidden" ng-value="transactionDetails.shipCity" />  
+			<input name="ship_country" type="hidden" ng-value="transactionDetails.shipCountry" />  
+			<input name="ship_name" type="hidden" ng-value="transactionDetails.shipName" />  
+			<input name="ship_phone" type="hidden" ng-value="transactionDetails.shipPhone" />  
+			<input name="ship_postal_code" type="hidden" ng-value="transactionDetails.shipPostalCode" />  
+			<input name="ship_state" type="hidden" ng-value="transactionDetails.shipState" />  
+			<input name="state" type="hidden" ng-value="transactionDetails.state" />  
+			<input name="secure_hash" type="hidden" ng-value="transactionDetails.secureHash" />  
+			<!-- <input name="name_on_card" type="text" value="Prabakaran" />
+			<input name="card_number" type="text" value="4012001037141112 "  />
+			<input name="card_expiry" type="text" value="12/2016 " />
+			<input name="card_cvv" type="password" value="123" /> -->
+			<!-- <input value="Submit" type="submit" style="display: none;" /> -->
+		</form>
 			
     	</div>
     	

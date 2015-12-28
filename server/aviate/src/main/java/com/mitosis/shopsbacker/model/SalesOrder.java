@@ -64,6 +64,7 @@ public class SalesOrder implements java.io.Serializable {
 	private Date deliveryStartTime;
 	private Date shopperAssignedTime;
 	private Date backerAssignedTime;
+	private String requestId;
 	private List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 	private List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 	private List<Favourite> favourites = new ArrayList<Favourite>();
@@ -487,6 +488,15 @@ public class SalesOrder implements java.io.Serializable {
 
 	public void setDeliveryStartTime(Date deliveryStartTime) {
 		this.deliveryStartTime = deliveryStartTime;
+	}
+
+	@Column(name = "REQUEST_ID", length = 32)
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
 	}
 	
 	

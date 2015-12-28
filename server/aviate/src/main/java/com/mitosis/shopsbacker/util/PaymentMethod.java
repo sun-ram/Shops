@@ -7,7 +7,7 @@ package com.mitosis.shopsbacker.util;
  *
  */
 public enum PaymentMethod {
-	COD, CC;
+	COD, WT;
 
 	/**
 	 * To check the given value is available or not in Payment method

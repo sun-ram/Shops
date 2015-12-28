@@ -54,6 +54,7 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
+import com.mitosis.shopsbacker.vo.order.TransactionDetailVo;
 
 /**
  * @author JAI BHARATHI
@@ -267,8 +268,8 @@ public class SalesOrderRestService<T> {
 				List<SalesOrder> salesOrderList = salesOrderService
 						.salesOrderDetailList(salesOrderVo.getFromDate(),
 								salesOrderVo.getDeliveryDate(), merchantService
-										.getMerchantById(salesOrderVo
-												.getMerchant().getMerchantId()));
+								.getMerchantById(salesOrderVo
+										.getMerchant().getMerchantId()));
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
 							salesOrder);
@@ -307,9 +308,9 @@ public class SalesOrderRestService<T> {
 			salesOrder.setOrderNo(orderNo);
 			salesOrder.setDeliveryDate(CommonUtil.stringToDate(salesOrderVo
 					.getDeliveryDate()));
-			
+
 			String strDeliveryTime = salesOrderVo.getDeliveryTimeSlot();
-			
+
 			Date deliveryTime = CommonUtil.convertStringToTime(strDeliveryTime);
 			/*long time = deliveryTime.getTime();
 			Date deliveryTimes = new Date();
@@ -323,6 +324,10 @@ public class SalesOrderRestService<T> {
 					&& salesOrderVo.getPaymentMethod().equals("COD")) {
 				salesOrder.setStatus(OrderStatus.Placed.toString());
 				salesOrder.setPaymentMethod(PaymentMethod.COD.toString());
+			}else if (salesOrderVo.getPaymentMethod() != null
+					&& salesOrderVo.getPaymentMethod().equals("WT")) {
+				//salesOrder.setStatus(OrderStatus.Placed.toString());
+				salesOrder.setPaymentMethod(PaymentMethod.WT.toString());
 			}
 
 			Double totalTaxAmount = 0.0;
@@ -383,14 +388,20 @@ public class SalesOrderRestService<T> {
 			salesOrder.setMerchant(store.getMerchant());
 
 			salesOrderService.saveSalesOrder(salesOrder);
-			
+
 			/*Reduce Stock*/
 			salesOrderService.productStockReduce(salesOrder);
-			
+
+			response.setPaymentMethod(salesOrderVo.getPaymentMethod());
 			int numberOfEntityDeleted = 0;
 			if (salesOrderVo.getPaymentMethod() != null
 					&& salesOrderVo.getPaymentMethod().equals("COD")) {
 				numberOfEntityDeleted = myCartService.deleteCartProduct(salesOrder.getCustomer().getCustomerId(),salesOrder.getStore().getStoreId());
+			}else if(salesOrderVo.getPaymentMethod() != null
+					&& salesOrderVo.getPaymentMethod().equals("WT")){ //Wire transfer 
+				TransactionDetailVo transactionDetail = salesOrderService.setTransactionDetails(salesOrder, salesOrder.getAddress(), 
+						salesOrder.getStore().getUser().getAddress(), salesOrder.getCustomer());
+				response.setTransactionDatas(transactionDetail);
 			}
 			log.info("No Of Row Deleted deleted from cart in sales order complete: "+numberOfEntityDeleted);
 			response.setOrderNo(salesOrder.getOrderNo());
@@ -427,8 +438,8 @@ public class SalesOrderRestService<T> {
 							if (OrderStatus.Shoper_Assigned.toString()
 									.equalsIgnoreCase(salesOrder.getStatus())
 									|| OrderStatus.Picked.toString()
-											.equalsIgnoreCase(
-													salesOrder.getStatus())) {
+									.equalsIgnoreCase(
+											salesOrder.getStatus())) {
 								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
@@ -441,11 +452,11 @@ public class SalesOrderRestService<T> {
 					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 							.getValue());
 					salesOrderResponse
-							.setErrorString(SBErrorMessage.INVALID_SHOPPER_ID
-									.getMessage());
+					.setErrorString(SBErrorMessage.INVALID_SHOPPER_ID
+							.getMessage());
 					salesOrderResponse
-							.setErrorCode(SBErrorMessage.INVALID_SHOPPER_ID
-									.getCode());
+					.setErrorCode(SBErrorMessage.INVALID_SHOPPER_ID
+							.getCode());
 				}
 			} else if (salesOrderVo.getBackerId() != null) {
 				user = userService.getUser(salesOrderVo.getBackerId());
@@ -460,19 +471,19 @@ public class SalesOrderRestService<T> {
 							if (OrderStatus.Backer_Assigned.toString()
 									.equalsIgnoreCase(salesOrder.getStatus())
 									|| OrderStatus.Backer_Started.toString()
-											.equalsIgnoreCase(
-													salesOrder.getStatus())) {
+									.equalsIgnoreCase(
+											salesOrder.getStatus())) {
 								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder);
 								salesOrderVoList.add(salesOrdervo);
 							}
 							salesOrderResponse
-									.setSalesOrderList(salesOrderVoList);
+							.setSalesOrderList(salesOrderVoList);
 						}
 					}
 				}
 			} else {
 				salesOrderResponse
-						.setStatus(SBMessageStatus.FAILURE.getValue());
+				.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -489,7 +500,7 @@ public class SalesOrderRestService<T> {
 		return responseStr;
 	}
 
-	
+
 
 	public void customerSign(SalesOrder salesOrder, SalesOrderVo salesOrderVo)
 			throws IOException, Exception {
@@ -529,47 +540,47 @@ public class SalesOrderRestService<T> {
 
 				if (salesOrderVo.getSalesOrderId() != null
 						&& salesOrderVo.getStatus() != null) {
-					
+
 					boolean isValidStatus = OrderStatus.contains(salesOrderVo.getStatus());
 					if (isValidStatus) {
-						
-					if (OrderStatus.Picked.toString().equalsIgnoreCase(
-							salesOrderVo.getStatus())) {
-						salesOrder.setPickupStartTime(new Date());
-					}else if (OrderStatus.Packed.toString().equalsIgnoreCase(
-							salesOrderVo.getStatus())) {
-						salesOrder.setPackedTime(new Date());
-					}else if (OrderStatus.Backer_Started.toString().equalsIgnoreCase(
-							salesOrderVo.getStatus())) {
-						salesOrder.setDeliveryStartTime(new Date());
-					}else if (OrderStatus.Delivered.toString().equalsIgnoreCase(
-							salesOrderVo.getStatus())) {
-						if (salesOrderVo.getSign().getImage() != null) {
-							customerSign(salesOrder, salesOrderVo);
-							Image image = imageService.setImage(salesOrderVo
-									.getSign(),null);
-							salesOrder.setCustomerSign(image);
-							salesOrder.setDeliveredTime(new Date());
-						} else {
-							salesOrderResponse
-									.setStatus(SBMessageStatus.FAILURE
-											.getValue());
-							salesOrderResponse
-									.setErrorCode(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN
-											.getCode());
-							salesOrderResponse
-									.setErrorString(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN
-											.getMessage());
-							try {
-								responseStr = CommonUtil
-										.getObjectMapper(salesOrderResponse);
-							} catch (Exception e) {
-								e.printStackTrace();
-								log.error(e.getMessage());
+
+						if (OrderStatus.Picked.toString().equalsIgnoreCase(
+								salesOrderVo.getStatus())) {
+							salesOrder.setPickupStartTime(new Date());
+						}else if (OrderStatus.Packed.toString().equalsIgnoreCase(
+								salesOrderVo.getStatus())) {
+							salesOrder.setPackedTime(new Date());
+						}else if (OrderStatus.Backer_Started.toString().equalsIgnoreCase(
+								salesOrderVo.getStatus())) {
+							salesOrder.setDeliveryStartTime(new Date());
+						}else if (OrderStatus.Delivered.toString().equalsIgnoreCase(
+								salesOrderVo.getStatus())) {
+							if (salesOrderVo.getSign().getImage() != null) {
+								customerSign(salesOrder, salesOrderVo);
+								Image image = imageService.setImage(salesOrderVo
+										.getSign(),null);
+								salesOrder.setCustomerSign(image);
+								salesOrder.setDeliveredTime(new Date());
+							} else {
+								salesOrderResponse
+								.setStatus(SBMessageStatus.FAILURE
+										.getValue());
+								salesOrderResponse
+								.setErrorCode(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN
+										.getCode());
+								salesOrderResponse
+								.setErrorString(SBErrorMessage.UNKNOWN_CUSTOMER_SIGN
+										.getMessage());
+								try {
+									responseStr = CommonUtil
+											.getObjectMapper(salesOrderResponse);
+								} catch (Exception e) {
+									e.printStackTrace();
+									log.error(e.getMessage());
+								}
+								return responseStr;
 							}
-							return responseStr;
 						}
-					}
 						salesOrder.setStatus(salesOrderVo.getStatus());
 						salesOrderService.updateSalesOrder(salesOrder);
 						salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
@@ -578,11 +589,11 @@ public class SalesOrderRestService<T> {
 						salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 								.getValue());
 						salesOrderResponse
-								.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
-										.getMessage());
+						.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+								.getMessage());
 						salesOrderResponse
-								.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
-										.getCode());
+						.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
+								.getCode());
 
 					}
 
@@ -590,15 +601,15 @@ public class SalesOrderRestService<T> {
 					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 							.getValue());
 					salesOrderResponse
-							.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
-									.getMessage());
+					.setErrorString(SBErrorMessage.INVALID_SALES_ORDER_ID
+							.getMessage());
 					salesOrderResponse
-							.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
-									.getCode());
+					.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_ID
+							.getCode());
 				}
 			} else {
 				salesOrderResponse
-						.setStatus(SBMessageStatus.FAILURE.getValue());
+				.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
 
 		} catch (Exception e) {

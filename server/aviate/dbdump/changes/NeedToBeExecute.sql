@@ -417,3 +417,10 @@ ADD CONSTRAINT `FK_MY_CART_DISCOUNT`
   REFERENCES `shopsbacker`.`discount` (`DISCOUNT_ID`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+  
+  ----------28-12-2015 ----------- Prabakaran ------- Payment gateway response update---------
+  
+  ALTER TABLE `shopsbacker`.`sales_order` 
+ADD COLUMN `REQUEST_ID` VARCHAR(32) NULL DEFAULT NULL AFTER `TRANSACTION_NO`;
+

@@ -3,9 +3,9 @@ angular.module('aviate.controllers')
                              function($scope, $state, toastr, CONSTANT, CheckOutServices, $mdDialog, $rootScope, MyCartFactory,$filter,CommonServices,$localStorage) {
 
 	MyCartFactory.myCartTotalPriceCalculation();
-	
+
 	$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
-	
+
 	$scope.time = new Date();
 	$scope.time.setMinutes($scope.time.getMinutes()+60);
 	$scope.addresses = [];
@@ -17,11 +17,11 @@ angular.module('aviate.controllers')
 	};
 	$scope.currentOrder = CheckOutServices.currentOrder;
 	$scope.timeLineStatus = CheckOutServices.timeLineStatus;
-	
+
 	$scope.selectAddress = function(addressId) {
 		var seletecdAddress = _.filter($scope.addresses, function(add) {
 			return add.selected == true;
-		})
+		});
 		_.each(seletecdAddress, function(add) {
 			add.selected = false;
 		});
@@ -31,7 +31,7 @@ angular.module('aviate.controllers')
 		address.selected = true;
 		$scope.currentOrder.address = address;
 	};
-	
+
 	$scope.openAddressDialog = function(event) {
 		$mdDialog.show({
 			controller: addressDialogController,
@@ -79,7 +79,7 @@ angular.module('aviate.controllers')
 
 
 	};
-	
+
 
 	$scope.getTimeSlot = function(){
 		CheckOutServices.getTimeSlot({'merchant':{'merchantId':$rootScope.store.merchant.merchantId},'storeId':$rootScope.store.storeId}).then(function(data) {
@@ -88,19 +88,27 @@ angular.module('aviate.controllers')
 			$rootScope.deliveryTime = $scope.deliveryTimeSlots[0];
 			$scope.deliveryTime.index = 0;
 		});
-	}
-	
-	$scope.data = {
-		      group1 : 'Cash on delivery',
-		      group2 : 'Credit / Debit / Netbanking'
-		    };
-	
-	$scope.confirmOrder = function() {
+	};
+
+	$scope.transactions = [{
+		'key':'COD',
+		'name':'Cash on delivery'
+	},
+	{
+		'key':'WT',
+		'name':'Credit / Debit / Netbanking'
+	}];
+	$scope.transactionType = "COD";
+
+	$scope.confirmOrder = function(ty) {
+		$scope.orderBtn = true;
+		//$scope.$apply();
+		$scope.transactionType = ty;
 		$scope.orderBtn = true;
 		var menuJson = {
 				"customer":{
 					"customerId":$rootScope.user.userId
-					},
+				},
 				"address":{
 					"addressId":$scope.currentOrder.address.addressId
 				},
@@ -109,39 +117,44 @@ angular.module('aviate.controllers')
 				},
 				"deliveryDate":$scope.currentOrder.delivery.date,
 				"deliveryTimeSlot":$scope.currentOrder.delivery.fromTime
+		};
+
+		if($scope.transactionType == "COD"){
+			menuJson.paymentMethod = "COD";
+			menuJson.status = "Initalized";
+		}else if($scope.transactionType == "WT"){
+			menuJson.paymentMethod = "WT";
+			menuJson.status = "Initalized";
+			CheckOutServices.confirmOrder(menuJson).then(function(data) {
+				$scope.orderBtn = false;
+				console.log("OrderNo", data);
+				$scope.orderNo = data.orderNo;
+				$scope.salesOrderId = data.salesOrderId;
+				$scope.transactionDetails = data.transactionDatas;
+				if(data.paymentMethod == "COD"){
+					$scope.getCartList();
+					$state.go('app.favourite',{'salesOrderId':$scope.salesOrderId});
+					//$rootScope.myCart.cartItem = {};
+				}else if(data.paymentMethod == "WT") {
+					setTimeout(function() {
+						$scope.$apply(); 
+						document.forms["frmTransaction"].submit();
+					}, 25);
+				}
+			});
 		}
-		
-		if($scope.data.group1=="Cash on delivery"){
-			menuJson.paymentMethod="COD";
-			menuJson.status="Initalized";
-		}
-		
-		CheckOutServices.confirmOrder(menuJson).then(function(data) {
-			$scope.orderBtn = false;
-			console.log("OrderNo", data);
-			$scope.orderNo = data.orderNo;
-			$scope.salesOrderId = data.salesOrderId;
-			if($scope.data.group1=="Cash on delivery"){
-				$scope.getCartList();
-				$state.go('app.favourite',{'salesOrderId':$scope.salesOrderId});
-				//$rootScope.myCart.cartItem = {};
-			}else{
-				$scope.payment();
-			}
-		});
 	};
 
-	$scope.cancel1=function(){
+	$scope.cancel1=function() {
 		//$rootScope.change=false;
 		$state.go('app.home');
-	}
-	$scope.back=function()
-	{
+	};
+	$scope.back=function() {
 		//$rootScope.change=true;
 		$state.go('app.cart');
-	}
-	
-	$scope.payment = function() {
+	};
+
+	/*$scope.payment = function() {
 		var paymentJSON ={
 				"amount":$rootScope.myCart.grossAmount
 		};
@@ -156,10 +169,10 @@ angular.module('aviate.controllers')
 			}, 25);
 			$rootScope.myCart.cartItem = {};
 		});
-	};
+	};*/
 
 	var removeAddress = function(address) {
-	
+
 		CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
 			$scope.getAddressList({
 				"customerId": $rootScope.user.userId
@@ -170,13 +183,13 @@ angular.module('aviate.controllers')
 	};
 
 	$scope.removeAddress = function(address) {
-	
+
 		/*var confirm = $mdDialog.confirm()
         .title('Would you like to delete Address?')
 		        .ok('Delete')
 		        .cancel('Cancel');
 		  $mdDialog.show(confirm).then(function() {
-	
+
 			  CheckOutServices.removeAddress({"addressId":address.addressId}).then(function(data) {
 					$scope.getAddressList({
 						"customerId": $rootScope.user.userId
@@ -184,30 +197,30 @@ angular.module('aviate.controllers')
 				});
 
   }, function() {
-			  
-			  })*/;		
-			  
-			  $mdDialog.show({
-			      controller: function($scope){
-			    	  $scope.removeAddress = function(){
-			    		  $mdDialog.cancel();
-			    		  removeAddress(address);
-					  }; 
-					  
-					  $scope.close = function(){
-			    		  $mdDialog.cancel();
-					  }; 
-			      },
-			      templateUrl: 'app/modules/checkout/deleteAddressPrompt.html',
-			      parent: angular.element(document.body),
-			      clickOutsideToClose:true,
-			    })
-			    .then(function(answer) {
-			      $scope.status = 'You said the information was "' + answer + '".';
-			    }, function() {
-			      $scope.status = 'You cancelled the dialog.';
-			    }); 
-		
+
+			  })*/		
+
+		$mdDialog.show({
+			controller: function($scope){
+				$scope.removeAddress = function(){
+					$mdDialog.cancel();
+					removeAddress(address);
+				}; 
+
+				$scope.close = function(){
+					$mdDialog.cancel();
+				}; 
+			},
+			templateUrl: 'app/modules/checkout/deleteAddressPrompt.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose:true,
+		})
+		.then(function(answer) {
+			$scope.status = 'You said the information was "' + answer + '".';
+		}, function() {
+			$scope.status = 'You cancelled the dialog.';
+		}); 
+
 
 	};
 
@@ -225,14 +238,14 @@ angular.module('aviate.controllers')
 					$scope.getAddress();
 				},3000);
 			}
-			
+
 			$scope.getAddress = function(){
 				$scope.country = $scope.address.country;
 				$scope.states = _.findWhere($scope.countries,{countryId:$scope.country.countryId}).states;
 				$scope.state = $scope.address.state;
 				$scope.cities = _.findWhere($scope.states,{stateId:$scope.state.stateId}).city;
 				$scope.cty = $scope.address.city;
-				
+
 			};
 
 		} else {
@@ -263,15 +276,15 @@ angular.module('aviate.controllers')
 			removeAddress(address);
 			$mdDialog.cancel();
 		};
-		
+
 		$scope.getState = function(country){
 			$scope.states = country.states;
 		};
-		
+
 		$scope.getCity = function(states){
 			$scope.cities = states.city;
-		}
-		
+		};
+
 		$scope.getCountries = function(){
 			if($localStorage.countries){
 				$scope.countries=$localStorage.countries;
@@ -282,10 +295,10 @@ angular.module('aviate.controllers')
 				});
 			}
 		};
-		
+
 		$scope.getCountries();
-		
-	};
+
+	}
 
 	//restoring checkout template based on timeline status 
 	if($scope.timeLineStatus.deliveryDate){
@@ -314,62 +327,62 @@ angular.module('aviate.controllers')
 			if($scope.addresses.length ==1){
 				$scope.currentOrder.address = $scope.addresses[0];
 			}
-			if ($scope.currentOrder.address!= null) {
+			if ($scope.currentOrder.address!== null) {
 				$scope.timeLineStatus.addressEntry = true;
 				$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 			} else {
-				if($scope.currentOrder.address == null)
-					{
-				$mdDialog.show(
-						$mdDialog.alert()
-						.parent(angular.element(document.querySelector('#popupContainer')))
-						.clickOutsideToClose(true)
-						//.title('Alert')
-						.content('Please choose delivery address')
-						.ariaLabel('Alert Dialog Demo')
-						.ok('Ok')
-						.targetEvent()
-				);
-					}
-				else{
-					
-					if($scope.currentOrder.contactNumber == null && $scope.currentOrder.address != null){
-	
-			$mdDialog.show(
-					$mdDialog.alert()
-					.parent(angular.element(document.querySelector('#popupContainer')))
-					.clickOutsideToClose(true)
-					//.title('Alert')
-					.content('Please choose Contact Number')
-					.ariaLabel('Alert Dialog Demo')
-					.ok('Ok')
-					.targetEvent()
-			);
+				if($scope.currentOrder.address === null)
+				{
+					$mdDialog.show(
+							$mdDialog.alert()
+							.parent(angular.element(document.querySelector('#popupContainer')))
+							.clickOutsideToClose(true)
+							//.title('Alert')
+							.content('Please choose delivery address')
+							.ariaLabel('Alert Dialog Demo')
+							.ok('Ok')
+							.targetEvent()
+					);
 				}
-										else
-												{
-												$mdDialog.show(
-														$mdDialog.alert()
-														.parent(angular.element(document.querySelector('#popupContainer')))
-														.clickOutsideToClose(true)
-														//.title('Alert')
-														.content('Please choose Contact Number/address')
-														.ariaLabel('Alert Dialog Demo')
-														.ok('Ok')
-														.targetEvent()
-												);
-												}
+				else{
+
+					if($scope.currentOrder.contactNumber === null && $scope.currentOrder.address !== null){
+
+						$mdDialog.show(
+								$mdDialog.alert()
+								.parent(angular.element(document.querySelector('#popupContainer')))
+								.clickOutsideToClose(true)
+								//.title('Alert')
+								.content('Please choose Contact Number')
+								.ariaLabel('Alert Dialog Demo')
+								.ok('Ok')
+								.targetEvent()
+						);
 					}
+					else
+					{
+						$mdDialog.show(
+								$mdDialog.alert()
+								.parent(angular.element(document.querySelector('#popupContainer')))
+								.clickOutsideToClose(true)
+								//.title('Alert')
+								.content('Please choose Contact Number/address')
+								.ariaLabel('Alert Dialog Demo')
+								.ok('Ok')
+								.targetEvent()
+						);
+					}
+				}
 			}
 			break;
 		case "deliverySchedule":
 			//if ($scope.delivery.time && $scope.delivery.date) {
-				$scope.currentOrder.delivery.fromTime =$rootScope.expectedTime;
-				$scope.currentOrder.delivery.toTime = $scope.deliveryTime.toTime;
-				$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd/MM/yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
- 				$scope.currentOrder.items = $rootScope.myCard;
-				$scope.timeLineStatus.deliveryDate = true;
-				$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
+			$scope.currentOrder.delivery.fromTime =$rootScope.expectedTime;
+			$scope.currentOrder.delivery.toTime = $scope.deliveryTime.toTime;
+			$scope.currentOrder.delivery.date = $filter('date')($scope.delivery.date,'dd/MM/yyyy');//new Date($scope.delivery.date);				$scope.currentOrder.items = $rootScope.myCard;
+			$scope.currentOrder.items = $rootScope.myCard;
+			$scope.timeLineStatus.deliveryDate = true;
+			$scope.merchangetTemplate = "app/modules/checkout/verifyOrderDetails.html";
 			/*} else {
 				if($scope.delivery.date == null)
 					{
@@ -420,30 +433,30 @@ angular.module('aviate.controllers')
 		case 'deliverySchedule':
 			$scope.merchangetTemplate = "app/modules/checkout/deliverySchedule.html";
 		}
-	}
-	
+	};
+
 	$scope.getAddressList({
 		"customerId": $rootScope.user.userId
 	});
-	
+
 	$scope.myDate = new Date();
-    $scope.minDate = new Date(
-        $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth(),
-        $scope.myDate.getDate()
-    );
-    
-    //displaying current date in delivery section
-    $scope.choosedDate = $filter('date')(new Date(),'EEEE,MMMM,dd,yyyy').split(',');
-    console.log('formatter choosed date is ',$scope.choosedDate);
-    $scope.formateSelectedDate = function(date){
-    	$scope.choosedDate = $filter('date')(date,'EEEE,MMMM,dd,yyyy').split(',');
-    	$rootScope.delivery.date=date;
-   	    $rootScope.deliveryTimeValidation();
-    };
-    
+	$scope.minDate = new Date(
+			$scope.myDate.getFullYear(),
+			$scope.myDate.getMonth(),
+			$scope.myDate.getDate()
+	);
+
+	//displaying current date in delivery section
+	$scope.choosedDate = $filter('date')(new Date(),'EEEE,MMMM,dd,yyyy').split(',');
+	console.log('formatter choosed date is ',$scope.choosedDate);
+	$scope.formateSelectedDate = function(date){
+		$scope.choosedDate = $filter('date')(date,'EEEE,MMMM,dd,yyyy').split(',');
+		$rootScope.delivery.date=date;
+		$rootScope.deliveryTimeValidation();
+	};
+
 	console.log("card items",$rootScope.myCard);
-	
+
 	$scope.decrementTime = function(index){
 		if(index < 0){
 			return;
@@ -451,7 +464,7 @@ angular.module('aviate.controllers')
 			$scope.deliveryTime = $scope.deliveryTimeSlots[index];
 		}
 	};
-	
+
 	$scope.incrementTime = function(index){
 		if($scope.deliveryTimeSlots.length == index){
 			return;
@@ -460,14 +473,14 @@ angular.module('aviate.controllers')
 			$scope.deliveryTime.index = index;
 		}
 	};
-	
-	 $scope.filter12HrTime = function(time){
-	        var temp = time.split(':'),hours = temp[0],
-	            ampm = hours >= 12 ? 'PM' : 'AM';
-	        hours = hours % 12;
-	        temp.splice(2);
-	        temp[0] = hours ? hours : 12;
-	        return  temp.join(':') +" "+ampm;
-	    };
+
+	$scope.filter12HrTime = function(time){
+		var temp = time.split(':'),hours = temp[0],
+		ampm = hours >= 12 ? 'PM' : 'AM';
+		hours = hours % 12;
+		temp.splice(2);
+		temp[0] = hours ? hours : 12;
+		return  temp.join(':') +" "+ampm;
+	};
 }
 ]);
