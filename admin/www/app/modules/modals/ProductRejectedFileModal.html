@@ -1,0 +1,57 @@
+
+<md-dialog aria-label="Category"  ng-cloak style="width: 100%;">
+	<md-button layout-align="end" style="float: right; position: absolute; color: #333 ! important; right: 0;" class="md-icon-button"  type="button" ng-click="cancel1()">
+        <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
+      </md-button>
+      <h2 class="text-center" style="color: #4eaf4c;">Rejected File Details</h2>
+      <form>
+  <md-dialog-content style="padding: 5px;">
+  
+   <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80">
+      
+   <md-card-content class="nopadd">
+   
+   <md-data-table-container>
+     <md-list><h2>Due to invalid data, some of the product rejected</h2>
+     	<md-item class="data-table-list " md-data-table>
+         <md-item-content layout="row" layout-padding class="tbl-header ">
+      
+      	<div layout="row" layout-wrap class="full_wid tbl-header ">
+         	<span flex layout-align="start center" layout>
+	         	Name
+            </span>
+         	<span flex layout-align="start center" layout>
+	         	Reason
+            </span>
+        </div>
+        </md-item-content>
+        </md-item>
+        
+      <md-item class="data-table-list" md-data-table ng-repeat="product in productRejectedVo ">
+         <md-item-content layout="row" layout-padding>
+          
+			<span flex layout-align="start center" layout>
+			<span flex class="shopname">{{product.productName}}</span>
+			</span>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.reason}}</span>
+      		</span>
+      	
+      </md-item-content>
+      </md-item>
+      
+     </md-list>
+     </md-data-table-container>
+   </md-card-content>
+   </md-card>
+<md-card>
+	<div layout="row" layout-align="end end">
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel1()">ok</md-button>
+  </div>
+</md-card>
+
+<!-- -------------------------------------- -->
+			   
+  </md-dialog-content>
+  </form>
+</md-dialog>

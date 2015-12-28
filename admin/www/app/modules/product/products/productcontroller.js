@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("productcontroller", ['$scope','$http','$rootScope','$localStorage','$location','$filter','$window','ngTableParams','$state','ProductService','toastr','ProductCategoryServices','myConfig','$mdDialog','DiscountService',
                                   function($scope, $http, $rootScope, $localStorage, $location, $filter,$window, ngTableParams,$state,ProductService,toastr, ProductCategoryServices,myConfig, $mdDialog,DiscountService) {
-	/*==========Get All Product Details==========*/
+	/* ==========Get All Product Details========== */
 
 	$scope.downloadExcel = myConfig.backend;
 
@@ -27,19 +27,17 @@ angular.module('aviateAdmin.controllers')
 		$state.go('app.productdetailsview');
 	};
 
-	/*$scope.checkPrice = function(price, wasPrice){
-		if((price != undefined || price !="") && (wasPrice != undefined || wasPrice != "")){
-			if(wasPrice <= price){
-				$scope.product.wasPrice = undefined;
-				toastr.warning("WasPrice Should Be Greater Than To Price");
-				
-
-			}else{
-				
-				return;
-			}
-		}
-	}*/
+	/*
+	 * $scope.checkPrice = function(price, wasPrice){ if((price != undefined ||
+	 * price !="") && (wasPrice != undefined || wasPrice != "")){ if(wasPrice <=
+	 * price){ $scope.product.wasPrice = undefined; toastr.warning("WasPrice
+	 * Should Be Greater Than To Price");
+	 * 
+	 * 
+	 * }else{
+	 * 
+	 * return; } } }
+	 */
 
 	$rootScope.getAllProductList = function() {
 		$scope.product = {};
@@ -262,7 +260,7 @@ angular.module('aviateAdmin.controllers')
 			ProductService.deleteProductImage(imgs).then(function(data){
 				$scope.uploadedImages.splice(index, 1);	
 			})
-			//TODO: jdfjs
+			// TODO: jdfjs
 		}else if (index > -1) {
 			$scope.uploadedImages.splice(index, 1);
 		}
@@ -318,7 +316,7 @@ angular.module('aviateAdmin.controllers')
 	}
 	$scope.excelFile={};
 	$scope.uploadXmls = function(){
-		//$scope.product.merchant.merchantId=$rootScope.user.merchantId
+		// $scope.product.merchant.merchantId=$rootScope.user.merchantId
 		$scope.product.productId="456"
 		$scope.product.image ={};
 		$scope.product.merchant={
@@ -328,7 +326,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.product.image.type=$scope.excelFile.file ? ($scope.excelFile.file.substring(11).split(";")[0]) : "";
 		if($scope.product.image.type=="ation/vnd.ms-excel" || $scope.product.image.type=="ation/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
 			ProductService.uploadExcelFile($scope.product).then(function(data) {
-				/*$state.go("app.products");*/
+				/* $state.go("app.products"); */
 				$mdDialog.show({
 					templateUrl: 'app/modules/modals/ProductFileUploadModal.html',
 					parent: angular.element(document.body),
@@ -346,9 +344,30 @@ angular.module('aviateAdmin.controllers')
 									"merchantId":$rootScope.user.merchantId
 							}
 							ProductService.addProductListFiles($scope.addFilesList).then(function(data) {
-								$mdDialog.cancel();
+								//$mdDialog.cancel();
 								$rootScope.getAllProductList();
-		 					})
+								if(data.productRejectedVo.length!=0){
+								$mdDialog.show({
+									templateUrl: 'app/modules/modals/ProductRejectedFileModal.html',
+									parent: angular.element(document.body),
+									clickOutsideToClose:false,
+									controller: function($scope,$mdDialog){
+										$scope.productRejectedVo=data.productRejectedVo;
+										$scope.cancel1 = function() {
+											$mdDialog.cancel();
+										};
+									}
+								})
+								.then(function(answer) {	
+									$scope.status = 'You said the information was "' + answer + '".';
+								}, function() {
+									$scope.status = 'You cancelled the dialog.';
+								});
+							}
+								else{
+									$mdDialog.cancel();
+								}
+							});
 						}
 						$scope.productFileNew={
 								limit: 5,

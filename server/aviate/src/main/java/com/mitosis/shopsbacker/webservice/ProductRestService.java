@@ -60,7 +60,9 @@ import com.mitosis.shopsbacker.util.SBErrorMessage;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductRejectedVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadDataVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductUploadMessageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductUploadVO;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.sun.jersey.core.util.Base64;
@@ -631,53 +633,75 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ProductUploadVO validatingFilesData(ProductUploadVO productUploadVO)
-			throws Exception {
-		ProductUploadVO response = new ProductUploadVO();
+	public ProductUploadMessageVo validatingFilesData(
+			ProductUploadVO productUploadVO) throws Exception {
+		ProductUploadMessageVo response = new ProductUploadMessageVo();
+		List<ProductRejectedVo> productRejectedVoList = new ArrayList<ProductRejectedVo>();
 		List<ProductUploadDataVo> newData = productUploadVO.getNewData();
 		List<ProductUploadDataVo> existingData = productUploadVO
 				.getExistingData();
-		List<ProductUploadDataVo> rejectedData = productUploadVO.getRejectedData();
+		List<ProductUploadDataVo> rejectedData = productUploadVO
+				.getRejectedData();
 		Merchant merchant = merchantService.getMerchantById(productUploadVO
 				.getMerchant().getMerchantId());
 		List<ProductType> productTypeList = ProductTypeService
 				.getAllProductTypeByMerchant(merchant);
 		for (ProductUploadDataVo productUploadData : newData) {
+			ProductRejectedVo productRejectedVo = new ProductRejectedVo();
 			Product product = productService.getProductByName(
 					productUploadData.getName(), merchant);
-			if(product==null){
-				addFilesData(productUploadData, merchant,productTypeList);
+			if (product == null) {
+				productRejectedVo = addFilesData(productUploadData, merchant,
+						productTypeList);
+			} else {
+				productRejectedVo = updateFilesData(productUploadData,
+						merchant, productTypeList, product);
 			}
-			else{
-				updateFilesData(productUploadData, merchant,productTypeList,product);
-			}
+			if (productRejectedVo.getProductName() != null
+					&& productRejectedVo.getReason() != null)
+				productRejectedVoList.add(productRejectedVo);
+
 		}
 		for (ProductUploadDataVo productUploadData : existingData) {
 			Product product = productService.getProductByName(
 					productUploadData.getName(), merchant);
-			if(product==null){
-				addFilesData(productUploadData, merchant,productTypeList);
+			ProductRejectedVo productRejectedVo = new ProductRejectedVo();
+			if (product == null) {
+				productRejectedVo = addFilesData(productUploadData, merchant,
+						productTypeList);
+			} else {
+				productRejectedVo = updateFilesData(productUploadData,
+						merchant, productTypeList, product);
 			}
-			else{
-				updateFilesData(productUploadData, merchant,productTypeList,product);
-			}
+			if (productRejectedVo.getProductName() != null
+					&& productRejectedVo.getReason() != null)
+				productRejectedVoList.add(productRejectedVo);
 		}
 		for (ProductUploadDataVo productUploadData : rejectedData) {
 			Product product = productService.getProductByName(
 					productUploadData.getName(), merchant);
-			if(product==null){
-				addFilesData(productUploadData, merchant,productTypeList);
+			ProductRejectedVo productRejectedVo = new ProductRejectedVo();
+			if (product == null) {
+				productRejectedVo = addFilesData(productUploadData, merchant,
+						productTypeList);
+			} else {
+				productRejectedVo = updateFilesData(productUploadData,
+						merchant, productTypeList, product);
 			}
-			else{
-				updateFilesData(productUploadData, merchant,productTypeList,product);
-			}
+			if (productRejectedVo.getProductName() != null
+					&& productRejectedVo.getReason() != null)
+				productRejectedVoList.add(productRejectedVo);
 		}
+		response.setProductRejectedVo(productRejectedVoList);
 		response.setStatus(SBMessageStatus.SUCCESS.getValue());
 		return response;
 	}
-	
-	public void addFilesData(ProductUploadDataVo productUploadData,Merchant merchant, List<ProductType> productTypeList) throws Exception{
+
+	public ProductRejectedVo addFilesData(
+			ProductUploadDataVo productUploadData, Merchant merchant,
+			List<ProductType> productTypeList) throws Exception {
 		Product product = new Product();
+		ProductRejectedVo productRejectedVo = new ProductRejectedVo();
 		ProductCategory productCategoryAddObject = new ProductCategory();
 		ProductType productTypeAddObject = new ProductType();
 		List<Product> checkUniqueProducts = getProductService()
@@ -698,8 +722,8 @@ public class ProductRestService {
 			}
 			if (productCategoryAddObject.getProductCategoryId() != null
 					&& productTypeAddObject.getProductTypeId() != null) {
-				product = (Product) CommonUtil
-						.setAuditColumnInfo(Product.class.getName());
+				product = (Product) CommonUtil.setAuditColumnInfo(Product.class
+						.getName());
 				product.setName(productUploadData.getName());
 				product.setProductCategory(productCategoryAddObject);
 				product.setProductType(productTypeAddObject);
@@ -730,54 +754,68 @@ public class ProductRestService {
 					product.setUom(uom);
 				}
 				productService.addProduct(product);
+			} else {
+				productRejectedVo.setProductName(productUploadData.getName());
+				productRejectedVo
+						.setReason("Category name or type name is not available");
 			}
+		} else {
+			productRejectedVo.setProductName(productUploadData.getName());
+			productRejectedVo.setReason("Product Name Already Exists");
 		}
+		return productRejectedVo;
 	}
 
-	public void updateFilesData(ProductUploadDataVo productUploadData,
-			Merchant merchant, List<ProductType> productTypeList,Product product) throws Exception {
-			ProductCategory productCategoryAddObject = new ProductCategory();
-			ProductType productTypeAddObject = new ProductType();
-				for (ProductType productType : productTypeList) {
-					if (productType.getName().equalsIgnoreCase(
-							productUploadData.getProductType())) {
-						ProductCategory productCategoryObject = productType
-								.getProductCategory();
-						if (productCategoryObject.getName().equalsIgnoreCase(
-								productUploadData.getProductCategory())) {
-							productTypeAddObject = productType;
-							productCategoryAddObject = productCategoryObject;
-						}
+	public ProductRejectedVo updateFilesData(
+			ProductUploadDataVo productUploadData, Merchant merchant,
+			List<ProductType> productTypeList, Product product)
+			throws Exception {
+		ProductRejectedVo productRejectedVo = new ProductRejectedVo();
+		ProductCategory productCategoryAddObject = new ProductCategory();
+		ProductType productTypeAddObject = new ProductType();
+		for (ProductType productType : productTypeList) {
+			if (productType.getName().equalsIgnoreCase(
+					productUploadData.getProductType())) {
+				ProductCategory productCategoryObject = productType
+						.getProductCategory();
+				if (productCategoryObject.getName().equalsIgnoreCase(
+						productUploadData.getProductCategory())) {
+					productTypeAddObject = productType;
+					productCategoryAddObject = productCategoryObject;
+				}
 
-					}
-				}
-				if(productCategoryAddObject.getProductCategoryId() != null
-						&& productTypeAddObject.getProductTypeId() != null){
-					product.setUpdated(new Date());
-					product.setProductCategory(productCategoryAddObject);
-					product.setProductType(productTypeAddObject);
-					product.setEdibleType(productUploadData.getEdibleType());
-					product.setBrand(productUploadData.getBrand());
-					product.setPrice(productUploadData.getSellingPrice());
-					product.setUnit(productUploadData.getProductUnit());
-					product.setWasPrice(productUploadData.getWasPrice());
-					Uom uom = uomService.getUomByName(productUploadData
-							.getProductMeasurement().trim());
-					if (uom != null) {
-						product.setUom(uom);
-					} else {
-						uom = new Uom();
-						uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
-								.getName());
-						uom.setName(productUploadData.getProductMeasurement()
-								.trim());
-						uom.setDescription(productUploadData
-								.getProductMeasurement().trim());
-						uomService.addUOM(uom);
-						product.setUom(uom);
-					}
-					productService.updateProduct(product);
-				}
+			}
+		}
+		if (productCategoryAddObject.getProductCategoryId() != null
+				&& productTypeAddObject.getProductTypeId() != null) {
+			product.setUpdated(new Date());
+			product.setProductCategory(productCategoryAddObject);
+			product.setProductType(productTypeAddObject);
+			product.setEdibleType(productUploadData.getEdibleType());
+			product.setBrand(productUploadData.getBrand());
+			product.setPrice(productUploadData.getSellingPrice());
+			product.setUnit(productUploadData.getProductUnit());
+			product.setWasPrice(productUploadData.getWasPrice());
+			Uom uom = uomService.getUomByName(productUploadData
+					.getProductMeasurement().trim());
+			if (uom != null) {
+				product.setUom(uom);
+			} else {
+				uom = new Uom();
+				uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class.getName());
+				uom.setName(productUploadData.getProductMeasurement().trim());
+				uom.setDescription(productUploadData.getProductMeasurement()
+						.trim());
+				uomService.addUOM(uom);
+				product.setUom(uom);
+			}
+			productService.updateProduct(product);
+		} else {
+			productRejectedVo.setProductName(productUploadData.getName());
+			productRejectedVo
+					.setReason("Category name or type name is not available");
+		}
+		return productRejectedVo;
 	}
 
 	public ProductUploadVO convertXlsToModel(String path, int sheetNo,
@@ -823,7 +861,7 @@ public class ProductRestService {
 					ProductUploadDataVo productUploadDataVoSet = new ProductUploadDataVo();
 					while (cellIterator.hasNext()
 							&& cellPosition < row.getLastCellNum()) {
-					
+
 						Cell cell = row.getCell(cellPosition,
 								Row.RETURN_BLANK_AS_NULL);
 						if (labels.get(cellPosition).equalsIgnoreCase("name")) {
@@ -847,7 +885,7 @@ public class ProductRestService {
 						} else if (labels.get(cellPosition).equalsIgnoreCase(
 								"product category")) {
 							if (cell != null && !rejectedDataFlag) {
-								boolean flag=newDataFlag;
+								boolean flag = newDataFlag;
 								for (ProductType productTypeValue : productType) {
 									ProductCategory productCategoryValue = productTypeValue
 											.getProductCategory();
@@ -865,8 +903,8 @@ public class ProductRestService {
 												+ " name is not available");
 									}
 								}
-								if(flag && !rejectedDataFlag){
-									newDataFlag=true;
+								if (flag && !rejectedDataFlag) {
+									newDataFlag = true;
 								}
 								productUploadDataVoSet.setProductCategory(cell
 										.getStringCellValue().trim());
@@ -879,7 +917,7 @@ public class ProductRestService {
 						} else if (labels.get(cellPosition).equalsIgnoreCase(
 								"product type")) {
 							if (cell != null && !rejectedDataFlag) {
-								boolean flag=newDataFlag;
+								boolean flag = newDataFlag;
 								for (ProductType productTypeValue : productType) {
 									if (productTypeValue.getName()
 											.equalsIgnoreCase(
@@ -895,8 +933,8 @@ public class ProductRestService {
 												+ " name is not available");
 									}
 								}
-								if(flag && !rejectedDataFlag){
-									newDataFlag=true;
+								if (flag && !rejectedDataFlag) {
+									newDataFlag = true;
 								}
 								productUploadDataVoSet.setProductType(cell
 										.getStringCellValue().trim());
@@ -947,7 +985,7 @@ public class ProductRestService {
 							if (cell != null) {
 								BigDecimal productWasPrice = new BigDecimal(
 										cell.toString());
-								compareWasPrice=productWasPrice;
+								compareWasPrice = productWasPrice;
 								productUploadDataVoSet
 										.setWasPrice(productWasPrice);
 							} else {
@@ -961,17 +999,18 @@ public class ProductRestService {
 							if (cell != null) {
 								BigDecimal productSellingPrice = new BigDecimal(
 										cell.toString());
-								int res=compareWasPrice.compareTo(productSellingPrice);
-								if(res==0 || res==1){
-								productUploadDataVoSet
-										.setSellingPrice(productSellingPrice);
-								}
-								else{
+								int res = compareWasPrice
+										.compareTo(productSellingPrice);
+								if (res == 0 || res == 1) {
 									productUploadDataVoSet
-									.setSellingPrice(productSellingPrice);
+											.setSellingPrice(productSellingPrice);
+								} else {
+									productUploadDataVoSet
+											.setSellingPrice(productSellingPrice);
 									rejectedDataFlag = true;
 									newDataFlag = false;
-									productUploadDataVoSet.setReason("Was price should be greather then the selling price");
+									productUploadDataVoSet
+											.setReason("Was price should be greather then the selling price");
 								}
 							} else {
 								rejectedDataFlag = true;
@@ -1165,7 +1204,7 @@ public class ProductRestService {
 		}
 		return responseString;
 	}
-	
+
 	@Path("/getisbundleproduct")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
