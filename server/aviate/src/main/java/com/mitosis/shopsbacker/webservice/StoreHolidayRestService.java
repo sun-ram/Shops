@@ -56,7 +56,7 @@ StoreService<T> storeService;
 		try {
 			StoreHoliday storeHoliday=null;
 			if(storeHolidayVo.getStoreHolidayId()!=null){
-				storeHoliday=(StoreHoliday) CommonUtil.setAuditColumnInfo(StoreHoliday.class.getName());
+				storeHoliday=(StoreHoliday) CommonUtil.setAuditColumnInfo(StoreHoliday.class.getName(), null);
 				storeHoliday.setIsactive('Y');
 				storeHoliday.setReason(storeHolidayVo.getReason());
 				storeHoliday.setHolidayDate(storeHolidayVo.getHolidayDate());

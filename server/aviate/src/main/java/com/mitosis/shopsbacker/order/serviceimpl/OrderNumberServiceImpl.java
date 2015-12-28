@@ -89,7 +89,7 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 		 
 		if(orderNumberVo.getOrderNumberId() == null){
 			orderNumber = (OrderNumber) CommonUtil.setAuditColumnInfo(OrderNumber.class
-					.getName());
+					.getName(), null);
 			orderNumber.setIsactive('Y');
 			
 		} else {

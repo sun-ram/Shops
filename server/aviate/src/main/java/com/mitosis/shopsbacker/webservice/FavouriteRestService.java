@@ -79,7 +79,7 @@ public class FavouriteRestService {
 		try {
 			favourite = favouriteService.getFavouriteByName(favouriteVo.getName(), favouriteVo.getCustomerId());
 			if(favourite == null){
-				favourite = (Favourite) CommonUtil.setAuditColumnInfo(Favourite.class.getName());
+				favourite = (Favourite) CommonUtil.setAuditColumnInfo(Favourite.class.getName(), null);
 				favourite.setIsactive('Y');
 				favourite = setFavourite(favourite,favouriteVo);
 				favouriteService.saveFavourite(favourite);
@@ -163,7 +163,7 @@ public class FavouriteRestService {
 				
 				MyCart myCarts = myCartService.getCartByCustomerStoreanProductId(customer, salesOrderLine.getProduct(), store);
 				if(myCarts == null){
-				MyCart myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
+				MyCart myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName(), null);
 				myCart.setMerchant(merchant);
 				myCart.setStore(store);
 				myCart.setCustomer(customer);

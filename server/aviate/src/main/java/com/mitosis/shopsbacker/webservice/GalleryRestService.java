@@ -50,7 +50,7 @@ public class GalleryRestService {
 		try {
 
 			Gallery gallery = (Gallery) CommonUtil
-					.setAuditColumnInfo(Gallery.class.getName());
+					.setAuditColumnInfo(Gallery.class.getName(), null);
 			gallery.setFileName(galleryVo.getFileName());
 			gallery.setFilePath(galleryVo.getFilePath());
 			gallery.setType(galleryVo.getType());

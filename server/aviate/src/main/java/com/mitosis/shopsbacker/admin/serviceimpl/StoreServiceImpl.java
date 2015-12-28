@@ -130,7 +130,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 		if (storeVo.getStoreId() == null) {
 			store = (Store) CommonUtil
-					.setAuditColumnInfo(Store.class.getName());
+					.setAuditColumnInfo(Store.class.getName(), null);
 			store.setIsactive('Y');
 			store.setIsactive('N');
 		} else {
@@ -142,7 +142,7 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 		userVo = storeVo.getUser();
 		role = roleService.getRole(RoleName.STOREADMIN.toString());
-		user = userService.setUser(userVo, role);
+		user = userService.setUser(userVo, role, null);
 		user.setStore(store);
 		store.setUser(user);
 		store.setName(storeVo.getName());
@@ -164,12 +164,12 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 	@Override
 	public void setStore(Store store, StoreVo storeVo) throws Exception {
-		store = (Store) CommonUtil.setAuditColumnInfo(Store.class.getName());
+		store = (Store) CommonUtil.setAuditColumnInfo(Store.class.getName(), null);
 		store.setName(storeVo.getName());
-		role = (Role) CommonUtil.setAuditColumnInfo(Role.class.getName());
+		role = (Role) CommonUtil.setAuditColumnInfo(Role.class.getName(), null);
 		role.setName("STOREADMIN");
 		userVo = storeVo.getUser();
-		User user = userService.setUser(userVo, role);
+		User user = userService.setUser(userVo, role, null);
 		user.setStore(store);
 		store.setUser(user);
 	}

@@ -39,7 +39,7 @@ public interface AddressService<T> {
 	
 	public AddressVo setAddressVo(Address address);
 	
-	public Address setAddress(AddressVo addressVo) throws Exception;
+	public Address setAddress(AddressVo addressVo, String userId) throws Exception;
 	
 	public JsonNode getLatLongByAddress(AddressVo addressVo);
 	

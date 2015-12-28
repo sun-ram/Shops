@@ -107,7 +107,7 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 
 		if (bannerVo.getBannerId() == null) {
 			banner = (Banner) CommonUtil.setAuditColumnInfo(Banner.class
-					.getName());
+					.getName(), null);
 			banner.setIsactive('Y');
 			banner.setIsShopsbackerBanner(bannerVo.getIsShopsbackerBanner());
 			banner.setTabTitleBold(bannerVo.getTabTitleBold());
@@ -135,7 +135,7 @@ public class BannerServiceImpl<T> implements BannerService<T> {
 			banner.setIsShopsbackerBanner('Y');
 		}
 		if (bannerVo.getImage().getImage() != null) {
-			banner.setImage(imageService.setImage(bannerVo.getImage()));
+			banner.setImage(imageService.setImage(bannerVo.getImage(), null));
 		}
 
 		return banner;

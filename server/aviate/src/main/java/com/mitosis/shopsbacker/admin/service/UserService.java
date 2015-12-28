@@ -34,7 +34,7 @@ public interface UserService<T> {
 	
 	public List<User> getUsers(List<String> roles, String storeId);
 	
-	public User setUser(UserVo userVo,Role role)throws Exception;
+	public User setUser(UserVo userVo,Role role, String userId)throws Exception;
 	
 	public UserVo setUserVo(User user) throws Exception;
 

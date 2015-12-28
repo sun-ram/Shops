@@ -178,7 +178,7 @@ public class UomRestServices<T> {
 		Uom productUnitOfMeasure=null;
 		if(uomVo.getUomId()==null){
 		 productUnitOfMeasure = (Uom) CommonUtil
-				.setAuditColumnInfo(Uom.class.getName());
+				.setAuditColumnInfo(Uom.class.getName(), null);
 			productUnitOfMeasure.setIsactive('Y');
 		}else{
 			productUnitOfMeasure=uomService.getUOMById(uomVo.getUomId());

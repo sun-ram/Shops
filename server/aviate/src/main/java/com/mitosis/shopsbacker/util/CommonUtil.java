@@ -90,7 +90,7 @@ public final class CommonUtil {
 	 * @return Object(new instance for give class)
 	 * @throws Exception
 	 */
-	public static Object setAuditColumnInfo(String fullyQualifiedName)
+	public static Object setAuditColumnInfo(String fullyQualifiedName,String userId)
 			throws Exception {
 		Class cls = Class.forName(fullyQualifiedName);
 		Object obj = cls.newInstance();
@@ -98,9 +98,17 @@ public final class CommonUtil {
 		paramString[0] = String.class;
 		// TODO:Need to get user from session and set here
 		Method method = cls.getDeclaredMethod("setCreatedby", paramString);
-		method.invoke(obj, "123");
+		if(userId==null){
+						method.invoke(obj, "123");
+				}else{
+					method.invoke(obj,userId);
+				}
 		method = cls.getDeclaredMethod("setUpdatedby", paramString);
-		method.invoke(obj, "123");
+		if(userId==null){
+				method.invoke(obj, "123");
+					}else{
+						method.invoke(obj,userId);	
+					}
 		Class[] paramString1 = new Class[1];
 		paramString1[0] = Date.class;
 		method = cls.getDeclaredMethod("setUpdated", paramString1);

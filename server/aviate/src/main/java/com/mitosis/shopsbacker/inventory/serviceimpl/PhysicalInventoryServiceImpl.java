@@ -66,7 +66,7 @@ public class PhysicalInventoryServiceImpl<T> implements
 		List<MovementLine> movementLines = movement.getMovementLines();		
 		for (MovementLine movementLine : movementLines) {
 			List<ProductInventory> productInventories = productInventoryDao.getProductInventory(movementLine.getProduct(), movementLine.getStoragebinByToBinId());
-			ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName());
+			ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName(), null);
 			productInventory.setIsactive('Y');
 			productInventory.setMerchant(movement.getMerchant());
 			productInventory.setStore(movement.getStore());

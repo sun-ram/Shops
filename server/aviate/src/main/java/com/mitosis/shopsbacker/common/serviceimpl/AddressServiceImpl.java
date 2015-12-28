@@ -109,16 +109,22 @@ public class AddressServiceImpl<T> implements AddressService<T> {
 	}
 
 	@Override
-	public Address setAddress(AddressVo addressVo) throws Exception {
+	public Address setAddress(AddressVo addressVo,String userId) throws Exception {
 		if (addressVo.getAddressId() == null) {
 			address = (Address) CommonUtil.setAuditColumnInfo(Address.class
-					.getName());
+					.getName(), userId);
 			address.setIsactive('Y');
 		} else {
 			address = addressDao.getAddress(addressVo.getAddressId());
 			address.setUpdated(new Date());
 			// TODO need to get user from session and set to updatedby
-			address.setUpdatedby("123");
+			if(userId==null){
+				address.setUpdatedby("123");
+			}
+			else{
+				address.setUpdatedby(userId);
+
+			}
 		}
 		address.setName(addressVo.getName());
 		address.setAddress1(addressVo.getAddress1());

@@ -112,7 +112,7 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 		List<MovementLine> movementLines = movement.getMovementLines();		
 		for (MovementLine movementLine : movementLines) {
 			List<ProductInventory> productInventories = productInventoryDao.getProductInventory(movementLine.getProduct(), movementLine.getStoragebinByToBinId());
-			ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName());
+			ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName(), null);
 			productInventory.setIsactive('Y');
 			productInventory.setMerchant(movement.getMerchant());
 			productInventory.setStore(movement.getStore());
@@ -207,7 +207,7 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 		Movement movement = null;
 		if (!isUpdateProcess) {
 			movement = (Movement) CommonUtil.setAuditColumnInfo(Movement.class
-					.getName());
+					.getName(), null);
 			movement.setIsactive('Y');
 		} else {
 			movement = getMovement(movementVo.getMovementId());
@@ -255,7 +255,7 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 		MovementLine movementLine = null;
 		if (!isUpdate) {
 			movementLine = (MovementLine) CommonUtil
-					.setAuditColumnInfo(MovementLine.class.getName());
+					.setAuditColumnInfo(MovementLine.class.getName(), null);
 			movementLine.setIsactive('Y');
 		} else {
 			movementLine = movementLineService.getMovementLine(movementLineVo

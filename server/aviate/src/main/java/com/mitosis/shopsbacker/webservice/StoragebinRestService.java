@@ -159,7 +159,7 @@ public class StoragebinRestService {
 		Storagebin storagebin = null;
 		if (!isUpdate) {
 			storagebin = (Storagebin) CommonUtil
-					.setAuditColumnInfo(Storagebin.class.getName());
+					.setAuditColumnInfo(Storagebin.class.getName(), null);
 			storagebin.setIsactive('Y');
 		} else {
 			storagebin = storagebinService.getStoragebinById(storagebinVo.getStoragebinId());

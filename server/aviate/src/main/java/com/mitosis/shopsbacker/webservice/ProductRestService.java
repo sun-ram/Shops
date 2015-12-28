@@ -224,10 +224,9 @@ public class ProductRestService {
 			String imageId = imageVo.getImageId();
 			productImageIds.add(imageId);
 			productService.productImageUpload(imageVo, merchant);
-			Image image = imageService.setImage(imageVo);
-			imageService.addImage(image);
+			Image image = imageService.setImage(imageVo, null);			imageService.addImage(image);
 			ProductImage productimage = (ProductImage) CommonUtil
-					.setAuditColumnInfo(ProductImage.class.getName());
+					.setAuditColumnInfo(ProductImage.class.getName(),null);
 			productimage.setIsactive('Y');
 			productimage.setImage(image);
 			productimage.setProduct(product);
@@ -723,7 +722,7 @@ public class ProductRestService {
 			if (productCategoryAddObject.getProductCategoryId() != null
 					&& productTypeAddObject.getProductTypeId() != null) {
 				product = (Product) CommonUtil.setAuditColumnInfo(Product.class
-						.getName());
+						.getName(),null);
 				product.setName(productUploadData.getName());
 				product.setProductCategory(productCategoryAddObject);
 				product.setProductType(productTypeAddObject);
@@ -745,7 +744,7 @@ public class ProductRestService {
 				} else {
 					uom = new Uom();
 					uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
-							.getName());
+							.getName(),null);
 					uom.setName(productUploadData.getProductMeasurement()
 							.trim());
 					uom.setDescription(productUploadData
@@ -802,7 +801,7 @@ public class ProductRestService {
 				product.setUom(uom);
 			} else {
 				uom = new Uom();
-				uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class.getName());
+				uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class.getName(),null);
 				uom.setName(productUploadData.getProductMeasurement().trim());
 				uom.setDescription(productUploadData.getProductMeasurement()
 						.trim());
@@ -1081,7 +1080,7 @@ public class ProductRestService {
 				if (productVo.getImage().getImageId() != null) {
 					imageIds.add(productVo.getImage().getImageId());
 				}
-				Image image = imageService.setImage(productVo.getImage());
+				Image image = imageService.setImage(productVo.getImage(),null);
 				product.setImage(image);
 			}
 
@@ -1096,10 +1095,10 @@ public class ProductRestService {
 					if (imageVo.getImageId() != null) {
 						imageIds.add(imageVo.getImageId());
 					}
-					Image image = imageService.setImage(imageVo);
+					Image image = imageService.setImage(imageVo,null);
 					imageService.addImage(image);
 					ProductImage productimage = (ProductImage) CommonUtil
-							.setAuditColumnInfo(ProductImage.class.getName());
+							.setAuditColumnInfo(ProductImage.class.getName(),null);
 					productimage.setIsactive('Y');
 					productimage.setImage(image);
 					productimage.setProduct(product);

@@ -82,7 +82,7 @@ public class MyCartRestServices<T> {
 			Customer customer = customerService.getCustomerInfoById(customerId);
 			MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
 			if(myCart == null){
-				myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
+				myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName(), null);
 				myCart.setProduct(product);
 				myCart.setStore(store);
 				myCart.setCustomer(customer);
@@ -124,7 +124,7 @@ public class MyCartRestServices<T> {
 				Product product = productService.getProduct(productVo.getProductId());
 				MyCart myCart = myCartService.getCartByCustomerStoreanProductId(customer, product, store);
 				if(myCart == null){
-					myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName());
+					myCart = (MyCart) CommonUtil.setAuditColumnInfo(MyCart.class.getName(), null);
 					myCart.setProduct(product);
 					myCart.setStore(store);
 					myCart.setCustomer(customer);
@@ -245,7 +245,7 @@ public class MyCartRestServices<T> {
 
 	public MyCart setMycartDetails(MyCartVo myCartVo) throws Exception {
 		MyCart myCartDetails = (MyCart) CommonUtil
-				.setAuditColumnInfo(MyCart.class.getName());
+				.setAuditColumnInfo(MyCart.class.getName(), null);
 		Product product = productService.getProduct(myCartVo.getProduct().getProductId());
 		myCartDetails.setProduct(product);
 		myCartDetails.setStore(storeService.getStoreById(myCartVo.getStore().getStoreId()));

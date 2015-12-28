@@ -155,17 +155,23 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 				merchantDao.getMerchantById(merchantId));
 	}
 
-	public User setUser(UserVo userVo, Role role) throws Exception {
+	public User setUser(UserVo userVo, Role role,String userId) throws Exception {
 		
 		if(userVo.getUserId() == null){
-			user = (User) CommonUtil.setAuditColumnInfo(User.class.getName());
+			user = (User) CommonUtil.setAuditColumnInfo(User.class.getName(), userId);
 			user.setIsactive('Y');
 			user.setPassword(CommonUtil.passwordEncoder(userVo.getPassword()));
 		}else{
 			user = userDao.getUser(userVo.getUserId());
 			user.setUpdated(new Date());
 			//TODO need to get user from session and set to updatedby
-			user.setUpdatedby("123");
+			if(userId==null){
+				user.setUpdatedby("123");
+
+			}else{
+				user.setUpdatedby(userId);
+
+			}
 		}
 		user.setName(userVo.getName());
 		user.setUserName(userVo.getUserName());
@@ -173,7 +179,7 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		user.setPhoneNo(userVo.getPhoneNo());
 		user.setRole(role);
 		addressVo = userVo.getAddress();
-		address = addressService.setAddress(addressVo);
+		address = addressService.setAddress(addressVo,userId);
 		// addessService.saveAddress(address);
 		user.setAddress(address);
 

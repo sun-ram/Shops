@@ -81,7 +81,7 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>,
 		Warehouse warehouse = null;
 		if (!isUpdateProcess) {
 			warehouse = (Warehouse) CommonUtil
-					.setAuditColumnInfo(Warehouse.class.getName());
+					.setAuditColumnInfo(Warehouse.class.getName(), null);
 			warehouse.setIsactive('Y');
 		} else {
 			warehouse = warehouseDao.getWarehouse(warehouseVo
@@ -94,7 +94,7 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>,
 		warehouse.setName(warehouseVo.getName());
 		warehouse.setStore(store);
 		warehouse.setDescription(warehouseVo.getDescription());
-		Address address = addressService.setAddress(warehouseVo.getAddress());
+		Address address = addressService.setAddress(warehouseVo.getAddress(), null);
 		warehouse.setAddress(address);
 		return warehouse;
 	}

@@ -12,7 +12,7 @@ public interface ImageService<T>  {
 	
 	public ImageVo setImageVo(Merchant merchant) throws IOException;
 	
-	public Image setImage(ImageVo imageVo) throws Exception;
+	public Image setImage(ImageVo imageVo, String userId) throws Exception;
 
 	public boolean deleteImage(Image image) throws IOException,
 	Exception ;

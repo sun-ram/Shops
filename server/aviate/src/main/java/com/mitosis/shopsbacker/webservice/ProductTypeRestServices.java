@@ -183,7 +183,7 @@ public class ProductTypeRestServices<T> {
 			throws Exception {
 		Merchant merchant = new Merchant();
 		ProductType productType = (ProductType) CommonUtil
-				.setAuditColumnInfo(ProductType.class.getName());
+				.setAuditColumnInfo(ProductType.class.getName(), null);
 		merchant = merchantService.getMerchantById(ProductTypeVo.getMerchant()
 				.getMerchantId());
 		if (merchant != null) {

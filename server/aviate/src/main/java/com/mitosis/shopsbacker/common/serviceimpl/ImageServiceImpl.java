@@ -57,10 +57,10 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 
 	
 	@Override
-	public Image setImage(ImageVo imageVo) throws Exception {
+	public Image setImage(ImageVo imageVo, String userId) throws Exception {
 
 		image = (Image) CommonUtil
-				.setAuditColumnInfo(Image.class.getName());
+				.setAuditColumnInfo(Image.class.getName(), userId);
 		image.setIsactive('Y');
 		image.setName(imageVo.getName());
 		image.setType(imageVo.getType());

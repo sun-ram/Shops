@@ -48,7 +48,7 @@ public class CommonServiceImpl<T> implements CommonService<T> {
 	public PasswordResetRequest savePasswordResetRequest(String userId, String userType) {
 	    pwdResetReq = new PasswordResetRequest();
 		try {
-			pwdResetReq = (PasswordResetRequest) CommonUtil.setAuditColumnInfo(PasswordResetRequest.class.getName());
+			pwdResetReq = (PasswordResetRequest) CommonUtil.setAuditColumnInfo(PasswordResetRequest.class.getName(), null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

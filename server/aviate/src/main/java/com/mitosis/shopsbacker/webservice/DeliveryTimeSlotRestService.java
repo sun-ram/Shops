@@ -83,7 +83,7 @@ public class DeliveryTimeSlotRestService {
 				deliveryTimeSlotService.update(deliveryTimeSlot);
 			} else {
 				DeliveryTimeSlot deliveryTimeSlot = (DeliveryTimeSlot) CommonUtil
-						.setAuditColumnInfo(DeliveryTimeSlot.class.getName());
+						.setAuditColumnInfo(DeliveryTimeSlot.class.getName(), null);
 				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant, store,
 						deliveryTimeSlot);
 				deliveryTimeSlot.setIsactive('Y');
@@ -102,7 +102,7 @@ public class DeliveryTimeSlotRestService {
 				storeHolidayService.update(storeHoliday);
 			} else {
 				StoreHoliday storeHoliday = (StoreHoliday) CommonUtil
-						.setAuditColumnInfo(StoreHoliday.class.getName());
+						.setAuditColumnInfo(StoreHoliday.class.getName(), null);
 				storeHoliday.setIsactive('Y');
 				setStoreHoliday(deliveryTimeSlotVo, merchant, store,
 						storeHoliday);

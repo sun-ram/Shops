@@ -155,13 +155,13 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 		if (merchantVo.getMerchantId() == null) {
 			merchant = (Merchant) CommonUtil.setAuditColumnInfo(Merchant.class
-					.getName());
+					.getName(),merchantVo.getUserId());
 			merchant.setIsactive('Y');
 		} else {
 			merchant = merchantDao.getMerchantById(merchantVo.getMerchantId());
 			merchant.setUpdated(new Date());
 			// TODO: Need to get user from session and set to updated by.
-			merchant.setUpdatedby("1234");
+			merchant.setUpdatedby(merchantVo.getUserId());
 
 			if (merchantVo.getLogo().getImage() != null
 					&& merchantVo.getLogo().getType() != null) {
@@ -172,14 +172,14 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 		merchant.setName(merchantVo.getName());
 
 		if (merchantVo.getLogo().getImage() != null) {
-			Image image = imageService.setImage(merchantVo.getLogo());
+			Image image = imageService.setImage(merchantVo.getLogo(),merchantVo.getUserId());
 			merchant.setLogo(image);
 			;
 		}
 
 		userVo = merchantVo.getUser();
 		role = roleService.getRole(RoleName.MERCHANTADMIN.toString());
-		user = userService.setUser(userVo, role);
+		user = userService.setUser(userVo, role,merchantVo.getUserId());
 		user.setMerchant(merchant);
 		merchant.setUser(user);
 		return merchant;

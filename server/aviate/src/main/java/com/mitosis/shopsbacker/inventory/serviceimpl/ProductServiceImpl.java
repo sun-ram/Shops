@@ -158,7 +158,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	public Product setProduct(ProductVo productVo,Image img) throws Exception {
 		Product product = null;
 		if(productVo.getProductId() == null){
-			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
+			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName(), null);
 			product.setIsactive('Y');
 		}else{
 			product = productDao.getProduct(productVo.getProductId());
@@ -171,7 +171,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			}
 		}
 		if (productVo.getImage().getImage() != null) {
-			Image image = imageService.setImage(productVo.getImage());
+			Image image = imageService.setImage(productVo.getImage(), null);			
 			product.setImage(image);
 		}
 		product.setName(productVo.getName());
@@ -288,7 +288,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		Long l = new Long("12345678");
         bg = BigDecimal.valueOf(l);
 		if(productVo.getIsYourHot()){
-			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName());
+			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName(), null);
 			product.setIsactive('Y');
 		}else{
 			product = productDao.getProductByName(productVo.getName());

@@ -77,7 +77,7 @@ private static final long serialVersionUID = 1L;
 	
 	public ProductOfferLine setProductOfferLine(ProductOfferLineVo productOfferLineVo, ProductOfferLine productOfferLine) throws Exception{
 		if(productOfferLineVo.getProductOfferLineId() == null){
-			productOfferLine = (ProductOfferLine) CommonUtil.setAuditColumnInfo(ProductOfferLine.class.getName());
+			productOfferLine = (ProductOfferLine) CommonUtil.setAuditColumnInfo(ProductOfferLine.class.getName(), null);
 			productOfferLine.setIsactive('Y');
 		}else{
 			productOfferLine.setUpdated(new Date());

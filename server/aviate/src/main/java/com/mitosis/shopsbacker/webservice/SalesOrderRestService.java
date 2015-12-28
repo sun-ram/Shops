@@ -291,7 +291,7 @@ public class SalesOrderRestService<T> {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil
-					.setAuditColumnInfo(SalesOrder.class.getName());
+					.setAuditColumnInfo(SalesOrder.class.getName(),null);
 			salesOrder.setIsactive('Y');
 			Customer customer = customerService
 					.getCustomerInfoById(salesOrderVo.getCustomer()
@@ -340,7 +340,7 @@ public class SalesOrderRestService<T> {
 			List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 			for (MyCart myCart : cartProduct) {
 				SalesOrderLine sol = (SalesOrderLine) CommonUtil
-						.setAuditColumnInfo(SalesOrderLine.class.getName());
+						.setAuditColumnInfo(SalesOrderLine.class.getName(),null);
 				Double lineAmount = myCart.getProduct().getPrice()
 						.doubleValue()
 						* myCart.getQty();
@@ -364,7 +364,7 @@ public class SalesOrderRestService<T> {
 			List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 			for (Tax tax : taxs) {
 				OrderTax orderTax = (OrderTax) CommonUtil
-						.setAuditColumnInfo(OrderTax.class.getName());
+						.setAuditColumnInfo(OrderTax.class.getName(),null);
 
 				Double taxAmount = (orderGrossAmount * (tax.getTaxPercentage() / 100));
 				orderTax.setTax(tax);
@@ -547,7 +547,7 @@ public class SalesOrderRestService<T> {
 						if (salesOrderVo.getSign().getImage() != null) {
 							customerSign(salesOrder, salesOrderVo);
 							Image image = imageService.setImage(salesOrderVo
-									.getSign());
+									.getSign(),null);
 							salesOrder.setCustomerSign(image);
 							salesOrder.setDeliveredTime(new Date());
 						} else {

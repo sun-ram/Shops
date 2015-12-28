@@ -489,7 +489,7 @@ public class ProductCategoryRestServices<T> {
 			ProductCategoryVo ProductCategoryVo) throws Exception {
 		Merchant merchant = new Merchant();
 		ProductCategory productCategory = (ProductCategory) CommonUtil
-				.setAuditColumnInfo(ProductCategory.class.getName());
+				.setAuditColumnInfo(ProductCategory.class.getName(), null);
 		productCategory.setName(ProductCategoryVo.getName());
 		merchant = merchantService.getMerchantById(ProductCategoryVo
 				.getMerchant().getMerchantId());

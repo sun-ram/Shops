@@ -194,7 +194,7 @@ public class CustomerRestService<T> {
 				    customer.setName(addressVo.getName());
 				    customerService.updateCustomer(customer);
 				}
-				Address address = addressService.setAddress(addressVo);
+				Address address = addressService.setAddress(addressVo, null);
 				address.setCustomer(customer);
 				if (addressVo.getAddressId() == null) {
 					addressService.saveAddress(address);
@@ -280,7 +280,7 @@ public class CustomerRestService<T> {
 
 	public Customer customerDetails(CustomerVo customerVo) throws Exception {
 		customer = (Customer) CommonUtil.setAuditColumnInfo(Customer.class
-				.getName());
+				.getName(), null);
 		customer.setEmail(customerVo.getEmail());
 		customer.setPhoneNo(customerVo.getPhoneNo());
 		customer.setPassword(CommonUtil.passwordEncoder(customerVo
