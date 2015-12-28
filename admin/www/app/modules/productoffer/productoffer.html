@@ -51,7 +51,7 @@
         </md-item-content>
         </md-item>
         
-      <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferList | filter:searchTxt | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
+      <md-item class="data-table-list" md-data-table ng-repeat="productOffer in productOfferList | filter:searchTxt | orderBy: offerPagination.order | limitTo: offerPagination.limit: (offerPagination.page - 1) * offerPagination.limit" ng-click="productDetails(product)">
          <md-item-content  layout="row" class="padd-l8">
           <div layout="row" layout-wrap class="full_wid tbl-body" ng-click="offerDetails(productOffer);" ng-hide="showDetails" ng-show="product.productId != showInLineEdit">
           
@@ -148,8 +148,8 @@
    </md-card-content> 
    <div layout="row" layout-align="center center" >
    		<div style="font-size:16px;" flex="63" layout="row" class="table-pagination-bg" layout-align="start center">
-		 <md-data-table-pagination md-limit="productsPagination.limit"
-      md-page="productsPagination.page" md-total="{{productOfferList.length}}"
+		 <md-data-table-pagination md-limit="offerPagination.limit"
+      md-page="offerPagination.page" md-total="{{productOfferList.length}}"
       md-trigger="onpagechange"></md-data-table-pagination>
 		</div>
 	</div>        

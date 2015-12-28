@@ -76,6 +76,19 @@ angular.module('aviateAdmin.controllers')
 					limit: 5,
 					page: 1
 			};
+			$scope.discountProductPagination={
+					limit: 5,
+					page: 1
+			};
+			$scope.offerProductPagination={
+					limit: 5,
+					page: 1
+			};
+			$scope.offerPagination={
+					limit: 5,
+					page: 1
+			};
+			
 			
 			$scope.getCity = function(states){
 				$scope.cities = states.city;

@@ -139,9 +139,8 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			DiscountService.saveProductDiscount($scope.newproductDiscount).then(function(data) {
 				$scope.results = data;
 				$localStorage.discountList=null;
-				$scope.getDiscountList();
+				$scope.getProductDiscount();
 			})
-
 	 }
 	 
 	 $scope.offerProductRedirect = function(discount){
