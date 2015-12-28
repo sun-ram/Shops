@@ -140,7 +140,6 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 				$scope.results = data;
 				$localStorage.discountList=null;
 				$scope.getDiscountList();
-				$state.go('app.discount');
 			})
 
 	 }
