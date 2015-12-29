@@ -36,7 +36,14 @@ public class DiscountVo {
 	private List<ProductVo> products = new ArrayList<ProductVo>();
 	private StoreVo store;
 	private List<StoreVo> storeList = new ArrayList<StoreVo>();
+	private String userId;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getDiscountId() {
 		return discountId;
 	}

@@ -43,9 +43,15 @@ public class ProductVo {
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	private List<ImageVo> images = new ArrayList<ImageVo>();
 	private List<ProductOfferVo> productOffer = new ArrayList<ProductOfferVo>();
-	
+	private String userId;
 	public List<ImageVo> getImages() {
 		return images;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public void setImages(List<ImageVo> images) {
 		this.images = images;
