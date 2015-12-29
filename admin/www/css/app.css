@@ -32,7 +32,7 @@ input{
 	width: 48px;
 	margin: 16px;
 	border-radius: 48px;
-	border: 1px solid #ddd;1 - 1 of 1
+	border: 1px solid #ddd;
 	position: fixed;
 }
 
@@ -41,6 +41,7 @@ input{
 	.wid-50{width:50%;}
 	.full_wid{width:100%; outline:0;}
 	.m-wid140{min-width: 140px;}
+	.wid-40{width: 40px;}
 
 /* Floating */
 
@@ -62,7 +63,7 @@ input{
 .paddtb-8{padding: 8px 0px;}
 .padd-0{padding: 0;}
 .padd-5{padding: 5px;}
-.padd-t5{padding-top: 5px;}
+.padd-t10{padding-top: 10px;}
 .padd-l10{padding-left: 10px;}
 .padd-l10-r5{padding: 0px 5px 0px 10px;}
 .remove-padd .md-select-value{padding:1px ! important;}
@@ -274,6 +275,9 @@ table[md-data-table] > thead:not([md-table-progress]) > tr > th{
 }
 table[md-data-table] > thead:not([md-table-progress]) > tr > th[numeric] > div{
 	justify-content: flex-start ! important;	
+}
+table[md-data-table] > tbody > tr{
+	outline: 0;
 }
 table[md-data-table] > tbody > tr > td{
 	font-size: 15px ! important;
@@ -637,7 +641,9 @@ border: 1px dashed #fff;
 margin-top: 40%;
 border-radius: 50%;}
  
-
+.action-buttons{
+	outline: 0;
+}
 
 
 
