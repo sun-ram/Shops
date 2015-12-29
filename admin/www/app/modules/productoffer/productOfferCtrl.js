@@ -144,9 +144,25 @@ angular.module('aviateAdmin.controllers')
    };
    
    $scope.editProductOffer = function(productOffer){
-	   ProductOfferServices.setProductOfferObj(productOffer);
-	   $state.go('app.newproductoffer');
+	   if(productOffer!=undefined && !(_.isDate(productOffer.startTime))){
+		   productOffer.startTime = timeFormat(productOffer.startTime);
+		   productOffer.endTime = timeFormat(productOffer.endTime);
+		   ProductOfferServices.setProductOfferObj(productOffer);
+		   $state.go('app.newproductoffer');
+	   }else{
+		   ProductOfferServices.setProductOfferObj(productOffer);
+		   $state.go('app.newproductoffer');
+	   }
    };
+   
+   var timeFormat = function(time){ 
+	   	 var hh = time.slice(0,2);
+		 var mm = time.slice(3,5);
+		 var ss = time.slice(6,7);
+		 $scope.newTime = new Date(1970, 0, 1, hh, mm, 0);
+		 console.log($scope.startTime);
+		 return $scope.newTime;
+	   }
    
    $scope.updateProductOffer = function(productOffer){
 		$scope.productId = productOffer.productVo.productId;
@@ -154,25 +170,15 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOffer.productVo ={};
 		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
+		if($scope.productOffer.fromDate!=null){
 		$scope.productOffer.fromDate = $filter('date')(new Date($scope.productOffer.fromDate), 'yyyy-MM-dd');
 		$scope.productOffer.todate = $filter('date')(new Date($scope.productOffer.todate), 'yyyy-MM-dd');
-		
-		if($rootScope.user.storeId){
-			$scope.productOffer.storeList.push({"storeId":$rootScope.user.storeId});
-		}else{
-		for(var i=0;i<$scope.selection.length;i++){
-			$scope.productOffer.storeList.push({"storeId":$scope.selection[i]});
-			}
 		}
-		
-		if($scope.productOffer.storeList.length!=0){
+	
 			ProductOfferServices.updateProductOffer($scope.productOffer).then(function(data) {
 				$scope.results = data;
 			    $state.go('app.productoffer');
-			})
-		}else{
-			toastr.error("Select Any Store");
-		}
+		})
 
    };
    

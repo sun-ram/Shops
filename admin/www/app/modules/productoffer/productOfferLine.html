@@ -101,7 +101,7 @@
 			
 			<md-input-container flex>
       			<label>Discount Percentage</label>
-      			<input type="text" ng-model="productOfferLine.discountPercentage" ng-required="true"   ng-maxlength="20" valid-number /> 
+      			<input type="text" ng-model="productOfferLine.discountPercentage" ng-required="true"  min="1" max="100" ng-minlength="1" ng-maxlength="2" valid-number /> 
       		</md-input-container>
 
       		<span flex layout-align="center center" layout>
@@ -184,12 +184,16 @@
       		
       		<md-input-container flex>
       		<label>Discount Amount</label>
-      		<input type="text" ng-model="newproductOffer.discountAmount" ng-required="true"  ng-maxlength="20" valid-number /> 
+      		<input type="number" ng-model="newproductOffer.discountAmount" ng-required="true" name="Discount" ng-maxlength="20"  max={{newproductOffer.productVo.price}}/> 
+      		<span class="error" ng-show="offerLineForm.Discount.$error.max">
+      			Invalid Discount Amount!</span>
       		</md-input-container>
       		
       		<md-input-container flex>
       		<label>Discount Percentage</label>
-      		<input type="text" ng-model="newproductOffer.discountPercentage" ng-required="true"  ng-maxlength="20" valid-number/> 
+      		<input type="number" ng-model="newproductOffer.discountPercentage" ng-required="true" name="percentage" ng-maxlength="3" max="100"/> 
+      		<span class="error" ng-show="offerLineForm.percentage.$error.max">
+      			Invalid Percentage!</span>
       		</md-input-container>
       		
       		<span flex layout-align="center center" layout>

@@ -107,11 +107,24 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		};
 		
 		$scope.editDiscount = function(discount){
-			 $rootScope.discountEdit = discount;
-			$state.go('app.editdiscount');
+			  if(!(_.isDate(discount.startTime))){
+				  discount.startTime = timeFormat(discount.startTime);
+				  discount.endTime = timeFormat(discount.endTime);
+				  $rootScope.discountEdit = discount;
+				  $state.go('app.editdiscount');
+			   }
 		}
 		$scope.discountEdit = $rootScope.discountEdit;
-		
+	
+	var timeFormat = function(time){ 
+		   	 var hh = time.slice(0,2);
+			 var mm = time.slice(3,5);
+			 var ss = time.slice(6,7);
+			 $scope.newTime = new Date(1970, 0, 1, hh, mm, 0);
+			 console.log($scope.startTime);
+			 return $scope.newTime;
+		   }
+		 
 	$scope.updateDiscount = function(discount){
 		
 	 	$scope.discount = discount;
@@ -188,6 +201,14 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 				})
 			 
 		 }
-		 	
+		 
+		 $scope.validateTime = function(){
+			 if($scope.discount.startTime!=null && $scope.discount.endTime!=null && 
+					 $scope.discount.startTime.getHours()==$scope.discount.endTime.getHours()){
+				 $scope.endTime = true;
+			 }else{
+				 $scope.endTime = false;
+			 }
+		 }
 }
 ]);

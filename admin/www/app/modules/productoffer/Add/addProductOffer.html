@@ -31,7 +31,7 @@
 	    <md-input-container layout-padding  flex>
 	       <label>Offer Amount</span></label>
 	      
-	       <input name="offer" ng-model="productOffer.offerAmount" valid-number ng-required="true">
+	       <input name="offer" ng-model="productOffer.offerAmount" valid-number>
 	    </md-input-container>  
 	  </div>
 	  </div>
@@ -48,10 +48,10 @@
     		</md-input-container>
 	 <div layout layout-sm="column">
 	       <div layout-padding flex>
-		       <md-datepicker ng-model="productOffer.fromDate" md-placeholder="Start date" ng-required="true" md-min-date="minDate" ></md-datepicker>
+		       <md-datepicker ng-model="productOffer.fromDate" md-placeholder="Start date" md-min-date="minDate" ></md-datepicker>
 		   </div>    
 		   <div layout-padding flex>
-		       <md-datepicker ng-model="productOffer.todate" ng-required="true" md-placeholder="End date"></md-datepicker>
+		       <md-datepicker ng-model="productOffer.todate" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
 		    </div>
 	    </div>
 	    	  

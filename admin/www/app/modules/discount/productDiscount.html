@@ -69,7 +69,7 @@
       		
       	    <md-input-container flex>
                     <label>Product<span style="color:red">*</span></label>
-                    <md-select class="remove-padd" ng-model="productDiscountLine.product" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
+                    <md-select class="remove-padd" ng-model="productDiscount.product" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
  				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
 		              {{product.name}}
 		            </md-option>
