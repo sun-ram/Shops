@@ -76,9 +76,9 @@ public class UserRestServices<T> {
 
 	@Autowired
 	MerchantService<T> merchantService;
-	
+
 	@Autowired
-    ImageService<T> imageService;
+	ImageService<T> imageService;
 
 	@Path("/login")
 	@POST
@@ -103,14 +103,14 @@ public class UserRestServices<T> {
 					userLoginResponseVo.setUser(userDetails);
 				} else {
 					userLoginResponseVo
-							.setErrorCode(SBErrorMessage.INVALID_USERNAME
-									.getCode());
+					.setErrorCode(SBErrorMessage.INVALID_USERNAME
+							.getCode());
 					userLoginResponseVo
-							.setErrorString(SBErrorMessage.INVALID_USERNAME
-									.getMessage());
+					.setErrorString(SBErrorMessage.INVALID_USERNAME
+							.getMessage());
 					userLoginResponseVo.setStatus(SBMessageStatus.FAILURE
 							.getValue());
-					
+
 					return responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLoginResponseVo);
 
 				}
@@ -122,16 +122,16 @@ public class UserRestServices<T> {
 			userLoginResponseVo.setErrorString(e.toString());
 			return   responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLoginResponseVo);
 		}
-		
+
 		//mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
 		//mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		
+
 		try {
 			responseString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLoginResponseVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
-			 throw e;
+			throw e;
 		}
 		return responseString;
 	}
@@ -176,15 +176,15 @@ public class UserRestServices<T> {
 	public MerchantVo setMerchant(User user) throws Exception {
 		MerchantVo merchantVo = new MerchantVo();
 		Merchant merchant = user.getMerchant();
-				if ( merchant!= null) {
-					merchantVo.setMerchantId(merchant.getMerchantId());
-					merchantVo.setName(merchant.getName());
-					Image logo = merchant.getLogo();
-					if(logo!=null){
-					ImageVo logoVo=new ImageVo();
-					logoVo.setUrl(imageService.generateMerchantImageUrl(logo.getUrl()));
-					merchantVo.setLogo(logoVo);
-					}
+		if ( merchant!= null) {
+			merchantVo.setMerchantId(merchant.getMerchantId());
+			merchantVo.setName(merchant.getName());
+			Image logo = merchant.getLogo();
+			if(logo!=null){
+				ImageVo logoVo=new ImageVo();
+				logoVo.setUrl(imageService.generateMerchantImageUrl(logo.getUrl()));
+				merchantVo.setLogo(logoVo);
+			}
 		}
 		return merchantVo;
 
@@ -209,7 +209,7 @@ public class UserRestServices<T> {
 	public ResponseModel saveUser(UserVo userVo) {
 		response = new ResponseModel();
 		try {
-			
+
 			User uniqueUser = userService.getUserByUserName(userVo.getUserName(), false);
 			if (uniqueUser!=null) {
 				response.setErrorCode(SBErrorMessage.USER_NAME_ALREADY_EXIST.getCode());
@@ -218,7 +218,7 @@ public class UserRestServices<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				return response;
 			}
-			
+
 			JsonNode location = getLatLongByAddress(userVo);
 
 			if (location == null) {
@@ -350,39 +350,20 @@ public class UserRestServices<T> {
 	public UserLoginResponseVo getShopperDetails(UserVo userVo) {
 		UserLoginResponseVo userLoginResponseVo = new UserLoginResponseVo();
 		List<UserVo> userVoList = new ArrayList<UserVo>();
-		if (userVo.getMerchant()!=null) {
-			Merchant merchant = merchantService.getMerchantById(userVo
-					.getMerchant().getMerchantId());
-			if (merchant != null) {
-				List<User> userList = userService.getUser(merchant);
-				for (User user : userList) {
-					if (user.getRole().getName()
-							.equalsIgnoreCase(RoleName.SHOPPER.toString())) {
-						UserVo userVoObj = new UserVo();
-						userVoObj.setUserId(user.getUserId());
-						userVoObj.setName(user.getName());
-						userVoList.add(userVoObj);
-					}
-
-				}
-			}
-			userLoginResponseVo.setUserVoList(userVoList);
-			userLoginResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
-			return userLoginResponseVo;
-		} else if(userVo.getStore()!=null){
+		if(userVo.getStore()!=null){
 			Store store = storeService.getStoreById(userVo.getStore()
 					.getStoreId());
 			if (store != null) {
-				List<User> userList = userService.getUser(store);
+				List<User> userList = userService.getUsers(null,store,RoleName.SHOPPER.toString());
+				List<User> listOfUsers = userService.filterAssignedShoppers(store);
 				for (User user : userList) {
-					if (user.getRole().getName()
-							.equalsIgnoreCase(RoleName.SHOPPER.toString())) {
-						UserVo userVoObj = new UserVo();
-						userVoObj.setUserId(user.getUserId());
-						userVoObj.setName(user.getName());
-						userVoList.add(userVoObj);
+					if(listOfUsers.contains(user)){
+						continue;
 					}
-
+					UserVo userVoObj = new UserVo();
+					userVoObj.setUserId(user.getUserId());
+					userVoObj.setName(user.getName());
+					userVoList.add(userVoObj);
 				}
 			}
 			userLoginResponseVo.setUserVoList(userVoList);
@@ -395,8 +376,8 @@ public class UserRestServices<T> {
 		}
 
 	}
-	
-	
+
+
 	@Path("/getBackerDetails")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -450,8 +431,8 @@ public class UserRestServices<T> {
 		}
 
 	}
-	
-	
+
+
 	@Path("/deviceregister")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -473,6 +454,6 @@ public class UserRestServices<T> {
 		}
 		return response;
 	}
-	
+
 
 }

@@ -39,6 +39,10 @@ public interface UserService<T> {
 	public UserVo setUserVo(User user) throws Exception;
 
 	public List<User> getUsersByMerchantId(List<String> roles, String merchantId);
+
+	public List<User> filterAssignedShoppers(Store store);
+	
+	public List<User>  getUsers(Merchant merchant,Store store,String roleName);
 	
 
 

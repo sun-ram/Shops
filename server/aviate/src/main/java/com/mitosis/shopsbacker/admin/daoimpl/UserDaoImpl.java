@@ -1,11 +1,15 @@
 package com.mitosis.shopsbacker.admin.daoimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +18,10 @@ import com.mitosis.shopsbacker.admin.dao.UserDao;
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Role;
+import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.util.OrderStatus;
 
 /**
  * @author prabakaran
@@ -141,5 +147,37 @@ public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		updateQuery.setParameter("merchant", merchant);
 		return updateQuery.executeUpdate();
 	}
+
+	@Override
+	public List<User> filterAssignedShoppers(Store store) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(SalesOrder.class);
+		criteria.add(Restrictions.eq("store", store));
+		List<String> statuses = new ArrayList<String>();
+		statuses.add(OrderStatus.Shoper_Assigned.toString());
+		statuses.add(OrderStatus.Picked.toString());
+		criteria.add(Restrictions.in("status",statuses));
+		ProjectionList proList = Projections.projectionList();
+		proList.add(Projections.property("shopper"));
+		criteria.setProjection(proList);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<User>  userList=	(List<User>) findAll(criteria);
+        return userList;
+	}
 	
+	public List<User> getUsers(Merchant merchant,Store store,String roleName){
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+		if(merchant!=null){
+			criteria.add(Restrictions.eq("merchant", merchant));
+		}
+		if(store!=null){
+			criteria.add(Restrictions.eq("store", store));
+		}
+		if(roleName!=null){
+			criteria.createAlias("role", "rl");
+			criteria.add(Restrictions.eq("rl.name", roleName).ignoreCase());
+		}
+		criteria.add(Restrictions.eq("isactive",'Y'));
+		criteria.addOrder(Order.desc("created"));
+		return (List<User>) findAll(criteria);
+	}
 }

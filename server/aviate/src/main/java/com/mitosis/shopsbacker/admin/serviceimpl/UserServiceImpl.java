@@ -208,6 +208,14 @@ public class UserServiceImpl<T> implements UserService<T>, Serializable {
 		storeVo.setStoreId(store.getStoreId());
 		return storeVo;
 	}
+
+	@Override
+	public List<User> filterAssignedShoppers(Store store) {
+	  return getUserDao().filterAssignedShoppers(store);
+	}
 	
+	public List<User>  getUsers(Merchant merchant,Store store,String roleName){
+		return userDao.getUsers(merchant,store,roleName);
+	}
 
 }

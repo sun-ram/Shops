@@ -35,4 +35,8 @@ public interface UserDao<T> {
 	public List<User> getUsers(List<Role> role, Merchant merchant);
 
 	public int inActiveUsers(Merchant merchant);
+
+	public List<User> filterAssignedShoppers(Store store);
+	
+	public List<User>  getUsers(Merchant merchant,Store store,String roleName);
 }

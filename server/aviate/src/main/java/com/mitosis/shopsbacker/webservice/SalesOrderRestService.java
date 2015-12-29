@@ -198,11 +198,11 @@ public class SalesOrderRestService<T> {
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
 
-				if (user.getDeviceType().equalsIgnoreCase("ANDROID")) {
+				if ("ANDROID".equalsIgnoreCase(user.getDeviceType())) {
 					String message = "Received New Order";
 					CommonUtil.androidPushNotification(message,
 							user.getDeviceId());
-				} else if (user.getDeviceType().equalsIgnoreCase("IOS")) {
+				} else if (user.getDeviceType()!=null && user.getDeviceType().equalsIgnoreCase("IOS")) {
 
 				}
 			}
