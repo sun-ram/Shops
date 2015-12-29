@@ -125,6 +125,7 @@ angular.module('aviate.controllers')
 		}else if($scope.transactionType == "WT"){
 			menuJson.paymentMethod = "WT";
 			menuJson.status = "Initalized";
+		}
 			CheckOutServices.confirmOrder(menuJson).then(function(data) {
 				$scope.orderBtn = false;
 				console.log("OrderNo", data);
@@ -142,8 +143,8 @@ angular.module('aviate.controllers')
 					}, 25);
 				}
 			});
-		}
-	};
+		};
+	
 
 	$scope.cancel1=function() {
 		//$rootScope.change=false;
