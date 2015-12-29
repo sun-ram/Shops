@@ -16,7 +16,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.store.user.address.state.name = $scope.state.name;
 			$scope.store.user.address.city.name=$scope.cty.name;
 			$scope.store.user.address.city.cityId=$scope.cty.cityId;
-				
+			$scope.store.userId=$rootScope.user.userName;	
 			//$scope.store.merchantId = $rootScope.user.merchantId;
 			$scope.store.merchant = {};
 			$scope.store.merchant.merchantId = {};

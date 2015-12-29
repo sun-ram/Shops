@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("shippingChargesEditCtrl", 
-		['$scope', '$state','toastr','ShippingChargeServices',
-		 function($scope, $state,  toastr, ShippingChargeServices) {
+		['$scope','$rootScope', '$state','toastr','ShippingChargeServices',
+		 function($scope,$rootScope, $state,  toastr, ShippingChargeServices) {
 
 			$scope.getshippingCharge = function(){
 				$scope.shippingCharge = ShippingChargeServices.getShippingChargeObj();
@@ -18,6 +18,8 @@ angular.module('aviateAdmin.controllers')
 			$scope.getshippingCharge();
 
 			$scope.updateShippingCharges = function(){
+				$scope.shippingCharge.userId=$rootScope.user.userName;
+
 				ShippingChargeServices.updateShippingCharge($scope.shippingCharge).then(function(data){
 					localStorage.removeItem('shippingCharge');
 					$state.go('app.shippingCharges');
