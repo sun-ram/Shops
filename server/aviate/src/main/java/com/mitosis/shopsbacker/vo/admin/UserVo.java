@@ -30,7 +30,13 @@ public class UserVo  {
 	private RoleVo role;
 	private MerchantVo merchant;
 	private StoreVo store;
-	
+	private String generate;
+	public String getGenerate() {
+		return generate;
+	}
+	public void setGenerate(String generate) {
+		this.generate = generate;
+	}
 	
 	public String getDeviceId() {
 		return deviceId;

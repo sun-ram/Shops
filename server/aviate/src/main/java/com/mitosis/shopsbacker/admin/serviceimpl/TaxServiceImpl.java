@@ -82,7 +82,7 @@ Serializable {
 	@Override
 	public Tax setTax(TaxVo taxVo) throws Exception {
 		Tax tax = (Tax) CommonUtil
-				.setAuditColumnInfo(Tax.class.getName(), null);
+				.setAuditColumnInfo(Tax.class.getName(), taxVo.getUserId());
 		tax.setName(taxVo.getName());
 		tax.setMerchant(getMerchantService().getMerchantById(taxVo.getMerchantVo().getMerchantId()));
 		tax.setTaxPercentage(taxVo.getTaxPercentage());

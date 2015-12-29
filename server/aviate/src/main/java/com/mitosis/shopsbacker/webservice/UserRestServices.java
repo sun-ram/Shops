@@ -236,7 +236,7 @@ public class UserRestServices<T> {
 			Store store = storeService.getStoreById(userVo.getStore()
 					.getStoreId());
 			User user = userService.setUser(userVo,
-					roleService.getRole(userVo.getRole().getName()), null);
+					roleService.getRole(userVo.getRole().getName()),userVo.getGenerate());
 			user.setStore(store);
 			user.setMerchant(store.getMerchant());
 			userService.saveUser(user);
@@ -283,7 +283,7 @@ public class UserRestServices<T> {
 			loc = location.findValue("lng".toString());
 			userVo.getAddress().setLongitude(loc.toString());
 			User user = userService.setUser(userVo,
-					roleService.getRole(userVo.getRole().getName()), null);
+					roleService.getRole(userVo.getRole().getName()), userVo.getGenerate());
 			userService.updateUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
