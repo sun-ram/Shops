@@ -14,7 +14,20 @@ angular.module('aviateAdmin.directives').directive('sideNav', [
                     $scope.tabChoosen = function (key){
                         $scope.currentOption = key; 
                     }
+                    
+                    $scope.togglemouseLeave = build('left');
+                    function build(navID) {
+                    var debounceFn =  $mdUtil.debounce(function(){
+
+                        $mdSidenav(navID).toggle().then(function () {
+                            $log.debug("toggle " + navID + " is done");
+                        });
+                    },200);
+                    return debounceFn;
+                    };
                 }
             };
         }
+        
+        
     ]);

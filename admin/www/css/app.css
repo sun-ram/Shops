@@ -139,9 +139,10 @@ a:link {
 .pt_relat{position: relative;}
 .slideuser_img{position: absolute;top: 0;right: 0;}
 
-md-backdrop.md-opaque{
+/* md-backdrop.md-opaque{
 	background-color: rgba(33,33,33,0.7) !important;
-}
+} */
+md-backdrop.md-sidenav-backdrop{ z-index:-59;}
 
 md-content.md-default-theme {
   background-color: #fafafa;
@@ -166,9 +167,9 @@ h2 {
 .md-toolbar-tools-bottom {
   font-size: small;
 }
-.md-toolbar-tools-bottom :last-child {
+/* .md-toolbar-tools-bottom :last-child {
   opacity: 0.8;
-}
+} */
 
 md-sidenav ng-md-icon {
   position: relative;
@@ -426,13 +427,10 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
   .merch-addr{width: 200px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
     
 }
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-
-  
+@media screen and (min-width: 768px) and (max-width: 1024px) {  
     .merch-addr{width: 300px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
 }
-@media screen and (min-width: 1025px) {
-  
+@media screen and (min-width: 1025px) {  
     .merch-addr{width: 500px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
 }
 
@@ -475,7 +473,7 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
   padding-left: 61px;
   transition: 0.3s ease-in all;
 }
-.md-sidenav-left{background: #30363E ! important; position: absolute; color:#757575; }
+.md-sidenav-left{background: #30363E ! important; position: fixed; color:#757575; }
 md-sidenav.md-locked-open{position: fixed ! important; z-index: 60; top:0;}
 
 .moveFabRight {
@@ -484,7 +482,7 @@ md-sidenav.md-locked-open{position: fixed ! important; z-index: 60; top:0;}
 .moveFabLeft {
 	left: 56px !important; transition: 0.3s ease-in all;
 }
-.bodyContentFloatLeft {
+/* .bodyContentFloatLeft {
 	top: 60px;
 	padding-left : 56px;
 	transition: 0.3s ease-in all;
@@ -493,6 +491,10 @@ md-sidenav.md-locked-open{position: fixed ! important; z-index: 60; top:0;}
 	top: 60px;
 	padding-left : 260px;
 	transition: 0.3s ease-in all;
+} */
+
+.bodyContentFloatLeft {
+	top: 60px;
 }
 
 .textOnMenu {

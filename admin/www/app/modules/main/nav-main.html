@@ -1,13 +1,13 @@
 <md-toolbar class="md-whiteframe-4dp"
-	style="background-color:#4eaf4c !important; position: fixed; top: 0;">
+	style="background-color:#4eaf4c !important; position: fixed; top: 0; min-height: 64px;">
     <div class="md-toolbar-tools md-toolbar-tools-fixed-position">
         <md-button
-		ng-class="{moveFabRight : !sidebarHidden, moveFabLeft : sidebarHidden, }"
 		aria-label="Open demo menu" class="md-icon-button" layout="column"
-		layout-align="center" ng-click="toggleSidenav('left');dumpSidebar();">
+		layout-align="center" ng-click="toggleLeft('left');">
             <!-- <ng-md-icon class="icon-white svgmarg-t5" size="35" icon="menu"></ng-md-icon>  -->
             <md-icon md-svg-icon="assets/img/icons/menu.svg" style="color: #fff ! important;"></md-icon>
         </md-button>
+        <h1 class="tool-h1">ShopsBacker</h1>
         <div layout="row" layout-align="end" flex>
             <div layout="row"  style="color: #fff; margin-top:22px; ">
             	<!-- <div flex style="width:100px; float:left;" layout layout-align="center center"><span flex style="color:#FFFFFF;" class="md-display-1">Hello</span></div>  -->

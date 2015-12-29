@@ -1,9 +1,6 @@
-<md-sidenav
-	ng-class="{dumpedSideContainer : sidebarHidden, extractSideContainer : !sidebarHidden}"
-	layout="column" flex class="md-sidenav-left md-whiteframe-z1 "
-	md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
-	style="padding:0px !important; z-index:90px !important;">
-	<div style="background-color: #4EAF4C">
+<md-sidenav flex class="md-sidenav-left md-whiteframe-z1 customerSideNav" ng-mouseleave="togglemouseLeave('left');"
+	md-component-id="left">
+	<!-- <div style="background-color: #4EAF4C">
 	    <md-toolbar
 		ng-class="{dumpedSideContainer : sidebarHidden}"
 		class="md-tall md-hue-2 cust-md-tool">
@@ -13,7 +10,7 @@
 		      	 
 		        </div>
 	    </md-toolbar>
-    </div>
+    </div> -->
     <md-list class="slide-hover" ng-if="user.role == 'SUPERADMIN'">
     	<md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Menu</span></md-subheader>
         <a ui-sref="app.super_admin_dashboard" ng-click="tabChoosen('dashboard');">

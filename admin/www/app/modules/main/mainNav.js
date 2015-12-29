@@ -8,8 +8,21 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                 templateUrl: './app/modules/main/nav-main.html',
                 replace: true,
                 link: function($scope, iElm, iAttrs, controller) {
-                	 $scope.sidebarHidden = false;
-                	 $scope.toggleSidenav = buildToggler('left');
+                	
+                	$scope.toggleLeft = buildToggler('left');
+        			
+        			
+        			function buildToggler(navID) {
+        				var debounceFn =  $mdUtil.debounce(function(){
+        				
+        					$mdSidenav(navID).toggle().then(function () {
+        						$log.debug("toggle " + navID + " is done");
+        					});
+        				},200);
+        				return debounceFn;
+        			};
+                	 /*$scope.sidebarHidden = false;*/
+                	 /*$scope.toggleSidenav = buildToggler('left');
                 	 
                 	  function buildToggler(navID) {
                 	      var debounceFn =  $mdUtil.debounce(function(){
@@ -18,12 +31,12 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                 	              });
                 	          },200);
                 	      return debounceFn;
-                	    };
-                	$scope.dumpSidebar = function(){
+                	    };*/
+                	/*$scope.dumpSidebar = function(){
                 	  	$scope.sidebarHidden = !$scope.sidebarHidden;
-                	}
+                	}*/
                     
-                    $scope.$watch(
+                    /*$scope.$watch(
                                 function () {
                                     return $window.innerWidth 
                                 }, function(newVal, oldVal){
@@ -31,7 +44,7 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                                         $scope.sidebarHidden = true;
                                     }
                                 }
-                    );
+                    );*/
                     
  	        	   $scope.logout = function() {
                      $rootScope.user = null;

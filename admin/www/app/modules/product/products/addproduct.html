@@ -1,10 +1,10 @@
  <div ng-init="getMeasurementUnit();getproductCategory();getProductType(product.productCategory.productCategoryId);getDiscount()">
 
-	<md-toolbar	class=" md-default-theme" style="background-color:transparent;">
+	<md-toolbar	class=" md-default-theme" style="background-color:transparent; z-index:1;">
 		<div class="md-toolbar-tools">
 			<h2 class="md-flex" ng-hide="product.productId">Create Product</h2>
 			<h2 class="md-flex" ng-show="product.productId">Update Product</h2>
-		</div>
+		</div>	
 		<!-- <span class="close_box"> <ng-md-icon class="icon-white svgstyle"
 				size="35" icon="close" ui-sref="app.producttype"></ng-md-icon>
 		</span>  -->	
