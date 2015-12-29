@@ -15,7 +15,7 @@
 
    <md-card-content class="nopadd">
 		<md-data-table-container>
-     <md-list>
+     <!-- <md-list>
      	 <md-item  class="data-table-list " md-data-table>
          <md-item-content layout="row" layout-padding class="tbl-header ">
             <div layout="row" layout-wrap class="full_wid tbl-header">
@@ -94,7 +94,41 @@
          <md-divider></md-divider>
        <md-divider></md-divider>
        </md-item>
-     </md-list>
+     </md-list> -->
+     
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+              <th name="Name"></th>
+              <th name="Store"></th>
+              <th name="Discount Percentage"></th>
+              <th name="Discount Amount"></th>
+              <th name="Start Date"></th>
+              <th name="End Date"></th>
+              <th name="Start Time"></th>
+              <th name="End Time"></th>
+              <th name="Actions"></th>              
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-click="discountDetails(discount)" ng-repeat="discount in discountList |  filter:searchText | orderBy: discountPagination.order | limitTo: discountPagination.limit: (discountPagination.page - 1) * discountPagination.limit">
+			<td>{{discount.name}</td>
+			<td>{{discount.storeList[0].name}}</td>
+			<td>{{discount.discountPercentage}}%</td>
+			<td>{{discount.discountAmount}}</td>
+			<td>{{discount.startDate | date:'MM/dd/yyyy'}}</td>
+			<td>{{discount.endDate | date:'MM/dd/yyyy'}}</td>
+			<td>{{discount.startTime}}</td>
+			<td>{{discount.endTime}}</td>
+			<td layout="row">			
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editDiscount(discount);$event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteDiscount(discount.discountId);$event.stopPropagation();"></ng-md-icon>
+        	</td>
+			
+		</tr>
+	</tbody>
+</table>
+
 	</md-data-table-container>
    </md-card-content>
    

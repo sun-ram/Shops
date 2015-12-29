@@ -140,10 +140,10 @@ a:link {
 .pt_relat{position: relative;}
 .slideuser_img{position: absolute;top: 0;right: 0;}
 
-/* md-backdrop.md-opaque{
-	background-color: rgba(33,33,33,0.7) !important;
-} */
-md-backdrop.md-sidenav-backdrop{ z-index:-59;}
+ md-backdrop.md-opaque{
+	background-color: rgba(33,33,33,0) !important;
+} 
+/* md-backdrop.md-sidenav-backdrop{ z-index:-59;} */
 
 md-content.md-default-theme {
   background-color: #fafafa;
