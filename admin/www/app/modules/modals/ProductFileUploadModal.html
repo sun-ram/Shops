@@ -37,6 +37,9 @@
 	         	Product Type
             </span>
             <span flex layout-align="start center" layout>
+	         	Description
+            </span>
+            <span flex layout-align="start center" layout>
 	         	Product Measurement
             </span>
             <span flex layout-align="start center" layout>
@@ -51,8 +54,17 @@
             <span flex layout-align="start center" layout>
 	         	Selling Price
             </span>
+             <span flex layout-align="start center" layout>
+	         	isYourHot
+            </span>
             <span flex layout-align="start center" layout>
 	         	Brand
+            </span>
+            <span flex layout-align="start center" layout>
+	         	IsBundle
+            </span>
+            <span flex layout-align="start center" layout>
+	         	BundleQty
             </span>
             <span flex layout-align="center center" layout>
 	         	Action
@@ -76,6 +88,9 @@
       		<span flex class="shopname">{{product.productType}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.description}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productMeasurement}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
@@ -91,7 +106,16 @@
       		<span flex class="shopname">{{product.sellingPrice}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.isYourHot}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.brand}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.isBundle}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.groupCount}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
       		 <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=product.count;productNewEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
@@ -116,6 +140,11 @@
       		<md-input-container flex="10">
       		<label>Type</label>
       		<input type="text" ng-model="productNewEdit.productType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Description</label>
+      		<input type="text" ng-model="productNewEdit.description" /> 
       		</md-input-container>
       		
       		<md-input-container flex="10">
@@ -144,8 +173,23 @@
       		</md-input-container>
       		
       		<md-input-container flex="10">
+      		<label>isYourHot</label>
+      		<input type="text" ng-model="productNewEdit.isYourHot"/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
       		<label>Brand</label>
       		<input type="text" ng-model="productNewEdit.brand" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>isBundle</label>
+      		<input type="text" ng-model="productNewEdit.isBundle" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>BundleQty</label>
+      		<input type="text" ng-model="productNewEdit.groupCount" valid-number /> 
       		</md-input-container>
       		
       		<span flex=15 layout-align="center center" layout>
@@ -195,6 +239,9 @@
 	         	Product Type
             </span>
             <span flex layout-align="start center" layout>
+	         	Description
+            </span>
+            <span flex layout-align="start center" layout>
 	         	Product Measurement
             </span>
             <span flex layout-align="start center" layout>
@@ -209,8 +256,17 @@
             <span flex layout-align="start center" layout>
 	         	Selling Price
             </span>
+             <span flex layout-align="start center" layout>
+	         	isYourHot
+            </span>
             <span flex layout-align="start center" layout>
 	         	Brand
+            </span>
+            <span flex layout-align="start center" layout>
+	         	IsBundle
+            </span>
+            <span flex layout-align="start center" layout>
+	         	BundleQty
             </span>
             <span flex layout-align="center center" layout>
 	         	Action
@@ -234,6 +290,9 @@
       		<span flex class="shopname">{{product.productType}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.description}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productMeasurement}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
@@ -249,14 +308,22 @@
       		<span flex class="shopname">{{product.sellingPrice}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.isYourHot}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.brand}}</span>
       		</span>
-      		<span flex layout-align="center center" layout>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.isBundle}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.groupCount}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		 <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=product.count;productExistingEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
-      		</span>
-             
+      		</span>	
       	</div>
       	
       <!-- 	Inline Edit Code -->
@@ -275,6 +342,11 @@
       		<md-input-container flex="10">
       		<label>Type</label>
       		<input type="text" ng-model="productExistingEdit.productType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Description</label>
+      		<input type="text" ng-model="productExistingEdit.description" /> 
       		</md-input-container>
       		
       		<md-input-container flex="10">
@@ -303,8 +375,23 @@
       		</md-input-container>
       		
       		<md-input-container flex="10">
+      		<label>isYourHot</label>
+      		<input type="text" ng-model="productExistingEdit.isYourHot"/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
       		<label>Brand</label>
       		<input type="text" ng-model="productExistingEdit.brand" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>isBundle</label>
+      		<input type="text" ng-model="productExistingEdit.isBundle" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>BundleQty</label>
+      		<input type="text" ng-model="productExistingEdit.groupCount" valid-number /> 
       		</md-input-container>
       		
       		<span flex=15 layout-align="center center" layout>
@@ -353,6 +440,9 @@
 	         	Product Type
             </span>
             <span flex layout-align="start center" layout>
+	         	Description
+            </span>
+            <span flex layout-align="start center" layout>
 	         	Product Measurement
             </span>
             <span flex layout-align="start center" layout>
@@ -367,13 +457,22 @@
             <span flex layout-align="start center" layout>
 	         	Selling Price
             </span>
+             <span flex layout-align="start center" layout>
+	         	isYourHot
+            </span>
             <span flex layout-align="start center" layout>
 	         	Brand
             </span>
-            <span flex layout-align="center center" layout>
+            <span flex layout-align="start center" layout>
+	         	IsBundle
+            </span>
+            <span flex layout-align="start center" layout>
+	         	BundleQty
+            </span>
+             <span flex layout-align="start center" layout>
 	         	Reason
             </span>
-             <span flex layout-align="center center" layout>
+            <span flex layout-align="center center" layout>
 	         	Action
             </span>
         </div>
@@ -395,6 +494,9 @@
       		<span flex class="shopname">{{product.productType}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.description}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.productMeasurement}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
@@ -410,16 +512,25 @@
       		<span flex class="shopname">{{product.sellingPrice}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.isYourHot}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.brand}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.isBundle}}</span>
+      		</span>
+      		<span flex layout-align="start center" layout>
+      		<span flex class="shopname">{{product.groupCount}}</span>
       		</span>
       		<span flex layout-align="start center" layout>
       		<span flex class="shopname">{{product.reason}}</span>
       		</span>
-             <span flex layout-align="center center" layout>
+      		<span flex layout-align="start center" layout>
       		 <md-button class="md-icon-button md-primary padd-t5" type="button" ng-click="showInLineEdit=product.count;productRejectedEdit=product;$event.stopPropagation();" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
              	</md-button>
-      		</span>
+      		</span>	
       	</div>
       	
       	 <!-- 	Inline Edit Code -->
@@ -438,6 +549,11 @@
       		<md-input-container flex="10">
       		<label>Type</label>
       		<input type="text" ng-model="productRejectedEdit.productType" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>Description</label>
+      		<input type="text" ng-model="productRejectedEdit.description" /> 
       		</md-input-container>
       		
       		<md-input-container flex="10">
@@ -466,8 +582,23 @@
       		</md-input-container>
       		
       		<md-input-container flex="10">
+      		<label>isYourHot</label>
+      		<input type="text" ng-model="productRejectedEdit.isYourHot"/> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
       		<label>Brand</label>
       		<input type="text" ng-model="productRejectedEdit.brand" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>isBundle</label>
+      		<input type="text" ng-model="productRejectedEdit.isBundle" /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex="10">
+      		<label>BundleQty</label>
+      		<input type="text" ng-model="productRejectedEdit.groupCount" valid-number /> 
       		</md-input-container>
       		
       		<span flex=15 layout-align="center center" layout>

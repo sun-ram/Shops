@@ -10,6 +10,8 @@ public class ProductUploadDataVo {
 	
 	private String productType;
 	
+	private String description;
+	
 	private String productMeasurement;
 	
 	private BigDecimal productUnit;
@@ -20,9 +22,15 @@ public class ProductUploadDataVo {
 	
 	private BigDecimal sellingPrice;
 	
+	private String isYourHot;
+	
 	private String brand;
 	
 	private String reason;
+	
+	private String isBundle;
+	
+	private BigDecimal groupCount;
 	
 	private int count;
 
@@ -113,6 +121,40 @@ public class ProductUploadDataVo {
 	public void setCount(int count) {
 		this.count = count;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	
+	public String getIsBundle() {
+		return isBundle;
+	}
+
+	public void setIsBundle(String isBundle) {
+		this.isBundle = isBundle;
+	}
+
+	public BigDecimal getGroupCount() {
+		return groupCount;
+	}
+
+	public void setGroupCount(BigDecimal groupCount) {
+		this.groupCount = groupCount;
+	}
+
+	public String getIsYourHot() {
+		return isYourHot;
+	}
+
+	public void setIsYourHot(String isYourHot) {
+		this.isYourHot = isYourHot;
+	}
+
 	
 	
 

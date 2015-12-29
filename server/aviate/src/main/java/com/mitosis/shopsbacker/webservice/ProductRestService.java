@@ -224,9 +224,10 @@ public class ProductRestService {
 			String imageId = imageVo.getImageId();
 			productImageIds.add(imageId);
 			productService.productImageUpload(imageVo, merchant);
-			Image image = imageService.setImage(imageVo, null);			imageService.addImage(image);
+			Image image = imageService.setImage(imageVo, null);
+			imageService.addImage(image);
 			ProductImage productimage = (ProductImage) CommonUtil
-					.setAuditColumnInfo(ProductImage.class.getName(),null);
+					.setAuditColumnInfo(ProductImage.class.getName(), null);
 			productimage.setIsactive('Y');
 			productimage.setImage(image);
 			productimage.setProduct(product);
@@ -543,12 +544,16 @@ public class ProductRestService {
 			rowhead.createCell(0).setCellValue("Name");
 			rowhead.createCell(1).setCellValue("Product Category");
 			rowhead.createCell(2).setCellValue("Product Type");
-			rowhead.createCell(3).setCellValue("Product Measurement");
-			rowhead.createCell(4).setCellValue("Product Unit");
-			rowhead.createCell(5).setCellValue("Edible Type");
-			rowhead.createCell(6).setCellValue("Was Price");
-			rowhead.createCell(7).setCellValue("Selling Price");
-			rowhead.createCell(8).setCellValue("Brand");
+			rowhead.createCell(3).setCellValue("Description");
+			rowhead.createCell(4).setCellValue("Product Measurement");
+			rowhead.createCell(5).setCellValue("Product Unit");
+			rowhead.createCell(6).setCellValue("Edible Type");
+			rowhead.createCell(7).setCellValue("Was Price");
+			rowhead.createCell(8).setCellValue("Selling Price");
+			rowhead.createCell(9).setCellValue("IsYourHot");
+			rowhead.createCell(10).setCellValue("Brand");
+			rowhead.createCell(11).setCellValue("IsBundle");
+			rowhead.createCell(12).setCellValue("BundleQty");
 
 			for (int i = 0; i < productList.size(); i++) {
 				HSSFRow row = sheet.createRow((short) i + 1);
@@ -558,17 +563,24 @@ public class ProductRestService {
 				row.createCell(2).setCellValue(
 						productList.get(i).getProductType().getName());
 				row.createCell(3).setCellValue(
-						productList.get(i).getUom().getName());
+						productList.get(i).getDescription());
 				row.createCell(4).setCellValue(
-						productList.get(i).getUnit().toString());
+						productList.get(i).getUom().getName());
 				row.createCell(5).setCellValue(
-						productList.get(i).getEdibleType());
+						productList.get(i).getUnit().toString());
 				row.createCell(6).setCellValue(
-						productList.get(i).getWasPrice().toString());
+						productList.get(i).getEdibleType());
 				row.createCell(7).setCellValue(
+						productList.get(i).getWasPrice().toString());
+				row.createCell(8).setCellValue(
 						productList.get(i).getPrice().toString());
-				row.createCell(8).setCellValue(productList.get(i).getBrand());
-
+				row.createCell(9).setCellValue(
+						productList.get(i).getIsYourHot().toString());
+				row.createCell(10).setCellValue(productList.get(i).getBrand());
+				row.createCell(11).setCellValue(
+						productList.get(i).getIsBundle().toString());
+				row.createCell(12).setCellValue(
+						productList.get(i).getGroupCount());
 			}
 			Properties properties = new Properties();
 			properties.load(getClass().getResourceAsStream(
@@ -721,21 +733,92 @@ public class ProductRestService {
 			}
 			if (productCategoryAddObject.getProductCategoryId() != null
 					&& productTypeAddObject.getProductTypeId() != null) {
-				product = (Product) CommonUtil.setAuditColumnInfo(Product.class
-						.getName(),null);
+				product = (Product) CommonUtil.setAuditColumnInfo(
+						Product.class.getName(), null);
 				product.setName(productUploadData.getName());
 				product.setProductCategory(productCategoryAddObject);
 				product.setProductType(productTypeAddObject);
 				product.setMerchant(merchant);
+				product.setDescription(productUploadData.getDescription());
 				product.setEdibleType(productUploadData.getEdibleType());
 				product.setBrand(productUploadData.getBrand());
-				product.setPrice(productUploadData.getSellingPrice());
+				if (productUploadData.getWasPrice() != null
+						&& productUploadData.getSellingPrice() != null) {
+					int res = productUploadData.getWasPrice().compareTo(
+							productUploadData.getSellingPrice());
+					if (res == 0 || res == 1) {
+						product.setPrice(productUploadData.getSellingPrice());
+						product.setWasPrice(productUploadData.getWasPrice());
+					} else {
+						productRejectedVo.setProductName(productUploadData
+								.getName());
+						productRejectedVo
+								.setReason("Was price should be greather then the selling price");
+						return productRejectedVo;
+					}
+				} else {
+					productRejectedVo.setProductName(productUploadData
+							.getName());
+					productRejectedVo
+							.setReason("Was price or Selling price is empty");
+					return productRejectedVo;
+				}
 				product.setUnit(productUploadData.getProductUnit());
-				product.setIsYourHot('N');
+				if (productUploadData.getIsYourHot().equalsIgnoreCase("Y")
+						|| productUploadData.getIsYourHot().equalsIgnoreCase(
+								"N")) {
+					product.setIsYourHot(productUploadData.getIsYourHot()
+							.toUpperCase().charAt(0));
+				} else {
+					productRejectedVo.setProductName(productUploadData
+							.getName());
+					productRejectedVo
+							.setReason("IsYourHot fields only alldw to add Y(or)N options");
+					return productRejectedVo;
+				}
 				product.setIsactive('Y');
-				product.setWasPrice(productUploadData.getWasPrice());
-				product.setIsBundle('N');
 				product.setIsKit('N');
+				if (productUploadData.getIsBundle().equalsIgnoreCase("Y")
+						|| productUploadData.getIsBundle()
+								.equalsIgnoreCase("N")) {
+					product.setIsYourHot(productUploadData.getIsYourHot()
+							.toUpperCase().charAt(0));
+					if (productUploadData.getIsBundle().equalsIgnoreCase("Y")) {
+						product.setIsBundle('Y');
+						BigDecimal groupCountYes = new BigDecimal("2.0");
+						if (productUploadData.getGroupCount() != null) {
+							int res1 = productUploadData.getGroupCount()
+									.compareTo(groupCountYes);
+							if (res1 == 0 || res1 == 1) {
+								product.setGroupCount(Integer
+										.parseInt(productUploadData
+												.getGroupCount().toString()));
+							} else {
+								productRejectedVo
+										.setProductName(productUploadData
+												.getName());
+								productRejectedVo
+										.setReason("Bundle Qty should be greater than 1");
+								return productRejectedVo;
+							}
+						} else {
+							productRejectedVo.setProductName(productUploadData
+									.getName());
+							productRejectedVo.setReason("Bundle Qty is empty");
+							return productRejectedVo;
+						}
+					} else {
+						product.setIsBundle('N');
+						product.setGroupCount(1);
+					}
+				} else {
+					productRejectedVo.setProductName(productUploadData
+							.getName());
+					productRejectedVo
+							.setReason("IsBundle fields only alldw to add Y(or)N options");
+					return productRejectedVo;
+				}
+
 				product.setIsChild('N');
 				Uom uom = uomService.getUomByName(productUploadData
 						.getProductMeasurement().trim());
@@ -743,8 +826,8 @@ public class ProductRestService {
 					product.setUom(uom);
 				} else {
 					uom = new Uom();
-					uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class
-							.getName(),null);
+					uom = (Uom) CommonUtil.setAuditColumnInfo(
+							Uom.class.getName(), null);
 					uom.setName(productUploadData.getProductMeasurement()
 							.trim());
 					uom.setDescription(productUploadData
@@ -792,16 +875,85 @@ public class ProductRestService {
 			product.setProductType(productTypeAddObject);
 			product.setEdibleType(productUploadData.getEdibleType());
 			product.setBrand(productUploadData.getBrand());
-			product.setPrice(productUploadData.getSellingPrice());
 			product.setUnit(productUploadData.getProductUnit());
-			product.setWasPrice(productUploadData.getWasPrice());
+			if (productUploadData.getWasPrice() != null
+					&& productUploadData.getSellingPrice() != null) {
+				int res = productUploadData.getWasPrice().compareTo(
+						productUploadData.getSellingPrice());
+				if (res == 0 || res == 1) {
+					product.setPrice(productUploadData.getSellingPrice());
+					product.setWasPrice(productUploadData.getWasPrice());
+				} else {
+					productRejectedVo.setProductName(productUploadData
+							.getName());
+					productRejectedVo
+							.setReason("Was price should be greather then the selling price");
+					return productRejectedVo;
+				}
+			} else {
+				productRejectedVo.setProductName(productUploadData.getName());
+				productRejectedVo
+						.setReason("Was price or Selling price is empty");
+				return productRejectedVo;
+			}
+
+			if (productUploadData.getIsYourHot().equalsIgnoreCase("Y")
+					|| productUploadData.getIsYourHot().equalsIgnoreCase("N")) {
+				product.setIsYourHot(productUploadData.getIsYourHot()
+						.toUpperCase().charAt(0));
+			} else {
+				productRejectedVo.setProductName(productUploadData.getName());
+				productRejectedVo
+						.setReason("IsYourHot fields only alldw to add Y(or)N options");
+				return productRejectedVo;
+			}
+
+			if (productUploadData.getIsBundle().equalsIgnoreCase("Y")
+					|| productUploadData.getIsBundle().equalsIgnoreCase("N")) {
+				product.setIsYourHot(productUploadData.getIsYourHot()
+						.toUpperCase().charAt(0));
+				if (productUploadData.getIsBundle().equalsIgnoreCase("Y")) {
+					product.setIsBundle('Y');
+					BigDecimal groupCountYes = new BigDecimal("2.0");
+					if (productUploadData.getGroupCount() != null) {
+						int res1 = productUploadData.getGroupCount().compareTo(
+								groupCountYes);
+						if (res1 == 0 || res1 == 1) {
+							product.setGroupCount(Integer
+									.parseInt(productUploadData.getGroupCount()
+											.toString()));
+						} else {
+							productRejectedVo.setProductName(productUploadData
+									.getName());
+							productRejectedVo
+									.setReason("Bundle Qty should be greater than 1");
+							return productRejectedVo;
+						}
+					} else {
+						productRejectedVo.setProductName(productUploadData
+								.getName());
+						productRejectedVo.setReason("Bundle Qty is empty");
+						return productRejectedVo;
+					}
+				} else {
+					product.setIsBundle('N');
+					product.setGroupCount(1);
+				}
+			} else {
+				productRejectedVo.setProductName(productUploadData.getName());
+				productRejectedVo
+						.setReason("IsBundle fields only alldw to add Y(or)N options");
+				return productRejectedVo;
+			}
+
 			Uom uom = uomService.getUomByName(productUploadData
 					.getProductMeasurement().trim());
 			if (uom != null) {
 				product.setUom(uom);
 			} else {
 				uom = new Uom();
-				uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class.getName(),null);
+				uom = (Uom) CommonUtil.setAuditColumnInfo(Uom.class.getName(),
+						null);
 				uom.setName(productUploadData.getProductMeasurement().trim());
 				uom.setDescription(productUploadData.getProductMeasurement()
 						.trim());
@@ -856,10 +1008,10 @@ public class ProductRestService {
 					count++;
 				} else {
 					int cellPosition = 0;
+					char isBundleChecking = 'N';
 					BigDecimal compareWasPrice = new BigDecimal("0");
 					ProductUploadDataVo productUploadDataVoSet = new ProductUploadDataVo();
-					while (cellIterator.hasNext()
-							&& cellPosition < row.getLastCellNum()) {
+					while (cellIterator.hasNext() && cellPosition < 13) {
 
 						Cell cell = row.getCell(cellPosition,
 								Row.RETURN_BLANK_AS_NULL);
@@ -944,6 +1096,14 @@ public class ProductRestService {
 											.get(cellPosition) + " is Empty");
 							}
 						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"Description")) {
+							if (cell != null) {
+								productUploadDataVoSet.setDescription(cell
+										.getStringCellValue().trim());
+							}
+						}
+
+						else if (labels.get(cellPosition).equalsIgnoreCase(
 								"product measurement")) {
 							if (cell != null) {
 								productUploadDataVoSet
@@ -1018,10 +1178,92 @@ public class ProductRestService {
 										.get(cellPosition) + " is Empty");
 							}
 						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"IsYourHot")) {
+							if (cell != null) {
+								if (cell.getStringCellValue().trim()
+										.equalsIgnoreCase("y")
+										|| cell.getStringCellValue().trim()
+												.equalsIgnoreCase("n")) {
+									productUploadDataVoSet.setIsYourHot(cell
+											.getStringCellValue().toUpperCase()
+											.trim());
+								} else {
+									rejectedDataFlag = true;
+									newDataFlag = false;
+									productUploadDataVoSet
+											.setReason(labels.get(cellPosition)
+													+ " only allow to add Y(or)N options");
+								}
+
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
 								"brand")) {
 							if (cell != null) {
 								productUploadDataVoSet.setBrand(cell
 										.getStringCellValue().trim());
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"IsBundle")) {
+							if (cell != null) {
+								if (cell.getStringCellValue().trim()
+										.equalsIgnoreCase("y")
+										|| cell.getStringCellValue().trim()
+												.equalsIgnoreCase("n")) {
+									productUploadDataVoSet.setIsBundle(cell
+											.getStringCellValue().toUpperCase()
+											.trim());
+									if (cell.getStringCellValue().trim()
+											.equalsIgnoreCase("y"))
+										isBundleChecking = 'Y';
+									else
+										isBundleChecking = 'N';
+								} else {
+									rejectedDataFlag = true;
+									newDataFlag = false;
+									productUploadDataVoSet
+											.setReason(labels.get(cellPosition)
+													+ " only allow to add Y(or)N options");
+								}
+
+							} else {
+								rejectedDataFlag = true;
+								newDataFlag = false;
+								productUploadDataVoSet.setReason(labels
+										.get(cellPosition) + " is Empty");
+							}
+						} else if (labels.get(cellPosition).equalsIgnoreCase(
+								"BundleQty")) {
+							if (cell != null) {
+								BigDecimal groupCount = new BigDecimal(
+										cell.toString());
+								BigDecimal groupCountYes = new BigDecimal("2.0");
+								int res = groupCount.compareTo(groupCountYes);
+								if (isBundleChecking == 'Y') {
+									if (res == 0 || res == 1) {
+										productUploadDataVoSet
+												.setGroupCount(groupCount);
+									} else {
+										rejectedDataFlag = true;
+										newDataFlag = false;
+										productUploadDataVoSet.setReason(labels
+												.get(cellPosition)
+												+ " should be greater than 1");
+									}
+								} else {
+									BigDecimal de = new BigDecimal("1.0");
+									productUploadDataVoSet.setGroupCount(de);
+								}
+
 							} else {
 								rejectedDataFlag = true;
 								newDataFlag = false;
@@ -1080,7 +1322,7 @@ public class ProductRestService {
 				if (productVo.getImage().getImageId() != null) {
 					imageIds.add(productVo.getImage().getImageId());
 				}
-				Image image = imageService.setImage(productVo.getImage(),null);
+				Image image = imageService.setImage(productVo.getImage(), null);
 				product.setImage(image);
 			}
 
@@ -1095,10 +1337,11 @@ public class ProductRestService {
 					if (imageVo.getImageId() != null) {
 						imageIds.add(imageVo.getImageId());
 					}
-					Image image = imageService.setImage(imageVo,null);
+					Image image = imageService.setImage(imageVo, null);
 					imageService.addImage(image);
 					ProductImage productimage = (ProductImage) CommonUtil
-							.setAuditColumnInfo(ProductImage.class.getName(),null);
+							.setAuditColumnInfo(ProductImage.class.getName(),
+									null);
 					productimage.setIsactive('Y');
 					productimage.setImage(image);
 					productimage.setProduct(product);
