@@ -344,11 +344,23 @@ public class SalesOrderRestService<T> {
 
 			List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 			for (MyCart myCart : cartProduct) {
+				
+				Double discountPrice = null;
+				if(myCart.getDiscount() != null){
+					if(myCart.getDiscount().getDiscountPercentage() != null){
+						 discountPrice = 	myCart.getProduct().getPrice().doubleValue() -(myCart.getProduct().getPrice().doubleValue() * myCart.getDiscount().getDiscountPercentage()/100); 
+					}
+					if(myCart.getDiscount().getDiscountAmount() != null){
+						 discountPrice = myCart.getProduct().getPrice().doubleValue() - myCart.getDiscount().getDiscountAmount().doubleValue();
+					}
+				}else{
+					 discountPrice = 	myCart.getProduct().getPrice().doubleValue();
+				}
+				BigDecimal price = BigDecimal.valueOf(discountPrice);
+				
 				SalesOrderLine sol = (SalesOrderLine) CommonUtil
 						.setAuditColumnInfo(SalesOrderLine.class.getName(),null);
-				Double lineAmount = myCart.getProduct().getPrice()
-						.doubleValue()
-						* myCart.getQty();
+				Double lineAmount = discountPrice.doubleValue() * myCart.getQty();
 				BigDecimal lineGrossAmount = new BigDecimal(lineAmount);
 				BigDecimal lineNetAmount = new BigDecimal(lineAmount);
 				sol.setSalesOrder(salesOrder);
@@ -358,7 +370,7 @@ public class SalesOrderRestService<T> {
 				sol.setDiscount(new BigDecimal(0.0));
 				sol.setProduct(myCart.getProduct());
 				sol.setQty(myCart.getQty());
-				sol.setPrice(myCart.getProduct().getPrice());
+				sol.setPrice(price);
 				orderGrossAmount += lineAmount;
 
 				salesOrderLines.add(sol);
