@@ -9,9 +9,13 @@ angular.module('aviate.services')
 					var userDetails = {};
 					userDetails.userId= result.customer.customerId;
 					userDetails.role = "CUSTOMER"
-				    userDetails.userName = result.customer.name;
-					/*userDetails.emailId = result.customer.email;
-					userDetails.userName = result.customer.email.split('@')[0];*/
+					if(result.customer.name){
+						userDetails.userName = result.customer.name;
+					}else if(result.customer.email){
+						userDetails.userName = result.customer.email.split('@')[0];
+					}else{
+						userDetails.userName = "New User";
+					}
 					ipCookie("user",userDetails);
 					$rootScope.user = ipCookie("user");
 					d.resolve(userDetails);
