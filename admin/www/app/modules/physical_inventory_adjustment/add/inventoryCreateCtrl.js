@@ -26,12 +26,12 @@ angular.module('aviateAdmin.controllers')
 			$scope.getProductStockList();
 
 			$scope.getWarehouse = function() {
-				$rootScope.warehouse = {};
+				$scope.warehouse = {};
 				$scope.warehouse.store={};
 				$scope.warehouse.store.storeId = $rootScope.user.storeId;
 				WarehouseService.warehouseList($scope.warehouse).then(function(data) {
 					$scope.warehouseData = data.warehouses;
-					$rootScope.warehouse =   data.warehouses [0];
+					$scope.warehouse =   data.warehouses [0];
 				});
 			};
 

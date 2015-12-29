@@ -2,9 +2,9 @@
   <h3 flex="30">Add Inventory</h3>
   <h3 ng-show = "physicalInventory.movementId" flex >Name: {{physicalInventory.name}} &nbsp;&nbsp;  Warehouse: {{physicalInventory.warehouse.name}}</h3>
   <md-input-container flex ng-hide="movement.movementId" layout-align="end center">
-	<md-select ng-show = "!physicalInventory.movementId"  placeholder="Warehouse" ng-model="Warehouse" style="min-width: 200px;" ng-change = "setStoragebin(warehouse)">
-           <md-option ng-value="{{warehouse}}" ng-repeat="warehouse in warehouseData  | orderBy:'name'">
-               {{warehouse.name}}
+	<md-select ng-show = "!physicalInventory.movementId"  placeholder="Warehouse" ng-model="warehouse" style="min-width: 200px;" ng-change = "setStoragebin(warehouse)">
+           <md-option ng-value="{{warehouses}}" ng-repeat="warehouses in warehouseData  | orderBy:'name'">
+               {{warehouses.name}}
            </md-option>
        </md-select>
    </md-input-container>
@@ -36,7 +36,7 @@
         </td>
         <td ng-init="stocks.isMovementExist=false;changeIsExistMovement(stocks);">
            <md-input-container ng-if="stocks.isMovementExist" style="padding: 18px 0px 16px;">
-              <input style="border-width: thin;"  ng-model="physicalInventoryList[stocks.inventoryIndex].qty" class="noborderimg padd-l8" ng-enter="updateInventory(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);" aria-label="Product Quantity">
+              <input style="border-width: thin;"  ng-model="physicalInventoryList[stocks.inventoryIndex].qty" class="noborderimg padd-l8" ng-enter="updateInventoryLine(physicalInventoryList[stocks.inventoryIndex], stocks.inventoryIndex);" aria-label="Product Quantity">
            </md-input-container>
            <md-input-container ng-if="!stocks.isMovementExist" style="padding: 18px 0px 16px;">
               <input style="border-width: thin;" ng-model="stocks.inventoryQty" class="noborderimg padd-l8" ng-enter="addInventory(stocks);" aria-label="Product Quantity" valid-number>
