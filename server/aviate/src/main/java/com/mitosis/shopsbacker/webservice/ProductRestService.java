@@ -764,58 +764,75 @@ public class ProductRestService {
 					return productRejectedVo;
 				}
 				product.setUnit(productUploadData.getProductUnit());
-				if (productUploadData.getIsYourHot().equalsIgnoreCase("Y")
-						|| productUploadData.getIsYourHot().equalsIgnoreCase(
-								"N")) {
-					product.setIsYourHot(productUploadData.getIsYourHot()
-							.toUpperCase().charAt(0));
+				if (productUploadData.getIsYourHot() != null) {
+					if (productUploadData.getIsYourHot().equalsIgnoreCase("Y")
+							|| productUploadData.getIsYourHot()
+									.equalsIgnoreCase("N")) {
+						product.setIsYourHot(productUploadData.getIsYourHot()
+								.toUpperCase().charAt(0));
+					} else {
+						productRejectedVo.setProductName(productUploadData
+								.getName());
+						productRejectedVo
+								.setReason("IsYourHot fields only alldw to add Y(or)N options");
+						return productRejectedVo;
+					}
 				} else {
 					productRejectedVo.setProductName(productUploadData
 							.getName());
-					productRejectedVo
-							.setReason("IsYourHot fields only alldw to add Y(or)N options");
+					productRejectedVo.setReason("IsYourHot fields are empty");
 					return productRejectedVo;
 				}
 				product.setIsactive('Y');
 				product.setIsKit('N');
-				if (productUploadData.getIsBundle().equalsIgnoreCase("Y")
-						|| productUploadData.getIsBundle()
-								.equalsIgnoreCase("N")) {
-					product.setIsYourHot(productUploadData.getIsYourHot()
-							.toUpperCase().charAt(0));
-					if (productUploadData.getIsBundle().equalsIgnoreCase("Y")) {
-						product.setIsBundle('Y');
-						BigDecimal groupCountYes = new BigDecimal("2.0");
-						if (productUploadData.getGroupCount() != null) {
-							int res1 = productUploadData.getGroupCount()
-									.compareTo(groupCountYes);
-							if (res1 == 0 || res1 == 1) {
-								product.setGroupCount(Integer
-										.parseInt(productUploadData
-												.getGroupCount().toString()));
+				if (productUploadData.getIsBundle() != null) {
+					if (productUploadData.getIsBundle().equalsIgnoreCase("Y")
+							|| productUploadData.getIsBundle()
+									.equalsIgnoreCase("N")) {
+						product.setIsYourHot(productUploadData.getIsYourHot()
+								.toUpperCase().charAt(0));
+						if (productUploadData.getIsBundle().equalsIgnoreCase(
+								"Y")) {
+							product.setIsBundle('Y');
+							BigDecimal groupCountYes = new BigDecimal("2.0");
+							if (productUploadData.getGroupCount() != null) {
+								int res1 = productUploadData.getGroupCount()
+										.compareTo(groupCountYes);
+								if (res1 == 0 || res1 == 1) {
+									product.setGroupCount(Integer
+											.parseInt(productUploadData
+													.getGroupCount().toString()));
+								} else {
+									productRejectedVo
+											.setProductName(productUploadData
+													.getName());
+									productRejectedVo
+											.setReason("Bundle Qty should be greater than 1");
+									return productRejectedVo;
+								}
 							} else {
 								productRejectedVo
 										.setProductName(productUploadData
 												.getName());
 								productRejectedVo
-										.setReason("Bundle Qty should be greater than 1");
+										.setReason("Bundle Qty is empty");
 								return productRejectedVo;
 							}
 						} else {
-							productRejectedVo.setProductName(productUploadData
-									.getName());
-							productRejectedVo.setReason("Bundle Qty is empty");
-							return productRejectedVo;
+							product.setIsBundle('N');
+							product.setGroupCount(1);
 						}
 					} else {
-						product.setIsBundle('N');
-						product.setGroupCount(1);
+						productRejectedVo.setProductName(productUploadData
+								.getName());
+						productRejectedVo
+								.setReason("IsBundle fields only alldw to add Y(or)N options");
+						return productRejectedVo;
 					}
 				} else {
 					productRejectedVo.setProductName(productUploadData
 							.getName());
-					productRejectedVo
-							.setReason("IsBundle fields only alldw to add Y(or)N options");
+					productRejectedVo.setReason("IsBundle fields are empty");
 					return productRejectedVo;
 				}
 
@@ -897,52 +914,69 @@ public class ProductRestService {
 				return productRejectedVo;
 			}
 
-			if (productUploadData.getIsYourHot().equalsIgnoreCase("Y")
-					|| productUploadData.getIsYourHot().equalsIgnoreCase("N")) {
-				product.setIsYourHot(productUploadData.getIsYourHot()
-						.toUpperCase().charAt(0));
-			} else {
-				productRejectedVo.setProductName(productUploadData.getName());
-				productRejectedVo
-						.setReason("IsYourHot fields only alldw to add Y(or)N options");
-				return productRejectedVo;
-			}
-
-			if (productUploadData.getIsBundle().equalsIgnoreCase("Y")
-					|| productUploadData.getIsBundle().equalsIgnoreCase("N")) {
-				product.setIsYourHot(productUploadData.getIsYourHot()
-						.toUpperCase().charAt(0));
-				if (productUploadData.getIsBundle().equalsIgnoreCase("Y")) {
-					product.setIsBundle('Y');
-					BigDecimal groupCountYes = new BigDecimal("2.0");
-					if (productUploadData.getGroupCount() != null) {
-						int res1 = productUploadData.getGroupCount().compareTo(
-								groupCountYes);
-						if (res1 == 0 || res1 == 1) {
-							product.setGroupCount(Integer
-									.parseInt(productUploadData.getGroupCount()
-											.toString()));
-						} else {
-							productRejectedVo.setProductName(productUploadData
-									.getName());
-							productRejectedVo
-									.setReason("Bundle Qty should be greater than 1");
-							return productRejectedVo;
-						}
-					} else {
-						productRejectedVo.setProductName(productUploadData
-								.getName());
-						productRejectedVo.setReason("Bundle Qty is empty");
-						return productRejectedVo;
-					}
+			if (productUploadData.getIsYourHot() != null) {
+				if (productUploadData.getIsYourHot().equalsIgnoreCase("Y")
+						|| productUploadData.getIsYourHot().equalsIgnoreCase(
+								"N")) {
+					product.setIsYourHot(productUploadData.getIsYourHot()
+							.toUpperCase().charAt(0));
 				} else {
-					product.setIsBundle('N');
-					product.setGroupCount(1);
+					productRejectedVo.setProductName(productUploadData
+							.getName());
+					productRejectedVo
+							.setReason("IsYourHot fields only alldw to add Y(or)N options");
+					return productRejectedVo;
 				}
 			} else {
 				productRejectedVo.setProductName(productUploadData.getName());
-				productRejectedVo
-						.setReason("IsBundle fields only alldw to add Y(or)N options");
+				productRejectedVo.setReason("IsYourHot fields are empty");
+				return productRejectedVo;
+			}
+
+			if (productUploadData.getIsBundle() != null) {
+				if (productUploadData.getIsBundle().equalsIgnoreCase("Y")
+						|| productUploadData.getIsBundle()
+								.equalsIgnoreCase("N")) {
+					product.setIsYourHot(productUploadData.getIsYourHot()
+							.toUpperCase().charAt(0));
+					if (productUploadData.getIsBundle().equalsIgnoreCase("Y")) {
+						product.setIsBundle('Y');
+						BigDecimal groupCountYes = new BigDecimal("2.0");
+						if (productUploadData.getGroupCount() != null) {
+							int res1 = productUploadData.getGroupCount()
+									.compareTo(groupCountYes);
+							if (res1 == 0 || res1 == 1) {
+								product.setGroupCount(Integer
+										.parseInt(productUploadData
+												.getGroupCount().toString()));
+							} else {
+								productRejectedVo
+										.setProductName(productUploadData
+												.getName());
+								productRejectedVo
+										.setReason("Bundle Qty should be greater than 1");
+								return productRejectedVo;
+							}
+						} else {
+							productRejectedVo.setProductName(productUploadData
+									.getName());
+							productRejectedVo.setReason("Bundle Qty is empty");
+							return productRejectedVo;
+						}
+					} else {
+						product.setIsBundle('N');
+						product.setGroupCount(1);
+					}
+				} else {
+					productRejectedVo.setProductName(productUploadData
+							.getName());
+					productRejectedVo
+							.setReason("IsBundle fields only alldw to add Y(or)N options");
+					return productRejectedVo;
+				}
+			} else {
+				productRejectedVo.setProductName(productUploadData.getName());
+				productRejectedVo.setReason("IsBundle fields are empty");
 				return productRejectedVo;
 			}
 

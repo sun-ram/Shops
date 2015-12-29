@@ -68,6 +68,13 @@ angular.module('aviateAdmin.controllers')
 				}
 			}
 
+		 if($scope.groupCount){
+			 if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
+				 toastr.warning("BundleQty Should Be Greater Than One");
+				 return;
+			 }
+		 }
+		 
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}
@@ -159,6 +166,12 @@ angular.module('aviateAdmin.controllers')
 
 				}
 			}
+		 if($scope.groupCount){
+			 if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
+				 toastr.warning("BundleQty Should Be Greater Than One");
+				 return;
+			 }
+		 }
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}else{
