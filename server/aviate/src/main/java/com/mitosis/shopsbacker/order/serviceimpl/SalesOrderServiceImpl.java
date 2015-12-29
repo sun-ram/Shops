@@ -402,7 +402,7 @@ Serializable {
 
 
 	public TransactionDetailVo setTransactionDetails(SalesOrder salesOrder, 
-			Address shippingAddress, Address deliveryAddress, Customer customer) {
+			Address deliveryAddress, Address shippingAddress, Customer customer) {
 
 		TransactionDetailVo transaction = new TransactionDetailVo();
 		//TODO: Need clarification this field move to db or property file    
