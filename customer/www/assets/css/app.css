@@ -1169,4 +1169,26 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
 
 .payment-method{ border:2px solid #0F9D58 !important}
 .white-container{ background-color:#FFFFFF; padding:20px 50px; width:calc(100% - 50px) !important; margin:15px auto; border-radius:3px; border:1px solid rgba(0,0,0,0.1);}
+ 
+ /* OFFERS */
+.pro-offers{ padding:3px; margin:0px 2px;  box-sizing:border-box;  height:29px; max-height:29px;  width:auto;  }
+.text-golden{ color:#0F9D58 ;}
+.off-text-lg{ 
+		font-size:17px;   text-shadow:0px 0px 3px rgba(0,0,0,0.4); padding-right:4px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
