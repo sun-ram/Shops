@@ -13,6 +13,7 @@ import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.dao.DiscountProductsDao;
 import com.mitosis.shopsbacker.inventory.service.DiscountProductsService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
+import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.DiscountProduct;
 import com.mitosis.shopsbacker.model.Merchant;
@@ -41,6 +42,9 @@ public class DiscountProductsServiceImpl<T> implements DiscountProductsService<T
 	
 	@Autowired
 	StoreService<T> storeService;
+	
+	@Autowired
+	UomService<T> uomService;
 	
 	@Override
 	public void addDiscountProduct(DiscountProduct discountProduct) {
@@ -86,6 +90,7 @@ public class DiscountProductsServiceImpl<T> implements DiscountProductsService<T
 		ProductVo product = new ProductVo();
 		product.setName(discountProduct.getProduct().getName());
 		product.setPrice(discountProduct.getProduct().getPrice());
+		product.setUom(uomService.setUomVo(discountProduct.getProduct().getUom()));
 		discountProductVo.setProduct(product);
 		return discountProductVo;
 	}

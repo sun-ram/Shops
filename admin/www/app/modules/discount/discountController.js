@@ -202,10 +202,11 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 			 
 		 }
 		 
-		 $scope.validateTime = function(){
-			 if($scope.discount.startTime!=null && $scope.discount.endTime!=null && 
-					 $scope.discount.startTime.getHours()==$scope.discount.endTime.getHours()){
+		 $scope.validateTime = function(discount){
+			 if(discount.startTime!=null && discount.endTime!=null && 
+					 discount.startTime.getHours()==discount.endTime.getHours()){
 				 $scope.endTime = true;
+				 $scope.discountForm.$invalid=true;
 			 }else{
 				 $scope.endTime = false;
 			 }

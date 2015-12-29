@@ -235,6 +235,16 @@ angular.module('aviateAdmin.controllers')
 	$scope.getOfferDetails=function(){
 		$scope.offerDetails = ProductOfferServices.getProductOfferObj();
 	};
+	
+	 $scope.validateTime = function(){
+		 if($scope.productOffer.startTime!=null && $scope.productOffer.endTime!=null && 
+				 $scope.productOffer.startTime.getHours()==$scope.productOffer.endTime.getHours()){
+			 $scope.endTime = true;
+			 $scope.productOfferForm.$invalid=true;
+		 }else{
+			 $scope.endTime = false;
+		 }
+	 }
    
 }
 ]);

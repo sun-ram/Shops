@@ -56,11 +56,12 @@
 	    <div layout layout-sm="column">
     		<md-input-container layout-padding flex>
 		       <label></span>Start Time</label>
-		      <input type="time" ng-model="discountEdit.startTime" ng-required="true">
+		      <input type="time" ng-model="discountEdit.startTime" ng-blur="validateTime(discountEdit);" ng-required="true">
 		    </md-input-container>
 		    <md-input-container layout-padding flex>
 		       <label></span>End Time</label>
-		      <input type="time" ng-model="discountEdit.endTime" ng-required="true">
+		      <input type="time" ng-model="discountEdit.endTime" ng-blur="validateTime(discountEdit);" ng-required="true">
+    		  <span ng-show="endTime" style="color:red;">Invalid Time.</span>
 		    </md-input-container>   
 	    </div>
 	    
