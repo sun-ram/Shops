@@ -64,6 +64,7 @@ public class Merchant implements java.io.Serializable {
 	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
 	private List<ProductOffer> productOffers = new ArrayList<ProductOffer>();
 	private List<StoreHoliday> storeHolidays = new ArrayList<StoreHoliday>();
+	private List<SalesOrderReturn> salesOrderReturns = new ArrayList<SalesOrderReturn>();
 
 	public Merchant() {
 	}
@@ -93,7 +94,7 @@ public class Merchant implements java.io.Serializable {
 			List<MissingProduct> missingProducts,
 			List<CustomerFeedback> customerFeedbacks,
 			List<DeliveryTimeSlot> deliveryTimeSlots,
-			List<ProductOffer> productOffers, List<StoreHoliday> storeHolidays) {
+			List<ProductOffer> productOffers, List<StoreHoliday> storeHolidays, List<SalesOrderReturn> salesOrderReturns) {
 		this.merchantId = merchantId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -125,6 +126,7 @@ public class Merchant implements java.io.Serializable {
 		this.deliveryTimeSlots = deliveryTimeSlots;
 		this.productOffers = productOffers;
 		this.storeHolidays = storeHolidays;
+		this.salesOrderReturns = salesOrderReturns;
 	}
 
 	@Id
@@ -411,6 +413,15 @@ public class Merchant implements java.io.Serializable {
 
 	public void setStoreHolidays(List<StoreHoliday> storeHolidays) {
 		this.storeHolidays = storeHolidays;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "merchant")
+	public List<SalesOrderReturn> getSalesOrderReturns() {
+		return salesOrderReturns;
+	}
+
+	public void setSalesOrderReturns(List<SalesOrderReturn> salesOrderReturns) {
+		this.salesOrderReturns = salesOrderReturns;
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.mitosis.shopsbacker.webservice;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -56,11 +54,11 @@ public class SalesOrderLineRestService<T> {
 		response = new ResponseModel();
 		salesOrderLineResponse = new SalesOrderLineResponseVo();
 		try {
-			List<SalesOrderLine> saleslineList = salesOrderLineService.getSalesOrderLineById(salesOrderLineVo.getSalesOrderId());
-			for (SalesOrderLine salesOrderLine : saleslineList) {
+			SalesOrderLine salesline = salesOrderLineService.getSalesOrderLineById(salesOrderLineVo.getSalesOrderId());
+			//for (SalesOrderLine salesOrderLine : saleslineList) {
 				//salesOrderLineVo = salesOrderLineService.setSalesOrderLineVo(salesOrderLine);
 				salesOrderLineResponse.getSaleslistListVo().add(salesOrderLineVo);
-			}
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

@@ -7,20 +7,14 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
-import com.mitosis.shopsbacker.model.Customer;
 import com.mitosis.shopsbacker.model.Merchant;
-import com.mitosis.shopsbacker.model.Movement;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductType;
-import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
-import com.mitosis.shopsbacker.model.Warehouse;
-import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
  * @author RiyazKhan.M
  */

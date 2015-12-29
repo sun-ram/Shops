@@ -7,15 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
-import com.mitosis.shopsbacker.inventory.serviceimpl.ProductServiceImpl;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.order.dao.SalesOrderLineDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
-import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 @Service("salesOrderLineServiceImpl")
 public class SalesOrderLineServiceImpl<T> implements
@@ -39,7 +36,7 @@ public class SalesOrderLineServiceImpl<T> implements
 	}
 
 	@Override
-	public List<SalesOrderLine> getSalesOrderLineById(String id) {
+	public SalesOrderLine getSalesOrderLineById(String id) {
 		return salesOrderLineDao.getSalesOrderLineById(id);
 	}
 	

@@ -7,7 +7,7 @@ import com.mitosis.shopsbacker.model.SalesOrderLine;
 
 public interface SalesOrderLineDao<T> {
 	
-	public List<SalesOrderLine> getSalesOrderLineById(String id);
+	public SalesOrderLine getSalesOrderLineById(String id);
 
 	public List<SalesOrderLine> getSalesOrderLineBysalesOrder(
 			SalesOrder salesOrderId);

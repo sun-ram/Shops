@@ -2,7 +2,6 @@ package com.mitosis.shopsbacker.vo.order;
 
 import java.math.BigDecimal;
 
-import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 public class SalesOrderLineVo {
