@@ -66,7 +66,7 @@
 
    <md-card-content class="nopadd">
 	<md-data-table-container>
-     <md-list>
+     <!-- <md-list>
      	<md-item class="data-table-list " md-data-table>
          <md-item-content layout="row" layout-padding class="tbl-header " md-progress="deferred">
           <div layout="row" layout-wrap class="full_wid tbl-header " md-order="" md-trigger="onorderchange">
@@ -118,7 +118,30 @@
          </md-item-content>
         
        </md-item>
-     </md-list>
+     </md-list> -->
+     
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead md-order="productStockPagination.order" md-trigger="onorderchange" class="full_wid  ">
+		<tr class="tbl-header">
+              <th  name="Banner"></th>
+              <th  name="Title for Bold"></th>
+              <th  name="Title for Regular"></th>
+              <th  name="Actions"></th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="banner in bannerData">
+			<td><img src="{{banner.image.url}}" style="display: block;width:45px; height: 45px;  border-radius: 99%;" /></td>
+			<td>{{banner.tabTitleBold}}</td>
+			<td>{{banner.tabTitleSmall}}</td>
+			<td layout="row">			
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editBanner(banner)"></ng-md-icon>
+      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="removeBanner(banner.bannerId)"></ng-md-icon>
+        	</td>
+			
+		</tr>
+	</tbody>
+</table>
 	</md-data-table-container>
    </md-card-content>
   
