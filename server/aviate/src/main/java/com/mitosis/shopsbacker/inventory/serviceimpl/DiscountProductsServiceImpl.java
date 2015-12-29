@@ -73,7 +73,7 @@ public class DiscountProductsServiceImpl<T> implements DiscountProductsService<T
 	public DiscountProduct setDiscountProduct(DiscountProductsVo discountProductVo) throws Exception {
 		DiscountProduct discountProduct = null;
 		if(discountProductVo.getDiscountProductId() == null){
-			discountProduct = (DiscountProduct) CommonUtil.setAuditColumnInfo(DiscountProduct.class.getName(), null);
+			discountProduct = (DiscountProduct) CommonUtil.setAuditColumnInfo(DiscountProduct.class.getName(), discountProductVo.getUserId());
 			discountProduct.setIsactive('Y');
 		}else{
 			discountProduct.setUpdated(new Date());

@@ -64,7 +64,7 @@ public class DiscountServiceImpl<T> implements DiscountService<T>, Serializable 
 	public Discount setDiscount(DiscountVo discountVo) throws Exception {
 		Discount discount = null;
 		if(discountVo.getDiscountId() == null){
-			discount = (Discount) CommonUtil.setAuditColumnInfo(Discount.class.getName(), null);
+			discount = (Discount) CommonUtil.setAuditColumnInfo(Discount.class.getName(), discountVo.getUserId());
 			discount.setIsactive('Y');
 		}else{
 			discount = discountDao.getDiscountById(discountVo.getDiscountId());
