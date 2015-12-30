@@ -13,7 +13,7 @@ public class StoreVo {
 	private UserVo user;
 	private MerchantVo merchant=new MerchantVo();
 	private String name;
-	private char isActivated;
+	private char isActivated = 'N';
 	private String userId;
 	
 	public String getUserId() {

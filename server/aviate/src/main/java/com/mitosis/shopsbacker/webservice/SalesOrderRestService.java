@@ -132,12 +132,13 @@ public class SalesOrderRestService<T> {
 
 	@Path("/getsalesorder")
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON+";charset=UTF-8")
+	@Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public SalesOrderResponseVo getSalesOrderByStore(SalesOrderVo salesOrderVo) {
+	public String getSalesOrderByStore(SalesOrderVo salesOrderVo) {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
+		String res = "";
 		try {
 			if (salesOrderVo.getStore() != null) {
 				Store store = getStoreService().getStoreById(
@@ -174,7 +175,14 @@ public class SalesOrderRestService<T> {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		return salesOrderResponse;
+		
+		try {
+			res = CommonUtil.getObjectMapper(salesOrderResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Path("/updateShoperIntoSalesOrder")
@@ -317,6 +325,7 @@ public class SalesOrderRestService<T> {
 			deliveryTimes.setTime(time);*/
 			salesOrder.setDeliveryTimeSlot(deliveryTime);
 			salesOrder.setIspaid('N');
+			salesOrder.setDeliveryFlag('N');
 			salesOrder.setStore(store);
 			salesOrder.setDiscountAmount(new BigDecimal(0));
 

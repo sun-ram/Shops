@@ -37,9 +37,9 @@ public class ProductVo {
 	private BigDecimal unit;
 	private String description;
 	private String productTypeId;
-	private Character isKit;
-	private Character isChild;
-	private Character isBundle;
+	private Character isKit = 'N';
+	private Character isChild = 'N';
+	private Character isBundle = 'N';
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	private List<ImageVo> images = new ArrayList<ImageVo>();
 	private List<ProductOfferVo> productOffer = new ArrayList<ProductOfferVo>();
