@@ -101,24 +101,24 @@
 	<thead class="full_wid  ">
 		<tr class="tbl-header">
               <th name="Offer Name"></th>
+              <th name="Store"></th>
               <th name="Product Name"></th>
               <th name="From Date"></th>
               <th name="To Date"></th>
               <th name="Start Time"></th>
               <th name="End Time"></th>
-              <th name="Store"></th>
               <th name="Action"></th>
         </tr>
 	</thead>
 	<tbody>
 		<tr ng-click="offerDetails(productOffer);" ng-hide="showDetails" ng-show="product.productId != showInLineEdit" ng-repeat="productOffer in productOfferList | filter:searchTxt | orderBy: offerPagination.order | limitTo: offerPagination.limit: (offerPagination.page - 1) * offerPagination.limit" ng-click="productDetails(product)">
 			<td>{{productOffer.name}}</td>
+			<td>{{productOffer.store.name}}</td>
 			<td>{{productOffer.productVo.name}}</td>
 			<td>{{productOffer.fromDate | date:'MM/dd/yyyy'}}</td>
 			<td>{{productOffer.todate | date:'MM/dd/yyyy'}}</td>
 			<td>{{productOffer.startTime}}</td>
 			<td>{{productOffer.endTime}}</td>
-			<td>{{productOffer.store.name}}</td>
 			<td layout="row">		
 					<ng-md-icon style="display: none;" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="offerDetails(productOffer);"></ng-md-icon>	
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editProductOffer(productOffer)"></ng-md-icon>

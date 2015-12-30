@@ -134,7 +134,7 @@ public class ProductOfferLine implements java.io.Serializable {
 		this.discountPercentage = discountPercentage;
 	}
 	
-	@Column(name = "DISCOUNT_AMOUNT", nullable = false, precision = 22, scale = 0)
+	@Column(name = "DISCOUNT_AMOUNT", precision = 22, scale = 0)
 	public BigDecimal getDiscountAmount() {
 		return this.discountAmount;
 	}
