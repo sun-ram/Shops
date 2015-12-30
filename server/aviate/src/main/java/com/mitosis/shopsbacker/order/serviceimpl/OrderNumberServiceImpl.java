@@ -89,13 +89,13 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 		 
 		if(orderNumberVo.getOrderNumberId() == null){
 			orderNumber = (OrderNumber) CommonUtil.setAuditColumnInfo(OrderNumber.class
-					.getName(), null);
+					.getName(), orderNumberVo.getUserId());
 			orderNumber.setIsactive('Y');
 			
 		} else {
 			orderNumber = orderNumberDao.getOrderNumberById(orderNumberVo.getOrderNumberId());
 			orderNumber.setUpdated(new Date());
-			orderNumber.setUpdatedby("1234");
+			orderNumber.setUpdatedby(orderNumberVo.getUserId());
 		}
 		orderNumber.setStartingNumber(orderNumberVo.getStartingNumber());
 		orderNumber.setPrefix(orderNumberVo.getPrefix());
