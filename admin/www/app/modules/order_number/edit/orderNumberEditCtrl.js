@@ -6,6 +6,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.orderNumber = OrderNumberServices.getOrderNumberObj();
 			
 			$scope.updateOrderNumber = function(){
+				$scope.orderNumber.userId=$rootScope.user.userName;
 				OrderNumberServices.updateOrderNumber($scope.orderNumber).then(function(data){
 					$scope.orderNumber=null;
 					$state.go('app.ordernumber');
