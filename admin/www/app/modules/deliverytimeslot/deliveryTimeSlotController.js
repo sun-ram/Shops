@@ -39,6 +39,8 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		deliveryTimeSlot.storeId=$rootScope.user.storeId;
 		deliveryTimeSlot.holidayDates = $scope.holidayDates;
 		deliveryTimeSlot.holidayReasons = JSON.stringify(reasons);
+		deliveryTimeSlot.userId = $rootScope.user.userName;
+
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
 			var confirm = $mdDialog.confirm()
 			.title('Are You Delivering In Night Shift?')
@@ -74,7 +76,8 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		});
 		deliveryTimeSlot.holidayDates = $scope.holidayDates;
 		deliveryTimeSlot.holidayReasons = JSON.stringify(reasons);
-		
+		deliveryTimeSlot.userId = $rootScope.user.userName;
+
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
 			var confirm = $mdDialog.confirm()
 			.title('Are You Delivering In Night Shift?')
@@ -83,6 +86,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 			$mdDialog.show(confirm).then(function() {
 				deliveryTimeSlot.merchant.merchantId = $rootScope.user.merchantId;
 				deliveryTimeSlot.storeId=$rootScope.user.storeId;
+
 				deliveryTimeSlotService.saveDeliveryTimeSlotService(deliveryTimeSlot).then(function(data) {
 					toastr.success(CONSTANT.ADDDELIVERYTIMESLOT);
 					$state.go('app.addDeliveryTimeSlot',{},{reload: true});
