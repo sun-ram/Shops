@@ -205,6 +205,14 @@
                 </div>
             </md-list-item>
         </a>
+        <a ui-sref="app.salesorderreturn" ng-hide=true ng-click="tabChoosen('salesorderreturn');">
+            <md-list-item ng-class="{optionSelected : (currentOption == 'salesorderreturn')}">
+                <div layout="row" layout-align="start center">
+                    <ng-md-icon icon="description" class="svgicon_style"></ng-md-icon>
+                    <span class="textOnMenu" ng-hide="sidebarHidden">SalesOrderReturn</span>
+                </div>
+            </md-list-item>
+        </a>
          <a ui-sref="app.ordernumber" ng-click="tabChoosen('ordernumber');">
             <md-list-item ng-class="{optionSelected : (currentOption == 'ordernumber')}">
                 <div layout="row" layout-align="start center">

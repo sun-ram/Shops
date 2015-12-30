@@ -1,0 +1,102 @@
+<!-- <div layout="row" ng-init="getSalesOrderList();getMerchantStore()">
+
+	<div layout="row" flex=20>
+		<h3 layout-padding layout-align="start center">Sales Order</h3>
+	</div>
+
+	<div layout="row">
+		<md-datepicker style="background: none;" layout-padding
+			layout-align="end center" class="bg-none" ng-model="fromDate"
+			ng-change="getSalesByDate()" md-placeholder="From"></md-datepicker>
+		<md-datepicker style="background: none;" layout-padding
+			layout-align="end center" class="bg-none" ng-model="toDate"
+			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
+		<md-input-container ng-hide="user.role == 'STOREADMIN'" style="height: 37px; padding: 2px 20px;">
+		<label>Store</label> <md-select name="myModel" ng-model="search" 
+			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
+	    </md-input-container>
+	</div>
+
+	<div layout="row" flex=20>
+		<md-input-container md-theme="input" flex style="height: 72px;">
+		<label>&nbsp;</label> <input style="border-bottom-color: #B0B0B0;" ng-model="search"
+			placeholder="enter search"> </md-input-container>
+		<ng-md-icon icon="search" style="line-height: 5;"></ng-md-icon>
+	</div>
+</div> -->
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
+
+<md-toolbar class=" md-default-theme" style="background-color:transparent;">
+	<div class="md-toolbar-tools" layout="row"  ng-init="getSalesOrderReturnList()">
+  		<h3 layout-align="start">Sales Order Return</h3>
+  		<div class="tbl-search">
+  			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+  			<search-text  original-list="originalList" filtered-list="salesOrderList" pagination="salesOrderPagination" total-records="noOfRecords"/>
+  		</div>
+    	<div layout="row">
+		<md-datepicker style="background: none;padding: 20px;" layout-padding
+			layout-align="end center" class="bg-none" ng-model="fromDate"
+			ng-change="getSalesByDate()" md-placeholder="From"></md-datepicker>
+		<md-datepicker style="background: none;padding: 20px;" layout-padding
+			layout-align="end center" class="bg-none" ng-model="toDate"
+			ng-change="getSalesByDate()" md-placeholder="To"></md-datepicker>
+		<md-input-container ng-hide="user.role == 'STOREADMIN'">
+		<label>Store</label> <md-select name="myModel" ng-model="store" 
+			required ng-change="getSalesByStore(store);"> <md-option ng-repeat="stores in merchantStore" ng-value="stores" >{{stores.name}}</md-option> 
+	    </md-input-container>
+	</div>
+    	 </div>
+    	 </md-toolbar>
+    	 
+<md-data-table-container>
+<table md-data-table class="md-primary"
+	md-progress="deferred">
+	<thead md-order="salesOrderPagination.order" md-trigger="onorderchange" class="full_wid">
+		<tr class="tbl-header">
+		<th name="Shoper"></th>
+		<th name="Backer"></th>
+              <th order-by="customer.name" name="Customer"></th>
+<!--               <th order-by="address.firstName" name="Products"></th>
+ -->              <th order-by="transactionNo" name="Ref-no"></th>
+              <th numeric order-by="addressVo.address1" name="Delivery Address"></th>
+              <th numeric order-by="status" name="Status"></th>
+              <th numeric order-by="fromDate" name="Order Date"></th>
+              <th numeric order-by="deliveryDate" name="Delivery Date"></th>
+              <th numeric order-by="storeVo.name" name="Store"></th>
+              <th numeric order-by="shippingCharge" name="Tax"></th>
+              <th numeric order-by="totalTaxAmount" name="Shipping Charge"></th>
+              <th numeric order-by="amount" name="Net"></th>
+              <th numeric order-by="netAmount" name="Gross"></th>
+              <th name="View Details"></th>
+            </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="salesOrder in salesOrderList | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:searchText">
+		<td ng-if="salesOrder.status=='Placed' ||  salesOrder.status=='Shoper_Assigned'"><md-button class="md-icon-button md-primary" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
+		<td ng-if="salesOrder.status!='Placed' &&  salesOrder.status!='Shoper_Assigned'"><md-button  class="md-icon-button md-primary" ng-disabled="true" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
+		<td ng-if="salesOrder.status=='Packed' ||  salesOrder.status=='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
+		<td ng-if="salesOrder.status!='Packed' &&  salesOrder.status!='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-disabled="true" ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
+			<td>{{salesOrder.addressVo.name}}</td>
+			<!-- <td><md-select ng-model="dessert.type" placeholder="Other">
+				<md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
+				</md-select></td> -->
+			<td>{{salesOrder.orderNo}}</td>	
+			<td>{{salesOrder.addressVo.address1}},{{salesOrder.addressVo.address2}} {{salesOrder.addressVo.city.name}}</td>
+			<td>{{salesOrder.status}}</td>
+			<td>{{salesOrder.fromDate}}</td>
+			<td>{{salesOrder.deliveryDate}}</td>
+			<td>{{salesOrder.store.name}}</td>
+			<td>{{salesOrder.shippingCharge}}</td>
+			<td>{{salesOrder.totalTaxAmount}}</td>
+			<td>{{salesOrder.amount}}</td>
+			<td>{{salesOrder.netAmount}}</td>
+			<td><md-button class="md-raised md-primary" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>
+		</tr>
+	</tbody>
+</table>
+</md-data-table-container> 
+<div layout layout="row" class="table-pagination-bg" layout-align="center center">
+<md-data-table-pagination md-limit="salesOrderPagination.limit" md-page="salesOrderPagination.page"
+	md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
+</div>
+</md-card>
