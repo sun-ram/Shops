@@ -112,7 +112,7 @@
 	</thead>
 	<tbody>
 		<tr ng-click="discountDetails(discount)" ng-repeat="discount in discountList |  filter:searchText | orderBy: discountPagination.order | limitTo: discountPagination.limit: (discountPagination.page - 1) * discountPagination.limit">
-			<td>{{discount.name}</td>
+			<td>{{discount.name}}</td>
 			<td>{{discount.storeList[0].name}}</td>
 			<td>{{discount.discountPercentage}}%</td>
 			<td>{{discount.discountAmount}}</td>

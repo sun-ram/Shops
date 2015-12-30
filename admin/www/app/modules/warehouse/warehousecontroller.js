@@ -236,6 +236,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.storagebin.store.storeId = $rootScope.user.storeId;
 		$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
 		$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
+		$scope.storagebin.userId = $rootScope.user.userName;
+
 		WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
 			toastr.success(CONSTANT.ADDSTORAGEBIN);
 			$state.go('app.storagebin');
@@ -268,6 +270,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 			$scope.storagebin.store.storeId = $rootScope.user.storeId;
 			$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
 			$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
+			$scope.storagebin.userId = $rootScope.user.userName;
+
 			WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
 				toastr.success(CONSTANT.UPDATESTORAGEBIN);
 				$state.go('app.storagebin');
