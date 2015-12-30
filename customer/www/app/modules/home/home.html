@@ -1,4 +1,5 @@
 
+
 <div style="width:100%;height:100%;position: relative;" ng-init="getBannerList();getProducts();showHotProduct = 5;">
         
         <section layout="row">
@@ -7,7 +8,7 @@
         	</div>
         	<div flex-gt-md="60" flex-sm="100" flex-md="100" higgidy-carousel='images' timeout="5000">
                                
-				<div class="wrapper">
+				<!--<div class="wrapper">
 					<div class=carousel>
 					  <ul class=panes>
 					    <li ng-repeat="image in images">
@@ -17,7 +18,19 @@
 					    </li>
 					  </ul>
 					</div>
-				</div>
+				</div>-->
+                
+                <div id="wrapper">
+  
+                    <ul class="rslides" id="slider1">
+          <li>
+              <img src="http://192.168.0.100:8080/aviate/images/Banner/SuperAdmin/1002a838b9624d6db4fcf0eac65de2e9.png" alt=""></li>
+                      <li><img src="http://192.168.0.100:8080/aviate/images/Banner/SuperAdmin/7b2c0cfc62ac49dc8a12a1f196c7f607.png" alt=""></li>
+                      <li><img src="http://192.168.0.100:8080/aviate/images/Banner/SuperAdmin/e196f72e882c459c94530cd4e21a512c.png" alt=""></li>
+                    </ul>
+
+                </div>
+                
                 
         	</div>
         	<div flex-gt-md="20" hide-sm hide-md class="slider-right">
@@ -531,3 +544,45 @@
 	.text-primary{color:#72a308;}
 </style>
         
+
+<script>
+    // You can also use "$(window).load(function() {"
+    $(function () {
+
+      // Slideshow 1
+      $("#slider1").responsiveSlides({
+        maxwidth: 800,
+        speed: 800
+      });
+
+      // Slideshow 2
+      $("#slider2").responsiveSlides({
+        auto: false,
+        pager: true,
+        speed: 300,
+        maxwidth: 540
+      });
+
+      // Slideshow 3
+      $("#slider3").responsiveSlides({
+        manualControls: '#slider3-pager',
+        maxwidth: 540
+      });
+
+      // Slideshow 4
+      $("#slider4").responsiveSlides({
+        auto: false,
+        pager: false,
+        nav: true,
+        speed: 500,
+        namespace: "callbacks",
+        before: function () {
+          $('.events').append("<li>before event fired.</li>");
+        },
+        after: function () {
+          $('.events').append("<li>after event fired.</li>");
+        }
+      });
+
+    });
+  </script>
