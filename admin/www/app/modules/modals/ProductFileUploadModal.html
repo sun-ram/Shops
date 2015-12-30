@@ -5,15 +5,7 @@
       </md-button>
       <h2 class="text-center" style="color: #4eaf4c;">Uploaded File Details</h2>
  	 <form ng-submit="addFiles()">
-  <!-- <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2 class="ft-white">Uploaded File Details</h2>
-      <span flex></span>
-      <md-button class="md-icon-button"  type="button" ng-click="cancel()">
-        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-      </md-button>
-    </div>
-  </md-toolbar> -->
+ 
   <md-dialog-content style="padding: 5px;">
   
      <!-- --------------------New  Data--------------------- -->
@@ -22,7 +14,7 @@
    <md-card-content class="nopadd">
    
    <md-data-table-container>
-     <md-list><h2>New Data</h2>
+     <!-- <md-list><h2>New Data</h2>
      	<md-item class="data-table-list " md-data-table>
          <md-item-content layout="row" layout-padding class="tbl-header ">
       
@@ -124,7 +116,7 @@
       		</span>	
       	</div>
       	
-      	 <!-- 	Inline Edit Code -->
+      	 	Inline Edit Code
       	<div ng-show="product.count == showInLineEdit" ng-click="$event.stopPropagation();" layout="row" layout-align="start center">
       	
       		<md-input-container flex="10">
@@ -199,12 +191,134 @@
              </span>
       		
       	</div>
-      	<!-- --------------- -->
+      	---------------
       	
       </md-item-content>
       </md-item>
       
-     </md-list>
+     </md-list> -->
+     <h2>New Data</h2>
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+              <th name="Name"></th>
+              <th name="Product Category"></th>
+              <th name="Product Type"></th>
+              <th name="Description"></th>
+              <th name="Product Measurement"></th>
+              <th name="Product Unit"></th>
+              <th name="Editable Type"></th>
+              <th name="Was Price"></th>
+              <th name="Selling Price"></th>
+              <th name="isYourHot"></th>
+              <th name="Brand"></th>
+              <th name="IsBundle"></th>
+              <th name="BundleQty"></th>
+              <th name="Action"></th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="product in newData | orderBy: productFileNew.order | limitTo: productFileNew.limit: (productFileNew.page - 1) * productFileNew.limit">
+			<td><span ng-show="product.count != showInLineEdit">{{product.name}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Product</label>
+      		<input type="text" ng-model="productNewEdit.name" /> 
+      		</md-input-container>	
+				
+			</td>
+			<td><span ng-show="product.count != showInLineEdit">{{product.productCategory}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Category</label>
+      		<input type="text" ng-model="productNewEdit.productCategory"/> 
+      		</md-input-container>
+				
+			</td>
+			<td><span ng-show="product.count != showInLineEdit">{{product.productType}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Type</label>
+      		<input type="text" ng-model="productNewEdit.productType" /> 
+      		</md-input-container>
+				
+			</td>
+			<td><span ng-show="product.count != showInLineEdit">{{product.description}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Description</label>
+      		<input type="text" ng-model="productNewEdit.description" /> 
+      		</md-input-container>
+				
+			</td>
+			<td><span ng-show="product.count != showInLineEdit">{{product.productMeasurement}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Measurement</label>
+      		<input type="text" ng-model="productNewEdit.productMeasurement" /> 
+      		</md-input-container>
+				
+			</td>
+			<td><span ng-show="product.count != showInLineEdit">{{product.productUnit}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Unit</label>
+      		<input type="text" ng-model="productNewEdit.productUnit" valid-number/> 
+      		</md-input-container>
+				
+			</td>
+			<td><span ng-show="product.count != showInLineEdit">{{product.edibleType}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Type</label>
+      		<input type="text" ng-model="productNewEdit.edibleType" /> 
+      		</md-input-container>
+			
+			</td>
+			<td>
+			<span ng-show="product.count != showInLineEdit">{{product.wasPrice}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Was Price</label>
+      		<input type="text" ng-model="productNewEdit.wasPrice" valid-number/> 
+      		</md-input-container>
+			</td>
+			<td>
+			<span ng-show="product.count != showInLineEdit">{{product.sellingPrice}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Selling Price</label>
+      		<input type="text" ng-model="productNewEdit.sellingPrice" valid-number/> 
+      		</md-input-container>
+			</td>
+			<td>
+			<span ng-show="product.count != showInLineEdit">{{product.isYourHot}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>isYourHot</label>
+      		<input type="text" ng-model="productNewEdit.isYourHot"/> 
+      		</md-input-container>
+			</td>
+			<td>
+			<span ng-show="product.count != showInLineEdit">{{product.brand}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>Brand</label>
+      		<input type="text" ng-model="productNewEdit.brand" /> 
+      		</md-input-container>
+			</td>
+			<td>
+			<span ng-show="product.count != showInLineEdit">{{product.isBundle}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>isBundle</label>
+      		<input type="text" ng-model="productNewEdit.isBundle" /> 
+      		</md-input-container>
+			</td>
+			<td>
+			<span ng-show="product.count != showInLineEdit">{{product.groupCount}}</span>
+			<md-input-container ng-show="product.count == showInLineEdit">
+      		<label>BundleQty</label>
+      		<input type="text" ng-model="productNewEdit.groupCount" valid-number /> 
+      		</md-input-container>
+			</td>			
+			<td layout="row">		
+					<ng-md-icon ng-show="product.count != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=product.count;productNewEdit=product;$event.stopPropagation();"></ng-md-icon>	
+        			<ng-md-icon ng-show="product.count == showInLineEdit" icon="done" size="20" class="icons hash_color btn-success padd-t30 action-buttons wid-40" ng-click="showInLineEdit=null;updateProduct(productEdit);"></ng-md-icon>
+        	</td>
+        	</tr>
+        	
+	</tbody>
+	</table>
+
      </md-data-table-container>
    </md-card-content> 
    <div layout="row" layout-align="center center" >
