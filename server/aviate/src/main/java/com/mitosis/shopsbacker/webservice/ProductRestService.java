@@ -227,7 +227,7 @@ public class ProductRestService {
 			Image image = imageService.setImage(imageVo, null);
 			imageService.addImage(image);
 			ProductImage productimage = (ProductImage) CommonUtil
-					.setAuditColumnInfo(ProductImage.class.getName(), null);
+					.setAuditColumnInfo(ProductImage.class.getName(), productVo.getUserId());
 			productimage.setIsactive('Y');
 			productimage.setImage(image);
 			productimage.setProduct(product);

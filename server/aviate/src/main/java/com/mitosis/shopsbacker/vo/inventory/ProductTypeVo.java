@@ -18,6 +18,15 @@ public class ProductTypeVo {
 	private ProductCategoryVo productCategory=new ProductCategoryVo();
 	
 	private MerchantVo merchant;
+	private String userId;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getProductTypeId() {
 		return productTypeId;

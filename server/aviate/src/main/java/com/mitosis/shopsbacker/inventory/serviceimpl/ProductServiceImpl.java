@@ -171,7 +171,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			}
 		}
 		if (productVo.getImage().getImage() != null) {
-			Image image = imageService.setImage(productVo.getImage(), null);			
+			Image image = imageService.setImage(productVo.getImage(), productVo.getUserId());			
 			product.setImage(image);
 		}
 		product.setName(productVo.getName());
