@@ -30,6 +30,8 @@ angular.module('aviateAdmin.controllers')
 				movement.store = {};
 				movement.store.storeId = $rootScope.user.storeId;
 				movement.merchant.merchantId = $rootScope.user.merchantId;
+				movement.userId = $rootScope.user.userName;
+
 				movementServices.addMovement(movement).then(function(data){
 					$state.go('app.editmovement',{'movementId': data.movement.movementId});
 				});
@@ -52,6 +54,8 @@ angular.module('aviateAdmin.controllers')
 			};
 			
 			$scope.addMovementLine = function(movementLine, index){
+				movementLine.userId = $rootScope.user.userName;
+
 				movementServices.addMovementLine(movementLine).then(function(data){
 					$scope.movement.movementLines[index] = data.movementLine;
 					$scope.movement.movementLines.push({});

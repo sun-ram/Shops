@@ -40,12 +40,16 @@ angular.module('aviateAdmin.controllers')
 
 
 			$scope.addPhysicalInventory = function(inventory){
+				inventory.userId = $rootScope.user.userName;
+
 				physicalInventoryService.addPhysicalInventory(inventory).then(function(data){
 					$state.go('app.addNewInventory',{'inventoryId': data.movementId});
 				});
 			};
 
 			$scope.addPhysicalInventoryLine = function(inventoryLine){
+				inventoryLine.userId = $rootScope.user.userName;
+
 				inventoryLine.movementId = $scope.physicalInventory.movementId;
 				physicalInventoryService.addPhysicalInventoryLine(inventoryLine).then(function(data){
 					$scope.physicalInventoryList.push(data);
@@ -54,6 +58,8 @@ angular.module('aviateAdmin.controllers')
 			};
 
 			$scope.updatePhysicalInventoryLine = function(inventoryLine, index){
+				inventoryLine.userId = $rootScope.user.userName;
+
 				physicalInventoryService.addPhysicalInventoryLine(inventoryLine).then(function(data){
 					$scope.physicalInventoryList[index] = data;
 					$scope.updateStocksInUi();
