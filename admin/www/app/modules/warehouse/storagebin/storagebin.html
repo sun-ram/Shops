@@ -37,7 +37,7 @@
    </md-toolbar>
    <md-card-content class="nopadd">
 		<md-data-table-container>
-     <md-list>
+     <!-- <md-list>
      
      <md-item class="data-table-list " md-data-table>
          <md-item-content layout="row">
@@ -80,9 +80,9 @@
            	<span flex=30 layout layout-align="start center">
              	<span class="shopname" class="padd-tr5-lb8 ft-18"> {{storagebin.description}} </span>
            	 </span>
-           	 <!-- <span flex=10 layout="row" ng-hide=true layout-align="start end">
+           	 <span flex=10 layout="row" ng-hide=true layout-align="start end">
              	<span class="ft-14 hash_color">{{storagebin.warehouse.warehouseId}}</span>
-           	 </span> -->
+           	 </span>
            	 <span flex=10 layout layout-align="start center">
              	<span class="ft-14 hash_color">{{storagebin.row}}</span>
            	 </span>
@@ -92,12 +92,12 @@
            	 <span flex=10 layout layout-align="start center">
              	<span class="ft-14 hash_color">{{storagebin.level}}</span>
            	 </span>
-             <!-- <span flex=15 layout layout-align="center center">
+             <span flex=15 layout layout-align="center center">
             
              	<span layout-padding><ng-md-icon style="z-index:500;" icon="mode_edit" size="20" class="icons hash_color" ng-click="editStoragebin(storagebin,whouse)"></ng-md-icon></span>
              	<span layout-padding><ng-md-icon style="z-index:500;" icon="close" size="20" class="icons hash_color" ng-click="deleteStorageBin(storagebin)"></ng-md-icon></span>
           
-             </span> --> 
+             </span> 
              <span flex=10 layout-align="center center" layout>
                 <md-button class="md-icon-button md-primary padd-t5" ng-click="redirectToEditStore(store);$event.stopPropagation();" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success" ng-click="editStoragebin(storagebin,whouse)"></ng-md-icon>
@@ -111,7 +111,35 @@
            
          </md-item-content>
          </md-item>
-         </md-list>
+         </md-list> -->
+         
+         <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+              <th name="Name"></th>
+              <th name="Warehouse"></th>
+              <th name="Description"></th>
+              <th name="Row"></th>
+              <th name="Level"></th>
+              <th name="Stack"></th>
+              <th name="Action"></th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="storagebin in listOfStoragebins | orderBy:sortByCreatedDate:true | filter:searchText | limitTo: storagebinPagination.limit: (storagebinPagination.page - 1) * storagebinPagination.limit" class="md-table-content-row" ng-click="storagebinDetails(storagebin,whouse)">
+			<td>{{storagebin.name}}</td>
+			<td>{{storagebin.warehouse.name}}</td>
+			<td>{{storagebin.description}}</td>
+			<td>{{storagebin.row}}</td>
+			<td>{{storagebin.stack}}</td>
+			<td>{{storagebin.level}}</td>		
+			<td layout="row">			
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editStoragebin(storagebin,whouse);$event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteStorageBin(storagebin);$event.stopPropagation();"></ng-md-icon>
+        	</td>	
+		</tr>
+	</tbody>
+</table>
          </md-data-table-container>
       </md-card-content>
    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
