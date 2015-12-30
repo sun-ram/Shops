@@ -50,7 +50,14 @@ public class SalesOrderVo {
 	private Date shopperAssignedTime;
 	private Date backerAssignedTime;
 	private Date orderPlacedTime;
+	private String userId;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public ImageVo getSign() {
 		return sign;
 	}

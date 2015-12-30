@@ -300,7 +300,7 @@ public class SalesOrderRestService<T> {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil
-					.setAuditColumnInfo(SalesOrder.class.getName(),null);
+					.setAuditColumnInfo(SalesOrder.class.getName(),salesOrderVo.getUserId());
 			salesOrder.setIsactive('Y');
 			Customer customer = customerService
 					.getCustomerInfoById(salesOrderVo.getCustomer()
@@ -368,7 +368,7 @@ public class SalesOrderRestService<T> {
 				BigDecimal price = BigDecimal.valueOf(discountPrice);
 				
 				SalesOrderLine sol = (SalesOrderLine) CommonUtil
-						.setAuditColumnInfo(SalesOrderLine.class.getName(),null);
+						.setAuditColumnInfo(SalesOrderLine.class.getName(),salesOrderVo.getUserId());
 				Double lineAmount = discountPrice.doubleValue() * myCart.getQty();
 				BigDecimal lineGrossAmount = new BigDecimal(lineAmount);
 				BigDecimal lineNetAmount = new BigDecimal(lineAmount);
@@ -390,7 +390,7 @@ public class SalesOrderRestService<T> {
 			List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 			for (Tax tax : taxs) {
 				OrderTax orderTax = (OrderTax) CommonUtil
-						.setAuditColumnInfo(OrderTax.class.getName(),null);
+						.setAuditColumnInfo(OrderTax.class.getName(),salesOrderVo.getUserId());
 
 				Double taxAmount = (orderGrossAmount * (tax.getTaxPercentage() / 100));
 				orderTax.setTax(tax);
