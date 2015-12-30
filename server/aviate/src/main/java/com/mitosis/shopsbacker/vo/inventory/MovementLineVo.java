@@ -8,6 +8,15 @@ public class MovementLineVo {
 	private StoragebinVo toStoragebin;
 	private ProductVo product;
 	private int qty;
+	private String userId;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getMovementLineId() {
 		return movementLineId;

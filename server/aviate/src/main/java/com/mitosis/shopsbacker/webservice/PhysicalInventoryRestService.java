@@ -77,9 +77,10 @@ public class PhysicalInventoryRestService {
 	public MovementLineResponseVo saveMovementLine(MovementLineVo movementLineVo) {
 		MovementLineResponseVo response = new MovementLineResponseVo();
 		try {
+			String userId=movementLineVo.getUserId();
 			boolean isUpdateProcess = movementLineVo.getMovementLineId() != null ? true
 					: false;
-			MovementLine movementLine = movementService.setMovementLine(movementLineVo, isUpdateProcess);
+			MovementLine movementLine = movementService.setMovementLine(movementLineVo, isUpdateProcess, userId);
 			Movement movement = movementService.getMovement(movementLineVo.getMovementId());
 			movementLine.setMovement(movement);
 			if (!isUpdateProcess) {

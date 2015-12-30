@@ -26,7 +26,7 @@ public interface MovementService<T> {
 	
 	public List<Movement> getMovementListByStore(Store store);
 
-	public void processMovement(String string) throws Exception;
+	public void processMovement(String string, String userId) throws Exception;
 	
 	public MovementVo setMovementVo(Movement movement);
 	
@@ -36,7 +36,7 @@ public interface MovementService<T> {
 			throws Exception;
 	
 	public MovementLine setMovementLine(MovementLineVo movementLineVo,
-			boolean isUpdate) throws Exception;
+			boolean isUpdate, String userId) throws Exception;
 	
 	
 
