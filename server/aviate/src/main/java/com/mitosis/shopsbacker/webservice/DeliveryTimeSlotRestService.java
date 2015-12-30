@@ -79,11 +79,11 @@ public class DeliveryTimeSlotRestService {
 				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant, store,
 						deliveryTimeSlot);
 				deliveryTimeSlot.setUpdated(new Date());
-				deliveryTimeSlot.setUpdatedby("123");
+				deliveryTimeSlot.setUpdatedby(deliveryTimeSlotVo.getUserId());
 				deliveryTimeSlotService.update(deliveryTimeSlot);
 			} else {
 				DeliveryTimeSlot deliveryTimeSlot = (DeliveryTimeSlot) CommonUtil
-						.setAuditColumnInfo(DeliveryTimeSlot.class.getName(), null);
+						.setAuditColumnInfo(DeliveryTimeSlot.class.getName(), deliveryTimeSlotVo.getUserId());
 				setDeliveryTimeSlot(deliveryTimeSlotVo, merchant, store,
 						deliveryTimeSlot);
 				deliveryTimeSlot.setIsactive('Y');
