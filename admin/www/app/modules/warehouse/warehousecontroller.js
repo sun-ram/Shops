@@ -82,6 +82,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.address.country.name = $scope.cnt.name;
 		$scope.warehouse.address.state.stateId = $scope.st.stateId;
 		$scope.warehouse.address.state.name = $scope.st.name;
+		$scope.warehouse.userId = $rootScope.user.userName;
+
 		//$scope.warehouse.address.city.cityId=$scope.cty.cityId;
 		//$scope.warehouse.address.city.name=$scope.cty.name;
 		$scope.warehouse.address.city = $scope.cty;
@@ -113,6 +115,8 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.address.state.name = $scope.st.name;
 		$scope.warehouse.address.city.cityId=$scope.cty.cityId;
 		$scope.warehouse.address.city.name=$scope.cty.name;
+		$scope.warehouse.userId = $rootScope.user.userName;
+
 		
 		
 		WarehouseService.updateWarehouse($scope.warehouse).then(function(data) {
