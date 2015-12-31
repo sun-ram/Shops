@@ -23,6 +23,7 @@
               <th  name="Tax Amount"></th>
               <th  name="Shipping Charge"></th>
               <th  name="Paid"></th>
+              <th  name="Process"></th>
             </tr>
 	</thead>
 	<tbody>
@@ -35,6 +36,8 @@
 			<td>{{salesOrderreturn.returnTaxAmount}}</td>
 			<td>{{salesOrderreturn.shippingCharge}}</td>
 			<td>{{salesOrderreturn.ispaid}}</td>
+			<td ng-if="salesOrderreturn.ispaid=='Y'" ><md-button ng-disabled="true" class="md-raised md-primary" ng-click="#">Process</md-button></td>
+			<td ng-if="salesOrderreturn.ispaid=='N'"><md-button class="md-raised md-primary" ng-click="#">Process</md-button></td>
 		</tr>
 	</tbody>
 </table>
