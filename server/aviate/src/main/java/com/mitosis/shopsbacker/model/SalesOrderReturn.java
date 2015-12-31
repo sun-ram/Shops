@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class SalesOrderReturn implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String salesOrderReturnId;
-	private String salesOrderId;
+	private SalesOrder salesOrder;
 	private String returnReason;
 	private BigDecimal returnTotalAmount;
 	private String returnStatus;
@@ -45,18 +46,19 @@ public class SalesOrderReturn implements java.io.Serializable {
 	private Date created;
 	private Date updated;
 	private String updatedby;
+	private char ispaid;
 	private List<SalesOrderReturnLine> salesOrderReturnLines = new ArrayList<SalesOrderReturnLine>();
 
 	public SalesOrderReturn() {
 		
 	}
 	
-	public SalesOrderReturn(String salesOrderReturnId,String salesOrderId,String returnReason,
+	public SalesOrderReturn(String salesOrderReturnId,SalesOrder salesOrder,String returnReason,
 			BigDecimal returnTotalAmount,String returnStatus,BigDecimal returnTaxAmount,Store store,
 			Merchant merchant,BigDecimal shippingCharge,char isactive,String createdby,  Date created, 
-			Date updated, String updatedby, List<SalesOrderReturnLine> salesOrderReturnLines) {
+			Date updated, String updatedby, char ispaid,List<SalesOrderReturnLine> salesOrderReturnLines) {
 		this.salesOrderReturnId = salesOrderReturnId;
-		this.salesOrderId = salesOrderId;
+		this.salesOrder = salesOrder;
 		this.returnReason = returnReason;
 		this.returnTotalAmount = returnTotalAmount;
 		this.returnStatus = returnStatus;
@@ -65,6 +67,7 @@ public class SalesOrderReturn implements java.io.Serializable {
 		this.merchant = merchant;
 		this.shippingCharge = shippingCharge;
 		this.isactive = isactive;
+		this.ispaid=ispaid;
 		this.createdby = createdby;
 		this.created = created;
 		this.updated = updated;
@@ -84,23 +87,30 @@ public class SalesOrderReturn implements java.io.Serializable {
 		this.salesOrderReturnId = salesOrderReturnId;
 	}
 
-	@Column(name = "SALES_ORDER_ID", nullable = false, length = 32 )
-	public String getSalesOrderId() {
-		return salesOrderId;
-	}
-
-	public void setSalesOrderId(String salesOrderId) {
-		this.salesOrderId = salesOrderId;
-	}
+	
+	
 
 	@Column(name = "RETURN_REASON", nullable = false, length = 45)
 	public String getReturnReason() {
 		return returnReason;
 	}
 
+
 	public void setReturnReason(String returnReason) {
 		this.returnReason = returnReason;
 	}
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "SALES_ORDER_ID", nullable = false)
+	public SalesOrder getSalesOrder() {
+		return salesOrder;
+	}
+
+	public void setSalesOrder(SalesOrder salesOrder) {
+		this.salesOrder = salesOrder;
+	}
+
 
 	@Column(name = "RETURN_TOTAL_AMOUNT", nullable = false, precision = 15, scale = 2)
 	public BigDecimal getReturnTotalAmount() {
@@ -165,6 +175,15 @@ public class SalesOrderReturn implements java.io.Serializable {
 	
 	public void setIsactive(char isactive) {
 		this.isactive = isactive;
+	}
+	
+	@Column(name = "ISPAID", nullable = false, length = 1)
+	public char getIspaid() {
+		return ispaid;
+	}
+
+	public void setIspaid(char ispaid) {
+		this.ispaid = ispaid;
 	}
 
 	@Column(name = "CREATEDBY", length = 32)

@@ -486,3 +486,8 @@ CREATE TABLE `sales_order_return_line` (
 
 ALTER TABLE `shopsbacker`.`product_offer_line` 
 CHANGE COLUMN `DISCOUNT_AMOUNT` `DISCOUNT_AMOUNT` DECIMAL(15,2) NULL DEFAULT '0.00' ;
+
+----------30-12-2015 ----------- FAYAZ ------- Sales Order Return ---------
+
+ALTER TABLE `shopsbacker`.`sales_order_return` 
+ADD COLUMN `ISPAID` CHAR(1) NOT NULL DEFAULT 'N' AFTER `SHIPPING_CHARGE`;

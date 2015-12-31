@@ -11,7 +11,7 @@ import com.mitosis.shopsbacker.model.Store;
 public class SalesOrderReturnVo {
 	
 	private String salesOrderReturnId;
-	private String salesOrderId;
+	private SalesOrderVo salesOrder;
 	private String returnReason;
 	private BigDecimal returnTotalAmount;
 	private String returnStatus;
@@ -19,6 +19,7 @@ public class SalesOrderReturnVo {
 	private Store store;
 	private Merchant merchant;
 	private BigDecimal shippingCharge;
+	private char ispaid;
 	private List<SalesOrderReturnLine> salesOrderReturnLines = new ArrayList<SalesOrderReturnLine>();
 	public String getSalesOrderReturnId() {
 		return salesOrderReturnId;
@@ -26,11 +27,12 @@ public class SalesOrderReturnVo {
 	public void setSalesOrderReturnId(String salesOrderReturnId) {
 		this.salesOrderReturnId = salesOrderReturnId;
 	}
-	public String getSalesOrderId() {
-		return salesOrderId;
+	
+	public SalesOrderVo getSalesOrder() {
+		return salesOrder;
 	}
-	public void setSalesOrderId(String salesOrderId) {
-		this.salesOrderId = salesOrderId;
+	public void setSalesOrder(SalesOrderVo salesOrder) {
+		this.salesOrder = salesOrder;
 	}
 	public String getReturnReason() {
 		return returnReason;
@@ -73,6 +75,13 @@ public class SalesOrderReturnVo {
 	}
 	public void setShippingCharge(BigDecimal shippingCharge) {
 		this.shippingCharge = shippingCharge;
+	}
+	
+	public char getIspaid() {
+		return ispaid;
+	}
+	public void setIspaid(char ispaid) {
+		this.ispaid = ispaid;
 	}
 	public List<SalesOrderReturnLine> getSalesOrderReturnLines() {
 		return salesOrderReturnLines;

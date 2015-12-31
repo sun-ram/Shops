@@ -1302,6 +1302,25 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		/*Sales Order Return Module*/
+		
+		apiClass.SalesOrderReturn = {
+				name: ""
+		};
+
+		apiClass.SalesOrderReturn.getSalesOrderReturn = function (salesOrderReturnVo, callback) {
+			httpRequest("POST", "salesorderreturn/getsalesorderreturn", salesOrderReturnVo, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 		/*Product Stock Module*/
 
