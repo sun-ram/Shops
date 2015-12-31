@@ -296,8 +296,9 @@ public class SalesOrderRestService<T> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ConfirmOrderResponseVo confirmOrder(SalesOrderVo salesOrderVo) {
+	public String confirmOrder(SalesOrderVo salesOrderVo) {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
+		String res = "";
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil
 					.setAuditColumnInfo(SalesOrder.class.getName(),salesOrderVo.getUserId());
@@ -348,13 +349,14 @@ public class SalesOrderRestService<T> {
 				response.setStatus(SBMessageStatus.FAILURE.getValue());
 				response.setErrorCode(SBErrorMessage.CART_IS_EMPTY.getCode());
 				response.setErrorString(SBErrorMessage.CART_IS_EMPTY.getMessage());
-				return response;
+				res = CommonUtil.getObjectMapper(response);
+				return res;
 			}
 
 			List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 			for (MyCart myCart : cartProduct) {
 				
-				Double discountPrice = null;
+				Double discountPrice = 0.0;
 				if(myCart.getDiscount() != null){
 					if(myCart.getDiscount().getDiscountPercentage() != null){
 						 discountPrice = 	myCart.getProduct().getPrice().doubleValue() -(myCart.getProduct().getPrice().doubleValue() * myCart.getDiscount().getDiscountPercentage()/100); 
@@ -400,14 +402,19 @@ public class SalesOrderRestService<T> {
 
 				orderTaxes.add(orderTax);
 			}
+			orderGrossAmount+=totalTaxAmount;
 			salesOrder.setOrderTaxes(orderTaxes);
-			salesOrder.setAmount(new BigDecimal(orderGrossAmount));
-			salesOrder.setNetAmount(new BigDecimal(orderGrossAmount));
+			
 			salesOrder.setTotalTaxAmount(new BigDecimal(totalTaxAmount));
 			BigDecimal ShippingCharge = shippingChargesService.getShippingCharge(salesOrder.getNetAmount(), store.getMerchant());
+			BigDecimal totalOrderGrossAmount = new BigDecimal(orderGrossAmount).add(ShippingCharge);
 			salesOrder.setShippingCharge(ShippingCharge);
 			salesOrder.setMerchant(store.getMerchant());
-
+			
+			salesOrder.setAmount(totalOrderGrossAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
+			//TODO: when implementing order discount need to reduce discount amount
+			salesOrder.setNetAmount(totalOrderGrossAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
+						
 			salesOrderService.saveSalesOrder(salesOrder);
 
 			/*Reduce Stock*/
@@ -433,7 +440,13 @@ public class SalesOrderRestService<T> {
 			response.setErrorString(e.getMessage());
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 		}
-		return response;
+		try {
+				res = CommonUtil.getObjectMapper(response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		return res;
 	}
 
 	@Path("/getsalesorders")
