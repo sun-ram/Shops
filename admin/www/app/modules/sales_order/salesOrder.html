@@ -55,23 +55,23 @@
 		<tr class="tbl-header">
 		<th name="Shopper"></th>
 		<th name="Backer"></th>
-              <th order-by="customer.name" name="Customer"></th>
+              <th numeric order-by="customer.name" name="Customer"></th>
 <!--               <th order-by="address.firstName" name="Products"></th>
- -->              <th order-by="transactionNo" name="Ref-no"></th>
-              <th order-by="addressVo.address1" name="Delivery Address"></th>
-              <th order-by="status" name="Status"></th>
-              <th order-by="fromDate" name="Order Date"></th>
-              <th order-by="deliveryDate" name="Delivery Date"></th>
-              <th order-by="storeVo.name" name="Store"></th>
-              <th order-by="shippingCharge" name="Tax"></th>
-              <th order-by="totalTaxAmount" name="Shipping Charge"></th>
-              <th order-by="amount" name="Net"></th>
-              <th order-by="netAmount" name="Gross"></th>
+ -->              <th numeric order-by="transactionNo" name="Ref-no"></th>
+              <th numeric order-by="addressVo.address1" name="Delivery Address"></th>
+              <th numeric order-by="status" name="Status"></th>
+              <th numeric order-by="fromDate" name="Order Date"></th>
+              <th numeric order-by="deliveryDate" name="Delivery Date"></th>
+              <th numeric order-by="storeVo.name" name="Store"></th>
+              <th numeric order-by="shippingCharge" name="Tax"></th>
+              <th numeric order-by="totalTaxAmount" name="Shipping Charge"></th>
+              <th numeric order-by="amount" name="Net"></th>
+              <th numeric order-by="netAmount" name="Gross"></th>
               <th name="View Details"></th>
             </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="salesOrder in salesOrderList | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:searchText">
+		<tr ng-repeat="salesOrder in salesOrderList | orderBy: salesOrderPagination.order | limitTo: salesOrderPagination.limit: (salesOrderPagination.page - 1) * salesOrderPagination.limit | filter:searchText">
 		<td ng-if="salesOrder.status=='Placed' ||  salesOrder.status=='Shoper_Assigned'"><md-button class="md-icon-button md-primary" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status!='Placed' &&  salesOrder.status!='Shoper_Assigned'"><md-button  class="md-icon-button md-primary" ng-disabled="true" ng-click="showTabShoper(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.shoper.name}}</td>
 		<td ng-if="salesOrder.status=='Packed' ||  salesOrder.status=='Backer_Assigned'"><md-button class="md-icon-button md-primary"   ng-click="showTabBacker(salesOrder,$event)"><ng-md-icon icon="person" style="fill:blue" size="20" class="icons hash_color"></ng-md-icon></md-button>{{salesOrder.backer.name}}</td>
@@ -83,7 +83,7 @@
 			<td>{{salesOrder.orderNo}}</td>	
 			<td>{{salesOrder.addressVo.address1}},{{salesOrder.addressVo.address2}} {{salesOrder.addressVo.city.name}}</td>
 			<td>{{salesOrder.status}}</td>
-			<td>{{salesOrder.fromDate | date:'h:mm'}}</td>
+			<td>{{salesOrder.fromDate | date:"MM/dd/yyyy h:mma"}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>
 			<td>{{salesOrder.store.name}}</td>
 			<td>{{salesOrder.totalTaxAmount}}</td>
