@@ -662,5 +662,17 @@ border-radius: 50%;}
     fill: red !important;
 	float: left;
 }
+.growthIconFlat {
+	width: 24px !important;
+    fill: #2478AB !important;
+	float: left;
+}
 
+.greenText {
+	color : green;
+}
+
+.redText {
+	color : red;
+}
 
