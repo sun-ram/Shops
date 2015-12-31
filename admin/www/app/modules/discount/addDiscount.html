@@ -39,14 +39,14 @@
 	    <div layout layout-sm="column">
 	       <div layout-padding flex>
 		       <label></span>From Date</label>
-		       <md-datepicker ng-model="discount.startDate" ng-required="discount.endDate!=null" name="startdate" md-placeholder="From date"  md-min-date="minDate"></md-datepicker>
+		       <md-datepicker ng-model="discount.startDate" ng-required="discount.endDate!=null" name="startdate" md-placeholder="From date"  md-min-date="minDate" ng-click="discount.endDate=null"></md-datepicker>
 		   	   <span class="error" ng-show="discountForm.startdate.$error.required" style="color:red;">
       			Select Start Date!</span>
 		   </div>    
 		   
 		   <div layout-padding flex>
 		       <label></span>To Date</label>
-		       <md-datepicker ng-model="discount.endDate" ng-required="discount.startDate!=null" name="enddate" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
+		       <md-datepicker ng-model="discount.endDate" ng-required="discount.startDate!=null" name="enddate" md-placeholder="End date" md-min-date="discount.startDate"></md-datepicker>
 		       <span class="error" ng-show="discountForm.enddate.$error.required" style="color:red;">
       			Select End Date!</span>
 		   </div>

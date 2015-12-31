@@ -118,8 +118,8 @@
 			<td>{{discount.discountAmount}}<span ng-if="discount.discountAmount==null">0</span></td>
 			<td>{{discount.startDate | date:'MM/dd/yyyy'}}</td>
 			<td>{{discount.endDate | date:'MM/dd/yyyy'}}</td>
-			<td>{{discount.startTime}}</td>
-			<td>{{discount.endTime}}</td>
+			<td ng-init="startTime=filter12HrTime(discount.startTime);">{{startTime}}</td>
+			<td ng-init="endTime=filter12HrTime(discount.endTime);">{{endTime}}</td>
 			<td layout="row">			
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editDiscount(discount);$event.stopPropagation();"></ng-md-icon>
       	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteDiscount(discount.discountId);$event.stopPropagation();"></ng-md-icon>
