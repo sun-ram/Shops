@@ -374,19 +374,25 @@ form {
 				<div id="graph">
 					
 				</div>
-				<div style="top: 15px;position: absolute;right: 20px;">
-					<span style="font-family : Roboto;font-size : 13px;">{{raisedTableTitle}}</span>
-					<table style="border: 1px solid black;">
-						<tr>
-							<td style="background-color:steelblue;width:5px; font-family : Roboto;"></td><td>Merchants Growth</td></td><td><span style="width:8px;">{{merchantsRaised}}</span></td>
-						</tr>
-						<tr>	
-							<td style="background-color:green;width:5px; font-family : Roboto;"></td><td>Store Growth</td><td><span style="width:8px;">{{storesRaised}}</span></td> 
-						</tr>
-						<tr>	
-							<td style="background-color:red;width:5px; font-family : Roboto;"></td><td>Customer Growth</td><td><span style="width:8px;">{{customersRaised}}</span></td>
-						</tr>
-					</table>
+				<div class="descriptionBox">
+					<div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
+					<div class="blueLabel"></div><div class="labelDesc">Merchants Growth : <div style="float:right">{{merchantsRaised}}</div></div>
+					<div class="greenLabel"></div><div class="labelDesc">Store Growth     : <div style="float:right">{{storesRaised}}</div></div>
+					<div class="redLabel"></div><div class="labelDesc">Customer Growth  : <div style="float:right">{{customersRaised}}</div></div>
+					<div class="labelDesc" style="position:absolute;bottom:100px;width: 77%;">
+						<div class="labelDesc">Merchants Comparition</div>
+						<div><ng-md-icon ng-if = "merchatsRaisedPrevWeek >= 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon> <div class="labelDesc" style="padding-left: 66%;">{{merchatsRaisedPrevWeek >= 0 ? 'UP' : 'DOWN'}}<span style="width:8px;float:right;">{{(merchatsRaisedPrevWeek < 0) ? (merchatsRaisedPrevWeek * -1) : merchatsRaisedPrevWeek}}%</span></div></div>
+						
+						<div class="labelDesc" style="margin-top: 25px;">Stores Comparition</div>
+						<div><ng-md-icon ng-if = "storesRaisedprevWeek >= 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "storesRaisedprevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon> <div class="labelDesc" style="padding-left: 66%;">{{storesRaisedprevWeek >= 0 ? 'UP' : 'DOWN'}}<span style="width:8px;float:right;">{{(storesRaisedprevWeek < 0) ? (storesRaisedprevWeek * -1) : storesRaisedprevWeek}}%</span></div></div>
+						
+						<div class="labelDesc" style="margin-top: 25px;">Customers Comparition</div>
+						<div><ng-md-icon ng-if = "customersRaisedPrevWeek >= 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon> <div class="labelDesc" style="padding-left: 66%;">{{customersRaisedPrevWeek >= 0 ? 'UP' : 'DOWN'}}<span style="width:8px;float:right;">{{(customersRaisedPrevWeek < 0) ? (customersRaisedPrevWeek * -1) : customersRaisedPrevWeek}}%</span></div></div>
+					
+					</div>
+					
+					
+				</div>
 				</div>
 				
 			</div>

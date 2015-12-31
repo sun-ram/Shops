@@ -33,10 +33,13 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.merchantsRaised = 0;
 		$scope.storesRaised = 0;
 		$scope.customersRaised = 0;
+		$scope.merchatsRaisedPrevWeek = 0;
+		$scope.storesRaisedprevWeek = 0;
+		$scope.customersRaisedPrevWeek = 0;
 		$scope.d3LineData = [];
 		var growthYcount = 10;
 		var growthXcount = 26;
-		$scope.raisedTableTitle = "Complete Details of Growth";
+		$scope.raisedTableTitle = "Half Year Report";
 		
 
 		$scope.historicalBarChart = [
@@ -103,7 +106,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					bottom: 50,
 					left: 60
 				}
-				var width = 1000 - margin.left - margin.right;
+				var width = 1010 - margin.left - margin.right;
 				var height = 450 - margin.top - margin.bottom;
 				var zoomArea = {
 					x1: 0,
@@ -352,17 +355,40 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				});
 			
 				function updategrowthTable (start, end) {
-					$scope.raisedTableTitle = "Growth between "+Math.round(start)+" to "+ Math.round(end) + " Weeks";
+					$scope.raisedTableTitle = "Weeks between "+Math.round(start)+" - "+ Math.round(end);
 					
 					$scope.merchantsRaised = 0;
 					$scope.storesRaised = 0;
 					$scope.customersRaised = 0;
+					$scope.merchatsRaisedPrevWeek = 0;
+					$scope.storesRaisedprevWeek = 0;
+					$scope.customersRaisedPrevWeek = 0;
 					for(var i=start ; i<end ; i++){
 						try{
 							$scope.merchantsRaised = $scope.merchantsRaised + $scope.d3LineData[0][i][1];
 							$scope.storesRaised = $scope.storesRaised + $scope.d3LineData[1][i][1];
 							$scope.customersRaised = $scope.customersRaised + $scope.d3LineData[2][i][1];
 						}catch(e){console.error("Exception ");}
+					}
+					if(start>0){
+						for(var i=(start-1) ; i<(end-1) ; i++){
+							try{
+								$scope.merchatsRaisedPrevWeek = $scope.merchatsRaisedPrevWeek + $scope.d3LineData[0][i][1];
+								$scope.storesRaisedprevWeek = $scope.storesRaisedprevWeek + $scope.d3LineData[1][i][1];
+								$scope.customersRaisedPrevWeek = $scope.customersRaisedPrevWeek + $scope.d3LineData[2][i][1];
+							}catch(e){console.log("Exception ");}
+						}
+						$scope.merchatsRaisedPrevWeek = innercalculation($scope.merchatsRaisedPrevWeek,$scope.merchantsRaised);
+						$scope.storesRaisedprevWeek = innercalculation($scope.storesRaisedprevWeek,$scope.storesRaised);
+						$scope.customersRaisedPrevWeek = innercalculation($scope.customersRaisedPrevWeek,$scope.customersRaised);
+						
+						$scope.merchatsRaisedPrevWeek = (Math.round($scope.merchatsRaisedPrevWeek *100))/100;
+						$scope.storesRaisedprevWeek = (Math.round($scope.storesRaisedprevWeek *100))/100;
+						$scope.customersRaisedPrevWeek = (Math.round($scope.customersRaisedPrevWeek *100))/100;
+					}else{
+						$scope.merchatsRaisedPrevWeek = 0;
+						$scope.storesRaisedprevWeek = 0;
+						$scope.customersRaisedPrevWeek = 0;
 					}
 					$scope.$apply();
 				}
@@ -371,7 +397,18 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
     				cursorY = e.pageY;
 				}
 				
-	
+					
+				function innercalculation(val1,val2){
+					if(val1 == 0 && val2 == 0){
+						return 0;
+					}else if(val2 != 0 && val1 == 0){
+						return 100;
+					}else if(val2 == 0 && val1 != 0){
+						return -100;
+					}else{
+						return ((val2 - val1)/val1)*100;
+					}
+				}
 				
 				function clickToDrag (mouseProp) {
 					
@@ -969,13 +1006,13 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			$scope.merchantGrowthToday = (Math.round($scope.merchantGrowthToday*100))/100;
 			
 		};
-
+		
 		function calcGrowthRatio(data){
 			var tempDateObj = angular.copy(todayDateObj); 
 			var tmpLen = data.Books.length;
 			$scope.d3LineLeafs = [];
 			var d3TmpArray = [];
-			growthYcount = 0;
+			
 			//for merchants 
 			var k=0;
 			d3TmpArray = [k,0];
@@ -1002,6 +1039,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 
 			$scope.d3LineData.push(angular.copy($scope.d3LineLeafs));
+			console.log("full values ==>",$scope.d3LineLeafs);
 		}
 		
 		function orgGrowthRation (){
