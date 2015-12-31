@@ -132,13 +132,13 @@ angular.module('aviate.controllers')
 				console.log("OrderNo", data);
 				$scope.orderNo = data.orderNo;
 				$scope.salesOrderId = data.salesOrderId;
-				$scope.transactionDetails = data.transactionDatas;
-				$scope.transactionDetails.amount = data.transactionDatas.amount.toFixed(2);
 				if(data.paymentMethod == "COD"){
 					$scope.getCartList();
 					$state.go('app.favourite',{'salesOrderId':$scope.salesOrderId});
 					//$rootScope.myCart.cartItem = {};
 				}else if(data.paymentMethod == "WT") {
+					$scope.transactionDetails = data.transactionDatas;
+					$scope.transactionDetails.amount = data.transactionDatas.amount.toFixed(2);
 					setTimeout(function() {
 						$scope.$apply(); 
 						document.forms["frmTransaction"].submit();
