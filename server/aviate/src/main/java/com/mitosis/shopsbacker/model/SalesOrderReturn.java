@@ -224,7 +224,7 @@ public class SalesOrderReturn implements java.io.Serializable {
 		this.updatedby = updatedby;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrderReturn")
+	@OneToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL,mappedBy = "salesOrderReturn")
 	public List<SalesOrderReturnLine> getSalesOrderReturnLines() {
 		return salesOrderReturnLines;
 	}

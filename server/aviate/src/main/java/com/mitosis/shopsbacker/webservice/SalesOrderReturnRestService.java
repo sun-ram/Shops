@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
+import com.mitosis.shopsbacker.vo.order.SalesOrderReturnLineVo;
 import com.mitosis.shopsbacker.vo.order.SalesOrderReturnVo;
 
 /**
@@ -66,54 +68,73 @@ public class SalesOrderReturnRestService<T> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ResponseModel createSalesOrderReturn(
-			SalesOrderLineVo salesOrderLineVo) {
+			SalesOrderReturnLineVo salesOrderReturnLineVo) {
 		ResponseModel response = new ResponseModel();
 		try {
-
-			if (salesOrderLineVo != null
-					&& salesOrderLineVo.getSalesOrderLineId() != null
-					&& !salesOrderLineVo.getSalesOrderLineId().equals("")) {
-				SalesOrderLine salesOrderLine = salesOrderLineService
-						.getSalesOrderLineById(salesOrderLineVo
-								.getSalesOrderLineId());
-				if (salesOrderLine != null) {
-					SalesOrder salesOrder = salesOrderLine.getSalesOrder();
-					SalesOrderReturn salesOrderReturn = (SalesOrderReturn) CommonUtil
-							.setAuditColumnInfo(
-									SalesOrderReturn.class.getName(), null);
-					salesOrderReturn.setIsactive('Y');
-					salesOrderReturn.setMerchant(salesOrder.getMerchant());
-					salesOrderReturn.setReturnReason("Out of Stock");
-					salesOrderReturn.setReturnStatus("OK");
-					salesOrderReturn.setReturnTaxAmount(salesOrder
-							.getTotalTaxAmount());
-					salesOrderReturn.setReturnTotalAmount(salesOrderLine
-							.getNetAmount());
-					salesOrderReturn.setShippingCharge(salesOrder
-							.getShippingCharge());
-					salesOrderReturn.setStore(salesOrder.getStore());
-					salesOrderReturnService
-							.createSalesOrderReturn(salesOrderReturn);
-
-					SalesOrderReturnLine salesOrderReturnLine = (SalesOrderReturnLine) CommonUtil
-							.setAuditColumnInfo(
-									SalesOrderReturnLine.class.getName(), null);
-					salesOrderReturnLine.setIsactive('Y');
-					salesOrderReturnLine.setPrice(salesOrderLine.getPrice());
-					salesOrderReturnLine
-							.setProduct(salesOrderLine.getProduct());
-					salesOrderReturnLine.setQuantity(salesOrderLineVo.getQty());
-					salesOrderReturnLine.setReturnGrossAmount(salesOrderLine
-							.getGrossAmount());
-					salesOrderReturnLine.setReturnNetAmount(salesOrderLine
-							.getNetAmount());
-					salesOrderReturnLine.setSalesOrderLine(salesOrderLine);
-					salesOrderReturnLine.setSalesOrderReturn(salesOrderReturn);
-					salesOrderReturnLineService
-							.createSalesOrderReturnLine(salesOrderReturnLine);
+			BigDecimal totalGrossAmount = new BigDecimal(0);
+			BigDecimal totalNetAmount = new BigDecimal(0);
+			if (salesOrderReturnLineVo != null) {
+				List<SalesOrderLineVo> salesOrderLineVos = salesOrderReturnLineVo
+						.getSalesOrderLines();
+				SalesOrder salesOrder = salesOrderService
+						.getSalesOrderById(salesOrderReturnLineVo
+								.getSalesOrderId());
+				SalesOrderReturn salesOrderReturn = (SalesOrderReturn) CommonUtil
+						.setAuditColumnInfo(SalesOrderReturn.class.getName(),
+								null);
+				salesOrderReturn.setSalesOrder(salesOrder);
+				salesOrderReturn.setIsactive('Y');
+				salesOrderReturn.setIspaid('N');
+				salesOrderReturn.setMerchant(salesOrder.getMerchant());
+				salesOrderReturn.setReturnReason("Out of Stock");
+				salesOrderReturn.setReturnStatus("OK");
+				salesOrderReturn.setReturnTaxAmount(salesOrder
+						.getTotalTaxAmount());
+				salesOrderReturn.setShippingCharge(salesOrder
+						.getShippingCharge());
+				salesOrderReturn.setStore(salesOrder.getStore());
+				List<SalesOrderReturnLine> salesOrderReturnLineList = new ArrayList<SalesOrderReturnLine>();
+				for (SalesOrderLineVo salesOrderLineVo : salesOrderLineVos) {
+					if (salesOrderLineVo != null) {
+						SalesOrderLine salesOrderLine = salesOrderLineService
+								.getSalesOrderLineById(salesOrderLineVo
+										.getSalesOrderLineId());
+						if (salesOrderLine != null) {
+							totalGrossAmount = totalGrossAmount
+									.add(salesOrderLine.getGrossAmount());
+							totalNetAmount = totalNetAmount.add(salesOrderLine
+									.getNetAmount());
+							SalesOrderReturnLine salesOrderReturnLine = (SalesOrderReturnLine) CommonUtil
+									.setAuditColumnInfo(
+											SalesOrderReturnLine.class
+													.getName(), null);
+							salesOrderReturnLine.setIsactive('Y');
+							salesOrderReturnLine.setPrice(salesOrderLine
+									.getPrice());
+							salesOrderReturnLine.setProduct(salesOrderLine
+									.getProduct());
+							salesOrderReturnLine.setQuantity(salesOrderLineVo
+									.getReturnQty());
+							salesOrderReturnLine
+									.setReturnGrossAmount(salesOrderLine
+											.getGrossAmount());
+							salesOrderReturnLine
+									.setReturnNetAmount(salesOrderLine
+											.getNetAmount());
+							salesOrderReturnLine
+									.setSalesOrderLine(salesOrderLine);
+							salesOrderReturnLine
+									.setSalesOrderReturn(salesOrderReturn);
+							salesOrderReturnLineList.add(salesOrderReturnLine);
+						}
+					}
 				}
+				salesOrderReturn.setReturnTotalAmount(totalNetAmount);
+				salesOrderReturn
+						.setSalesOrderReturnLines(salesOrderReturnLineList);
+				salesOrderReturnService
+						.createSalesOrderReturn(salesOrderReturn);
 			}
-
 		} catch (Exception e) {
 			response = CommonUtil.addStatusMessage(e, response);
 			e.printStackTrace();

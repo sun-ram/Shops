@@ -14,6 +14,7 @@ public class SalesOrderLineVo {
 	private BigDecimal netAmount;
 	private BigDecimal discount;
 	private ProductVo productVo;
+	private int returnQty;
 	
 	private char isactive = 'N';
 	public String getSalesOrderLineId() {
@@ -75,6 +76,12 @@ public class SalesOrderLineVo {
 	}
 	public void setProductVo(ProductVo productVo) {
 		this.productVo = productVo;
+	}
+	public int getReturnQty() {
+		return returnQty;
+	}
+	public void setReturnQty(int returnQty) {
+		this.returnQty = returnQty;
 	}
 	
 	
