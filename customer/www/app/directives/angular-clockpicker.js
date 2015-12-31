@@ -103,6 +103,8 @@ angular.module('aviate.directives')
 			    	 holiday.forEach(function(date1){
 							if(date1.getTime() == selectedDate.getTime()){
 								$scope.isHoliday = true; 
+								$rootScope.hidenext = true;
+								$rootScope.textDesign = false;
 								toastr.error("Selected Date is Holiday");
 								return;
 							}

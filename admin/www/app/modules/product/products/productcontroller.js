@@ -15,6 +15,19 @@ angular.module('aviateAdmin.controllers')
 	$scope.count = 3;
 	$scope.srch = true;
 
+    $rootScope.setProductImage = function(image){
+    	if($scope.imageType == 'original' && $scope.imageType != undefined){
+    		$scope.image = image;
+    	}else if($scope.imageType == 'uploaded' && $scope.imageType != undefined){
+    		$scope.newImage = {};
+    		$scope.newImage.image = image.originalFrontImage;
+    		if(image.imageId != undefined){
+    		  $scope.newImage.imageId = image.imageId;
+    		}
+    		$scope.uploadedImages[$scope.imageIndex] = $scope.newImage;
+    	}
+    }
+	
 	$scope.image={};
 	$scope.image.originalFrontImage;
 
@@ -60,21 +73,21 @@ angular.module('aviateAdmin.controllers')
 			toastr.warning("Product WasPrice should be greater than Zero");
 			return;
 		} 
-		 if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
-				if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
-					toastr.warning("WasPrice Should Be Greater Than To Price");
-					return;
+		if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
+			if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
+				toastr.warning("WasPrice Should Be Greater Than To Price");
+				return;
 
-				}
 			}
+		}
 
-		 if($scope.groupCount){
-			 if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
-				 toastr.warning("BundleQty Should Be Greater Than One");
-				 return;
-			 }
-		 }
-		 
+		if($scope.groupCount){
+			if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
+				toastr.warning("BundleQty Should Be Greater Than One");
+				return;
+			}
+		}
+
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}
@@ -160,19 +173,19 @@ angular.module('aviateAdmin.controllers')
 			toastr.warning("Product WasPrice should be greater than Zero");
 			return;
 		} 
-		 if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
-				if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
-					toastr.warning("WasPrice Should Be Greater Than To Price");
-					return;
+		if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
+			if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
+				toastr.warning("WasPrice Should Be Greater Than To Price");
+				return;
 
-				}
 			}
-		 if($scope.groupCount){
-			 if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
-				 toastr.warning("BundleQty Should Be Greater Than One");
-				 return;
-			 }
-		 }
+		}
+		if($scope.groupCount){
+			if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
+				toastr.warning("BundleQty Should Be Greater Than One");
+				return;
+			}
+		}
 		if($scope.image.originalFrontImage != undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
 		}else{
@@ -244,7 +257,6 @@ angular.module('aviateAdmin.controllers')
 		}, function() {
 
 		});		
-
 	}
 
 	$scope.getproductCategory = function(){
@@ -256,7 +268,6 @@ angular.module('aviateAdmin.controllers')
 
 			$scope.productCategoryVo = data.productCategories;
 		})
-
 	}
 
 	$scope.getProductType = function(productCategoryId){
@@ -269,43 +280,14 @@ angular.module('aviateAdmin.controllers')
 		})
 
 	}
-	
-	$scope.deleteProductImage = function(index, imgs){
-		if(imgs.imageId){
-			ProductService.deleteProductImage(imgs).then(function(data){
-				$scope.uploadedImages.splice(index, 1);	
-			})
-			// TODO: jdfjs
-		}else if (index > -1) {
-			$scope.uploadedImages.splice(index, 1);
-		}
-		
-		
-	}
 
 	$scope.inLineEdit = function(product){
-
 		$scope.productEdit = product;
-
 	}
 
 	$scope.cancelEdit = function(){
 		scope.productEdit = null;
 	}
-
-
-	$scope.uploadFile = function (val1,val2){
-
-		var id =$('#'+val2).val();
-
-		var srs=id.replace("C:\\fakepath\\" ,"" );	
-
-		$('#'+val1).html(srs);
-
-	}
-
-
-
 
 	$scope.typeList = [{
 		Id:"Veg",Name:"Veg"
@@ -333,7 +315,7 @@ angular.module('aviateAdmin.controllers')
 	$scope.uploadXmls = function(){
 		// $scope.product.merchant.merchantId=$rootScope.user.merchantId
 		$scope.product.productId="456"
-		$scope.product.image ={};
+			$scope.product.image ={};
 		$scope.product.merchant={
 				"merchantId":$rootScope.user.merchantId
 		}
@@ -362,23 +344,23 @@ angular.module('aviateAdmin.controllers')
 								//$mdDialog.cancel();
 								$rootScope.getAllProductList();
 								if(data.productRejectedVo.length!=0){
-								$mdDialog.show({
-									templateUrl: 'app/modules/modals/ProductRejectedFileModal.html',
-									parent: angular.element(document.body),
-									clickOutsideToClose:false,
-									controller: function($scope,$mdDialog){
-										$scope.productRejectedVo=data.productRejectedVo;
-										$scope.cancel1 = function() {
-											$mdDialog.cancel();
-										};
-									}
-								})
-								.then(function(answer) {	
-									$scope.status = 'You said the information was "' + answer + '".';
-								}, function() {
-									$scope.status = 'You cancelled the dialog.';
-								});
-							}
+									$mdDialog.show({
+										templateUrl: 'app/modules/modals/ProductRejectedFileModal.html',
+										parent: angular.element(document.body),
+										clickOutsideToClose:false,
+										controller: function($scope,$mdDialog){
+											$scope.productRejectedVo=data.productRejectedVo;
+											$scope.cancel1 = function() {
+												$mdDialog.cancel();
+											};
+										}
+									})
+									.then(function(answer) {	
+										$scope.status = 'You said the information was "' + answer + '".';
+									}, function() {
+										$scope.status = 'You cancelled the dialog.';
+									});
+								}
 								else{
 									$mdDialog.cancel();
 								}
@@ -400,7 +382,7 @@ angular.module('aviateAdmin.controllers')
 							$mdDialog.cancel();
 						};
 					}
-				
+
 				})
 				.then(function(answer) {	
 					$scope.status = 'You said the information was "' + answer + '".';
@@ -424,27 +406,75 @@ angular.module('aviateAdmin.controllers')
 		$scope.uploadedImages.push({});
 	}
 	
- 	$scope.getDiscount = function(){
- 				if($rootScope.user.storeId){
- 					$scope.store ={};
- 					$scope.store.storeId = $rootScope.user.storeId;
- 					
- 					DiscountService.storeDiscountList($scope.store).then(function(data) {
- 						$scope.discountList = data.discountVos;
- 					})
- 					
- 				}else{		
- 		 		
- 				$scope.merchant ={};
- 				$scope.merchant.merchantId = $rootScope.user.merchantId;
- 				
- 				DiscountService.merchantDiscountList($scope.merchant).then(function(data) {
- 		 			$scope.discountList = data.discountVos;
- 		 		})
- 				
- 				}	
- 		 	}
- 		 
+	$scope.deleteProductImage = function(index, imgs){
+		if(imgs.imageId){
+			ProductService.deleteProductImage(imgs).then(function(data){
+				$scope.uploadedImages.splice(index, 1);	
+			})
+			// TODO: jdfjs
+		}else if (index > -1) {
+			$scope.uploadedImages.splice(index, 1);
+		}
+	}
+
+	$scope.getDiscount = function(){
+		if($rootScope.user.storeId){
+			$scope.store ={};
+			$scope.store.storeId = $rootScope.user.storeId;
+
+			DiscountService.storeDiscountList($scope.store).then(function(data) {
+				$scope.discountList = data.discountVos;
+			})
+
+		}else{		
+
+			$scope.merchant ={};
+			$scope.merchant.merchantId = $rootScope.user.merchantId;
+
+			DiscountService.merchantDiscountList($scope.merchant).then(function(data) {
+				$scope.discountList = data.discountVos;
+			})
+
+		}	
+	}
+
+	$scope.uploadProductImage = function(imageType, index, imageId){
+		$scope.imageType = imageType;
+		$scope.imageIndex = index;
+		
+		$mdDialog.show({
+			templateUrl: 'app/modules/modals/ProductImageUpload.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose:false,
+			controller: function($scope,$rootScope,$mdDialog,$state){
+				
+				$scope.uploadFile = function (val1,val2){
+					var id =$('#'+val2).val();
+					var srs=id.replace("C:\\fakepath\\" ,"" );	
+					$('#'+val1).html(srs);
+				}
+				
+				$scope.passImage = function(image){
+					if(imageId != undefined){
+						image.imageId = imageId;
+					}
+					$rootScope.setProductImage(image);
+					$mdDialog.cancel();
+				}
+									
+				$scope.cancel = function() {
+					$mdDialog.cancel();
+				};
+			}
+		})
+		.then(function(answer) {	
+			$scope.status = 'You said the information was "' + answer + '".';
+		}, function() {
+			$scope.status = 'You cancelled the dialog.';
+		});
+
+	}
+
 
 }
 ]);
