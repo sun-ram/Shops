@@ -148,6 +148,9 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 
 	public String getSalesOrderNumber(Store store) {
 		String salesOrderNumber = "";
+		try {
+			
+		
 		OrderNumber orderNumber = getOrderNumberDao().getOrderNumber(store);
 		salesOrderNumber = salesOrderNumber
 				+ (orderNumber.getPrefix() != null ? orderNumber.getPrefix()
@@ -163,6 +166,10 @@ public class OrderNumberServiceImpl<T> implements OrderNumberService<T>,
 		}
 		
 		getOrderNumberDao().updateOrderNumber(orderNumber);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
 		return salesOrderNumber;
 	}
 	

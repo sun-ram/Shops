@@ -47,10 +47,15 @@ public class OrderNumberDaoImpl<T> extends CustomHibernateDaoSupport<T>
 
 	@Override
 	public OrderNumber getOrderNumber(Store store) {
+		try{
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(OrderNumber.class);
 		criteria.add(Restrictions.eq("store", store));
 		return (OrderNumber) findUnique(criteria);
+		}
+		catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@SuppressWarnings("unchecked")

@@ -309,6 +309,17 @@ public class SalesOrderRestService<T> {
 			Store store = storeService.getStoreById(salesOrderVo.getStore()
 					.getStoreId());
 			String orderNo = orderNumber.getSalesOrderNumber(store);
+			if(orderNo.isEmpty())
+			{
+				response.setErrorCode(SBErrorMessage.NO_ORDER_NUMBER
+						.getCode());
+				response.setErrorString(SBErrorMessage.NO_ORDER_NUMBER
+						.getMessage());
+				response.setStatus(SBMessageStatus.FAILURE.getValue());
+				res = CommonUtil.getObjectMapper(response);
+
+				return res;
+			}
 			Address address = addressService.getAddress(salesOrderVo
 					.getAddress().getAddressId());
 
