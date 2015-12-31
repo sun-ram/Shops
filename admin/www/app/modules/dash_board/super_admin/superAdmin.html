@@ -1,4 +1,61 @@
 <style>
+	.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+	.axis path, .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+  }
+  path.line {
+      fill: none;
+      stroke-width: 2px;
+	  
+  }
+  .zoomOut {
+      fill: #66a;
+      cursor: pointer;
+	  /*display: none;*/
+  }
+  .zoomOutText {
+      pointer-events: none;
+      fill : #ccc;
+  }
+  .zoomOverlay {
+      pointer-events: all;
+      fill:none;
+  }
+  .band {
+      fill : #acd1e5;
+      stroke-width: 1px;
+      stroke: #acd1e5;
+	  height: 80%;
+  }
 	text {
 		font: 12px sans-serif;
 	}
@@ -65,7 +122,7 @@
 	
 	span {
 		color: grey;
-		font-size: 20px;
+		font-size: 17px;
 		font-weight: bold
 	}
 	
@@ -308,10 +365,35 @@ form {
 
 	</div>
 
-	
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" style="position:relative;">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp applyFlatUI">
+				<div class="dashboardHeader">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Half year Growth Ratio in week basis</h4>
+				</div>
+				<div id="graph">
+					
+				</div>
+				<div style="top: 15px;position: absolute;right: 20px;">
+					<span style="font-family : Roboto;font-size : 13px;">{{raisedTableTitle}}</span>
+					<table style="border: 1px solid black;">
+						<tr>
+							<td style="background-color:steelblue;width:5px; font-family : Roboto;"></td><td>Merchants Growth</td></td><td><span style="width:8px;">{{merchantsRaised}}</span></td>
+						</tr>
+						<tr>	
+							<td style="background-color:green;width:5px; font-family : Roboto;"></td><td>Store Growth</td><td><span style="width:8px;">{{storesRaised}}</span></td> 
+						</tr>
+						<tr>	
+							<td style="background-color:red;width:5px; font-family : Roboto;"></td><td>Customer Growth</td><td><span style="width:8px;">{{customersRaised}}</span></td>
+						</tr>
+					</table>
+				</div>
+				
+			</div>
+		</md-card>
 
-		<!-- </md-card>-->
+	</div>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
 		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
 			<div layout="column" layout-sm="row" class="chart_header">
 				<div class="dashboardHeader">

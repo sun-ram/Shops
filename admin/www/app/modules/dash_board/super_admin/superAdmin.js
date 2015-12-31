@@ -5,9 +5,12 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		var commition = CONSTANT.DASHBOARD.COMMITION_PERCENTAGE;
 		var deliveryTimeSpan = CONSTANT.DASHBOARD.DELIVERY_TIME_SPAN;
 		var trafficTimeSpan = CONSTANT.DASHBOARD.ADJUSTABLE_TRAFIC_TIME_SPAN;
+		var growthRatioChartSpan = 182;
 		var width = 300;
 		var height = 300;
 		var index;
+		var suspendMoveOperation = false;
+		var dragstarted = false;
 		var millisecondsPerday = 86400000;
 		var today = new Date();
 		var todayDateObj = new Date(angular.copy(today.toISOString().substring(0, 10)));
@@ -27,6 +30,13 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.totalCustomers = 0;
 		$scope.salesGrowthToday = 0;
 		$scope.qualirtStatsRecords = [];
+		$scope.merchantsRaised = 0;
+		$scope.storesRaised = 0;
+		$scope.customersRaised = 0;
+		$scope.d3LineData = [];
+		var growthYcount = 10;
+		var growthXcount = 26;
+		$scope.raisedTableTitle = "Complete Details of Growth";
 		
 
 		$scope.historicalBarChart = [
@@ -77,7 +87,400 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			console.log("Clicked!", marker);
 			model.show = !model.show;
 		};
+		
+		//zoomedlinechart
+		$scope.drawZoomedlinechart = function (){
+				var data = [];
+				var bandPos = [-1, -1];
+				var pos;
+				var xdomain = growthXcount;
+				var ydomain = growthYcount;
+				var colors = ["steelblue", "green", "red"];
 
+				var margin = {
+					top: 40,
+					right: 40,
+					bottom: 50,
+					left: 60
+				}
+				var width = 1000 - margin.left - margin.right;
+				var height = 450 - margin.top - margin.bottom;
+				var zoomArea = {
+					x1: 0,
+					y1: 0,
+					x2: xdomain,
+					y2: ydomain
+				};
+				var drag = d3.behavior.drag();
+
+				data = angular.copy($scope.d3LineData);
+				/*data.push(d2);
+				data.push(d31);*/
+				var svg = d3.select("#graph").append("svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+				
+				var x = d3.scale.linear()
+					.range([0, width]).domain([0, xdomain]);
+
+				var y = d3.scale.linear()
+					.range([height, 0]).domain([0, ydomain]);
+
+				var xAxis = d3.svg.axis()
+					.scale(x)
+					.orient("bottom");
+
+				var yAxis = d3.svg.axis()
+					.scale(y)
+					.orient("left");
+
+				var line = d3.svg.line()
+					.interpolate("basis")
+					.x(function (d) {
+					return x(d[0]);
+				})
+					.y(function (d) {
+					return y(d[1]);
+				});
+				var tip = d3.tip()
+					.attr('class', 'd3-tip')
+					.offset([0, 0])
+				  .html(function(d) {
+					return "<strong>growth:</strong> <span style='color:red'>" +data[idx]+ "</span>";
+				  });
+			
+				svg.call(tip);
+
+				var band = svg.append("rect")
+					.attr("width", 0)
+					.attr("height", 0)
+					.attr("x", 0)
+					.attr("y", 0)
+					.attr("class", "band");
+
+				svg.append("g")
+					.attr("class", "x axis")
+					.call(xAxis)
+					.attr("transform", "translate(0," + height + ")");
+
+				svg.append("g")
+					.attr("class", "y axis")
+					.call(yAxis)
+
+				svg.append("clipPath")
+					.attr("id", "clip")
+					.append("rect")
+					.attr("width", width)
+					.attr("height", height);
+
+				for(idx in data) {   
+					svg.append("path")
+						.attr("class", "line line" + idx)
+						.attr("clip-path", "url(#clip)")
+						.attr("d", line(data[idx]))
+						.attr("style","z-index:999")
+					    .on('mouseover', tip.show)
+						.on('mouseleave', tip.hide);
+				}
+
+				var zoomOverlay = svg.append("rect")
+					.attr("width", width - 10)
+					.attr("height", height)
+					.attr("class", "zoomOverlay")
+					/*.attr("style","display:none")*/
+					.call(drag);
+
+				var zoomout = svg.append("g");
+
+				zoomout.append("rect")
+					.attr("class", "zoomOut")
+					.attr("width", 75)
+					.attr("height", 40)
+					.attr("x", -12)
+					.attr("style", "display:none")
+					.attr("y", height + (margin.bottom - 20))
+					.on("click", function () {
+						zoomOut();
+					});
+
+				zoomout.append("text")
+					.attr("class", "zoomOutText")
+					.attr("width", 75)
+					.attr("height", 30)
+					.attr("x", -10)
+					.attr("style", "display:none")
+					.attr("y", height + (margin.bottom - 5))
+					.text("Zoom Out");
+
+				zoom();
+
+				var divPos = {};
+				var offset = $("rect").offset();
+			
+				$("rect").mousemove(function(e){
+					if(!dragstarted && !suspendMoveOperation){
+						bandPos = [-1,-1];
+						divPos = {
+								left: e.pageX - offset.left,
+								top: e.pageY - offset.top
+							};
+						divPos.left = divPos.left - (divPos.left % 35);
+						/*divPos.left = divPos.left - 35;*/
+						if(divPos.left < 0) divPos.left = 0;
+						
+						for(var i=0;i<35;i++){
+
+							divPos.left++;
+							var pos = [divPos.left,0];
+
+							if (pos[0] < bandPos[0]) {
+								d3.select(".band").
+								attr("transform", "translate(" + (pos[0]) + "," + bandPos[1] + ")");
+							}
+							if (pos[1] < bandPos[1]) {
+								d3.select(".band").
+								attr("transform", "translate(" + (pos[0]) + "," + pos[1] + ")");
+							}
+							if (pos[1] < bandPos[1] && pos[0] > bandPos[0]) {
+								d3.select(".band").
+								attr("transform", "translate(" + (bandPos[0]) + "," + pos[1] + ")");
+							}
+
+							//set new position of band when user initializes drag
+							if (bandPos[0] == -1) {
+								bandPos = pos;
+								bandPos[1] = 0;
+								d3.select(".band").attr("transform", "translate(" + bandPos[0] + "," + bandPos[1] + ")");
+							}
+
+							d3.select(".band").transition().duration(1)
+								.attr("width", Math.abs(bandPos[0] - pos[0]))
+								.attr("height", Math.abs(bandPos[1] - pos[1]));
+							console.log("Rect Position ==",divPos);
+						}
+						var x1 = x.invert(bandPos[0]);
+						var x2 = x.invert(pos[0]);
+						x2=Math.round(x2);
+						if(x2 < x1) {
+							var tmp = x2;
+							x2 = x1;
+							x1 = tmp;
+						}
+						else {x1=Math.round(x1);}
+
+						if (x1 < x2) {
+							zoomArea.x1 = x1;
+							zoomArea.x2 = x2;
+						} else {
+							zoomArea.x1 = x2;
+							zoomArea.x2 = x1;
+						}
+
+						//calling custom method to update values in html table
+						updategrowthTable(x1,x2);
+					}
+				});
+				$('rect').on("mousedown", function(event) {
+ 					suspendMoveOperation = false;
+					 d3.select(".band").transition()
+						.attr("width", 0)
+						.attr("height", 0)
+						.attr("x", -1)
+						.attr("y", -1) ;
+				});
+			
+				drag.on("dragend", function () {
+					dragstarted = false;
+					
+					var pos = d3.mouse(this);
+					console.log("clicked!!!!!!!!!!!!!!2 bandPos",bandPos, "& pos= ",pos);
+					var x1 = x.invert(bandPos[0]);
+					var x2 = x.invert(pos[0]);
+					x2=Math.round(x2);
+					if(x2 < x1) {
+						var tmp = x2;
+						x2 = x1;
+						x1 = tmp;
+					}
+					if(x1<=0){
+//						x1 = x2-1;/* clickToDrag(pos);*/
+//					    d3.select(".band").transition()
+//						.attr("width", 0)
+//						.attr("height", 0)
+//						.attr("x", bandPos[0])
+//						.attr("y", bandPos[1]) ;
+					}
+					else {x1=Math.round(x1);}
+					
+					if (x1 < x2) {
+						zoomArea.x1 = x1;
+						zoomArea.x2 = x2;
+					} else {
+						zoomArea.x1 = x2;
+						zoomArea.x2 = x1;
+					}
+					
+					//calling custom method to update values in html table
+					updategrowthTable(x1,x2);
+						
+								
+					var y1 = y.invert(pos[1]);
+					var y2 = y.invert(bandPos[1]);
+
+					if (x1 < x2) {
+						zoomArea.y1 = y1;
+						zoomArea.y2 = y2;
+					} else {
+						zoomArea.y1 = y2;
+						zoomArea.y2 = y1;
+					}
+
+					bandPos = [-1, -1];
+
+					/*d3.select(".band").transition()
+						.attr("width", 0)
+						.attr("height", 0)
+						.attr("x", bandPos[0])
+						.attr("y", bandPos[1]) ;*/
+
+					/*zoom();*/
+					
+
+				});
+			
+				function updategrowthTable (start, end) {
+					$scope.raisedTableTitle = "Growth between "+Math.round(start)+" to "+ Math.round(end) + " Weeks";
+					
+					$scope.merchantsRaised = 0;
+					$scope.storesRaised = 0;
+					$scope.customersRaised = 0;
+					for(var i=start ; i<end ; i++){
+						try{
+							$scope.merchantsRaised = $scope.merchantsRaised + $scope.d3LineData[0][i][1];
+							$scope.storesRaised = $scope.storesRaised + $scope.d3LineData[1][i][1];
+							$scope.customersRaised = $scope.customersRaised + $scope.d3LineData[2][i][1];
+						}catch(e){console.error("Exception ");}
+					}
+					$scope.$apply();
+				}
+				document.onmouseup = function(e){
+    				cursorX = e.pageX;
+    				cursorY = e.pageY;
+				}
+				
+	
+				
+				function clickToDrag (mouseProp) {
+					
+					var pos = [cursorX,cursorY];
+					bandPos = angular.copy(pos);
+					bandPos[0] = bandPos[0] - 35;
+					bandPos[1] = bandPos[1] - 35;
+					
+					if (pos[0] < bandPos[0]) {
+						d3.select(".band").
+						attr("transform", "translate(" + (pos[0]) + "," + bandPos[1] + ")");
+					}
+					if (pos[1] < bandPos[1]) {
+						d3.select(".band").
+						attr("transform", "translate(" + (pos[0]) + "," + pos[1] + ")");
+					}
+					if (pos[1] < bandPos[1] && pos[0] > bandPos[0]) {
+						d3.select(".band").
+						attr("transform", "translate(" + (bandPos[0]) + "," + pos[1] + ")");
+					}
+
+					//set new position of band when user initializes drag
+					if (bandPos[0] == -1) {
+						bandPos = pos;
+						bandPos[1] = 0;
+						d3.select(".band").attr("transform", "translate(" + bandPos[0] + "," + bandPos[1] + ")");
+					}
+
+					d3.select(".band").transition().duration(1)
+						.attr("width", Math.abs(bandPos[0] - pos[0]))
+						.attr("height", Math.abs(bandPos[1] - pos[1]));
+				
+				}
+
+				drag.on("drag", function () {
+					dragstarted = true;
+					suspendMoveOperation = true;
+					var pos = d3.mouse(this);
+
+					if (pos[0] < bandPos[0]) {
+						d3.select(".band").
+						attr("transform", "translate(" + (pos[0]) + "," + bandPos[1] + ")");
+					}
+					if (pos[1] < bandPos[1]) {
+						d3.select(".band").
+						attr("transform", "translate(" + (pos[0]) + "," + pos[1] + ")");
+					}
+					if (pos[1] < bandPos[1] && pos[0] > bandPos[0]) {
+						d3.select(".band").
+						attr("transform", "translate(" + (bandPos[0]) + "," + pos[1] + ")");
+					}
+
+					//set new position of band when user initializes drag
+					if (bandPos[0] == -1) {
+						bandPos = pos;
+						bandPos[1] = 0;
+						d3.select(".band").attr("transform", "translate(" + bandPos[0] + "," + bandPos[1] + ")");
+					}
+
+					d3.select(".band").transition().duration(1)
+						.attr("width", Math.abs(bandPos[0] - pos[0]))
+						.attr("height", Math.abs(bandPos[1] - pos[1]));
+					console.log(bandPos);
+				});
+
+				function zoom() {
+					//recalculate domains
+					if(zoomArea.x1 > zoomArea.x2) {
+					  x.domain([zoomArea.x2, zoomArea.x1]);
+					} else {
+					  x.domain([zoomArea.x1, zoomArea.x2]);
+					}
+
+					if(zoomArea.y1 > zoomArea.y2) {
+					  y.domain([zoomArea.y2, zoomArea.y1]);
+					} else {
+					  y.domain([zoomArea.y1, zoomArea.y2]);
+					}
+
+					//update axis and redraw lines
+					var t = svg.transition().duration(750);
+					t.select(".x.axis").call(xAxis);
+					t.select(".y.axis").call(yAxis);
+
+					for(idx in data) {
+						t.select(".line" + idx).attr("d", line(data[idx]));
+						t.select(".line" + idx).style("stroke", colors[idx]);
+
+					}
+
+				}
+
+				var zoomOut = function () {
+					x.domain([0, xdomain]);
+					y.domain([0, ydomain]);
+
+					var t = svg.transition().duration(750);
+					t.select(".x.axis").call(xAxis);
+					t.select(".y.axis").call(yAxis);
+
+					for(idx in data) {
+						t.select(".line" + idx).attr("d", line(data[idx]));
+						t.select(".line" + idx).style("stroke", colors[idx]);
+						
+      					
+					}
+				}
+
+		};
 		
 		//Pie chart
 		$scope.drawPiechart = function () {
@@ -223,6 +626,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				.orient("left")
 				.tickFormat(d3.format(".2s"));
 
+			
 			// Add our chart to the #chart div
 			var svg = d3.select("#grouperBarChart").append("svg")
 				.attr("width", width + margin.left + margin.right)
@@ -230,6 +634,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+		
 			//array of keys except date
 			var keys = d3.keys(data[0]).filter(function(key) { return key !== "date"; });
 
@@ -562,9 +967,51 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 			$scope.merchantGrowthToday = (newMerchantsLastDat) ? (((newMerchantsToday - newMerchantsLastDat) / newMerchantsLastDat) * 100) : 0;
 			$scope.merchantGrowthToday = (Math.round($scope.merchantGrowthToday*100))/100;
-
+			
 		};
 
+		function calcGrowthRatio(data){
+			var tempDateObj = angular.copy(todayDateObj); 
+			var tmpLen = data.Books.length;
+			$scope.d3LineLeafs = [];
+			var d3TmpArray = [];
+			growthYcount = 0;
+			//for merchants 
+			var k=0;
+			d3TmpArray = [k,0];
+			for(var i=0; i< growthRatioChartSpan ; i++ ){
+				tempDateObj.setTime(tempDateObj.getTime() - millisecondsPerday);
+				 
+				for (var j = 0; j < tmpLen; j++) {
+					createdDateObj = new Date((data.Books[j].CREATED).substring(0, 10));
+					if(createdDateObj.getTime() == tempDateObj.getTime()){
+						d3TmpArray[1]++;
+					}
+				}
+				if(tempDateObj.getDay() == 0){
+					if(d3TmpArray[1] > growthYcount){growthYcount = d3TmpArray[1];}
+					k++;
+					$scope.d3LineLeafs.push(angular.copy(d3TmpArray));
+					d3TmpArray = [k,0];
+				}
+			}
+			if(d3TmpArray[1] > 0){
+					k++;
+					$scope.d3LineLeafs.push(angular.copy(d3TmpArray));
+					d3TmpArray = [k,0];
+			}
+
+			$scope.d3LineData.push(angular.copy($scope.d3LineLeafs));
+		}
+		
+		function orgGrowthRation (){
+			calcGrowthRatio($scope.merchants);
+			calcGrowthRatio($scope.stores);
+			calcGrowthRatio($scope.customers);
+			
+			$scope.drawZoomedlinechart();
+		}
+		
 		function filteredCustomers(data) {
 			$scope.totalCustomers = (data) ? data.Books.length : 0;
 			var newCustomerToday = 0,
@@ -613,7 +1060,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			for(var i=0; i < len1; i++){
 				tempMerchant = $scope.merchants.Books[i];
 				count = 0;
-				for(var j = 0; j < len ; j++){
+				for(var j = 0; j < len1 ; j++){
 					if(tempMerchant.MERCHANT_ID == data.Books[j].MERCHANT_ID){
 						count = count +1;
 					}
@@ -633,8 +1080,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 
 			$scope.historicalBarChart[0].values.sort(compare);
-			$scope.drawBarChart();
-			
+			$scope.drawBarChart();	
+			orgGrowthRation();
 		};
 
 
