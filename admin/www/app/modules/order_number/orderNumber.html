@@ -32,7 +32,7 @@
    
    <md-card-content class="nopadd">
 	<md-data-table-container>
-     <md-list>
+     <!-- <md-list>
      	<md-item md-data-table class="md-table-content-row">
          <md-item-content layout="row" layout-padding  class="tbl-header ">
           <div layout="row" layout-wrap class="full_wid tbl-header ">
@@ -75,9 +75,9 @@
              	{{orderNumber.nextNumber}}
            	 </span>
              <span flex=10 layout="row" layout-align="center center">
-                <!--  <md-button class="md-icon-button md-primary" ng-click="redirectToEditOrderNumber(orderNumber);$event.stopPropagation();" aria-label="Edit">
+                 <md-button class="md-icon-button md-primary" ng-click="redirectToEditOrderNumber(orderNumber);$event.stopPropagation();" aria-label="Edit">
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success"></ng-md-icon>
-      			</md-button> -->
+      			</md-button>
              	<md-button class="md-icon-button md-primary padd-t5" ng-click="deleteOrderNumber(orderNumber);$event.stopPropagation();" aria-label="Delete">
              		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger"></ng-md-icon>
              	</md-button>
@@ -87,7 +87,30 @@
          <md-divider></md-divider>
        <md-divider></md-divider>
        </md-item>
-     </md-list>
+     </md-list> -->
+     
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead md-order="productStockPagination.order" md-trigger="onorderchange" class="full_wid  ">
+		<tr class="tbl-header">
+              <th name="Starting Number"></th>
+              <th name="Prefix"></th>
+              <th name="Suffix"></th>
+              <th name="Next Number"></th>
+              <th name="Actions"></th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-show="orderNumber != null">
+			<td>{{orderNumber.startingNumber}}</td>
+			<td>{{orderNumber.prefix}}</td>
+			<td>{{orderNumber.suffix}}</td>
+			<td>{{orderNumber.nextNumber}}</td>
+			<td layout="row">			
+        			<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteOrderNumber(orderNumber);$event.stopPropagation();"></ng-md-icon>
+        	</td>
+		</tr>
+	</tbody>
+</table>
 	</md-data-table-container>
    </md-card-content>
   

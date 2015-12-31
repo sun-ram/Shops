@@ -13,8 +13,15 @@ public class StoreVo {
 	private UserVo user;
 	private MerchantVo merchant=new MerchantVo();
 	private String name;
-	private char isActivated;
+	private char isActivated = 'N';
+	private String userId;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getStoreId() {
 		return storeId;
 	}

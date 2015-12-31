@@ -130,19 +130,19 @@ public class StoreServiceImpl<T> implements StoreService<T>, Serializable {
 
 		if (storeVo.getStoreId() == null) {
 			store = (Store) CommonUtil
-					.setAuditColumnInfo(Store.class.getName(), null);
+					.setAuditColumnInfo(Store.class.getName(),storeVo.getUserId());
 			store.setIsActivated('N');
 			store.setIsactive('Y');
 		} else {
 			store = storeDao.getStoreById(storeVo.getStoreId());
 			store.setUpdated(new Date());
 			// TODO need to get user from session and set to updatedby
-			store.setUpdatedby("123");
+			store.setUpdatedby(storeVo.getUserId());
 		}
 
 		userVo = storeVo.getUser();
 		role = roleService.getRole(RoleName.STOREADMIN.toString());
-		user = userService.setUser(userVo, role, null);
+		user = userService.setUser(userVo, role, storeVo.getUserId());
 		user.setStore(store);
 		store.setUser(user);
 		store.setName(storeVo.getName());

@@ -35,13 +35,13 @@
 		<md-data-table-container>
 		
 		
-     <md-list>
+     <!-- <md-list>
      	
      	
      	 <md-item class="data-table-list"  class="md-table-content-row">
          <md-item-content layout="row" class="tbl-header " layout-padding>
             <div layout="row" layout-wrap class="full_wid" >
-           			<!--  <span layout-padding><ng-md-icon icon="arrow_forward" size="20"></ng-md-icon></span> -->
+           			 <span layout-padding><ng-md-icon icon="arrow_forward" size="20"></ng-md-icon></span>
            		<span flex=40 layout="column" class="padd-lr5 ft-18" layout-align="start start">
              		<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18">Units Of Measure	</span>       
            		</span>
@@ -62,7 +62,7 @@
        <md-item class="data-table-list" ng-repeat="uom in uoms | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit" class="md-table-content-row">
          <md-item-content layout="row" layout-padding>
             <div layout="row"  layout-wrap class="full_wid" ng-click="unitDetails(uom)">
-           			<!--  <span layout-padding><ng-md-icon icon="arrow_forward" size="20"></ng-md-icon></span> -->
+           			 <span layout-padding><ng-md-icon icon="arrow_forward" size="20"></ng-md-icon></span>
            		<span flex=40 layout="column" class="padd-lr5 ft-18" layout-align="start start">
              		<span layout-padding class="shopname" class="padd-tr5-lb8 ft-18">{{uom.description}}</span>       
            		</span>
@@ -79,11 +79,31 @@
          </md-item-content>
          
        </md-item>
-     </md-list>
+     </md-list> -->
+     
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+              <th  name="Units Of Measure"></th>
+              <th  name="Abbreviation"></th>
+              <th  name="Actions"></th>              
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="uom in uoms | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit">
+			<td>{{uom.description}}</td>
+			<td>{{uom.name}}</td>
+			<td layout="row">
+			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editUnit(uom);$event.stopPropagation();"></ng-md-icon>
+	        <ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteUnit(uom);$event.stopPropagation();"></ng-md-icon>
+			</td>
+		</tr>
+	</tbody>
+</table>
      </md-data-table-container>
    </md-card-content>
    
-   <div layout layout="row"  class="table-pagination-bg" layout-align="center center">
+   <div layout layout="row" class="table-pagination-bg" layout-align="center center">
    	<md-data-table-pagination md-limit="unitsPagination.limit" md-page="unitsPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
    	</div>
 </div>

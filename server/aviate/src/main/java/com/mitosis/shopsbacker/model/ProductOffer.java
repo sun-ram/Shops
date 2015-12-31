@@ -202,7 +202,7 @@ public class ProductOffer implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "FROM_DATE", nullable = false, length = 19)
+	@Column(name = "FROM_DATE", length = 19)
 	public Date getFromDate() {
 		return this.fromDate;
 	}
@@ -212,7 +212,7 @@ public class ProductOffer implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "TODATE", nullable = false, length = 19)
+	@Column(name = "TODATE", length = 19)
 	public Date getTodate() {
 		return this.todate;
 	}

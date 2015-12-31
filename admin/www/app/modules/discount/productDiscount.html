@@ -33,6 +33,9 @@
          	<span flex layout-align="start center" layout>
 	        	Product Price
             </span>
+            <span flex layout-align="start center" layout>
+	        	Uom
+            </span>
             <span flex layout-align="center center" layout>
 	         	Action
             </span>
@@ -50,7 +53,10 @@
 			</span>
 			 <span flex layout-align="start center" layout>
 			<span flex class="shopname">{{productDiscount.product.price}}</span>
-			</span> 
+			</span>
+			<span flex layout-align="start center" layout>
+			<span flex class="shopname">{{productDiscount.product.uom.name}}</span>
+			</span>  
       		 <span flex layout-align="center center" layout>
                 <md-button class="md-icon-button md-primary padd-t5" ng-click="showInLineEdit=productDiscount.discountProductId;productDiscountLine=productDiscount;" aria-label="Inline Edit">
              		<ng-md-icon icon="rate_review" size="20" class="icons hash_color"></ng-md-icon>
@@ -69,7 +75,7 @@
       		
       	    <md-input-container flex>
                     <label>Product<span style="color:red">*</span></label>
-                    <md-select class="remove-padd" ng-model="productDiscountLine.product" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
+                    <md-select class="remove-padd" ng-model="productDiscount.product" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">		          
  				    <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
 		              {{product.name}}
 		            </md-option>
@@ -78,6 +84,10 @@
             
             <span flex layout>
 			<span flex class="shopname">{{productDiscountLine.product.price}}</span>
+			</span>
+			
+			<span flex layout>
+			<span flex class="shopname">{{productDiscountLine.product.uom.name}}</span>
 			</span> 
 			    
       		<span flex layout-align="center center" layout>
@@ -113,6 +123,11 @@
 			<md-input-container flex>
       		<label>Price</label>
       		<input type="text" ng-disabled="true" ng-required="true" ng-model="newproductDiscount.product.price" valid-number /> 
+      		</md-input-container>
+      		
+      		<md-input-container flex>
+      		<label>Uom</label>
+      		<input type="text" ng-disabled="true" ng-required="true" ng-model="newproductDiscount.product.uom.name" valid-number /> 
       		</md-input-container>
       		
       		<span flex layout-align="center center" layout>

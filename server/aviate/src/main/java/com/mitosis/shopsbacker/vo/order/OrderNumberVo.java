@@ -16,7 +16,13 @@ public class OrderNumberVo {
 	private String prefix;
 	private String suffix;
 	private Integer nextNumber;
-	
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getOrderNumberId() {
 		return orderNumberId;
 	}

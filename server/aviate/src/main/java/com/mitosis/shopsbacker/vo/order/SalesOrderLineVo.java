@@ -2,7 +2,6 @@ package com.mitosis.shopsbacker.vo.order;
 
 import java.math.BigDecimal;
 
-import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 public class SalesOrderLineVo {
@@ -16,7 +15,7 @@ public class SalesOrderLineVo {
 	private BigDecimal discount;
 	private ProductVo productVo;
 	
-	private char isactive;
+	private char isactive = 'N';
 	public String getSalesOrderLineId() {
 		return salesOrderLineId;
 	}

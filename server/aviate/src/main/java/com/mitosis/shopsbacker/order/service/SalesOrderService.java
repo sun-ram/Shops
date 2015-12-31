@@ -51,6 +51,7 @@ public interface SalesOrderService<T> {
 	public void productStockReduce(SalesOrder salesOrder) throws Exception;
 
 	public List<SalesOrder> getSalesOrdersByBackerId(String shoperId);
+	
 	public TransactionDetailVo setTransactionDetails(SalesOrder salesOrder, 
-			Address shippingAddress, Address deliveryAddress, Customer customer);
+			Address deliveryAddress, Address shippingAddress, Customer customer);
 }

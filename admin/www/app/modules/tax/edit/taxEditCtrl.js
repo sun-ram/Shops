@@ -1,7 +1,7 @@
 angular.module('aviateAdmin.controllers')
 .controller("taxEditCtrl", 
-		['$scope', '$state','toastr','TaxServices',
-		 function($scope, $state,  toastr, TaxServices) {
+		['$scope','$rootScope', '$state','toastr','TaxServices',
+		 function($scope,$rootScope, $state,  toastr, TaxServices) {
 
 			$scope.getTax = function(){
 				$scope.tax = TaxServices.getTaxObj();
@@ -18,7 +18,8 @@ angular.module('aviateAdmin.controllers')
 			$scope.getTax();
 
 			$scope.updateTax = function(){
-				TaxServices.updateTax($scope.tax).then(function(data){
+				$scope.tax.userId=$rootScope.user.userName;
+            	TaxServices.updateTax($scope.tax).then(function(data){
 					localStorage.removeItem('tax');
 					$state.go('app.tax');
 				});

@@ -65,11 +65,11 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	
 	public ProductOffer setProductOffer(ProductOfferVo productOfferVo, ProductOffer productOffer) throws Exception{
 		if(productOfferVo.getProductOfferId() == null){
-			productOffer = (ProductOffer) CommonUtil.setAuditColumnInfo(ProductOffer.class.getName(), null);
+			productOffer = (ProductOffer) CommonUtil.setAuditColumnInfo(ProductOffer.class.getName(), productOfferVo.getUserId());
 			productOffer.setIsactive('Y');
 		}else{
 			productOffer.setUpdated(new Date());
-			productOffer.setUpdatedby("123");
+			productOffer.setUpdatedby(productOfferVo.getUserId());
 		}
 		productOffer.setName(productOfferVo.getName());
 		productOffer.setOfferAmount(productOfferVo.getOfferAmount());

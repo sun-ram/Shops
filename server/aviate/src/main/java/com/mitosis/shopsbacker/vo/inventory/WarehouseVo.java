@@ -30,13 +30,21 @@ public class WarehouseVo {
 	private AddressVo address;
 	private Merchant merchant;
 	private List<StoragebinVo> storagebins= new ArrayList<StoragebinVo>();
-	
+	private String userId;
 
 	/**
 	 * @return the storagebins
 	 */
 	public List<StoragebinVo> getStoragebins() {
 		return storagebins;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	/**

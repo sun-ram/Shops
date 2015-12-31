@@ -22,8 +22,14 @@ public class DeliveryTimeSlotVo {
 	private String storeId;
 	private String holidayReasons;
 	private List<Date> holidayDates= new ArrayList<Date>();
+	private String userId;
 	
-	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getStoreId() {
 		return storeId;
 	}

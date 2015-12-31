@@ -15,7 +15,14 @@ public class ProductInventoryVo {
 	private int availableQty;
 	private char isactive;
 	private WarehouseVo warehouse;
+	private String userId;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getProductInventoryId() {
 		return productInventoryId;
 	}

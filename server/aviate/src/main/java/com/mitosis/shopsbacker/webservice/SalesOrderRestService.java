@@ -132,12 +132,13 @@ public class SalesOrderRestService<T> {
 
 	@Path("/getsalesorder")
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON+";charset=UTF-8")
+	@Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public SalesOrderResponseVo getSalesOrderByStore(SalesOrderVo salesOrderVo) {
+	public String getSalesOrderByStore(SalesOrderVo salesOrderVo) {
 		response = new ResponseModel();
 		salesOrderResponse = new SalesOrderResponseVo();
+		String res = "";
 		try {
 			if (salesOrderVo.getStore() != null) {
 				Store store = getStoreService().getStoreById(
@@ -174,7 +175,14 @@ public class SalesOrderRestService<T> {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-		return salesOrderResponse;
+		
+		try {
+			res = CommonUtil.getObjectMapper(salesOrderResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Path("/updateShoperIntoSalesOrder")
@@ -198,11 +206,11 @@ public class SalesOrderRestService<T> {
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
 
-				if (user.getDeviceType().equalsIgnoreCase("ANDROID")) {
+				if ("ANDROID".equalsIgnoreCase(user.getDeviceType())) {
 					String message = "Received New Order";
 					CommonUtil.androidPushNotification(message,
 							user.getDeviceId());
-				} else if (user.getDeviceType().equalsIgnoreCase("IOS")) {
+				} else if (user.getDeviceType()!=null && user.getDeviceType().equalsIgnoreCase("IOS")) {
 
 				}
 			}
@@ -292,7 +300,7 @@ public class SalesOrderRestService<T> {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil
-					.setAuditColumnInfo(SalesOrder.class.getName(),null);
+					.setAuditColumnInfo(SalesOrder.class.getName(),salesOrderVo.getUserId());
 			salesOrder.setIsactive('Y');
 			Customer customer = customerService
 					.getCustomerInfoById(salesOrderVo.getCustomer()
@@ -317,6 +325,7 @@ public class SalesOrderRestService<T> {
 			deliveryTimes.setTime(time);*/
 			salesOrder.setDeliveryTimeSlot(deliveryTime);
 			salesOrder.setIspaid('N');
+			salesOrder.setDeliveryFlag('N');
 			salesOrder.setStore(store);
 			salesOrder.setDiscountAmount(new BigDecimal(0));
 
@@ -344,11 +353,23 @@ public class SalesOrderRestService<T> {
 
 			List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 			for (MyCart myCart : cartProduct) {
+				
+				Double discountPrice = null;
+				if(myCart.getDiscount() != null){
+					if(myCart.getDiscount().getDiscountPercentage() != null){
+						 discountPrice = 	myCart.getProduct().getPrice().doubleValue() -(myCart.getProduct().getPrice().doubleValue() * myCart.getDiscount().getDiscountPercentage()/100); 
+					}
+					if(myCart.getDiscount().getDiscountAmount() != null){
+						 discountPrice = myCart.getProduct().getPrice().doubleValue() - myCart.getDiscount().getDiscountAmount().doubleValue();
+					}
+				}else{
+					 discountPrice = 	myCart.getProduct().getPrice().doubleValue();
+				}
+				BigDecimal price = BigDecimal.valueOf(discountPrice);
+				
 				SalesOrderLine sol = (SalesOrderLine) CommonUtil
-						.setAuditColumnInfo(SalesOrderLine.class.getName(),null);
-				Double lineAmount = myCart.getProduct().getPrice()
-						.doubleValue()
-						* myCart.getQty();
+						.setAuditColumnInfo(SalesOrderLine.class.getName(),salesOrderVo.getUserId());
+				Double lineAmount = discountPrice.doubleValue() * myCart.getQty();
 				BigDecimal lineGrossAmount = new BigDecimal(lineAmount);
 				BigDecimal lineNetAmount = new BigDecimal(lineAmount);
 				sol.setSalesOrder(salesOrder);
@@ -358,7 +379,7 @@ public class SalesOrderRestService<T> {
 				sol.setDiscount(new BigDecimal(0.0));
 				sol.setProduct(myCart.getProduct());
 				sol.setQty(myCart.getQty());
-				sol.setPrice(myCart.getProduct().getPrice());
+				sol.setPrice(price);
 				orderGrossAmount += lineAmount;
 
 				salesOrderLines.add(sol);
@@ -369,7 +390,7 @@ public class SalesOrderRestService<T> {
 			List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 			for (Tax tax : taxs) {
 				OrderTax orderTax = (OrderTax) CommonUtil
-						.setAuditColumnInfo(OrderTax.class.getName(),null);
+						.setAuditColumnInfo(OrderTax.class.getName(),salesOrderVo.getUserId());
 
 				Double taxAmount = (orderGrossAmount * (tax.getTaxPercentage() / 100));
 				orderTax.setTax(tax);

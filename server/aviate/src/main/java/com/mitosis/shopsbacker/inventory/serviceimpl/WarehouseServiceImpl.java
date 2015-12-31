@@ -81,20 +81,20 @@ public class WarehouseServiceImpl<T> implements WarehouseService<T>,
 		Warehouse warehouse = null;
 		if (!isUpdateProcess) {
 			warehouse = (Warehouse) CommonUtil
-					.setAuditColumnInfo(Warehouse.class.getName(), null);
+					.setAuditColumnInfo(Warehouse.class.getName(), warehouseVo.getUserId());
 			warehouse.setIsactive('Y');
 		} else {
 			warehouse = warehouseDao.getWarehouse(warehouseVo
 					.getWarehouseId());
 			warehouse.setUpdated(new Date());
 			//TODO:Need to get user from session and set as update by 
-			warehouse.setUpdatedby("12345");
+			warehouse.setUpdatedby(warehouseVo.getUserId());
 		}
 		warehouse.setMerchant(store.getMerchant());
 		warehouse.setName(warehouseVo.getName());
 		warehouse.setStore(store);
 		warehouse.setDescription(warehouseVo.getDescription());
-		Address address = addressService.setAddress(warehouseVo.getAddress(), null);
+		Address address = addressService.setAddress(warehouseVo.getAddress(), warehouseVo.getUserId());
 		warehouse.setAddress(address);
 		return warehouse;
 	}

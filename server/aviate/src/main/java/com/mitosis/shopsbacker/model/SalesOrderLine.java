@@ -3,7 +3,9 @@ package com.mitosis.shopsbacker.model;
 // Generated Nov 12, 2015 6:16:19 PM 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +45,7 @@ public class SalesOrderLine implements java.io.Serializable {
 	private String createdby;
 	private Date updated;
 	private String updatedby;
+	private List<SalesOrderReturnLine> salesOrderReturnLines = new ArrayList<SalesOrderReturnLine>();
 
 	public SalesOrderLine() {
 	}
@@ -66,7 +70,7 @@ public class SalesOrderLine implements java.io.Serializable {
 			int qty, BigDecimal price,
 			BigDecimal grossAmount, BigDecimal netAmount, BigDecimal discount,
 			char isactive, Date created, String createdby, Date updated,
-			String updatedby) {
+			String updatedby, List<SalesOrderReturnLine> salesOrderReturnLines) {
 		this.salesOrder = salesOrder;
 		this.product = product;
 		this.qty = qty;
@@ -79,6 +83,7 @@ public class SalesOrderLine implements java.io.Serializable {
 		this.createdby = createdby;
 		this.updated = updated;
 		this.updatedby = updatedby;
+		this.salesOrderReturnLines = salesOrderReturnLines;
 	}
 
 	@Id
@@ -203,6 +208,16 @@ public class SalesOrderLine implements java.io.Serializable {
 
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salesOrderLine")
+	public List<SalesOrderReturnLine> getSalesOrderReturnLines() {
+		return salesOrderReturnLines;
+	}
+
+	public void setSalesOrderReturnLines(
+			List<SalesOrderReturnLine> salesOrderReturnLines) {
+		this.salesOrderReturnLines = salesOrderReturnLines;
 	}
 
 }

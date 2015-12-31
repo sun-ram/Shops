@@ -20,7 +20,7 @@ public class SalesOrderVo {
 	private String orderNo;
 	private String deliveryDate;
 	private String deliveryTimeSlot;
-	private char ispaid;
+	private char ispaid = 'N';
 	private BigDecimal amount;
 	private String paymentMethod;
 	private String transactionNo;
@@ -30,7 +30,7 @@ public class SalesOrderVo {
 	private BigDecimal netAmount;
 	private ImageVo sign;
 	private MerchantVo merchant;
-	private Character deliveryFlag;
+	private char deliveryFlag = 'N';
 	private BigDecimal discountAmount;
 	private List<SalesOrderLineVo> salesOrderLineVo;
 	private List<StoreVo> storeList = new ArrayList<StoreVo>();
@@ -50,7 +50,14 @@ public class SalesOrderVo {
 	private Date shopperAssignedTime;
 	private Date backerAssignedTime;
 	private Date orderPlacedTime;
+	private String userId;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public ImageVo getSign() {
 		return sign;
 	}
@@ -149,10 +156,10 @@ public class SalesOrderVo {
 	public void setMerchant(MerchantVo merchant) {
 		this.merchant = merchant;
 	}
-	public Character getDeliveryFlag() {
+	public char getDeliveryFlag() {
 		return deliveryFlag;
 	}
-	public void setDeliveryFlag(Character deliveryFlag) {
+	public void setDeliveryFlag(char deliveryFlag) {
 		this.deliveryFlag = deliveryFlag;
 	}
 	public BigDecimal getDiscountAmount() {

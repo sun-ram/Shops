@@ -107,12 +107,12 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void processMovement(String movementId) throws Exception {
+	public void processMovement(String movementId, String userId) throws Exception {
 		Movement movement = movementDao.getMovement(movementId);
 		List<MovementLine> movementLines = movement.getMovementLines();		
 		for (MovementLine movementLine : movementLines) {
 			List<ProductInventory> productInventories = productInventoryDao.getProductInventory(movementLine.getProduct(), movementLine.getStoragebinByToBinId());
-			ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName(), null);
+			ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName(), userId);
 			productInventory.setIsactive('Y');
 			productInventory.setMerchant(movement.getMerchant());
 			productInventory.setStore(movement.getStore());
@@ -207,13 +207,13 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 		Movement movement = null;
 		if (!isUpdateProcess) {
 			movement = (Movement) CommonUtil.setAuditColumnInfo(Movement.class
-					.getName(), null);
+					.getName(), movementVo.getUserId());
 			movement.setIsactive('Y');
 		} else {
 			movement = getMovement(movementVo.getMovementId());
 			movement.setUpdated(new Date());
 			// TODO: Need to get user from session and set to updated by.
-			movement.setUpdatedby("123");
+			movement.setUpdatedby(movementVo.getUserId());
 		}
 		Date date = new Date();
 		movement.setName(CommonUtil.dateToString(date));
@@ -235,7 +235,7 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 			boolean isUpdate = movementLineVo.getMovementLineId() != null ? true
 					: false;
 			MovementLine movementLine = setMovementLine(movementLineVo,
-					isUpdate);
+					isUpdate,movementVo.getUserId());
 			movementLine.setMovement(movement);
 			movementLines.add(movementLine);
 		}
@@ -251,18 +251,18 @@ public class MovementServiceImpl<T> implements MovementService<T>, Serializable 
 	 * @throws Exception
 	 */
 	public MovementLine setMovementLine(MovementLineVo movementLineVo,
-			boolean isUpdate) throws Exception {
+			boolean isUpdate, String userId) throws Exception {
 		MovementLine movementLine = null;
 		if (!isUpdate) {
 			movementLine = (MovementLine) CommonUtil
-					.setAuditColumnInfo(MovementLine.class.getName(), null);
+					.setAuditColumnInfo(MovementLine.class.getName(),userId);
 			movementLine.setIsactive('Y');
 		} else {
 			movementLine = movementLineService.getMovementLine(movementLineVo
 					.getMovementLineId());
 			movementLine.setCreated(new Date());
 			// TODO: Need to get user from session and set to updated by.
-			movementLine.setCreatedby("123");
+			movementLine.setCreatedby(userId);
 		}
 
 		Storagebin storagebin = storeagebinService

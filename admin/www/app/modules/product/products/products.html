@@ -1,3 +1,8 @@
+<style>
+table[md-data-table]:not([md-row-select]) > thead:not([md-table-progress]) > tr > th:nth-child(n+2):nth-last-child(n+2), table[md-data-table]:not([md-row-select]) > tbody > tr > td:nth-child(n+2):nth-last-child(n+2){
+	padding: 0px 8px;
+}
+</style>
 <md-button ng-click="addProductRedirect()" class="md-fab"
    aria-label="Eat cake"
    style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
@@ -18,7 +23,7 @@
    <md-card-content class="nopadd">
    
    <md-data-table-container>
-     <md-list>
+     <!-- <md-list>
      	<md-item class="data-table-list " md-data-table>
          <md-item-content layout="row" layout-padding class="tbl-header ">
       
@@ -155,7 +160,81 @@
       </md-item-content>
       </md-item>
       
-     </md-list>
+     </md-list> -->
+     
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+              <th name="Product"></th>
+              <th name="Product Name"></th>
+              <th name="Unit"></th>
+              <th name="UOM"></th>
+              <th name="Price"></th>
+              <th name="Was Price"></th>
+              <th name="Category"></th>
+              <th name="Product Type"></th>
+              <th name="Action"></th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-hide="showDetails"  ng-repeat="product in productList | filter:searchText | orderBy: productsPagination.order | limitTo: productsPagination.limit: (productsPagination.page - 1) * productsPagination.limit" ng-click="productDetails(product)">
+			<td><img style="padding:2px; border-radius:50px; border:1px solid #999999;" ng-src={{product.image.url}} width="40" height="40"/></td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.name}}</span>
+				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<label>Product</label>
+	      		<input type="text" ng-model="productEdit.name" /> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.unit}}</span>
+				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<label>Unit</label>
+	      		<input type="text" ng-model="productEdit.unit" valid-number /> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.uom.name}}</span>
+				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+		      		<label>UOM</label>
+		      		<input type="text" ng-model="productEdit.uom.name" /> 
+		      	</md-input-container>
+			</td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.price}}</span>
+				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<label>Price</label>
+	      		<input type="text" ng-model="productEdit.price" valid-number /> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.wasPrice}}</span>
+				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<label>Was Price</label>
+	      		<input type="text" ng-model="productEdit.wasPrice" valid-number/> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.productCategory.name}}</span>
+				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<label>Category</label>
+	      		<input type="text" ng-model="productEdit.productCategory.name" /> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="product.productId != showInLineEdit">{{product.productType.name}}</span>
+			<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
+      		<label>Product Type</label>
+      		<input type="text" ng-model="productEdit.productType.name" /> 
+      		</md-input-container>
+			</td>
+			<td layout="row">		
+					<ng-md-icon ng-show="product.productId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=product.productId;productEdit=product;$event.stopPropagation();"></ng-md-icon>	
+        			<ng-md-icon ng-show="product.productId != showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editproduct(product);$event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon ng-show="product.productId != showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteProduct(product.productId);$event.stopPropagation();"></ng-md-icon>
+      	      		
+      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t30 action-buttons wid-40" ng-click="showInLineEdit=null;updateProduct(productEdit); $event.stopPropagation();"></ng-md-icon>	
+        			<ng-md-icon ng-show="product.productId == showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t30 action-buttons wid-40" ng-click="updateProduct(editProduct); $event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t30 action-buttons wid-40" ng-click="showInLineEdit=null;productEdit=product; $event.stopPropagation();"></ng-md-icon>
+        	</td>
+        	</tr>
+        	
+	</tbody>
+</table>
+
      </md-data-table-container>
    </md-card-content> 
    <div layout="row" layout-align="center center" >
@@ -174,6 +253,6 @@
  		    <input id="file-upload1" type="file" ng-model="excelFile.file" app-filereader ng-change="uploadExcelFile('file-name1','file-upload1')"/>
 	</label>
 </md-button>
-<md-button flex="15" ng-show="excelFile.file" class="md-raised md-success" ng-click="uploadXmls()" ng-disabled="">Add</md-button>
+<md-button class="md-raised md-primary" layout-align="start start" style="height: 0; margin-top: 12px;" flex="25" ng-show="excelFile.file"  ng-click="uploadXmls()" ng-disabled="" >Upload</md-button>
 <span flex></span>
 </div>

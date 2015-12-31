@@ -68,7 +68,7 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		/*$scope.user.address.city.cityId= $scope.cty.cityId;
 		$scope.user.address.city.name=$scope.cty.name;*/
 		$scope.user.address.city = $scope.cty;
-
+        $scope.user.generate = $rootScope.user.userName;
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
 			$scope.user.store.storeId = $rootScope.user.storeId
@@ -89,6 +89,8 @@ aviateAdmin.controller("employeecontroller", ['$scope','$localStorage','$locatio
 		$scope.user.address.state = $scope.state;
 		$scope.user.address.city.cityId= $scope.cty.cityId;
 		$scope.user.address.city.name=$scope.cty.name;
+        $scope.user.generate = $rootScope.user.userName;
+
 		if($rootScope.user.role=="STOREADMIN"){
 			$scope.user.store = {};
 			$scope.user.store.storeId = $rootScope.user.storeId

@@ -5,9 +5,7 @@ package com.mitosis.shopsbacker.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -68,6 +66,7 @@ public class Product implements java.io.Serializable {
 	private List<ProductOffer> productOffers = new ArrayList<ProductOffer>();
 	private List<ProductInventory> productInventories = new ArrayList<ProductInventory>();
 	private List<DiscountProduct> discountProducts = new ArrayList<DiscountProduct>();
+	private List<SalesOrderReturnLine> salesOrderReturnLines = new ArrayList<SalesOrderReturnLine>();
 
 	public Product() {
 	}
@@ -101,7 +100,7 @@ public class Product implements java.io.Serializable {
 			Character isYourHot,Character isBundle,Character isKit,Character isChild, BigDecimal unit, Date created, Date updated,
 			char isactive, List<ProductOfferLine> productOfferLines, List<MyCart> myCarts,
 			List<SalesOrderLine> salesOrderLines, List<MovementLine> movementLines, List<ProductImage> productImages,
-			List<ProductOffer> productOffers, List<ProductInventory> productInventories,List<DiscountProduct> discountProducts ) {
+			List<ProductOffer> productOffers, List<ProductInventory> productInventories,List<DiscountProduct> discountProducts, List<SalesOrderReturnLine> salesOrderReturnLines ) {
 		this.productId = productId;
 		this.createdby = createdby;
 		this.updatedby = updatedby;
@@ -132,6 +131,7 @@ public class Product implements java.io.Serializable {
 		this.productOffers = productOffers;
 		this.productInventories = productInventories;
 		this.discountProducts=discountProducts; 
+		this.salesOrderReturnLines = salesOrderReturnLines;
 	}
 
 	@Id
@@ -419,6 +419,15 @@ public class Product implements java.io.Serializable {
 	public void setDiscountProducts(List<DiscountProduct> discountProducts) {
 		this.discountProducts = discountProducts;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public List<SalesOrderReturnLine> getSalesOrderReturnLines() {
+		return salesOrderReturnLines;
+	}
 
+	public void setSalesOrderReturnLines(
+			List<SalesOrderReturnLine> salesOrderReturnLines) {
+		this.salesOrderReturnLines = salesOrderReturnLines;
+	}
 	
 }

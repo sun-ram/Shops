@@ -10,13 +10,13 @@
       <form name="discountForm" novalidate>
       	<div layout layout-sm="column">
         <md-item class="md-raised" layout-padding  flex>
-           	<span  layout="column" class="detail-list" layout-align="start start">
+           	<span  layout="column"layout-align="start start">
 	           	<span class="ft-18 paddtb-8">{{discountEdit.name}}</span>
 	           	<span class="hash_color ft-14">Name</span>
            	</span> 
       	</md-item>
         <md-item class="md-raised" layout-padding  flex>
-           	<span layout="column" class="detail-list" layout-align="start start">
+           	<span layout="column"  layout-align="start start">
            		 <span class="ft-18 paddtb-8">{{discountEdit.storeList[0].name}}</span>
            		 <span class="hash_color ft-14">Store Name</span>
            	</span>  
@@ -25,11 +25,13 @@
      	<div layout layout-sm="column">
 		    <md-input-container layout-padding flex>
 		       <label></span>Discount Percentage<span style="color:red">*</span></label>
-		      <input ng-model="discountEdit.discountPercentage" ng-required="true" valid-number>
+		      <input ng-model="discountEdit.discountPercentage" name="percentage" ng-maxlength="3" max="100" ng-hide="discountEdit.discountAmount > 0" ng-focus="required2=false;required=true">
+		      <span class="error" ng-show="discountForm.percentage.$error.max" style="color:red;">
+      			Invalid Percentage!</span>
 		    </md-input-container>   
 		    <md-input-container layout-padding flex>
 		       <label></span>Discount Amount</label>
-		      <input ng-model="discountEdit.discountAmount"valid-number ng-maxlength="2">
+		      <input ng-model="discountEdit.discountAmount" valid-number ng-maxlength="20" ng-hide="discountEdit.discountPercentage > 0" ng-focus="required2=true;required=false;">
 		    </md-input-container>
 	    </div>   	
      	<div layout layout-sm="column">
@@ -46,33 +48,29 @@
 	    <div layout layout-sm="column">
 	       <div layout-padding flex>
 		       <label></span>From Date</label>
-		       <md-datepicker ng-model="discountEdit.startDate" md-placeholder="From date"  md-min-date="minDate"></md-datepicker>
+		       <md-datepicker ng-model="discountEdit.startDate" name="startdate" ng-required="discountEdit.endDate!=null" md-placeholder="From date"  md-min-date="minDate"></md-datepicker>
+		   	   <span class="error" ng-show="discountForm.startdate.$error.required" style="color:red;">
+      			Select Start Date!</span>
 		   </div>    
 		   <div layout-padding flex>
 		       <label></span>To Date</label>
-		       <md-datepicker ng-model="discountEdit.endDate" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
+		       <md-datepicker ng-model="discountEdit.endDate" name="enddate" ng-required="discountEdit.startDate!=null" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
+		   	   <span class="error" ng-show="discountForm.enddate.$error.required" style="color:red;">
+      			Select End Date!</span>
 		    </div>
 	    </div>
 	    <div layout layout-sm="column">
     		<md-input-container layout-padding flex>
-		       <label></span>Start Time</label>
-		      <input type="time" ng-model="discountEdit.startTime" ng-required="true">
+		       <label></span>Start Time<span style="color:red">*</span></label>
+		      <input type="time" ng-model="discountEdit.startTime" name="startTime" ng-required="true" ng-blur="validateTime(discountEdit);" ng-required="true">
 		    </md-input-container>
 		    <md-input-container layout-padding flex>
-		       <label></span>End Time</label>
-		      <input type="time" ng-model="discountEdit.endTime" ng-required="true">
+		       <label></span>End Time<span style="color:red">*</span></label>
+		      <input type="time" ng-model="discountEdit.endTime" name="endTime" ng-required="true" ng-blur="validateTime(discountEdit);" ng-required="true">
+    		  <span ng-show="endTime" style="color:red;">Invalid Time.</span>
 		    </md-input-container>   
 	    </div>
 	    
-	  <div layout layout-sm="column">
-    		<md-input-container layout-padding flex>
-		       <label></span>Minimum amount</label>
-		      <input ng-model="discountEdit.minAmount"valid-number ng-maxlength="20">
-		    </md-input-container>
-		    
-		    <md-input-container layout-padding flex>
-		    </md-input-container>   
-	    </div>	       	
  	    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
 	    	<md-button class="md-raised md-success padd-50" ng-click="updateDiscount(discountEdit);"  ng-disabled="discountForm.$invalid">Update</md-button>
 	    	<md-button class="md-raised md-success padd-50" ng-click="offerProductRedirect(discountEdit);">Products Discounts</md-button>

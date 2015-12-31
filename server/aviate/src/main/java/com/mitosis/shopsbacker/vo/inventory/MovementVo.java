@@ -20,7 +20,13 @@ public class MovementVo {
 	private Date created;
 	private char isMovement;
 	private List<MovementLineVo> movementLines = new ArrayList<MovementLineVo>();
-	
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getMovementId() {
 		return movementId;
 	}

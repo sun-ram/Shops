@@ -31,8 +31,8 @@
       	</md-item>
         <md-item class="md-raised" layout-padding  flex>
            	<span layout="column" class="detail-list" layout-align="start start">
-           		 <span class="ft-18 paddtb-8">{{offerDetails.productVo.name}}</span>
-           		 <span class="hash_color ft-14">Product Name</span>
+           		 <span class="ft-18 paddtb-8">{{offerDetails.store.name}}</span>
+           		 <span class="hash_color ft-14">Store Name</span>
            	</span>  
         </md-item>
       </div>
@@ -65,21 +65,29 @@
         </md-item>
    	   </div>
        <div layout layout-sm="column">
+       <md-item class="md-raised" layout-padding  flex>
+           	<span layout="column" class="detail-list" layout-align="start start">
+           		 <span class="ft-18 paddtb-8">{{offerDetails.productVo.name}}</span>
+           		 <span class="hash_color ft-14">Product Name</span>
+           	</span>  
+        </md-item>
         <md-item class="md-raised" layout-padding  flex>
           	<span  layout="column" class="detail-list" layout-align="start start">
           		 <span class="ft-18 paddtb-8">{{productOffer.offerAmount}}</span>
           		 <span class="hash_color ft-14">Offer Amount</span>
           	</span>   
        </md-item>
-       <md-item class="md-raised" layout-padding  flex>
+       </div>
+      <div layout layout-sm="column">
+        <md-item class="md-raised" layout-padding  flex>
            	<span  layout="column" class="detail-list" layout-align="start start">
           		 <span class="ft-18 paddtb-8">{{productOffer.qty}}</span>
           		 <span class="hash_color ft-14">Quantity</span>
            	</span>           	            	          	        	
 		</md-item>
-       </div>
-       
+		 <md-item class="md-raised" layout-padding  flex>
+		</md-item>
+		</div>
      </md-list>
-     
    </md-card-content>
 </md-card>

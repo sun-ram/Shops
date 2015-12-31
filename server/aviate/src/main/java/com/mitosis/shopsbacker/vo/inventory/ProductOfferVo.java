@@ -26,7 +26,13 @@ public class ProductOfferVo {
 	private List<StoreVo> storeList = new ArrayList<StoreVo>();
 	private List<ProductOfferLineVo> productOfferLines = new ArrayList<ProductOfferLineVo>();
 	private List<MyCartVo> myCarts = new ArrayList<MyCartVo>();
-	
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getProductOfferId() {
 		return productOfferId;
 	}

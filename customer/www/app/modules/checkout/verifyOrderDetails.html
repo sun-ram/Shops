@@ -105,46 +105,6 @@
     		
     		<md-button class="green_btn_clr" style="width: auto;" ng-disabled="orderBtn" ng-click="confirmOrder(transactionType); ">CONFIRM MY ORDER</md-button>
             
-           <!--  <form action="https://demo.globalgatewaye4.firstdata.com/payment" method="post" name="FirstData" style="display:none;">
-				<input name="x_login" value="WSP-MITOS-E2mIIgBi3g"
-					type="hidden">
-				Payment Page ID
-
-				<input name="x_fp_sequence" value="123456" type="hidden">
-				Used in x_fp_hash calculation in order to make it unique but not used otherwise
-
-				<input name="x_fp_timestamp" ng-value="timeStamp" type="hidden">
-				Time in seconds since January 1, 1970. UTC, Coordinated Universal Time,expire after 15 minutes / 900 seconds
-
-				<input name="x_amount" ng-value="TOTAL" type="hidden">
-				Total dollar amount to be charged inclusive of freight and tax
-
-				<input name="x_currency_code" value="INR" type="hidden">
-				Currency of the transaction. Case sensitive.
-
-				<input name="x_fp_hash" ng-value="hash" type="hidden">
-				x_login, x_fp_sequence, x_fp_timestamp, x_amount, and (if given) x_currency_code – all separated by the ^ character
-
-				<input name="x_show_form" value="PAYMENT_FORM" type="hidden">
-				required in order to stay compatible with the Authorize.net protocol
-
-				<div ng-repeat="list in cartItems">
-
-					<input name="x_line_item" ng-value="list.item" type="hidden">
-
-				</div>
-
-				<input name="x_freight" ng-value="shipping" type="hidden">
-
-				<input name="enable_level3_processing" type="hidden" value="TRUE" /> 
-				<input name="x_po_num" value="purchaseorder1" type="hidden"> 
-				<input name="x_invoice_num" ng-value="orderNo" type="hidden">
-				<input name="x_cust_id" value="customerid1" type="hidden"> 
-				<input name="x_email_customer" value="TRUE" type="hidden"> 
-				<input name="x_method" value="CC" type="hidden"> 
-				<input value="CONFIRM MY ORDER" class="btn btn-danger nextBtn" type="submit">
-			</form> -->
-			
 			
 		<form method="post" action="https://secure.ebs.in/pg/ma/payment/request" 
 				name="frmTransaction" >  

@@ -1,7 +1,7 @@
 <md-toolbar ng-class="topbar"  style="background-color:transparent; position: fixed; top: 0px;">
 <div class="md-whiteframe-3dp md-toolbar-tools header_color height30 padd_righ8 nomargin " >
-	<span flex ng-show="isTodayHoliday && holidayReasons">Today is holiday Due to {{holidayReasons}} next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
-	<span flex ng-show="isTodayHoliday && !holidayReasons">Today is holiday next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
+	<span class="md-body-1" flex ng-show="isTodayHoliday && holidayReasons && holidayReasons != ' ' ">Today is holiday Due to {{holidayReasons}} next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
+	<span class="md-body-1" flex ng-show="isTodayHoliday && !holidayReasons || holidayReasons == ' ' ">Today is holiday next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
 	 <div layout="row" layout-align="end">
 			<span flex  style="font-size: 15px; right: 220px; top: 5px; position: absolute; cursor: pointer;" ng-show="user" ng-click="orderHistory();"> order history </span>
 			<span flex  style="font-size: 15px; right: 10px; top: 5px; position: absolute; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>

@@ -14,7 +14,11 @@ angular.module('aviateAdmin.directives').directive('sideNav', [
                     $scope.tabChoosen = function (key){
                         $scope.currentOption = key; 
                     }
+                    
+                    
                 }
             };
         }
+        
+        
     ]);

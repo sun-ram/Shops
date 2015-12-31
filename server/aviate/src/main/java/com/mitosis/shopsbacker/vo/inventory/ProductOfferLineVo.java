@@ -17,7 +17,13 @@ public class ProductOfferLineVo {
 	private BigDecimal discountAmount;
 	private List<ProductOfferVo> productOfferList = new ArrayList<ProductOfferVo>();
 	private List<MyCartVo> myCarts = new ArrayList<MyCartVo>();
-	
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getProductOfferLineId() {
 		return productOfferLineId;
 	}

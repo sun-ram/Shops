@@ -64,7 +64,7 @@ angular.module('aviate.controllers')
 						
 																	
 			$scope.getBannerList = function(){
-				
+							
 				if($rootScope.store != null){
 					$scope.banner = {};
 					$scope.banner.store = {};
@@ -72,7 +72,7 @@ angular.module('aviate.controllers')
 
 					homePageServices.getBannerList($scope.banner).then(function(data){
 						if(data.length != 0){
-							$scope.images = data;
+							$scope.images = $localStorage.imageList.concat(data);
 						}else{
 							$scope.shopsBackerImages();
 						}
@@ -88,6 +88,7 @@ angular.module('aviate.controllers')
 
 				homePageServices.getBannerList($scope.banner).then(function(data){
 					$scope.images = data;
+					$localStorage.imageList =data;
 				});
 				
 			}

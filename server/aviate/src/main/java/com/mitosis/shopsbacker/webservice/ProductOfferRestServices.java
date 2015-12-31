@@ -159,21 +159,16 @@ public class ProductOfferRestServices<T> {
 		response = new ResponseModel();
 		productOffer = new ProductOffer();
 		try {
-			if(productOfferVo.getStoreList().size() !=0){
-				for(StoreVo storeVo : productOfferVo.getStoreList()){
 				productOffer = productOfferService.getProductOffer(productOfferVo.getProductOfferId());
 				Merchant merchant = merchantService.getMerchantById(productOfferVo.
 						getMerchantVo().getMerchantId());
 				Product product = productService.getProduct(productOfferVo.getProductVo().getProductId());
-				Store store = storeService.getStoreById(storeVo.getStoreId());
+				Store store = storeService.getStoreById(productOfferVo.getStore().getStoreId());
 				productOffer = productOfferService.setProductOffer(productOfferVo,productOffer);
 				productOffer.setStore(store);
 				productOffer.setMerchant(merchant);
 				productOffer.setProduct(product);
 				productOfferService.updateProductOffer(productOffer);
-				}}else{
-					response.setStatus(SBMessageStatus.FAILURE.getValue());
-			}
 		}catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage());

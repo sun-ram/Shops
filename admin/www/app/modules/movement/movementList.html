@@ -17,7 +17,7 @@
 
    <md-card-content class="nopadd">
 	<md-data-table-container>
-     <md-list>
+     <!-- <md-list>
      
      <md-item class="data-table-list " md-data-table>
          <md-item-content layout="row">
@@ -69,7 +69,33 @@
            </div>
          </md-item-content>
         </md-item>
-     </md-list>
+     </md-list> -->
+     
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+              <th  name="Movements"></th>
+              <th  name="Warehouse Name"></th>
+              <th  name="Process & View"></th>
+              <th  name="Action"></th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="movement in movements | filter:searchText | orderBy: physicalInventoryListPagination.order | limitTo: physicalInventoryListPagination.limit: (physicalInventoryListPagination.page - 1) * physicalInventoryListPagination.limit" class="md-table-content-row" ng-click="redirectToMovementDetails(movement);">
+			<td>{{movement.name}}</td>
+			<td>{{movement.warehouse.name}}</td>
+			<td>
+				<md-button ng-hide="movement.ismoved == 'Y'" class="md-raised md-success  prdct-btns" ng-click="processMovement(movement);$event.stopPropagation();">Process</md-button>
+          	<md-button class="md-raised md-success  prdct-btns" ng-click="redirectToMovementDetails(movement);$event.stopPropagation();">View Line</md-button>
+			</td>
+			<td layout="row">			
+        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-hide="movement.ismoved == 'Y'" class="md-icon-button md-primary" ng-click="redirectToEditMovement(movement);$event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-hide="movement.ismoved == 'Y'" class="md-icon-button md-primary" ng-click="removeMovement(movement);$event.stopPropagation();"></ng-md-icon>
+        	</td>
+			
+		</tr>
+	</tbody>
+</table>
 	</md-data-table-container>
    </md-card-content> 
    <div layout layout="row"  class="table-pagination-bg" layout-align="center center">

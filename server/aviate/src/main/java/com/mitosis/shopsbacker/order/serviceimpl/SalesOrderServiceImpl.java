@@ -402,7 +402,7 @@ Serializable {
 
 
 	public TransactionDetailVo setTransactionDetails(SalesOrder salesOrder, 
-			Address shippingAddress, Address deliveryAddress, Customer customer) {
+			Address deliveryAddress, Address shippingAddress, Customer customer) {
 
 		TransactionDetailVo transaction = new TransactionDetailVo();
 		//TODO: Need clarification this field move to db or property file    
@@ -432,20 +432,21 @@ Serializable {
 		transaction.setCurrency(deliveryAddress.getCountry().getCurrencyCode());
 		transaction.setCurrencyCode(deliveryAddress.getCountry().getCurrencyCode());
 		transaction.setDescription(salesOrder.getSalesOrderId());
-		transaction.setEmail(customer.getEmail());
+		//TODO: need to clarify with HDFC
+		transaction.setEmail((customer.getEmail()!=null ? customer.getEmail() : "prabakaran.a@mitosistech.com"));
 		transaction.setMode(mode);
 		transaction.setName(customer.getName());
 		transaction.setPhone(deliveryAddress.getPhoneNo());
 		transaction.setPostalCode(deliveryAddress.getPinCode());
 		transaction.setReferenceNo(salesOrder.getOrderNo());
 		transaction.setReturnUrl(properties.getProperty("paymentGatewayRedirectUrl"));
-		transaction.setShipAddress(shippingAddress.getAddress1()+(shippingAddress.getAddress2()!=null ? ", "+shippingAddress.getAddress2() : ""));
+		/*transaction.setShipAddress(shippingAddress.getAddress1()+(shippingAddress.getAddress2()!=null ? ", "+shippingAddress.getAddress2() : ""));
 		transaction.setShipCity(shippingAddress.getCity().getName());
 		transaction.setShipCountry(shippingAddress.getCountry().getCode());
 		transaction.setShipName(salesOrder.getStore().getName());
 		transaction.setShipPhone(shippingAddress.getPhoneNo());
 		transaction.setShipPostalCode(shippingAddress.getPinCode());
-		transaction.setShipState(shippingAddress.getState().getName());
+		transaction.setShipState(shippingAddress.getState().getName());*/
 		transaction.setState(deliveryAddress.getState().getName());
 
 
@@ -465,21 +466,21 @@ Serializable {
 				+"|"+transaction.getCurrency()
 				+"|"+transaction.getCurrencyCode()
 				+"|"+transaction.getDescription()
-				+"|"+((transaction.getEmail() != null) ? transaction.getEmail()+"|":"")
-				+transaction.getMode()
+				+"|"+transaction.getEmail()
+				+"|"+transaction.getMode()
 				+"|"+transaction.getName()
 				+"|"+transaction.getPhone()
 				+"|"+transaction.getPostalCode()
 				+"|"+transaction.getReferenceNo()
 				+"|"+transaction.getReturnUrl()
-				+"|"+transaction.getShipAddress()
+				+"|"+transaction.getState();
+				/*+"|"+transaction.getShipAddress()
 				+"|"+transaction.getShipCity()
 				+"|"+transaction.getShipCountry()
 				+"|"+transaction.getShipName()
 				+"|"+((transaction.getShipPhone() != null) ? transaction.getShipPhone()+"|":"")
 				+transaction.getShipPostalCode()
-				+"|"+transaction.getShipState()
-				+"|"+transaction.getState();
+				+"|"+transaction.getShipState()*/
 		try {
 			hashMessage = HashGeneratorUtils.generateMD5(message);
 		} catch (Exception e) {

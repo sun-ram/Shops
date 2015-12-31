@@ -31,13 +31,18 @@
 	    <md-input-container layout-padding  flex>
 	       <label>Offer Amount</span></label>
 	      
-	       <input name="offer" ng-model="productOffer.offerAmount" valid-number ng-required="true">
+	       <input name="offer" ng-model="productOffer.offerAmount" valid-number>
 	    </md-input-container>  
 	  </div>
 	  </div>
 	  
 	  <div flex>
 		<div layout-padding>  
+			  <md-input-container layout-padding flex ng-show="productOffer.productOfferId" ng-if="user.role == 'MERCHANTADMIN'">
+	    	    <label>Store Name<span style="color:red">*</span></label>
+	      		<input ng-model="productOffer.store.name" ng-disabled="productOffer.productOfferId" maxlength="45">
+	    	  </md-input-container>
+	    	
 		     <md-input-container layout-padding flex>
        			<label>Product<span style="color:red">*</span></label>
          		<md-select class="remove-padd" ng-model="productOffer.productVo" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">
@@ -48,22 +53,27 @@
     		</md-input-container>
 	 <div layout layout-sm="column">
 	       <div layout-padding flex>
-		       <md-datepicker ng-model="productOffer.fromDate" md-placeholder="Start date" ng-required="true" md-min-date="minDate" ></md-datepicker>
+		       <md-datepicker ng-model="productOffer.fromDate" ng-required="productOffer.todate!=null" name="startdate" md-placeholder="Start date" md-min-date="minDate" ></md-datepicker>
+		   	    <span class="error" ng-show="productOfferForm.startdate.$error.required" style="color:red;">
+      			Select Start Date!</span>
 		   </div>    
 		   <div layout-padding flex>
-		       <md-datepicker ng-model="productOffer.todate" ng-required="true" md-placeholder="End date"></md-datepicker>
+		       <md-datepicker ng-model="productOffer.todate" ng-required="productOffer.fromDate!=null" name="enddate" md-placeholder="End date" md-min-date="minDate"></md-datepicker>
+		        <span class="error" ng-show="productOfferForm.enddate.$error.required" style="color:red;">
+      			Select End Date!</span>
 		    </div>
 	    </div>
 	    	  
 	<div layout layout-sm="column">
     		<md-input-container layout-padding flex>
-		       <label></span>Start Time</label>
-		      <input type="time" ng-model="productOffer.startTime" ng-required="true">
+		      <label></span>Start Time<span style="color:red">*</span></label>
+		      <input type="time" ng-model="productOffer.startTime" ng-required="true" name="startTime" ng-blur="validateTime();">
 		    </md-input-container>
 		    
 		    <md-input-container layout-padding flex>
-		       <label></span>End Time</label>
-		      <input type="time" ng-model="productOffer.endTime" ng-required="true">
+		      <label></span>End Time<span style="color:red">*</span></label>
+		      <input type="time" ng-model="productOffer.endTime" ng-required="true"  name="endTime" ng-blur="validateTime();">
+    		  <span ng-show="endTime" style="color:red;">Invalid Time.</span>
 		    </md-input-container>   
 	    </div>
 	    

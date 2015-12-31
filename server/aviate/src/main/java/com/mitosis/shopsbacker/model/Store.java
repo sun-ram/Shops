@@ -62,6 +62,7 @@ public class Store implements java.io.Serializable {
 	private List<StoreHoliday> storeHolidays = new ArrayList<StoreHoliday>();
 	private List<DiscountProduct> discountProducts = new ArrayList<DiscountProduct>();
 	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
+	private List<SalesOrderReturn> salesOrderReturns = new ArrayList<SalesOrderReturn>();
 
 	public Store() {
 	}
@@ -86,7 +87,7 @@ public class Store implements java.io.Serializable {
 			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
 			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,List<DeliveryTimeSlot> deliveryTimeSlots,
 			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
-			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts,List<StoreHoliday> storeHolidays,List<DiscountProduct> discountProducts) {
+			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts,List<StoreHoliday> storeHolidays,List<DiscountProduct> discountProducts,List<SalesOrderReturn> salesOrderReturns) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -115,6 +116,7 @@ public class Store implements java.io.Serializable {
 		this.storeHolidays = storeHolidays;
 		this.discountProducts=discountProducts;
 		this.deliveryTimeSlots=deliveryTimeSlots;
+		this.salesOrderReturns = salesOrderReturns;
 	}
 
 	@Id
@@ -372,6 +374,15 @@ public class Store implements java.io.Serializable {
 
 		public void setDeliveryTimeSlots(List<DeliveryTimeSlot> deliveryTimeSlots) {
 			this.deliveryTimeSlots = deliveryTimeSlots;
+		}
+
+		@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+		public List<SalesOrderReturn> getSalesOrderReturns() {
+			return salesOrderReturns;
+		}
+
+		public void setSalesOrderReturns(List<SalesOrderReturn> salesOrderReturns) {
+			this.salesOrderReturns = salesOrderReturns;
 		}
 
 		

@@ -182,7 +182,7 @@ public class MovementRestService<T> {
 		ResponseModel response = new ResponseModel();
 		try {
 			movementService.processMovement(inventoryId
-					.getString("movementId"));
+					.getString("movementId"),inventoryId.getString("userId"));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			response.setErrorString(e.getMessage());
@@ -226,10 +226,10 @@ public class MovementRestService<T> {
 		MovementLineResponseVo response = new MovementLineResponseVo();
 		try {
 			
-			
+			String userId=movementLineVo.getUserId();
 			boolean isUpdateProcess = movementLineVo.getMovementLineId() != null ? true
 					: false;
-			MovementLine movementLine = movementService.setMovementLine(movementLineVo, isUpdateProcess);
+			MovementLine movementLine = movementService.setMovementLine(movementLineVo, isUpdateProcess,userId);
 			Movement movement = movementService.getMovement(movementLineVo.getMovementId());
 			movementLine.setMovement(movement);
 			if (!isUpdateProcess) {

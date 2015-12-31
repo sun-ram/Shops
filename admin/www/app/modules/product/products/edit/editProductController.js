@@ -115,6 +115,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.product.measurement=products.measurement;
 				$scope.product.measureId = products.productUnitOfMeasure.unitOfMeasureId;
 				$scope.product.abbreviation = products.productUnitOfMeasure.abbreviation;
+		        $scope.product.userId = $rootScope.user.userName;
 
 				console.log($scope.product);
 

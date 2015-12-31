@@ -90,7 +90,7 @@ ShippingChargesService<T>, Serializable {
 	@Override
 	public ShippingCharges setShippingCharges(ShippingChargesVo shippingChargesVo) throws Exception {
 		ShippingCharges shippingCharges = (ShippingCharges) CommonUtil
-				.setAuditColumnInfo(ShippingCharges.class.getName(), null);
+				.setAuditColumnInfo(ShippingCharges.class.getName(), shippingChargesVo.getUserId());
 		shippingCharges.setMerchant(getMerchantService().getMerchantById(shippingChargesVo.getMerchantVo().getMerchantId()));
 		shippingCharges.setAmountRange(shippingChargesVo.getAmountRange());
 		shippingCharges.setChargingAmount(shippingChargesVo.getChargingAmount());

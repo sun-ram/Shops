@@ -30,7 +30,16 @@ public class StoragebinVo {
 	private String stack;
 	private String level;
 	private Date created;
+	private String userId;
 
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * @return the storagebinId

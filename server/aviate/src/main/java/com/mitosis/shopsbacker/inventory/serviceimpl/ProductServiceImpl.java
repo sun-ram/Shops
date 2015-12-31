@@ -158,20 +158,20 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	public Product setProduct(ProductVo productVo,Image img) throws Exception {
 		Product product = null;
 		if(productVo.getProductId() == null){
-			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName(), null);
+			product = (Product) CommonUtil.setAuditColumnInfo(Product.class.getName(), productVo.getUserId());
 			product.setIsactive('Y');
 		}else{
 			product = productDao.getProduct(productVo.getProductId());
 			product.setUpdated(new Date());
 			//TODO need to get user from session and set to updatedby
-			product.setUpdatedby("123");
+			product.setUpdatedby(productVo.getUserId());
 			if (productVo.getImage().getImage() != null
 					&& productVo.getImage().getType() != null) {
 				img = product.getImage();
 			}
 		}
 		if (productVo.getImage().getImage() != null) {
-			Image image = imageService.setImage(productVo.getImage(), null);			
+			Image image = imageService.setImage(productVo.getImage(), productVo.getUserId());			
 			product.setImage(image);
 		}
 		product.setName(productVo.getName());

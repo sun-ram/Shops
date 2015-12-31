@@ -77,11 +77,11 @@ private static final long serialVersionUID = 1L;
 	
 	public ProductOfferLine setProductOfferLine(ProductOfferLineVo productOfferLineVo, ProductOfferLine productOfferLine) throws Exception{
 		if(productOfferLineVo.getProductOfferLineId() == null){
-			productOfferLine = (ProductOfferLine) CommonUtil.setAuditColumnInfo(ProductOfferLine.class.getName(), null);
+			productOfferLine = (ProductOfferLine) CommonUtil.setAuditColumnInfo(ProductOfferLine.class.getName(), productOfferLineVo.getUserId());
 			productOfferLine.setIsactive('Y');
 		}else{
 			productOfferLine.setUpdated(new Date());
-			productOfferLine.setUpdatedby("123");
+			productOfferLine.setUpdatedby(productOfferLineVo.getUserId());
 		}
 		productOfferLine.setDiscountAmount(productOfferLineVo.getDiscountAmount());
 		productOfferLine.setDiscountPercentage(productOfferLineVo.getDiscountPercentage());
