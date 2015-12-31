@@ -31,6 +31,7 @@ angular.module('aviateAdmin.controllers')
 		};
 	
 		$scope.uploadFile = function (val1,val2){
+			$scope.showtext = true;
 			var id =$('#'+val2).val();
 			var srs=id.replace("C:\\fakepath\\" ,"" );	
 			$('#'+val1).html(srs);
