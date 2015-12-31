@@ -53,20 +53,20 @@
 	md-progress="deferred">
 	<thead md-order="salesOrderPagination.order" md-trigger="onorderchange" class="full_wid">
 		<tr class="tbl-header">
-		<th name="Shoper"></th>
+		<th name="Shopper"></th>
 		<th name="Backer"></th>
               <th order-by="customer.name" name="Customer"></th>
 <!--               <th order-by="address.firstName" name="Products"></th>
  -->              <th order-by="transactionNo" name="Ref-no"></th>
-              <th numeric order-by="addressVo.address1" name="Delivery Address"></th>
-              <th numeric order-by="status" name="Status"></th>
-              <th numeric order-by="fromDate" name="Order Date"></th>
-              <th numeric order-by="deliveryDate" name="Delivery Date"></th>
-              <th numeric order-by="storeVo.name" name="Store"></th>
-              <th numeric order-by="shippingCharge" name="Tax"></th>
-              <th numeric order-by="totalTaxAmount" name="Shipping Charge"></th>
-              <th numeric order-by="amount" name="Net"></th>
-              <th numeric order-by="netAmount" name="Gross"></th>
+              <th order-by="addressVo.address1" name="Delivery Address"></th>
+              <th order-by="status" name="Status"></th>
+              <th order-by="fromDate" name="Order Date"></th>
+              <th order-by="deliveryDate" name="Delivery Date"></th>
+              <th order-by="storeVo.name" name="Store"></th>
+              <th order-by="shippingCharge" name="Tax"></th>
+              <th order-by="totalTaxAmount" name="Shipping Charge"></th>
+              <th order-by="amount" name="Net"></th>
+              <th order-by="netAmount" name="Gross"></th>
               <th name="View Details"></th>
             </tr>
 	</thead>
@@ -83,11 +83,11 @@
 			<td>{{salesOrder.orderNo}}</td>	
 			<td>{{salesOrder.addressVo.address1}},{{salesOrder.addressVo.address2}} {{salesOrder.addressVo.city.name}}</td>
 			<td>{{salesOrder.status}}</td>
-			<td>{{salesOrder.fromDate}}</td>
+			<td>{{salesOrder.fromDate | date:'h:mm'}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>
 			<td>{{salesOrder.store.name}}</td>
-			<td>{{salesOrder.shippingCharge}}</td>
 			<td>{{salesOrder.totalTaxAmount}}</td>
+			<td>{{salesOrder.shippingCharge}}</td>
 			<td>{{salesOrder.amount}}</td>
 			<td>{{salesOrder.netAmount}}</td>
 			<td><md-button class="md-raised md-primary" ng-click="getSalesDetails(salesOrder)">VIEW DETAILS</md-button></td>
