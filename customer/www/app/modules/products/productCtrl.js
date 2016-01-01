@@ -94,6 +94,7 @@ angular.module('aviate.controllers')
 
 				});
 			}
+		
 			
 			$rootScope.updateProductQuantity = function(item){
 				angular.forEach($scope.productList,function(p){

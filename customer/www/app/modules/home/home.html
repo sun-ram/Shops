@@ -152,10 +152,107 @@
  			</div>
         </section>      
         
+        
+        
+        
+        
+        
+            <!---------IsCombo----------------->
+     <section ng-if="isBundleProducts.length > 0"  style=" padding:20px;" class="home-products">
+ 			<div>
+ 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Combo Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">(2) 
+ 						<a href="">View More</a>
+ 					</span>
+ 				</div>
+ 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Combo Products </h2>
+ 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">() 
+ 						<a href="" >Hide</a>
+ 					</span>
+ 				</div>
+ 				  <div layout="column" style="width:100%; margin:0px auto; ">
+   				 	<div flex layout="row" style="padding:10px 0px;">
+    					<div layout="row" layout-wrap flex ng-repeat="product in isBundleProducts | orderBy:groupCount | limitTo:$root.numLimit">
+                            <div class="views view-first">
+                            	<div layout="row">
+                            		<div flex layout-align="start start">
+                            			 <div class="pro-offer off-50-above md-caption" >
+                            			 	Combo
+                            			 </div>
+                            		</div>                          		
+                            		<div flex>
+                            			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
+									        <md-icon  class="icon-black" fill="black">shopping_cart</md-icon>
+									    </md-button>
+									    <span class="item-count">2</span>
+                            		</div>
+                            	</div>
+                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
+                    <div class="mask">
+                        <h2 style="height:20px; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">Product Name</h2>
+                     
+                          <p>Product Description</p>
+                         <div layout="row" layout-align="center center">
+					        <div flex ng-click="productDetailsCombo($event,product);">
+	                    		<md-button class="more">more</md-button>
+	                    	</div>
+     		  			</div>
+                        <div layout="row" layout-align="center center" class="bg-gray">
+	                       <div flex ng-show="true" ng-click="">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+	     		  			<div flex ng-hide="true" ng-click="">
+	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
+	     		  			</div>
+					        <div flex>
+					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >3</div>
+	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+	                    	</div>
+	                      <div flex ng-click="">
+					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
+					        </div>	
+     		  			</div>
+                    </div>
+                    			<div layout="row">
+                            		<div flex>
+                            			<div class="pull-left" layout-padding><span class="md-body-1"><!-- 2kg --></span></div> 
+                            		</div>
+                            		<div flex>
+                            			<div  layout-padding>
+                            				<div class="pull-right item-type"><span class="item-type-Veg"></span></div>
+                            			</div>
+                            		</div>
+                            	</div>
+                            	<div layout-align="center center" layout="row" class="md-subhead">Product Name</div>
+                             	<div layout="row" ng-if="!product.discount">
+                            		<div flex>
+                            			<div  layout-padding >
+                            				<div class="pro-price"><span class="actual-prices md-body-1">&#8377;150</span></div>
+                            			</div>
+                            		</div>
+                            		<div flex ng-if="product.wasPrice > product.price">
+                            			<div  class="" layout-padding><strike class="mrp-price md-body-1">MRP &#8377;170</strike></div> 
+                            		</div>
+                            	</div>                           	
+                			</div>  
+
+  </div>	
+  <div layout="row" flex layout-wrap ng-repeat="test  in remainOb(isBundleProducts.length);  track by $index"></div>
+		</div>
+    			</div>
+ 			</div>
+        </section> 
+        
+        
+        
+        
+        
         <!-- ------------------ -->
         
     <!---------Offers----------------->
-        <!-- <section style=" padding:20px;" class="home-products">
+       <!--  <section style=" padding:20px;" class="home-products">
            
  			<div ng-if="offerProducts.length" >
  				
@@ -247,7 +344,7 @@
     
     
  			</div>
-        </section> -->
+        </section>  -->
         
         <!-- ------------------ -->
 
