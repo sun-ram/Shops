@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
 .controller("appCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices','$localStorage',
-		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices,$localStorage) {
+		['$scope', '$state', 'toastr', 'CONSTANT', '$rootScope', 'MyCartFactory', 'MyCartServices','homePageServices','$mdDialog','FavouriteServices','$localStorage','AppServices',
+		 function($scope, $state, toastr, CONSTANT, $rootScope, MyCartFactory, MyCartServices, homePageServices,$mdDialog,FavouriteServices,$localStorage,AppServices) {
 			
 			$scope.ordersPagination = {
 					limit: 5,
@@ -228,9 +228,7 @@ angular.module('aviate.controllers')
 				            	$scope.holidayDates = [];
 				                $scope.holidayReasons = {};
 				            	if(data.holidays){
-				    				data.holidays.forEach(function(date){
-				    					$scope.holidayDates.push(new Date(date));
-				    				});
+				            	  	$scope.holidayDates = AppServices.covertStringToDate(data.holidays);
 				    			}
 				    			$rootScope.holidayReasons = JSON.parse(data.reason);
 				    			

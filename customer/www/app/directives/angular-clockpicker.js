@@ -8,7 +8,7 @@ angular.module('aviate.directives')
 		scope: {
 			datetime: "=ngModel"
 		},
-		controller: function ($scope,$rootScope,$mdDialog,toastr,$localStorage) {
+		controller: function ($scope,$rootScope,$mdDialog,toastr,$localStorage,AppServices) {
 			$rootScope.hidenext=true;
 			$rootScope.textDesign=false;
 			$scope.hourOptions = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -96,18 +96,12 @@ angular.module('aviate.directives')
 			    
 			    $rootScope.deliveryTimeValidation=function(){
 			    	 $scope.isHoliday = false;
-			    	 var holiday = [];
+			    	
 			    	 var storeHoliday = localStorage.getItem("holidays");
 			    	 storeHoliday = storeHoliday.split(",");
 			    	 
-			    	 storeHoliday.forEach(function(date){
-		    			 holiday.push(new Date(date));
-		    		  });
-		    	   	 /*
-			    	 var len = storeHoliday.length;
-			    	 for(var i=0;i<len;i++){
-			    		 holiday.push(new Date(storeHoliday[i]));
-			    	 }*/
+			    	 var holiday = AppServices.covertStringToDate(storeHoliday);
+			    	 
 			    	 var selectedDate = new Date($rootScope.delivery.date);
 			    	 selectedDate.setHours(0, 0, 0, 0, 0);
 			    	
