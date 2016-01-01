@@ -1,0 +1,50 @@
+
+   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+    <div class="md-toolbar-tools">
+      <h3 style="margin-left:-10px;" class="md-flex">Gallery</h3>
+    </div>
+  </md-toolbar>
+  
+ <md-card flex-gt-sm="90" flex-gt-md="80"> 
+ 
+ <script type="text/ng-template" id="galleries">
+	
+		<md-menu-item ng-class="gallery.selectionClass" class="others" ng-hide="gallery.hide" ng-if="(gallery.rootParent>=0)" ng-click="getGalleryByGalleryId(gallery.galleryId);activemenu($event)">
+			<md-button ng-class="gallery.selectionClass" class="btn-menu">
+				<div layout="row" style="text-transform: color:#70829a;">
+					<ng-md-icon icon="{{gallery.extrIconName}}" style="fill:#cca200; width:50px;height:50px;transform: translateY(40%);right: 5%;position: absolute;"></ng-md-icon>
+				<!--	&nbsp;&nbsp;&nbsp;&nbsp;<ng-md-icon icon="{{gallery.folderIconName}}" style="fill:#cca200; width:60px;height:60px;transform: translateY(40%);left: 5%;position: absolute;"></ng-md-icon> -->
+					{{gallery.fileName}}</div>
+			</md-button>
+		</md-menu-item>
+
+		<md-menu-item ng-class="gallery.selectionClass" class="others" ng-hide="gallery.hide" ng-if="(!gallery.rootParent && gallery.rootParent!=0)" ng-click="getGalleryByGalleryId(gallery.galleryId);activemenu($event)">
+			<md-button ng-class="gallery.selectionClass" class="btn-menu">
+					<div layout="row" style="text-transform: color:#70829a;">
+				<ng-md-icon icon="{{gallery.extrIconName}}" style="fill:#cca200; width:50px;height:50px;transform: translateY(40%);right: 5%;position: absolute;"></ng-md-icon>
+              <!-- &nbsp;&nbsp;&nbsp;&nbsp;<ng-md-icon icon="{{gallery.folderIconName}}" style="fill:#cca200; width:60px;height:60px;transform: translateY(40%);left: 5%;position: absolute;"></ng-md-icon> -->				
+				&nbsp;&nbsp;&nbsp;&nbsp;{{gallery.fileName}}</div>
+			</md-button>
+		</md-menu-item>
+
+		<ul ng-hide="gallery.hide" ng-if="gallery.galleries.length> 0" style="padding-left: 0px;">
+			<li ng-class="gallery.selectionClass" ng-hide="gallery.hide" class='has-sub others' ng-repeat="gallery in gallery.galleries" ng-include="'galleries'" ng-click=""></li>
+		</ul>
+	</script>
+	
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+    <span>
+    <md-button class="md-raised md-success padd-50" ng-click="addGallery()" >Add Folder</md-button>
+  <md-button flex class="md-raised md-primary  text-white"
+							ng-click="cancel()">Add Image </md-button>
+						
+    </span>
+	<div id='cssmenu' style="color: #70829a;">
+		<ul ng-repeat="gallery in galleries" class="menu-list">
+			<li class='has-sub ' ng-include="'galleries'"></li>
+
+		</ul>
+	</div>
+    
+    </md-content>
+</md-card>

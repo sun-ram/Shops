@@ -1342,6 +1342,40 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
+				/* Galleries */
+				apiClass.Gallery = {
+						name: ""
+				};
+				
+				apiClass.Gallery.getGalleryList= function (data,callback) {
+					httpRequest("POST", "gallery/galleries",null, function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				};
+				
+				apiClass.Gallery.add= function (gallery,callback) {
+					httpRequest("POST", "gallery/add",gallery,  function (err, data) {
+						if (err) {
+		
+							callback(err, null);
+		
+						} else {
+		
+							callback(null, data);
+		
+						}
+					});
+				};
+				
+
 		/*product category modules*/
 		apiClass.ProductCategory = {
 				name: ""

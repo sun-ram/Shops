@@ -192,6 +192,15 @@ angular.module('app')
 		controller : 'addproducttypecontroller'
 	})
 
+		
+	// Gallery
+	.state('app.gallery', {
+		url: '/gallery',
+		templateUrl: 'app/modules/gallery/gallery.html',
+		controller : 'galleryCtrl'
+	})
+ 
+
 	// warehouse module
 	.state('app.warehouse', {
 		url: '/warehouse',

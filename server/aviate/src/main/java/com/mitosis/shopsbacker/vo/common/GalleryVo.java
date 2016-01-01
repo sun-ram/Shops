@@ -20,6 +20,7 @@ public class GalleryVo {
 	private String galleryId;
 	private String fileName;
 	private String filePath;
+	private String url;
 	private String type;
 	private char isSummary;
 	private String strFile;
@@ -106,6 +107,14 @@ public class GalleryVo {
 
 	public void setGalleries(List<GalleryVo> galleries) {
 		this.galleries = galleries;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

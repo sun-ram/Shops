@@ -56,4 +56,7 @@ public class GalleryServiceImpl implements GalleryService<T> {
 		return galleryDao.getGalleries();
 	}
 
+	public  List<Gallery> getRootGalleries(){
+		return galleryDao.getRootGalleries();
+	}
 }

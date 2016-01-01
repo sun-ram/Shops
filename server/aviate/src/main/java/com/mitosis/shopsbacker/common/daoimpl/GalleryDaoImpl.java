@@ -58,4 +58,10 @@ public class GalleryDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		return (List<Gallery>) findAll(criteria);
 	}
 
+	  public  List<Gallery> getRootGalleries(){
+		DetachedCriteria criteria = DetachedCriteria.forClass(Gallery.class);
+		criteria.add(Restrictions.eq("isactive",'Y'));
+		criteria.add(Restrictions.isNull("parentGallery"));
+		return (List<Gallery>) findAll(criteria);
+	}
 }

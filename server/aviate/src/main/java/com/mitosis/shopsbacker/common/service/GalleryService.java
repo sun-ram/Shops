@@ -17,4 +17,6 @@ public interface GalleryService<T> {
 	public void addGallery(Gallery gallery);
 
 	public List<Gallery> getGalleries();
+	
+	 public  List<Gallery> getRootGalleries();
 }

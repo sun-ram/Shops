@@ -27,6 +27,7 @@ public class ImageReader extends HttpServlet {
 
 	private static Logger logger = Logger.getLogger(ImageReader.class);
 	private static String IMAGE_FILE_LOCATION;
+	private static String GALLERY_FILE_LOCATION;
 	private static String IMAGE_FILE_URL;
 	@Override
 	public void init() throws ServletException {
@@ -35,6 +36,7 @@ public class ImageReader extends HttpServlet {
 			properties.load(this.getClass().getResourceAsStream(
 					"/properties/serverurl.properties"));
 			IMAGE_FILE_LOCATION = properties.getProperty("imagePath");
+			GALLERY_FILE_LOCATION = properties.getProperty("galleryPath");
 			IMAGE_FILE_URL = properties.getProperty("imageUrl");
 		} catch (IOException e) {
 			logger.error(e);
@@ -46,9 +48,22 @@ public class ImageReader extends HttpServlet {
 			throws ServletException, IOException {
 		logger.info(req.getRequestURL());
 		try{
-				String fname = req.getRequestURL().substring(IMAGE_FILE_URL.length(), req.getRequestURL().length());
-				String name = fname.replaceAll("%20", "\\ ");
-				File file = new File(IMAGE_FILE_LOCATION+name);
+			String fname = null;
+			String name = null;
+			File file = null;
+			
+			String userName = req.getParameter("p");
+			if(userName!=null && userName!="" && "gallery".equalsIgnoreCase(userName)){
+				fname = req.getRequestURL().substring(IMAGE_FILE_URL.length(), req.getRequestURL().length());
+				 name = fname.replaceAll("%20", "\\ ");
+				 file = new File(GALLERY_FILE_LOCATION+name);
+			}else{
+				 fname = req.getRequestURL().substring(IMAGE_FILE_URL.length(), req.getRequestURL().length());
+				 name = fname.replaceAll("%20", "\\ ");
+				 file = new File(IMAGE_FILE_LOCATION+name);
+			}
+				
+				
 				InputStream in = new FileInputStream(file);
 				ServletOutputStream out = resp.getOutputStream();
 				IOUtils.copy(in, resp.getOutputStream());
@@ -58,6 +73,7 @@ public class ImageReader extends HttpServlet {
 				resp.setHeader("Content-Disposition", "inline; filename="+fname);
 				in.close();
 				out.close();
+			
 		}catch(Exception e){
 			logger.error(e);
 		}

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
@@ -310,7 +309,7 @@ public class ProductCategoryRestServices<T> {
 			List<ProductCategoryVo> rootProductCategoryVoList = new ArrayList<ProductCategoryVo>();
 			Map<String, ProductCategoryVo> productCategoryVoParentMap = new HashMap<String, ProductCategoryVo>();
 			ProductCategoryVo prodCategoryVo = new ProductCategoryVo();
-			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
+			getHierarchicalProductCategorys(parentCategories,
 					rootProductCategoryVoList, productCategoryVoParentMap);
 			productCategoryResponseVo
 					.setProductCategories(rootProductCategoryVoList);
@@ -337,7 +336,7 @@ public class ProductCategoryRestServices<T> {
 			List<ProductCategoryVo> rootProductCategoryVoList = new ArrayList<ProductCategoryVo>();
 			Map<String, ProductCategoryVo> productCategoryVoParentMap = new HashMap<String, ProductCategoryVo>();
 			ProductCategoryVo prodCategoryVo = new ProductCategoryVo();
-			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
+			getHierarchicalProductCategorys(parentCategories, 
 					rootProductCategoryVoList, productCategoryVoParentMap);
 			productCategoryResponseVo
 					.setProductCategories(rootProductCategoryVoList);
@@ -453,7 +452,6 @@ public class ProductCategoryRestServices<T> {
 
 	private void getHierarchicalProductCategorys(
 			List<ProductCategory> productCategories,
-			ProductCategoryVo prodCategoryVo,
 			List<ProductCategoryVo> rootProductCategoryVoList,
 			Map<String, ProductCategoryVo> productCategoryVoMap) {
 		for (ProductCategory productCategory : productCategories) {
@@ -478,8 +476,7 @@ public class ProductCategoryRestServices<T> {
 
 			if (productCategory.getProductCategories().size() > 0) {
 				getHierarchicalProductCategorys(
-						productCategory.getProductCategories(),
-						productCategoryVo, rootProductCategoryVoList,
+						productCategory.getProductCategories(), rootProductCategoryVoList,
 						productCategoryVoMap);
 			}
 		}
@@ -530,7 +527,7 @@ public class ProductCategoryRestServices<T> {
 			List<ProductCategoryVo> rootProductCategoryVoList = new ArrayList<ProductCategoryVo>();
 			Map<String, ProductCategoryVo> productCategoryVoParentMap = new HashMap<String, ProductCategoryVo>();
 			ProductCategoryVo prodCategoryVo = new ProductCategoryVo();
-			getHierarchicalProductCategorys(parentCategories, prodCategoryVo,
+			getHierarchicalProductCategorys(parentCategories,  
 					rootProductCategoryVoList, productCategoryVoParentMap);
 
 			List<ProductTypeVo> productTypeVos = productTypeService
