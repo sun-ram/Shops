@@ -1,14 +1,14 @@
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 
-<md-toolbar class=" md-default-theme" style="background-color:transparent;">
-	<div class="md-toolbar-tools" layout="row"  ng-init="getSalesOrderReturnList()">
+
+	<div layout-sm="column" style="padding: 0px 16px;" layout="row"  ng-init="getSalesOrderReturnList()">
   		<h3 layout-align="start">Sales Order Return</h3>
-  		<div class="tbl-search">
+  		<div class="tbl-search padd-t14">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<search-text  original-list="originalList" filtered-list="salesOrderReturnList" pagination="salesOrderPagination" total-records="noOfRecords"/>
   		</div>
     	 </div>
-    	 </md-toolbar>
+    	 
     	 
 <md-data-table-container>
 <table md-data-table class="md-primary"

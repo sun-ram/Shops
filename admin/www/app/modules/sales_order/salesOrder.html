@@ -26,14 +26,16 @@
 </div> -->
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 
-<md-toolbar class=" md-default-theme" style="background-color:transparent;">
-	<div class="md-toolbar-tools" layout="row"  ng-init="getSalesOrderList();getMerchantStore()">
-  		<h3 layout-align="start">Sales Order</h3>
-  		<div class="tbl-search">
+
+	<div layout-sm="column" layout-md="column" style="padding: 0px 16px;" layout="row"  ng-init="getSalesOrderList();getMerchantStore()">
+  		<div flex layout="row" layout-sm="column">
+  		<h3 layout-align="start" layout-align-sm="center">Sales Order</h3>
+  		<div class="tbl-search padd-t14" layout-align-sm="center">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<search-text  original-list="originalList" filtered-list="salesOrderList" pagination="salesOrderPagination" total-records="noOfRecords"/>
   		</div>
-    	<div layout="row">
+  		</div>
+    	<div flex layout-align="end" layout="row" layout-sm="column">
 		<md-datepicker style="background: none;padding: 20px;" layout-padding
 			layout-align="end center" class="bg-none" ng-model="fromDate"
 			ng-change="getSalesByDate()" md-placeholder="From"></md-datepicker>
@@ -45,8 +47,7 @@
 			required ng-change="getSalesByStore(store);"> <md-option ng-repeat="stores in merchantStore" ng-value="stores" >{{stores.name}}</md-option> 
 	    </md-input-container>
 	</div>
-    	 </div>
-    	 </md-toolbar>
+   </div>
     	 
 <md-data-table-container>
 <table md-data-table class="md-primary"

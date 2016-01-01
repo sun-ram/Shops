@@ -22,8 +22,8 @@
 	</div>
 </div> -->
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
-<md-toolbar class=" md-default-theme" style="background-color:transparent;">
-	<div class="md-toolbar-tools" layout="row"  ng-init="getProductStockList();getMerchantStore();">
+
+	<div layout-sm="column" style="padding: 0px 16px;" layout="row"  ng-init="getProductStockList();getMerchantStore();">
 		<div layout = "row" flex="70">
   		<h3 layout-align="start">Product Stock</h3>
   		<div class="tbl-search">
@@ -40,7 +40,7 @@
           		</md-select>
     	 </md-input-container>
     	 </div>
-    	 </md-toolbar>
+    	 
 
 <md-card-content class="nopadd">
 <md-data-table-container>

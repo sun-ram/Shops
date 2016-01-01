@@ -2,10 +2,10 @@
 		<ng-md-icon icon="add" size="35" class="icon-white" ></ng-md-icon>
 	</md-button>
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body" ng-init="getWarehouse()">
- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
-	<div class="md-toolbar-tools" layout="row">
+ 
+	<div layout-sm="column" style="padding: 0px 16px;" layout="row">
   		<h3 layout-align="start">Warehouse</h3>
-    	<div class="tbl-search">
+    	<div class="tbl-search padd-t14">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<search-text  original-list="originalList" filtered-list="getWarehouseList" pagination="warehousePagination" total-records="noOfRecords"/>
   		</div>	
@@ -22,7 +22,7 @@
        <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
       </md-button> -->
     </div>
-   </md-toolbar>
+   
    <md-card-content class="nopadd">
 		<md-data-table-container>
      <!-- <md-list>

@@ -4,10 +4,10 @@
 	</md-button>
 </a>
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
-	<div class="md-toolbar-tools" layout="row" >
-  		<h3 layout-align="start" >Merchants</h3>
-  		<div class="tbl-search ">
+ 
+	<div layout="row" layout-sm="column" style="padding: 0px 16px;">
+  		<h3 layout-align="start">Merchants</h3>
+  		<div class="tbl-search padd-t14">
   			<ng-md-icon icon="search"  class="icon-white"   style="fill: #B5B5A3;"></ng-md-icon>
   			<search-text  original-list="originalList" filtered-list="merchantData" pagination="merchantPagination" total-records="noOfRecords"/>
   		</div>	
@@ -25,7 +25,7 @@
        <ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
       </md-button>-->
     </div>
-   </md-toolbar>
+   
 
    <md-card-content class="nopadd">
 	<md-data-table-container>

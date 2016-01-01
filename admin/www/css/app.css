@@ -120,7 +120,7 @@ input{
 
 /* btn */
 
-.md-success{background-color:#77A20C !important;color:#fff !important; }
+.md-success{background-color:#0f9d58 !important;color:#fff !important; }
 .md-cancel{background-color:#aaa  !important;color:#fff !important;}
 
 /* link  */
@@ -398,7 +398,7 @@ md-select .md-select-value{
 .login-box md-checkbox{ margin:20px 8px 20px 2px;}
 .tbl-body h3{ color:#666666; font-weight:100; padding-right:20px; font-size:20px !important; font-family:'titilium-regular'; border-right:1px solid #dddddd; }
 .tbl-body .tbl-search ng-md-icon{ fill:#979797; height:16px; width:16px; margin-left:20px;top:6px; position:relative;}
-.tbl-body .tbl-search input{ border:none; padding:3px 0px; font-weight:100;outline:0;}
+.tbl-body .tbl-search input{ border:none; padding:3px 0px; font-weight:100;outline:0;font-size: 20px;}
 .tbl-body .tbl-header{color:#333333; padding:10px 0px; font-size:18px !important; background-color:#EEEEEE !important}
 .tbl-body .tbl-body{ color:#666666; }
 
@@ -408,8 +408,8 @@ md-select .md-select-value{
 .text-success{ color:#4eaf4c;}
 
 /* button */
-.btn-danger{ color:red; fill:red;}
-.btn-success{ color:#4eaf4c; fill:#4eaf4c;}
+.btn-danger{ color: #F96D57; fill: #F96D57;}
+.btn-success{ color:#0f9d58 !important; fill:#0f9d58 !important;}
 
 .cursor{ cursor:pointer;}
 
@@ -425,8 +425,14 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 /* MEDIA */
 @media screen and (max-width: 560px) {
   .merch-addr{width: 100px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
-    
+  .tbl-body h3{ border-right: none;}
+  .tbl-body .tbl-search ng-md-icon{margin-left: 0;}    
 }
+
+@media screen and (min-width: 560px) {
+	.padd-t14{padding-top: 14px;}	
+}
+
 @media screen and (min-width: 561px) and (max-width: 767px) {
   .merch-addr{width: 200px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
     
@@ -571,7 +577,7 @@ md-sidenav md-icon {
     background-color: #282D33;
 }
 
-.svgicon_style, md-icon{margin-left: 10px;}
+/* .svgicon_style, md-icon{margin-left: 10px;} */
 .dashbord_liststyle .md-whiteframe-4dp h4 , .chart_header h4{font-size:18px; color:#000; padding:5px; margin: 5px;}
 
 md-toolbar:not(.md-menu-toolbar) md-icon{color: grey ! important; margin: 0px ! important ;}
