@@ -8,7 +8,7 @@ angular.module('aviate.controllers')
 					page: 1
 			};
 			
-			var storeHoliday = $localStorage.storeHoliday; //ipCookie('myCart');
+			var storeHoliday = localStorage.getItem("holidays");
 			if (storeHoliday !== undefined || storeHoliday !== null) {
 				$scope.storeHoliday = null;
 				$scope.storeHoliday = storeHoliday;
@@ -234,12 +234,12 @@ angular.module('aviate.controllers')
 				    			}
 				    			$rootScope.holidayReasons = JSON.parse(data.reason);
 				    			
-				            	$localStorage.storeHoliday = $scope.holidayDates;
+				    			localStorage.setItem("holidays", $scope.holidayDates);
 				                $scope.storeHoliday = $scope.holidayDates;
 				                $localStorage.holidayReasons = undefined;
 				                $localStorage.isTodayHoliday = undefined;
 				                
-						 		var storeHoliday =$localStorage.storeHoliday;
+						 		var storeHoliday = $scope.holidayDates;
 						 		storeHoliday.forEach(function(date){
 						 			var d=new Date();
 						 			d.setHours(0, 0, 0, 0, 0);

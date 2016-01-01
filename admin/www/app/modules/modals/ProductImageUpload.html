@@ -1,0 +1,50 @@
+
+<md-dialog aria-label="Category"  ng-cloak style="width: 100%;">
+	<md-button layout-align="end" style="float: right; position: absolute; color: #333 ! important; right: 0;" class="md-icon-button"  type="button" ng-click="cancel()">
+        <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
+      </md-button>
+      <h2 class="text-center" style="color: #4eaf4c;">Upload Product Image</h2>
+      <form>
+  <md-dialog-content style="padding: 5px;">
+  
+   <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80" layout-align="center center">
+      
+   <md-card-content class="nopadd">
+     <md-radio-group ng-model="radio" layout="row">
+       <md-radio-button value="gallery" class="md-primary">Upload From Gallery</md-radio-button>
+       <md-radio-button value="local"> Upload From Local </md-radio-button>
+     </md-radio-group>
+   </md-card-content>
+   </md-card>
+ <md-card ng-show="radio == 'gallery'">
+	<div layout="row" layout-align="center center">
+	
+  </div>
+</md-card>
+<md-card ng-show="radio == 'local'">
+
+	<div layout="row" layout-align="center center">
+		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
+	     		<label class="cursor" style="position:relative; z-index:1; color:#000000;" id="file-uploadtest"> 
+				Upload Image
+				<input id="file-upload1" type="file" ng-model="image.originalFrontImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')" /> 
+				</label>
+				<img ng-show="image.originalFrontImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" ng-src="{{image.originalFrontImage}}" ng-required="true" /> 
+		
+				<img ng-hide="image.originalFrontImage" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" ng-src={{product.image.url}} ng-required="true" /> 
+		    </div> 
+		 </div>
+	    		    
+</md-card>
+<md-card>
+	<div layout="row" layout-align="end end">
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="passImage(image)">Save</md-button>
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
+  </div>
+</md-card>
+
+<!-- -------------------------------------- -->
+			   
+  </md-dialog-content>
+  </form>
+</md-dialog>

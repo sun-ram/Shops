@@ -96,7 +96,18 @@ angular.module('aviate.directives')
 			    
 			    $rootScope.deliveryTimeValidation=function(){
 			    	 $scope.isHoliday = false;
-			    	 var holiday = $localStorage.storeHoliday; 
+			    	 var holiday = [];
+			    	 var storeHoliday = localStorage.getItem("holidays");
+			    	 storeHoliday = storeHoliday.split(",");
+			    	 
+			    	 storeHoliday.forEach(function(date){
+		    			 holiday.push(new Date(date));
+		    		  });
+		    	   	 /*
+			    	 var len = storeHoliday.length;
+			    	 for(var i=0;i<len;i++){
+			    		 holiday.push(new Date(storeHoliday[i]));
+			    	 }*/
 			    	 var selectedDate = new Date($rootScope.delivery.date);
 			    	 selectedDate.setHours(0, 0, 0, 0, 0);
 			    	
