@@ -63,13 +63,14 @@ public class Store implements java.io.Serializable {
 	private List<DiscountProduct> discountProducts = new ArrayList<DiscountProduct>();
 	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
 	private List<SalesOrderReturn> salesOrderReturns = new ArrayList<SalesOrderReturn>();
+	private List<Billing> billings = new ArrayList<Billing>();
 
 	public Store() {
 	}
 
 	public Store(String storeId, String updatedby, String createdby,
-			Merchant merchant, String name, char isactive, char isActivated,Date created,
-			Date updated) {
+			Merchant merchant, String name, char isactive, char isActivated,
+			Date created, Date updated) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -81,13 +82,22 @@ public class Store implements java.io.Serializable {
 		this.updated = updated;
 	}
 
-	public Store(String storeId, String updatedby, String createdby,
-			User user, Merchant merchant, String name, char isactive,char isactivated,
-			Date created, Date updated, List<Warehouse> warehouses, List<OrderNumber> orderNumbers,
-			List<ProductCategory> productCategories, List<Favourite> favourites, List<MissingProduct> missingProducts,
-			List<Storagebin> storagebins, List<Banner> banners, List<SalesOrder> salesOrders,List<DeliveryTimeSlot> deliveryTimeSlots,
-			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts, List<User> users, List<Movement> movements,
-			List<ProductType> productTypes, List<ProductInventory> productInventories,List<Discount> discounts,List<StoreHoliday> storeHolidays,List<DiscountProduct> discountProducts,List<SalesOrderReturn> salesOrderReturns) {
+	public Store(String storeId, String updatedby, String createdby, User user,
+			Merchant merchant, String name, char isactive, char isactivated,
+			Date created, Date updated, List<Warehouse> warehouses,
+			List<OrderNumber> orderNumbers,
+			List<ProductCategory> productCategories,
+			List<Favourite> favourites, List<MissingProduct> missingProducts,
+			List<Storagebin> storagebins, List<Banner> banners,
+			List<SalesOrder> salesOrders,
+			List<DeliveryTimeSlot> deliveryTimeSlots,
+			List<CustomerFeedback> customerFeedbacks, List<MyCart> myCarts,
+			List<User> users, List<Movement> movements,
+			List<ProductType> productTypes,  List<Billing> billings,
+			List<ProductInventory> productInventories,
+			List<Discount> discounts, List<StoreHoliday> storeHolidays,
+			List<DiscountProduct> discountProducts,
+			List<SalesOrderReturn> salesOrderReturns) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -114,9 +124,10 @@ public class Store implements java.io.Serializable {
 		this.productInventories = productInventories;
 		this.discounts = discounts;
 		this.storeHolidays = storeHolidays;
-		this.discountProducts=discountProducts;
-		this.deliveryTimeSlots=deliveryTimeSlots;
+		this.discountProducts = discountProducts;
+		this.deliveryTimeSlots = deliveryTimeSlots;
 		this.salesOrderReturns = salesOrderReturns;
+		this.billings=billings;
 	}
 
 	@Id
@@ -130,6 +141,7 @@ public class Store implements java.io.Serializable {
 	public void setStoreId(String storeId) {
 		this.storeId = storeId;
 	}
+
 	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return this.updatedby;
@@ -138,7 +150,7 @@ public class Store implements java.io.Serializable {
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}
-	
+
 	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return this.createdby;
@@ -185,7 +197,7 @@ public class Store implements java.io.Serializable {
 	public void setIsactive(char isactive) {
 		this.isactive = isactive;
 	}
-	
+
 	@Column(name = "IS_ACTIVATED", nullable = false, length = 1)
 	public char getIsActivated() {
 		return isActivated;
@@ -340,50 +352,59 @@ public class Store implements java.io.Serializable {
 	public void setProductInventories(List<ProductInventory> productInventories) {
 		this.productInventories = productInventories;
 	}
-	
+
 	@OneToMany(mappedBy = "store")
-	public List<Discount>  getDiscounts() {
+	public List<Discount> getDiscounts() {
 		return this.discounts;
 	}
 
 	public void setDiscounts(List<Discount> discounts) {
 		this.discounts = discounts;
 	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-		public List<StoreHoliday> getStoreHolidays() {
-			return storeHolidays;
-		}
-	
-		public void setStoreHolidays(List<StoreHoliday> storeHolidays) {
-			this.storeHolidays = storeHolidays;
-		}
-		
-				@OneToMany(mappedBy = "store")
-				public List<DiscountProduct>  getDiscountProducts() {
-					return this.discountProducts;
-				}
-		
-				public void setDiscountProducts(List<DiscountProduct> discountProducts) {
-					this.discountProducts = discountProducts;
-				}		
-		
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-		public List<DeliveryTimeSlot> getDeliveryTimeSlots() {
-			return deliveryTimeSlots;
-		}
+	public List<StoreHoliday> getStoreHolidays() {
+		return storeHolidays;
+	}
 
-		public void setDeliveryTimeSlots(List<DeliveryTimeSlot> deliveryTimeSlots) {
-			this.deliveryTimeSlots = deliveryTimeSlots;
-		}
+	public void setStoreHolidays(List<StoreHoliday> storeHolidays) {
+		this.storeHolidays = storeHolidays;
+	}
 
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
-		public List<SalesOrderReturn> getSalesOrderReturns() {
-			return salesOrderReturns;
-		}
+	@OneToMany(mappedBy = "store")
+	public List<DiscountProduct> getDiscountProducts() {
+		return this.discountProducts;
+	}
 
-		public void setSalesOrderReturns(List<SalesOrderReturn> salesOrderReturns) {
-			this.salesOrderReturns = salesOrderReturns;
-		}
+	public void setDiscountProducts(List<DiscountProduct> discountProducts) {
+		this.discountProducts = discountProducts;
+	}
 
-		
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+	public List<DeliveryTimeSlot> getDeliveryTimeSlots() {
+		return deliveryTimeSlots;
+	}
+
+	public void setDeliveryTimeSlots(List<DeliveryTimeSlot> deliveryTimeSlots) {
+		this.deliveryTimeSlots = deliveryTimeSlots;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+	public List<SalesOrderReturn> getSalesOrderReturns() {
+		return salesOrderReturns;
+	}
+
+	public void setSalesOrderReturns(List<SalesOrderReturn> salesOrderReturns) {
+		this.salesOrderReturns = salesOrderReturns;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+	public List<Billing> getBillings() {
+		return billings;
+	}
+
+	public void setBillings(List<Billing> billings) {
+		this.billings = billings;
+	}
+
 }

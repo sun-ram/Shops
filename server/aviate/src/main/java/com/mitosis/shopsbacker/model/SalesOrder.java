@@ -68,6 +68,7 @@ public class SalesOrder implements java.io.Serializable {
 	private List<OrderTax> orderTaxes = new ArrayList<OrderTax>();
 	private List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 	private List<Favourite> favourites = new ArrayList<Favourite>();
+	private List<Billing> billings = new ArrayList<Billing>();
 
 	public SalesOrder() {
 	}
@@ -108,7 +109,7 @@ public class SalesOrder implements java.io.Serializable {
 			String status, BigDecimal totalTaxAmount,
 			BigDecimal shippingCharge, BigDecimal netAmount,
 			Image customerSign, Merchant merchant, Date deliveredTime,
-			char deliveryFlag, BigDecimal discountAmount, char isactive,
+			char deliveryFlag, BigDecimal discountAmount, char isactive,List<Billing> billings,
 			String createdby, Date created, Date updated, String updatedby, Date pickupStartTime, Date packedTime, Date deliveryStartTime, 
 			Date shopperAssignedTime, Date backerAssignedTime) {
 		this.salesOrderId = salesOrderId;
@@ -144,6 +145,7 @@ public class SalesOrder implements java.io.Serializable {
 		this.deliveryStartTime = deliveryStartTime;
 		this.shopperAssignedTime = shopperAssignedTime;
 		this.backerAssignedTime = backerAssignedTime;
+		this.billings=  billings;
 	}
 
 	@Id
@@ -497,6 +499,15 @@ public class SalesOrder implements java.io.Serializable {
 
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
+	}
+
+	@OneToMany(mappedBy = "salesOrder")
+	public List<Billing> getBillings() {
+		return billings;
+	}
+
+	public void setBillings(List<Billing> billings) {
+		this.billings = billings;
 	}
 	
 	
