@@ -23,15 +23,15 @@
 </div> -->
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 
-	<div layout-sm="column" style="padding: 0px 16px;" layout="row"  ng-init="getProductStockList();getMerchantStore();">
-		<div layout = "row" flex="70">
+	<div clayout-sm="column" layout-md="column" style="padding: 0px 16px;"  layout="row"  ng-init="getProductStockList();getMerchantStore();">
+		<div layout = "row" layout-sm="column" flex>
   		<h3 layout-align="start">Product Stock</h3>
-  		<div class="tbl-search">
+  		<div class="tbl-search padd-t14">
   			<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
   			<search-text  original-list="originalList" filtered-list="productStockList" pagination="productStockPagination" total-records="noOfRecords"/>
   		</div>
   		</div>
-    	 <md-input-container flex="30" layout-align="center end" ng-hide="user.role == 'STOREADMIN'">
+    	 <md-input-container flex layout-align="end" ng-hide="user.role == 'STOREADMIN'">
        			<label>Store<span style="color:red">*</span></label>
          		<md-select name="myModel" ng-model="storesId" ng-change="getStockListByStore()" ng-required="true">
 		            <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >
