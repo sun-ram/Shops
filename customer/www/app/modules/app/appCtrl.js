@@ -73,7 +73,7 @@ angular.module('aviate.controllers')
 		
 		var timeOut;
 		$scope.addToCart = function(product){
-		   if(product.noOfQuantityInCart > 0){
+		   if(product.noOfQuantityInCart >= 0){
 			  if(timeOut)
 					clearTimeout(timeOut);
 				timeOut = setTimeout(function() {

@@ -32,11 +32,11 @@
 		        </div>
 		        	<div class="md-list-item-text padd-l30 padd-l10 marg-l10" flex="20" flex-md="30" flex-sm="25">
 		        	<div class="cart-count">
-		       		<md-button ng-show="product.product.noOfQuantityInCart > 0" class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty - 1;addToCart(product.product)">
+		       		<md-button ng-show="product.qty > 0" class="md-icon-button" aria-label="More" ng-click="product.product.noOfQuantityInCart = product.qty - 1;addToCart(product.product)">
                           <!-- <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon> -->
                           <ng-md-icon icon="remove" style="fill: #fff" size="22"></ng-md-icon> 
                     </md-button>
-                    <md-button ng-hide="product.product.noOfQuantityInCart > 0" class="md-icon-button" aria-label="More" ng-click="">
+                    <md-button ng-hide="product.qty > 0" class="md-icon-button" aria-label="More" ng-click="">
                           <!-- <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon> -->
                           <ng-md-icon icon="remove" style="fill: #fff" size="22"></ng-md-icon> 
                     </md-button>
