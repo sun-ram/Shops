@@ -382,7 +382,7 @@ right: -8px;
 md-backdrop.md-sidenav-backdrop{ z-index:-59;}
 .cardsliderheader{padding: 0px; min-height: 100% ! important; min-width: 0 !important;}
 .cardsliderheader md-list{height: auto; overflow: auto;padding-top: 0px;max-height: 399px;}
-.cartsliderlist_img{width:60px; margin:5px;height:60px;}
+.cartsliderlist_img{width:90px; margin:5px;height:75px;text-align: center;}
 .listofcartitem md-list-item{padding: 8px 12px;}
 .cartsliderlist_img img{width:100%;height:100%;}
 .text-white {color: #fff;}
@@ -882,7 +882,7 @@ font-size: 12px !important;
     box-shadow: inherit;
 }
 .cart-dropdown{
-	height:100% !important; width:320px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
+	height:100% !important; width:350px; box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
 }
 .locDialog{
     width: 500px;
@@ -936,9 +936,9 @@ font-size: 12px !important;
 
 .more{
        color: #FFFFFF !important;
-       border: 1px solid #ffffff; 
+       /* border: 1px solid #ffffff; */ 
        border-radius: 0px;
-       background-color:#0F9D58;
+       /* background-color:#0F9D58; */
 }
 
 .pro-offer{ position:absolute; transform:rotate(-45deg); left:-38px; text-align:center; color:#FFFFFF; top:-15px; padding-right:20px;   height:25px; padding-top:15px; width:100px;}
@@ -1257,7 +1257,20 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
 .text-weight-600          { font-weight:600;}
 .text-weight-bold         { font-weight:bold;}
 
+
+.save-offer{
+	position: absolute;
+	transform: rotate(-45deg);
+	margin-top: -9px;
+	font-size: 10px;
+	padding: 2px;
+	margin-left: -8px
+}
+.save-offer span{ position: absolute; margin-top: -40px; margin-left: -12px; color: #fff;}
      
+.save{
+	width: 45px ! important; height: 45px ! important;
+}
 
 
 
