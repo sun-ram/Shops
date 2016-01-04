@@ -3,9 +3,25 @@
  */
 
 angular.module('aviateAdmin.controllers')
-	.controller("galleryCtrl", 
-	['$scope', '$state','toastr','$rootScope','GalleryServices',
+	.controller("galleryCtrl", ['$scope', '$state','toastr','$rootScope','GalleryServices',
 	 function($scope, $state, toastr, $rootScope, GalleryServices) {
+		
+		$scope.galleryFolder = [{
+				"fileName":"home",
+				"filePath":"home",
+				"galleries":{
+					"fileName":"Sample1",
+					"filePath":"Sample1",
+				}
+			},
+			{
+				"fileName":"picture",
+				"filePath":"picture",
+				"galleries":{
+					"fileName":"Sample",
+					"filePath":"Sample",
+				}
+			}];
 		
 		
 		  $scope.optimizeData = function (data, exceptionIndex){
@@ -22,7 +38,7 @@ angular.module('aviateAdmin.controllers')
               }else{
                   $scope.optimizeInnerData(data);
               }   
-          }
+          };
 		  
 		  $scope.getRootGallery = function (newData, keyCatId, currentRoot){
               if(newData && newData.length>0){
@@ -95,7 +111,7 @@ angular.module('aviateAdmin.controllers')
                   $scope.manipulateSubtree(newData, parentId, parentchanged);
               }
               
-          }
+          };
           
 		  $scope.getGalleryByGalleryId = function(galleryId){
       		if(galleryId){
@@ -105,7 +121,7 @@ angular.module('aviateAdmin.controllers')
                   $scope.findSubtree($scope.galleries, galleryId,false);
       		}
       		
-      	}
+      	};
 		   
       	$scope.optimizeInnerData = function (data){
 //      		console.log("Data --->",data);
@@ -116,7 +132,7 @@ angular.module('aviateAdmin.controllers')
               for(var j=0;data.galleries && data.galleries[j];j++){
                   $scope.optimizeData(data.galleries[j]);
               }
-          }
+          };
 		
 		$scope.galleryList = function(){
 			$scope.data={};
@@ -129,7 +145,7 @@ angular.module('aviateAdmin.controllers')
     			$scope.galleries=data;
                 console.log("Manipulated data --->",data);
                });
-          }
+          };
         $scope.galleryList();
         
         $scope.addGallery=function (){
@@ -143,6 +159,6 @@ angular.module('aviateAdmin.controllers')
 //    			$scope.galleries=data;
 //                console.log("Manipulated data --->",data);
                });
-        }
+        };
 		
 	}]);

@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+
+.background-setup{
+    bottom: 10px;
+    position: fixed;
+    top: 150px;
+    right: 30px;
+    left: 16px;
+    /* transform: translate(-50%, -50%); */
+}
+.left-bg {
+	background-color: #e9abab;
+}
+
+.right-bg {
+	background-color: #ade1e6;
+}

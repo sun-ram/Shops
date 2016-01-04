@@ -191,16 +191,6 @@ angular.module('app')
 		templateUrl: 'app/modules/product/producttype/addproducttype.html',
 		controller : 'addproducttypecontroller'
 	})
-
-		
-	// Gallery
-	.state('app.gallery', {
-		url: '/gallery',
-		templateUrl: 'app/modules/gallery/gallery.html',
-		controller : 'galleryCtrl'
-	})
- 
-
 	// warehouse module
 	.state('app.warehouse', {
 		url: '/warehouse',
@@ -528,7 +518,16 @@ angular.module('app')
 		url: '/productoffer/details',
 		templateUrl: 'app/modules/productoffer/details/productOfferDetails.html',
 		controller : 'productoffercontroller'
-	});
+	})
+		
+	// Gallery
+	.state('app.gallery', {
+		url: '/gallery',
+		templateUrl: 'app/modules/gallery/gallery.html',
+		controller : 'galleryCtrl'
+	})
+ 
+	;
 
 
 

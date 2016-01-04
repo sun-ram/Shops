@@ -1,4 +1,5 @@
-
+<link rel="stylesheet" href="css/gallery.css" />
+<!-- 
    <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
       <h3 style="margin-left:-10px;" class="md-flex">Gallery</h3>
@@ -7,13 +8,11 @@
   
  <md-card flex-gt-sm="90" flex-gt-md="80"> 
  
- <script type="text/ng-template" id="galleries">
-	
-		<md-menu-item ng-class="gallery.selectionClass" class="others" ng-hide="gallery.hide" ng-if="(gallery.rootParent>=0)" ng-click="getGalleryByGalleryId(gallery.galleryId);activemenu($event)">
+ <script type="text/ng-template" id="galleries"> -->
+		<!-- <md-menu-item ng-class="gallery.selectionClass" class="others" ng-hide="gallery.hide" ng-if="(gallery.rootParent>=0)" ng-click="getGalleryByGalleryId(gallery.galleryId);activemenu($event)">
 			<md-button ng-class="gallery.selectionClass" class="btn-menu">
 				<div layout="row" style="text-transform: color:#70829a;">
 					<ng-md-icon icon="{{gallery.extrIconName}}" style="fill:#cca200; width:50px;height:50px;transform: translateY(40%);right: 5%;position: absolute;"></ng-md-icon>
-				<!--	&nbsp;&nbsp;&nbsp;&nbsp;<ng-md-icon icon="{{gallery.folderIconName}}" style="fill:#cca200; width:60px;height:60px;transform: translateY(40%);left: 5%;position: absolute;"></ng-md-icon> -->
 					{{gallery.fileName}}</div>
 			</md-button>
 		</md-menu-item>
@@ -22,7 +21,7 @@
 			<md-button ng-class="gallery.selectionClass" class="btn-menu">
 					<div layout="row" style="text-transform: color:#70829a;">
 				<ng-md-icon icon="{{gallery.extrIconName}}" style="fill:#cca200; width:50px;height:50px;transform: translateY(40%);right: 5%;position: absolute;"></ng-md-icon>
-              <!-- &nbsp;&nbsp;&nbsp;&nbsp;<ng-md-icon icon="{{gallery.folderIconName}}" style="fill:#cca200; width:60px;height:60px;transform: translateY(40%);left: 5%;position: absolute;"></ng-md-icon> -->				
+              &nbsp;&nbsp;&nbsp;&nbsp;<ng-md-icon icon="{{gallery.folderIconName}}" style="fill:#cca200; width:60px;height:60px;transform: translateY(40%);left: 5%;position: absolute;"></ng-md-icon>				
 				&nbsp;&nbsp;&nbsp;&nbsp;{{gallery.fileName}}</div>
 			</md-button>
 		</md-menu-item>
@@ -47,4 +46,35 @@
 	</div>
     
     </md-content>
-</md-card>
+</md-card> -->
+<div>
+<md-toolbar layout="row">
+    <div class="md-toolbar-tools">
+      <button hide-gt-sm class="menuBtn" aria-label="Toggle Menu">
+      </button>
+      <h1 layout-align-gt-sm="center">
+        Gallery
+      </h1>
+    </div>
+ </md-toolbar>
+  
+ <div layout="row" layout-sm="column" class='background-setup'>
+    <md-content flex='20' role="navigation">
+      <ul class="side-menu">
+        <li ng-repeat="section in vm.menu.sections" class="parent-list-item"
+            ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+          <h2 class="menu-heading" ng-if="section.type === 'heading'"
+              id="heading_{{ section.name | nospace }}">
+            {{section}}
+          </h2>
+          <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+          <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+        </li>
+      </ul>
+
+    </md-content>
+  <md-content flex='80' class='right-bg'>
+    I'm below on mobile, and to the right on larger devices.
+  </md-content>
+</div>
+</div>
