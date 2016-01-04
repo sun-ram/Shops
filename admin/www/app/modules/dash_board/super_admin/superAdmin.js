@@ -1,11 +1,11 @@
-aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT','myConfig', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q',
-    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, myConfig, $rootScope, CommonServices, StoreServices, api, $http,$q) {
+aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$location', '$state', '$mdDialog', 'EmployeeService', 'toastr', 'CONSTANT','myConfig', '$rootScope', 'CommonServices', 'StoreServices', 'api', '$http','$q','$timeout',
+    function ($scope, $localStorage, $location, $state, $mdDialog, EmployeeService, toastr, CONSTANT, myConfig, $rootScope, CommonServices, StoreServices, api, $http,$q,$timeout) {
 		var commonNodeURL = myConfig.node_server_url;
 		var reportType = CONSTANT.DASHBOARD.DEFAULT_REPORT_TYPE;
 		var commition = CONSTANT.DASHBOARD.COMMITION_PERCENTAGE;
 		var deliveryTimeSpan = CONSTANT.DASHBOARD.DELIVERY_TIME_SPAN;
 		var trafficTimeSpan = CONSTANT.DASHBOARD.ADJUSTABLE_TRAFIC_TIME_SPAN;
-		var growthRatioChartSpan = 182;
+		var growthRatioChartSpan = 91;
 		var width = 300;
 		var height = 300;
 		var index;
@@ -38,7 +38,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.customersRaisedPrevWeek = 0;
 		$scope.d3LineData = [];
 		var growthYcount = 10;
-		var growthXcount = 26;
+		var growthXcount = growthRatioChartSpan / 7;
 		$scope.raisedTableTitle = "Half Year Report";
 		
 
@@ -106,7 +106,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					bottom: 50,
 					left: 60
 				}
-				var width = 1010 - margin.left - margin.right;
+				var width = 1011 - margin.left - margin.right;
 				var height = 450 - margin.top - margin.bottom;
 				var zoomArea = {
 					x1: 0,
@@ -161,6 +161,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					.attr("width", 0)
 					.attr("height", 0)
 					.attr("x", 0)
+					.attr("id","bandrect")
 					.attr("y", 0)
 					.attr("class", "band");
 
@@ -193,6 +194,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					.attr("width", width - 10)
 					.attr("height", height)
 					.attr("class", "zoomOverlay")
+					.attr("id","outerRect")
 					/*.attr("style","display:none")*/
 					.call(drag);
 
@@ -222,6 +224,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 				var divPos = {};
 				var offset = $("rect").offset();
+				$("outerRect").mouseleave(function(e){
+					rect
+				});
 			
 				$("rect").mousemove(function(e){
 					if(!dragstarted && !suspendMoveOperation){
@@ -230,11 +235,12 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 								left: e.pageX - offset.left,
 								top: e.pageY - offset.top
 							};
-						divPos.left = divPos.left - (divPos.left % 35);
+						var rectWidth = (width / (growthRatioChartSpan / 7));
+						divPos.left = divPos.left - (divPos.left % rectWidth);
 						/*divPos.left = divPos.left - 35;*/
 						if(divPos.left < 0) divPos.left = 0;
 						
-						for(var i=0;i<35;i++){
+						for(var i=0;i < rectWidth;i++){
 
 							divPos.left++;
 							var pos = [divPos.left,0];
@@ -262,7 +268,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 							d3.select(".band").transition().duration(1)
 								.attr("width", Math.abs(bandPos[0] - pos[0]))
 								.attr("height", Math.abs(bandPos[1] - pos[1]));
-							console.log("Rect Position ==",divPos);
 						}
 						var x1 = x.invert(bandPos[0]);
 						var x2 = x.invert(pos[0]);
@@ -740,16 +745,19 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			});
 		};
 		
-		function getQualityStats (){
+		function getQualityStats (times){
 			$scope.qualirtStatsRecords = [];
 			var i=0,len;
 			var tmpArray = [],red,green,yellow;
 			var createdTime;
 			var deliveredTime; 
-			len = $scope.merchants.Books.length;
-			for(;i<len;i++){
+			console.info("Quality stats review ");
+			if((!$scope.merchants || !$scope.merchants.Books) && times!=1){
+				$timeout(getQualityStats(1),3000);
+			}
+			for(;($scope.merchants.Books && i<$scope.merchants.Books.length);i++){
 				tmpArray = [];
-				red=green=yellow=0.5;
+				red=green=yellow=0;
 				var j=0,solen = $scope.salesOrders.Books.length;
 				for(;j<solen;j++){
 					if($scope.salesOrders.Books[j].MERCHANT_ID == $scope.merchants.Books[i].MERCHANT_ID && $scope.salesOrders.Books[j].DELIVERY_DATE){
@@ -1132,7 +1140,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }];
 
 			sendHttpRequest('salesOrder').then(function (data) {
-				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
+				data.Books = _.reject(data.Books, function(book){ return (book.ISACTIVE != 'Y' || book.STATUS != 'Delivered');});
 				console.info("salesOrder Received ", data);
 				postSalesOrder(data);
 			});
@@ -1170,14 +1178,12 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 		$scope.proceedAddresses = function (callback) {		
 			sendHttpRequest('address').then(function (data) {
-				/*data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});*/
 				$scope.addresses = data;
 				console.info("Addresses Received =>");
 			});
 		};
 		$scope.proceedUsers = function (callback) {
 			sendHttpRequest('users').then(function (data) {
-				/*data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});*/
 				$scope.users = data;
 				console.info("users Received", data);
 			});
@@ -1190,8 +1196,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				activeCustomers.Books = _.reject(activeCustomers.Books, function(book){ return book.ISACTIVE != 'Y';});
 				filteredCustomers(activeCustomers);
 				console.info("Customers Received",data);
-				
-				/*postCustomer(data);*/
 			});
 		};
 		
