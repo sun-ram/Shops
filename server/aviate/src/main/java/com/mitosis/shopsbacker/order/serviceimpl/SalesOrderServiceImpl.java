@@ -29,6 +29,7 @@ import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
+import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
@@ -264,7 +265,9 @@ Serializable {
 		}
 		if(salesOrder.getBacker()!=null){
 			UserVo userVo=new UserVo();
-			userVo.setName(salesOrder.getBacker().getName());
+			User backer = salesOrder.getBacker();
+			userVo.setName(backer.getName());
+			userVo.setPhoneNo(backer.getPhoneNo());
 			salesOrderVo.setBacker(userVo);
 		}
 		merchantVo.setMerchantId(merchant.getMerchantId()); 

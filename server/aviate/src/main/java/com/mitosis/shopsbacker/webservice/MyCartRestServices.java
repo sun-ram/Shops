@@ -1,6 +1,5 @@
 package com.mitosis.shopsbacker.webservice;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,11 +34,13 @@ import com.mitosis.shopsbacker.vo.customer.AddToCartRequestVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartProductVo;
 import com.mitosis.shopsbacker.vo.customer.MyCartVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
-import com.sun.imageio.plugins.common.BogusColorSpace;
 
 @Path("mycart")
 @Controller("myCartRestServices")
 public class MyCartRestServices<T> {
+
+	final static Logger log = Logger.getLogger(ProductInventoryRestService.class
+			.getName());
 
 	@Autowired
 	CustomerService<T> customerService;
@@ -117,6 +119,7 @@ public class MyCartRestServices<T> {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			log.error(CommonUtil.getErrorMessage(e));
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 			response.setErrorString(e.getMessage());
 		}
@@ -156,6 +159,7 @@ public class MyCartRestServices<T> {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+			log.error(CommonUtil.getErrorMessage(e));
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 			response.setErrorString(e.getMessage());
 		}
@@ -203,6 +207,7 @@ public class MyCartRestServices<T> {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			log.error(CommonUtil.getErrorMessage(e));
 			response.setStatus(SBMessageStatus.FAILURE.getValue());
 			response.setErrorString(e.getMessage());
 		}
@@ -263,6 +268,7 @@ public class MyCartRestServices<T> {
 			myCartResponseVo.setMyCart(myCartVoList);
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(CommonUtil.getErrorMessage(e));
 			myCartResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
 			myCartResponseVo.setErrorString(e.getMessage());
 		}

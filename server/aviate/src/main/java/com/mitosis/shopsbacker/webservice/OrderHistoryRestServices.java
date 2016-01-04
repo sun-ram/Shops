@@ -19,6 +19,7 @@ import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.responsevo.SalesOrderResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
+import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.order.SalesOrderVo;
 
 /**
@@ -54,6 +55,8 @@ public class OrderHistoryRestServices<T> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
+			salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			salesOrderResponse.setErrorString(CommonUtil.getErrorMessage(e));
 		} finally{
 			response = CommonUtil.getObjectMapperWithSerializationFeature(salesOrderResponse);
 		}
