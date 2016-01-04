@@ -60,7 +60,11 @@ angular.module('aviate.directives')
 				$scope.options = value ? $scope.hourOptions : $scope.minuteOptions;
 			});
 			$scope.$watch("hour + period", function () {
-				$scope.datetime.setHours($scope.period == "pm" ? $scope.hour + 12 : $scope.hour);
+				if(angular.isString($scope.hour)){
+					$scope.datetime.setHours($scope.period == "pm" ? parseInt($scope.hour) + 12 : $scope.hour);
+				}else{
+					$scope.datetime.setHours($scope.period == "pm" ? $scope.hour + 12 : $scope.hour);
+				}
 				$rootScope.totalHours=$scope.datetime.getTime();
 				$rootScope.hour = $scope.datetime.getHours();
 				$rootScope.period = $scope.period;
