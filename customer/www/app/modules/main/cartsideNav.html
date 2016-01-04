@@ -1,4 +1,3 @@
-
 <md-menu-content class="padd-0 cart-dropdown" md-position-mode="target-right target">
            <div ng-if="myCart.cartItem.length <= 0">
 					<md-toolbar layout="row" class="bg-white ht55">
@@ -25,6 +24,11 @@
 			       		<md-list-item layout="row" class="md-3-line" ng-repeat="item in myCart.cartItem">
 					      <span class="mg-tb25">{{ item.qty}} x </span>
 					      <div class="cartsliderlist_img">
+					      <div class="save-offer ng-scope md-success">
+					      					<img class="save" src="assets/images/save.png" />
+					      					<span>Save </br>Rs.1300</span>
+                            			 	<!-- <img class="save" src="assets/img/icon/savemoney.svg" /> -->
+                            			 </div>
 					      	<img ng-src="{{item.product.image.url}}" class="md-avatar" alt="{{item.who}}" />
 					      </div>
 					        
@@ -33,7 +37,10 @@
 							<h4>{{item.product.unit}}{{item.product.uom.name}}</h4>
 							<h4>Rs {{item.discountPrice}}</h4>
 					        </div>
-							 <h6 flex ng-if="item.product.price > item.discountPrice" >save {{(item.product.price - item.discountPrice) * (item.qty) | number:2}}</h6>
+					        <div ng-if="item.product.price > item.discountPrice"  class="md-list-item-text marg-5 padd_tb10" style="color: #0F9D58; font-variant: normal;" layout="column">
+					        <h4>Save</h4>
+							 <h4 ng-bind-html="myCart.grossAmount | currency : rupeesSymbol" > {{(item.product.price - item.discountPrice) * (item.qty) | number:2}}</h4>
+							 </div>
 							<div layout="column">
 								 <h4 flex style="margin: 25px 10px; font-weight: 400;" ng-bind-html="item.discountPrice * item.qty | currency : rupeesSymbol"></h4>
 							</div>
