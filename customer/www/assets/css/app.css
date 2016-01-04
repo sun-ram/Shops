@@ -781,7 +781,7 @@ font-size: 12px !important;
    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
    filter: alpha(opacity=0);
    opacity: 0;
-   background-color: rgba(0,0,0, 0.4);
+   background-color: rgba(15,157,88,0.5);
    -webkit-transition: all 0.4s ease-in-out;
    -moz-transition: all 0.4s ease-in-out;
    -o-transition: all 0.4s ease-in-out;
@@ -1234,7 +1234,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
 
 /*  pro-detail-popup  */
 
-.pro-zoom-img                  		{ width:100%; height:auto; min-height:250px; background-color:#f6f7f9;}
+.pro-zoom-img                  		{ width:100%; height:auto; }
 .pro-zoom-img img              		{ width:100%; }
 .pro-thimbnail-img             		{ width:100%; margin:10px 0px;}
 .pro-thimbnail-img span        		{  box-sizing:border-box;}

@@ -15,17 +15,11 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 			}
 
 			$scope.showTabShoper=function(salesOrder,ev) {
-				var userVo = {};
-				if($rootScope.user.role == "MERCHANTADMIN"){
-					userVo.merchant = {
-							"merchantId":$rootScope.user.merchantId
-					};
-				}else if($rootScope.user.role == "STOREADMIN"){
-					userVo.store = {
-							"storeId":$rootScope.user.storeId
-					};
-				}
-				SalesOrderServices.getShoperDetails(userVo).then(function(data) {
+				$scope.userVo = {};
+				$scope.userVo.store = {
+						"storeId":salesOrder.store.storeId
+				};
+				SalesOrderServices.getShoperDetails($scope.userVo).then(function(data) {
 					$scope.showShoperDetails(salesOrder,ev,data);
 
 				});
@@ -72,17 +66,11 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 			};
 
 			$scope.showTabBacker=function(salesOrder,ev) {
-				var userVo = {};
-				if($rootScope.user.role == "MERCHANTADMIN"){
-					userVo.merchant = {
-							"merchantId":$rootScope.user.merchantId
-					};
-				}else if($rootScope.user.role == "STOREADMIN"){
-					userVo.store = {
-							"storeId":$rootScope.user.storeId
-					};
-				}
-				SalesOrderServices.getBackerDetails(userVo).then(function(data) {
+				$scope.userVo = {};
+				$scope.userVo.store = {
+						"storeId":salesOrder.store.storeId
+				};
+				SalesOrderServices.getBackerDetails($scope.userVo).then(function(data) {
 					$scope.showBackerDetails(salesOrder,ev,data);
 
 				});
@@ -164,23 +152,23 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			$scope.storeFilter= function(){
 				var request = {
-				"storeId":$scope.storeId
+						"storeId":$scope.storeId
 				};
 				$scope.search=$scope.storeId;
 				/*SalesOrderServices.getSalesOrderByStore(request).then(function(data) {
 				$localStorage.salesorderfilter = data;
 				$scope.salesOrderList = $localStorage.salesorderfilter;
 				});*/
-				};
+			};
 
 			$scope.getSalesByStore= function(store){
-				 
-				
+
+
 				$scope.salesdOrderVo={};
 				$scope.salesdOrderVo.store={};
 				$scope.salesdOrderVo.store.storeId=store.storeId;
 				SalesOrderServices.getSalesOrder($scope.salesdOrderVo).then(function(data) {
-				
+
 					$localStorage.salesorderfilter = data;
 					$scope.originalList = data;
 					$scope.salesOrderList = $localStorage.salesorderfilter;
@@ -205,7 +193,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 							if($rootScope.user.role == "MERCHANTADMIN"){
 								salesOrderVo.merchant = {
 										"merchantId":$rootScope.user.merchantId
-								    };
+								};
 							}else if($rootScope.user.role == "STOREADMIN"){
 								salesOrderVo.store = {
 										"storeId":$rootScope.user.storeId
