@@ -68,7 +68,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		$scope.discount = discount;
 		$scope.discount.merchant ={};
 		$scope.discount.merchant.merchantId = $rootScope.user.merchantId;
-		$scope.discount.userId = $rootScope.user.userName;
+		$scope.discount.userId = $rootScope.user.userId;
 		$scope.discount.storeList =[];
 
 		if($rootScope.user.storeId){
@@ -131,7 +131,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 
 	$scope.updateDiscount = function(discount){
 		$scope.discount = discount;
-		$scope.discount.userId = $rootScope.user.userName;
+		$scope.discount.userId = $rootScope.user.userId;
 		DiscountService.saveDiscount($scope.discount).then(function(data) {
 			$scope.results = data;
 			$scope.getDiscountList();
@@ -147,7 +147,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		$scope.newproductDiscount.merchant.merchantId = $rootScope.user.merchantId;
 		$scope.newproductDiscount.discount.discountId = $stateParams.discountId;
 		$scope.newproductDiscount.product.productId = $scope.productId;
-		$scope.newproductDiscount.userId = $rootScope.user.userName;
+		$scope.newproductDiscount.userId = $rootScope.user.userId;
 		if($localStorage.discountList==null){
 			$scope.newproductDiscount.discountList = [];
 			$scope.newproductDiscount.discountList.push($scope.newproductDiscount.discount);
@@ -201,7 +201,7 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 		$scope.productDiscountLine.product={};
 		$scope.productDiscountLine.product.productId=discountProduct.product.productId;
 		$scope.productDiscountLine.discountProductId = discountProduct.discountProductId;
-		$scope.productDiscountLine.userId = $rootScope.user.userName;
+		$scope.productDiscountLine.userId = $rootScope.user.userId;
 		DiscountService.updateProductDiscount($scope.productDiscountLine).then(function(data) {
 			$scope.getProductDiscount();
 		})
