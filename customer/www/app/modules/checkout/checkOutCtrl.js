@@ -117,7 +117,7 @@ angular.module('aviate.controllers')
 				},
 				"deliveryDate":$scope.currentOrder.delivery.date,
 				"deliveryTimeSlot":$scope.currentOrder.delivery.fromTime,
-				"userId":$rootScope.user.userName
+				"userId":$rootScope.user.userId
 		};
 
 		if($scope.transactionType == "COD"){
