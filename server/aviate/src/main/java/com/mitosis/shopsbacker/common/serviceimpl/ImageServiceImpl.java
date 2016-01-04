@@ -85,16 +85,16 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 
 	@Override
 	public ImageVo setImageVo(Image image) throws IOException {
-		imageVo = new ImageVo();
+		ImageVo	imagevo = new ImageVo();
 		Properties properties = new Properties();
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		String imageUrl = properties.getProperty("imageUrl");
-		imageVo.setImageId(image.getImageId());
-		imageVo.setName(image.getName());
-		imageVo.setType(image.getType());
-		imageVo.setUrl(imageUrl.concat(image.getUrl()));
-		return imageVo;
+		imagevo.setImageId(image.getImageId());
+		imagevo.setName(image.getName());
+		imagevo.setType(image.getType());
+		imagevo.setUrl(imageUrl.concat(image.getUrl()));
+		return imagevo;
 	}
 	
 	@Override

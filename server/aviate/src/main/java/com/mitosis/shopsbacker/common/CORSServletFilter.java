@@ -3,6 +3,11 @@ package com.mitosis.shopsbacker.common;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerResponse;
 import com.sun.jersey.spi.container.ContainerResponseFilter;
+/**
+ * Cross Origin Resource Sharing Filter used for accessing from different domain. 
+ * @author Prabakaran.A
+ *
+ */
 public class CORSServletFilter implements ContainerResponseFilter {
 
 	@Override
