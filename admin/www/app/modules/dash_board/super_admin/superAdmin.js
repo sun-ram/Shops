@@ -1197,6 +1197,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		
 		function initiateAllMethods (){
 			document.getElementById('grouperBarChart').innerHTML = "";
+			document.getElementById('graph').innerHTML = "";
 			//call all methods by preority
 			$scope.proceedCustomer();
 			$scope.ProceedMerchant();

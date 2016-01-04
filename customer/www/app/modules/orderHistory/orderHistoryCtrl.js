@@ -41,7 +41,7 @@ angular.module('aviate.controllers')
 		
 		function postSalesOrder (data){
 			console.log("User ==>",$rootScope.user);
-			$scope.trackedOrders = [['highlight-index','none','none','none'],['highlight-index','highlight-index','none','none'],['highlight-index','highlight-index','none','none']];
+			/*$scope.trackedOrders = [['highlight-index','none','none','none'],['highlight-index','highlight-index','none','none'],['highlight-index','highlight-index','none','none']];*/
 			var i=0,len= ((data)?data.Books.length : 0);
 			for(;i<len;i++){
 				var tmpData = data.Books[i];
