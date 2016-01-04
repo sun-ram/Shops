@@ -45,7 +45,8 @@ angular.module('app')
 		templateUrl: 'app/modules/merchant/merchantList.html',
 		controller : 'merchantcontroller',
 		resolve:   {
-			merchants:  function(MerchantServices, $http, $stateParams){
+			merchants:  function(MerchantServices, $http, $stateParams, $rootScope){
+				$rootScope.progressbar = true;
 				return MerchantServices.getMerchant().then(function(data){
 					localStorage.removeItem('merchantDetails');
 					return data;
@@ -96,6 +97,7 @@ angular.module('app')
 		controller : 'storecontroller',
 		resolve:   {
 			stores:  function(StoreServices, $http, $stateParams, $rootScope){
+				$rootScope.progressbar = true;
 				return StoreServices.getStore({'merchantId':$rootScope.user.merchantId}).then(function(data){
 					return data;
 				});
@@ -132,7 +134,8 @@ angular.module('app')
 		templateUrl: 'app/modules/deliverytimeslot/addDeliveryTimeSlot.html',
 		controller : 'deliveryTimeSlot',
 		resolve:   {
-			deliverTimes:  function(deliveryTimeSlotService, $http, $stateParams){
+			deliverTimes:  function(deliveryTimeSlotService, $http, $stateParams, $rootScope){
+				$rootScope.progressbar = true;
 				return deliveryTimeSlotService.getDeliveryTimeSlots();
 
 			}
@@ -525,9 +528,7 @@ angular.module('app')
 		url: '/gallery',
 		templateUrl: 'app/modules/gallery/gallery.html',
 		controller : 'galleryCtrl'
-	})
- 
-	;
+	});
 
 
 

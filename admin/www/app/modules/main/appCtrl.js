@@ -2,7 +2,7 @@ angular.module('aviateAdmin.controllers')
 .controller("appCtrl", 
 		['$scope', '$rootScope','$state','$localStorage','$filter','$mdDialog', 'CommonServices',
 		 function($scope,$rootScope, $state,$localStorage, $filter,$mdDialog, CommonServices) {
-			
+			$rootScope.progressbar = false;
 			$scope.merchantPagination = {
 					limit: 5,
 					page: 1

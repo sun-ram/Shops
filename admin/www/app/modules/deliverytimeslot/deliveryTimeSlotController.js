@@ -2,7 +2,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
                                             function($scope,$http,$localStorage, $location,$state,$rootScope,$mdDialog,toastr,CONSTANT,deliveryTimeSlotService,$filter,deliverTimes) {
 
 	$scope.deliveryTimeSlot = deliverTimes.deliveryTimeSlots;
-		
+	$rootScope.progressbar = false;
 	$scope.count = 3;
 	$scope.srch = true;
 	$scope.uom = $localStorage.uom;
