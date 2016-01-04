@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.model;
 
 // Generated Nov 12, 2015 6:16:19 PM 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +43,7 @@ public class Merchant implements java.io.Serializable {
 	private char isactive;
 	private Date created;
 	private Date updated;
+	private BigDecimal feesPercentage;
 	private List<ProductCategory> productCategories = new ArrayList<ProductCategory>();
 	private List<Favourite> favourites = new ArrayList<Favourite>();
 	private List<ProductType> productTypes = new ArrayList<ProductType>();
@@ -71,7 +73,7 @@ public class Merchant implements java.io.Serializable {
 	}
 
 	public Merchant(String merchantId, String updatedby, String createdby,
-			String name, char isactive, Date created, Date updated) {
+			String name, char isactive, Date created, Date updated,BigDecimal feesPercentage) {
 		this.merchantId = merchantId;
 		this.updatedby = updatedby;
 		this.createdby = createdby;
@@ -79,6 +81,7 @@ public class Merchant implements java.io.Serializable {
 		this.isactive = isactive;
 		this.created = created;
 		this.updated = updated;
+		this.feesPercentage=feesPercentage;
 	}
 
 	public Merchant(String merchantId, String updatedby, String createdby,
@@ -93,7 +96,7 @@ public class Merchant implements java.io.Serializable {
 			List<ProductInventory> productInventories,
 			List<Movement> movements, List<Product> products,
 			List<MissingProduct> missingProducts,
-			List<CustomerFeedback> customerFeedbacks,
+			List<CustomerFeedback> customerFeedbacks,BigDecimal feesPercentage,
 			List<DeliveryTimeSlot> deliveryTimeSlots, List<Billing> billings,
 			List<ProductOffer> productOffers, List<StoreHoliday> storeHolidays, List<SalesOrderReturn> salesOrderReturns) {
 		this.merchantId = merchantId;
@@ -123,6 +126,7 @@ public class Merchant implements java.io.Serializable {
 		this.movements = movements;
 		this.products = products;
 		this.missingProducts = missingProducts;
+		this.feesPercentage= feesPercentage;
 		this.customerFeedbacks = customerFeedbacks;
 		this.deliveryTimeSlots = deliveryTimeSlots;
 		this.productOffers = productOffers;
@@ -433,6 +437,15 @@ public class Merchant implements java.io.Serializable {
 
 	public void setBillings(List<Billing> billings) {
 		this.billings = billings;
+	}
+
+	@Column(name = "FEES_PERCENTAGE", nullable = false, precision = 6)
+	public BigDecimal getFeesPercentage() {
+		return feesPercentage;
+	}
+
+	public void setFeesPercentage(BigDecimal feesPercentage) {
+		this.feesPercentage = feesPercentage;
 	}
 
 	

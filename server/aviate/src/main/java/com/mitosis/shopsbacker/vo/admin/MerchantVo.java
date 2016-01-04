@@ -1,5 +1,7 @@
 package com.mitosis.shopsbacker.vo.admin;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,7 +22,14 @@ public class MerchantVo {
 	private ImageVo logo;
 	private String storeId;
 	private String userId;
+	private BigDecimal feesPercentage;
 	
+	public BigDecimal getFeesPercentage() {
+		return feesPercentage;
+	}
+	public void setFeesPercentage(BigDecimal feesPercentage) {
+		this.feesPercentage = feesPercentage;
+	}
 	public String getUserId() {
 		return userId;
 	}
