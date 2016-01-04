@@ -250,7 +250,7 @@ public class UserRestServices<T> {
 
 	public JsonNode getLatLongByAddress(UserVo userVo) {
 		String full_address = userVo.getAddress().getAddress1() + ","
-				+ userVo.getAddress().getAddress2() + ","
+				+ "," + (userVo.getAddress().getAddress2()==null?"":(userVo.getAddress().getAddress2())+ ",")
 				+ userVo.getAddress().getCity().getName() + ","
 				+ userVo.getAddress().getState().getName() + ","
 				+ userVo.getAddress().getCountry().getName() + ","

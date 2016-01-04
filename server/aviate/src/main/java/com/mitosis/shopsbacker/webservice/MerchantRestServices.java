@@ -189,7 +189,7 @@ public class MerchantRestServices<T> {
 
 	public JsonNode getLatLongByAddress(MerchantVo merchantVo) {
 		String full_address = merchantVo.getUser().getAddress().getAddress1()
-				+ "," + merchantVo.getUser().getAddress().getAddress2() + ","
+				+ "," + (merchantVo.getUser().getAddress().getAddress2()==null?"":(merchantVo.getUser().getAddress().getAddress2()+ ",")) 
 				+ merchantVo.getUser().getAddress().getCity().getName() + ","				+ merchantVo.getUser().getAddress().getState().getName() + ","
 				+ merchantVo.getUser().getAddress().getCountry().getName()
 				+ "," + merchantVo.getUser().getAddress().getPinCode();

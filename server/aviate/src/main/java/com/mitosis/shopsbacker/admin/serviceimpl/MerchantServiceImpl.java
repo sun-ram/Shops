@@ -170,6 +170,7 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 
 		}
 		merchant.setName(merchantVo.getName());
+		merchant.setFeesPercentage(merchantVo.getFeesPercentage());
 
 		if (merchantVo.getLogo().getImage() != null) {
 			Image image = imageService.setImage(merchantVo.getLogo(),merchantVo.getUserId());
@@ -189,6 +190,7 @@ public class MerchantServiceImpl<T> implements MerchantService<T>, Serializable 
 	public MerchantVo setMerchantVo(Merchant merchant) throws Exception {
 		merchantVo = new MerchantVo();
 		merchantVo.setName(merchant.getName());
+		merchantVo.setFeesPercentage(merchant.getFeesPercentage());
 		merchantVo.setMerchantId(merchant.getMerchantId());
 		ImageVo imageVo = imageService.setImageVo(merchant);
 		merchantVo.setLogo(imageVo);

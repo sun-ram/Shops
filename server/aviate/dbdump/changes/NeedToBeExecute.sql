@@ -496,7 +496,7 @@ ADD COLUMN `ISPAID` CHAR(1) NOT NULL DEFAULT 'N' AFTER `SHIPPING_CHARGE`;
 ALTER TABLE `shopsbacker`.`discount` 
 DROP INDEX `DISCOUNT_UNIQUE_NAME` ;
 
--- --30-12-2015 -- ANbukkani Gajendran -- Billing tables created---
+-- --01-01-2016 -- Anbukkani Gajendran -- Billing tables created---
 
 CREATE TABLE `shopsbacker`.`billing` (
   `BILLING_ID` varchar(32) NOT NULL,
@@ -519,4 +519,7 @@ CREATE TABLE `shopsbacker`.`billing` (
   CONSTRAINT `FK_BILLING_STORE` FOREIGN KEY (`STORE_ID`) REFERENCES `store` (`STORE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --01-01-2016 -- Anbukkani Gajendran --  fees percentage column as added in merchant ---
+ALTER TABLE `shopsbacker`.`merchant` 
+ADD COLUMN `FEES_PERCENTAGE` DECIMAL(6,2) NOT NULL AFTER `UPDATED`;
 
