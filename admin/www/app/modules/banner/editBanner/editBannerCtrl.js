@@ -59,7 +59,7 @@ angular.module('aviateAdmin.controllers')
 				}
 				bannerDetail.image.image=$scope.bannerImage.split(",")[1];
 				bannerDetail.image.type=$scope.bannerImage ? ($scope.bannerImage.substring(11).split(";")[0]) : "";
-				$scope.bannerDetail.userId = $rootScope.user.userName;
+				$scope.bannerDetail.userId = $rootScope.user.userId;
 				BannerServices.updateBanner(bannerDetail).then(function(data){
 					$scope.bannerDetail = null;
 					$state.go('app.banner');

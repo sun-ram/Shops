@@ -18,7 +18,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.getshippingCharge();
 
 			$scope.updateShippingCharges = function(){
-				$scope.shippingCharge.userId=$rootScope.user.userName;
+				$scope.shippingCharge.userId=$rootScope.user.userId;
 
 				ShippingChargeServices.updateShippingCharge($scope.shippingCharge).then(function(data){
 					localStorage.removeItem('shippingCharge');

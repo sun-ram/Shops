@@ -6,6 +6,7 @@ angular.module('aviateAdmin.controllers').controller("merchantcontroller",
 					limit: 5,
 					page: 1
 			};*/
+			$rootScope.progressbar = false;
 			$scope.merchantData = merchants;
 			$scope.originalList = $scope.merchantData;
 			$scope.noOfRecords = $scope.merchantData.length;

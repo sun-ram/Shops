@@ -46,6 +46,8 @@ import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.order.service.ShippingChargesService;
 import com.mitosis.shopsbacker.responsevo.ConfirmOrderResponseVo;
 import com.mitosis.shopsbacker.responsevo.SalesOrderResponseVo;
+import com.mitosis.shopsbacker.socket.SocketMessage;
+import com.mitosis.shopsbacker.socket.SocketServer;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.OrderStatus;
 import com.mitosis.shopsbacker.util.PaymentMethod;
@@ -129,7 +131,9 @@ public class SalesOrderRestService<T> {
 
 	ResponseModel response = null;
 	SalesOrderResponseVo salesOrderResponse = null;
-
+	SocketServer socket = new SocketServer();
+	SocketMessage message = null;
+	
 	@Path("/getsalesorder")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON+";charset=UTF-8")
@@ -299,6 +303,7 @@ public class SalesOrderRestService<T> {
 	public String confirmOrder(SalesOrderVo salesOrderVo) {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		String res = "";
+		message = new SocketMessage();
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil
 					.setAuditColumnInfo(SalesOrder.class.getName(),salesOrderVo.getUserId());
@@ -427,7 +432,7 @@ public class SalesOrderRestService<T> {
 			salesOrder.setNetAmount(totalOrderGrossAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
 						
 			salesOrderService.saveSalesOrder(salesOrder);
-
+			
 			/*Reduce Stock*/
 			salesOrderService.productStockReduce(salesOrder);
 
@@ -445,6 +450,14 @@ public class SalesOrderRestService<T> {
 			log.info("No Of Row Deleted deleted from cart in sales order complete: "+numberOfEntityDeleted);
 			response.setOrderNo(salesOrder.getOrderNo());
 			response.setSalesOrderId(salesOrder.getSalesOrderId());
+			salesOrderVo = getSalesOrderService().setSalesOrderVo(
+					salesOrder);
+			message.setMessage("New");
+			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
+			message.setToUser(salesOrderVo.getMerchant().getMerchantId());
+			socket.message(message, null);
+			message.setToUser(salesOrderVo.getStore().getStoreId());
+			socket.message(message, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -578,6 +591,7 @@ public class SalesOrderRestService<T> {
 	public String updateOrderStatusForEmp(SalesOrderVo salesOrderVo) {
 		salesOrderResponse = new SalesOrderResponseVo();
 		String responseStr = "";
+		message = new SocketMessage();
 		try {
 			SalesOrder salesOrder = salesOrderService
 					.getSalesOrderById(salesOrderVo.getSalesOrderId());
@@ -630,6 +644,14 @@ public class SalesOrderRestService<T> {
 						salesOrderService.updateSalesOrder(salesOrder);
 						salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
 								.getValue());
+						salesOrderVo = getSalesOrderService().setSalesOrderVo(
+								salesOrder);
+						message.setMessage("Update");
+						message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
+						message.setToUser(salesOrderVo.getMerchant().getMerchantId());
+						socket.message(message, null);
+						message.setToUser(salesOrderVo.getStore().getStoreId());
+						socket.message(message, null);
 					} else {
 						salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 								.getValue());
@@ -656,7 +678,6 @@ public class SalesOrderRestService<T> {
 				salesOrderResponse
 				.setStatus(SBMessageStatus.FAILURE.getValue());
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			salesOrderResponse.setStatus(SBMessageStatus.FAILURE.getValue());

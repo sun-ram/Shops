@@ -19,7 +19,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.merchantDetail.user.address.state.name = $scope.state.name;
 			$scope.merchantDetail.user.address.city.cityId=$scope.cty.cityId;
 			$scope.merchantDetail.user.address.city.name=$scope.cty.name;
-			$scope.merchantDetail.userId=$rootScope.user.userName;
+			$scope.merchantDetail.userId=$rootScope.user.userId;
 			$scope.merchantDetail.logo = {};
 			$scope.merchantDetail.logo.image=$scope.merchantLogo.split(",")[1];
 			$scope.merchantDetail.logo.type=$scope.merchantLogo ? ($scope.merchantLogo.substring(11).split(";")[0]) : "";

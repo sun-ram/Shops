@@ -79,7 +79,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.merchantDetail.user.address.state.name = $scope.state.name;
 				$scope.merchantDetail.user.address.city.cityId=$scope.cty.cityId;
 				$scope.merchantDetail.user.address.city.name=$scope.cty.name;
-				$scope.merchantDetail.userId=$rootScope.user.userName;
+				$scope.merchantDetail.userId=$rootScope.user.userId;
 
 				if ($scope.merchantLogo != "" && $scope.merchantLogo != undefined && $scope.merchantLogo != null) {
 					$scope.merchantDetail.logo = {};

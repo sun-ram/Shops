@@ -4,7 +4,7 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
-			$scope.salesOrderPagination.order= 'customer.name';
+			//$scope.salesOrderPagination.order= 'customer.name';
 
 			if($localStorage.state){
 				$scope.salesOrderList = $localStorage.salesorderfilter;
@@ -227,6 +227,60 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				$localStorage.state=true;
 				$state.go('app.salesorder');
 			};
+			
+/*Socket Connection*/
+			
+			if($rootScope.websocket!=null && $rootScope.websocket!=undefined){
+				$rootScope.websocket.onopen = function(evt) { onOpen(evt); };
+				$rootScope.websocket.onmessage = function(evt) { onMessage(evt); };
+				$rootScope.websocket.onerror = function(evt) { onError(evt); };
+				$rootScope.websocket.onclose = function(evt) { onClose(evt); };
+			}
+						
+			function send_message() {
+				var msg = '{"message":"Hai", "touser":"jai"}';	
+				$rootScope.websocket.send(msg);
+			}
+			
+			function onOpen() {
+			 console.log("CONNECTED");
+			}
+			
+			function onClose() {
+				console.log("DISCONNECTED");
+			}
+			
+			function onMessage(evt) {
+			 console.log("RECEIVED: " + evt.data);
+			 $scope.socketData = JSON.parse(evt.data); 
+			 $scope.salesList = JSON.parse($scope.socketData.salesOrder);
+			 if($scope.socketData.message=="New"){
+				 $scope.salesOrderList.unshift($scope.salesList);
+				 $scope.originalList = $scope.salesOrderList;
+				 $localStorage.salesorderlist = $scope.salesOrderList;
+				 $scope.noOfRecords=$scope.salesOrderList.length;
+				 toastr.success("New SalesOrder Created");
+			 }else if($scope.socketData.message=="Update"){
+				 for(index=0;index<$scope.salesOrderList.length;index++) {
+					 if($scope.salesOrderList[index].salesOrderId == $scope.salesList.salesOrderId ){
+						 $scope.salesOrderList.splice(index, 1);
+						 $scope.salesOrderList.unshift($scope.salesList);
+						 $scope.noOfRecords=$scope.salesOrderList.length;
+						 $localStorage.salesorderlist = $scope.salesOrderList;
+						 toastr.success("Existing Sales Order Updated");
+						 break;
+					 }
+			 }}	 
+			 $scope.onpagechange(1,5);
+			}
+			
+			function onError(evt) {
+				console.log(evt.data);
+			}
+			
+			function disconnect() {
+				$rootScope.websocket.close();
+			}
 
 			$scope.onpagechange = function(page, limit) {
 				var deferred = $q.defer();

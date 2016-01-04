@@ -571,11 +571,11 @@ public class ProductRestService {
 				row.createCell(6).setCellValue(
 						productList.get(i).getEdibleType());
 				row.createCell(7).setCellValue(
-						productList.get(i).getWasPrice().toString());
+						(productList.get(i).getWasPrice() != null )?productList.get(i).getWasPrice().toString():null);
 				row.createCell(8).setCellValue(
 						productList.get(i).getPrice().toString());
-				row.createCell(9).setCellValue(
-						productList.get(i).getIsYourHot().toString());
+				row.createCell(9).setCellValue((
+						productList.get(i).getIsYourHot() != null) ? productList.get(i).getIsYourHot().toString() : null);
 				row.createCell(10).setCellValue(productList.get(i).getBrand());
 				row.createCell(11).setCellValue(
 						productList.get(i).getIsBundle().toString());

@@ -7,7 +7,7 @@ angular.module('aviateAdmin.controllers')
 					    limit: 5,
 					    page: 1
 					  };*/
-				
+				$rootScope.progressbar = false;
 				$scope.count = 3;
 				$scope.storeData = stores;
 				$scope.srch = true;

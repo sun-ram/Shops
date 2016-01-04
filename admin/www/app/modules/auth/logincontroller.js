@@ -1,5 +1,5 @@
 angular.module('aviateAdmin.controllers')
-.controller("logincontroller", function($rootScope, $localStorage, $scope, $http, $state,$mdToast, toastr, api, ipCookie, AuthService, $stateParams, CONSTANT) {
+.controller("logincontroller", function($rootScope, $localStorage, $scope, $http, $state,$mdToast, toastr, api, ipCookie, AuthService, $stateParams, CONSTANT,SocketServices) {
 	$scope.user = {}
 	$scope.tokenId = $stateParams.tokenId;
 	
@@ -70,9 +70,11 @@ angular.module('aviateAdmin.controllers')
 			if ($rootScope.user.role == 'SUPERADMIN') {
 				$state.go('app.super_admin_dashboard');
 			} else if($rootScope.user.role == 'MERCHANTADMIN') {
+				SocketServices.getSocket($rootScope.user);
 				$state.go('app.merchant_admin_dashboard');
 				//$state.go('app.addproducttype');
 			}else if($rootScope.user.role == 'STOREADMIN'){
+				SocketServices.getSocket($rootScope.user);
 				$state.go('app.store_admin_dashboard');
 			}else {
 				toastr.error("Invalied User");
@@ -108,4 +110,5 @@ angular.module('aviateAdmin.controllers')
 			$scope.user.password = authInfo.password;
 			$scope.rememberme=authInfo.rememberme;
 	}}
+	
 });
