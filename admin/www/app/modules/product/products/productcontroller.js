@@ -205,7 +205,7 @@ angular.module('aviateAdmin.controllers')
 
 		$scope.product.merchant = {};
 		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
-		$scope.product.userId = $rootScope.user.userName;
+		$scope.product.userId = $rootScope.user.userId;
 		ProductService.addProduct($scope.product).then(function(data) {
 			$scope.product = $localStorage.product;
 			if($scope.product.productId){

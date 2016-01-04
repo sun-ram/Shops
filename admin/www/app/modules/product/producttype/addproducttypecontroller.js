@@ -58,7 +58,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								$scope.product.name = $scope.productCategory.Name;
 								$scope.product.merchant = {};
 								$scope.product.merchant .merchantId = $rootScope.user.merchantId;
-								$scope.product.userId = $rootScope.user.userName;
+								$scope.product.userId = $rootScope.user.userId;
 
 								ProductCategoryServices.addProductCategory($scope.product).then(function(data){
 									toastr.success("Category Added Successfully");
@@ -107,7 +107,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								};
 								product.merchant.merchantId=$rootScope.user.merchantId;
 								product.category.productCategoryId=cat.productCategoryId;
-								product.userId = $rootScope.user.userName;
+								product.userId = $rootScope.user.userId;
 
 								ProductCategoryServices.addProductCategory1(product).then(function(data){
 /*									if($rootScope.dropObj.key=='subcategory'){
@@ -152,7 +152,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								};
 								product.merchant.merchantId=$rootScope.user.merchantId;
 								product.productCategory.productCategoryId=cat.productCategoryId;
-								product.userId = $rootScope.user.userName;
+								product.userId = $rootScope.user.userId;
 								ProductCategoryServices.addProductType(product).then(function(data){
 									toastr.success("Product Type added successfully");
 									$rootScope.parentCategoryListValue();
@@ -201,7 +201,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								};
 								product.merchant.merchantId=$rootScope.user.merchantId;
 								product.productCategory.productCategoryId=cat.productCategoryId;
-								product.userId = $rootScope.user.userName;
+								product.userId = $rootScope.user.userId;
 
 								ProductCategoryServices.addProductType(product).then(function(data){
 									toastr.success("Product Type added successfully");
@@ -271,7 +271,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 						name : name
 					};
 				product.merchant.merchantId=$rootScope.user.merchantId;
-				product.userId = $rootScope.user.userName;
+				product.userId = $rootScope.user.userId;
 
 				ProductCategoryServices.updateproductCategory(product).then(function(data){
 					toastr.success("Product "+categoryName+" Updated Successfully");
@@ -286,7 +286,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 						productTypeId : categoryId,
 						name : name
 					};
-			product.userId = $rootScope.user.userName;
+			product.userId = $rootScope.user.userId;
 
 				ProductCategoryServices.updateproductType(product).then(function(data){
 					toastr.success("Product Type Updated Successfully");
