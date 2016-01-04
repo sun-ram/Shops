@@ -44,7 +44,6 @@ public class SocketServer {
 	public void onOpen(Session peer, @PathParam("username") String userName) {
 		peers.add(peer);
 		usersMap.put(peer.getId(), userName);
-		System.out.println("Session Opened Client Id "+peer.getId()+" Connected"+userName);
 	}
 
 	@OnClose
@@ -52,14 +51,13 @@ public class SocketServer {
 		try{
 			peers.remove(peer);
 			usersMap.remove(peer.getId());
-			System.out.println("Session Closed Client Id "+peer.getId()+" Disconnected");
-
 		}catch(Exception e){
 			try {
 				peer.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				log.error(e1.getMessage());
 			}
 		}
 		}	
@@ -67,13 +65,10 @@ public class SocketServer {
 	@OnMessage
 	public void message(SocketMessage message, Session client)
 			throws IOException, EncodeException {
-		System.out.println("Message Received from " + message);
-		//	System.out.println(client.getId());
 		getSessionIdOfUser(message);
-		
 	}
 
-	//retrieving the session id of users  
+	/*Retrieving the session id of users*/
 	private void getSessionIdOfUser(SocketMessage message) {  
 		if (usersMap.containsValue(message.getToUser())) {  
 			for (String key : usersMap.keySet()) {  
@@ -84,22 +79,25 @@ public class SocketServer {
 		}  
 	}  
 	
+	/*Send Message to the user*/
 	private void sendMessage(String sessionId, SocketMessage message) {
 				for (Session peer : peers) {  
 					try {  
 						synchronized (peer) {  
-							//comparing the session id  
+							/*Comparing the session id*/  
 							if (peer.getId().equals(sessionId)) {  
-								peer.getBasicRemote().sendObject(message); //send message to the user  
+								peer.getBasicRemote().sendObject(message);   
 							}  
 						}  
 					} catch (Exception e) {  
 						peers.remove(peer);  
 						e.printStackTrace();
+						log.error(e.getMessage());
 						try {  
 							peer.close();  
-						} catch (IOException e1) {  
+						} catch (IOException e1){  
 							e1.printStackTrace();
+							log.error(e1.getMessage());
 						}
 						/*for (Session peer : peers) {
 					peer.getBasicRemote().sendObject(message);
