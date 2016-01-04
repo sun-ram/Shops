@@ -224,15 +224,15 @@ public final class CommonUtil {
 		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.auth", "true");
 		Session session = Session.getDefaultInstance(props);
-		MimeMessage message = new MimeMessage(session);
+		Message message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(from));
 			InternetAddress toAddress = new InternetAddress();
 			toAddress = new InternetAddress(to);
 			message.addRecipient(Message.RecipientType.TO, toAddress);
 			message.setSubject(subject);
-			message.setContent(message, "text/html");
-			message.setText(body);
+			message.setContent(body, "text/html");
+			//message.setText(body);
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, from, pass);
 			transport.sendMessage(message, message.getAllRecipients());

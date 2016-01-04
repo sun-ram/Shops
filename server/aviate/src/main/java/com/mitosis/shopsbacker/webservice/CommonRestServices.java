@@ -201,9 +201,14 @@ public class CommonRestServices<T> {
 						String subject = "Password Reset Request - ShopsBacker";
 						passwordResetRequest = commonService
 								.savePasswordResetRequest(userId, userType);
-						String body = passwordResetRequestVo
+						
+						String body ="Web users, please <a href=\""+passwordResetRequestVo
 								.getPasswordResetUrl()
-								+ passwordResetRequest.getTokenId();
+								+ passwordResetRequest.getTokenId()+"\">click here</a> to reset your password.";
+						body += "<br><br>Android users, please <a href=\"http://intent:#Intent;action=com.shopsbacker.android.MY_CUSTOM_ACTION;S.some_variable="+passwordResetRequest.getTokenId()+";end\">click here</a> to load android app to reset password.";
+						//body += "<br>intent:#Intent;action=com.shopsbacker.android.MY_CUSTOM_ACTION;S.some_variable="+passwordResetRequest.getTokenId()+";end";
+						body += "<br><br>Iphone users, please <a href=\"http://shopsbacker://tokenid="+passwordResetRequest.getTokenId()+"\">click here</a> to load IOS app to reset password.";
+						//body += "<br>shopsbacker://tokenid=" + passwordResetRequest.getTokenId();
 						boolean flag = CommonUtil.sendMail(emailId, subject,
 								body);
 						if (flag) {

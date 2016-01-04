@@ -32,7 +32,6 @@ import com.mitosis.shopsbacker.util.OrderStatus;
  */
 
 @Repository
-@Transactional
 public class UserDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		UserDao<T>, Serializable {
 
