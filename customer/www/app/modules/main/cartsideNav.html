@@ -24,9 +24,10 @@
 			       		<md-list-item layout="row" class="md-3-line" ng-repeat="item in myCart.cartItem">
 					      <span class="mg-tb25">{{ item.qty}} x </span>
 					      <div class="cartsliderlist_img">
-					      <div class="save-offer ng-scope md-success">
+					      <div ng-if="item.product.price > item.discountPrice" class="save-offer ng-scope md-success">
 					      					<img class="save" src="assets/images/save.png" />
-					      					<span>Save </br>Rs.1300</span>
+					      					<span>
+					      					Save </br>{{(item.product.price - item.discountPrice) * (item.qty) | number:2}}</span>
                             			 	<!-- <img class="save" src="assets/img/icon/savemoney.svg" /> -->
                             			 </div>
 					      	<img ng-src="{{item.product.image.url}}" class="md-avatar" alt="{{item.who}}" />
