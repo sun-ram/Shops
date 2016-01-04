@@ -6,7 +6,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.tax.merchantVo = {
 					merchantId:$rootScope.user.merchantId
 			}
-			$scope.tax.userId=$rootScope.user.userName;
+			$scope.tax.userId=$rootScope.user.userId;
 			TaxServices.addNewTax($scope.tax).then(function(data){
 				//toastr.success(data.status);
 				$scope.tax = null;

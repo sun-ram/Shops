@@ -43,7 +43,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.store.user.address.state.name = $scope.state.name;
 				$scope.store.user.address.city.name=$scope.cty.name;
 				$scope.store.user.address.city.cityId=$scope.cty.cityId;
-				$scope.store.userId=$rootScope.user.userName;	
+				$scope.store.userId=$rootScope.user.userId;	
 				StoreServices.updateStore($scope.store).then(function(data){
 					localStorage.removeItem('store');
 					$state.go('app.store');

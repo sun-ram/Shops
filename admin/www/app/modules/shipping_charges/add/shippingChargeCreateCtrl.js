@@ -6,7 +6,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.shipping.merchantVo = {
 					merchantId:$rootScope.user.merchantId
 			}
-			$scope.shipping.userId=$rootScope.user.userName;
+			$scope.shipping.userId=$rootScope.user.userId;
 			ShippingChargeServices.addNewShippingCharge($scope.shipping).then(function(data){
 				//toastr.success(data.status);
 				$scope.shipping = null;

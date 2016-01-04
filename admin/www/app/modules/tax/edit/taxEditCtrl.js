@@ -18,7 +18,7 @@ angular.module('aviateAdmin.controllers')
 			$scope.getTax();
 
 			$scope.updateTax = function(){
-				$scope.tax.userId=$rootScope.user.userName;
+				$scope.tax.userId=$rootScope.user.userId;
             	TaxServices.updateTax($scope.tax).then(function(data){
 					localStorage.removeItem('tax');
 					$state.go('app.tax');
