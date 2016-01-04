@@ -1,18 +1,16 @@
-@CHARSET "UTF-8";
+.gallery-aside{ padding:10px 0px; margin:0px; width:100%; list-style-type:none; box-sizing:border-box;}
+.gallery-aside li{padding:8px 10px; width:100%; cursor:pointer;  box-sizing:border-box;}
+.gallery-aside li:hover{ background-color:rgba(0,0,0,0.1);}
+.gallery-container .add-newfolder{ width:100px;padding:6px; text-align:center;color:#FFFFFF; background-color:rgba(192,40,45,0.6);}
 
+.gallery-container{ background-color:rgba(0,0,0,0.03);}
 
-.background-setup{
-    bottom: 10px;
-    position: fixed;
-    top: 150px;
-    right: 30px;
-    left: 16px;
-    /* transform: translate(-50%, -50%); */
-}
-.left-bg {
-	background-color: #e9abab;
-}
+.fold-container{ width:100%; height:auto;}
 
-.right-bg {
-	background-color: #ade1e6;
-}
+.folder{  box-sizing:border-box; background-color:#FFFFFF; box-shadow:0px 0px 1px rgba(0,0,0,0.1);}
+.fold-container .active{ box-shadow:0px 0px 6px rgba(15,157,88,0.6)}
+.gallery-folder-icons,.gallery-img{ margin:0px auto; width:100px; height:100px;}
+.gallery-img img{ width:100%;}
+ul.gal-mani-icon{ display:inline; list-style-type:none; padding:0px;}
+ul.gal-mani-icon li{ padding:5px 10px;   float:right}
+.img-search{border:1px solid rgba(0,0,0,0.3); border-radius:2px; margin:4px 0px; width:250px; float:right;  padding:5px; font-size:14px;}

@@ -1,80 +1,72 @@
 <link rel="stylesheet" href="css/gallery.css" />
-<!-- 
-   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
-    <div class="md-toolbar-tools">
-      <h3 style="margin-left:-10px;" class="md-flex">Gallery</h3>
-    </div>
-  </md-toolbar>
-  
- <md-card flex-gt-sm="90" flex-gt-md="80"> 
- 
- <script type="text/ng-template" id="galleries"> -->
-		<!-- <md-menu-item ng-class="gallery.selectionClass" class="others" ng-hide="gallery.hide" ng-if="(gallery.rootParent>=0)" ng-click="getGalleryByGalleryId(gallery.galleryId);activemenu($event)">
-			<md-button ng-class="gallery.selectionClass" class="btn-menu">
-				<div layout="row" style="text-transform: color:#70829a;">
-					<ng-md-icon icon="{{gallery.extrIconName}}" style="fill:#cca200; width:50px;height:50px;transform: translateY(40%);right: 5%;position: absolute;"></ng-md-icon>
-					{{gallery.fileName}}</div>
-			</md-button>
-		</md-menu-item>
+<md-card layout-fill class="tbl-body" >
+ 	<md-toolbar class=" md-default-theme" style="background-color:transparent; box-shadow:0px 1px 1px rgba(0,0,0,0.07)">
+		<div class="md-toolbar-tools" layout-sm="column" layout-gt-sm="row">
+	  		<div flex="30"><h3 style="border: none;" >Gallery</h3></div>
+	  		<div flex="70" layout="row" layout-align="end end">
+	  			<ul class="gal-mani-icon" flex layout layout-align="end end">
+	  				<input type="text" name="" class="img-search"/>
+	  				<li></li>
+	  				<li><ng-md-icon icon="view_list" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li><ng-md-icon icon="view_module" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li></li>
+	  				<li><ng-md-icon icon="delete" style="fill: rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> 
+	  				<li><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				
+	  				
+	  				
+	  			</ul>
+	  				
+	  		</div>
+	  		
+	    </div>
+    </md-toolbar>
+    <md-card-content class="nopadd gallery-container">
+		<div layout="row" layout-padding>
+			<div flex="20">
+				
+				<ul class="gallery-aside ">
+					<li class="md-body-1"><div class="add-newfolder">NEW</div></li>
+					<li class="md-body-1">Recent</li>
+					<li class="md-body-1">Starred</li>
+					<li class="md-body-1">Trash</li>
+					<li class="md-body-1">Photos</li>
+				</ul>
+			</div>
+			<div flex="80">
+				
+				<div layout layout-wrap class="fold-container">
+					<!--  No product folder  -->
+					<div class="folder" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20">
+						<div ng-show="false"> Image</div>
+						<div ng-show="false">  <div class="gallery-folder-icons"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
+						<div ng-show="true">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
+						<div class="md-title text-center">Apple</div>
+					</div>
+					
+					<!-- product folder  -->
+					<div class="folder active" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20">
+						<div ng-show="false"> Image</div>
+						<div ng-show="true">  <div class="gallery-folder-icons"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
+						<div ng-show="false">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
+						<div class="md-title text-center">Apple</div>
+					</div>
+					
+					<!-- Image -->
+					<div class="folder" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20">
+						<div ng-show="true">  <div class="gallery-img"> <img src="images/sblogo.png"></div></div>
+						<div ng-show="false">  <div class="gallery-folder-icons"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
+						<div ng-show="false">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
+						<div class="md-title text-center">Apple</div>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+    </md-card-content>
+</md-card>
 
-		<md-menu-item ng-class="gallery.selectionClass" class="others" ng-hide="gallery.hide" ng-if="(!gallery.rootParent && gallery.rootParent!=0)" ng-click="getGalleryByGalleryId(gallery.galleryId);activemenu($event)">
-			<md-button ng-class="gallery.selectionClass" class="btn-menu">
-					<div layout="row" style="text-transform: color:#70829a;">
-				<ng-md-icon icon="{{gallery.extrIconName}}" style="fill:#cca200; width:50px;height:50px;transform: translateY(40%);right: 5%;position: absolute;"></ng-md-icon>
-              &nbsp;&nbsp;&nbsp;&nbsp;<ng-md-icon icon="{{gallery.folderIconName}}" style="fill:#cca200; width:60px;height:60px;transform: translateY(40%);left: 5%;position: absolute;"></ng-md-icon>				
-				&nbsp;&nbsp;&nbsp;&nbsp;{{gallery.fileName}}</div>
-			</md-button>
-		</md-menu-item>
-
-		<ul ng-hide="gallery.hide" ng-if="gallery.galleries.length> 0" style="padding-left: 0px;">
-			<li ng-class="gallery.selectionClass" ng-hide="gallery.hide" class='has-sub others' ng-repeat="gallery in gallery.galleries" ng-include="'galleries'" ng-click=""></li>
-		</ul>
-	</script>
-	
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
-    <span>
-    <md-button class="md-raised md-success padd-50" ng-click="addGallery()" >Add Folder</md-button>
-  <md-button flex class="md-raised md-primary  text-white"
-							ng-click="cancel()">Add Image </md-button>
-						
-    </span>
-	<div id='cssmenu' style="color: #70829a;">
-		<ul ng-repeat="gallery in galleries" class="menu-list">
-			<li class='has-sub ' ng-include="'galleries'"></li>
-
-		</ul>
-	</div>
-    
-    </md-content>
-</md-card> -->
-<div>
-<md-toolbar layout="row">
-    <div class="md-toolbar-tools">
-      <button hide-gt-sm class="menuBtn" aria-label="Toggle Menu">
-      </button>
-      <h1 layout-align-gt-sm="center">
-        Gallery
-      </h1>
-    </div>
- </md-toolbar>
-  
- <div layout="row" layout-sm="column" class='background-setup'>
-    <md-content flex='20' role="navigation">
-      <ul class="side-menu">
-        <li ng-repeat="section in vm.menu.sections" class="parent-list-item"
-            ng-class="{'parentActive' : vm.isSectionSelected(section)}">
-          <h2 class="menu-heading" ng-if="section.type === 'heading'"
-              id="heading_{{ section.name | nospace }}">
-            {{section}}
-          </h2>
-          <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-          <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-        </li>
-      </ul>
-
-    </md-content>
-  <md-content flex='80' class='right-bg'>
-    I'm below on mobile, and to the right on larger devices.
-  </md-content>
-</div>
-</div>
