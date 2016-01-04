@@ -38,11 +38,7 @@
 							<h4>{{item.product.unit}}{{item.product.uom.name}}</h4>
 							<h4>Rs {{item.discountPrice}}</h4>
 					        </div>
-					        <div ng-if="item.product.price > item.discountPrice"  class="md-list-item-text marg-5 padd_tb10" style="color: #0F9D58; font-variant: normal;" layout="column">
-					        <h4>Save</h4>
-							 <h4 ng-bind-html="myCart.grossAmount | currency : rupeesSymbol" > {{(item.product.price - item.discountPrice) * (item.qty) | number:2}}</h4>
-							 </div>
-							<div layout="column">
+					       	<div layout="column">
 								 <h4 flex style="margin: 25px 10px; font-weight: 400;" ng-bind-html="item.discountPrice * item.qty | currency : rupeesSymbol"></h4>
 							</div>
 					       
