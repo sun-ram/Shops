@@ -106,7 +106,7 @@ angular.module('aviateAdmin.controllers')
 		}
 		$scope.product.merchant = {};
 		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
-		$scope.product.userId = $rootScope.user.userName;
+		$scope.product.userId = $rootScope.user.userId;
 		ProductService.addProduct($scope.product).then(function(data) {
 			$scope.product = $localStorage.product;
 
@@ -132,6 +132,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.product = product;
 		$scope.product.merchant = {};
 		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
+		$scope.product.userId = $rootScope.user.userId;
 		ProductService.addProduct($scope.product).then(function(data) {
 			$scope.product = $localStorage.product;
 			toastr.success("Product details have been updated successfully!!!");
@@ -222,7 +223,7 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.editproduct = function(products) {
 		$localStorage.product = products;
-		if(product.groupCount!=null)
+		if(products.groupCount != null)
 			$scope.groupCount=true;
 		else
 			$scope.groupCount=false;
