@@ -243,7 +243,7 @@ angular.module('aviate.controllers')
 						 			d.setHours(0, 0, 0, 0, 0);
 						 			if(date.getTime() == d.getTime()){
 						 				if($rootScope.holidayReasons){
-						 					var convertedDate=$filter('date')(date, "yyyy-MM-dd");
+						 					var convertedDate=$filter('date')(date, "yyyy-M-d");
 							 				var reason=$rootScope.holidayReasons[convertedDate];
 							 				$localStorage.holidayReasons = reason;
 							 				$rootScope.holidayReasons =reason;
