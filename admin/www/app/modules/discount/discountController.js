@@ -123,16 +123,13 @@ aviateAdmin.controller("discountController", ['$scope','$localStorage','$state',
 	$scope.discountEdit = $rootScope.discountEdit;
 
 	var timeFormat = function(time){ 
-		var hh = time.slice(0,2);
-		var mm = time.slice(3,5);
-		var ss = time.slice(6,7);
-		$scope.newTime = new Date(1970, 0, 1, hh, mm, 0);
+		var hh = time.split(":");
+		$scope.newTime = new Date(1970, 0, 1, hh[0], hh[1], 0);
 		console.log($scope.startTime);
 		return $scope.newTime;
 	}
 
 	$scope.updateDiscount = function(discount){
-
 		$scope.discount = discount;
 		$scope.discount.userId = $rootScope.user.userName;
 		DiscountService.saveDiscount($scope.discount).then(function(data) {

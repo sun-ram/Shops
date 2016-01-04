@@ -17,7 +17,7 @@ angular.module('aviateAdmin.services')
 					if(result.user.image){
 						userDetails.logoUrl = result.user.image.url;
 					}
-					ipCookie("user",userDetails);
+					ipCookie("adminuser",userDetails);
 					d.resolve(userDetails);
 				} else {
 					toastr.error(result.errorString);

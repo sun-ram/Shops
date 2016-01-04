@@ -34,4 +34,3 @@ angular.module('aviateAdmin.filters', []);
 
 angular.module('aviateAdmin.constant', []);
 
-var serviceUrl = 'http://54.68.134.166:8088/';

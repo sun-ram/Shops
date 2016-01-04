@@ -1,11 +1,12 @@
 angular.module('app')
-.run(function($rootScope, $state, $http, ipCookie) {
-	var user = ipCookie('user');
+.run(function($rootScope, $state, $http, ipCookie, SocketServices) {
+	var user = ipCookie('adminuser');
 	if (user === undefined || user === null) {
 		$rootScope.user = null;
 		$state.go('login');
 	}else {
-		$rootScope.user = ipCookie('user');
+		$rootScope.user = ipCookie('adminuser');
+		SocketServices.getSocket($rootScope.user);
 	}
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
@@ -17,4 +18,5 @@ angular.module('app')
 			$state.go('login');
 		}
 	});
+	
 });

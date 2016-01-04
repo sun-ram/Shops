@@ -32,9 +32,12 @@ import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
+import com.mitosis.shopsbacker.socket.SocketMessage;
+import com.mitosis.shopsbacker.socket.SocketServer;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.HashGeneratorUtils;
 import com.mitosis.shopsbacker.util.OrderStatus;
+import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
@@ -188,6 +191,9 @@ Serializable {
 	public boolean paymentConfimation(String salesOrderNo, String transactionNo,
 			String paymentMethod, String requestId) {
 		boolean flag = false;
+		SalesOrderVo salesOrderVo = new SalesOrderVo();
+		SocketMessage message = new SocketMessage();
+		SocketServer socket = new SocketServer();
 		try{
 			SalesOrder salesOrder = salesOrderDao.salesOrderById(salesOrderNo);
 			salesOrder.setIspaid('Y');
@@ -200,6 +206,14 @@ Serializable {
 			log.info("No Of Row Deleted deleted from cart in Payment success: "+numberOfEntityDeleted);
 			productStockReduce(salesOrder);
 			flag = true;
+			salesOrderVo = setSalesOrderVo(
+					salesOrder);
+			message.setMessage(SBMessageStatus.SUCCESS.getValue());
+			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
+			message.setToUser(salesOrder.getMerchant().getMerchantId());
+			socket.message(message, null);
+			message.setToUser(salesOrder.getStore().getStoreId());
+			socket.message(message, null);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
