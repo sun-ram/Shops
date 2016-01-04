@@ -90,7 +90,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOffer.productVo = {};
 		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
-		$scope.productOffer.userId = $rootScope.user.userName;
+		$scope.productOffer.userId = $rootScope.user.userId;
 		$scope.productOffer.storeList =[];
 
 		if($rootScope.user.storeId){
@@ -120,7 +120,7 @@ angular.module('aviateAdmin.controllers')
     	$scope.productOfferLine.discountPercentage=productOfferLine.discountPercentage;
 		$scope.productOfferLine.productOfferVo ={};
 		$scope.productOfferLine.productOfferVo.productOfferId = $stateParams.offerId;
-		$scope.productOfferLine.userId = $rootScope.user.userName;
+		$scope.productOfferLine.userId = $rootScope.user.userId;
 		if($localStorage.productOfferList==null){
 			$scope.productOfferLine.productOfferList=[];
 			$scope.productOfferLine.productOfferList.push($scope.productOfferLine.productOfferVo);
@@ -170,7 +170,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOffer.productVo ={};
 		$scope.productOffer.productVo.productId = $scope.productId;
 		$scope.productOffer.merchantVo.merchantId = $rootScope.user.merchantId;
-		$scope.productOffer.userId = $rootScope.user.userName;
+		$scope.productOffer.userId = $rootScope.user.userId;
 		if($scope.productOffer.fromDate!=null){
 		$scope.productOffer.fromDate = $filter('date')(new Date($scope.productOffer.fromDate), 'yyyy-MM-dd');
 		$scope.productOffer.todate = $filter('date')(new Date($scope.productOffer.todate), 'yyyy-MM-dd');
@@ -220,7 +220,7 @@ angular.module('aviateAdmin.controllers')
 		$scope.productOfferLine.discountAmount=productOffer.discountAmount;
 		$scope.productOfferLine.discountPercentage=productOffer.discountPercentage;
 		$scope.productOfferLine.productVo.productId = productOffer.productVo.productId;
-		$scope.productOfferLine.userId = $rootScope.user.userName;
+		$scope.productOfferLine.userId = $rootScope.user.userId;
 		ProductOfferServices.updateProductOfferLine($scope.productOfferLine).then(function(data) {
 			$scope.results = data;
 			$scope.getProductOfferLineList(); 
