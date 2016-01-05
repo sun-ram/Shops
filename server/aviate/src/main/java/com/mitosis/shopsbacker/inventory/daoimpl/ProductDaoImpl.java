@@ -207,11 +207,30 @@ ProductDao<T>, Serializable{
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("merchant",merchant));
 			criteria.add(Restrictions.eq("isBundle", 'Y'));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw(e);
 		}
+	
+	}
+
+	@Override
+	public List<Product> getComboOffer(Merchant merchant) {
+
+
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+			criteria.add(Restrictions.eq("merchant",merchant));
+			criteria.add(Restrictions.eq("isKit", 'Y'));
+			criteria.add(Restrictions.eq("isactive", 'Y'));
+			return ((List<Product>) findAll(criteria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
+		}
+	
 	
 	}
 }

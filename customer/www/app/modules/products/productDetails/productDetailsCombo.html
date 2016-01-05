@@ -8,67 +8,63 @@
 		<div flex layout-sm="column" layout-md="column" layout-gt-md="row">
 			<div flex-sm="100" layout-padding flex-md="100" flex-gt-md="30">
 				<div class="pro-zoom-img">
-					<img src="assets/images/fruit.jpg"  />
+					<img src={{productDetails.image.url}} />
 				</div>
 				<div class="pro-thimbnail-img">
-					<div layout="row">
-						<span flex="25"><div class="thumbnail"><img src="assets/images/fruit.jpg"  /></div></span>
-						<span flex="25"><div class="thumbnail"><img src="assets/images/fruit.jpg"  /></div></span>
-						<span flex="25"><div class="thumbnail"><img src="assets/images/fruit.jpg"  /></div></span>
-						<span flex="25"><div class="thumbnail"><img src="assets/images/fruit.jpg"  /></div></span>
+					<div layout="row" >
+						<span flex="25" ng-repeat="productImage in productDetails.images"><div class="thumbnail"><img src="{{productImage.url}}"  /></div></span>
 					</div>
 				</div>
 			</div>
 			<div flex-sm="100" layout-padding flex-md="100" flex-gt-md="70">
-				<div class="md-headline">Product Name</div>
-				<p class="md-body-1 pro-descriptions">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+				<div class="md-headline">{{productDetails.name}}</div>
+				<p class="md-body-1 pro-descriptions">{{productDetails.description}} </p>
 				<!-- <p class="md-title text-blue">2Kg</p> -->
 				<div layout-sm="column" layout-gt-sm="row">
-					<div flex><div>Product Price : <span class="text-red" >&#8377; 250.00</span></div></div>
+					<div flex><div>Product Price : <span class="text-red" >&#8377;<strike>{{productDetails.wasPrice}}</strike> Rs{{productDetails.price}}</span></div></div>
 					<div flex></div>
 				</div>
 				<div layout-sm="column" layout-gt-sm="row">
 					<div flex style="margin:15px 0px">
 						<span class="pull-left qty-lable">Quantity : </span> 
-						<div layout="row" class="add-tocart">
-							<span class="btns-b" style="border-right:1px solid #494949;">
-                          		<ng-md-icon icon="remove" style="fill: #000000" size="22" class="ng-scope"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path d="M19 13H5v-2h14v2z"></path></svg></ng-md-icon> 
-							</span>
-							<span class="count-quantity">Cart</span>
-							<span class="btns-b" style="border-left:1px solid #494949;">
-								<ng-md-icon icon="add" style="fill: #000000" size="22" class="ng-scope"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg></ng-md-icon> 
-							</span>
-						</div>
+					<div class="prod-count" layout="row">
+		       		<md-button class="md-icon-button" style="border-right: 1px solid #cbcbcb;" aria-label="More" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart - 1;addToCart(productDetails)">
+                          <!-- <md-icon md-svg-icon="assets/img/checkout/add.svg"></md-icon> -->
+                          <ng-md-icon icon="remove" style="fill: #000" size="18"></ng-md-icon> 
+                    </md-button>
+					<div ng-hide="productDetails.noOfQuantityInCart > 0" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)" class="padd-7">
+					Cart</div>
+					<div ng-show="productDetails.noOfQuantityInCart > 0" class="padd-7">{{productDetails.noOfQuantityInCart}}</div>
+					<md-button class="md-icon-button" style="border-left: 1px solid #cbcbcb;" aria-label="More" ng-click="productDetails.noOfQuantityInCart = productDetails.noOfQuantityInCart + 1;addToCart(productDetails)">
+                        <!-- <md-icon md-svg-icon="assets/img/checkout/subtract.svg"></md-icon> -->
+                        <ng-md-icon icon="add" style="fill: #000" size="18"></ng-md-icon> 
+                    </md-button>
+                    </div>
 					</div>
 				</div>
 				
 				<div>
 					<h2 class="md-headline">Combo Products</h2>
 					<div layout="row" class="combo">
-						<div class="combo-container">
-							<div class="md-body-1 combo-product-name text-weight-bold">Product-1</div>
-							<div class="combo-thumb"><img src="assets/images/fruit.jpg"  /></div>
-							<div class="price-nd-qty"><span class="pull-left md-body-1">2kg</span> <span class="pull-right text-weight-600">&#8377; 170</span></div>
-						</div>
+						<div class="combo-container" ng-repeat="product in productDetails.productOffer[0].productOfferLinesVo">
+							<div class="md-body-1 combo-product-name text-weight-bold">{{product.productVo.name}}</div>
+							<div class="combo-thumb"><img src="{{product.productVo.image.url}}"  /></div>
+						
 						<div layout="row" layout-align="center center">
 							<span flex style=" padding:10px 20px;"><ng-md-icon  icon="add" style="fill: #000000" size="22" class="ng-scope"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg></ng-md-icon></span>
 						</div>
-						<div class="combo-container">
-							<div class="md-body-1 combo-product-name text-weight-bold">Product-2</div>
-							<div class="combo-thumb"><img src="assets/images/fruit.jpg"  /></div>
-							<div class="price-nd-qty"><span class="pull-left md-body-1">2kg</span> <span class="pull-right text-weight-600">&#8377; 170</span></div>
-						</div>
-						
+					<div class="price-nd-qty"><span class="pull-left md-body-1">{{product.productVo.unit}} {{product.productVo.uom.name}}</span> <span class="pull-right text-weight-600">&#8377; {{product.productVo.price}}</span></div>	
+					</div>	
 						<div layout="row" layout-align="center center">
 							<span flex style="font-size:34px; font-weight:600; padding:10px 20px;">=</span>
 						</div>
 						<div class="combo-container" layout="column" layout-align="center center">
 							<div flex class="price-nd-qty text-weight-600" layout="column" layout-align="center center">
-								<span class="pull-right"><strike>&#8377; 170</strike></span>
+								<span class="pull-right"><strike>&#8377; {{productDetails.wasPrice}}</strike></span>
 							</div>
 							<div flex class="price-nd-qty text-weight-600" layout="column" layout-align="center center">
-								<span class="pull-right md-headline ">&#8377; 170</span>
-								<span class="pull-right text-red">Save &#8377; 12</span>
+								<span class="pull-right md-headline ">&#8377; {{productDetails.price}}</span>
+								<span class="pull-right text-red">Save &#8377; {{productDetails.wasPrice - productDetails.price}}</span>
 							</div>
 						</div>
 					</div>

@@ -89,10 +89,6 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productOfferVo.setOfferAmount(productOffer.getOfferAmount());
 		productOfferVo.setQty(productOffer.getQty());
 		productOfferVo.setDescription(productOffer.getDescription());
-		productOfferVo.setFromDate(productOffer.getFromDate());
-		productOfferVo.setTodate(productOffer.getTodate());
-		productOfferVo.setStartTime(productOffer.getStartTime());
-		productOfferVo.setEndTime(productOffer.getEndTime());
 		if(productOffer.getProductOfferLines() != null){
 		for(ProductOfferLine productOfferLine : productOffer.getProductOfferLines()){
 			productOfferVo.getProductOfferLinesVo().add(productOfferLineService.setProductOfferLineVo(productOfferLine));
@@ -105,10 +101,6 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productVo.setProductId(product.getProductId());
 		productOfferVo.setProductVo(productVo);
 		
-		StoreVo store = new StoreVo();
-		store.setStoreId(productOffer.getStore().getStoreId());
-		store.setName(productOffer.getStore().getName());
-		productOfferVo.setStore(store);
 		return productOfferVo;
 	}
 

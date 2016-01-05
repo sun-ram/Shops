@@ -113,15 +113,20 @@
 		</md-input-container>
 		
 		
-		<h4 layout="row" class="md-layout-column" ng-init=checkgroupCount(product);>
+		<h4 layout="row" ng-hide="product.isKit" class="md-layout-column" ng-init=checkgroupCount(product);>
 			<input layout-align="start center" type="checkBox" ng-model="groupCount" />
 			<label layout-align="end center" style="padding-left: 20px;">Bundle</label>
 		</h4>
 
-		<md-input-container ng-show="groupCount"> <label>Bundle Qty</label> <input
+		<md-input-container ng-hide="product.isKit" ng-show="groupCount"> <label>Bundle Qty</label> <input
 			type="text" ng-model="product.groupCount" valid-number
 			 /> 
 		</md-input-container>
+		
+		<h4 layout="row" ng-hide="product.groupCount > 1" class="md-layout-column">
+			<input layout-align="start center" type="checkBox" ng-model="product.isKit" />
+			<label layout-align="end center" style="padding-left: 20px;">Combo Offer</label>
+		</h4>		
 		
 	<div flex layout="row">
   		<div layout="row" layout-sm="column" layout-align="start start">

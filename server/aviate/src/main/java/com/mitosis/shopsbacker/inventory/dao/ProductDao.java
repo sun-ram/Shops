@@ -43,5 +43,7 @@ public interface ProductDao<T> {
 			Merchant merchant);
 	
 	public List<Product> getIsBundleProduct(Merchant merchant);
+	
+	public List<Product> getComboOffer(Merchant merchant);
 
 }

@@ -232,6 +232,32 @@ public class ProductOfferRestServices<T> {
 
 	}
 	
+	@Path("/getofferbyStore")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ProductOfferResponseVo getProductOfferByStore(ProductOfferVo productOfferVo) {
+		List<ProductOffer> productOfferList = new ArrayList<ProductOffer>();
+		ProductOfferResponseVo productOfferVoList = new ProductOfferResponseVo();
+		try {
+			if (productOfferVo.getStore()!=null) {
+				Store store = storeService.getStoreById(productOfferVo.getStore().getStoreId());
+				productOfferList = productOfferService.getProductOfferByStore(store);
+				for(ProductOffer productOffer : productOfferList){
+					productOfferVoList.getProductOfferList().add(productOfferService.setProductOfferVo(productOffer));
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+			response.setErrorString(e.getMessage());
+		}
+		return productOfferVoList;
+
+	}
+	
 	@Path("/getofferbyId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

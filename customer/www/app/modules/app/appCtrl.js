@@ -366,13 +366,22 @@ angular.module('aviate.controllers')
 				$scope.product.merchant = {};
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.topCategories($scope.product).then(function(data){
-             //   $rootScope.topcategories = data;
-            	 $rootScope.topcategories = $rootScope.comboOffer(data);
+                $rootScope.topcategories = data;
+            //	 $rootScope.topcategories = $rootScope.comboOffer(data);
             })
 			}
+
+			$rootScope.comboOffers = function(){
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+				         homePageServices.comboOffer($scope.product).then(function(data){
+				             $rootScope.comboOffer = data;	
+				        })
+					}
 			
 			
-			$rootScope.comboOffer = function(productList){
+	/*		$rootScope.comboOffer = function(productList){
 				$scope.productList = productList;
 				for(var i =0;i<$scope.productList.length;i++){
 					$scope.productOffers = [];
@@ -407,7 +416,7 @@ angular.module('aviate.controllers')
 				}
 				return $scope.offerLines;
 			}
-						
+						*/
 			
 			$rootScope.getAllCategoryWithProduct = function() {
 				$scope.product = {};

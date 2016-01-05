@@ -37,9 +37,9 @@ public class ProductVo {
 	private BigDecimal unit;
 	private String description;
 	private String productTypeId;
-	private Character isKit = 'N';
-	private Character isChild = 'N';
-	private Character isBundle = 'N';
+	private boolean isKit;
+	private boolean isChild;
+	private boolean isBundle;
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	private List<ImageVo> images = new ArrayList<ImageVo>();
 	private List<ProductOfferVo> productOffer = new ArrayList<ProductOfferVo>();
@@ -171,22 +171,22 @@ public class ProductVo {
 	public void setYourHot(boolean isYourHot) {
 		this.isYourHot = isYourHot;
 	}
-	public Character getIsKit() {
+	public Boolean getIsKit() {
 		return isKit;
 	}
-	public void setIsKit(Character isKit) {
+	public void setIsKit(Boolean isKit) {
 		this.isKit = isKit;
 	}
-	public Character getIsChild() {
+	public Boolean getIsChild() {
 		return isChild;
 	}
-	public void setIsChild(Character isChild) {
+	public void setIsChild(Boolean isChild) {
 		this.isChild = isChild;
 	}
-	public Character getIsBundle() {
+	public boolean getIsBundle() {
 		return isBundle;
 	}
-	public void setIsBundle(Character isBundle) {
+	public void setIsBundle(boolean isBundle) {
 		this.isBundle = isBundle;
 	}
 	public List<ProductOfferVo> getProductOffer() {

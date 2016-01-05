@@ -1511,5 +1511,33 @@ public class ProductRestService {
 		return productResponse;
 
 	}
+	@Path("/getcombooffer")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public ResponseModel GetComboOffer(ProductVo productVo) {
+		ProductResponseVo productResponse = new ProductResponseVo();
+		try {
+			Merchant merchant = merchantService.getMerchantById(productVo
+					.getMerchant().getMerchantId());
+			List<Product> productList = getProductService().getComboOffer(merchant);
+			List<ProductVo> productVoList = new ArrayList<ProductVo>();
+			for (Product product : productList) {
+				ProductVo productVos = productService.setProductVo(product);
+				productVoList.add(productVos);
+			}
 
+			productResponse.setProducts(productVoList);
+			productResponse.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
+			productResponse.setErrorString(e.getMessage());
+		}
+
+		return productResponse;
+
+	}
 }

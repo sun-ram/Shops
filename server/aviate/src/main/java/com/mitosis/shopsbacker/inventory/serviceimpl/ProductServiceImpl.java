@@ -27,6 +27,7 @@ import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductOffer;
+import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.model.ProductType;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -188,19 +189,18 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product.setIsYourHot('N');
 		}
 		
-				if(productVo.getGroupCount() != null){
+		if(productVo.getIsKit() != null){
+			product.setIsKit('Y');
+			product.setGroupCount(1);
+			product.setIsBundle('N');			
+		}else if(productVo.getGroupCount() != null){
 						product.setGroupCount(productVo.getGroupCount());
 						product.setIsBundle('Y');
 					}else{
 						product.setGroupCount(1);
-						product.setIsBundle('N');
-			 		}
-/*
-		Image image = imageService.setImage(productVo.getImage());
-		product.setImage(image);*/
-
-
-
+						product.setIsBundle('N');						
+						
+					}
 		return product;
 	}
 
@@ -217,14 +217,31 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		productVo.setEdibleType(product.getEdibleType());
 		productVo.setGroupCount(product.getGroupCount());
 		productVo.setProductId(product.getProductId());
-		productVo.setIsBundle(product.getIsBundle());
-		productVo.setIsChild(product.getIsChild());
-		productVo.setIsKit(product.getIsKit());
+		if(product.getIsBundle() == 'Y'){
+		productVo.setIsBundle(true);
+		}else{
+			productVo.setIsBundle(false);
+		}
+		if(product.getIsKit() == 'Y'){
+		productVo.setIsKit(true);
+		}else{
+			productVo.setIsKit(false);
+		}
 				if(product.getIsYourHot() == 'Y'){
 						productVo.setIsYourHot(true);
 					}else{
 						productVo.setIsYourHot(false);
 					}
+				
+		if(product.getIsKit() =='Y'){
+			double wasPrice = 0;
+			
+			for(ProductOfferLine productOfferLine :  product.getProductOffers().get(0).getProductOfferLines()){
+				wasPrice = wasPrice + productOfferLine.getProduct().getPrice().floatValue();
+			}
+			BigDecimal price = new BigDecimal(wasPrice);
+			productVo.setWasPrice(price);
+		}
 		if(product.getProductOffers() != null || product.getProductOffers().size() != 0){
 			List<ProductOfferVo> productOfferVos = new  ArrayList<ProductOfferVo>();
 		
@@ -331,6 +348,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	@Override
 	public List<Product> getIsBundleProduct(Merchant merchant) {
 		return productDao.getIsBundleProduct(merchant);
+	}
+
+	@Override
+	public List<Product> getComboOffer(Merchant merchant) {
+		return productDao.getComboOffer(merchant);
 	}
 	
 

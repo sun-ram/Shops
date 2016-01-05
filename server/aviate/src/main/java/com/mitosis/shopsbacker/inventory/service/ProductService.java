@@ -51,4 +51,6 @@ public interface ProductService<T> {
 
 	public List<Product> getProductName(String productId, String name,
 			Merchant merchant);
+	
+	public List<Product> getComboOffer(Merchant merchant);
 }

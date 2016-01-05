@@ -177,6 +177,7 @@ angular.module('aviate.controllers')
 			//	$rootScope.getStoreHolidays();
 				$rootScope.getTax();
 				$rootScope.isBundleProduct();
+				$rootScope.comboOffers();
 			}
 			
 			$scope.showOffers = function(productOffer){
