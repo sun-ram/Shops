@@ -47,7 +47,9 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                     );*/
                     
  	        	   $scope.logout = function() {
- 	        		 $rootScope.websocket.close();
+ 	        		 if($rootScope.websocket){
+ 	        			 $rootScope.websocket.close();
+ 	        		 }
                      $rootScope.user = null;
                      ipCookie('adminuser', null);
                      $state.go('login');

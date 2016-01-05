@@ -15,12 +15,12 @@ angular.module('aviate.controllers')
 	
 	
 	  $scope.changeimage = function(imageurl){
-			var someimage = document.getElementsByTagName('zoom')[0];
+			/*var someimage = document.getElementsByTagName('zoom')[0];
 			var myimg1 = someimage.getElementsByTagName('img')[0];
 			var myimg2 = someimage.getElementsByTagName('img')[1];
 			myimg1.setAttribute("src",imageurl);
 			myimg1.setAttribute("ng-src",imageurl);
-			myimg2.setAttribute("src",imageurl);
+			myimg2.setAttribute("src",imageurl);*/
 			$scope.image = imageurl;
 
 			//document.getElementByTagName("zoom img").src = imageurl;

@@ -69,14 +69,23 @@
   color: #fff;
 }
 #progress-bar .highlight-index {
-  background-color: #3cb0a5;
+  background-color: #fff;
   display: block;
   height: 100%;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
-  height:10px;
+  border: 1px solid #3cb0a5;
+  height: 7px  ! important;
+  
+}
+.status-track{
+	background: #3cb0a5;
+}
+.padd-lr15{
+	padding-left: 15px !important;
+	padding-right: 15px !important;
 }
 #progress-bar .description {
   display: block;
@@ -190,33 +199,30 @@
 				  <ol id="progress-steps">
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing in Progress</span>
-						 <!--<ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>-->
-						<span class="count-incr"><ng-md-icon icon="done" class="check_status" size="25"></ng-md-icon></span>
-					  <span ng-class="trackedOrders[$index][0]" class="highlight-index">					 
+						<span class="count-incr padd-lr15">
+						<ng-md-icon icon="done" class="check_status" size="20"></ng-md-icon></span>
+					  <span ng-class="trackedOrders[$index][0]" class="status-track highlight-index">					 
 					  </span>
 					  
 					</li>
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing Completed</span>
-						<!--<ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>-->
 						<span class="count-incr"><ng-md-icon ng-if="trackedOrders[$index][0] != 'none'" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="trackedOrders[$index][0] == 'none'">2</span></span>
-					  <span ng-class="trackedOrders[$index][1]" class="highlight-index">
+					  <span ng-class="trackedOrders[$index][1]" class="status-track highlight-index">
 					  </span>
 					  
 					</li>
 					  <li class="progress-step" style="width: 20%;">
 						  <span class="description">Delivery Started</span>
-						  <!--<ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>-->
 						  <span class="count-incr"><ng-md-icon ng-if="trackedOrders[$index][1] != 'none'" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="trackedOrders[$index][1] == 'none'">3</span></span>
-					  <span ng-class="trackedOrders[$index][2]" class="highlight-index">
+					  <span ng-class="trackedOrders[$index][2]" class="status-track highlight-index">
 					  </span>
 					  
 					</li>
 					<li class="progress-step" style="width: 20%;">
 						 <span class="description">Delivered</span>
-					 <!-- <ng-md-icon ng-if="order[0] == 'none'" icon="done" class="check_status" size="20"></ng-md-icon>-->
-						<span class="count-incr"><ng-md-icon ng-if="trackedOrders[$index][2] != 'none'" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="trackedOrders[$index][2] == 'none'">4</span></span>
-					  <span ng-class="trackedOrders[$index][3]" class="highlight-index">
+					 	<span class="count-incr"><ng-md-icon ng-if="trackedOrders[$index][2] != 'none'" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="trackedOrders[$index][2] == 'none'">4</span></span>
+					  <span ng-class="trackedOrders[$index][3]" class="status-track highlight-index">
 					  </span>
 					 
 					</li>
