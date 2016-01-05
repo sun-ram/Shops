@@ -131,8 +131,6 @@ public class SalesOrderRestService<T> {
 
 	ResponseModel response = null;
 	SalesOrderResponseVo salesOrderResponse = null;
-	SocketServer socket = new SocketServer();
-	SocketMessage message = null;
 	
 	@Path("/getsalesorder")
 	@POST
@@ -303,7 +301,8 @@ public class SalesOrderRestService<T> {
 	public String confirmOrder(SalesOrderVo salesOrderVo) {
 		ConfirmOrderResponseVo response = new ConfirmOrderResponseVo();
 		String res = "";
-		message = new SocketMessage();
+		SocketServer socket = new SocketServer();
+		SocketMessage message = new SocketMessage();
 		try {
 			SalesOrder salesOrder = (SalesOrder) CommonUtil
 					.setAuditColumnInfo(SalesOrder.class.getName(),salesOrderVo.getUserId());
@@ -591,7 +590,8 @@ public class SalesOrderRestService<T> {
 	public String updateOrderStatusForEmp(SalesOrderVo salesOrderVo) {
 		salesOrderResponse = new SalesOrderResponseVo();
 		String responseStr = "";
-		message = new SocketMessage();
+		SocketServer socket = new SocketServer();
+		SocketMessage message = new SocketMessage();
 		try {
 			SalesOrder salesOrder = salesOrderService
 					.getSalesOrderById(salesOrderVo.getSalesOrderId());

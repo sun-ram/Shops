@@ -52,6 +52,7 @@ public class SocketServer {
 			peers.remove(peer);
 			usersMap.remove(peer.getId());
 		}catch(Exception e){
+			log.error(e.getMessage());
 			try {
 				peer.close();
 			} catch (IOException e1) {
