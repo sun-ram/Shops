@@ -225,8 +225,12 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 				var divPos = {};
 				var offset = $("rect").offset();
-				$("outerRect").mouseleave(function(e){
-					rect
+				$("#outerRect").mouseleave(function(e){
+					document.getElementById("bandrect").style.display = "none";
+				});
+				
+				$("#outerRect").mouseenter(function(e){
+					document.getElementById("bandrect").style.display = "block";
 				});
 			
 				$("rect").mousemove(function(e){
