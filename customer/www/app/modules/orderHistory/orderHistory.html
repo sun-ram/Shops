@@ -81,7 +81,7 @@
   
 }
 .status-track{
-	background: #3cb0a5;
+	background: #3cb0a5 ! important;
 }
 .padd-lr15{
 	padding-left: 15px !important;
@@ -201,28 +201,28 @@
 						<span class="description">Packing in Progress</span>
 						<span class="count-incr padd-lr15">
 						<ng-md-icon icon="done" class="check_status" size="20"></ng-md-icon></span>
-					  <span ng-class="{'highlight-index' : ordersHis.tracked[0]}" class="status-track highlight-index">					 
+					  <span ng-class="{'highlight-index' : ordersHis.tracked[0],'status-track':ordersHis.tracked[0] }" class="highlight-index">					 
 					  </span>
 					  
 					</li>
 					<li class="progress-step" style="width: 20%;">
 						<span class="description">Packing Completed</span>
 						<span class="count-incr"><ng-md-icon ng-if="ordersHis.tracked[0]" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="!ordersHis.tracked[0]">2</span></span>
-					  <span ng-class="{'highlight-index' : ordersHis.tracked[1]}" class="status-track highlight-index">
+					  <span ng-class="{'highlight-index' : ordersHis.tracked[1],'status-track':ordersHis.tracked[1]}" class="highlight-index">
 					  </span>
 					  
 					</li>
 					  <li class="progress-step" style="width: 20%;">
 						  <span class="description">Delivery Started</span>
 						  <span class="count-incr"><ng-md-icon ng-if="ordersHis.tracked[1]" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="!ordersHis.tracked[1]">3</span></span>
-					  <span ng-class="{'highlight-index' :ordersHis.tracked[2]}" class="status-track highlight-index">
+					  <span ng-class="{'highlight-index' :ordersHis.tracked[2],'status-track':ordersHis.tracked[2]}" class="highlight-index">
 					  </span>
 					  
 					</li>
 					<li class="progress-step" style="width: 20%;">
 						 <span class="description">Delivered</span>
 					 	<span class="count-incr"><ng-md-icon ng-if="ordersHis.tracked[2]" icon="done" class="check_status" size="25"></ng-md-icon><span ng-if="!ordersHis.tracked[2]">4</span></span>
-					  <span ng-class="{'highlight-index' :ordersHis.tracked[3]}" class="status-track highlight-index">
+					  <span ng-class="{'highlight-index' :ordersHis.tracked[3],'status-track':ordersHis.tracked[3]}" class="highlight-index">
 					  </span>
 					 
 					</li>
