@@ -36,6 +36,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.merchatsRaisedPrevWeek = 0;
 		$scope.storesRaisedprevWeek = 0;
 		$scope.customersRaisedPrevWeek = 0;
+		$scope.receivedResponceCount = 0;
 		$scope.d3LineData = [];
 		var growthYcount = 10;
 		var growthXcount = growthRatioChartSpan / 7;
@@ -1131,7 +1132,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		};
 
 
-		$scope.proceedSalesOrder = function (callback) {
+		$scope.proceedSalesOrder = function (data) {
 
 			var anayed = [];
 			$scope.testdata = [{
@@ -1139,77 +1140,112 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				y: 0
             }];
 
-			sendHttpRequest('salesOrder').then(function (data) {
+			
 				data.Books = _.reject(data.Books, function(book){ return (book.ISACTIVE != 'Y' || book.STATUS != 'Delivered');});
 				console.info("salesOrder Received ", data);
 				postSalesOrder(data);
-			});
+		
 		};
-		$scope.proceedSalesOrderLine = function (callback) {
-			sendHttpRequest('salesOrderLine').then(function (data) {
-				data.Books = _.reject(data.Books, function(book){ return book.ISACTIVE != 'Y';});
-				$scope.salesOrderLines = data;
+		$scope.proceedSalesOrderLine = function (data) {
+			/*sendHttpRequest('salesOrderLine').then(function (data) {
+							
 				console.info("Sales order line Received", data);
-			});
+			});*/
 
 		};
 
 
-		$scope.ProceedMerchant = function (callback) {
+		$scope.ProceedMerchant = function (data) {
 			//Merchants
-			sendHttpRequest('merchant').then(function (data) {
-				$scope.merchants = data;
 				var activeMerchants = angular.copy(data);
 				activeMerchants.Books = _.reject(activeMerchants.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.info("Merchant Received ", data);
 				filteredMerchants(data);
-			});
 		};
-		$scope.proceedStore = function (callback) {			
-			sendHttpRequest('store').then(function (data) {
-				$scope.stores = data;
+		$scope.proceedStore = function (data) {			
 				var activeStores = angular.copy(data);
 				activeStores.Books = _.reject(activeStores.Books, function(book){ return book.ISACTIVE != 'Y';});
 				console.info("Store Received ", data);
 				filteredStores(activeStores);
 				postStore(data);
-			});
 
 		};
 		$scope.proceedAddresses = function (callback) {		
-			sendHttpRequest('address').then(function (data) {
+			/*sendHttpRequest('address').then(function (data) {
 				$scope.addresses = data;
 				console.info("Addresses Received =>");
-			});
+			});*/
 		};
 		$scope.proceedUsers = function (callback) {
-			sendHttpRequest('users').then(function (data) {
-				$scope.users = data;
-				console.info("users Received", data);
-			});
+			
 		};
 
-		$scope.proceedCustomer = function (callback) {
-			sendHttpRequest('customer').then(function (data) {
-				$scope.customers = data;
+		$scope.proceedCustomer = function (data) {
 				var activeCustomers = angular.copy(data);
 				activeCustomers.Books = _.reject(activeCustomers.Books, function(book){ return book.ISACTIVE != 'Y';});
 				filteredCustomers(activeCustomers);
-				console.info("Customers Received",data);
-			});
 		};
+		
+		var callAllwebservices = function (){
+			$scope.receivedResponceCount = 0;
+			sendHttpRequest('customer').then(function (data) {
+				console.info("customer responce : ",data);
+				$scope.customers = data;
+				$scope.receivedResponceCount ++;
+			});
+			sendHttpRequest('users').then(function (data) {
+				console.info("users responce : ",data);
+				$scope.users = data;
+				$scope.receivedResponceCount ++;
+			});
+			
+			sendHttpRequest('address').then(function (data) {
+				console.info("address responce : ",data);
+				$scope.addresses = data;
+				$scope.receivedResponceCount ++;
+			});
+			sendHttpRequest('store').then(function (data) {
+				console.info("store responce : ",data);
+				$scope.stores = data;
+				$scope.receivedResponceCount ++;
+			});
+			sendHttpRequest('merchant').then(function (data) {
+				console.info("merchant responce : ",data);
+				$scope.merchants = data;
+				$scope.receivedResponceCount ++;
+			});
+			
+			sendHttpRequest('salesOrderLine').then(function (data) {
+				console.info("salesOrderLine responce : ",data);
+				$scope.salesOrderLines = data;
+				$scope.receivedResponceCount ++;
+			});
+			
+			sendHttpRequest('salesOrder').then(function (data) {
+				console.info("salesOrder responce : ",data);
+				$scope.salesOrders = data;
+				$scope.receivedResponceCount ++;
+			});
+			
+		}
+		
+		$scope.$watch('receivedResponceCount', function (newValue, oldValue){
+			if(newValue >= 7){
+				$scope.proceedCustomer($scope.customers);
+				$scope.proceedStore($scope.stores);
+				$scope.ProceedMerchant($scope.merchants);
+				$scope.proceedSalesOrder($scope.salesOrders);
+				console.log("Got all responces from node server");
+				
+			}
+		});
 		
 		function initiateAllMethods (){
 			document.getElementById('grouperBarChart').innerHTML = "";
 			document.getElementById('graph').innerHTML = "";
 			//call all methods by preority
-			$scope.proceedCustomer();
-			$scope.ProceedMerchant();
-			$scope.proceedUsers();
-			$scope.proceedAddresses();
-			$scope.proceedSalesOrderLine();
-			$scope.proceedSalesOrder();
-			$scope.proceedStore();
+			callAllwebservices();
+
 		};
 		
 		initiateAllMethods();
