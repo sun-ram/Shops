@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -48,25 +49,20 @@ public class SocketServer {
 
 	@OnClose
 	public void onClose(Session peer) {
-		try{
-			peers.remove(peer);
-			usersMap.remove(peer.getId());
-		}catch(Exception e){
-			log.error(e.getMessage());
-			try {
-				peer.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				log.error(e1.getMessage());
-			}
-		}
-		}	
+		peers.remove(peer);
+		usersMap.remove(peer.getId());
+	}	
 
 	@OnMessage
 	public void message(SocketMessage message, Session client)
 			throws IOException, EncodeException {
 		getSessionIdOfUser(message);
+	}
+
+	@OnError
+	public void onError(Throwable t) throws Throwable {
+		t.printStackTrace();
+		log.error(t.getMessage());
 	}
 
 	/*Retrieving the session id of users*/
@@ -79,32 +75,32 @@ public class SocketServer {
 			}
 		}  
 	}  
-	
+
 	/*Send Message to the user*/
 	private void sendMessage(String sessionId, SocketMessage message) {
-				for (Session peer : peers) {  
-					try {  
-						synchronized (peer) {  
-							/*Comparing the session id*/  
-							if (peer.getId().equals(sessionId)) {  
-								peer.getBasicRemote().sendObject(message);   
-							}  
-						}  
-					} catch (Exception e) {  
-						peers.remove(peer);  
-						e.printStackTrace();
-						log.error(e.getMessage());
-						try {  
-							peer.close();  
-						} catch (IOException e1){  
-							e1.printStackTrace();
-							log.error(e1.getMessage());
-						}
-						/*for (Session peer : peers) {
+		for (Session peer : peers) {  
+			try {  
+				synchronized (peer) {  
+					/*Comparing the session id*/  
+					if (peer.getId().equals(sessionId)) {  
+						peer.getBasicRemote().sendObject(message);   
+					}  
+				}  
+			} catch (Exception e) {  
+				peers.remove(peer);  
+				e.printStackTrace();
+				log.error(e.getMessage());
+				try {  
+					peer.close();  
+				} catch (IOException e1){  
+					e1.printStackTrace();
+					log.error(e1.getMessage());
+				}
+				/*for (Session peer : peers) {
 					peer.getBasicRemote().sendObject(message);
 				}*/
-					}
-				}
+			}
+		}
 	}  
 
 }
