@@ -26,16 +26,15 @@ angular.module('aviate.controllers')
 				var tmpArray = [];
 				 data[i].tracked = [];
 				if(tmpData.deliveredTime){
-					tmpArray = ['highlight-index','highlight-index','highlight-index','highlight-index'];
-					/*$scope.trackedOrderDetails.push(tmpData.netAmount + " : "+ tmpData.orderNo);*/
+					tmpArray = [true,true,true,true];
 				}else if(tmpData.deliveryStartTime || tmpData.backerAssignedTime){
-					tmpArray = ['highlight-index','highlight-index','highlight-index','none'];
+					tmpArray = [true,true,true,false];
 				}else if(tmpData.packedTime){
-					tmpArray = ['highlight-index','highlight-index','none','none'];
+					tmpArray = [true,true,false,false];
 				}else if(tmpData.pickupStartTime || tmpData.shopperAssignedTime){
-					tmpArray = ['highlight-index','none','none','none'];
+					tmpArray = [true,false,false,false];
 				}else{
-					tmpArray = ['none','none','none','none'];
+					tmpArray = [false,false,false,false];
 				}
 				$scope.data[i].tracked = angular.copy(tmpArray);
 				
