@@ -1,4 +1,17 @@
-
+<style>
+	* {margin: 0; padding: 0;}
+	.magnify {width: 200px; margin: 50px auto; position: relative;}
+	.large {
+		width: 175px; height: 175px;
+		position: absolute;
+		border-radius: 100%;
+		box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 
+		0 0 7px 7px rgba(0, 0, 0, 0.25), 
+		inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+		display: none;
+	}
+	.small { display: block; }
+</style>
 <div class="pro-detail-popup" layout-padding >
 	<div ng-click="cancel()" style="height:40px; width:40px; border-radius:50px; position:fixed; right:5px; top:5px; ">
 		<ng-md-icon icon="close" style="fill: #333; float: right; margin: 0; cursor: pointer;" size="25" ng-click="cancel()" role="button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></ng-md-icon>
@@ -8,7 +21,13 @@
 		<div flex layout-sm="column" layout-md="column" layout-gt-md="row">
 			<div flex-sm="100" layout-padding flex-md="100" flex-gt-md="30">
 				<div class="pro-zoom-img">
-					<img src={{productDetails.image.url}} />
+					<!-- <img src={{productDetails.image.url}} /> -->
+					<div class="magnify">
+						<!-- This is the magnifying glass which will contain the original/large version -->
+						<div class="large" style="background: url('{{productDetails.image.url}}') no-repeat;"></div>
+						<!-- This is the small image -->
+						<img class="small" src="{{productDetails.image.url}}" width="200"/>
+					</div>
 				</div>
 				<div class="pro-thimbnail-img">
 					<div layout="row" >
@@ -74,3 +93,50 @@
 		</div>
 	</div>
 </div>
+
+<!-- Lets load up prefixfree to handle CSS3 vendor prefixes -->
+<script src="http://thecodeplayer.com/uploads/js/prefixfree.js" type="text/javascript"></script>
+
+
+<script>
+$(document).ready(function(){
+	var native_width = 0;
+	var native_height = 0;
+	//Now the mousemove function
+	$(".magnify").mousemove(function(e){
+		if(!native_width && !native_height)
+		{
+			var image_object = new Image();
+			image_object.src = $(".small").attr("src");
+			native_width = image_object.width;
+			native_height = image_object.height;
+		}
+		else
+		{
+			var magnify_offset = $(this).offset();
+			var mx = e.pageX - magnify_offset.left;
+			var my = e.pageY - magnify_offset.top;
+			if(mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0)
+			{
+				$(".large").fadeIn(100);
+			}
+			else
+			{
+				$(".large").fadeOut(100);
+			}
+			if($(".large").is(":visible"))
+			{
+				var rx = Math.round(mx/$(".small").width()*native_width - $(".large").width()/2)*-1;
+				var ry = Math.round(my/$(".small").height()*native_height - $(".large").height()/2)*-1;
+				var bgp = rx + "px " + ry + "px";
+				var px = mx - $(".large").width()/2;
+				var py = my - $(".large").height()/2;
+				$(".large").css({left: px, top: py, backgroundPosition: bgp});
+			}
+		}
+	})
+})
+</script>
+
+
+
