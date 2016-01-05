@@ -24,7 +24,7 @@ angular.module('aviateAdmin.controllers').controller("movementcontroller",
 
 			$scope.processMovement = function(movement) {
 				$scope.warehouseData = {};
-				movement.userId = $rootScope.user.userName;
+				movement.userId = $rootScope.user.userId;
 
 				movementServices.processMovement({'movementId': movement.movementId,'userId': movement.userId}).then(function(data){
 					movementServices.getMovementsByStore({'store':{'storeId':$rootScope.user.storeId}}).then(function(data){

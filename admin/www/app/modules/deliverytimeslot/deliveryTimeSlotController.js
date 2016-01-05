@@ -39,7 +39,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		deliveryTimeSlot.storeId=$rootScope.user.storeId;
 		deliveryTimeSlot.holidayDates = $scope.holidayDates;
 		deliveryTimeSlot.holidayReasons = JSON.stringify(reasons);
-		deliveryTimeSlot.userId = $rootScope.user.userName;
+		deliveryTimeSlot.userId = $rootScope.user.userId;
 
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
 			var confirm = $mdDialog.confirm()
@@ -76,7 +76,7 @@ aviateAdmin.controller("deliveryTimeSlot", ['$scope','$http','$localStorage','$l
 		});
 		deliveryTimeSlot.holidayDates = $scope.holidayDates;
 		deliveryTimeSlot.holidayReasons = JSON.stringify(reasons);
-		deliveryTimeSlot.userId = $rootScope.user.userName;
+		deliveryTimeSlot.userId = $rootScope.user.userId;
 
 		if(deliveryTimeSlot.fromTime.getTime() >= deliveryTimeSlot.toTime.getTime()){
 			var confirm = $mdDialog.confirm()

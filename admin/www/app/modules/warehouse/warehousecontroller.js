@@ -82,7 +82,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.address.country.name = $scope.cnt.name;
 		$scope.warehouse.address.state.stateId = $scope.st.stateId;
 		$scope.warehouse.address.state.name = $scope.st.name;
-		$scope.warehouse.userId = $rootScope.user.userName;
+		$scope.warehouse.userId = $rootScope.user.userId;
 
 		//$scope.warehouse.address.city.cityId=$scope.cty.cityId;
 		//$scope.warehouse.address.city.name=$scope.cty.name;
@@ -115,7 +115,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.warehouse.address.state.name = $scope.st.name;
 		$scope.warehouse.address.city.cityId=$scope.cty.cityId;
 		$scope.warehouse.address.city.name=$scope.cty.name;
-		$scope.warehouse.userId = $rootScope.user.userName;
+		$scope.warehouse.userId = $rootScope.user.userId;
 
 		
 		
@@ -236,7 +236,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 		$scope.storagebin.store.storeId = $rootScope.user.storeId;
 		$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
 		$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
-		$scope.storagebin.userId = $rootScope.user.userName;
+		$scope.storagebin.userId = $rootScope.user.userId;
 
 		WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
 			toastr.success(CONSTANT.ADDSTORAGEBIN);
@@ -270,7 +270,7 @@ aviateAdmin.controller("warehousecontroller", ['$scope','$rootScope','$mdDialog'
 			$scope.storagebin.store.storeId = $rootScope.user.storeId;
 			$scope.storagebin.merchant.merchantId = $rootScope.user.merchantId;
 			$scope.storagebin.warehouse.warehouseId = $scope.warehouse.warehouseId;
-			$scope.storagebin.userId = $rootScope.user.userName;
+			$scope.storagebin.userId = $rootScope.user.userId;
 
 			WarehouseService.saveStorageBin($scope.storagebin).then(function(data) {
 				toastr.success(CONSTANT.UPDATESTORAGEBIN);
