@@ -35,6 +35,7 @@ public class SocketMessageDecoder implements Decoder.Text<SocketMessage> {
         SocketMessage chatMessage = new SocketMessage();
         chatMessage.setToUser(jsonObject.getString("touser"));
         chatMessage.setMessage(jsonObject.getString("message"));
+        chatMessage.setTag(jsonObject.getString("tag"));
         return chatMessage;
     }
 

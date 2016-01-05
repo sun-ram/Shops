@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.directives').directive('mainNav', [
-        '$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log', '$window',
-        function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log, $window ) {
+        '$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log', '$window','$localStorage',
+        function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log, $window,$localStorage ) {
 
             return {
                 // scope: false,
@@ -54,6 +54,12 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                      ipCookie('adminuser', null);
                      $state.go('login');
                    };
+                   
+                   $scope.salesRedirect = function(){
+                     $scope.salesOrderCountReceived =null;
+    				 $localStorage.salesOrderCountReceived = null;
+      				 $state.go('app.salesorder');
+                   }
                 }
 
             };

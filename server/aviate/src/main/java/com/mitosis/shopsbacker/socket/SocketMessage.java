@@ -11,6 +11,7 @@ public class SocketMessage {
 	private String message;
 	private String  toUser;
 	private String salesOrder;
+	private String tag;
 	
 	public String getFromUser() {
 		return fromUser;
@@ -36,5 +37,10 @@ public class SocketMessage {
 	public void setSalesOrder(String salesOrder) {
 		this.salesOrder = salesOrder;
 	}
-	
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	}

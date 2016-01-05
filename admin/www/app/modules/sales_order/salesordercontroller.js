@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers').controller("salesordercontroller", 
-		['$scope', '$state','$filter','ngTableParams','$timeout','$q','$rootScope','$localStorage','SalesOrderServices','toastr','$mdDialog',
-		 function($scope, $state, $filter, ngTableParams, $timeout,$q,$rootScope,$localStorage,SalesOrderServices,toastr,$mdDialog) {
+		['$scope', '$state','$filter','ngTableParams','$timeout','$q','$rootScope','$localStorage','SalesOrderServices','toastr','$mdDialog','CONSTANT',
+		 function($scope, $state, $filter, ngTableParams, $timeout,$q,$rootScope,$localStorage,SalesOrderServices,toastr,$mdDialog,CONSTANT) {
 
 			$scope.selected = [];
 			$rootScope.salesOrderDetails = $localStorage.salesorderline;
@@ -137,6 +137,30 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 
 				});
 			};
+			
+			$scope.$on('salesOrder:update',function(order){
+				console.log('received message from parent ');
+				$scope.socketData=order.targetScope.socketData;
+           	    $scope.salesList = JSON.parse($scope.socketData.salesOrder);
+				 if($scope.socketData.message=="New"){
+					 $scope.salesOrderList.unshift($scope.salesList);
+					 $scope.originalList = $scope.salesOrderList;
+					 $localStorage.salesorderlist = $scope.salesOrderList;
+					 $scope.noOfRecords=$scope.salesOrderList.length;
+					 toastr.success(CONSTANT.NEWSALESORDER);
+				 }else if($scope.socketData.message=="Update"){
+					 for(index=0;index<$scope.salesOrderList.length;index++) {
+						 if($scope.salesOrderList[index].salesOrderId == $scope.salesList.salesOrderId ){
+							 $scope.salesOrderList.splice(index, 1);
+							 $scope.salesOrderList.unshift($scope.salesList);
+							 $scope.noOfRecords=$scope.salesOrderList.length;
+							 $localStorage.salesorderlist = $scope.salesOrderList;
+							 toastr.success("SalesOrder No "+$scope.salesList.orderNo+" Updated");
+							 break;
+						 }
+				 }}
+				 $scope.onpagechange(1,5);
+			});
 
 			$scope.getMerchantStore = function () {
 
@@ -228,60 +252,6 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 				$state.go('app.salesorder');
 			};
 			
-/*Socket Connection*/
-			
-			if($rootScope.websocket!=null && $rootScope.websocket!=undefined){
-				$rootScope.websocket.onopen = function(evt) { onOpen(evt); };
-				$rootScope.websocket.onmessage = function(evt) { onMessage(evt); };
-				$rootScope.websocket.onerror = function(evt) { onError(evt); };
-				$rootScope.websocket.onclose = function(evt) { onClose(evt); };
-			}
-						
-			function send_message() {
-				var msg = '{"message":"Hai", "touser":"jai"}';	
-				$rootScope.websocket.send(msg);
-			}
-			
-			function onOpen() {
-			 console.log("CONNECTED");
-			}
-			
-			function onClose() {
-				console.log("DISCONNECTED");
-			}
-			
-			function onMessage(evt) {
-			 console.log("RECEIVED: " + evt.data);
-			 $scope.socketData = JSON.parse(evt.data); 
-			 $scope.salesList = JSON.parse($scope.socketData.salesOrder);
-			 if($scope.socketData.message=="New"){
-				 $scope.salesOrderList.unshift($scope.salesList);
-				 $scope.originalList = $scope.salesOrderList;
-				 $localStorage.salesorderlist = $scope.salesOrderList;
-				 $scope.noOfRecords=$scope.salesOrderList.length;
-				 toastr.success("New SalesOrder Created");
-			 }else if($scope.socketData.message=="Update"){
-				 for(index=0;index<$scope.salesOrderList.length;index++) {
-					 if($scope.salesOrderList[index].salesOrderId == $scope.salesList.salesOrderId ){
-						 $scope.salesOrderList.splice(index, 1);
-						 $scope.salesOrderList.unshift($scope.salesList);
-						 $scope.noOfRecords=$scope.salesOrderList.length;
-						 $localStorage.salesorderlist = $scope.salesOrderList;
-						 toastr.success("Existing Sales Order Updated");
-						 break;
-					 }
-			 }}	 
-			 $scope.onpagechange(1,5);
-			}
-			
-			function onError(evt) {
-				console.log(evt.data);
-			}
-			
-			function disconnect() {
-				$rootScope.websocket.close();
-			}
-
 			$scope.onpagechange = function(page, limit) {
 				var deferred = $q.defer();
 

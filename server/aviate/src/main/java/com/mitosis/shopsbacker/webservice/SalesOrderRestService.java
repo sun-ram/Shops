@@ -452,6 +452,7 @@ public class SalesOrderRestService<T> {
 			salesOrderVo = getSalesOrderService().setSalesOrderVo(
 					salesOrder);
 			message.setMessage("New");
+			message.setTag("SalesOrder");
 			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
 			message.setToUser(salesOrderVo.getMerchant().getMerchantId());
 			socket.message(message, null);
@@ -647,6 +648,7 @@ public class SalesOrderRestService<T> {
 						salesOrderVo = getSalesOrderService().setSalesOrderVo(
 								salesOrder);
 						message.setMessage("Update");
+						message.setTag("SalesOrder");
 						message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
 						message.setToUser(salesOrderVo.getMerchant().getMerchantId());
 						socket.message(message, null);
@@ -661,9 +663,7 @@ public class SalesOrderRestService<T> {
 						salesOrderResponse
 						.setErrorCode(SBErrorMessage.INVALID_SALES_ORDER_STATUS
 								.getCode());
-
 					}
-
 				} else {
 					salesOrderResponse.setStatus(SBMessageStatus.FAILURE
 							.getValue());

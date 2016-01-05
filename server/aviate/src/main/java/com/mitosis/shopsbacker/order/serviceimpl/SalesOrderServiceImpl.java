@@ -209,7 +209,8 @@ Serializable {
 			flag = true;
 			salesOrderVo = setSalesOrderVo(
 					salesOrder);
-			message.setMessage(SBMessageStatus.SUCCESS.getValue());
+			message.setMessage("Update");
+			message.setTag("SalesOrder");
 			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
 			message.setToUser(salesOrder.getMerchant().getMerchantId());
 			socket.message(message, null);

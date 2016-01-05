@@ -32,6 +32,7 @@ public class SocketMessageEncoder implements Encoder.Text<SocketMessage> {
                         .add("user", chatMessage.getToUser())
                         .add("message", chatMessage.getMessage())
                         .add("salesOrder", chatMessage.getSalesOrder())
+                        .add("tag", chatMessage.getTag())
                    .build().toString();
     }
 
