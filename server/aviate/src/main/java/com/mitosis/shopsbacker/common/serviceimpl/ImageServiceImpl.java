@@ -93,7 +93,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 		imagevo.setImageId(image.getImageId());
 		imagevo.setName(image.getName());
 		imagevo.setType(image.getType());
-		imagevo.setUrl(imageUrl.concat(image.getUrl()));
+		imagevo.setUrl(imageUrl.concat(image.getUrl()).replaceAll(" ", "%20"));
 		return imagevo;
 	}
 	
@@ -116,7 +116,7 @@ public class ImageServiceImpl<T> implements ImageService<T> {
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		String imageUrl = properties.getProperty("imageUrl");
-		imageUrl=imageUrl.concat(url);
+		imageUrl=imageUrl.concat(url).replaceAll(" ", "%20");
 		return imageUrl;
 	}
 	

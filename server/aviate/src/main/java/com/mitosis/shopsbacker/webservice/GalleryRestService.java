@@ -157,7 +157,7 @@ public class GalleryRestService {
 									"/properties/serverurl.properties"));
 							String imageUrl = properties.getProperty("imageUrl");
 							String url = gallery.getFilePath()+"?p=gallery";
-							imageUrl=imageUrl.concat(url);
+							imageUrl=imageUrl.concat(url).replaceAll(" ", "%20");
 							galleryVo.setUrl(imageUrl);
 						}
 						galleryVoParentMap.put(gallery.getGalleryId(),
