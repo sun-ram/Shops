@@ -481,7 +481,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					d3.select(".band").transition().duration(1)
 						.attr("width", Math.abs(bandPos[0] - pos[0]))
 						.attr("height", Math.abs(bandPos[1] - pos[1]));
-					console.log(bandPos);
 				});
 
 				function zoom() {
@@ -1052,7 +1051,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 
 			$scope.d3LineData.push(angular.copy($scope.d3LineLeafs));
-			console.log("full values ==>",$scope.d3LineLeafs);
+			
 		}
 		
 		function orgGrowthRation (){
@@ -1061,6 +1060,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			calcGrowthRatio($scope.customers);
 			
 			$scope.drawZoomedlinechart();
+			console.info("d3LineData=",$scope.d3LineData);
 		}
 		
 		function filteredCustomers(data) {
@@ -1107,11 +1107,13 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		function postStore (data){
 			
 			var len1 = $scope.merchants.Books.length;
+			var len2 = data.Books.length;
 			var tempMerchant;
+			console.info("$scope.merchants.Books=",$scope.merchants.Books);
 			for(var i=0; i < len1; i++){
 				tempMerchant = $scope.merchants.Books[i];
 				count = 0;
-				for(var j = 0; j < len1 ; j++){
+				for(var j = 0; j < len2 ; j++){
 					if(tempMerchant.MERCHANT_ID == data.Books[j].MERCHANT_ID){
 						count = count +1;
 					}
