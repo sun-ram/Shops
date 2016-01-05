@@ -651,7 +651,7 @@ border-radius: 50%;}
 	outline: 0;
 }
 
-.descriptionBox{top: 5px;position: absolute;right: 5px;overflow: hidden;background-color: #FFFFFF;height: 92%;width: 17%;border-left: 11px solid #E5E5E5;padding: 16px;}
+.descriptionBox{top: 5px;position: absolute;right: 5px;overflow: hidden;background-color: #FFFFFF;height: 98%;width: 17%;border-left: 11px solid #E5E5E5;padding: 16px;}
 .redLabel{background-color:red;width:5px;height: 24px;float: left;margin-right: 5px;}
 .greenLabel{background-color:green;width:5px;height: 24px;float: left;margin-right: 5px;}
 .blueLabel{background-color:steelblue;width:5px;height: 24px;float: left;margin-right: 5px;}
