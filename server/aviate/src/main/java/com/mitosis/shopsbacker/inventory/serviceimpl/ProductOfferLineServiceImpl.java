@@ -1,17 +1,16 @@
 
 package com.mitosis.shopsbacker.inventory.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferLineDao;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
-import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Product;
@@ -20,6 +19,7 @@ import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 import com.mitosis.shopsbacker.vo.inventory.UomVo;
 
@@ -88,7 +88,7 @@ private static final long serialVersionUID = 1L;
 		return productOfferLine;
 	} 
 	
-	public ProductOfferLineVo setProductOfferLineVo(ProductOfferLine productOfferLine) throws Exception{
+	public ProductOfferLineVo setProductOfferLineVo(ProductOfferLine productOfferLine, boolean fromProductVoSetup) throws Exception{
 		ProductOfferLineVo productOfferLineVo = new ProductOfferLineVo();
 		productOfferLineVo.setProductOfferLineId(productOfferLine.getProductOfferLineId());
 		productOfferLineVo.setDiscountAmount(productOfferLine.getDiscountAmount());
@@ -107,6 +107,29 @@ private static final long serialVersionUID = 1L;
 		productVo.setImage(image);
 		}
 		productOfferLineVo.setProductVo(productVo);
+		
+		//It is used for applying offer while adding product to mycart 
+		if(fromProductVoSetup){
+		ProductOffer productOffer = productOfferLine.getProductOffer();
+		ProductOfferVo productOfferVo = new ProductOfferVo();
+		productOfferVo.setProductOfferId(productOffer.getProductOfferId());
+		productOfferVo.setName(productOffer.getName());
+		ProductVo productvo= new ProductVo();
+		Product prod = productOffer.getProduct();
+		productvo.setProductId(prod.getProductId());
+		productvo.setName(prod.getName());
+		productvo.setPrice(prod.getPrice());
+		productOfferVo.setProductVo(productvo);
+		List<ProductOfferLine> offerLines = productOffer.getProductOfferLines();
+		
+		List<ProductOfferLineVo> productOfferLineVos= new ArrayList<ProductOfferLineVo>();
+		for(ProductOfferLine offerLine:offerLines){
+		ProductOfferLineVo linesVo = setProductOfferLineVo(offerLine, false);
+		productOfferLineVos.add(linesVo);
+		}
+		productOfferVo.setProductOfferLinesVo(productOfferLineVos);
+		productOfferLineVo.setProductOfferVo(productOfferVo);
+		}
 		return productOfferLineVo;
 	}
 

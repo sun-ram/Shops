@@ -525,9 +525,33 @@ angular.module('app')
 		
 	// Gallery
 	.state('app.gallery', {
-		url: '/gallery/:folder',
+		url: '/gallery',
 		templateUrl: 'app/modules/gallery/gallery.html',
 		controller : 'galleryCtrl'
+	})
+	.state('app.gallery.folder', {
+		url: '/folder/:folderId',
+		templateUrl: 'app/modules/gallery/galleryMain.html',
+		controller : 'galleryMainCtrl',
+		resolve:   {
+			folder:  function($http, $stateParams, $rootScope){
+				/*return physicalInventoryService.getPhysicalInventory($stateParams.inventoryId).then(function(data){
+					return data;
+				});*/
+				
+				return [{
+					 fileName: "test",
+					 galleryId: "ff8081815211e710015211f091990000",
+					 isSummary: "Y"
+				},
+				{
+					 fileName: "test2",
+					 galleryId: "ff8081815211e710015211f091990001",
+					 isSummary: "Y"
+				}];
+
+			}
+		}
 	});
 
 

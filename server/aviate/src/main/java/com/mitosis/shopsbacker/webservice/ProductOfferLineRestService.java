@@ -164,7 +164,7 @@ public class ProductOfferLineRestService<T> {
 			productOfferLine = productOfferLineService.getProductOfferLine(productOffer);
 			for(ProductOfferLine offerLine : productOfferLine){
 				ProductOfferLineVo productOfferLineVo = new ProductOfferLineVo();
-				productOfferLineVo=productOfferLineService.setProductOfferLineVo(offerLine);
+				productOfferLineVo=productOfferLineService.setProductOfferLineVo(offerLine, false);
 				productOfferLineResponse.getProductOfferLineList().add(productOfferLineVo);
 			}
 		}catch(Exception e){

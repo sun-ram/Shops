@@ -1,6 +1,8 @@
 package com.mitosis.shopsbacker.vo.customer;
 
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 public class MyCartVo {
@@ -25,7 +27,9 @@ public class MyCartVo {
 	
 	public String discountId;
 	
+	private ProductOfferVo productOffer;
 	
+	private ProductOfferLineVo productOfferLine;
 
 	public String getProductId() {
 		return productId;
@@ -105,6 +109,22 @@ public class MyCartVo {
 
 	public void setDiscountPrice(double discountPrice) {
 		this.discountPrice = discountPrice;
+	}
+
+	public ProductOfferVo getProductOffer() {
+		return productOffer;
+	}
+
+	public void setProductOffer(ProductOfferVo productOffer) {
+		this.productOffer = productOffer;
+	}
+
+	public ProductOfferLineVo getProductOfferLine() {
+		return productOfferLine;
+	}
+
+	public void setProductOfferLine(ProductOfferLineVo productOfferLine) {
+		this.productOfferLine = productOfferLine;
 	}
 
 }

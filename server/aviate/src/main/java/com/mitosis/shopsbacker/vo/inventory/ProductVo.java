@@ -42,8 +42,10 @@ public class ProductVo {
 	private boolean isBundle;
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	private List<ImageVo> images = new ArrayList<ImageVo>();
-	private List<ProductOfferVo> productOffer = new ArrayList<ProductOfferVo>();
+	private List<ProductOfferVo> productOffers = new ArrayList<ProductOfferVo>();
+	private List<ProductOfferLineVo> productOfferLines = new ArrayList<ProductOfferLineVo>();
 	private String userId;
+	
 	public List<ImageVo> getImages() {
 		return images;
 	}
@@ -159,6 +161,14 @@ public class ProductVo {
 	public String getDescription() {
 		return description;
 	}
+	
+	public List<ProductOfferLineVo> getProductOfferLines() {
+		return productOfferLines;
+	}
+	public void setProductOfferLines(List<ProductOfferLineVo> productOfferLines) {
+		this.productOfferLines = productOfferLines;
+	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -189,11 +199,11 @@ public class ProductVo {
 	public void setIsBundle(boolean isBundle) {
 		this.isBundle = isBundle;
 	}
-	public List<ProductOfferVo> getProductOffer() {
-		return productOffer;
+	public List<ProductOfferVo> getProductOffers() {
+		return productOffers;
 	}
-	public void setProductOfferLines(List<ProductOfferVo> productOffer) {
-		this.productOffer = productOffer;
+	public void setProductOffers(List<ProductOfferVo> productOffers) {
+		this.productOffers = productOffers;
 	}
 
 
