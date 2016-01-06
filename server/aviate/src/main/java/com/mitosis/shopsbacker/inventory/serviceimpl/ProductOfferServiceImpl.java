@@ -91,7 +91,7 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productOfferVo.setDescription(productOffer.getDescription());
 		if(productOffer.getProductOfferLines() != null){
 		for(ProductOfferLine productOfferLine : productOffer.getProductOfferLines()){
-			productOfferVo.getProductOfferLinesVo().add(productOfferLineService.setProductOfferLineVo(productOfferLine));
+			productOfferVo.getProductOfferLinesVo().add(productOfferLineService.setProductOfferLineVo(productOfferLine, false));
 		}
 		}
 		Product product =productOffer.getProduct();

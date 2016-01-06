@@ -16,7 +16,7 @@ public interface ProductOfferLineService<T> {
 	
 	public ProductOfferLine setProductOfferLine(ProductOfferLineVo productOfferLineVo, ProductOfferLine productOfferLine) throws Exception;
 	
-	public ProductOfferLineVo setProductOfferLineVo(ProductOfferLine productOfferLine) throws Exception;
+	public ProductOfferLineVo setProductOfferLineVo(ProductOfferLine productOfferLine, boolean usedForCustomer) throws Exception;
 	
 	public ProductOfferLine getProductOfferLine(String id);
 	
