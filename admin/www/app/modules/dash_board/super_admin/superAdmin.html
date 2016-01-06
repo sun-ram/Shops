@@ -387,7 +387,7 @@ form {
 					<div class="blueLabel"></div><div class="labelDesc">Merchants Growth : <div style="float:right">{{merchantsRaised}}</div></div>
 					<div class="greenLabel"></div><div class="labelDesc">Store Growth     : <div style="float:right">{{storesRaised}}</div></div>
 					<div class="redLabel"></div><div class="labelDesc">Customer Growth  : <div style="float:right">{{customersRaised}}</div></div>
-					<div class="redLabel"></div><div class="labelDesc">SalesOrder Growth  : <div style="float:right">{{salesOrdersRaised}}</div></div>
+					<div class="orangeLabel"></div><div class="labelDesc">SalesOrder Growth  : <div style="float:right">{{salesOrdersRaised}}</div></div>
 					<div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
 						<div class="labelDesc">Merchants Comparition</div>
 						<div><ng-md-icon ng-if = "merchatsRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (merchatsRaisedPrevWeek>0), redText : (merchatsRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{merchatsRaisedPrevWeek >= 0 ?(merchatsRaisedPrevWeek == 0 ? 'FLAT' : 'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(merchatsRaisedPrevWeek < 0) ? (merchatsRaisedPrevWeek * -1) : merchatsRaisedPrevWeek}}%</span></div></div>
