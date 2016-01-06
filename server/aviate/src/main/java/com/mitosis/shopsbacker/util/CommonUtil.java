@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.imageio.ImageIO;
 import javax.mail.Message;
@@ -545,4 +546,44 @@ public final class CommonUtil {
 		   return checkDate;
 	}
 	
+	  /**
+	 * Converting time to one time Zone to another time zone.
+	 * @author Anbukkani Gajendran
+	 * @param date
+	 * @param fromTZ
+	 * @param toTZ
+	 * @return Date
+	 */
+	public static Date convertTimeZone(Date date, TimeZone fromTZ , TimeZone toTZ)
+		{
+		    long fromTZDst = 0;
+		    if(fromTZ.inDaylightTime(date))
+		    {
+		        fromTZDst = fromTZ.getDSTSavings();
+		    }
+		 
+		    long fromTZOffset = fromTZ.getRawOffset() + fromTZDst;
+		 
+		    long toTZDst = 0;
+		    if(toTZ.inDaylightTime(date))
+		    {
+		        toTZDst = toTZ.getDSTSavings();
+		    }
+		    long toTZOffset = toTZ.getRawOffset() + toTZDst;
+		 
+		    return new java.util.Date(date.getTime() + (toTZOffset - fromTZOffset));
+		}
+	
+	/**
+	 * Get time zone as string from date 
+	 * @author Anbukkani Gajendran
+	 * @param date
+	 * @return TimeZone
+	 */
+	public static String getTimeZone(Date date) {
+		String strDate	=date.toString();
+		String[] strDates=strDate.split(" ");
+		String strZome = strDates[strDates.length-2];
+		return strZome;
+	}
 }

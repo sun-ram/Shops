@@ -114,11 +114,11 @@
 		
 		
 		<h4 layout="row" ng-hide="product.isKit" class="md-layout-column" ng-init=checkgroupCount(product);>
-			<input layout-align="start center" type="checkBox" ng-model="groupCount" />
+			<input layout-align="start center" type="checkBox" ng-model="product.isBundle"/>
 			<label layout-align="end center" style="padding-left: 20px;">Bundle</label>
 		</h4>
 
-		<md-input-container ng-hide="product.isKit" ng-show="groupCount"> <label>Bundle Qty</label> <input
+		<md-input-container ng-hide="product.isKit || !product.isBundle"  ng-show="product.isBundle"> <label>Bundle Qty</label> <input
 			type="text" ng-model="product.groupCount" valid-number
 			 /> 
 		</md-input-container>

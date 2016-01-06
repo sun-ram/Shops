@@ -193,14 +193,15 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product.setIsKit('Y');
 			product.setGroupCount(1);
 			product.setIsBundle('N');			
-		}else if(productVo.getGroupCount() != null){
+		}
+		if(productVo.getGroupCount() != null && productVo.getGroupCount() > 1 && productVo.getIsBundle()){
 						product.setGroupCount(productVo.getGroupCount());
 						product.setIsBundle('Y');
-					}else{
-						product.setGroupCount(1);
-						product.setIsBundle('N');						
-						
-					}
+		}else{     
+					product.setGroupCount(1);
+					product.setIsBundle('N');						
+					
+				}
 		return product;
 	}
 

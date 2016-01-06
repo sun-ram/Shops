@@ -3,10 +3,12 @@
  */
 package com.mitosis.shopsbacker.webservice;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -238,9 +240,16 @@ public class DeliveryTimeSlotRestService {
 
 	private void setDeliveryTimeSlot(DeliveryTimeSlotVo deliveryTimeSlotVo,
 			Merchant merchant, Store store, DeliveryTimeSlot deliveryTimeSlot) {
-		deliveryTimeSlot.setFromTime(deliveryTimeSlotVo.getFromTime());
+		String strZome = CommonUtil.getTimeZone(deliveryTimeSlotVo.getFromTime());
+		Date fromTime =CommonUtil.convertTimeZone(deliveryTimeSlotVo.getFromTime(), TimeZone.getTimeZone(strZome), TimeZone.getTimeZone("IST"));
+		deliveryTimeSlot.setFromTime(fromTime);
 		deliveryTimeSlot.setMerchant(merchant);
 		deliveryTimeSlot.setStore(store);
-		deliveryTimeSlot.setToTime(deliveryTimeSlotVo.getToTime());
+		Date toTime = CommonUtil.convertTimeZone(deliveryTimeSlotVo.getToTime(), TimeZone.getTimeZone(strZome), TimeZone.getTimeZone("IST"));
+		deliveryTimeSlot.setToTime(toTime);
 	}
+
+	
+	
+	
 }

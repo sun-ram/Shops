@@ -523,3 +523,6 @@ CREATE TABLE `shopsbacker`.`billing` (
 ALTER TABLE `shopsbacker`.`merchant` 
 ADD COLUMN `FEES_PERCENTAGE` DECIMAL(6,2) NOT NULL AFTER `UPDATED`;
 
+-- --06-01-2016 -- Anbukkani Gajendran -- kit and child null issue 
+UPDATE `shopsbacker`.`product` SET `IS_KIT`='N' WHERE `IS_KIT` is null and  `PRODUCT_ID`!='1';
+UPDATE `shopsbacker`.`product` SET `IS_CHILD`='N' WHERE `IS_CHILD` is null and  `PRODUCT_ID`!='1';

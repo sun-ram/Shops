@@ -81,7 +81,7 @@ angular.module('aviateAdmin.controllers')
 			}
 		}
 
-		if($scope.groupCount){
+		if($scope.product.isBundle){
 			if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
 				toastr.warning("BundleQty Should Be Greater Than One");
 				return;
@@ -181,7 +181,7 @@ angular.module('aviateAdmin.controllers')
 
 			}
 		}
-		if($scope.groupCount){
+		if($scope.product.isBundle){
 			if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
 				toastr.warning("BundleQty Should Be Greater Than One");
 				return;
