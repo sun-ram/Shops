@@ -19,4 +19,8 @@ angular.module('app')
 		}
 	});
 	
+	window.onbeforeunload = function (event) {
+		$rootScope.websocket.close();
+	};
+	
 });

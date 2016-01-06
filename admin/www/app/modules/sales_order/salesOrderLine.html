@@ -40,12 +40,11 @@
 		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close"></ng-md-icon>
 	 </span>  -->
 		<tr>
-			<th order-by="productDetails.productName" name="Product"></th>
-			<th order-by="productId" name="Discount"></th>
-			<th numeric order-by="productDetails.productPrice.tax" name="Tax"></th>
-			<th numeric order-by="productDetails.productPrice.price" name="Price"></th>
-			<th numeric order-by="quantity" name="Quantity"></th>
-			<th numeric order-by="quantity" name="Line Amount"></th>
+			<th order-by="productVo.name" name="Product"></th>
+			<th order-by="discount" name="Discount"></th>
+			<th numeric order-by="price" name="Price"></th>
+			<th numeric order-by="qty" name="Quantity"></th>
+			<th numeric order-by="netAmount" name="Line Amount"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -53,7 +52,6 @@
 			ng-repeat="product in salesOrderDetails.salesOrderLineVo | orderBy: salesOrderLinePagination.order | limitTo: salesOrderLinePagination.limit: (salesOrderLinePagination.page - 1) * salesOrderLinePagination.limit | filter:search">
 			<td>{{product.productVo.name}}</td>
 			<td>{{product.discount}}</td>
-			<td>{{product.productDetails.productPrice.tax}}</td>
 			<td>{{product.price}}</td>
 			<td>{{product.qty}}</td>
 			<td>{{product.netAmount}}</td>

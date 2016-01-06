@@ -157,11 +157,13 @@ angular.module('aviateAdmin.controllers')
 	   }
    };
    
-   var timeFormat = function(time){ 
-	   	 var hh = time.split(":");
-		 $scope.newTime = new Date(1970, 0, 1, hh[0], hh[1], 0);
-		 console.log($scope.startTime);
-		 return $scope.newTime;
+   var timeFormat = function(time){
+	     if(time){
+	    	 var hh = time.split(":");
+			 $scope.newTime = new Date(1970, 0, 1, hh[0], hh[1], 0);
+			 console.log($scope.startTime);
+			 return $scope.newTime;
+	     }
 	   }
    
    $scope.updateProductOffer = function(productOffer){

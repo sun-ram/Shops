@@ -4,12 +4,20 @@ angular.module('aviateAdmin.services')
 	this.getSocket = function(merchant){
 		if($rootScope.user.role == "MERCHANTADMIN"){
 			var wsUri = myConfig.socket_server_url+$rootScope.user.merchantId;
-			$rootScope.websocket = new WebSocket(wsUri);
-			console.log($rootScope.websocket);
+			if($rootScope.websocket){
+				$rootScope.websocket.close();
+				$rootScope.websocket = new WebSocket(wsUri);
+			}else{
+				$rootScope.websocket = new WebSocket(wsUri);
+			}
 		}else if($rootScope.user.role == "STOREADMIN"){
 			var wsUri = myConfig.socket_server_url+$rootScope.user.storeId;
-			$rootScope.websocket = new WebSocket(wsUri);
-			console.log($rootScope.websocket);
+			if($rootScope.websocket){
+				$rootScope.websocket.close();
+				$rootScope.websocket = new WebSocket(wsUri);
+			}else{
+				$rootScope.websocket = new WebSocket(wsUri);
+			}
 		}
 	};
 
