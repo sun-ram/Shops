@@ -4,6 +4,7 @@ angular.module('aviateAdmin.controllers')
 		 function($scope, $rootScope, $state, toastr, CommonServices, BannerServices, $localStorage) {
 			var flag=false;
 			$scope.uploadFile = function (val1,val2){
+				$scope.showtextbannner = true;
 				var id =$('#'+val2).val();
 				var srs=id.replace("C:\\fakepath\\" ,"" );	
 				$('#'+val1).html(srs);

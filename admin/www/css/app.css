@@ -422,12 +422,14 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 .md-fab ng-md-icon{ color:#FFFFFF; fill:#FFFFFF;} 
 
 
+
 /* MEDIA */
 @media screen and (max-width: 560px) {
   .merch-addr{width: 100px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
   .tbl-body h3{ border-right: none;}
   .tbl-body .tbl-search ng-md-icon{margin-left: 0;}    
 }
+
 
 @media screen and (min-width: 560px) {
 	.padd-t14{padding-top: 14px;}	
@@ -437,6 +439,11 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
   .merch-addr{width: 200px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
     
 }
+
+@media screen and (min-width: 960px) {
+	.vertical_line{height: 300px; width: 1px; background: #ddd; position: absolute; margin-top: 10%; margin-left: 59%;}	
+}
+
 @media screen and (min-width: 768px) and (max-width: 1024px) {  
     .merch-addr{width: 300px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
 }

@@ -1,4 +1,4 @@
-<md-card flex-gt-sm="90" flex-gt-md="80">
+<md-card flex-gt-sm="90" flex-gt-md="80" style="padding: 0px 40px;">
    <md-toolbar class=" md-default-theme"  style="background-color:transparent;">
    		<div class="md-toolbar-tools ">	
 			<div class="md-layout-row layout-align-start-center pt_relat">	 
@@ -42,8 +42,8 @@
 		    </div> -->
 	<md-content md-theme="docs-dark" style="padding:0px 20px;">
 	    <form name="merchantForm" novalidate>    		    
-		   <div layout="row" layout-sm="column">
-		   		<div flex layout="column">
+		   <div layout="row" layout-md="column" layout-sm="column">
+		   		<div flex="40" flex-md="100" flex-sm="100">
 		   			<div flex>
 			   			<md-input-container>
 					      <label>Title for Bold<span style="color:red">*</span></label>
@@ -64,9 +64,9 @@
 			        </div>
 			        
 		   		</div>
-		   		<div flex layout="column">
+		   		<div flex="60" flex-md="100" flex-sm="100">
 		   			
-						<div flex style=" width:300px; position:relative; height:auto; margin:0px auto;  ">
+						<!-- <div flex style=" width:300px; position:relative; height:auto; margin:0px auto;  ">
 							<img  src="{{bannerImage}}" ng-show="bannerImage" style="display: block;width:300px; border:4px solid rgba(0,0,0,0.1); padding: 100px 5px 5px 5px; height:auto;" />
 							
 							<button  style=" position:absolute; top:30px;  left:50px; height: 60px; width:200px;border-radius:50px; margin:0px auto; outline: 0;">
@@ -76,15 +76,26 @@
 								    <span ng-hide="true" id="file-name1" ></span>
 								</label>
 							</button>
-					    </div>      	
+					    </div> -->
+					    
+					    <div class="md-layout-row layout-align-start-center pt_relat" style="height:200px; width:200px; cursor:pointer; margin: 0px auto; text-align:center;  border-radius:5px; padding:5px; border:5px solid rgba(0,0,0,0.1)">	 
+						    	<label class="cursor" style="position:relative; z-index:1000; color:#000000;">	
+							    <span ng-hide="showtextbannner" style="font-size: 22px; margin: 18px;">Browse Banner</span>
+							    <input id="file-upload1" type="file" ng-model="bannerImage" class="nodisplay" app-filereader ng-change="uploadFile('file-name1','file-upload1')"/>
+							    <img src="{{bannerImage}}" ng-show="bannerImage" style="position:relative; margin-top: 5px; width:180px; height: 180px;  border-radius: 5px;" />
+							    <span ng-hide="true" id="file-name1" ></span>
+							</label> 
+							
+				        	
+				    </div>       	
 						
 					
 		   		</div>
 		   </div> 
-		   <section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
+		   <div layout="row" layout-padding layout-sm="column" layout-md="column" layout-wrap>
 		    	<md-button class="md-raised md-success padd-50" ng-click="addBanner(bannerDetail)" ng-disabled="">Add</md-button>
 		    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.banner">Cancel</md-button>
-		    </section>
+		    </div>
 	    </form>
     </md-content>
 </md-card>
