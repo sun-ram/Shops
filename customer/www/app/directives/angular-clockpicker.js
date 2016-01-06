@@ -61,9 +61,18 @@ angular.module('aviate.directives')
 			});
 			$scope.$watch("hour + period", function () {
 				if(angular.isString($scope.hour)){
-					$scope.datetime.setHours($scope.period == "pm" ? parseInt($scope.hour) + 12 : $scope.hour);
+					if($scope.hour != 12){
+						$scope.datetime.setHours($scope.period == "pm" ? parseInt($scope.hour) + 12 : $scope.hour);	
+					}else{
+						$scope.datetime.setHours($scope.period == "am" ? parseInt($scope.hour) + 12 : $scope.hour);
+					}
+					
 				}else{
-					$scope.datetime.setHours($scope.period == "pm" ? $scope.hour + 12 : $scope.hour);
+					if($scope.hour != 12){
+						$scope.datetime.setHours($scope.period == "pm" ? $scope.hour + 12 : $scope.hour);	
+					}else{
+						$scope.datetime.setHours($scope.period == "am" ? $scope.hour + 12 : $scope.hour);
+					}
 				}
 				$rootScope.totalHours=$scope.datetime.getTime();
 				$rootScope.hour = $scope.datetime.getHours();
