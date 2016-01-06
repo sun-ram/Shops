@@ -47,3 +47,14 @@
 	md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
 </div>
 </md-card>
+
+
+
+<form method="post" action="https://api.secure.ebs.in/api/1_0" name="frmTransaction">
+<input name="Action" type="hidden" value="refund">
+<input name="AccountID" type="hidden" value="18984">
+<input name="SecretKey" type="hidden" value="2abfa552700f8cf9b9cbdb22909dacfa">
+<input name="Amount" type="hidden" value="10.00"> 
+<input name="PaymentID" type="hidden" value="46686456">
+<input name="submitted" value="Submit" type="submit">
+</form >
