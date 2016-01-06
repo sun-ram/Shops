@@ -27,7 +27,7 @@ angular.module('aviateAdmin.services')
 			api.Gallery.add(data,function(err, result){
 				if(result){
 					if (result.status === CONSTANT.STATUS.SUCCESS) {
-						d.resolve(result.galleries);
+						d.resolve(result.gallery);
 					}else{
 						toastr.error(result.errorString);	
 					}

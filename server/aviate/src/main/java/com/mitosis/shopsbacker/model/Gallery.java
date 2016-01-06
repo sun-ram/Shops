@@ -109,7 +109,7 @@ public class Gallery implements Serializable {
 		this.fileName = fileName;
 	}
 
-	@Column(name = "FILE_PATH", nullable = false, length = 1000)
+	@Column(name = "FILE_PATH", nullable = true, length = 1000)
 	public String getFilePath() {
 		return filePath;
 	}
@@ -118,7 +118,7 @@ public class Gallery implements Serializable {
 		this.filePath = filePath;
 	}
 
-	@Column(name = "TYPE", nullable = false, length = 10)
+	@Column(name = "TYPE", nullable = true, length = 10)
 	public String getType() {
 		return type;
 	}
@@ -146,7 +146,7 @@ public class Gallery implements Serializable {
 		this.parentGallery = parentGallery;
 	}
 
-	@Column(name = "PARENT_PATH", nullable = false, length = 1000)
+	@Column(name = "PARENT_PATH", nullable = true, length = 1000)
 	public String getParentPath() {
 		return parentPath;
 	}

@@ -3,25 +3,8 @@
  */
 
 angular.module('aviateAdmin.controllers')
-	.controller("galleryCtrl", ['$scope', '$state','toastr','$rootScope','GalleryServices',
-	 function($scope, $state, toastr, $rootScope, GalleryServices) {
-		
-		$scope.galleryFolder = [{
-				"fileName":"home",
-				"filePath":"home",
-				"galleries":{
-					"fileName":"Sample1",
-					"filePath":"Sample1",
-				}
-			},
-			{
-				"fileName":"picture",
-				"filePath":"picture",
-				"galleries":{
-					"fileName":"Sample",
-					"filePath":"Sample",
-				}
-			}];
+	.controller("galleryCtrl", ['$scope', '$state','toastr','$rootScope','GalleryServices', '$mdDialog',
+	 function($scope, $state, toastr, $rootScope, GalleryServices, $mdDialog) {
 		
 		
 		  $scope.optimizeData = function (data, exceptionIndex){
@@ -138,27 +121,53 @@ angular.module('aviateAdmin.controllers')
 			$scope.data={};
 			GalleryServices.getGalleryList($scope.data).then(function(data){
     			console.log("Data --->",data);
-    			for(var i=0;i<data.length;i++){
-    				data[i].rootParent = i;
-    			}
-                $scope.optimizeData(data);
     			$scope.galleries=data;
-                console.log("Manipulated data --->",data);
                });
           };
         $scope.galleryList();
         
-        $scope.addGallery=function (){
-        	$scope.data={};
-        	GalleryServices.addGallery($scope.data).then(function(data){
-//    			console.log("Data --->",data);
-//    			for(var i=0;i<data.length;i++){
-//    				data[i].rootParent = i;
-//    			}
-//                $scope.optimizeData(data);
-//    			$scope.galleries=data;
-//                console.log("Manipulated data --->",data);
-               });
+        $scope.addGallery=function (ev){
+        	$mdDialog.show({
+				templateUrl: 'app/modules/modals/addNewFolder.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true,
+				controller: function($scope,getGallery,galleries){
+					$scope.checkFolderIsExit = function(){
+						for(var i = 0; i < galleries.length; i++){
+							if(galleries[i].fileName === $scope.data.fileName){
+								$scope.errorMsg = "This folder already exit";
+								$scope.flag = true; 
+								return
+							}else{
+								$scope.flag = false;
+							}
+						}
+					}
+					$scope.addFolder = function(){
+						$scope.data.isSummary='Y';
+						GalleryServices.addGallery($scope.data).then(function(data){
+							galleries.push(data);
+							$scope.cancel();
+						});
+					};
+					
+					$scope.cancel = function() {
+						$mdDialog.cancel();
+					};
+				},
+				locals:{
+				   getGallery:$scope.galleryList,
+				   galleries:$scope.galleries
+				   
+				}
+			})
+			.then(function(answer) {	
+				$scope.status = 'You said the information was "' + answer + '".';
+			}, function() {
+				$scope.status = 'You cancelled the dialog.';
+				console.log('updated gallery list ',$scope.galleries1);
+			});
         };
 		
 	}]);

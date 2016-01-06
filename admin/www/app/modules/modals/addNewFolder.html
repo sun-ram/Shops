@@ -1,0 +1,25 @@
+
+<md-dialog aria-label="Category"  ng-cloak>
+  <form ng-submit="addFolder();">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="ft-white">Create New Folder</h2>
+      <span flex></span>
+      <md-button class="md-icon-button"  type="button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+   <md-input-container layout-padding flex> <label>Enter a Folder name<span
+			class="ft-red">*</span></label> <input ng-model="data.fileName" ng-change="checkFolderIsExit();" ng-required="true"> </md-input-container>
+  </md-dialog-content><br>
+  <span style="color:red;" ng-show="flag">{{errorMsg}}</span>
+  <div class="md-actions" flex>
+  <span flex> </span>  
+    <md-button class="md-raised md-success" type="submit"  ng-disabled="!data.fileName && flag">Add</md-button>
+	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
+  <span flex></span>
+  </div>
+  </form>
+</md-dialog>

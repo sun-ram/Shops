@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -51,8 +52,8 @@ public class GalleryRestService {
 		ResponseModel responseModel = new ResponseModel();
 		try {
 
-			Gallery gallery = (Gallery) CommonUtil
-					.setAuditColumnInfo(Gallery.class.getName(), null);
+			Gallery gallery = (Gallery) CommonUtil.setAuditColumnInfo(
+					Gallery.class.getName(), null);
 			gallery.setFileName(galleryVo.getFileName());
 			gallery.setFilePath(galleryVo.getFilePath());
 			gallery.setType(galleryVo.getType());
@@ -71,6 +72,7 @@ public class GalleryRestService {
 				imageUpload(galleryVo, parentGallery);
 			}
 			galleryService.addGallery(gallery);
+			responseModel.setGallery(setGalleryVo(gallery));
 			responseModel.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			String errorMsg = CommonUtil.getErrorMessage(e);
@@ -106,9 +108,19 @@ public class GalleryRestService {
 			galleryVo.setFilePath(filePath);
 		}
 	}
-
+	
+	public GalleryVo setGalleryVo(Gallery gallery) {
+		GalleryVo galleryVo = new GalleryVo();
+		galleryVo.setFileName(gallery.getFileName());
+		galleryVo.setGalleryId(gallery.getGalleryId());
+		galleryVo.setIsSummary(gallery.getIsSummary());
+		galleryVo.setParentGalleryId(gallery.getParentGallery()!=null?gallery.getParentGallery().getGalleryId():null);
+		//galleryVo.setUrl(gallery.getFilePath());
+		return galleryVo;
+	}
+	
 	@Path("/galleries")
-	@POST
+	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -117,11 +129,12 @@ public class GalleryRestService {
 		GalleryResponseVo galleryResponseVo = new GalleryResponseVo();
 		try {
 			List<Gallery> parentGalleries = galleryService.getRootGalleries();
-						List<GalleryVo> rootGalleryVoList = new ArrayList<GalleryVo>();
-						Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
-						GalleryVo galleryVo = new GalleryVo();
-						getHierarchicalGalleries(parentGalleries, rootGalleryVoList, galleryVoParentMap);
-						galleryResponseVo.setGalleries(rootGalleryVoList);
+			List<GalleryVo> rootGalleryVoList = new ArrayList<GalleryVo>();
+			Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
+			GalleryVo galleryVo = new GalleryVo();
+			getHierarchicalGalleries(parentGalleries, rootGalleryVoList,
+					galleryVoParentMap);
+			galleryResponseVo.setGalleries(rootGalleryVoList);
 			galleryResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			String errorMsg = CommonUtil.getErrorMessage(e);
@@ -138,47 +151,46 @@ public class GalleryRestService {
 		return responseStr;
 	}
 
-	private void getHierarchicalGalleries(
-						List<Gallery> galleries,			
-						List<GalleryVo> rootGalleryVoList,
-						Map<String, GalleryVo> galleryVoParentMap) throws Exception {
-					for (Gallery gallery : galleries) {
-						GalleryVo galleryVo = new GalleryVo();
-						galleryVo.setFileName(gallery.getFileName()); 
-						//galleryVo.setFilePath(gallery.getFilePath());
-						galleryVo.setIsSummary(gallery.getIsSummary());
-						galleryVo.setGalleryId(gallery.getGalleryId());
-						galleryVo.setType(gallery.getType());
-						if((gallery.getIsSummary()=='Y')){
-							
-						}else{
-							Properties properties = new Properties();
-							properties.load(getClass().getResourceAsStream(
-									"/properties/serverurl.properties"));
-							String imageUrl = properties.getProperty("imageUrl");
-							String url = gallery.getFilePath()+"?p=gallery";
-							imageUrl=imageUrl.concat(url).replaceAll(" ", "%20");
-							galleryVo.setUrl(imageUrl);
-						}
-						galleryVoParentMap.put(gallery.getGalleryId(),
-								galleryVo);
-						Gallery parentGallery = gallery.getParentGallery();
-						if (parentGallery == null) {
-							rootGalleryVoList.add(galleryVo);
-						} else {
-							String parentGalleryId = parentGallery.getGalleryId(); 
-							GalleryVo parentGalleryVo = galleryVoParentMap
-									.get(parentGalleryId);
-							List<GalleryVo> listOfChildGalleryVo = parentGalleryVo
-									.getGalleries();
-							listOfChildGalleryVo.add(galleryVo);
-							galleryVo.setParentGalleryId(parentGalleryId);
-							
-						}
-						List<Gallery> parentGalleries = gallery.getGalleries();
-						if (parentGalleries.size() > 0) {
-							getHierarchicalGalleries(parentGalleries, rootGalleryVoList, galleryVoParentMap);
-						}
-					}
-				}
+	private void getHierarchicalGalleries(List<Gallery> galleries,
+			List<GalleryVo> rootGalleryVoList,
+			Map<String, GalleryVo> galleryVoParentMap) throws Exception {
+		for (Gallery gallery : galleries) {
+			GalleryVo galleryVo = new GalleryVo();
+			galleryVo.setFileName(gallery.getFileName());
+			// galleryVo.setFilePath(gallery.getFilePath());
+			galleryVo.setIsSummary(gallery.getIsSummary());
+			galleryVo.setGalleryId(gallery.getGalleryId());
+			galleryVo.setType(gallery.getType());
+			if ((gallery.getIsSummary() == 'Y')) {
+
+			} else {
+				Properties properties = new Properties();
+				properties.load(getClass().getResourceAsStream(
+						"/properties/serverurl.properties"));
+				String imageUrl = properties.getProperty("imageUrl");
+				String url = gallery.getFilePath() + "?p=gallery";
+				imageUrl = imageUrl.concat(url).replaceAll(" ", "%20");
+				galleryVo.setUrl(imageUrl);
+			}
+			galleryVoParentMap.put(gallery.getGalleryId(), galleryVo);
+			Gallery parentGallery = gallery.getParentGallery();
+			if (parentGallery == null) {
+				rootGalleryVoList.add(galleryVo);
+			} else {
+				String parentGalleryId = parentGallery.getGalleryId();
+				GalleryVo parentGalleryVo = galleryVoParentMap
+						.get(parentGalleryId);
+				List<GalleryVo> listOfChildGalleryVo = parentGalleryVo
+						.getGalleries();
+				listOfChildGalleryVo.add(galleryVo);
+				galleryVo.setParentGalleryId(parentGalleryId);
+
+			}
+			List<Gallery> parentGalleries = gallery.getGalleries();
+			if (parentGalleries.size() > 0) {
+				getHierarchicalGalleries(parentGalleries, rootGalleryVoList,
+						galleryVoParentMap);
+			}
+		}
+	}
 }

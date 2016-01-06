@@ -14,9 +14,6 @@
 	  				<li><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
-	  				
-	  				
-	  				
 	  			</ul>
 	  				
 	  		</div>
@@ -28,11 +25,9 @@
 			<div flex="20">
 				
 				<ul class="gallery-aside ">
-					<li class="md-body-1"><div class="add-newfolder">NEW</div></li>
-					<li class="md-body-1">Recent</li>
-					<li class="md-body-1">Starred</li>
-					<li class="md-body-1">Trash</li>
-					<li class="md-body-1">Photos</li>
+					<li class="md-body-1" ng-click="addGallery($event);"><div class="add-newfolder">NEW</div></li>
+					<li class="md-body-1" ng-repeat="gallery in galleries">{{gallery.fileName}}</li>
+					
 				</ul>
 			</div>
 			<div flex="80">

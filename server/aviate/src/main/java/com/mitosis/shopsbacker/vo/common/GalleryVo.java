@@ -22,6 +22,7 @@ public class GalleryVo {
 	private String filePath;
 	private String url;
 	private String type;
+	private String base64String;
 	private char isSummary;
 	private String strFile;
 	private Gallery parentGallery;
@@ -115,6 +116,14 @@ public class GalleryVo {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getBase64String() {
+		return base64String;
+	}
+
+	public void setBase64String(String base64String) {
+		this.base64String = base64String;
 	}
 
 }

@@ -1,33 +1,37 @@
 
-   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+   <!-- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
       <h2 class="md-flex" ng-hide="uom.uomId" style="margin-left:-10px;">Create Units Of Measurement</h2>
       <h2 class="md-flex" ng-show="uom.uomId" style="margin-left:-10px;">Update Units Of Measurement</h2>
-       <!--  <span class="close_box">
-		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span>  -->
+        <span class="close_box">
+		    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.units"></ng-md-icon> </span> 
     </div>
-  </md-toolbar>
- <md-card flex-gt-sm="90" flex-gt-md="80"> 
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+  </md-toolbar> -->
+ <md-card flex-gt-sm="90" flex-gt-md="80">  
+    <md-content md-theme="docs-dark" layout-padding >
+    <div class="md-layout-row">	 
+ 	  <h3 style="margin-left: 30px;" ng-hide="uom.uomId">Create Units Of Measurement</h3>
+      <h3 style="margin-left: 30px;" ng-show="uom.uomId">Update Units Of Measurement</h3>
+    </div>
       <form name="uoms" novalidate>
-      
-    <md-input-container>
-       <label>Abbreviation<span style="color:red">*</span></label>
-      <input ng-model="uom.name" ng-required="true"  maxlength="10">
-    </md-input-container> 
-      
-    <md-input-container>
-       <label>Units Of Measure<span style="color:red">*</span></label>
-      <input ng-model="uom.description" ng-required="true"  maxlength="100">
-    </md-input-container>
-    
+      <div layout="row" layout-sm="column">
+	    <md-input-container flex class="padd-40">
+	       <label>Abbreviation<span style="color:red">*</span></label>
+	      <input ng-model="uom.name" ng-required="true"  maxlength="10">
+	    </md-input-container> 
+	      
+	    <md-input-container flex class="padd-40">
+	       <label>Units Of Measure<span style="color:red">*</span></label>
+	      <input ng-model="uom.description" ng-required="true"  maxlength="100">
+	    </md-input-container>
+    </div>
        
     
-    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50" ng-show="uom.uomId" ng-click="updateUnit(uom);">Update</md-button>
-    		<md-button class="md-raised md-success padd-50" ng-hide="uom.uomId" ng-click="saveUnit(uom);" ng-disabled="uoms.$invalid">Create</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ng-show="uom.uomId" ng-click="cancelEdit();">Cancel</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ng-hide="uom.uomId" ng-click="cancel();">Cancel</md-button>
+    <section layout-padding layout="row" layout-align="center center">
+    	<md-button class="md-raised md-success padd-40" ng-show="uom.uomId" ng-click="updateUnit(uom);">Update</md-button>
+    		<md-button class="md-raised md-success padd-40" ng-hide="uom.uomId" ng-click="saveUnit(uom);" ng-disabled="uoms.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel padd-40" ng-show="uom.uomId" ng-click="cancelEdit();">Cancel</md-button>
+    	<md-button class="md-raised md-cancel padd-40" ng-hide="uom.uomId" ng-click="cancel();">Cancel</md-button>
     </section>
     </form>
     </md-content>

@@ -43,6 +43,7 @@ public class GalleryDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	/* (non-Javadoc)
 	 * @see com.mitosis.shopsbacker.common.dao.GalleryDao#addImage(com.mitosis.shopsbacker.model.Gallery)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addGallery(Gallery gallery) {
 		save((T) gallery);
@@ -51,6 +52,7 @@ public class GalleryDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 	/* (non-Javadoc)
 	 * @see com.mitosis.shopsbacker.common.dao.GalleryDao#getImages(java.util.List)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Gallery> getGalleries() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Image.class);

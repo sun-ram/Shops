@@ -3,14 +3,19 @@ angular.module('aviateAdmin.controllers')
 		['$scope', '$rootScope', '$state','toastr','CommonServices','BannerServices','$localStorage',
 		 function($scope, $rootScope, $state, toastr, CommonServices, BannerServices, $localStorage) {
 			var flag=false;
+			$scope.isTitleBoldExist = false;
+			$scope.isTitleSmallExist = false;
+			
 			$scope.uploadFile = function (val1,val2){
+				$scope.showtextbannner = true;
 				var id =$('#'+val2).val();
 				var srs=id.replace("C:\\fakepath\\" ,"" );	
 				$('#'+val1).html(srs);
 			}
 
 			$scope.validateTitleBold = function(title){
-			
+				$scope.isTitleBoldExist = false;
+				
 				if(title != undefined){
 					var len = $localStorage.banners.length;
 
@@ -18,7 +23,8 @@ angular.module('aviateAdmin.controllers')
 						var oldTitle = $localStorage.banners[i].tabTitleBold;
 						if(title.toLowerCase() == oldTitle.toLowerCase()){
 							$scope.bannerDetail.tabTitleBold = undefined;
-							toastr.warning("Title For Bold Already Exist");
+							$scope.isTitleBoldExist = true;
+							toastr.error("Title For Bold Already Exist");
 							return;
 						}
 					}
@@ -26,6 +32,7 @@ angular.module('aviateAdmin.controllers')
 			}
 
 			$scope.validateTitleSmall = function(title){
+				$scope.isTitleSmallExist = false;
 
 				if(title != undefined){
 					var len = $localStorage.banners.length;
@@ -34,7 +41,8 @@ angular.module('aviateAdmin.controllers')
 						var oldTitle = $localStorage.banners[i].tabTitleSmall;
 						if(title.toLowerCase() == oldTitle.toLowerCase() ){
 							$scope.bannerDetail.tabTitleSmall = undefined;
-							toastr.warning("Title For Regular Already Exist");
+							$scope.isTitleSmallExist = true;
+							toastr.error("Title For Regular Already Exist");
 							return;
 						}
 					}
@@ -42,15 +50,15 @@ angular.module('aviateAdmin.controllers')
 			}
 
 			$scope.addBanner = function(bannerDetail){
-				if(!flag){
+				if(!flag && !$scope.isTitleSmallExist && !$scope.isTitleBoldExist){
 					if ($scope.bannerDetail == undefined || $scope.bannerDetail.tabTitleBold == "" || $scope.bannerDetail.tabTitleBold==undefined) {
-						toastr.warning("Please Enter Title For Bold");
+						toastr.error("Please Enter Title For Bold");
 						return;
 					}else if ($scope.bannerDetail.tabTitleSmall == "" || $scope.bannerDetail.tabTitleSmall==undefined) {
-						toastr.warning("Please Enter Title For Regular");	
+						toastr.error("Please Enter Title For Regular");	
 						return;
 					}else if ($scope.bannerImage == "" || $scope.bannerImage==undefined) {
-						toastr.warning("Please select banner Image");
+						toastr.error("Please select banner Image");
 						return;
 					} 
 					$scope.bannerDetail.merchant = {} ;
@@ -69,6 +77,8 @@ angular.module('aviateAdmin.controllers')
 					$scope.bannerDetail.userId = $rootScope.user.userId;
 					BannerServices.addNewBanner($scope.bannerDetail).then(function(data){
 						flag=false;
+						$scope.isTitleSmallExist = false;
+						$scope.isTitleBoldExist = false;
 						$scope.bannerDetail = null;
 						$state.go('app.banner');
 					});
