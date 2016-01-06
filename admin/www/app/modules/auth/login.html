@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
 svg {
 	width: 70%;
 	color: white;
@@ -11,6 +11,50 @@ svg {
 	color: #fff !important;
 }
 .check_xwhite .md-icon{border-color:#fff !important;}
+</style> -->
+
+<style> 
+
+*{box-sizing:border-box;}
+ .logindiv{ width:100%; height:100%; background-image:url('img/02.jpg');background-size:cover; background-repeat:no-repeat; margin:0px; padding:0px;position: absolute;z-index: 1000; top: 0px !important;}
+  .box-login input[type='text']{ padding:15px 10px 7px 10px; width:100%; background-position:0px 3px; background-image:url('img/user_white.png'); background-repeat:no-repeat;  background-color:transparent;  border:none; border-bottom:1px solid #f1f1f1;color: #FFF !important;margin-top: 20px;}
+  .box-login input[type='text']:focus{ background-color:rgba(255,255,255,0.5); border-bottom:1px solid #000; background-image:url('img/user.png'); background-repeat:no-repeat;color: #000 !important;margin-top: 20px;}
+input::-webkit-input-placeholder {
+    color: #f1f1f1;
+}
+.box-login input[type='password']{ padding:15px 10px 7px 10px; width:100%; background-position:0px 3px; background-image:url('img/key_white.png'); background-repeat:no-repeat;  background-color:transparent;  border:none; border-bottom:1px solid #f1f1f1;color: #FFF !important;margin-top: 20px;}
+  .box-login input[type='password']:focus{ background-color:rgba(255,255,255,0.5); border-bottom:1px solid #000; background-image:url('img/key.png'); background-repeat:no-repeat;color: #000 !important;margin-top: 20px;}
+    
+    .box-login button[type='button']{ padding:7px 10px 7px 10px; width:100%;   border:none; border-bottom:1px solid #f1f1f1;color: #000 !important;margin-top: 40px;    background-color: #FFF;text-transform: uppercase;}
+  .box-login button[type='button']:focus{color: #FFF !important;border:none; margin-top: 40px;    background-color:#0c7cd5 !important ;border-bottom:1px solid #f1f1f1;text-transform: uppercase;}
+    
+input::-webkit-input-placeholder {
+    color: #f1f1f1;
+}    
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+input:-ms-input-placeholder {
+    color: #f1f1f1;
+}
+
+input::-moz-placeholder {
+    color: #f1f1f1;
+}
+md-checkbox .md-icon{
+	border-color: #fff;
+}
+md-checkbox.md-checked .md-icon{	
+	background-color: #0f9d58;
+}
+    .loginbtn{
+            text-align: center;
+    }    
+@media screen and (max-width: 600px) {
+	.box-login{width:100%;}
+}
+
 </style>
 
 
@@ -28,8 +72,8 @@ svg {
 		<form name="login" novalidate ng-hide="forget">
 			<div layout-padding>
 				<div layout-padding>
-					<img  src="images/sb-logo2.png" style=" border-radius:50%; padding:0px 20px; margin:10px 20px 50px 20px;width:180px; background-color:rgba(255,255,255,1);"/> 
-					<md-input-container class=""> <label style="color:#FFFFFF;">Username</label>
+					<img  src="images/sb-logo2.png" style=" border-radius:50%; padding:0px 20px; margin:10px 20px 50px 80px;width:180px; background-color:rgba(255,255,255,1);"/> 
+					<!-- <md-input-container class=""> <label style="color:#FFFFFF;">Username</label>
 					<input name="userName" ng-model="user.userName" type="text"
 						ng-enter="signIn();" class="ft_ltgreen ft-18" ng-required="true"> 
 					 <div ng-messages="login.userName.$error">
@@ -38,11 +82,11 @@ svg {
 							style="color: red;">
 							<div style="font-size: 4;padding-top:5px;">Username is required.</div>
 						</div>
-						<!--<div ng-message="required"
+						<div ng-message="required"
 							ng-show="login.emailId.$error.email || (!login.emailId.$error.required && !login.emailId.$valid)"
 							style="color: red;">
 							<div style="font-size: 4;">Email Invalid.</div>
-						</div>-->
+						</div>
 					</div> 
 					</md-input-container>
 					<md-input-container class=""> <label style="color:#FFFFFF">Password</label>
@@ -55,8 +99,28 @@ svg {
 						<div style="width: 279px; padding-top:5px; height: 14px; font-size: small;">Password
 							is required.</div>
 					</div>
-					</md-input-container>
+					</md-input-container> -->
 					
+					<div class="box-login">
+					<input name="userName" ng-model="user.userName" type="text" ng-enter="signIn();" ng-required="true" placeholder="User Name"/>
+				    <input ng-model="user.password" name="password" id="password" type="password" ng-trim="false" ng-change="user.password = user.password.split(' ').join('')"
+						ng-enter="signIn();" ng-required="true" placeholder="Password"/>
+				    <div class="checkbox" style="margin-top: 20px;">
+                   <!--  <label style="    color: #FFF;">
+                        <input type="checkbox" name="forget" ng-model="rememberMe"> Keep me logged in
+                    </label> -->
+                    <md-checkbox class="md-green check_xwhite" ng-change="saveauth()"
+								ng-model="rememberme" aria-label="Checkbox 1"> <span class="ft-14">Keep me logged in</span> </md-checkbox>
+				    </div>
+				    <md-button class="md-success" style="padding: 2px;"
+							ng-disabled="(user.userName == '' || user.userName == undefined) || login.password.$invalid"
+							ng-click="signIn()">Login </md-button>	
+					<div layout="row" layout-align="center center">						
+							<md-button class="md-primary fgt-pwd ft-14" ng-click="forget=true">Forgot
+							Password?</md-button>											
+					</div>			    
+				</div>
+					<!--
 					<div layout="row">
 						
 							<md-checkbox class="md-green check_xwhite" ng-change="saveauth()"
@@ -65,7 +129,7 @@ svg {
 						
 							
 						</div>
-					<div layout="row" layout-align="space-between center" class="mgn-b10">
+					 <div layout="row" layout-align="space-between center" class="mgn-b10">
 						
 						<div>						
 							<md-button class="md-primary fgt-pwd ft-14" ng-click="forget=true">Forgot
@@ -76,7 +140,7 @@ svg {
 							ng-disabled="(user.userName == '' || user.userName == undefined) || login.password.$invalid"
 							ng-click="signIn()">Login </md-button>
 						</div>
-					</div>
+					</div> -->
 					
 					
 				</div>
@@ -84,8 +148,8 @@ svg {
 		</form>
 		<form name="reset" novalidate ng-show="forget">
 			<div layout-padding>
-				<div  layout-padding class="md-title text-white" >Forgot Password</div>
-				<div layout-padding>
+				<div layout-padding class="md-title text-white">Forgot Password</div>
+				<!-- <div layout-padding>
 					<md-input-container class=""> <label style="color:#FFFFFF;" class="md-subhead">Username</label> <input
 						name="userName" ng-model="user.userName" type="text" class="ft_ltgreen" 
 						ng-required="true"> </md-input-container>
@@ -94,11 +158,19 @@ svg {
 							ng-disabled="reset.$invalid || isForPassSubBtnDisabled" ng-click="forgetpass(user)">Submit
 						</md-button>
 						<md-button flex class="md-raised md-primary  text-white"
-							ng-click="cancel()">Cancel </md-button>
-						
-						
-						
+							ng-click="cancel()">Cancel </md-button>					
 					</div>
+				</div> -->
+				
+				<div class="box-login">
+					<input name="userName" ng-model="user.userName" type="text" ng-required="true" placeholder="User Name"/>
+				    <div layout="row" style="padding-top: 15px;" layout-align="center center">
+						<md-button flex class="md-success text-white" style="width: auto;"
+							ng-disabled="reset.$invalid || isForPassSubBtnDisabled" ng-click="forgetpass(user)">Submit
+						</md-button>
+						<md-button flex class="md-raised"
+							ng-click="cancel()">Cancel </md-button>					
+					</div>								    
 				</div>
 			</div>
 		</form>
