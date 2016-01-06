@@ -333,33 +333,41 @@ form {
 			<div class="card-content  green white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
 				<h4 class="card-stats-number">{{totalMerchants}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
-				</p>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 		</div>
 		<div class="card pink" flex flex-sm="100">
 			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
 				<h4 class="card-stats-number">{{totalStores}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
-				</p>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 		</div>
 		<div class="card purple" flex flex-sm="100">
 			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
 				<h4 class="card-stats-number">{{totalCustomers}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
-				</p>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 
+		</div>
+		<div class="card green" flex flex-sm="100">
+			<div class="card-content  green white-text applyFlatUI">
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Sales Orders</p>
+				<h4 class="card-stats-number">{{salesOrdersCount}}</h4>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>-->
+			</div>
 		</div>
 		<div class="card skyblue" flex flex-sm="100">
 			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
 				<h4 class="card-stats-number">{{totalSales}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
-				</p>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 		</div>
 
@@ -379,7 +387,8 @@ form {
 					<div class="blueLabel"></div><div class="labelDesc">Merchants Growth : <div style="float:right">{{merchantsRaised}}</div></div>
 					<div class="greenLabel"></div><div class="labelDesc">Store Growth     : <div style="float:right">{{storesRaised}}</div></div>
 					<div class="redLabel"></div><div class="labelDesc">Customer Growth  : <div style="float:right">{{customersRaised}}</div></div>
-					<div class="labelDesc" style="position:absolute;bottom:52px;width: 79%;">
+					<div class="redLabel"></div><div class="labelDesc">SalesOrder Growth  : <div style="float:right">{{salesOrdersRaised}}</div></div>
+					<div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
 						<div class="labelDesc">Merchants Comparition</div>
 						<div><ng-md-icon ng-if = "merchatsRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (merchatsRaisedPrevWeek>0), redText : (merchatsRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{merchatsRaisedPrevWeek >= 0 ?(merchatsRaisedPrevWeek == 0 ? 'FLAT' : 'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(merchatsRaisedPrevWeek < 0) ? (merchatsRaisedPrevWeek * -1) : merchatsRaisedPrevWeek}}%</span></div></div>
 						
@@ -388,6 +397,9 @@ form {
 						
 						<div class="labelDesc" style="margin-top: 25px;">Customers Comparition</div>
 						<div><ng-md-icon ng-if = "customersRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (customersRaisedPrevWeek>0), redText : (customersRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{customersRaisedPrevWeek >= 0 ? (customersRaisedPrevWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(customersRaisedPrevWeek < 0) ? (customersRaisedPrevWeek * -1) : customersRaisedPrevWeek}}%</span></div></div>
+							
+						<div class="labelDesc" style="margin-top: 25px;">SalesOrder Comparition</div>
+						<div><ng-md-icon ng-if = "salesOrderRaisedPreWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "salesOrderRaisedPreWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "salesOrderRaisedPreWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (salesOrderRaisedPreWeek>0), redText : (salesOrderRaisedPreWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{salesOrderRaisedPreWeek >= 0 ? (salesOrderRaisedPreWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(salesOrderRaisedPreWeek < 0) ? (salesOrderRaisedPreWeek * -1) : salesOrderRaisedPreWeek}}%</span></div></div>
 					
 					</div>
 					

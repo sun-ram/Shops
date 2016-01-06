@@ -28,14 +28,17 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 		$scope.totalStores = 0;
 		$scope.totalSales =0;
 		$scope.totalCustomers = 0;
+		$scope.salesOrdersCount = 0;
 		$scope.salesGrowthToday = 0;
 		$scope.qualirtStatsRecords = [];
 		$scope.merchantsRaised = 0;
 		$scope.storesRaised = 0;
 		$scope.customersRaised = 0;
+		$scope.salesOrdersRaised = 0;
 		$scope.merchatsRaisedPrevWeek = 0;
 		$scope.storesRaisedprevWeek = 0;
 		$scope.customersRaisedPrevWeek = 0;
+		$scope.salesOrderRaisedPreWeek = 0;
 		$scope.receivedResponceCount = 0;
 		$scope.d3LineData = [];
 		var growthYcount = 10;
@@ -98,7 +101,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				var pos;
 				var xdomain = growthXcount;
 				var ydomain = growthYcount;
-				var colors = ["steelblue", "green", "red"];
+				var colors = ["steelblue", "green", "red", "darkorange"];
 
 				var margin = {
 					top: 40,
@@ -364,39 +367,45 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			
 				function updategrowthTable (start, end) {
 					$scope.raisedTableTitle = "Weeks between "+Math.round(start)+" - "+ Math.round(end);
-					
 					$scope.merchantsRaised = 0;
 					$scope.storesRaised = 0;
 					$scope.customersRaised = 0;
 					$scope.merchatsRaisedPrevWeek = 0;
 					$scope.storesRaisedprevWeek = 0;
 					$scope.customersRaisedPrevWeek = 0;
-					for(var i=start ; i<end ; i++){
+					$scope.salesOrderRaisedPreWeek  = 0;
+					$scope.salesOrdersRaised = 0;
+					for(var i=end ; i>start ; i--){
 						try{
 							$scope.merchantsRaised = $scope.merchantsRaised + $scope.d3LineData[0][i][1];
 							$scope.storesRaised = $scope.storesRaised + $scope.d3LineData[1][i][1];
 							$scope.customersRaised = $scope.customersRaised + $scope.d3LineData[2][i][1];
-						}catch(e){console.error("Exception ");}
+							$scope.salesOrdersRaised = $scope.salesOrdersRaised + $scope.d3LineData[3][i][1];
+						}catch(e){}
 					}
 					if(start>0){
-						for(var i=(start-1) ; i<(end-1) ; i++){
+						for(var i=(start) ; i<(end) ; i++){
 							try{
 								$scope.merchatsRaisedPrevWeek = $scope.merchatsRaisedPrevWeek + $scope.d3LineData[0][i][1];
 								$scope.storesRaisedprevWeek = $scope.storesRaisedprevWeek + $scope.d3LineData[1][i][1];
 								$scope.customersRaisedPrevWeek = $scope.customersRaisedPrevWeek + $scope.d3LineData[2][i][1];
+								$scope.salesOrderRaisedPreWeek = $scope.salesOrderRaisedPreWeek + $scope.d3LineData[3][i][1]
+								
 							}catch(e){console.log("Exception ");}
 						}
 						$scope.merchatsRaisedPrevWeek = innercalculation($scope.merchatsRaisedPrevWeek,$scope.merchantsRaised);
 						$scope.storesRaisedprevWeek = innercalculation($scope.storesRaisedprevWeek,$scope.storesRaised);
 						$scope.customersRaisedPrevWeek = innercalculation($scope.customersRaisedPrevWeek,$scope.customersRaised);
-						
+						$scope.salesOrderRaisedPreWeek = innercalculation($scope.salesOrderRaisedPreWeek,$scope.salesOrdersRaised);
 						$scope.merchatsRaisedPrevWeek = (Math.round($scope.merchatsRaisedPrevWeek *100))/100;
 						$scope.storesRaisedprevWeek = (Math.round($scope.storesRaisedprevWeek *100))/100;
 						$scope.customersRaisedPrevWeek = (Math.round($scope.customersRaisedPrevWeek *100))/100;
+						$scope.salesOrderRaisedPreWeek = (Math.round($scope.salesOrderRaisedPreWeek *100))/100;
 					}else{
 						$scope.merchatsRaisedPrevWeek = 0;
 						$scope.storesRaisedprevWeek = 0;
 						$scope.customersRaisedPrevWeek = 0;
+						$scope.salesOrderRaisedPreWeek = 0;
 					}
 					$scope.$apply();
 				}
@@ -1057,6 +1066,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			calcGrowthRatio($scope.merchants);
 			calcGrowthRatio($scope.stores);
 			calcGrowthRatio($scope.customers);
+			calcGrowthRatio($scope.salesOrders);
 			$scope.drawZoomedlinechart();
 			console.info("d3LineData=",$scope.d3LineData);
 		}
@@ -1227,6 +1237,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			
 			sendHttpRequest('salesOrder').then(function (data) {
 				console.info("salesOrder responce : ",data);
+				data.Books = _.reject(data.Books, function(book){ return book.STATUS != 'Delivered';});
+				$scope.salesOrdersCount = data.Books.length;
 				$scope.salesOrders = data;
 				$scope.receivedResponceCount ++;
 			});
