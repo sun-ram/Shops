@@ -10,7 +10,7 @@ public class CustomerVo {
 	private String deviceid;
 	private String deviceType;
 	private String phoneNo;
-
+	
 	public String getCustomerId() {
 		return customerId;
 	}
