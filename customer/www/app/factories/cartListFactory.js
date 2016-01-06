@@ -57,14 +57,22 @@ angular.module('aviate.factories')
 						for(var m = 0; m<$rootScope.myCart.cartItem.length; m++){
 							if($rootScope.myCart.cartItem[m].product.productId == offerLines[k].productVo.productId){
 							mappedProductCount++;
-							products.push({"product" : $rootScope.myCart.cartItem[m].product,"index" : m});
+							products.push({"product" : $rootScope.myCart.cartItem[m].product,"index" : m,"qty": $rootScope.myCart.cartItem[m].qty});
 						}
 						}
 					}
 					}
 					if(mappedProductCount == offerLines.length){
 						for(var l=0; l<products.length;l++){
-							factory.removeFromCart(products[l].product,products[l].index - l);
+							if(products[l].product,products[l].qty == 1){
+								factory.removeFromCart(products[l].product,products[l].index - l);
+							}else{
+								var offers = {};
+								offers.product = products[l].product;
+								offers.product.noOfQuantityInCart = offers.product.noOfQuantityInCart - 1;
+								
+								factory.addToCartForCombo(offers.product);
+							}
 						}
 						var productList = [];
 						var isCheck = checkInCart(offer.productVo);
