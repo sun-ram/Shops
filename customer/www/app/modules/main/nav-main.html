@@ -2,11 +2,11 @@
 <div class="md-whiteframe-3dp md-toolbar-tools header_color height30 padd_righ8 nomargin " >
 	<span class="md-body-1" flex ng-show="isTodayHoliday && holidayReasons && holidayReasons != ' ' ">Today is holiday Due to {{holidayReasons}} next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
 	<span class="md-body-1" flex ng-show="isTodayHoliday && !holidayReasons || holidayReasons == ' ' ">Today is holiday next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
-	 <div layout="row" layout-align="end">
-			<span flex  style="font-size: 15px; right: 220px; top: 5px; position: absolute; cursor: pointer;" ng-show="user" ng-click="orderHistory();"> order history </span>
-			<span flex  style="font-size: 15px; right: 10px; top: 5px; position: absolute; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>
-			<span flex style="font-size: 15px; right: 80px; top: 5px; position: absolute; cursor: pointer;" ng-show="user">{{user.userName}} | </span>
-			<span flex style="font-size: 15px; right: 10px; top: 5px; position: absolute; cursor: pointer;" ng-show="user" ng-click="logout()">Logout <I class="icon ion-power" style="font-size: 14px;"></I></span>
+	 <div layout="row" flex layout-align="end end">
+			<span  layout="column"   style="font-size: 15px; cursor: pointer; margin-right: 25px;" ng-show="user" ng-click="orderHistory();"> order history </span>
+			<span layout="column"  style="font-size: 15px; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>
+			<span layout="column" style="font-size: 15px;  cursor: pointer; margin-right: 5px;" ng-show="user">{{user.userName}} | </span>
+			<span layout="row" style="font-size: 15px;  cursor: pointer;" ng-show="user" ng-click="logout()">Logout <I class="icon ion-power" style="font-size: 15px; margin-left: 5px;"></I></span>
 	</div>  
 </div>
 
