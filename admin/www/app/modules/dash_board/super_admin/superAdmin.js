@@ -74,21 +74,20 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             console.log("onReportChanged",reportValue);
 			initiateAllMethods();
         }
-		$scope.map = {
+		/*$scope.map = {
 			center: {
 				latitude: 12.916292,
 				longitude: 80.152379
 			},
 			zoom: 15,
 			bounds: {}
-		};
+		};*/
 		$scope.options = {
 			scrollwheel: true
 		};
 
 
 		$scope.onMarkerClicked = function (marker, eventName, model) {
-			console.log("Clicked!", marker);
 			model.show = !model.show;
 		};
 		
@@ -309,7 +308,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 					dragstarted = false;
 					
 					var pos = d3.mouse(this);
-					console.log("clicked!!!!!!!!!!!!!!2 bandPos",bandPos, "& pos= ",pos);
 					var x1 = x.invert(bandPos[0]);
 					var x2 = x.invert(pos[0]);
 					x2=Math.round(x2);
@@ -995,7 +993,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			$scope.drawBarChart2();
 			$scope.compSalesToday(filteredSalesOrder);
 			getQualityStats();
-			$scope.locateMerchants();
+			/*$scope.locateMerchants();*/
 			/*callback();*/
 		};
 
@@ -1026,9 +1024,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			var d3TmpArray = [];
 			
 			//for merchants 
-			var k=0;
+			var k=growthXcount;
 			d3TmpArray = [k,0];
-			for(var i=0; i< growthRatioChartSpan ; i++ ){
+			for(var i=0; i< (growthRatioChartSpan+7) ; i++ ){
 				tempDateObj.setTime(tempDateObj.getTime() - millisecondsPerday);
 				 
 				for (var j = 0; j < tmpLen; j++) {
@@ -1039,17 +1037,18 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 				if(tempDateObj.getDay() == 0){
 					if(d3TmpArray[1] > growthYcount){growthYcount = d3TmpArray[1];}
-					k++;
+					k--;
 					$scope.d3LineLeafs.push(angular.copy(d3TmpArray));
 					d3TmpArray = [k,0];
 				}
 			}
 			if(d3TmpArray[1] > 0){
-					k++;
+					k--;
 					$scope.d3LineLeafs.push(angular.copy(d3TmpArray));
 					d3TmpArray = [k,0];
 			}
-
+			
+			$scope.d3LineLeafs.reverse();
 			$scope.d3LineData.push(angular.copy($scope.d3LineLeafs));
 			
 		}
@@ -1058,7 +1057,6 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			calcGrowthRatio($scope.merchants);
 			calcGrowthRatio($scope.stores);
 			calcGrowthRatio($scope.customers);
-			
 			$scope.drawZoomedlinechart();
 			console.info("d3LineData=",$scope.d3LineData);
 		}
