@@ -7,7 +7,7 @@
 	  		</div>
 	  		
 	  		<div flex="70" layout="row" layout-align="end end">
-	  			<ul class="gal-mani-icon" flex layout layout-align="end end">
+	  			<!-- <ul class="gal-mani-icon" flex layout layout-align="end end">
 	  				<input type="text" name="" class="img-search"/>
 	  				<li></li>
 	  				<li><ng-md-icon icon="view_list" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
@@ -16,8 +16,8 @@
 	  				<li><ng-md-icon icon="delete" style="fill: rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> 
 	  				<li><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
-	  				<!-- <li><ng-md-icon ng-click="addGallery($event, true);" icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> -->
-	  			</ul>
+	  				<li><ng-md-icon ng-click="addGallery($event, true);" icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  			</ul> -->
 	  				
 	  		</div>
 	  		
@@ -28,8 +28,8 @@
 			<div flex="20">
 				
 				<ul class="gallery-aside ">
-					<li class="md-body-1" ng-click="addGallery($event, false);"><div class="add-newfolder">NEW</div></li>
-					<li class="md-body-1" ng-repeat="gallery in galleries" ng-click="openFolders(gallery);">{{gallery.fileName}}</li>
+					<li class="md-body-1 no-outline" ng-click="addGallery($event, false);"><div class="add-newfolder">NEW</div></li>
+					<li  class="md-body-1 no-outline" ng-repeat="gallery in galleries" ng-click="openFolders(gallery);">{{gallery.fileName}}<!-- {{gallery.galleryId===$root.breadCrumbGallery[0].id}} --></li>
 					
 				</ul>
 			</div>

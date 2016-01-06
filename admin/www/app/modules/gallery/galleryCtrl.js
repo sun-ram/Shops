@@ -12,7 +12,11 @@ angular.module('aviateAdmin.controllers')
 	    			console.log("Data --->",data);
 	    			$scope.galleries=data;
 					if($scope.galleries.length>0){
-						$scope.openFolders($scope.galleries[0]);
+						if($rootScope.breadCrumbGallery === undefined){
+							$scope.openFolders($scope.galleries[0]);
+						}
+					}else{
+						$state.go('app.gallery.folder');
 					}
                });
           };
@@ -24,6 +28,7 @@ angular.module('aviateAdmin.controllers')
 			$state.go('app.gallery.folder',{'folderId':folder.galleryId});
 		};         
           
+		
         $scope.galleryList();
         
         $scope.addGallery=function (ev, isChild, childGalleries){

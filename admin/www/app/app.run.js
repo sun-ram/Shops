@@ -1,5 +1,5 @@
 angular.module('app')
-.run(function($rootScope, $state, $http, ipCookie, SocketServices) {
+.run(function($rootScope, $state, $http, ipCookie, SocketServices, $localStorage) {
 	var user = ipCookie('adminuser');
 	if (user === undefined || user === null) {
 		$rootScope.user = null;
@@ -8,6 +8,8 @@ angular.module('app')
 		$rootScope.user = ipCookie('adminuser');
 		SocketServices.getSocket($rootScope.user);
 	}
+	
+	$rootScope.breadCrumbGallery = $localStorage.breadCrumbGallery;
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 		var requireLogin = toState.data.requireLogin;

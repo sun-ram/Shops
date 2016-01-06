@@ -14,3 +14,4 @@
 ul.gal-mani-icon{ display:inline; list-style-type:none; padding:0px;}
 ul.gal-mani-icon li{ padding:5px 10px;   float:right}
 .img-search{border:1px solid rgba(0,0,0,0.3); border-radius:2px; margin:4px 0px; width:250px; float:right;  padding:5px; font-size:14px;}
+.no-outline{outline: 0;}

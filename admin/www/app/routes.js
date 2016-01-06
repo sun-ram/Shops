@@ -538,18 +538,21 @@ angular.module('app')
 				/*return physicalInventoryService.getPhysicalInventory($stateParams.inventoryId).then(function(data){
 					return data;
 				});*/
-				
-				return [{
-					 fileName: "test",
-					 galleryId: "ff8081815211e710015211f091990000",
-					 isSummary: "Y"
-				},
-				{
-					 fileName: "test2",
-					 galleryId: "ff8081815211e710015211f091990001",
-					 isSummary: "Y"
-				}];
-
+				if($stateParams.folderId){
+					return [{
+						fileName: "test",
+						galleryId: "ff8081815211e710015211f091990000",
+						isSummary: "Y"
+					},
+					{
+						fileName: "test2",
+						galleryId: "ff8081815211e710015211f091990001",
+						isSummary: "Y"
+					}];
+					
+				}else{
+					return [];
+				}
 			}
 		}
 	});
