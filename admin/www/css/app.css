@@ -661,6 +661,7 @@ border-radius: 50%;}
 
 .descriptionBox{top: 5px;position: absolute;right: 5px;overflow: hidden;background-color: #FFFFFF;height: 98%;width: 17%;border-left: 11px solid #E5E5E5;padding: 16px;}
 .redLabel{background-color:red;width:5px;height: 24px;float: left;margin-right: 5px;}
+.orangeLabel{background-color:darkorange;width:5px;height: 24px;float: left;margin-right: 5px;}
 .greenLabel{background-color:green;width:5px;height: 24px;float: left;margin-right: 5px;}
 .blueLabel{background-color:steelblue;width:5px;height: 24px;float: left;margin-right: 5px;}
 
@@ -688,5 +689,35 @@ border-radius: 50%;}
 
 .redText {
 	color : red;
+}
+
+path {  stroke: #fff; }
+path:hover {  opacity:0.9; }
+#grouperBarChart rect:hover {  fill:blue; }
+#grouperBarChart .axis {  font: 10px sans-serif; }
+#grouperBarChart .legend tr{    border-bottom:1px solid grey; }
+#grouperBarChart .legend tr:first-child{    border-top:1px solid grey; }
+
+#grouperBarChart .axis path,
+#grouperBarChart .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#grouperBarChart .x.axis path {  display: none; }
+#grouperBarChart .legend{
+    margin-bottom:76px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+#grouperBarChart .legend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+#grouperBarChart .legendFreq, .legendPerc{
+    align:right;
+    width:50px;
 }
 
