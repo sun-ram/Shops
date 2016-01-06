@@ -443,6 +443,7 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 
 @media screen and (min-width: 960px) {
 	.vertical_line{height: 300px; width: 1px; background: #ddd; position: absolute; margin-top: 10%; margin-left: 59%;}	
+	.vertical_line-store{height: 250px; width: 1px; background: #ddd; position: absolute; margin-top: 8%; margin-left: 50%;}
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {  
@@ -719,5 +720,9 @@ path:hover {  opacity:0.9; }
 #grouperBarChart .legendFreq, .legendPerc{
     align:right;
     width:50px;
+}
+
+md-input-container>md-select{
+	margin: auto 0 -8px;
 }
 

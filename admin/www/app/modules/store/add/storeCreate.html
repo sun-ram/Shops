@@ -1,24 +1,12 @@
 <div ng-init="getStoreDetails()">
-<md-toolbar class=" md-default-theme" style="background-color:transparent;">
-   		<div class="md-toolbar-tools ">	
-			<div class="md-layout-row layout-align-start-center pt_relat">	 
-		     	<h3 style="margin-left:-10px;" class="md-layout-column">Create Store</h3>   
-		    </div>  
-		    <!-- <span class="close_box">
-		    	<ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.merchants"></ng-md-icon> 
-		    </span> -->   
-		</div> 
-</md-toolbar>
-
 
 <md-card flex-gt-sm="90" flex-gt-md="80">
 <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
-
+<h3 style="margin-left: 45px;">Create Store</h3>   
 <form name="storeForm" novalidate>
-
-<div layout="row" layout-sm="column">
-	<div flex>
-	<div layout-padding>
+<div class="vertical_line-store"></div>
+<div layout="row" layout-sm="column" layout-md="column">
+	<div flex layout-padding class="padd-40">
 
 		<md-input-container layout-padding flex> <label>
 			Store Name<span style="color: red">*</span>
@@ -52,10 +40,8 @@
 		<span ng-message="required"
 			ng-show="storeForm.phoneNo.$error.maxlength" style="color: red;">
 			Enter phoneNo within 20 digit</span> </md-input-container>
-	</div>
-	</div>
-	<div flex>
-	<div layout-padding>
+	</div>	
+	<div flex layout-padding class="padd-40">
 
 		<md-input-container layout-padding flex> <label>Address
 			1<span style="color: red">*</span>
@@ -79,7 +65,7 @@
 			
 					<md-input-container layout-padding flex> <label>Country<span
 			style="color: red">*</span></label> 
-			<md-select class="remove-padd" ng-model="country" ng-required="true" ng-model-options="{trackBy: '$value.countryId'}" ng-change="getState(country);state=null;cty=null;"> 
+			<md-select  ng-model="country" ng-required="true" ng-model-options="{trackBy: '$value.countryId'}" ng-change="getState(country);state=null;cty=null;"> 
 			<md-option	ng-repeat="cnt in countries | orderBy:'name'" ng-value="cnt">
 		{{cnt.name}} </md-option> </md-select> </md-input-container>
 
@@ -87,13 +73,13 @@
 	
 		<md-input-container layout-padding flex> <label>State<span
 			style="color: red">*</span></label>
-			<md-select class="remove-padd" ng-model="state"	ng-required="true" ng-change = "getCity(state);cty=null;" ng-model-options="{trackBy: '$value.stateId'}">
+			<md-select  ng-model="state"	ng-required="true" ng-change = "getCity(state);cty=null;" ng-model-options="{trackBy: '$value.stateId'}">
 			<md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
 		{{state.name}} </md-option> </md-select> </md-input-container>
 		
 		<md-input-container layout-padding flex>
 		     <label>City<span style="color:red">*</span></label>
-		     <md-select class="remove-padd" ng-model="cty" ng-required="true">
+		     <md-select  ng-model="cty" ng-required="true">
 		     <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
 		     {{city.name}}
 		    </md-option>
@@ -106,112 +92,19 @@
 			ng-required="true"> </md-input-container>
 	</div>
 	</div>
-	</div>
-	<!-- <section layout="row" layout-sm="column" layout-align="start center"
-		layout-wrap>
-		<md-button class="md-raised md-success padd-50" ng-click="addStore();"
-			ng-disabled="storeForm.$invalid">Create</md-button>
-		<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button>
-	</section> -->
 	
-	<div layout="row" layout-sm="column">
-		  	<div flex>
-		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
-			    	<md-button class="md-raised md-success padd-50" ng-click="addStore();" ng-disabled="storeForm.$invalid">Create</md-button>
-			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button>
-			    </section>
+	<div layout="row" layout-sm="column" layout-padding class="padd-40">
+		  	
+		  		
+			    	<md-button class="md-raised md-success padd-40" ng-click="addStore();" ng-disabled="storeForm.$invalid">Create</md-button>
+			    	<md-button class="md-raised md-cancel padd-40" ui-sref="app.store">Cancel</md-button>
+			    
 		  	</div>
-		  </div>	
+		  	
 	
 </form>
 
-<!-- <form name="storeForm" novalidate>
-	<div layout layout-sm="column">
 
-		<md-input-container layout-padding flex> <label>
-			Store Name<span style="color: red">*</span>
-		</label> <input ng-model="store.name" ng-required="true"> </md-input-container>
-
-		<md-input-container layout-padding flex> <label>
-			Store Admin Name<span style="color: red">*</span>
-		</label> <input ng-model="store.user.name" ng-required="true"> </md-input-container>
-	</div>
-
-	<div layout layout-sm="column">
-
-		<md-input-container layout-padding flex> <label>User
-			Name<span style="color: red">*</span>
-		</label> <input ng-model="store.user.userName" ng-required="true"> </md-input-container>
-		<md-input-container layout-padding flex> <label>Email<span
-			style="color: red">*</span></label> <input type="email" name="emailId"
-			ng-model="store.user.emailid" ng-required="true"
-			pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$"> <span
-			ng-message="required"
-			ng-show="storeForm.emailId.$error.email || (!storeForm.emailId.$error.required && !storeForm.emailId.$valid)"
-			style="color: red;">Email Invalid.</span> </md-input-container>
-	</div>
-	<div layout layout-sm="column">
-
-		<md-input-container layout-padding flex> <label>Password<span
-			style="color: red">*</span></label> <input ng-model="store.user.password"
-			ng-trim="false"
-			ng-change="storeDetail.password = storeDetail.password.split(' ').join('')"
-			ng-required="true"> </md-input-container>
-		<md-input-container layout-padding flex> <label>Phone<span
-			style="color: red">*</span></label> <input ng-model="store.user.phoneNo"
-			name="phoneNo" valid-number ng-required="true" ng-maxlength="19">
-		<span ng-message="required"
-			ng-show="storeForm.phoneNo.$error.maxlength" style="color: red;">
-			Enter phoneNo within 20 digit</span> </md-input-container>
-	</div>
-	<div layout layout-sm="column">
-
-		<md-input-container layout-padding flex> <label>Address
-			1<span style="color: red">*</span>
-		</label> <input name="address1" ng-model="store.user.address.address1"
-			ng-required="true" ng-maxlength="150"> <span
-			ng-message="required" ng-show="storeForm.address1.$error.maxlength"
-			style="color: red;"> Enter address within 150 characters</span> </md-input-container>
-
-		<md-input-container layout-padding flex> <label>Address
-			2<span style="color: red">*</span>
-		</label> <input name="address1" ng-model="store.user.address.address2"
-			ng-required="true" ng-maxlength="150"> <span
-			ng-message="required" ng-show="storeForm.address1.$error.maxlength"
-			style="color: red;"> Enter address within 150 characters</span> </md-input-container>
-
-	</div>
-	<div layout layout-sm="column">
-		<md-input-container layout-padding flex> <label>City<span
-			style="color: red">*</span></label> <input ng-model="store.user.address.city"
-			ng-required="true"> </md-input-container>
-			
-					<md-input-container layout-padding flex> <label>Country<span
-			style="color: red">*</span></label> <md-select ng-model="country"
-			ng-required="true" ng-change="getState(country);"> <md-option
-			ng-repeat="cnt in countries" value="{{cnt}}">
-		{{cnt.name}} </md-option> </md-select> </md-input-container>
-
-	</div>
-	<div layout layout-sm="column">
-	
-		<md-input-container layout-padding flex> <label>State<span
-			style="color: red">*</span></label> <md-select ng-model="state"
-			ng-required="true"> <md-option
-			ng-repeat="state in states" value="{{state}}">
-		{{state.name}} </md-option> </md-select> </md-input-container>
-		<md-input-container layout-padding flex> <label>Postal
-			Code<span style="color: red">*</span>
-		</label> <input ng-model="store.user.address.pinCode" valid-number
-			ng-required="true"> </md-input-container>
-	</div>
-	<section layout="row" layout-sm="column" layout-align="start center"
-		layout-wrap>
-		<md-button class="md-raised md-success padd-50" ng-click="addStore();"
-			ng-disabled="storeForm.$invalid">Create</md-button>
-		<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button>
-	</section>
-</form> -->
 </md-content> 
 </md-card>
 </div>
