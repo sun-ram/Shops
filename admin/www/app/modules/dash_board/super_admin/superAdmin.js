@@ -639,7 +639,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			console.log("$scope.qualirtStatsRecords",$scope.qualirtStatsRecords);
 			function dashboard(id, fData){
 				var barColor = 'steelblue';
-				function segColor(c){ return {Bad:"red", Fair:"#e08214",Good:"#41ab5d"}[c]; }
+				function segColor(c){ return {Bad:"red", Fair:"#e08214",Good:"#317f43"}[c]; }
 
 				// compute total for each state.
 				fData.forEach(function(d){d.total=d.freq.Bad+d.freq.Fair+d.freq.Good;});
@@ -1080,7 +1080,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 		};
 
-		$scope.locateMerchants = function () {
+		/*$scope.locateMerchants = function () {
 			$scope.tempMarkers = [];
 			var i = 0;
 			var len = $scope.merchants.Books.length;
@@ -1100,7 +1100,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 				}
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
-		};
+		};*/
 
 		function postSalesOrder(data) {
 			
