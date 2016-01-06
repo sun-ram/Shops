@@ -1348,7 +1348,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				};
 				
 				apiClass.Gallery.getGalleryList= function (data,callback) {
-					httpRequest("POST", "gallery/galleries",null, function (err, data) {
+					httpRequest("GET", "gallery/galleries",null, function (err, data) {
 						if (err) {
 		
 							callback(err, null);

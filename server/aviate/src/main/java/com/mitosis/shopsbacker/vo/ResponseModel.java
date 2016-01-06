@@ -3,6 +3,7 @@ package com.mitosis.shopsbacker.vo;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.util.SBMessageStatus;
+import com.mitosis.shopsbacker.vo.common.GalleryVo;
 
 /**
  * @author prabakaran
@@ -16,7 +17,7 @@ public class ResponseModel {
 	private String errorCode = "";
 	private String errorString = "";
 	private String status = SBMessageStatus.SUCCESS.getValue();
-
+	GalleryVo gallery;
 	public String getErrorCode() {
 		return errorCode;
 	}
@@ -40,4 +41,13 @@ public class ResponseModel {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public GalleryVo getGallery() {
+		return gallery;
+	}
+
+	public void setGallery(GalleryVo gallery) {
+		this.gallery = gallery;
+	}
+	
 }

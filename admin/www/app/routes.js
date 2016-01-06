@@ -525,7 +525,7 @@ angular.module('app')
 		
 	// Gallery
 	.state('app.gallery', {
-		url: '/gallery',
+		url: '/gallery/:folder',
 		templateUrl: 'app/modules/gallery/gallery.html',
 		controller : 'galleryCtrl'
 	});
