@@ -128,6 +128,22 @@
                 </div>
             </md-list-item>
         </a>
+        <a ui-sref="app.unpaidBills" ng-click="tabChoosen('unpaidBills');">
+            <md-list-item ng-class="{optionSelected : (currentOption == 'unpaidBills')}">
+                <div layout="row" layout-align="start center">
+                    <ng-md-icon icon="receipt" class="svgicon_style"></ng-md-icon>
+                    <span class="textOnMenu" ng-hide="sidebarHidden">Unpaid Bills</span>
+                </div>
+            </md-list-item>
+        </a>
+         <a ui-sref="app.paidHistory" ng-click="tabChoosen('paidHistory');">
+            <md-list-item ng-class="{optionSelected : (currentOption == 'paidHistory')}">
+                <div layout="row" layout-align="start center">
+                    <ng-md-icon icon="history" class="svgicon_style"></ng-md-icon>
+                    <span class="textOnMenu" ng-hide="sidebarHidden">Paid History</span>
+                </div>
+            </md-list-item>
+        </a>
     <md-subheader ng-hide="sidebarHidden" class="menuSubHeading"><span class="menuSubHeading">Product</span></md-subheader>
 	           <a ui-sref="app.addproducttype" ng-click="tabChoosen('productcategory');">
 		            <md-list-item ng-class="{optionSelected : (currentOption == 'productcategory')}">

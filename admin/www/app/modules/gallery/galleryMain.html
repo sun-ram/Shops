@@ -1,8 +1,29 @@
-<div layout layout-wrap class="fold-container">
+<md-toolbar class=" md-default-theme" style="background-color:transparent; box-shadow:0px 1px 1px rgba(0,0,0,0.07)">
+		<div class="md-toolbar-tools" layout-sm="column" layout-gt-sm="row">
+	  		<div flex="20">
+	  		</div>
+	  		
+	  		<div flex="80" layout="row" layout-align="end end">
+	  			<ul class="gal-mani-icon" flex layout layout-align="end end">
+	  				<input type="text" name="" class="img-search"/>
+	  				<li></li>
+	  				<li><ng-md-icon icon="view_list" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li><ng-md-icon icon="view_module" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li></li>
+	  				<li ng-show="selectedObj.galleryId"><ng-md-icon icon="delete" style="fill: rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> 
+	  				<li ng-show="selectedObj.galleryId"><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li ng-show="selectedObj.galleryId && selectedObj.isSummary === 'N'"><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li ng-click="addGallery($event, true,folderList);" class="no-outline"><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  			</ul>
+	  				
+	  		</div>
+	  		
+	    </div>
+    </md-toolbar>
+<div ng-click="setActive({});" layout layout-wrap class="fold-container no-outline">
 	<!--  No product folder  -->
 	
-	<ng-md-icon ng-click="addGallery($event, true,folderList);" icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon>
-	<div ng-repeat="folder in folderList" class="folder" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20" ng-click="openFolder(folder);">
+	<div ng-repeat="folder in folderList" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20" ng-click="setActive(folder);$event.stopPropagation();" ng-dblClick="openFolder(folder);$event.stopPropagation();">
 		<div ng-show="false"> Image</div>
 		<div ng-show="false">  <div class="gallery-folder-icons"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
 		<div ng-show="true">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>

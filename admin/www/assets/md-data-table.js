@@ -47,11 +47,17 @@ function mdColumnHeader($compile, $interpolate, $timeout) {
         return angular.isDefined(attrs.descendFirst) ? 'down' : 'up';
       };
       
+      scope.getShowIcon = function () {
+    	  return scope.$parent.showIcon == scope.order;
+        };
+        
+      
       sortIcon.attr('md-svg-icon', 'templates.arrow.html');
       sortIcon.attr('ng-class', 'getDirection()');
+      sortIcon.attr('ng-show', 'getShowIcon()');
       
       if(angular.isDefined(attrs.numeric)) {
-        template.prepend(sortIcon);
+        template.append(sortIcon);
       } else {
         template.append(sortIcon);
       }

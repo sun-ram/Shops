@@ -1,21 +1,22 @@
 <div ng-init="shopList()">
      
-  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+  <!-- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
    		<div class="md-toolbar-tools ">	
 			 	<h3 style="margin-left:-10px;" class="md-layout-column" ng-hide="warehouse.warehouseId">Create Warehouse</h3>
 			 	<h3 style="margin-left:-10px;" class="md-layout-column" ng-show="warehouse.warehouseId">Update Warehouse</h3>     	
 		</div> 
-  </md-toolbar>
+  </md-toolbar> -->
 
   <md-card flex-gt-sm="90" flex-gt-md="80">
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
+    	<h3 style="margin-left:40px;" ng-hide="warehouse.warehouseId">Create Warehouse</h3>
+		<h3 style="margin-left:40px;" ng-show="warehouse.warehouseId">Update Warehouse</h3>
       <form name="warehouseForm" novalidate>
+      <div class="vertical_line-store" style="height: 120px;"></div>
+      <div layout="row" layout-sm="column" layout-md="column">
       
-      <div layout="row" layout-sm="column">
-      
-      <div flex>
-		<div layout-padding>
-	    <md-input-container layout-padding  flex>
+      <div flex layout-padding class="padd-40">
+		 <md-input-container layout-padding  flex >
 	       <label>Name<span style="color:red">*</span></label>
 	      <input ng-model="warehouse.name" ng-required="true" maxlength="45">
 	    </md-input-container>
@@ -37,14 +38,14 @@
 		      <span ng-message="required" ng-show="warehouseForm.address2.$error.maxlength" style="color:red;">
       		Enter address within 150 characters</span>
 	    </md-input-container>  
-	  </div>
+	  
 	  </div>
 	  
-	  <div flex>
-		<div layout-padding>  
+	  <div flex layout-padding class="padd-40">
+		
 		     <md-input-container layout-padding flex>
        			<label>Country<span style="color:red">*</span></label>
-         		<md-select class="remove-padd" ng-model="country" ng-required="true" ng-model-options="{trackBy: '$value.countryId'}" ng-change = "getState(country);state=null;cty=null;">
+         		<md-select ng-model="country" ng-required="true" ng-model-options="{trackBy: '$value.countryId'}" ng-change = "getState(country);state=null;cty=null;">
 		            <md-option ng-repeat="cnt in countries | orderBy:'name'" ng-value="cnt">
 		              {{cnt.name}}
 		            </md-option>
@@ -52,7 +53,7 @@
     		</md-input-container>
 	        <md-input-container layout-padding flex>
        			<label>State<span style="color:red">*</span></label>
-         		<md-select class="remove-padd" ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}" ng-change = "getCity(state);cty=null;">
+         		<md-select  ng-model="state" ng-required="true" ng-model-options="{trackBy: '$value.stateId'}" ng-change = "getCity(state);cty=null;">
 		            <md-option ng-repeat="state in states | orderBy:'name'" ng-value="state">
 		              {{state.name}}
 		            </md-option>
@@ -60,7 +61,7 @@
     		</md-input-container>
     		<md-input-container layout-padding flex>
 		       			<label>City<span style="color:red">*</span></label>
-		         		<md-select class="remove-padd" ng-model="cty" ng-required="true" ng-model-options="{trackBy: '$value.cityId'}">
+		         		<md-select ng-model="cty" ng-required="true" ng-model-options="{trackBy: '$value.cityId'}">
 				            <md-option ng-repeat="city in cities | orderBy:'name'" ng-value="city">
 				              {{city.name}}
 				            </md-option>
@@ -70,27 +71,16 @@
 		       <label>Postal Code<span style="color:red">*</span></label>
 		      <input ng-model="warehouse.address.pinCode" valid-number ng-required="true" maxlength="12">
 		    </md-input-container>
-    </div>
-    </div>
-    </div>
-    <!-- <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50" ng-show="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Update</md-button>
-    	<md-button class="md-raised md-success padd-50" ng-hide="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Create</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==true"  ng-click="warehouseDetails(warehouse)">Cancel</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==null"  ui-sref="app.warehouse">Cancel</md-button>
-    </section> -->
     
-    <div layout="row" layout-sm="column">
-		  	<div flex>
-		  		<section layout="row" layout-padding layout-sm="column" layout-align="start center" layout-wrap>
-			    	<md-button class="md-raised md-success padd-50" ng-show="warehouse.warehouseId" ng-click="updateWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Update</md-button>
-			    	<md-button class="md-raised md-success padd-50" ng-hide="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Create</md-button>
-			    	<md-button class="md-raised md-cancel padd-50" ng-if="warehouse.status==null"  ui-sref="app.warehouse">Cancel</md-button>
-			    	<!-- <md-button class="md-raised md-success padd-50" ng-click="addStore();" ng-disabled="storeForm.$invalid">Create</md-button>
-			    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.store">Cancel</md-button> -->
-			    </section>
-		  	</div>
-		  </div>	
+    </div>
+    </div>
+        
+    	<section class="padd-40" layout="row" layout-padding layout-sm="column">
+	    	<md-button class="md-raised md-success padd-40" ng-show="warehouse.warehouseId" ng-click="updateWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Update</md-button>
+	    	<md-button class="md-raised md-success padd-40" ng-hide="warehouse.warehouseId" ng-click="saveWarehouse(warehouse);" ng-disabled="warehouseForm.$invalid">Create</md-button>
+	    	<md-button class="md-raised md-cancel padd-40" ng-if="warehouse.status==null"  ui-sref="app.warehouse">Cancel</md-button>
+	   </section>
+		  		
     </form>
     </md-content>
 </md-card>

@@ -1,26 +1,27 @@
- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+<!--  <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
       <h3 class="md-flex" style="margin-left:-10px;">Add Shipping Charges</h3>
-     <!--  <span class="close_box">
-	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon> </span> -->
+      <span class="close_box">
+	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon> </span>
     </div>
-    <!-- <span class="close_box">
+    <span class="close_box">
 		 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.shippingCharges"></ng-md-icon>
-	 </span> -->
-  </md-toolbar>
+	 </span>
+  </md-toolbar> -->
 <md-card flex-gt-sm="90" flex-gt-md="80" ng-init="getStoreDetails()">
   
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
+   	<h3 style="margin-left: 40px;">Add Shipping Charges</h3>
     <form name="storeForm" novalidate>
     	    <div layout layout-sm="column">
     
-        <md-input-container layout-padding flex>
+        <md-input-container layout-padding flex class="padd-40">
       <label>Charging Amount<span style="color:red">*</span></label>
       <input ng-model="shipping.chargingAmount" name="amt" ng-trim="false" valid-number ng-required="true" ng-maxlength="13">
      <span ng-message="required" ng-show="storeForm.amt.$error.maxlength" style="color:red;">
        Enter Charging Amount within 13 digit</span>
     </md-input-container>
-     <md-input-container layout-padding flex>
+     <md-input-container layout-padding flex class="padd-40">
       <label>Amount Range<span style="color:red">*</span></label>
       <input ng-model="shipping.amountRange" name="rag" valid-number ng-required="true" ng-maxlength="13">
       <span ng-message="required" ng-show="storeForm.rag.$error.maxlength" style="color:red;">
@@ -28,9 +29,9 @@
 		      
     </md-input-container>
     </div>
-    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
-    	<md-button class="md-raised md-success padd-50" ng-click="addShippingCharge();" ng-disabled="storeForm.$invalid">Create</md-button>
-    	<md-button class="md-raised md-cancel padd-50" ui-sref="app.shippingCharges">Cancel</md-button>
+   <section layout-padding layout="row" layout-align="center center">
+    	<md-button class="md-raised md-success padd-40" ng-click="addShippingCharge();" ng-disabled="storeForm.$invalid">Create</md-button>
+    	<md-button class="md-raised md-cancel padd-40" ui-sref="app.shippingCharges">Cancel</md-button>
     </section>
     </form>
     </md-content>

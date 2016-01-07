@@ -527,31 +527,49 @@ angular.module('app')
 	.state('app.gallery', {
 		url: '/gallery',
 		templateUrl: 'app/modules/gallery/gallery.html',
-		controller : 'galleryCtrl'
-	})
-	.state('app.gallery.folder', {
-		url: '/folder/:folderId',
-		templateUrl: 'app/modules/gallery/galleryMain.html',
-		controller : 'galleryMainCtrl',
+		controller : 'galleryCtrl',
 		resolve:   {
-			folder:  function($http, $stateParams, $rootScope){
-				/*return physicalInventoryService.getPhysicalInventory($stateParams.inventoryId).then(function(data){
-					return data;
-				});*/
-				
-				return [{
-					 fileName: "test",
-					 galleryId: "ff8081815211e710015211f091990000",
-					 isSummary: "Y"
-				},
-				{
-					 fileName: "test2",
-					 galleryId: "ff8081815211e710015211f091990001",
-					 isSummary: "Y"
-				}];
-
+			folder:  function($rootScope){
+				$rootScope.breadCrumbGallery = [];	
+				return [];
 			}
 		}
+	})
+	.state('app.folder', {
+		url: '/folder/:folderId',
+		templateUrl: 'app/modules/gallery/gallery.html',
+		controller : 'galleryCtrl',
+		resolve:   {
+			folder:  function($stateParams, GalleryServices){
+				return GalleryServices.getGalleryListById($stateParams.folderId).then(function(data){
+					return data;
+				});
+			
+					/*return [{
+						fileName: "test",
+						galleryId: "ff8081815211e710015211f091990000",
+						isSummary: "Y"
+					},
+					{
+						fileName: "test2",
+						galleryId: "ff8081815211e710015211f091990001",
+						isSummary: "Y"
+					}];*/
+					
+			}
+		}
+	})
+		//Billing
+	.state('app.unpaidBills', {
+		url: '/billing/unpaidBills',
+		templateUrl: 'app/modules/billing/unpaidBills.html',
+		controller : 'billingCtrl'
+	})
+	
+	.state('app.paidHistory', {
+		url: '/billing/paidHistory',
+		templateUrl: 'app/modules/billing/paidHistory.html',
+		controller : 'billingCtrl'
 	});
 
 

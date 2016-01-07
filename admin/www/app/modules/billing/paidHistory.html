@@ -1,0 +1,59 @@
+	
+<div  ng-init="getStores();getPaidBills();">
+<md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
+ 	
+ 	<div layout-sm="column" layout-md="column" style="padding: 0px 16px;" layout="row" >
+		<div layout="row" layout-sm="column" style="padding: 0px 16px;">
+	  		<h3 layout-align="start">Paid History</h3>
+	  		
+	  		<div class="tbl-search padd-t14">
+	  		  	<ng-md-icon icon="search"  class="icon-white" ></ng-md-icon>
+	  		 <search-text  original-list="originalList" filtered-list="paidBillsList" pagination="billingPagination" total-records="noOfRecords"/> 
+	  		</div>	
+	    </div>
+	    <div flex layout-align="end" layout="row" layout-sm="column">
+		<md-input-container>
+		<label>Store</label> <md-select name="myModel" ng-model="store" 
+			required ng-change="getUnpaidBillsByStore(store);"> 
+			<md-option ng-repeat="store in stores" ng-value="store.storeId" >{{store.name}}</md-option>
+			<md-option ng-value="All">All</md-option> 
+			</md-select>
+	    </md-input-container>
+	</div>
+	</div> 
+    
+
+   <md-card-content class="nopadd">
+		<md-data-table-container>
+         
+     <table md-data-table class="data-table-list" md-progress="deferred">
+	<thead class="full_wid  ">
+		<tr class="tbl-header">
+		      <th  name="Merchant"></th>
+              <th  name="Store"></th>
+              <th  name="SalesOrder Number"></th>
+              <th  name="Paid Date"></th>
+              <th  name="Amount"></th>
+              <th  name="Fees"></th>
+                          
+        </tr>
+	</thead>
+	<tbody>
+		 <tr ng-repeat="bills in paidBillsList | filter:searchText | orderBy: billingPagination.order | limitTo: billingPagination.limit: (billingPagination.page - 1) * billingPagination.limit">
+			<td>{{bills.merchant.name}}</td>
+			<td>{{bills.store.name}}</td>
+			<td>{{bills.salesOrder.orderNo}}</td>
+			<td>{{bills.paidDate}}</td>
+			<td>{{bills.amount}}</td>
+			<td>{{bills.fees}}</td>
+		</tr>
+	</tbody>
+</table>
+     </md-data-table-container>
+   </md-card-content>
+   
+   <div layout layout="row" class="table-pagination-bg" layout-align="center center">
+   	<md-data-table-pagination md-limit="billingPagination.limit" md-page="billingPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
+   	</div>
+</div>
+</md-card>

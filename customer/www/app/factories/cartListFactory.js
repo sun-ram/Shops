@@ -254,7 +254,7 @@ angular.module('aviate.factories')
 			_totalAmount += _subTotal;
 		}
 		}
-		_totalAmount = Math.ceil(_totalAmount * 10) / 10;
+		_totalAmount = Math.ceil(_totalAmount * 100) / 100;
 		$rootScope.myCart.cartTotalAmount = _totalAmount;
 		
 		//shipping charge
@@ -288,11 +288,12 @@ angular.module('aviate.factories')
 				});
 				$rootScope.myCart.taxAmount = $rootScope.myCart.taxAmount + $rootScope.rate;
 			}
+			$rootScope.myCart.taxAmount = Math.ceil($rootScope.myCart.taxAmount * 100) / 100;
 		}
 		//cartTotalAmount*(2.5/100)
 		$rootScope.myCart.grossAmount = $rootScope.myCart.taxAmount+$rootScope.myCart.cartTotalAmount+$rootScope.myCart.shippingCharges;
 		//ipCookie("myCart",$rootScope.myCart);
-		$rootScope.myCart.grossAmount = Math.ceil($rootScope.myCart.grossAmount * 10) / 10;
+		$rootScope.myCart.grossAmount = Math.ceil($rootScope.myCart.grossAmount * 100) / 100;
 		localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 	}
 

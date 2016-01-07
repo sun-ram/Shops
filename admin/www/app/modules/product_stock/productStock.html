@@ -1,26 +1,3 @@
-<!-- <div layout="row" ng-init="getProductStockList();getMerchantStore();">
-
-	<div layout="row" flex=65>
-		<h3 layout-padding layout-align="start center">Product Stock</h3>
-	</div>
-	
-	<div ng-hide="user.role == 'STOREADMIN'" layout="row">
-		<md-input-container style="height: 37px; padding: 2px 20px;">
-		<label>Store</label> <md-select name="myModel" ng-model="storesId" ng-change="getStockListByStore()"
-			required> <md-option ng-repeat="stores in merchantStore" value="{{stores.storeId}}" >{{stores.name}}</md-option> 
-	    </md-input-container>
-	</div>
-
-	<div layout="row" flex=20>
-		<md-input-container md-theme="input" flex style="height: 72px;">
-		<label>&nbsp;</label> <input style="border-bottom-color: #B0B0B0;" ng-model="search"
-			placeholder="enter search"> </md-input-container>
-
-		<ng-md-icon icon="search" style="line-height: 5;"></ng-md-icon>
-
-
-	</div>
-</div> -->
 <md-card flex-gt-sm="90" flex-gt-md="80" class="tbl-body">
 
 	<div clayout-sm="column" layout-md="column" style="padding: 0px 16px;"  layout="row"  ng-init="getProductStockList();getMerchantStore();">
@@ -44,35 +21,13 @@
 
 <md-card-content class="nopadd">
 <md-data-table-container>
-	<!-- <md-list>     
-      <md-item class="data-table-list " md-data-table md-progress="deferred">
-         <md-item-content layout="row">
-          <div layout="row" layout-wrap class="full_wid tbl-header " md-order="productStockPagination.order" md-trigger="onorderchange">
-          
-          <span order-by="warehouseName" flex layout-align="start center" layout>
-             	Warehouse
-          </span>
-          <span numeric order-by="row" flex layout-align="start center" layout>
-             	Storage Bin
-          </span>
-          <span numeric order-by="productName" flex layout-align="start center" layout>
-             	Product
-          </span>
-          <span numeric order-by="availableQty" flex layout-align="start center" layout>
-             	Warehouse
-          </span>
-          </div>
-          </md-item-content>
-          </md-item> -->
-          
-          
 <table md-data-table class="data-table-list" md-progress="deferred">
 	<thead md-order="productStockPagination.order" md-trigger="onorderchange" class="full_wid  ">
 		<tr class="tbl-header">
-              <th  numeric order-by="warehouseName" name="Warehouse"></th>
-              <th  numeric order-by="row" name="Storage Bin"></th>
-              <th  numeric order-by="productName" name="Product"></th>
-              <th  numeric order-by="availableQty" name="Available Qty"></th>
+              <th ng-click="showIcon='warehouseName';" numeric order-by="warehouseName" name="Warehouse"></th>
+              <th ng-click="showIcon='row';" numeric order-by="row" name="Storage Bin"></th>
+              <th ng-click="showIcon='productName';" numeric order-by="productName" name="Product"></th>
+              <th ng-click="showIcon='availableQty';" numeric order-by="availableQty" name="Available Qty"></th>
         </tr>
 	</thead>
 	<tbody>

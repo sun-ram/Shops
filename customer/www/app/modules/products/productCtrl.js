@@ -1,9 +1,37 @@
 angular.module('aviate.controllers')
 .controller("productCtrl",
-		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products', '$rootScope', 'ipCookie', 'MyCartFactory', 'MyCartServices','$mdDialog','MyListServices',
-		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory, MyCartServices,$mdDialog,MyListServices) {
+		['$scope', '$state', 'toastr', 'CONSTANT', 'ProductService','products', '$rootScope', 'ipCookie', 'MyCartFactory', 'MyCartServices','$mdDialog','MyListServices','$stateParams','homePageServices',
+		 function($scope, $state, toastr, CONSTANT, ProductService, products,$rootScope,ipCookie, MyCartFactory, MyCartServices,$mdDialog,MyListServices,$stateParams,homePageServices) {
 
 			$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
+			
+			if($stateParams.value=="bundleProducts"){
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+            homePageServices.isBundleProduct($scope.product).then(function(data){
+            	$scope.productList = data;
+            })
+			}
+			else if($stateParams.value=="comboProducts"){
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+				         homePageServices.comboOffer($scope.product).then(function(data){
+				        	 $scope.productList = data;	
+				        })
+			}
+			else if($stateParams.value=="topCategories"){
+				$scope.product = {};
+				$scope.product.merchant = {};
+				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+                homePageServices.topCategories($scope.product).then(function(data){
+            	$scope.productList = data;
+            })
+			}
+			else{
+				//need to write
+			}
 			
 			$scope.addToMyList = function(product,index){
 				if($rootScope.user == null || $rootScope.user == undefined){
