@@ -216,7 +216,7 @@ public class SalesOrderRestService<T> {
 				if ("ANDROID".equalsIgnoreCase(user.getDeviceType())) {
 					String message = "Received New Order";
 					CommonUtil.androidPushNotification(message,
-							user.getDeviceId());
+							user.getDeviceId(),"Shopper");
 				} else if (user.getDeviceType()!=null && user.getDeviceType().equalsIgnoreCase("IOS")) {
 
 				}
@@ -252,7 +252,7 @@ public class SalesOrderRestService<T> {
 				if (user.getDeviceType().equalsIgnoreCase("ANDROID")) {
 					String message = "Received New Order";
 					CommonUtil.androidPushNotification(message,
-							user.getDeviceId());
+							user.getDeviceId(),"Backer");
 				} else if (user.getDeviceType().equalsIgnoreCase("IOS")) {
 
 				}

@@ -103,14 +103,14 @@
 			    
       		<md-input-container flex>
       			<label>Discount amount <span style="color:red">*</span></label>
-      			<input type="number" ng-model="productOfferLine.discountAmount" ng-required="true" name="discount" ng-maxlength="20"  max={{productOffer.productVo.price}} /> 
+      			<input type="number" ng-model="productOfferLine.discountAmount" ng-required="required2" name="discount" ng-maxlength="20"  ng-hide="productOfferLine.discountPercentage > 0" max={{productOffer.productVo.price}} ng-focus="required2=true;required=false;productOfferLine.discountPercentage=null;"/> 
       			<span class="error" ng-show="offerLineForm.discount.$error.max" style="color:red;">
       			Invalid Discount Amount!</span>
       		</md-input-container>	
 			
 			<md-input-container flex>
       			<label>Discount Percentage <span style="color:red">*</span></label>
-      			<input type="number" ng-model="productOfferLine.discountPercentage" ng-required="true" name="percentage" ng-maxlength="3" max="100"/> 
+      			<input type="number" ng-model="productOfferLine.discountPercentage" ng-required="required" name="percentage" ng-maxlength="3" ng-hide="productOfferLine.discountAmount>0" max="100" ng-focus="required2=false;required=true;productOfferLine.discountAmount=null;"/> 
       		<span class="error" ng-show="offerLineForm.percentage.$error.max" style="color:red;">
       			Invalid Percentage!</span>
       		</md-input-container>
@@ -158,14 +158,14 @@
       		
       		<md-input-container flex>
       		<label>Discount Amount <span style="color:red">*</span></label>
-      		<input type="number" ng-model="newproductOffer.discountAmount" ng-required="perRequired" name="Discount" ng-maxlength="20"  max={{newproductOffer.productVo.price}} ng-hide="newproductOffer.discountPercentage > 0" ng-focus="amtRequired=false;perRequired=true;"/> 
+      		<input type="number" ng-model="newproductOffer.discountAmount" ng-required="perRequired" name="Discount" ng-maxlength="20"  max={{newproductOffer.productVo.price}} ng-hide="newproductOffer.discountPercentage > 0" ng-focus="amtRequired=false;perRequired=true;newproductOffer.discountPercentage=null;"/> 
       		<span class="error" ng-show="offerLineForm.Discount.$error.max" style="color:red;">
       			Invalid Discount Amount!</span>
       		</md-input-container>
       		
       		<md-input-container flex>
       		<label>Discount Percentage <span style="color:red">*</span></label>
-      		<input type="number" ng-model="newproductOffer.discountPercentage" ng-required="amtRequired" name="percentage" ng-maxlength="3" max="100" ng-hide="newproductOffer.discountAmount > 0" ng-focus="amtRequired=true;perRequired=false;"/> 
+      		<input type="number" ng-model="newproductOffer.discountPercentage" ng-required="amtRequired" name="percentage" ng-maxlength="3" max="100" ng-hide="newproductOffer.discountAmount > 0" ng-focus="amtRequired=true;perRequired=false;newproductOffer.discountAmount=null;"/> 
       		<span class="error" ng-show="offerLineForm.percentage.$error.max" style="color:red;">
       			Invalid Percentage!</span>
       		</md-input-container>

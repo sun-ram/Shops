@@ -16,14 +16,14 @@
 		      <input ng-model="discount.name" ng-required="true">
 		      </md-input-container>
     	    <md-input-container layout-padding flex >
-		       <label>Discount Percentage %<span style="color:red">*</span></label>
-		      <input type="number" ng-model="discount.discountPercentage" ng-required="required" name="percentage" ng-maxlength="3" max="100" ng-hide="discount.discountAmount > 0" ng-focus="required2=false;required=true">
+		       <label>Discount Percentage %<span ng-hide="required2" style="color:red">*</span></label>
+		      <input type="number" ng-model="discount.discountPercentage" ng-required="required" name="percentage" ng-maxlength="3" max="100" ng-hide="discount.discountAmount > 0" ng-focus="required2=false;required=true;discount.discountAmount=null;">
 		   	  <span class="error" ng-show="discountForm.percentage.$error.max" style="color:red;">
       			Invalid Percentage!</span>
 		    </md-input-container>   
 		    <md-input-container layout-padding flex>
-		       <label>Discount Amount<span style="color:red">*</span></label>
-		      <input ng-model="discount.discountAmount" ng-required="required2" valid-number ng-maxlength="20" ng-hide="discount.discountPercentage > 0" ng-focus="required2=true;required=false;">
+		       <label>Discount Amount<span ng-hide="required" style="color:red">*</span></label>
+		      <input ng-model="discount.discountAmount" ng-required="required2" valid-number ng-maxlength="20" ng-hide="discount.discountPercentage > 0" ng-focus="required2=true;required=false;discount.discountPercentage=null;">
 		    </md-input-container>
     		<md-input-container layout-padding flex>
 		       <label>Minimum Quantity</label>

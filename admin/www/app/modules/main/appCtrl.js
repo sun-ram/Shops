@@ -156,6 +156,7 @@ angular.module('aviateAdmin.controllers')
 					 $localStorage.salesOrderCountReceived = $scope.salesOrderCountReceived;
 				 }else if($scope.socketData.message=="New"){
 					 $scope.salesOrderCountReceived = $localStorage.salesOrderCountReceived + 1;
+					 $localStorage.salesOrderCountReceived = $scope.salesOrderCountReceived;
 				 }
 				 $scope.$apply();
 			 }

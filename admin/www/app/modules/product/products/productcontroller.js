@@ -130,6 +130,7 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.updateProduct = function(product) {
 		$scope.product = product;
+		$scope.product.discount=null;
 		$scope.product.merchant = {};
 		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
 		$scope.product.userId = $rootScope.user.userId;
