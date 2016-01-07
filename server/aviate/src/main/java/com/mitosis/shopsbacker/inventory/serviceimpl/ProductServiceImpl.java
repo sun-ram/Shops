@@ -211,7 +211,11 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 		} else {
 			product.setGroupCount(1);
 			product.setIsBundle('N');
-
+		}
+		if (productVo.getIsChild()) {
+			product.setIsChild('Y');
+		} else {
+			product.setIsChild('N');
 		}
 		return product;
 	}
@@ -250,7 +254,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			productVo.setIsYourHot(false);
 		}
 
-		if (product.getIsKit() == 'Y') {
+		if (product.getIsKit() == 'Y' && !product.getProductOffers().isEmpty()) {
 			double wasPrice = 0;
 
 			for (ProductOfferLine productOfferLine : product.getProductOffers()
