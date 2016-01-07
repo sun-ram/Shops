@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -194,20 +195,63 @@ public class GalleryRestService {
 	}
 	
 	
-	@Path("/delete/{parentId}")
+	@Path("/delete/{galleryId}")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public String deletreGalleriesById(@PathParam("parentId") String parentId) {
-		
-		
-		
-		
-		
-		
-		
-		return null;
+	public String deletreGalleriesById(@PathParam("galleryId") String galleryId) {
+		String responseStr="";
+		ResponseModel responseModel=new ResponseModel();
+		try{
+		Gallery gallery = galleryService.getGalleryById(galleryId);
+		if (gallery.getIsSummary() == 'N') {
+			deleteFile(gallery);
+		}else{
+			List<Gallery> listOfGalleries = gallery.getGalleries();
+			
+			deleteChildGalleries(listOfGalleries);
+			deleteFile(gallery);
+		}
+		responseModel.setStatus(SBMessageStatus.FAILURE.getValue());
+		}catch(Exception e){
+			String errorMsg = CommonUtil.getErrorMessage(e);
+			log.error(errorMsg);
+			responseModel.setStatus(SBMessageStatus.FAILURE.getValue());
+			responseModel.setErrorString(errorMsg);
+			
+		}
+		try {
+			responseStr=CommonUtil.getObjectMapper(responseModel) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return responseStr;
+	}
+
+	public void deleteChildGalleries(List<Gallery> galleries) {
+		for(Gallery childGallery:galleries){
+			List<Gallery> childGalleries = childGallery.getGalleries();
+			if(childGalleries.size()>0){
+				deleteChildGalleries(childGalleries);
+			}
+			galleryService.deleteGallery(childGallery);
+		}
+	}
+
+	public void deleteFile(Gallery gallery) throws IOException {
+		Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream(
+				"/properties/serverurl.properties"));
+		String defaultAttachmentPath = properties
+				.getProperty("galleryPath");
+		String filePath = defaultAttachmentPath + gallery.getFilePath();
+		galleryService.deleteGallery(gallery);
+		File file=new File(filePath);
+		if(file.exists()){
+			file.deleteOnExit();
+		}
 	}
 
 	private void getHierarchicalGalleries(List<Gallery> galleries,
