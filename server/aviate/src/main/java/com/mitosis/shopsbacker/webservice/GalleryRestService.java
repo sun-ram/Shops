@@ -161,12 +161,21 @@ public class GalleryRestService {
 		String responseStr = "";
 		GalleryResponseVo galleryResponseVo = new GalleryResponseVo();
 		try {
-			Gallery parentGalleries = galleryService.getGalleryById(parentId);
-			List<GalleryVo> rootGalleryVoList = new ArrayList<GalleryVo>();
-			Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
-			getHierarchicalGalleries(parentGalleries.getGalleries(), rootGalleryVoList,
-					galleryVoParentMap);
-			galleryResponseVo.setGalleries(rootGalleryVoList);
+			Gallery gallery = galleryService.getGalleryById(parentId);
+			List<GalleryVo> galleryVos = new ArrayList<GalleryVo>();
+			List<Gallery> galleries = gallery.getGalleries();
+			for(Gallery gall:galleries){
+				List<Gallery> listOfGallery=gall.getGalleries();
+				List<GalleryVo> galleryvos = new ArrayList<GalleryVo>();
+				GalleryVo galleryvo = setGalleryVo(gall);
+				for(Gallery childGallery:listOfGallery){
+					GalleryVo galleryVo = setGalleryVo(childGallery);
+					galleryvos.add(galleryVo);
+				}
+				galleryvo.setGalleries(galleryvos);
+				galleryVos.add(galleryvo);
+			}
+			galleryResponseVo.setGalleries(galleryVos);
 			galleryResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
 		} catch (Exception e) {
 			String errorMsg = CommonUtil.getErrorMessage(e);
