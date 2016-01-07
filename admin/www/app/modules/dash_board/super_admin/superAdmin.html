@@ -314,6 +314,77 @@ form {
   top: 10px;
 }
 	
+    /*today sales order chart css*/
+    #todaySalesRevenue .axis path,
+    #todaySalesRevenue .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    
+    #todaySalesRevenue .bar {
+        fill: steelblue;
+    }
+    
+    #todaySalesRevenue .bar:hover {
+        fill: brown;
+    }
+    
+    #todaySalesRevenue .axis {
+        font: 10px sans-serif;
+    }
+    
+    #todaySalesRevenue .axis path,
+    #todaySalesRevenue .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    
+    #todaySalesRevenue .x.axis path {
+        display: none;
+    }
+    
+
+   /*radius css*/
+    
+    .background {
+        fill: #FFFFFF;
+        fill-opacity: 0.01;
+    }
+    
+    .component {
+        fill: #e1e1e1;
+    }
+    
+    .component .label {
+        font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+        fill: #0000FF;
+    }
+    
+    .arc {
+        stroke-weight: 0.1;
+        fill: #4e8fff;
+    }
+    
+    .arc2 {
+        stroke-weight: 0.1;
+        fill: #3660b0;
+    }
+    
+    .label {
+        font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+    }
+    
+    .radial-svg {
+        display: block;
+        margin: 0 auto;
+    }
+    /* today sales order chart css end*/
+    
+    
 </style>
 <div ng-cloak class="testBlock applyFlatUI commonBackground">
 	<md-card class="nomarg marg-t10 applyFlatUI">
@@ -412,6 +483,22 @@ form {
 		</md-card>
 
 	</div>
+    <!--today sales report chart -->
+    <div flex layout="row" layout-sm="column">
+        <md-card flex="70" flex-sm="100" id="todaySalesRevenue">
+        </md-card>
+        <md-card flex="30" flex-sm="100" layout-wrap ng-init="drawTodaySalesChart()">
+            <div layout="row">
+                <span flex>Name : {{todaySalesByMerchant.merchantName}}</span> <span flex>Total SalesOrder : {{todaySalesByMerchant.salesOrders.length}} </span>
+            </div>
+            <div layout="row" layout-wrap style="text-align:center">
+                <div flex ng-repeat="ts in todaySalesByMerchant.stores" id="{{ts.storeId}}" ng-init="drawStoreTodaySalesChart(ts)">
+                    <span ng-bind="ts.storeName"></span>
+                </div>
+            </div>
+        </md-card>
+    </div>
+<!--today sales order report end-->
 	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
 		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
 			<div layout="column" layout-sm="row" class="chart_header">

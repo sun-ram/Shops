@@ -535,6 +535,206 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 		};
 		
+          /*today sales order report*/
+        $scope.drawTodaySalesChart = function () {
+            $timeout(function () {
+                drawTodaySalesChartTest();
+            }, 5000)
+        }
+        var drawTodaySalesChartTest = function () {
+
+            var todayTotalSalesOrder = $scope.salesOrders.Books ? $scope.salesOrders.Books.length : 0,
+                todaySalesOrders = $scope.salesOrders.Books,
+                salesOrdersByMerchant = [],
+                salesOrderByStore = [],
+                salesOrderByCOD = [];
+
+            _.each($scope.merchants.Books, function (merchant) {
+                var orders = [];
+                orders = _.filter(todaySalesOrders, function (order) {
+                    return order.MERCHANT_ID == merchant.MERCHANT_ID
+                });
+                salesOrdersByMerchant.push({
+                    merchantName: merchant.NAME,
+                    merchantId: merchant.MERCHANT_ID,
+                    salesOrders: orders,
+                    salesPercent: (orders.length / todaySalesOrders.length) * 100
+                });
+            });
+            console.log('salesOrderByMerchant ', salesOrdersByMerchant);
+
+            function calculateSalesOrderByStore(merchant) {
+                var orders = [];
+                merchant.stores = []
+                orders = _.groupBy(merchant.salesOrders, function (order) {
+                    return order.STORE_ID
+                });
+                _.each(Object.keys(orders), function (storeId) {
+                    var storeName = _.findWhere($scope.stores.Books, {
+                        STORE_ID: storeId
+                    }).NAME || '';
+                    merchant.stores.push({
+                        storeId: storeId,
+                        storeName: storeName,
+                        salesOrders: orders[storeId],
+                        salesPercent: (orders[storeId].length / merchant.salesOrders.length) * 100
+                    });
+                });
+
+                $scope.$apply(function () {
+                    //$scope.todaySalesByStore = merchant.stores;
+                    /*$scope.todaySalesByMerchant = {
+                        merchantName: merchant.merchantName,
+                        totalOrder: merchant.salesOrders.length
+                    }*/
+                    $scope.todaySalesByMerchant = merchant
+                })
+            }
+
+            salesOrderByCOD = _.filter(todaySalesOrders, function (order) {
+                return order.PAYMENT_METHOD == "COD" //TO DO CONSTANTS
+            });
+
+
+            var margin = {
+                    top: 20,
+                    right: 20,
+                    bottom: 30,
+                    left: 40
+                },
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+            var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+            var y = d3.scale.linear()
+                .range([height, 0]);
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                //.ticks(10);
+
+            var svg = d3.select("#todaySalesRevenue").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr('calss', 'sales-chart')
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            var tip = d3.tip()
+                .attr('class', 'd3-tip')
+                .offset([-10, 0])
+                .html(function (d) {
+                    return "<strong>Sales count :</strong> <span style='color:red'>" + (d.salesOrders.length) + "</span>";
+                })
+
+            svg.call(tip);
+
+            x.domain(salesOrdersByMerchant.map(function (d) {
+                return d.merchantName;
+            }));
+            //            d3.max(salesOrdersByMerchant, function (d) {
+            //                return d.salesPercent;
+            //            })
+            y.domain([0, todayTotalSalesOrder == 0 ? 100 : todayTotalSalesOrder]);
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".21em")
+                .style("text-anchor", "end")
+                .text("Sales Count");
+
+            svg.selectAll(".bar")
+                .data(salesOrdersByMerchant)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d) {
+                    return x(d.merchantName);
+                })
+                .attr("width", x.rangeBand())
+                .attr("y", function (d) {
+                    return y(d.salesOrders.length);
+                })
+                .attr("height", function (d) {
+                    return height - y(d.frequency);
+                })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .on('click', calculateSalesOrderByStore)
+
+            var updateChart = function (evt) {
+                updateScales();
+                updateAxes();
+                updateBars();
+                console.log('resize event triggering ');
+            }
+
+            updateChart();
+
+            calculateSalesOrderByStore(salesOrdersByMerchant[0]);
+
+            function updateScales() {
+                var tmpwidth = d3.min([($('#todaySalesRevenue').width() - margin.left), width]) - margin.right;
+                x.rangeBands([0, tmpwidth], 0.1);
+            }
+
+            function updateAxes() {
+                svg.select('.x.axis').transition().call(xAxis);
+            }
+
+            function updateBars() {
+                var u = svg
+                    .selectAll('rect')
+                    .data(salesOrdersByMerchant);
+
+                u.enter()
+                    .append('rect');
+
+                u.exit()
+                    .remove();
+
+                u.transition()
+                    .attr('x', function (d, i) {
+                        return x(d.merchantName);
+                    })
+                    .attr('width', x.rangeBand())
+                    .attr('y', function (d) {
+                        return y(d.salesOrders.length);
+                    })
+                    .attr('height', function (d) {
+                        return y(0) - y(d.salesOrders.length);
+                    });
+            }
+
+            $(window).on('resize', updateChart);
+
+            $scope.drawStoreTodaySalesChart = function (store) {
+                $timeout(function () {
+                    radialProgress(document.getElementById(store.storeId))
+                        .diameter(150)
+                        .value(store.salesPercent)
+                        .render();
+                }, 1000)
+            };
+          
+        }
+
+        
 		//Pie chart
 		$scope.drawPiechart = function () {
 			nv.addGraph(function () {
