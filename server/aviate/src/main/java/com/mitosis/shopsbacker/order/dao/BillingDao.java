@@ -9,4 +9,6 @@ public interface BillingDao<T> {
 
 	public List<Billing> getBillsByMerchant(Merchant merchant,char isPaid);
 
+	public void addNewBill(Billing billing);
+
 }
