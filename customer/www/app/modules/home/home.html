@@ -39,16 +39,10 @@
      <!---------IsBundle----------------->
      <section ng-if="isBundleProducts.length > 0"  style=" padding:20px;" class="home-products">
  			<div>
- 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 				<div class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Bundle Products </h2>
  					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{isBundleProducts.length}}) <span ng-if="isBundleProducts.length > 1">Items</span> <span ng-if="isBundleProducts.length <= 1">Item</span> 
- 						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
- 					</span>
- 				</div>
- 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Bundle Products </h2>
- 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{isBundleProducts.length}}) 
- 						<a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a>
+ 						 <a ng-if="isBundleProducts.length > $root.numLimit" href="" ng-click="getProductsView('bundleProducts');">View More</a>
  					</span>
  				</div>
  				  <div layout="column" style="width:100%; margin:0px auto; ">
@@ -157,16 +151,10 @@
 
      <section ng-if="comboOffer.length > 0"  style=" padding:20px;" class="home-products">
  			<div>
- 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 				<div class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Combo Offer </h2>
  					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{comboOffer.length}}) <span ng-if="comboOffer.length > 1">Items</span> <span ng-if="comboOffer.length <= 1">Item</span> 
- 						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
- 					</span>
- 				</div>
- 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Combo Offer </h2>
- 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{comboOffer.length}}) 
- 						<a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a>
+ 						 <a ng-if="comboOffer.length > $root.numLimit" href="" ng-click="getProductsView('comboProducts');">View More</a>
  					</span>
  				</div>
  				  <div layout="column" style="width:100%; margin:0px auto; ">
@@ -374,16 +362,10 @@
 
         <section ng-if="topcategories.length > 0"  style=" padding:20px;" class="home-products">
  			<div>
- 				<div ng-hide="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
+ 				<div class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
  					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Hot Products </h2>
  					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{topcategories.length}}) <span ng-if="topcategories.length > 1">Items</span> <span ng-if="topcategories.length <= 1">Item</span> 
- 						<a href="" ng-click ="showHotProduct = 100;showProduct=1;">View More</a>
- 					</span>
- 				</div>
- 				<div ng-show="showProduct" class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Hot Products </h2>
- 					<span class="md-subhead" style="float:left;     margin: 18px 0px 0px 10px;">({{topcategories.length}}) 
- 						<a href="" ng-click ="showHotProduct = 5;showProduct=0;">Hide</a>
+ 						 <a ng-if="topcategories.length > $root.numLimit" href="" ng-click="getProductsView('topCategories');">View More</a>
  					</span>
  				</div>
  				  <div layout="column" style="width:100%; margin:0px auto; ">

@@ -48,6 +48,18 @@ angular.module('app')
 		}
 
 	})
+	
+	.state('app.productsView', {
+		url: '/productsView/:value',
+		templateUrl: 'app/modules/products/productsView.html',
+		controller : 'productCtrl',
+			resolve:   {
+				products:  function(ProductService,$http, $stateParams){
+					return [];
+
+				}
+			}
+	})
 
 	.state('app.productType', {
 		url: '/product/:productTypeId',

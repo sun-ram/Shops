@@ -168,6 +168,11 @@ angular.module('aviate.controllers')
 
 			}
 
+			$scope.getProductsView = function(value){
+					$state.go('app.productsView',{'value': value});
+
+			}
+			
 			$scope.getProducts = function(){
 
 				$rootScope.getTopCategories();
