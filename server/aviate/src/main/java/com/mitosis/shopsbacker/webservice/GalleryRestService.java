@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -133,6 +134,37 @@ public class GalleryRestService {
 			Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
 			GalleryVo galleryVo = new GalleryVo();
 			getHierarchicalGalleries(parentGalleries, rootGalleryVoList,
+					galleryVoParentMap);
+			galleryResponseVo.setGalleries(rootGalleryVoList);
+			galleryResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());
+		} catch (Exception e) {
+			String errorMsg = CommonUtil.getErrorMessage(e);
+			log.error(errorMsg);
+			galleryResponseVo.setErrorString(errorMsg);
+			galleryResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+		}
+		try {
+			responseStr = CommonUtil.getObjectMapper(galleryResponseVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return responseStr;
+	}
+	
+	@Path("/galleries/{parentId}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String getGalleriesById(@PathParam("parentId") String parentId) {
+		String responseStr = "";
+		GalleryResponseVo galleryResponseVo = new GalleryResponseVo();
+		try {
+			Gallery parentGalleries = galleryService.getGalleryById(parentId);
+			List<GalleryVo> rootGalleryVoList = new ArrayList<GalleryVo>();
+			Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
+			getHierarchicalGalleries(parentGalleries.getGalleries(), rootGalleryVoList,
 					galleryVoParentMap);
 			galleryResponseVo.setGalleries(rootGalleryVoList);
 			galleryResponseVo.setStatus(SBMessageStatus.SUCCESS.getValue());

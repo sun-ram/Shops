@@ -1360,6 +1360,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Gallery.getGalleryListById= function (id,callback) {
+			httpRequest("GET", "gallery/galleries/"+id,null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 		apiClass.Gallery.add= function (gallery,callback) {
 			httpRequest("POST", "gallery/add",gallery,  function (err, data) {

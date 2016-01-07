@@ -3,52 +3,69 @@
  */
 
 angular.module('aviateAdmin.controllers')
-	.controller("galleryCtrl", ['$scope', '$state','toastr','$rootScope','GalleryServices', '$mdDialog','$localStorage',
-	 function($scope, $state, toastr, $rootScope, GalleryServices, $mdDialog,$localStorage) {
+	.controller("galleryCtrl", ['$scope', '$state','toastr','$rootScope','GalleryServices', '$mdDialog','$localStorage', 'folder','$stateParams',
+	 function($scope, $state, toastr, $rootScope, GalleryServices, $mdDialog,$localStorage, folder, $stateParams) {
 		
-		$scope.galleryList = function(){
-			$scope.data={};
-			GalleryServices.getGalleryList($scope.data).then(function(data){
-	    			console.log("Data --->",data);
-	    			$scope.galleries=data;
-					if($scope.galleries.length>0){
-						if($rootScope.breadCrumbGallery === undefined){
-							$scope.openFolders($scope.galleries[0]);
-						}
-					}else{
-						$state.go('app.gallery.folder');
-					}
-               });
-          };
-          
-		$scope.openFolders = function(folder){
-			$rootScope.breadCrumbGallery = [];
+		$scope.galleries = folder;
+		
+		$scope.selectedObj = {};
+		
+		/*$scope.openFolder =  function(folder){
 			$rootScope.breadCrumbGallery.push({'name':folder.fileName,'id':folder.galleryId});
 			$localStorage.breadCrumbGallery = $rootScope.breadCrumbGallery;
 			$state.go('app.gallery.folder',{'folderId':folder.galleryId});
+		};*/
+		
+		$scope.isListview = false;
+		
+		$scope.changeListView = function(){
+			$scope.isListview = true;
+		};
+		
+		$scope.changeGridView = function(){
+			$scope.isListview = false;
+		};
+				
+		$scope.setActive = function(folder){
+			$scope.selectedObj = folder;
+		};
+		
+		$scope.checkActive = function(folder){
+			if($scope.selectedObj.galleryId === folder.galleryId)
+				return 'active';
+		};
+		
+		$scope.galleryList = function(){
+			if($stateParams.folderId){
+				return;
+			}
+			$scope.data={};
+			GalleryServices.getGalleryList($scope.data).then(function(data){
+				$rootScope.breadCrumbGallery = [];				
+    			console.log("Data --->",data);
+    			$scope.galleries=data;
+           });
+          };
+          
+		$scope.openFolders = function(folder){
+			$rootScope.breadCrumbGallery.push({'name':folder.fileName,'id':folder.galleryId});
+			$localStorage.breadCrumbGallery = $rootScope.breadCrumbGallery;
+			$state.go('app.folder',{'folderId':folder.galleryId});
 		};         
           
-		
         $scope.galleryList();
         
-        $scope.addGallery=function (ev, isChild, childGalleries){
-        	/*if(isChild){
-        		$scope.$$childHead.folderList.push({
-        			fileName: "test",
-        			galleryId: "ff8081815211e710015211f091990000",
-        			isSummary: "Y"
-        		});
-        		return;
-        	}*/
+        $scope.addGallery=function (ev, isSummary){
         	$mdDialog.show({
 				templateUrl: 'app/modules/modals/addNewFolder.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose:true,
 				controller: function($scope,getGallery, galleries, $stateParams){
-					
+					$scope.data = {};
+					$scope.data.isSummary = isSummary;
 					$scope.checkFolderIsExit = function(){
-						if(!isChild){
+						/*if(!isChild){*/
 							for(var i = 0; i < galleries.length; i++){
 								if(galleries[i].fileName === $scope.data.fileName){
 									$scope.errorMsg = "This folder already exit";
@@ -58,7 +75,7 @@ angular.module('aviateAdmin.controllers')
 									$scope.flag = false;
 								}
 							}
-						}else{
+						/*}else{
 							for(var j = 0; j < childGalleries.length; j++){
 								if(childGalleries[j].fileName === $scope.data.fileName){
 									$scope.errorMsg = "This folder already exit";
@@ -68,21 +85,33 @@ angular.module('aviateAdmin.controllers')
 									$scope.flag = false;
 								}
 							}
-						}
+						}*/
 					};
 					
+					$scope.splitProductType = function(img){
+						$scope.reImg = {};
+						$scope.reImg.image =img.split(",")[1];
+						$scope.reImg.type = img ? (img.substring(11).split(";")[0]) : "";
+						return $scope.reImg;
+					}; 
+					
 					$scope.addFolder = function(){
-						$scope.data.isSummary='Y';
-						if(isChild){
+						
+						if($stateParams.folderId){
 							$scope.data.parentGalleryId = $stateParams.folderId;
 						}
 						
+						if(isSummary === 'N' && $scope.image){
+							$scope.img = $scope.splitProductType($scope.image);
+							$scope.data.strFile = $scope.img.image;
+							$scope.data.type = $scope.img.type;
+						}else{
+							$scope.errorMsg = "chose Image";
+							return;
+						}
+						
 						GalleryServices.addGallery($scope.data).then(function(data){
-							if(isChild){
-								childGalleries.push(data);
-							}else{
-								galleries.push(data);
-							}
+							galleries.push(data);
 							$scope.cancel();
 						});
 					};
