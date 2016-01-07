@@ -91,11 +91,29 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="uom in uoms | filter:searchText | orderBy: unitsPagination.order | limitTo: unitsPagination.limit: (unitsPagination.page - 1) * unitsPagination.limit">
-			<td>{{uom.description}}</td>
-			<td>{{uom.name}}</td>
+			<td><span ng-show="uom.uomId != showInLineEdit">{{uom.description}}</span>
+				<md-input-container ng-show="uom.uomId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<input type="text" ng-model="uomEdit.description" maxlength="100"/> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="uom.uomId != showInLineEdit">{{uom.name}}</span>
+				<md-input-container ng-show="uom.uomId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<input type="text" ng-model="uomEdit.name" maxlength="10"/> 
+	      		</md-input-container>
+			</td>
+			
+			<!-- <td>{{uom.description}}</td>
+			<td>{{uom.name}}</td> -->
 			<td layout="row">
-			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editUnit(uom);$event.stopPropagation();"></ng-md-icon>
-	        <ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteUnit(uom);$event.stopPropagation();"></ng-md-icon>
+			        
+			        <ng-md-icon ng-show="uom.uomId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=uom.uomId;uomEdit=uom;$event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="uom.uomId != showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteUnit(uom);$event.stopPropagation();"></ng-md-icon>
+      	      		
+      	      		<ng-md-icon ng-show="uom.uomId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=null;updateUnit(uomEdit); $event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="uom.uomId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="showInLineEdit=null;uomEdit=uom; $event.stopPropagation();"></ng-md-icon>
+        			
+			<!-- <ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editUnit(uom);$event.stopPropagation();"></ng-md-icon>
+	        <ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteUnit(uom);$event.stopPropagation();"></ng-md-icon> -->
 			</td>
 		</tr>
 	</tbody>

@@ -22,7 +22,14 @@ aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$loc
 	};
 
 	$scope.updateUnit = function(uom) {
-		$scope.uom.userId = $rootScope.user.userId;
+		if(uom.description == "" || uom.description == undefined){
+			toastr.error("Please Enter Units Of Measure");
+			return;
+		}else if(uom.name == "" || uom.name == undefined){
+			toastr.error("Please Enter Abbreviation");
+			return;
+		}
+		uom.userId = $rootScope.user.userId;
 
 		UnitService.UpdateUnit(uom).then(function(data) {
 			toastr.success(CONSTANT.UPDATEUNIT);

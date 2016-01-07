@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers')
-.controller("shippingChargesController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','ShippingChargeServices',
-			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,ShippingChargeServices) {
+.controller("shippingChargesController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','ShippingChargeServices','toastr',
+			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,ShippingChargeServices, toastr) {
 	
 
 			 /* $scope.query = {
@@ -31,6 +31,22 @@ angular.module('aviateAdmin.controllers')
 					ShippingChargeServices.setShippingChargeObj(shippingCharge);
 					$state.go('app.editshippingcharges');
 				}
+				
+				$scope.updateShippingCharges = function(shippingCharge){
+					if(shippingCharge.amountRange == "" || shippingCharge.amountRange == undefined){
+						toastr.error("Please Enter Amount Range");
+						return;
+					}else if(shippingCharge.chargingAmount == "" || shippingCharge.chargingAmount == undefined){
+						toastr.error("Please Enter Charging Amount");
+						return;
+					}
+					shippingCharge.userId=$rootScope.user.userId;
+
+					ShippingChargeServices.updateShippingCharge(shippingCharge).then(function(data){
+						localStorage.removeItem('shippingCharge');
+						$state.go('app.shippingCharges');
+					});
+				};
 
 				$scope.deleteShippingCharge= function(shippingCharge) {
 									
