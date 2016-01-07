@@ -101,13 +101,14 @@ angular.module('aviateAdmin.controllers')
 							$scope.data.parentGalleryId = $stateParams.folderId;
 						}
 						
-						if(isSummary === 'N' && $scope.image){
+						if($scope.data.isSummary === 'N'){
+							if(!$scope.image){
+								$scope.errorMsg = "chose Image";
+								return
+							}
 							$scope.img = $scope.splitProductType($scope.image);
 							$scope.data.strFile = $scope.img.image;
 							$scope.data.type = $scope.img.type;
-						}else{
-							$scope.errorMsg = "chose Image";
-							return;
 						}
 						
 						GalleryServices.addGallery($scope.data).then(function(data){
