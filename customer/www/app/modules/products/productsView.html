@@ -81,7 +81,11 @@
                          
                          <div layout="row" layout-align="center center">
 	                        	
-					        <div flex ng-click="productDetails($event,product);">
+					        <div ng-if="!comboOffers" flex ng-click="productDetails($event,product);">
+	                    		<md-button class="more">more</md-button>
+	                    	</div>
+	                    	
+	                    	<div ng-if="comboOffers" flex ng-click="productDetailsCombo($event,product);">
 	                    		<md-button class="more">more</md-button>
 	                    	</div>
 	                        
