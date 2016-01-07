@@ -1,26 +1,27 @@
 
-   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
+   <!-- <md-toolbar class=" md-default-theme" style="background-color:transparent;">
     <div class="md-toolbar-tools">
       <h3 class="md-flex" style="margin-left:-10px;">Add Tax</h3>
-     <!--  <span class="close_box">
-	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon> </span>-->
+      <span class="close_box">
+	    <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon> </span>
     </div>
-    <!-- <span class="close_box">
+    <span class="close_box">
 		 <ng-md-icon class="icon-white svgstyle" size="35" icon="close" ui-sref="app.tax"></ng-md-icon>
-	 </span> -->
-  </md-toolbar>
+	 </span>
+  </md-toolbar> -->
  <md-card flex-gt-sm="90" flex-gt-md="80"> 
-    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column" class="edit-container">
+    <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
+     <h3 style="margin-left:40px;">Add Tax</h3>
     <form name="storeForm" novalidate>
     	    <div layout layout-sm="column">
     
-        <md-input-container layout-padding flex>
+        <md-input-container layout-padding flex class="padd-40">
       <label>Tax Name<span style="color:red">*</span></label>
       <input ng-model="tax.name" ng-trim="false" name="taxName" required ng-maxlength="30">
       <span ng-message="required" ng-show="storeForm.taxName.$error.maxlength" style="color:red;" >
        Enter Tax Name within 30 Characters</span>
     </md-input-container>
-     <md-input-container layout-padding flex>
+     <md-input-container layout-padding flex class="padd-40">
       <label>Tax Percentage<span style="color:red">*</span></label>
       <input ng-model="tax.taxPercentage" type="text" name="taxPercentage" value-restriction="100" required ng-maxlength="19" pattern="[0-9]{1,2}\.[0-9]{1,2}$|^[0-9]{1,3}$" >
       <span ng-message="required" ng-show="storeForm.taxPercentage.$error.maxlength" style="color:red;" >
@@ -28,7 +29,7 @@
 		      
     </md-input-container>
     </div>
-    <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+    <section layout-padding layout="row" layout-align="center center">
     	<md-button class="md-raised md-success padd-50" ng-click="addTax();" ng-disabled="storeForm.$invalid">Create</md-button>
     	<md-button class="md-raised md-cancel padd-50" ui-sref="app.tax">Cancel</md-button>
     </section>
