@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -190,6 +191,23 @@ public class GalleryRestService {
 			log.error(e.getMessage());
 		}
 		return responseStr;
+	}
+	
+	
+	@Path("/delete/{parentId}")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String deletreGalleriesById(@PathParam("parentId") String parentId) {
+		
+		
+		
+		
+		
+		
+		
+		return null;
 	}
 
 	private void getHierarchicalGalleries(List<Gallery> galleries,
