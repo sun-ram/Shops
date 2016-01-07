@@ -555,6 +555,18 @@ angular.module('app')
 				}
 			}
 		}
+	})
+		//Billing
+	.state('app.unpaidBills', {
+		url: '/billing/unpaidBills',
+		templateUrl: 'app/modules/billing/unpaidBills.html',
+		controller : 'billingCtrl'
+	})
+	
+	.state('app.paidHistory', {
+		url: '/billing/paidHistory',
+		templateUrl: 'app/modules/billing/paidHistory.html',
+		controller : 'billingCtrl'
 	});
 
 
