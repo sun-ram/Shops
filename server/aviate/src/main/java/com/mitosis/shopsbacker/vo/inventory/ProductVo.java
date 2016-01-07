@@ -40,6 +40,7 @@ public class ProductVo {
 	private boolean isKit;
 	private boolean isChild;
 	private boolean isBundle;
+	private boolean isCombo;
 	private List<ProductImageVo> productImages = new ArrayList<ProductImageVo>();
 	private List<ImageVo> images = new ArrayList<ImageVo>();
 	private List<ProductOfferVo> productOffers = new ArrayList<ProductOfferVo>();
@@ -204,6 +205,12 @@ public class ProductVo {
 	}
 	public void setProductOffers(List<ProductOfferVo> productOffers) {
 		this.productOffers = productOffers;
+	}
+	public boolean getIsCombo() {
+		return isCombo;
+	}
+	public void setIsCombo(boolean isCombo) {
+		this.isCombo = isCombo;
 	}
 
 
