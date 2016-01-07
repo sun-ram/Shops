@@ -1,320 +1,326 @@
 <style>
-
-	.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-	.axis path, .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-  }
-  path.line {
-      fill: none;
-      stroke-width: 2px;
-	  
-  }
-  .zoomOut {
-      fill: #66a;
-      cursor: pointer;
-	  /*display: none;*/
-  }
-  .zoomOutText {
-      pointer-events: none;
-      fill : #ccc;
-  }
-  .zoomOverlay {
-      pointer-events: all;
-      fill:none;
-  }
-  .band {
-      fill : #e3eff4;
-      stroke-width: 1px;
-      stroke: #e3eff4;
-	  height: 80%;
-  }
-	text {
-		font: 12px sans-serif;
-	}
-	
-	.testBlock {
-		display: block;
-		float: left;
-		height: 100%;
-		width: 100%;
-	}
-	
-	text {
-		font: 12px sans-serif;
-	}
-	
-	.nvd3.nv-pie.nv-chart-donut2 .nv-pie-title {
-		fill: gray;
-	}
-	
-	.nvd3.nv-pie.nv-chart-donut1 .nv-pie-title {
-		opacity: 0.4;
-		fill: green;
-	}
-	
-	.svgss {
-		display: block;
-		margin: 0px;
-		padding: 0px;
-		height: 100%;
-		width: 100%;
-	}
-	
-	#chart2 {
-		margin: 0px;
-		padding: 0px;
-		height: 100%;
-		width: 100%;
-	}
-	
-	#barChart2 {
-		margin: 0px;
-		padding: 0px;
-		height: 100%;
-		width: 100%;
-	}
-	
-	h3 {
-		margin: 0;
-		color: #fff;
-	}
-	
-	#barId {
-		float: left ! important;
-		width: 100%;
-	}
-	
-	#pieId {
-		width: 100%;
-	}
-	
-	#areaId {
-		width: 100%;
-	}
-	
-	span {
-		color: grey;
-		font-size: 17px;
-		font-weight: bold
-	}
-	
-	.card {
-		color: #fff;
-		overflow: hidden;
-		margin: 10px 5px;
-		text-align: center;
-	}
-	
-	.fab_iconstyle {
-		position: relative;
-		top: -17px;
-	}
-	
-	.grey {
-		background-color: #607d8b !important;
-	}
-	
-	.green {
-		background: #4CAF50 !important
-	}
-	
-	.purple {
-		background: #9c27b0 !important
-	}
-	
-	.pink {
-		background: #f06292 !important
-	}
-	
-	.white-text {
-		color: #fff ! important;
-	}
-	
-	.skyblue {
-		background: #3ca2e0 !important
-	}
-	
-	.ft-green {
-		color
-	}
-	
-	.info-box {
-		display: block;
-		min-height: 90px;
-		background: #fff;
-		width: 100%;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-		border-radius: 2px;
-		margin: 10px 0px;
-	}
-	
-	.info-box:hover {
-		box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
-	}
-	
-	.info-box-icon {
-		border-top-left-radius: 2px;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 2px;
-		display: block;
-		float: left;
-		height: 90px;
-		width: 90px;
-		text-align: center;
-		font-size: 45px;
-		line-height: 90px;
-		background: rgba(0, 0, 0, 0.2);
-	}
-	
-	.info-box-icon img {
-		margin-top: 15px;
-		width: 60px;
-	}
-	
-	.info-box-text {
-		display: block;
-		font-size: 14px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	
-	.info-box-number {
-		display: block;
-		font-weight: lighter;
-		font-size: 26px;
-		color: #30363E ! important;
-	}
-	
-	.info-box-content {
-		padding: 5px 10px;
-		margin-left: 90px;
-	}
-	
-	.bg-aqua {
-		background-color: #00c0ef !important;
-		color: #fff !important;
-	}
-	
-	.bg-red {
-		background-color: red !important;
-		color: #fff !important;
-	}
-	
-	.bg-green {
-		background-color: #00c0ef !important;
-		color: #fff !important;
-	}
-	
-	.bg-yellow {
-		background-color: #f39c12 !important;
-		color: #fff !important;
-	}
-	
-	.card_top {
-		margin: 5px;
-		padding: 5px;
-	}
-	
-	.card_top h1 {
-		font-size: 30px;
-		font-weight: 100;
-		color: #ddd;
-	}
-	
-	.card_top .card-stats-title {
-		color: #388E3C;
-		text-transform: uppercase;
-		font-size: 16px;
-	}
-	
-	.card_top .card-stats-title span {
-		font-weight: 600;
-		color: #4CAF50;
-		font-size: 16px;
-	}
-	
-	.hr_line {
-		margin-top: 5%;
-		height: 55px;
-	}
-	
-	.br_red {
-		border-top: 3px inset red;
-	}
-	
-	.br_green {
-		border-top: 3px solid #00a65a;
-	}
-	
-	.br_yellow {
-		border-top: 3px solid #f39c12 !important;
-	}
-	
-	.br_blue {
-		border-top: 3px solid #00c0ef !important;
-	}
-	
-	.br_gray {
-		border-top: 3px solid #607d8b !important;
-	}
-	
-	.br_pink {
-		border-top: 3px solid #f06292 !important;
-	}
-	
-	.nomarg {
-		margin: 0px;
-	}
-	
-	.marg-t10 {
-		margin-top: 10px;
-	}
-	
-	.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-form {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-	
+    .d3-tip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+    }
+    /* Creates a small triangle extender for the tooltip */
+    
+    .d3-tip:after {
+        box-sizing: border-box;
+        display: inline;
+        font-size: 10px;
+        width: 100%;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.8);
+        content: "\25BC";
+        position: absolute;
+        text-align: center;
+    }
+    /* Style northward tooltips differently */
+    
+    .d3-tip.n:after {
+        margin: -1px 0 0 0;
+        top: 100%;
+        left: 0;
+    }
+    
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    
+    path.line {
+        fill: none;
+        stroke-width: 2px;
+    }
+    
+    .zoomOut {
+        fill: #66a;
+        cursor: pointer;
+        /*display: none;*/
+    }
+    
+    .zoomOutText {
+        pointer-events: none;
+        fill: #ccc;
+    }
+    
+    .zoomOverlay {
+        pointer-events: all;
+        fill: none;
+    }
+    
+    .band {
+        fill: #e3eff4;
+        stroke-width: 1px;
+        stroke: #e3eff4;
+        height: 80%;
+    }
+    
+    text {
+        font: 12px sans-serif;
+    }
+    
+    .testBlock {
+        display: block;
+        float: left;
+        height: 100%;
+        width: 100%;
+    }
+    
+    text {
+        font: 12px sans-serif;
+    }
+    
+    .nvd3.nv-pie.nv-chart-donut2 .nv-pie-title {
+        fill: gray;
+    }
+    
+    .nvd3.nv-pie.nv-chart-donut1 .nv-pie-title {
+        opacity: 0.4;
+        fill: green;
+    }
+    
+    .svgss {
+        display: block;
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    #chart2 {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    #barChart2 {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    h3 {
+        margin: 0;
+        color: #fff;
+    }
+    
+    #barId {
+        float: left ! important;
+        width: 100%;
+    }
+    
+    #pieId {
+        width: 100%;
+    }
+    
+    #areaId {
+        width: 100%;
+    }
+    
+    span {
+        color: grey;
+        font-size: 17px;
+        font-weight: bold
+    }
+    
+    .card {
+        color: #fff;
+        overflow: hidden;
+        margin: 10px 5px;
+        text-align: center;
+    }
+    
+    .fab_iconstyle {
+        position: relative;
+        top: -17px;
+    }
+    
+    .grey {
+        background-color: #607d8b !important;
+    }
+    
+    .green {
+        background: #4CAF50 !important
+    }
+    
+    .purple {
+        background: #9c27b0 !important
+    }
+    
+    .pink {
+        background: #f06292 !important
+    }
+    
+    .white-text {
+        color: #fff ! important;
+    }
+    
+    .skyblue {
+        background: #3ca2e0 !important
+    }
+    
+    .ft-green {
+        color
+    }
+    
+    .info-box {
+        display: block;
+        min-height: 90px;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+        margin: 10px 0px;
+    }
+    
+    .info-box:hover {
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+    }
+    
+    .info-box-icon {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 2px;
+        display: block;
+        float: left;
+        height: 90px;
+        width: 90px;
+        text-align: center;
+        font-size: 45px;
+        line-height: 90px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .info-box-icon img {
+        margin-top: 15px;
+        width: 60px;
+    }
+    
+    .info-box-text {
+        display: block;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .info-box-number {
+        display: block;
+        font-weight: lighter;
+        font-size: 26px;
+        color: #30363E ! important;
+    }
+    
+    .info-box-content {
+        padding: 5px 10px;
+        margin-left: 90px;
+    }
+    
+    .bg-aqua {
+        background-color: #00c0ef !important;
+        color: #fff !important;
+    }
+    
+    .bg-red {
+        background-color: red !important;
+        color: #fff !important;
+    }
+    
+    .bg-green {
+        background-color: #00c0ef !important;
+        color: #fff !important;
+    }
+    
+    .bg-yellow {
+        background-color: #f39c12 !important;
+        color: #fff !important;
+    }
+    
+    .card_top {
+        margin: 5px;
+        padding: 5px;
+    }
+    
+    .card_top h1 {
+        font-size: 30px;
+        font-weight: 100;
+        color: #ddd;
+    }
+    
+    .card_top .card-stats-title {
+        color: #388E3C;
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+    
+    .card_top .card-stats-title span {
+        font-weight: 600;
+        color: #4CAF50;
+        font-size: 16px;
+    }
+    
+    .hr_line {
+        margin-top: 5%;
+        height: 55px;
+    }
+    
+    .br_red {
+        border-top: 3px inset red;
+    }
+    
+    .br_green {
+        border-top: 3px solid #00a65a;
+    }
+    
+    .br_yellow {
+        border-top: 3px solid #f39c12 !important;
+    }
+    
+    .br_blue {
+        border-top: 3px solid #00c0ef !important;
+    }
+    
+    .br_gray {
+        border-top: 3px solid #607d8b !important;
+    }
+    
+    .br_pink {
+        border-top: 3px solid #f06292 !important;
+    }
+    
+    .nomarg {
+        margin: 0px;
+    }
+    
+    .marg-t10 {
+        margin-top: 10px;
+    }
+    
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    
+    form {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
     /*today sales order chart css*/
+    
     #todaySalesRevenue .axis path,
     #todaySalesRevenue .axis line {
         fill: none;
@@ -344,9 +350,7 @@ form {
     #todaySalesRevenue .x.axis path {
         display: none;
     }
-    
-
-   /*radius css*/
+    /*radius css*/
     
     .background {
         fill: #FFFFFF;
@@ -383,185 +387,242 @@ form {
         margin: 0 auto;
     }
     /* today sales order chart css end*/
-    
-    
 </style>
 <div ng-cloak class="testBlock applyFlatUI commonBackground">
-	<md-card class="nomarg marg-t10 applyFlatUI">
-		<md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
-			<md-card-title-text >
-				<h2 layout-padding layout-margin style="float:left;font-family:Roboto;font-weight: 800;" class="ft-black"> Dashboard </h2>
-			</md-card-title-text>
-			<md-input-container style="float: right;padding: 5px 5px 2px;">
-				<md-select placeholder="Weekly" ng-model="report" style="width:100%;min-width: 200px;background-color:white;" ng-change="onReportChanged(report.value)">
-					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
-				</md-select>
-			</md-input-container>
-		</md-card-title>
-	</md-card>
+    <md-card class="nomarg marg-t10 applyFlatUI">
+        <md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
+            <md-card-title-text>
+                <h2 layout-padding layout-margin style="float:left;font-family:Roboto;font-weight: 800;" class="ft-black"> Dashboard </h2>
+            </md-card-title-text>
+            <md-input-container style="float: right;padding: 5px 5px 2px;">
+                <md-select placeholder="Weekly" ng-model="report" style="width:100%;min-width: 200px;background-color:white;" ng-change="onReportChanged(report.value)">
+                    <md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </md-card-title>
+    </md-card>
 
-	<div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" >
-		<div class="card green" flex flex-sm="100">
-			<div class="card-content  green white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
-				<h4 class="card-stats-number">{{totalMerchants}}</h4>
-				<!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+    <div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+        <div class="card green" flex flex-sm="100">
+            <div class="card-content  green white-text applyFlatUI">
+                <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
+                <h4 class="card-stats-number">{{totalMerchants}}</h4>
+                <!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
 				</p>-->
-			</div>
-		</div>
-		<div class="card pink" flex flex-sm="100">
-			<div class="card-content white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
-				<h4 class="card-stats-number">{{totalStores}}</h4>
-				<!--<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
-				</p>-->
-			</div>
-		</div>
-		<div class="card purple" flex flex-sm="100">
-			<div class="card-content white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
-				<h4 class="card-stats-number">{{totalCustomers}}</h4>
-				<!--<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
-				</p>-->
-			</div>
-
-		</div>
-		<div class="card green" flex flex-sm="100">
-			<div class="card-content  green white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Sales Orders</p>
-				<h4 class="card-stats-number">{{salesOrdersCount}}</h4>
-				<!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
-				</p>-->
-			</div>
-		</div>
-		<div class="card skyblue" flex flex-sm="100">
-			<div class="card-content white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
-				<h4 class="card-stats-number">{{totalSales}}</h4>
-				<!--<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
-				</p>-->
-			</div>
-		</div>
-
-	</div>
-
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" style="position:relative;">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Half year Growth Ratio in week basis</h4>
-				</div>
-				<div id="graph">
-					
-				</div>
-				<div class="descriptionBox">
-					<div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
-					<div class="blueLabel"></div><div class="labelDesc">Merchants Growth : <div style="float:right">{{merchantsRaised}}</div></div>
-					<div class="greenLabel"></div><div class="labelDesc">Store Growth     : <div style="float:right">{{storesRaised}}</div></div>
-					<div class="redLabel"></div><div class="labelDesc">Customer Growth  : <div style="float:right">{{customersRaised}}</div></div>
-					<div class="orangeLabel"></div><div class="labelDesc">SalesOrder Growth  : <div style="float:right">{{salesOrdersRaised}}</div></div>
-					<div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
-						<div class="labelDesc">Merchants Comparition</div>
-						<div><ng-md-icon ng-if = "merchatsRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "merchatsRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (merchatsRaisedPrevWeek>0), redText : (merchatsRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{merchatsRaisedPrevWeek >= 0 ?(merchatsRaisedPrevWeek == 0 ? 'FLAT' : 'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(merchatsRaisedPrevWeek < 0) ? (merchatsRaisedPrevWeek * -1) : merchatsRaisedPrevWeek}}%</span></div></div>
-						
-						<div class="labelDesc" style="margin-top: 25px;">Stores Comparition</div>
-						<div><ng-md-icon ng-if = "storesRaisedprevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "storesRaisedprevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "storesRaisedprevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (storesRaisedprevWeek>0), redText : (storesRaisedprevWeek<0)}'  class="labelDesc" style="padding-left: 66%;">{{storesRaisedprevWeek >= 0 ? (storesRaisedprevWeek == 0 ? 'FLAT' :'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(storesRaisedprevWeek < 0) ? (storesRaisedprevWeek * -1) : storesRaisedprevWeek}}%</span></div></div>
-						
-						<div class="labelDesc" style="margin-top: 25px;">Customers Comparition</div>
-						<div><ng-md-icon ng-if = "customersRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (customersRaisedPrevWeek>0), redText : (customersRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{customersRaisedPrevWeek >= 0 ? (customersRaisedPrevWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(customersRaisedPrevWeek < 0) ? (customersRaisedPrevWeek * -1) : customersRaisedPrevWeek}}%</span></div></div>
-							
-						<div class="labelDesc" style="margin-top: 25px;">SalesOrder Comparition</div>
-						<div><ng-md-icon ng-if = "salesOrderRaisedPreWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "salesOrderRaisedPreWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "salesOrderRaisedPreWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (salesOrderRaisedPreWeek>0), redText : (salesOrderRaisedPreWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{salesOrderRaisedPreWeek >= 0 ? (salesOrderRaisedPreWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(salesOrderRaisedPreWeek < 0) ? (salesOrderRaisedPreWeek * -1) : salesOrderRaisedPreWeek}}%</span></div></div>
-					
-					</div>
-					
-					
-				</div>
-				</div>
-				
-			</div>
-		</md-card>
-
-	</div>
-    <!--today sales report chart -->
-    <div flex layout="row" layout-sm="column">
-        <md-card flex="70" flex-sm="100" id="todaySalesRevenue">
-        </md-card>
-        <md-card flex="30" flex-sm="100" layout-wrap ng-init="drawTodaySalesChart()">
-            <div layout="row">
-                <span flex>Name : {{todaySalesByMerchant.merchantName}}</span> <span flex>Total SalesOrder : {{todaySalesByMerchant.salesOrders.length}} </span>
             </div>
-            <div layout="row" layout-wrap style="text-align:center">
-                <div flex ng-repeat="ts in todaySalesByMerchant.stores" id="{{ts.storeId}}" ng-init="drawStoreTodaySalesChart(ts)">
-                    <span ng-bind="ts.storeName"></span>
+        </div>
+        <div class="card pink" flex flex-sm="100">
+            <div class="card-content white-text applyFlatUI">
+                <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
+                <h4 class="card-stats-number">{{totalStores}}</h4>
+                <!--<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
+				</p>-->
+            </div>
+        </div>
+        <div class="card purple" flex flex-sm="100">
+            <div class="card-content white-text applyFlatUI">
+                <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
+                <h4 class="card-stats-number">{{totalCustomers}}</h4>
+                <!--<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
+				</p>-->
+            </div>
+
+        </div>
+        <div class="card green" flex flex-sm="100">
+            <div class="card-content  green white-text applyFlatUI">
+                <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Sales Orders</p>
+                <h4 class="card-stats-number">{{salesOrdersCount}}</h4>
+                <!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>-->
+            </div>
+        </div>
+        <div class="card skyblue" flex flex-sm="100">
+            <div class="card-content white-text applyFlatUI">
+                <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
+                <h4 class="card-stats-number">{{totalSales}}</h4>
+                <!--<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
+				</p>-->
+            </div>
+        </div>
+
+    </div>
+
+    <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" style="position:relative;">
+        <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+            <div class="md-whiteframe-4dp applyFlatUI">
+                <div class="dashboardHeader">
+                    <h4 style="float:left;font-family:Roboto;font-weight: 300;">Half year Growth Ratio in week basis</h4>
+                </div>
+                <div id="graph">
+
+                </div>
+                <div class="descriptionBox">
+                    <div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
+                    <div class="blueLabel"></div>
+                    <div class="labelDesc">Merchants Growth :
+                        <div style="float:right">{{merchantsRaised}}</div>
+                    </div>
+                    <div class="greenLabel"></div>
+                    <div class="labelDesc">Store Growth :
+                        <div style="float:right">{{storesRaised}}</div>
+                    </div>
+                    <div class="redLabel"></div>
+                    <div class="labelDesc">Customer Growth :
+                        <div style="float:right">{{customersRaised}}</div>
+                    </div>
+                    <div class="orangeLabel"></div>
+                    <div class="labelDesc">SalesOrder Growth :
+                        <div style="float:right">{{salesOrdersRaised}}</div>
+                    </div>
+                    <div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
+                        <div class="labelDesc">Merchants Comparition</div>
+                        <div>
+                            <ng-md-icon ng-if="merchatsRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
+                            <ng-md-icon ng-if="merchatsRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
+                            <ng-md-icon ng-if="merchatsRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon>
+                            <div ng-class='{greenText : (merchatsRaisedPrevWeek>0), redText : (merchatsRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{merchatsRaisedPrevWeek >= 0 ?(merchatsRaisedPrevWeek == 0 ? 'FLAT' : 'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(merchatsRaisedPrevWeek < 0) ? (merchatsRaisedPrevWeek * -1) : merchatsRaisedPrevWeek}}%</span></div>
+                        </div>
+
+                        <div class="labelDesc" style="margin-top: 25px;">Stores Comparition</div>
+                        <div>
+                            <ng-md-icon ng-if="storesRaisedprevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
+                            <ng-md-icon ng-if="storesRaisedprevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
+                            <ng-md-icon ng-if="storesRaisedprevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon>
+                            <div ng-class='{greenText : (storesRaisedprevWeek>0), redText : (storesRaisedprevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{storesRaisedprevWeek >= 0 ? (storesRaisedprevWeek == 0 ? 'FLAT' :'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(storesRaisedprevWeek < 0) ? (storesRaisedprevWeek * -1) : storesRaisedprevWeek}}%</span></div>
+                        </div>
+
+                        <div class="labelDesc" style="margin-top: 25px;">Customers Comparition</div>
+                        <div>
+                            <ng-md-icon ng-if="customersRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
+                            <ng-md-icon ng-if="customersRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
+                            <ng-md-icon ng-if="customersRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon>
+                            <div ng-class='{greenText : (customersRaisedPrevWeek>0), redText : (customersRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{customersRaisedPrevWeek >= 0 ? (customersRaisedPrevWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(customersRaisedPrevWeek < 0) ? (customersRaisedPrevWeek * -1) : customersRaisedPrevWeek}}%</span></div>
+                        </div>
+
+                        <div class="labelDesc" style="margin-top: 25px;">SalesOrder Comparition</div>
+                        <div>
+                            <ng-md-icon ng-if="salesOrderRaisedPreWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
+                            <ng-md-icon ng-if="salesOrderRaisedPreWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
+                            <ng-md-icon ng-if="salesOrderRaisedPreWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon>
+                            <div ng-class='{greenText : (salesOrderRaisedPreWeek>0), redText : (salesOrderRaisedPreWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{salesOrderRaisedPreWeek >= 0 ? (salesOrderRaisedPreWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(salesOrderRaisedPreWeek < 0) ? (salesOrderRaisedPreWeek * -1) : salesOrderRaisedPreWeek}}%</span></div>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
-        </md-card>
+
     </div>
+    </md-card>
+
+</div>
+<!--today sales report chart -->
+<div flex layout="row" layout-sm="column">
+    <md-card flex="60" flex-sm="100" id="todaySalesRevenue">
+    </md-card>
+    <md-card flex="40" flex-sm="100" layout-wrap ng-init="drawTodaySalesChart()">
+        <div class="title" layout="column">
+            <span layout="row" layout-align="center center" layout-padding> 
+            <span>{{todaySalesByMerchant.merchantName}}</span>
+            </span>
+            <div layout="row" layout-align="space-between center" layout-padding>
+                <label flex>Total SalesOrder : <span>{{todaySalesByMerchant.salesOrders.length}}</span> </label>
+                <label flex>Total SalesValue : <span>{{todaySalesByMerchant.salesValue}}</span> </label>
+                <label flex>Total Revenue : <span>{{todaySalesByMerchant.revenue}}</span> </label>
+            </div>
+        </div>
+        <div layout="row" layout-wrap>
+            <!--  <div flex ng-repeat="ts in todaySalesByMerchant.stores" id="{{ts.storeId}}" ng-init="drawStoreTodaySalesChart(ts)">
+                    <span ng-bind="ts.storeName"></span>
+                </div>-->
+            <md-table-container>
+                <table md-table ng-model="selectedStores">
+                    <thead md-head md-order="storesSalveValueTable.order">
+                        <tr md-row>
+                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
+                            <th md-column md-numeric md-order-by="salesOrders"><span>Total Sales</span></th>
+                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="ts" md-select-id="{{ts.storeName}}" md-auto-select ng-repeat="ts in todaySalesByMerchant.stores">
+                            <td md-cell>{{ts.storeName}}</td>
+                            <td md-cell>{{ts.salesOrders.length}}</td>
+                            <td md-cell>{{ts.salesValue}}</td>
+                            <td md-cell>{{ts.revenue}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </div>
+    </md-card>
+</div>
 <!--today sales order report end-->
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
-		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
-			<div layout="column" layout-sm="row" class="chart_header">
-				<div class="dashboardHeader">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Revenue</h4>
+<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
+    <md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
+        <div layout="column" layout-sm="row" class="chart_header">
+            <div class="dashboardHeader">
+                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Revenue</h4>
 
-				</div>
-				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
-			</div>
+            </div>
+            <svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
+        </div>
 
-		</md-card>
-		<md-card flex flex-md="100" class="md-whiteframe-4dp applyFlatUI" flex-sm="100">
-			<div layout="column" class="chart_header " layout-sm="row">
-				<div class="dashboardHeader">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Revenue in Percentage</h4>
+    </md-card>
+    <md-card flex flex-md="100" class="md-whiteframe-4dp applyFlatUI" flex-sm="100">
+        <div layout="column" class="chart_header " layout-sm="row">
+            <div class="dashboardHeader">
+                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Revenue in Percentage</h4>
 
-				</div>
-				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
-			</div>
-		</md-card>
-	</div>
+            </div>
+            <svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
+        </div>
+    </md-card>
+</div>
 
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Store</h4>
-				</div>
-				<div id="chart1">
-					<svg class="svgss"></svg>
-				</div>
-			</div>
-		</md-card>
+<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+        <div class="md-whiteframe-4dp applyFlatUI">
+            <div class="dashboardHeader">
+                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Store</h4>
+            </div>
+            <div id="chart1">
+                <svg class="svgss"></svg>
+            </div>
+        </div>
+    </md-card>
 
-	</div>
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
+</div>
+<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+        <div class="md-whiteframe-4dp applyFlatUI">
+            <div class="dashboardHeader">
+                <h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
 
-				</div>
-				<div id="barChart2">
-					<svg class="svgss"></svg>
-				</div>
-			</div>
-		</md-card>
+            </div>
+            <div id="barChart2">
+                <svg class="svgss"></svg>
+            </div>
+        </div>
+    </md-card>
 
-	</div>
-	<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchant and Quality</h4>
-				</div>
-				<div id="grouperBarChart">
-					<svg class="svgss"></svg>
-				</div>
-			</div>
-		</md-card>
-	</div>
+</div>
+<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+        <div class="md-whiteframe-4dp applyFlatUI">
+            <div class="dashboardHeader">
+                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchant and Quality</h4>
+            </div>
+            <div id="grouperBarChart">
+                <svg class="svgss"></svg>
+            </div>
+        </div>
+    </md-card>
+</div>
 
-	<!--<md-card class="md-whiteframe-1dp applyFlatUI" layout-sm="column" layout-md="column" style="background: #00bcd4;border-style: groove;
+<!--<md-card class="md-whiteframe-1dp applyFlatUI" layout-sm="column" layout-md="column" style="background: #00bcd4;border-style: groove;
   border-color: rgb(249, 241, 241);
   border-width: 1px;">
 		<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
