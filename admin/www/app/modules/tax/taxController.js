@@ -1,6 +1,6 @@
 angular.module('aviateAdmin.controllers')
-.controller("taxController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','TaxServices',
-			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,TaxServices) {
+.controller("taxController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','TaxServices','toastr',
+			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,TaxServices, toastr) {
 	
 
 			 /* $scope.query = {
@@ -24,6 +24,20 @@ angular.module('aviateAdmin.controllers')
 					TaxServices.setTaxObj(tax);
 					$state.go('app.taxdetails');
 				}
+				
+				$scope.updateTax = function(tax){
+					if(tax.name == "" || tax.name == undefined){
+						toastr.error("Please Enter Tax Name");
+						return;
+					}else if(tax.taxPercentage == "" || tax.taxPercentage == undefined){
+						toastr.error("Please Enter Tax Percentage");
+						return;
+					}
+					tax.userId=$rootScope.user.userId;
+	            	TaxServices.updateTax(tax).then(function(data){
+						localStorage.removeItem('tax');
+					});
+				};
 				
 				$scope.redirectToEditTax = function(tax){
 					TaxServices.setTaxObj(tax);

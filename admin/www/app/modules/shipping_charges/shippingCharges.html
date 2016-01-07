@@ -92,11 +92,28 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="shippingCharge in shippingChargeList | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
-			<td>{{shippingCharge.chargingAmount}}</td>
-			<td>{{shippingCharge.amountRange}}</td>
+			<!-- <td>{{shippingCharge.chargingAmount}}</td>
+			<td>{{shippingCharge.amountRange}}</td> -->
+			<td><span ng-show="shippingCharge.shippingChargesId != showInLineEdit">{{shippingCharge.chargingAmount}}</span>
+				<md-input-container ng-show="shippingCharge.shippingChargesId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<input type="text" ng-model="shippingChargeEdit.chargingAmount" valid-number maxlength="13"/> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="shippingCharge.shippingChargesId != showInLineEdit">{{shippingCharge.amountRange}}</span>
+				<md-input-container ng-show="shippingCharge.shippingChargesId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<input type="text" ng-model="shippingChargeEdit.amountRange" valid-number maxlength="13"/> 
+	      		</md-input-container>
+			</td>
 			<td layout="row">			
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="redirectToEditShippingCharge(shippingCharge);$event.stopPropagation();"></ng-md-icon>
-      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteShippingCharge(shippingCharge);$event.stopPropagation();"></ng-md-icon>
+			
+			        <ng-md-icon ng-show="shippingCharge.shippingChargesId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=shippingCharge.shippingChargesId;shippingChargeEdit=shippingCharge;$event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="shippingCharge.shippingChargesId != showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteShippingCharge(shippingCharge);$event.stopPropagation();"></ng-md-icon>
+      	      		
+      	      		<ng-md-icon ng-show="shippingCharge.shippingChargesId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=null;updateShippingCharges(shippingChargeEdit); $event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="shippingCharge.shippingChargesId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="showInLineEdit=null;shippingChargeEdit=shippingCharge; $event.stopPropagation();"></ng-md-icon>
+        			
+        			<!-- <ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="redirectToEditShippingCharge(shippingCharge);$event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteShippingCharge(shippingCharge);$event.stopPropagation();"></ng-md-icon> -->
         	</td>
 			
 		</tr>

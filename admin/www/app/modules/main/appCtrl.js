@@ -88,6 +88,10 @@ angular.module('aviateAdmin.controllers')
 					limit: 5,
 					page: 1
 			};
+			$scope.billingPagination={
+					limit: 5,
+					page: 1
+			};
 			
 			
 			$scope.getCity = function(states){

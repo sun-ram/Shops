@@ -1,4 +1,62 @@
 <style>
+
+	.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+	.axis path, .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+  }
+  path.line {
+      fill: none;
+      stroke-width: 2px;
+	  
+  }
+  .zoomOut {
+      fill: #66a;
+      cursor: pointer;
+	  /*display: none;*/
+  }
+  .zoomOutText {
+      pointer-events: none;
+      fill : #ccc;
+  }
+  .zoomOverlay {
+      pointer-events: all;
+      fill:none;
+  }
+  .band {
+      fill : #e3eff4;
+      stroke-width: 1px;
+      stroke: #e3eff4;
+	  height: 80%;
+  }
 	text {
 		font: 12px sans-serif;
 	}
@@ -65,7 +123,7 @@
 	
 	span {
 		color: grey;
-		font-size: 20px;
+		font-size: 17px;
 		font-weight: bold
 	}
 	
@@ -242,86 +300,122 @@
 	.marg-t10 {
 		margin-top: 10px;
 	}
+	
+	.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+	
 </style>
 <div ng-cloak class="testBlock applyFlatUI commonBackground">
 	<md-card class="nomarg marg-t10 applyFlatUI">
-	<!-- 	<md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
+		<md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
 			<md-card-title-text >
-				<h2 layout-padding layout-margin style="float:left;font-family:Roboto;font-weight: 300;" class="ft-black"> Dashboard </h2>
+				<h2 layout-padding layout-margin style="float:left;font-family:Roboto;font-weight: 800;" class="ft-black"> Dashboard </h2>
 			</md-card-title-text>
 			<md-input-container style="float: right;padding: 5px 5px 2px;">
 				<md-select placeholder="Weekly" ng-model="report" style="width:100%;min-width: 200px;background-color:white;" ng-change="onReportChanged(report.value)">
 					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
 				</md-select>
 			</md-input-container>
-		</md-card-title> -->
-		<md-card-title flex layout="row" class="dashboardHeader" style="background-color: #E2E4E5 !important;">
-			<span flex layout layout-align="start center">
-				<h2 layout-padding layout-margin class="ft-black marg-t7"> Dashboard </h2>
-			</span>
-			<span flex layout layout-align="end center">
-			<md-input-container class="padd-5">
-				<md-select placeholder="Weekly" ng-model="report" class="m-wid140" ng-change="onReportChanged(report.value)">
- 					<md-option ng-value="report" ng-repeat="report in reportSelector">{{report.name}}</md-option>
- 				</md-select>
- 			</md-input-container>
-			</span>
-			</md-card-title>
+		</md-card-title>
 	</md-card>
 
-	<div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+	<div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" >
 		<div class="card pink" flex flex-sm="100">
 			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
 				<h4 class="card-stats-number">{{totalStores}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
-				</p>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 		</div>
 		<div class="card purple" flex flex-sm="100">
 			<div class="card-content white-text applyFlatUI">
 				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
 				<h4 class="card-stats-number">{{totalCustomers}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
-				</p>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 
 		</div>
 		<div class="card green" flex flex-sm="100">
 			<div class="card-content  green white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
-				<h4 class="card-stats-number">{{totalSalesRevenue}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> INR(₹)
-				</p>
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Sales Orders</p>
+				<h4 class="card-stats-number">{{salesOrdersCount}}</h4>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 		</div>
-		<div class="card grey" flex flex-sm="100">
+		<div class="card skyblue" flex flex-sm="100">
 			<div class="card-content white-text applyFlatUI">
-				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Today Sales Revenue</p>
-				<h4 class="card-stats-number">{{todayTotSale}}</h4>
-				<p class="card-stats-compare" style="line-height: 3; background: #455a64; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
-				</p>
+				<p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
+				<h4 class="card-stats-number">{{totalSales}}</h4>
+				<!--<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
+				</p>-->
 			</div>
 		</div>
 
 	</div>
 
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
-
-		<!-- </md-card>-->
-		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp">
-			<div layout="column" layout-sm="row" class="chart_header applyFlatUI">
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" style="position:relative;">
+		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+			<div class="md-whiteframe-4dp applyFlatUI">
 				<div class="dashboardHeader">
-					<h4 style="font-family:Roboto;font-weight: 300;">Sales By Stores</h4>
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Half year Growth Ratio in week basis</h4>
+				</div>
+				<div id="graph">
+					
+				</div>
+				<div class="descriptionBox">
+					<div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
+					<div class="greenLabel"></div><div class="labelDesc">Store Growth     : <div style="float:right">{{storesRaised}}</div></div>
+					<div class="redLabel"></div><div class="labelDesc">Customer Growth  : <div style="float:right">{{customersRaised}}</div></div>
+					<div class="orangeLabel"></div><div class="labelDesc">SalesOrder Growth  : <div style="float:right">{{salesOrdersRaised}}</div></div>
+					<div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
+												
+						<div class="labelDesc" style="margin-top: 25px;">Stores Comparition</div>
+						<div><ng-md-icon ng-if = "storesRaisedprevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "storesRaisedprevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "storesRaisedprevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (storesRaisedprevWeek>0), redText : (storesRaisedprevWeek<0)}'  class="labelDesc" style="padding-left: 66%;">{{storesRaisedprevWeek >= 0 ? (storesRaisedprevWeek == 0 ? 'FLAT' :'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(storesRaisedprevWeek < 0) ? (storesRaisedprevWeek * -1) : storesRaisedprevWeek}}%</span></div></div>
+						
+						<div class="labelDesc" style="margin-top: 25px;">Customers Comparition</div>
+						<div><ng-md-icon ng-if = "customersRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "customersRaisedPrevWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (customersRaisedPrevWeek>0), redText : (customersRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{customersRaisedPrevWeek >= 0 ? (customersRaisedPrevWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(customersRaisedPrevWeek < 0) ? (customersRaisedPrevWeek * -1) : customersRaisedPrevWeek}}%</span></div></div>
+							
+						<div class="labelDesc" style="margin-top: 25px;">SalesOrder Comparition</div>
+						<div><ng-md-icon ng-if = "salesOrderRaisedPreWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon><ng-md-icon ng-if = "salesOrderRaisedPreWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon><ng-md-icon ng-if = "salesOrderRaisedPreWeek == 0" icon="play_arrow" size="20" class="growthIconFlat"></ng-md-icon> <div ng-class='{greenText : (salesOrderRaisedPreWeek>0), redText : (salesOrderRaisedPreWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{salesOrderRaisedPreWeek >= 0 ? (salesOrderRaisedPreWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(salesOrderRaisedPreWeek < 0) ? (salesOrderRaisedPreWeek * -1) : salesOrderRaisedPreWeek}}%</span></div></div>
+					
+					</div>
+					
+					
+				</div>
+				</div>
+				
+			</div>
+		</md-card>
+
+	</div>
+	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
+		<md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
+			<div layout="column" layout-sm="row" class="chart_header">
+				<div class="dashboardHeader">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Stores and Revenue</h4>
+
 				</div>
 				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
 			</div>
 
 		</md-card>
 		<md-card flex flex-md="100" class="md-whiteframe-4dp applyFlatUI" flex-sm="100">
-			<div layout="column" class="chart_header applyFlatUI" layout-sm="row">
-				<div class="dashboardHeader applyFlatUI">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Sales Revenue In Percentage</h4>
+			<div layout="column" class="chart_header " layout-sm="row">
+				<div class="dashboardHeader">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Revenue in Percentage</h4>
 
 				</div>
 				<svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
@@ -332,8 +426,8 @@
 	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
 		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
 			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader applyFlatUI">
-					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Store and SalesOrders</h4>
+				<div class="dashboardHeader">
+					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Stores and Salesorders</h4>
 				</div>
 				<div id="chart1">
 					<svg class="svgss"></svg>
@@ -345,7 +439,7 @@
 	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
 		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
 			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader applyFlatUI">
+				<div class="dashboardHeader">
 					<h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
 
 				</div>
@@ -356,45 +450,18 @@
 		</md-card>
 
 	</div>
-	<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+	<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
 		<md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
 			<div class="md-whiteframe-4dp applyFlatUI">
-				<div class="dashboardHeader applyFlatUI">
+				<div class="dashboardHeader">
 					<h4 style="float:left;font-family:Roboto;font-weight: 300;">Stores and Quality</h4>
 				</div>
-				<div id="grouperBarChart">
+				<span style="bottom:50%;" ng-if='qualirtStatsRecords.length <= 0'> No data To Display</span>
+				<div ng-hide='qualirtStatsRecords.length <= 0' id="grouperBarChart">
 					<svg class="svgss"></svg>
 				</div>
 			</div>
 		</md-card>
 	</div>
-
-
-
-	<!--<md-card class="md-whiteframe-1dp applyFlatUI" layout-sm="column" layout-md="column" style="background: #00bcd4;border-style: groove; border-color: rgb(249, 241, 241);border-width: 1px;">
-		<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
-			<ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onMarkerClicked">
-
-				<ui-gmap-windows show="show">
-					<div ng-non-bindable>{{title}}</div>
-				</ui-gmap-windows>
-
-			</ui-gmap-markers>
-		</ui-gmap-google-map>
-	</md-card>-->
-	<md-card class="md-whiteframe-1dp applyFlatUI" layout-sm="column" layout-md="column" style="background: #00bcd4;border-style: groove;
-  border-color: rgb(249, 241, 241);
-  border-width: 1px;">
-		<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
-			<ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onMarkerClicked">
-
-				<ui-gmap-windows show="show">
-					<div ng-non-bindable>{{title}}</div>
-				</ui-gmap-windows>
-
-			</ui-gmap-markers>
-		</ui-gmap-google-map>
-	</md-card>
-
 
 </div>

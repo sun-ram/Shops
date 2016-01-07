@@ -91,11 +91,28 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="tax in taxList | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" ng-click="redirectToStoreDetails(store);">
-			<td>{{tax.name}}</td>
-			<td>{{tax.taxPercentage}}%</td>
-			<td layout="row">			
-        			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="redirectToEditTax(tax);$event.stopPropagation();"></ng-md-icon>
-      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteTax(tax);$event.stopPropagation();"></ng-md-icon>
+			<td><span ng-show="tax.taxId != showInLineEdit">{{tax.name}}</span>
+				<md-input-container ng-show="tax.taxId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<input type="text" ng-model="taxEdit.name" maxlength="30" /> 
+	      		</md-input-container>
+			</td>
+			<td><span ng-show="tax.taxId != showInLineEdit">{{tax.taxPercentage}}%</span>
+				<md-input-container ng-show="tax.taxId == showInLineEdit" ng-click="$event.stopPropagation();">
+	      		<input type="text" ng-model="taxEdit.taxPercentage" maxlength="19" value-restriction="100" pattern="[0-9]{1,2}\.[0-9]{1,2}$|^[0-9]{1,3}$" /> 
+	      		</md-input-container>
+			</td>
+			
+			<!-- <td>{{tax.name}}</td>
+			<td>{{tax.taxPercentage}}%</td> -->
+			<td layout="row">
+					<ng-md-icon ng-show="tax.taxId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=tax.taxId;taxEdit=tax;$event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="tax.taxId != showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteTax(tax);$event.stopPropagation();"></ng-md-icon>
+      	      		
+      	      		<ng-md-icon ng-show="tax.taxId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=null;updateTax(taxEdit); $event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="tax.taxId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="showInLineEdit=null;taxEdit=tax; $event.stopPropagation();"></ng-md-icon>
+        				
+        			<!-- <ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="redirectToEditTax(tax);$event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteTax(tax);$event.stopPropagation();"></ng-md-icon> -->
         	</td>
 			
 		</tr>

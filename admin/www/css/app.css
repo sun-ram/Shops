@@ -446,6 +446,11 @@ md-data-table-pagination div{font-size:16px !important; color:#023904 !important
 	.vertical_line-store{height: 250px; width: 1px; background: #ddd; position: absolute; margin-top: 8%; margin-left: 50%;}
 }
 
+@media screen and (max-width: 960px) {
+	.vertical_line{display: none;}	
+	.vertical_line-store{display: none;}
+}
+
 @media screen and (min-width: 768px) and (max-width: 1024px) {  
     .merch-addr{width: 300px; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;}
 }

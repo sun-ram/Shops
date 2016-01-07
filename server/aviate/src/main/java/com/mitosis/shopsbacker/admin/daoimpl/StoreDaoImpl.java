@@ -179,6 +179,7 @@ public class StoreDaoImpl<T> extends CustomHibernateDaoSupport<T> implements
 		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Store.class);
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("isActivated", 'Y'));
 			return ((List<Store>) findAll(criteria));
 		} catch (HibernateException e) {
 			e.printStackTrace();

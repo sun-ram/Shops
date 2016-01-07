@@ -39,7 +39,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			}, null);
 		});
 	};
-	
+
 	var httpRequest1 = function (method, path, data, callback) {
 		if (http === null) callback({
 			error: true,
@@ -107,7 +107,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.User.verifytoken = function (req, callback) {
 			httpRequest("POST", "common/verifytoken", req, function (err, data) {
 				if (err) {
@@ -121,7 +121,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.User.resetpass = function (req, callback) {
 			httpRequest("POST", "common/resetpassword", req, function (err, data) {
 				if (err) {
@@ -135,7 +135,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Region = {
 				name: ""
 		};
@@ -153,8 +153,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
-		
+
+
 		apiClass.Employee = {
 				name: ""
 		};
@@ -262,7 +262,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Merchant.updateMerchant = function (merchant, callback) {
 			httpRequest("POST", "merchant/update", merchant, function (err, data) {
 				if (err) {
@@ -291,59 +291,59 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		
+
 		/*Delivery Time Slot*/
-				apiClass.DeliveryTimeSlot = {
-						name: ""
-				};
-				
-				apiClass.DeliveryTimeSlot.getList = function (deliveryTimeSlot,callback){
-		
-					httpRequest("POST", "deliverytimeslot/get", deliveryTimeSlot, function (err, data) {
-						if (err) {
-		
-							callback(err, null);
-		
-						} else {
-		
-							callback(null, data);
-		
-						}
-					});
-				
-				};
-				
-				apiClass.DeliveryTimeSlot.save = function (deliveryTimeSlot,callback){
-		
-					httpRequest("POST", "deliverytimeslot/add", deliveryTimeSlot, function (err, data) {
-						if (err) {
-		
-							callback(err, null);
-		
-						} else {
-		
-							callback(null, data);
-		
-						}
-					});
-				
-				};
-				apiClass.DeliveryTimeSlot.deleteDeliveryTimeSlot = function (deliveryTimeSlot,callback){
-					
-					httpRequest("POST", "deliverytimeslot/delete", deliveryTimeSlot, function (err, data) {
-						if (err) {
-		
-							callback(err, null);
-		
-						} else {
-		
-							callback(null, data);
-		
-						}
-					});
-				
-				};
-		
+		apiClass.DeliveryTimeSlot = {
+				name: ""
+		};
+
+		apiClass.DeliveryTimeSlot.getList = function (deliveryTimeSlot,callback){
+
+			httpRequest("POST", "deliverytimeslot/get", deliveryTimeSlot, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+
+		};
+
+		apiClass.DeliveryTimeSlot.save = function (deliveryTimeSlot,callback){
+
+			httpRequest("POST", "deliverytimeslot/add", deliveryTimeSlot, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+
+		};
+		apiClass.DeliveryTimeSlot.deleteDeliveryTimeSlot = function (deliveryTimeSlot,callback){
+
+			httpRequest("POST", "deliverytimeslot/delete", deliveryTimeSlot, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+
+		};
+
 
 		/* UnitOfMeasure Modules*/
 		apiClass.Unit = {
@@ -481,7 +481,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Warehouse.getStoragebins = function (storageBin, callback) {
 			httpRequest("POST", "storagebin/getstoragebins", storageBin, function (err, data) {
 				if (err) {
@@ -495,8 +495,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
-		
+
+
 		apiClass.Warehouse.warehouseBins = function (warehouse, callback) {
 			httpRequest("POST", "inventoryline/storagebinlist", warehouse, function (err, data) {
 				if (err) {
@@ -542,7 +542,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Store.updateStore = function (store, callback) {
 			httpRequest("POST", "store/update", store, function (err, data) {
 				if (err) {
@@ -556,7 +556,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Store.deleteStore = function (store, callback) {
 			httpRequest("POST", "store/delete", store, function (err, data) {
 				if (err) {
@@ -570,7 +570,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Store.activateStore = function (store, callback) {
 			httpRequest("POST", "store/activate", store, function (err, data) {
 				if (err) {
@@ -652,35 +652,35 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Product.getAllProductList = function (product, callback) {
-				httpRequest("POST", "productcategory/getallleafcategorylist", product, function (err, data) {
-					if (err) {
-	
-						callback(err, null);
-	
-					} else {
-	
-						callback(null, data);
-	
-					}
-				});
-			};
-			
-			apiClass.Product.getAllProductListByMerchant = function (product, callback) {
-				httpRequest("POST", "product/getproductlist", product, function (err, data) {
-					if (err) {
-	
-						callback(err, null);
-	
-					} else {
-	
-						callback(null, data);
-	
-					}
-				});
-			};
-		
+			httpRequest("POST", "productcategory/getallleafcategorylist", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.Product.getAllProductListByMerchant = function (product, callback) {
+			httpRequest("POST", "product/getproductlist", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 		apiClass.Product.updateProduct = function (product, callback) {
 			httpRequest("POST", "update/product/update", product, function (err, data) {
 				if (err) {
@@ -710,7 +710,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 		};
-		
+
 		apiClass.Product.uploadExcelFile = function (file, callback) {
 			httpRequest("POST", "product/excelupload", file, function (err, data) {
 				if (err) {
@@ -726,7 +726,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 		};
-		
+
 		apiClass.Product.addProductListFiles = function (files, callback) {
 			httpRequest("POST", "product/addFilesData", files, function (err, data) {
 				if (err) {
@@ -742,7 +742,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 
 
 		};
-		
+
 		apiClass.Product.exportExcelFile = function (storeId, callback) {
 			httpRequest("POST", "update/product/exportExcelFile", storeId, function (err, data) {
 				if (err) {
@@ -752,16 +752,16 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				} else {
 					console.log("dataformat",data.fileInByteArrayString);
 					var a = window.document.createElement('a');
-                    a.href = window.URL.createObjectURL(data.fileInByteArrayString);
-                    a.download = data.fileInByteArrayString;
+					a.href = window.URL.createObjectURL(data.fileInByteArrayString);
+					a.download = data.fileInByteArrayString;
 
-                    // Append anchor to body.
-                    document.body.appendChild(a);
-                    a.click();
+					// Append anchor to body.
+					document.body.appendChild(a);
+					a.click();
 
 
-                    // Remove anchor from body
-                    document.body.removeChild(a);
+					// Remove anchor from body
+					document.body.removeChild(a);
 					callback(null, data);
 
 				}
@@ -811,7 +811,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Product.getProductType = function (product, callback) {
 			httpRequest("POST", "producttype/getProductTypeByCategory", product, function (err, data) {
 				if (err) {
@@ -825,7 +825,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};	
-		
+
 		apiClass.Product.deleteProductImage = function (product, callback) {
 			httpRequest("POST", "product/deleteProductImage", product, function (err, data) {
 				if (err) {
@@ -852,8 +852,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};*/
-		
-		
+
+
 		//Movement Module
 		apiClass.movement ={
 				name:""
@@ -871,7 +871,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.movement.getMovement = function (movementId, callback) {
 			httpRequest("GET", "movement/movement/"+movementId, null, function (err, data) {
 				if (err) {
@@ -913,7 +913,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.movement.removeMovementLine = function (movementLine, callback) {
 			httpRequest("POST", "movement/delete/line", movementLine, function (err, data) {
 				if (err) {
@@ -928,7 +928,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		
+
 		apiClass.movement.addMovementLine = function (movementLine, callback) {
 			httpRequest("POST", "movement/save/line", movementLine, function (err, data) {
 				if (err) {
@@ -956,7 +956,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};*/
-		
+
 		apiClass.movement.processMovement = function (movement, callback) {
 			httpRequest("POST", "movement/process", movement, function (err, data) {
 				if (err) {
@@ -1051,7 +1051,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};*/
-		
+
 		/*apiClass.PhysicalInventoryLine.removeInventoryLines = function (physicalinventoryline, callback) {
 			httpRequest("POST", "inventoryline/removeinventoryline", physicalinventoryline, function (err, data) {
 				if (err) {
@@ -1065,7 +1065,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};*/
-		
+
 		/*apiClass.PhysicalInventoryLine.getInventoryLines = function (physicalinventoryline, callback) {
 			httpRequest("POST", "inventoryline/inventorylinelist", physicalinventoryline, function (err, data) {
 				if (err) {
@@ -1084,7 +1084,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		apiClass.PhysicalInventory ={
 				name:""
 		};
-		
+
 		apiClass.PhysicalInventory.addPhysicalInventory = function (inventory, callback) {
 			httpRequest("POST", "inventory/save", inventory, function (err, data) {
 				if (err) {
@@ -1098,7 +1098,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.PhysicalInventory.addPhysicalInventoryLine = function (inventoryLine, callback) {
 			httpRequest("POST", "inventory/save/Inventoryline", inventoryLine, function (err, data) {
 				if (err) {
@@ -1112,7 +1112,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.PhysicalInventory.deletePhysicalInventory = function (inventoryId, callback) {
 			httpRequest("DELETE", "inventory/delete/"+inventoryId, null, function (err, data) {
 				if (err) {
@@ -1126,7 +1126,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.PhysicalInventory.deletePhysicalInventoryLine = function (inventoryLineId, callback) {
 			httpRequest("DELETE", "inventory/delete/inventoryline/"+inventoryLineId, null, function (err, data) {
 				if (err) {
@@ -1140,7 +1140,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.PhysicalInventory.getPhysicalInventoriesByStore = function (storeId, callback) {
 			httpRequest("GET", "inventory/getinventories/"+storeId, null, function (err, data) {
 				if (err) {
@@ -1154,7 +1154,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.PhysicalInventory.getPhysicalInventory = function (inventoryId, callback) {
 			httpRequest("GET", "inventory/inventory/"+inventoryId, null, function (err, data) {
 				if (err) {
@@ -1168,7 +1168,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.PhysicalInventory.physicalInventoryIsUpdate = function (inventoryId, callback) {
 			httpRequest("PUT", "inventory/isupdate/"+inventoryId, null, function (err, data) {
 				if (err) {
@@ -1182,9 +1182,9 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
-		
-		
+
+
+
 		/*Sales Order*/
 
 		apiClass.SalesOrder = {
@@ -1204,7 +1204,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.SalesOrder.getShoperDetails = function (userVo, callback) {
 			httpRequest("POST", "user/getShoperDetails", userVo, function (err, data) {
 				if (err) {
@@ -1218,7 +1218,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.SalesOrder.getBackerDetails = function (userVo, callback) {
 			httpRequest("POST", "user/getBackerDetails", userVo, function (err, data) {
 				if (err) {
@@ -1232,7 +1232,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.SalesOrder.updateShoperIntoSalesOrder = function (salesOrder, callback) {
 			httpRequest("POST", "sales/updateShoperIntoSalesOrder", salesOrder, function (err, data) {
 				if (err) {
@@ -1260,7 +1260,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.SalesOrder.getSalesByDate = function (salesorder, callback) {
 			httpRequest("POST", "sales/getorderlistbydate", salesorder, function (err, data) {
 				if (err) {
@@ -1303,7 +1303,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 		/*Sales Order Return Module*/
-		
+
 		apiClass.SalesOrderReturn = {
 				name: ""
 		};
@@ -1342,39 +1342,53 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-				/* Galleries */
-				apiClass.Gallery = {
-						name: ""
-				};
-				
-				apiClass.Gallery.getGalleryList= function (data,callback) {
-					httpRequest("GET", "gallery/galleries",null, function (err, data) {
-						if (err) {
+		/* Galleries */
+		apiClass.Gallery = {
+				name: ""
+		};
+
+		apiClass.Gallery.getGalleryList= function (data,callback) {
+			httpRequest("GET", "gallery/galleries",null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 		
-							callback(err, null);
-		
-						} else {
-		
-							callback(null, data);
-		
-						}
-					});
-				};
-				
-				apiClass.Gallery.add= function (gallery,callback) {
-					httpRequest("POST", "gallery/add",gallery,  function (err, data) {
-						if (err) {
-		
-							callback(err, null);
-		
-						} else {
-		
-							callback(null, data);
-		
-						}
-					});
-				};
-				
+		apiClass.Gallery.getGalleryListById= function (id,callback) {
+			httpRequest("GET", "gallery/galleries/"+id,null, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.Gallery.add= function (gallery,callback) {
+			httpRequest("POST", "gallery/add",gallery,  function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 
 		/*product category modules*/
 		apiClass.ProductCategory = {
@@ -1530,12 +1544,12 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		/*Shipping Charges modules*/
 		apiClass.ShippingService = {
 				name: ""
 		};
-		
+
 		apiClass.ShippingService.addNewShippingCharge = function (shippingCharge, callback) {
 			httpRequest("POST", "shippingcharges/addshippingcharges", shippingCharge, function (err, data) {
 				if (err) {
@@ -1549,7 +1563,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ShippingService.getShippingCharge = function (merchant, callback) {
 			httpRequest("POST", "shippingcharges/getshippingcharges", merchant, function (err, data) {
 				if (err) {
@@ -1563,7 +1577,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ShippingService.deleteShippingCharge = function (id, callback) {
 			httpRequest("POST", "shippingcharges/delete", id, function (err, data) {
 				if (err) {
@@ -1577,7 +1591,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ShippingService.updateShippingCharge = function (shippingCharge, callback) {
 			httpRequest("POST", "shippingcharges/update", shippingCharge, function (err, data) {
 				if (err) {
@@ -1591,12 +1605,12 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		/*Tax modules*/
 		apiClass.TaxService = {
 				name: ""
 		};
-		
+
 		apiClass.TaxService.addNewTax = function (tax, callback) {
 			httpRequest("POST", "tax/addtax", tax, function (err, data) {
 				if (err) {
@@ -1610,7 +1624,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.TaxService.getTax = function (merchant, callback) {
 			httpRequest("POST", "tax/gettax", merchant, function (err, data) {
 				if (err) {
@@ -1624,7 +1638,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.TaxService.deleteTax = function (id, callback) {
 			httpRequest("POST", "tax/deletetax", id, function (err, data) {
 				if (err) {
@@ -1638,7 +1652,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.TaxService.updateTax = function (tax, callback) {
 			httpRequest("POST", "tax/updatetax", tax, function (err, data) {
 				if (err) {
@@ -1652,7 +1666,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		/*Banner Modules*/
 		apiClass.Banner = {
 				name: ""
@@ -1685,7 +1699,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Banner.updateBanner = function (banner, callback) {
 			httpRequest("POST", "banner/update", banner, function (err, data) {
 				if (err) {
@@ -1713,8 +1727,8 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
-		
+
+
 
 		/*Order Number Modules*/
 		apiClass.OrderNumber = {
@@ -1748,7 +1762,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.OrderNumber.updateOrderNumber = function (orderNumber, callback) {
 			httpRequest("POST", "ordernumber/update", orderNumber, function (err, data) {
 				if (err) {
@@ -1776,7 +1790,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		//Discount
 		apiClass.Discount = {
 				name: ""
@@ -1795,7 +1809,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Discount.getStoreDicountList = function (store, callback) {
 			httpRequest("POST", "discount/getstorediscountList", store, function (err, data) {
 				if (err) {
@@ -1823,7 +1837,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Discount.saveProductDiscount = function (discount, callback) {
 			httpRequest("POST", "productdiscount/savediscount", discount, function (err, data) {
 				if (err) {
@@ -1837,7 +1851,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Discount.getProductDicountList = function (merchant, callback) {
 			httpRequest("POST", "productdiscount/getmerchantdiscountList", merchant, function (err, data) {
 				if (err) {
@@ -1851,35 +1865,35 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.Discount.deleteProductDiscount = function (discount, callback) {
 			httpRequest("POST", "productdiscount/deletediscount", discount, function (err, data) {
-					if (err) {
-	
-						callback(err, null);
-	
-					} else {
-	
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
 					callback(null, data);
-	
-					}
-				});
-			};
-			
+
+				}
+			});
+		};
+
 		apiClass.Discount.updateProductDiscount = function (discount, callback) {
 			httpRequest("POST", "productdiscount/updatediscount", discount, function (err, data) {
-						if (err) {
-		
-							callback(err, null);
-		
-						} else {
-		
-						callback(null, data);
-		
-						}
-					});
-				};
-		
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 		/*Product Offer Modules*/
 		apiClass.ProductOffer = {
 				name: ""
@@ -1912,7 +1926,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ProductOffer.updateProductOffer = function (productoffer, callback) {
 			httpRequest("POST", "productoffer/updateoffer", productoffer, function (err, data) {
 				if (err) {
@@ -1940,7 +1954,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ProductOffer.addNewProductOfferLine = function (productoffer, callback) {
 			httpRequest("POST", "productofferline/addofferline", productoffer, function (err, data) {
 				if (err) {
@@ -1954,7 +1968,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ProductOffer.getOfferLineList = function (productoffer, callback) {
 			httpRequest("POST", "productofferline/getofferline", productoffer, function (err, data) {
 				if (err) {
@@ -1982,7 +1996,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
+
 		apiClass.ProductOffer.updateProductOfferLine = function (productoffer, callback) {
 			httpRequest("POST", "productofferline/updateofferline", productoffer, function (err, data) {
 				if (err) {
@@ -1996,22 +2010,56 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
-		
-		
+
+
 		apiClass.Discount.deleteDiscount = function (discount, callback) {
-					httpRequest("POST", "discount/deletediscount", discount, function (err, data) {
-							if (err) {
-			
-								callback(err, null);
-			
-							} else {
-			
-							callback(null, data);
-			
-							}
-						});
-					};
-		
+			httpRequest("POST", "discount/deletediscount", discount, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		/*Billing Modules*/	
+
+		apiClass.Billing = {
+				name: ""
+		};
+
+		apiClass.Billing.getStoresByMerchant = function (merchant, callback) {
+			httpRequest("POST", "store/getstorebymerchant", merchant, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
+		apiClass.Billing.getBillsByMerchant = function (billing, callback) {
+			httpRequest("POST", "billing/getBillsByMerchant", billing, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 		return apiClass;
 	}];
 

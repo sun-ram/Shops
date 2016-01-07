@@ -11,22 +11,23 @@ var apiroutes = require("./routes/api/index");
 
 var app = express();
 
-GLOBAL.connection = mysql.createConnection({
-		host     : '49.50.78.143',
-		user     : 'shopsbacker',
-		password : '@MitShops@',
-		database : 'shopsbacker',
-	});
-	
-	GLOBAL.connection.connect(function(err){
-  if(err){
-    console.log('Error connecting to Db');
-    return;
-  }
-  console.log('Connection established');
+GLOBAL.connection = mysql.createPool({
+    host: '192.168.1.100',
+    user: 'root',
+    password: '!MySql#123',
+    database: 'shopsbacker',
 });
 
-app.all('*', function(req, res, next) {
+/*
+GLOBAL.connection.connect(function (err) {
+    if (err) {
+        console.log('Error connecting to Db');
+        return;
+    }
+    console.log('Connection established');
+});*/
+
+app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,Content-Type");
     res.header("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,PUT");
@@ -34,7 +35,7 @@ app.all('*', function(req, res, next) {
 });
 
 
-var server = app.listen(3000, function() {
+var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;
 
@@ -58,7 +59,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/shopsbacker", apiroutes);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -69,7 +70,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -80,7 +81,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
