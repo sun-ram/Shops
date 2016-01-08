@@ -2,6 +2,7 @@ package com.mitosis.shopsbacker.webservice;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -204,21 +205,36 @@ public class SalesOrderRestService<T> {
 			SalesOrder salesOrder = salesOrderService
 					.getSalesOrderById(salesOrderVo.getSalesOrderId());
 			if (salesOrder != null) {
-				User user = userService.getUser(salesOrderVo.getUser()
-						.getUserId());
-				salesOrder.setStatus(OrderStatus.Shoper_Assigned.toString());
-				salesOrder.setShopperAssignedTime(new Date());
-				salesOrder.setShopper(user);
-				salesOrderService.updateSalesOrder(salesOrder);
-				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
-						.getValue());
+				
+				SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+				String deliveryDate = DATE_FORMAT.format(salesOrder.getDeliveryDate());
+				String currentDate = DATE_FORMAT.format(new Date());
+				
+				if(deliveryDate.equals(currentDate)){
+					User user = userService.getUser(salesOrderVo.getUser()
+							.getUserId());
+					salesOrder.setStatus(OrderStatus.Shoper_Assigned.toString());
+					salesOrder.setShopperAssignedTime(new Date());
+					salesOrder.setShopper(user);
+					salesOrderService.updateSalesOrder(salesOrder);
+					salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
+							.getValue());
 
-				if ("ANDROID".equalsIgnoreCase(user.getDeviceType())) {
-					String message = "Received New Order";
-					CommonUtil.androidPushNotification(message,
-							user.getDeviceId(),"Shopper");
-				} else if (user.getDeviceType()!=null && user.getDeviceType().equalsIgnoreCase("IOS")) {
+					if ("ANDROID".equalsIgnoreCase(user.getDeviceType())) {
+						String message = "Received New Order";
+						CommonUtil.androidPushNotification(message,
+								user.getDeviceId(),"Shopper");
+					} else if (user.getDeviceType()!=null && user.getDeviceType().equalsIgnoreCase("IOS")) {
 
+					}
+				}else{
+					salesOrderResponseVo.setErrorCode(SBErrorMessage.CANT_ASSIGN_SHOPPER
+							.getCode());
+					salesOrderResponseVo.setErrorString(SBErrorMessage.CANT_ASSIGN_SHOPPER
+							.getMessage());
+					salesOrderResponseVo.setStatus(SBMessageStatus.FAILURE.getValue());
+
+					return salesOrderResponseVo;
 				}
 			}
 		}

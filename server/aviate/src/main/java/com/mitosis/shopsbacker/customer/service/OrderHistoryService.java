@@ -11,6 +11,6 @@ import com.mitosis.shopsbacker.model.SalesOrder;
  */
 public interface OrderHistoryService<T> {
 
-	public List<SalesOrder> getOrderList(String storeId, String customerId);
+	public List<SalesOrder> getOrderList(String customerId);
 	
 }

@@ -731,7 +731,6 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
         /*ordersHistory*/
 				
 				apiClass.ordersHistory = {
-						storeId: "",
                         customerId:""
 				};
 		

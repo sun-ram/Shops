@@ -5,10 +5,8 @@ angular.module('aviate.services')
 		var d = $q.defer();
         
         var orders ={
-                    "storeId":$rootScope.store.storeId,
                     "customerId":$rootScope.user.userId
                     }
-            console.log("orders:: ",orders);
 		api.ordersHistory.getordersHistory(orders, function(err, result){
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {

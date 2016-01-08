@@ -185,7 +185,9 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(SalesOrder.class);
-			criteria.add(Restrictions.eq("store", store));
+			if(store!= null){
+				criteria.add(Restrictions.eq("store", store));	
+			}
 			criteria.add(Restrictions.eq("customer", customer));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			criteria.addOrder(Order.desc("created"));

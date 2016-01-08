@@ -47,7 +47,7 @@ public class OrderHistoryRestServices<T> {
 		String response= "";
 		SalesOrderResponseVo salesOrderResponse = new SalesOrderResponseVo();
 		try {
-			List<SalesOrder> orders = orderHistoryService.getOrderList(salesOrderVo.getStoreId(), salesOrderVo.getCustomerId());
+			List<SalesOrder> orders = orderHistoryService.getOrderList(salesOrderVo.getCustomerId());
 			for (SalesOrder salesOrder : orders) {
 				salesOrderVo = salesOrderService.setSalesOrderVo(salesOrder);
 				salesOrderResponse.getSalesOrderList().add(salesOrderVo);
