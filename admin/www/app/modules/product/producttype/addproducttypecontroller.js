@@ -61,7 +61,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								$scope.product.userId = $rootScope.user.userId;
 
 								ProductCategoryServices.addProductCategory($scope.product).then(function(data){
-									toastr.success("Category Added Successfully");
+									toastr.success(CONSTANT.CATEGORYADDED);
 									$rootScope.parentCategoryListValue();
 									$rootScope.productCategoryListValue();
 									$mdDialog.cancel();
@@ -81,7 +81,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 					});
 				}
 				else{
-					toastr.error("Wrong Dragging Options, You can drag only category here.");
+					toastr.error(CONSTANT.CATEGORYWRONGDRAG);
 				}
 			};
 			
@@ -111,7 +111,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 
 								ProductCategoryServices.addProductCategory1(product).then(function(data){
 /*									if($rootScope.dropObj.key=='subcategory'){
-*/										toastr.success("Product Sub-Category Added Successfully");
+*/										toastr.success(CONSTANT.SUBCATEGORYADDED);
 /*									}
 */									$rootScope.parentCategoryListValue();
 									$rootScope.productCategoryListValue();
@@ -154,7 +154,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								product.productCategory.productCategoryId=cat.productCategoryId;
 								product.userId = $rootScope.user.userId;
 								ProductCategoryServices.addProductType(product).then(function(data){
-									toastr.success("Product Type added successfully");
+									toastr.success(CONSTANT.PRODUTTYPEADDED);
 									$rootScope.parentCategoryListValue();
 									$rootScope.productCategoryListValue();
 									$mdDialog.cancel();
@@ -173,7 +173,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 					});
 				}
 				else{
-					toastr.error("Wrong Dragging Options, You can drag only subcategory and product-type here.");
+					toastr.error(CONSTANT.SUBORTYPEWRONGDRAG);
 				}
 			};
 			
@@ -204,7 +204,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 								product.userId = $rootScope.user.userId;
 
 								ProductCategoryServices.addProductType(product).then(function(data){
-									toastr.success("Product Type added successfully");
+									toastr.success(CONSTANT.PRODUTTYPEADDED);
 									$rootScope.parentCategoryListValue();
 									$rootScope.productCategoryListValue();
 									$mdDialog.cancel();
@@ -224,7 +224,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				}
 				else
 				{
-					toastr.error("Wrong Dragging Options,Only You can allow to drag product type here.");
+					toastr.error(CONSTANT.TYPEWRONGDRAG);
 				}
 			};
 			
@@ -253,7 +253,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 				.cancel('Cancel');
 				$mdDialog.show(confirm).then(function() {
 					ProductCategoryServices.removeProductType(Id).then(function(data){
-						toastr.success("Product Type Deleted Successfully");
+						toastr.success(CONSTANT.PRODUCTTYPEDELETE);
 						$rootScope.parentCategoryListValue();
 						$rootScope.productCategoryListValue();
 					});
@@ -289,7 +289,7 @@ angular.module('aviateAdmin.controllers').controller("addproducttypecontroller",
 			product.userId = $rootScope.user.userId;
 
 				ProductCategoryServices.updateproductType(product).then(function(data){
-					toastr.success("Product Type Updated Successfully");
+					toastr.success(CONSTANT.PRODUCTTYPEUPDATE);
 					$rootScope.parentCategoryListValue();
 					$rootScope.productCategoryListValue();
 				});

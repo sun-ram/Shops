@@ -50,6 +50,14 @@ angular.module('aviateAdmin.constant').constant('CONSTANT', {
 	ACTIVATESTORE:'Store is Activated Successfully',
 	NEWSALESORDER:'New SalesOrder Received',
 	UPDATESALESORDER:'SalesOrder Updated',
+	CATEGORYADDED:'Category Added Successfully',
+	CATEGORYWRONGDRAG:'Wrong Dragging Options, You can drag only category here.',
+	SUBCATEGORYADDED:'Product Sub-Category Added Successfully',
+	PRODUTTYPEADDED:'Product Type added successfully',
+	SUBORTYPEWRONGDRAG:'Wrong Dragging Options, You can drag only subcategory and product-type here.',
+	TYPEWRONGDRAG:'Wrong Dragging Options,Only You can allow to drag product type here.',
+	PRODUCTTYPEDELETE:'Product Type Deleted Successfully',
+	PRODUCTTYPEUPDATE:'Product Type Updated Successfully',
 	STATUS:{
 		SUCCESS:'SUCCESS',
 		FAILURE:'FAILURE'
