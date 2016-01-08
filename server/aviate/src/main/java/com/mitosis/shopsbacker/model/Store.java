@@ -64,7 +64,8 @@ public class Store implements java.io.Serializable {
 	private List<DeliveryTimeSlot> deliveryTimeSlots = new ArrayList<DeliveryTimeSlot>();
 	private List<SalesOrderReturn> salesOrderReturns = new ArrayList<SalesOrderReturn>();
 	private List<Billing> billings = new ArrayList<Billing>();
-
+	private List<Transaction> transactions = new ArrayList<Transaction>();
+	
 	public Store() {
 	}
 
@@ -96,7 +97,7 @@ public class Store implements java.io.Serializable {
 			List<ProductType> productTypes,  List<Billing> billings,
 			List<ProductInventory> productInventories,
 			List<Discount> discounts, List<StoreHoliday> storeHolidays,
-			List<DiscountProduct> discountProducts,
+			List<DiscountProduct> discountProducts,List<Transaction> transactions,
 			List<SalesOrderReturn> salesOrderReturns) {
 		this.storeId = storeId;
 		this.updatedby = updatedby;
@@ -128,6 +129,7 @@ public class Store implements java.io.Serializable {
 		this.deliveryTimeSlots = deliveryTimeSlots;
 		this.salesOrderReturns = salesOrderReturns;
 		this.billings=billings;
+		this.transactions= transactions;
 	}
 
 	@Id
@@ -407,4 +409,14 @@ public class Store implements java.io.Serializable {
 		this.billings = billings;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store")
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	
 }
