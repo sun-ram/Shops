@@ -619,7 +619,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 return order.PAYMENT_METHOD == "COD" //TO DO CONSTANTS
             });
 
-
+            var widthOfBar = 40,
+                height = 500,
+                width = todayTotalSalesOrder * widthOfBar;
             nv.addGraph(function () {
                 var chart = nv.models.discreteBarChart()
                     .x(function (d) {
@@ -629,8 +631,14 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                         return d.salesValue
                     })
                     .staggerLabels(true)
-                    .showValues(true)
-
+                    .showValues(true);
+                if (todayTotalSalesOrder > 20) {
+                    chart.width(width);
+                    width = width + "px"
+                } else {
+                    width = "100%"
+                }
+                chart.height(height);
                 chart.discretebar.dispatch.on('elementMouseover', function (merchant) {
                     calculateSalesOrderByStore(merchant.data);
                 });
@@ -641,7 +649,11 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                         values: salesOrdersByMerchant
                     }])
                     .transition().duration(500)
-                    .call(chart);
+                    .call(chart)
+                    .style({
+                        height: height + "px",
+                        width: width
+                    })
 
                 nv.utils.windowResize(chart.update);
 
