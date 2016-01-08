@@ -116,12 +116,30 @@ public class GalleryRestService {
 	}
 	
 	public GalleryVo setGalleryVo(Gallery gallery) {
+		
+		
 		GalleryVo galleryVo = new GalleryVo();
-		galleryVo.setFileName(gallery.getFileName());
-		galleryVo.setGalleryId(gallery.getGalleryId());
-		galleryVo.setIsSummary(gallery.getIsSummary());
 		galleryVo.setParentGalleryId(gallery.getParentGallery()!=null?gallery.getParentGallery().getGalleryId():null);
-		//galleryVo.setUrl(gallery.getFilePath());
+		galleryVo.setFileName(gallery.getFileName());
+		 galleryVo.setFilePath(gallery.getFilePath());
+		galleryVo.setIsSummary(gallery.getIsSummary());
+		galleryVo.setGalleryId(gallery.getGalleryId());
+		galleryVo.setType(gallery.getType());
+		if ((gallery.getIsSummary() == 'Y')) {
+
+		} else {
+			Properties properties = new Properties();
+			try {
+				properties.load(getClass().getResourceAsStream(
+						"/properties/serverurl.properties"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String imageUrl = properties.getProperty("imageUrl");
+			String url = gallery.getFilePath() + "?p=gallery";
+			imageUrl = imageUrl.concat(url).replaceAll(" ", "%20");
+			galleryVo.setUrl(imageUrl);
+		}
 		return galleryVo;
 	}
 	
@@ -262,7 +280,7 @@ public class GalleryRestService {
 		for (Gallery gallery : galleries) {
 			GalleryVo galleryVo = new GalleryVo();
 			galleryVo.setFileName(gallery.getFileName());
-			// galleryVo.setFilePath(gallery.getFilePath());
+			 galleryVo.setFilePath(gallery.getFilePath());
 			galleryVo.setIsSummary(gallery.getIsSummary());
 			galleryVo.setGalleryId(gallery.getGalleryId());
 			galleryVo.setType(gallery.getType());
