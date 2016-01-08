@@ -19,7 +19,7 @@
 	 	<md-button ng-click="toggleLeft('left')" style="float:left;" class="md-icon-button" aria-label="Menu" >
 	 		
 			<md-icon md-svg-icon="assets/img/icon/menu.svg" style="color: #fff;"></md-icon>
-			<md-tooltip md-direction="bottom">Menu</md-tooltip>
+			
 		</md-button>
 		<div class="sa-logo">
 		<img src="assets/img/useravat.png"  width="180" height="46" class="md-card-image">
@@ -58,9 +58,7 @@
 		 <md-menu style="margin-top: -8px" md-position-mode="target-right target" ng-if="user && favouriteList.length > 0">
 		   	 <md-button style="border-radius:0px;" ng-click="$mdOpenMenu($event);$event.stopPropagation();" class="md-icon-button wid_60 height50  nomargin" aria-label="Favorite">
 		        <md-icon>favorite</md-icon>
-		        <md-tooltip md-direction="bottom">
-		          Favourite
-		        </md-tooltip>
+		       
 		    </md-button>
 		   	 <md-menu-content  width="6" style="padding: 0px;position: absolute;top: 74px; box-shadow:0px 2px 3px rgba(0,0,0,0.4)">
 		       <md-content>
@@ -81,9 +79,7 @@
 		    <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length > 0">{{myCart.cartItem.length}}</div>
 		       <div style="background-color: #000;padding: 5px;line-height: 10px;position: absolute; top: 2px;border-radius: 50%;right: 3px;" ng-show="myCart.cartItem.length == 0 || myCart.cartItem.length == undefined">0</div>
 		        <i class="icon28 icon ion-android-cart"></i>
-		        <md-tooltip md-direction="bottom">
-		          My cart
-		        </md-tooltip>
+		      
 		    </md-button>
 		    
 		    
