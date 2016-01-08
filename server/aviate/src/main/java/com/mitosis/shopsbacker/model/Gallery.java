@@ -109,7 +109,7 @@ public class Gallery implements Serializable {
 		this.fileName = fileName;
 	}
 
-	@Column(name = "FILE_PATH", nullable = true, length = 1000)
+	@Column(name = "FILE_PATH", nullable = false, length = 1000)
 	public String getFilePath() {
 		return filePath;
 	}
