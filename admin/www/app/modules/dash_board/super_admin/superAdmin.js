@@ -620,133 +620,34 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             });
 
 
-            var margin = {
-                    top: 20,
-                    right: 20,
-                    bottom: 30,
-                    left: 40
-                },
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
-
-            var x = d3.scale.ordinal()
-                .rangeRoundBands([0, width], .1);
-
-            var y = d3.scale.linear()
-                .range([height, 0]);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom");
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            var svg = d3.select("#todaySalesRevenue").append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .attr("transform", "translate(" + margin.left + "," + 0 + ")")
-                .append("g")
-                .attr('calss', 'sales-chart')
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            var tip = d3.tip()
-                .attr('class', 'd3-tip')
-                .offset([-10, 0])
-                .html(function (d) {
-                    return "<strong>Sales Value :</strong> <span style='color:red'>" + (d.salesValue) + "</span>";
-                })
-
-            svg.call(tip);
-
-            x.domain(salesOrdersByMerchant.map(function (d) {
-                return d.merchantName;
-            }));
-            //            d3.max(salesOrdersByMerchant, function (d) {
-            //                return d.salesPercent;
-            //            })
-            y.domain([0, todayTotalSalesValue == 0 ? 1000 : todayTotalSalesValue]);
-
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
-
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", ".21em")
-                .style("text-anchor", "end")
-                .text("Sales Count");
-
-            svg.selectAll(".bar")
-                .data(salesOrdersByMerchant)
-                .enter().append("rect")
-                .attr("class", "bar")
-                .attr("x", function (d) {
-                    return x(d.merchantName);
-                })
-                .attr("width", x.rangeBand())
-                .attr("y", function (d) {
-                    return y(d.salesValue);
-                })
-                .attr("height", function (d) {
-                    return height - y(d.salesValue);
-                })
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide)
-                .on('click', calculateSalesOrderByStore)
-
-            var updateChart = function (evt) {
-                updateScales();
-                updateAxes();
-                updateBars();
-                console.log('resize event triggering ');
-            }
-
-            updateChart();
-
-            calculateSalesOrderByStore(salesOrdersByMerchant[0]);
-
-            function updateScales() {
-                var tmpwidth = d3.min([($('#todaySalesRevenue').width() - margin.left), width]) - margin.right;
-                x.rangeBands([0, tmpwidth], 0.1);
-            }
-
-            function updateAxes() {
-                svg.select('.x.axis').transition().call(xAxis);
-            }
-
-            function updateBars() {
-                var u = svg
-                    .selectAll('rect')
-                    .data(salesOrdersByMerchant);
-
-                u.enter()
-                    .append('rect');
-
-                u.exit()
-                    .remove();
-
-                u.transition()
-                    .attr('x', function (d, i) {
-                        return x(d.merchantName);
+            nv.addGraph(function () {
+                var chart = nv.models.discreteBarChart()
+                    .x(function (d) {
+                        return d.merchantName
                     })
-                    .attr('width', x.rangeBand())
-                    .attr('y', function (d) {
-                        return y(d.salesValue);
+                    .y(function (d) {
+                        return d.salesValue
                     })
-                    .attr('height', function (d) {
-                        return y(0) - y(d.salesValue);
-                    });
-            }
+                    .staggerLabels(true)
+                    .showValues(true)
 
-            $(window).on('resize', updateChart);
+                chart.discretebar.dispatch.on('elementMouseover', function (merchant) {
+                    calculateSalesOrderByStore(merchant.data);
+                });
+
+                d3.select('#todaySalesRevenue svg')
+                    .datum([{
+                        key: "Today Salesvalue Report",
+                        values: salesOrdersByMerchant
+                    }])
+                    .transition().duration(500)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+
+                return chart;
+            });
+
 
             $scope.drawStoreTodaySalesChart = function (store) {
                 $timeout(function () {
@@ -760,7 +661,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         }
 
 
-        //Pie chart
+        /* //Pie chart
         $scope.drawPiechart = function () {
             nv.addGraph(function () {
                 var chart = nv.models.pie()
@@ -786,33 +687,33 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 return chart;
             });
         };
+*/
+        /* //Revenue chart
+         $scope.drawReviewChart = function () {
+             nv.addGraph(function () {
+                 var chart = nv.models.pie()
+                     .x(function (d) {
+                         return d.key;
+                     })
+                     .y(function (d) {
+                         return d.y;
+                     })
+                     .width(width)
+                     .height(height)
+                     .labelType('percent')
+                     .valueFormat(d3.format('%'))
+                     .donut(true);
 
-        //Revenue chart
-        $scope.drawReviewChart = function () {
-            nv.addGraph(function () {
-                var chart = nv.models.pie()
-                    .x(function (d) {
-                        return d.key;
-                    })
-                    .y(function (d) {
-                        return d.y;
-                    })
-                    .width(width)
-                    .height(height)
-                    .labelType('percent')
-                    .valueFormat(d3.format('%'))
-                    .donut(true);
+                 d3.select("#test2")
+                     .datum([$scope.testdata])
+                     .transition().duration(1200)
+                     .attr('width', width)
+                     .attr('height', height)
+                     .call(chart);
 
-                d3.select("#test2")
-                    .datum([$scope.testdata])
-                    .transition().duration(1200)
-                    .attr('width', width)
-                    .attr('height', height)
-                    .call(chart);
-
-                return chart;
-            });
-        };
+                 return chart;
+             });
+         };*/
 
         //Bar Chart
         $scope.drawBarChart = function () {

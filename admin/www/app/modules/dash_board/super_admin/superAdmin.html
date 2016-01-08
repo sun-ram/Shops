@@ -320,8 +320,7 @@
         top: 10px;
     }
     /*today sales order chart css*/
-    
-    #todaySalesRevenue .axis path,
+    /*    #todaySalesRevenue .axis path,
     #todaySalesRevenue .axis line {
         fill: none;
         stroke: #000;
@@ -349,6 +348,21 @@
     
     #todaySalesRevenue .x.axis path {
         display: none;
+    }*/
+    
+    #todaySalesRevenue text {
+        font: 12px sans-serif;
+    }
+    
+    #todaySalesRevenue svg {
+        display: block;
+    }
+    
+    #todaySalesRevenue svg {
+        margin: 0px;
+        padding: 0px;
+        height: 500px;
+        width: 100%;
     }
     /*radius css*/
     
@@ -524,6 +538,7 @@
             <span flex style="margin: 20px 0 0 20px;">Today Sales Value Report</span>
             <span flex style="margin: 20px 0 0 0;">Total Revenue : {{todayTotalRevenue | number : 0}}</span>
         </div>
+        <svg></svg>
     </md-card>
     <md-card flex="40" flex-sm="100" layout-wrap ng-init="drawTodaySalesChart()">
         <div class="title" layout="column">
@@ -564,7 +579,7 @@
     </md-card>
 </div>
 <!--today sales order report end-->
-<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
+<!--<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
     <md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
         <div layout="column" layout-sm="row" class="chart_header">
             <div class="dashboardHeader">
@@ -584,7 +599,7 @@
             <svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
         </div>
     </md-card>
-</div>
+</div>-->
 
 <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
     <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
