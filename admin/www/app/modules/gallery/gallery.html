@@ -2,19 +2,20 @@
 <md-card layout-fill class="tbl-body" >
  	<md-toolbar class=" md-default-theme" style="background-color:transparent; box-shadow:0px 1px 1px rgba(0,0,0,0.07)">
 		<div class="md-toolbar-tools" layout-sm="column" layout-gt-sm="row">
-	  		<div flex="30"><h3 style="border: none;" >Gallery</h3>
-	  		<bread-crumb></bread-crumb>
+	  		<div flex="30">
+	  			<h3 style="border: none;" >Gallery</h3>
+	  		
 	  		</div>
 	  		
 	  		<div flex="70" layout="row" layout-align="end end">
 	  			<ul class="gal-mani-icon" flex layout layout-align="end end">
 	  				<input type="text" name="" class="img-search"/>
-	  				<li></li>
+	  				<li>&#xe906;</li>
 	  				<li ng-click="changeListView();" ng-class="{{isListview?'active':''}}" class="no-outline"><ng-md-icon icon="view_list" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li ng-click="changeGridView();" ng-class="{{isListview?'':'active'}}" class="no-outline"><ng-md-icon icon="view_module" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li></li>
 	  				<li ng-show="selectedObj.galleryId"><ng-md-icon icon="delete" style="fill: rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> 
-	  				<li ng-show="selectedObj.galleryId"><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<!-- <li ng-show="selectedObj.galleryId"><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> -->
 	  				<li ng-show="selectedObj.galleryId && selectedObj.isSummary === 'N'"><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li ng-click="addGallery($event, 'N');" class="no-outline"><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li ng-click="addGallery($event, 'Y');" class="no-outline"><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
@@ -25,6 +26,9 @@
 	    </div>
     </md-toolbar>
     <md-card-content class="nopadd gallery-container">
+    	<div layout="row">
+    		<bread-crumb></bread-crumb>
+    	</div>
 		<div layout="row" layout-padding>
 			<!-- <div flex="20">
 				

@@ -731,3 +731,18 @@ md-input-container>md-select{
 	margin: auto 0 -8px;
 }
 
+.gallery-container .breadcrumb{ padding:0px 15px;}
+.gallery-container .breadcrumb ul { list-style-type:none;  padding:0px;}
+.gallery-container .breadcrumb ul li { float:left;  color:rgba(0,0,0,0.7);}
+.gallery-container .breadcrumb ul li:after{
+	content: ">";
+	padding:0px 10px;
+}
+.gallery-container .breadcrumb ul li.active {font-weight:600; }
+
+
+
+
+
+
+

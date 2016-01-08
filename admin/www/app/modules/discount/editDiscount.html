@@ -24,14 +24,14 @@
     	</div>
      	<div layout layout-sm="column">
 		    <md-input-container layout-padding flex>
-		       <label></span>Discount Percentage<span style="color:red">*</span></label>
-		      <input ng-model="discountEdit.discountPercentage" name="percentage" ng-maxlength="3" max="100" ng-hide="discountEdit.discountAmount > 0" ng-focus="required2=false;required=true">
+		       <label></span>Discount Percentage<span ng-hide="required2" style="color:red">*</span></label>
+		      <input type="number" ng-model="discountEdit.discountPercentage" name="percentage" ng-required="required" ng-maxlength="3" max="100" ng-hide="discountEdit.discountAmount > 0" ng-focus="required2=false;required=true;discountEdit.discountAmount=null;">
 		      <span class="error" ng-show="discountForm.percentage.$error.max" style="color:red;">
       			Invalid Percentage!</span>
 		    </md-input-container>   
 		    <md-input-container layout-padding flex>
-		       <label></span>Discount Amount</label>
-		      <input ng-model="discountEdit.discountAmount" valid-number ng-maxlength="20" ng-hide="discountEdit.discountPercentage > 0" ng-focus="required2=true;required=false;">
+		       <label></span>Discount Amount<span ng-hide="required" style="color:red">*</span></label>
+		      <input ng-model="discountEdit.discountAmount" ng-required="required2" valid-number ng-maxlength="20" ng-hide="discountEdit.discountPercentage > 0" ng-focus="required2=true;required=false;discountEdit.discountPercentage=null;">
 		    </md-input-container>
 	    </div>   	
      	<div layout layout-sm="column">

@@ -1,0 +1,12 @@
+
+<div layout="column" layout-align="center center" style="width:300px; height:200px;">
+	<div flex layout-padding layout-align="center center" style="margin:20px 0px;">
+		<span ng-show = "galleryDeleteObj.isSummary === 'Y'" class="md-title" layout-padding>{{galleryDeleteObj.fileName}}, Are you sure you want to delete this folder?</span>
+		<span ng-show = "galleryDeleteObj.isSummary === 'N'" class="md-title" layout-padding>{{galleryDeleteObj.fileName}}, Are you sure you want to delete this file?</span> 
+	</div>
+	<div flex>
+		<md-button ng-click="deleteGallery();" class="md-raised" style="background-color:#DE4A4A; color:#FFFFFF; width:120px; ">YES</md-button>
+		<md-button ng-click="close();" class="md-raised" style="background-color:#1C64A1; color:#FFFFFF; width:120px; ">NO</md-button>
+	</div>
+</div>
+	

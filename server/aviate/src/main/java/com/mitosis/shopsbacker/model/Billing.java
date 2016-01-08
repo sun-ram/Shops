@@ -116,7 +116,7 @@ public class Billing implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PAID_DATE", nullable = false, length = 19)
+	@Column(name = "PAID_DATE", nullable = true, length = 19)
 	public Date getPaidDate() {
 		return paidDate;
 	}

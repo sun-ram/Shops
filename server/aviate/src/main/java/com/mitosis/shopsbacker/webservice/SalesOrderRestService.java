@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,6 +42,7 @@ import com.mitosis.shopsbacker.model.SalesOrderLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Tax;
 import com.mitosis.shopsbacker.model.User;
+import com.mitosis.shopsbacker.order.service.BillingService;
 import com.mitosis.shopsbacker.order.service.OrderNumberService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.order.service.ShippingChargesService;
@@ -104,6 +106,9 @@ public class SalesOrderRestService<T> {
 
 	@Autowired
 	ImageService<T> imageService;
+	
+	@Autowired
+	BillingService<T> billingService;
 
 	public SalesOrderService<T> getSalesOrderService() {
 		return salesOrderService;
@@ -211,7 +216,7 @@ public class SalesOrderRestService<T> {
 				if ("ANDROID".equalsIgnoreCase(user.getDeviceType())) {
 					String message = "Received New Order";
 					CommonUtil.androidPushNotification(message,
-							user.getDeviceId());
+							user.getDeviceId(),"Shopper");
 				} else if (user.getDeviceType()!=null && user.getDeviceType().equalsIgnoreCase("IOS")) {
 
 				}
@@ -239,12 +244,15 @@ public class SalesOrderRestService<T> {
 				salesOrder.setBackerAssignedTime(new Date());
 				salesOrder.setBacker(user);
 				salesOrderService.updateSalesOrder(salesOrder);
+				if(salesOrder.getPaymentMethod().equalsIgnoreCase("COD")){
+					   billingService.addNewBill(salesOrder);
+				}
 				salesOrderResponseVo.setStatus(SBMessageStatus.SUCCESS
 						.getValue());
 				if (user.getDeviceType().equalsIgnoreCase("ANDROID")) {
 					String message = "Received New Order";
 					CommonUtil.androidPushNotification(message,
-							user.getDeviceId());
+							user.getDeviceId(),"Backer");
 				} else if (user.getDeviceType().equalsIgnoreCase("IOS")) {
 
 				}

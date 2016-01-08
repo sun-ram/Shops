@@ -31,4 +31,10 @@ implements BillingDao<T>, Serializable {
 		return (List<Billing>) findAll(criteria);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public void addNewBill(Billing billing) {
+		save((T)billing);
+	}
+
 }

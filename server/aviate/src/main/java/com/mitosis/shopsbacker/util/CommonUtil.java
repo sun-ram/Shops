@@ -250,7 +250,7 @@ public final class CommonUtil {
 	public static String dateToString(Date date) {
 		String dateString = null;
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss") ;
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a") ;
 			dateString = sdf.format(date);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -493,13 +493,23 @@ public final class CommonUtil {
 		}
 	*/}
 	
-	public static void androidPushNotification(String messageStr, String deviceId){
+	public static void androidPushNotification(String messageStr, String deviceId, String flag){
 		try{
+			Properties properties = new Properties();
+			properties.load(CommonUtil.class.getResourceAsStream(
+					"/properties/gsmkey.properties"));
 			Result result = null;
-			Sender sender = new Sender("AIzaSyBIy9JnsUNw-ZBhStC8os3mUkH-OpS1rF0");
-			com.google.android.gcm.server.Message message = new com.google.android.gcm.server.Message.Builder().timeToLive(30)
-					.delayWhileIdle(true).addData("message", messageStr).build();
-			result = sender.send(message, deviceId, 1);
+			if(flag.equalsIgnoreCase("Shopper")){
+				Sender sender = new Sender(properties.getProperty("shopperKey"));
+				com.google.android.gcm.server.Message message = new com.google.android.gcm.server.Message.Builder().timeToLive(30)
+						.delayWhileIdle(true).addData("message", messageStr).build();
+				result = sender.send(message, deviceId, 1);
+			}else if (flag.equalsIgnoreCase("Backer")) {
+				Sender sender = new Sender(properties.getProperty("backerKey"));
+				com.google.android.gcm.server.Message message = new com.google.android.gcm.server.Message.Builder().timeToLive(30)
+						.delayWhileIdle(true).addData("message", messageStr).build();
+				result = sender.send(message, deviceId, 1);
+			}
 		}catch(Exception e){
 
 		}

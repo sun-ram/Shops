@@ -99,6 +99,7 @@ public class ProductOfferRestServices<T> {
 	public ProductOfferResponseVo addProductOffer(ProductOfferVo productOfferVo) {
 		ProductOfferResponseVo response = new ProductOfferResponseVo();
 		ProductOfferVo productOffervos = null;
+		
 		try {
 			if(productOfferVo.getStoreList().size() !=0){
 				for(StoreVo storeVo : productOfferVo.getStoreList()){

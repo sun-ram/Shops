@@ -1,5 +1,6 @@
 package com.mitosis.shopsbacker.webservice;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -52,26 +54,29 @@ public class GalleryRestService {
 		String responseStr = "";
 		ResponseModel responseModel = new ResponseModel();
 		try {
-
 			Gallery gallery = (Gallery) CommonUtil.setAuditColumnInfo(
 					Gallery.class.getName(), null);
 			gallery.setFileName(galleryVo.getFileName());
-			gallery.setFilePath(galleryVo.getFilePath());
-			gallery.setType(galleryVo.getType());
 			gallery.setIsactive('Y');
 			gallery.setIsSummary(galleryVo.getIsSummary());
 			String parentId = galleryVo.getParentGalleryId();
+			String filePath = "";
+			filePath = "/"+galleryVo.getFileName();
 			Gallery parentGallery = null;
 			if (parentId != null) {
 				parentGallery = galleryService.getGalleryById(parentId);
 				if (parentGallery != null) {
 					gallery.setParentGallery(parentGallery);
-					gallery.setParentPath(parentGallery.getFileName());
+					gallery.setParentPath(parentGallery.getFilePath());
+					filePath = parentGallery.getFilePath()+"/"+galleryVo.getFileName();
 				}
 			}
 			if (!(galleryVo.getIsSummary() == 'Y')) {
 				imageUpload(galleryVo, parentGallery);
+				filePath = galleryVo.getFilePath();
 			}
+			gallery.setFilePath(filePath);
+			gallery.setType(galleryVo.getType());
 			galleryService.addGallery(gallery);
 			responseModel.setGallery(setGalleryVo(gallery));
 			responseModel.setStatus(SBMessageStatus.SUCCESS.getValue());
@@ -111,12 +116,30 @@ public class GalleryRestService {
 	}
 	
 	public GalleryVo setGalleryVo(Gallery gallery) {
+		
+		
 		GalleryVo galleryVo = new GalleryVo();
-		galleryVo.setFileName(gallery.getFileName());
-		galleryVo.setGalleryId(gallery.getGalleryId());
-		galleryVo.setIsSummary(gallery.getIsSummary());
 		galleryVo.setParentGalleryId(gallery.getParentGallery()!=null?gallery.getParentGallery().getGalleryId():null);
-		//galleryVo.setUrl(gallery.getFilePath());
+		galleryVo.setFileName(gallery.getFileName());
+		 galleryVo.setFilePath(gallery.getFilePath());
+		galleryVo.setIsSummary(gallery.getIsSummary());
+		galleryVo.setGalleryId(gallery.getGalleryId());
+		galleryVo.setType(gallery.getType());
+		if ((gallery.getIsSummary() == 'Y')) {
+
+		} else {
+			Properties properties = new Properties();
+			try {
+				properties.load(getClass().getResourceAsStream(
+						"/properties/serverurl.properties"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String imageUrl = properties.getProperty("imageUrl");
+			String url = gallery.getFilePath() + "?p=gallery";
+			imageUrl = imageUrl.concat(url).replaceAll(" ", "%20");
+			galleryVo.setUrl(imageUrl);
+		}
 		return galleryVo;
 	}
 	
@@ -132,7 +155,6 @@ public class GalleryRestService {
 			List<Gallery> parentGalleries = galleryService.getRootGalleries();
 			List<GalleryVo> rootGalleryVoList = new ArrayList<GalleryVo>();
 			Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
-			GalleryVo galleryVo = new GalleryVo();
 			getHierarchicalGalleries(parentGalleries, rootGalleryVoList,
 					galleryVoParentMap);
 			galleryResponseVo.setGalleries(rootGalleryVoList);
@@ -191,6 +213,66 @@ public class GalleryRestService {
 		}
 		return responseStr;
 	}
+	
+	
+	@Path("/delete/{galleryId}")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String deletreGalleriesById(@PathParam("galleryId") String galleryId) {
+		String responseStr="";
+		ResponseModel responseModel=new ResponseModel();
+		try{
+		Gallery gallery = galleryService.getGalleryById(galleryId);
+		if (gallery.getIsSummary() == 'N') {
+			deleteFile(gallery);
+		}else{
+			List<Gallery> listOfGalleries = gallery.getGalleries();
+			
+			deleteChildGalleries(listOfGalleries);
+			deleteFile(gallery);
+		}
+		responseModel.setStatus(SBMessageStatus.FAILURE.getValue());
+		}catch(Exception e){
+			String errorMsg = CommonUtil.getErrorMessage(e);
+			log.error(errorMsg);
+			responseModel.setStatus(SBMessageStatus.FAILURE.getValue());
+			responseModel.setErrorString(errorMsg);
+			
+		}
+		try {
+			responseStr=CommonUtil.getObjectMapper(responseModel) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return responseStr;
+	}
+
+	public void deleteChildGalleries(List<Gallery> galleries) {
+		for(Gallery childGallery:galleries){
+			List<Gallery> childGalleries = childGallery.getGalleries();
+			if(childGalleries.size()>0){
+				deleteChildGalleries(childGalleries);
+			}
+			galleryService.deleteGallery(childGallery);
+		}
+	}
+
+	public void deleteFile(Gallery gallery) throws IOException {
+		Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream(
+				"/properties/serverurl.properties"));
+		String defaultAttachmentPath = properties
+				.getProperty("galleryPath");
+		String filePath = defaultAttachmentPath + gallery.getFilePath();
+		galleryService.deleteGallery(gallery);
+		File file=new File(filePath);
+		if(file.exists()){
+			file.deleteOnExit();
+		}
+	}
 
 	private void getHierarchicalGalleries(List<Gallery> galleries,
 			List<GalleryVo> rootGalleryVoList,
@@ -198,7 +280,7 @@ public class GalleryRestService {
 		for (Gallery gallery : galleries) {
 			GalleryVo galleryVo = new GalleryVo();
 			galleryVo.setFileName(gallery.getFileName());
-			// galleryVo.setFilePath(gallery.getFilePath());
+			 galleryVo.setFilePath(gallery.getFilePath());
 			galleryVo.setIsSummary(gallery.getIsSummary());
 			galleryVo.setGalleryId(gallery.getGalleryId());
 			galleryVo.setType(gallery.getType());

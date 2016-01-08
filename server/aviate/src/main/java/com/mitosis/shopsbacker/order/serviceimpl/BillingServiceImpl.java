@@ -1,6 +1,8 @@
 package com.mitosis.shopsbacker.order.serviceimpl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.apache.poi.ss.formula.functions.T;
@@ -58,7 +60,26 @@ public class BillingServiceImpl implements BillingService<T>, Serializable  {
 	public List<Billing> getBillsByMerchant(Merchant merchant,char isPaid){
 		return getBillingDao().getBillsByMerchant(merchant, isPaid);
 	}
-
+	
+	public void addNewBill(SalesOrder salesOrder){
+		
+		Billing billing = new Billing();
+		BigDecimal feesPercent = salesOrder.getMerchant().getFeesPercentage();
+		BigDecimal amount = salesOrder.getAmount();
+		BigDecimal fees = (feesPercent.multiply(amount)).divide(new BigDecimal(100));
+		fees = fees.setScale(2, RoundingMode.HALF_UP);
+		billing.setAmount(amount);
+		billing.setFees(fees);
+		billing.setIsactive('Y');
+		billing.setIsPaid('N');
+		billing.setMerchant(salesOrder.getMerchant());
+		billing.setOrderedDate(salesOrder.getCreated());
+		billing.setSalesOrder(salesOrder);
+		billing.setStore(salesOrder.getStore());
+		
+		billingDao.addNewBill(billing);
+	}
+	
 	@Override
 	public BillingVo setBillingVo(Billing billing) throws Exception {
 		

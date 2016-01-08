@@ -88,6 +88,7 @@ public class ProductOfferLineRestService<T> {
 		response = new ResponseModel();
 		try {
 			Product product = productService.getProduct(productOfferLineVo.getProductVo().getProductId());
+			
 			for(ProductOfferVo productOffVo : productOfferLineVo.getProductOfferList()){
 				productOfferLine = new ProductOfferLine();
 				productOfferLine = productOfferLineService.setProductOfferLine(productOfferLineVo,productOfferLine);
@@ -95,6 +96,13 @@ public class ProductOfferLineRestService<T> {
 				ProductOffer productOffer = productOfferService.getProductOffer(productOffVo.getProductOfferId());
 				productOfferLine.setProductOffer(productOffer);
 				productOfferLineService.addProductOfferLine(productOfferLine);
+				
+				if(productOffer.getProduct().getIsKit() == 'Y'){
+					product.setIsChild('Y');
+				}else{
+					product.setIsChild('N');
+				}
+				productService.updateProduct(product);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

@@ -30,18 +30,18 @@
 		<tr class="tbl-header">
 		<th name="Shopper"></th>
 		<th name="Backer"></th>
-              <th numeric ng-click="showIcon='addressVo.name';"  order-by="addressVo.name" name="Customer"></th>
+              <th ng-click="showIcon='addressVo.name';"  order-by="addressVo.name" name="Customer"></th>
 <!--               <th order-by="address.firstName" name="Products"></th>
  -->              <th numeric ng-click="showIcon='orderNo';" order-by="orderNo" name="Ref-no"></th>
-              <th numeric ng-click="showIcon='addressVo.address1';" order-by="addressVo.address1" name="Delivery Address"></th>
-              <th numeric ng-click="showIcon='status';" order-by="status" name="Status"></th>
-              <th numeric ng-click="showIcon='fromDate';" order-by="fromDate" name="Order Date"></th>
-              <th numeric ng-click="showIcon='deliveryDate';" order-by="deliveryDate" name="Delivery Date"></th>
-              <th numeric ng-click="showIcon='store.name';" order-by="store.name" name="Store"></th>
-              <th numeric ng-click="showIcon='shippingCharge';" order-by="shippingCharge" name="Tax"></th>
-              <th numeric ng-click="showIcon='totalTaxAmount';" order-by="totalTaxAmount" name="Shipping Charge"></th>
-              <th numeric ng-click="showIcon='amount';" order-by="amount" name="Net"></th>
-              <th numeric ng-click="showIcon='netAmount';" order-by="netAmount" name="Gross"></th>
+              <th ng-click="showIcon='addressVo.address1';" order-by="addressVo.address1" name="Delivery Address"></th>
+              <th ng-click="showIcon='status';" order-by="status" name="Status"></th>
+              <th ng-click="showIcon='fromDate';" order-by="fromDate" name="Order Date"></th>
+              <th ng-click="showIcon='deliveryDate';" order-by="deliveryDate" name="Delivery Date"></th>
+              <th ng-click="showIcon='store.name';" order-by="store.name" name="Store"></th>
+              <th ng-click="showIcon='shippingCharge';" order-by="totalTaxAmount" name="Tax"></th>
+              <th ng-click="showIcon='totalTaxAmount';" order-by="shippingCharge" name="Shipping Charge"></th>
+              <th ng-click="showIcon='amount';" order-by="amount" name="Net"></th>
+              <th ng-click="showIcon='netAmount';" order-by="netAmount" name="Gross"></th>
               <th name="View Details"></th>
             </tr>
 	</thead>
@@ -58,7 +58,7 @@
 			<td>{{salesOrder.orderNo}}</td>	
 			<td>{{salesOrder.addressVo.address1}},{{salesOrder.addressVo.address2}} {{salesOrder.addressVo.city.name}}</td>
 			<td>{{salesOrder.status}}</td>
-			<td>{{salesOrder.fromDate | date:"MM/dd/yyyy h:mma"}}</td>
+			<td>{{salesOrder.fromDate | date:"MM/dd/yyyy h:mm a"}}</td>
 			<td>{{salesOrder.deliveryDate}}</td>
 			<td>{{salesOrder.store.name}}</td>
 			<td>{{salesOrder.totalTaxAmount}}</td>

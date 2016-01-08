@@ -51,7 +51,41 @@ angular.module('aviateAdmin.controllers')
 			$rootScope.breadCrumbGallery.push({'name':folder.fileName,'id':folder.galleryId});
 			$localStorage.breadCrumbGallery = $rootScope.breadCrumbGallery;
 			$state.go('app.folder',{'folderId':folder.galleryId});
-		};         
+		};     
+		
+		$scope.deleteGallery = function(folder, index){
+        	$mdDialog.show({
+				templateUrl: 'app/modules/modals/deleteFileConfirmation.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true,
+				controller: function($scope, galleries, $stateParams){
+					
+					$scope.galleryDeleteObj = folder;
+					
+					$scope.deleteGallery = function(){
+						GalleryServices.deleteGallery($scope.galleryDeleteObj.galleryId).then(function(data){
+							galleries.splice(index, 1);
+							$scope.cancel();
+						});
+					};
+					
+					
+					$scope.cancel = function() {
+						$mdDialog.cancel();
+					};
+				},
+				locals:{
+				   galleries:$scope.galleries
+				}
+			})
+			.then(function(answer) {	
+				$scope.status = 'You said the information was "' + answer + '".';
+			}, function() {
+				$scope.status = 'You cancelled the dialog.';
+				console.log('updated gallery list ',$scope.galleries1);
+			});
+        }; 
           
         $scope.galleryList();
         
@@ -104,7 +138,7 @@ angular.module('aviateAdmin.controllers')
 						if($scope.data.isSummary === 'N'){
 							if(!$scope.image){
 								$scope.errorMsg = "chose Image";
-								return
+								return;
 							}
 							$scope.img = $scope.splitProductType($scope.image);
 							$scope.data.strFile = $scope.img.image;

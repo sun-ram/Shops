@@ -11,6 +11,7 @@ angular.module('aviate.controllers')
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
             homePageServices.isBundleProduct($scope.product).then(function(data){
             	$scope.productList = data;
+            	$scope.comboOffers=false;
             })
 			}
 			else if($stateParams.value=="comboProducts"){
@@ -19,6 +20,7 @@ angular.module('aviate.controllers')
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
 				         homePageServices.comboOffer($scope.product).then(function(data){
 				        	 $scope.productList = data;	
+				        	 $scope.comboOffers=true;
 				        })
 			}
 			else if($stateParams.value=="topCategories"){
@@ -27,6 +29,7 @@ angular.module('aviate.controllers')
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
                 homePageServices.topCategories($scope.product).then(function(data){
             	$scope.productList = data;
+            	$scope.comboOffers=false;
             })
 			}
 			else{
@@ -61,6 +64,7 @@ angular.module('aviate.controllers')
 			$scope.getProducts = function(){
 					MyCartFactory.checkMyListProductsList(products,function(data){
 						$scope.productList = data;
+						$scope.comboOffers=false;
 						$scope.productTypes = [];
 						for(var i=0;$scope.productList.length>=i;i++){
 							
@@ -123,6 +127,21 @@ angular.module('aviate.controllers')
 				});
 			}
 		
+			$scope.productDetailsCombo = function(ev,products){
+				$rootScope.productDetails = products;
+				$mdDialog.show({
+					templateUrl: 'app/modules/products/productDetails/productDetailsCombo.html',
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					clickOutsideToClose:true,
+					controller: "productDetailsCtrl"
+				})
+				.then(function() {
+					
+				}, function() {
+
+				});
+			}
 			
 			$rootScope.updateProductQuantity = function(item){
 				angular.forEach($scope.productList,function(p){
