@@ -54,25 +54,28 @@ public class GalleryRestService {
 		String responseStr = "";
 		ResponseModel responseModel = new ResponseModel();
 		try {
-
 			Gallery gallery = (Gallery) CommonUtil.setAuditColumnInfo(
 					Gallery.class.getName(), null);
 			gallery.setFileName(galleryVo.getFileName());
 			gallery.setIsactive('Y');
 			gallery.setIsSummary(galleryVo.getIsSummary());
 			String parentId = galleryVo.getParentGalleryId();
+			String filePath = "";
+			filePath = "/"+galleryVo.getFileName();
 			Gallery parentGallery = null;
 			if (parentId != null) {
 				parentGallery = galleryService.getGalleryById(parentId);
 				if (parentGallery != null) {
 					gallery.setParentGallery(parentGallery);
-					gallery.setParentPath(parentGallery.getFileName());
+					gallery.setParentPath(parentGallery.getFilePath());
+					filePath = parentGallery.getFilePath()+"/"+galleryVo.getFileName();
 				}
 			}
 			if (!(galleryVo.getIsSummary() == 'Y')) {
 				imageUpload(galleryVo, parentGallery);
+				filePath = galleryVo.getFilePath();
 			}
-			gallery.setFilePath(galleryVo.getFilePath());
+			gallery.setFilePath(filePath);
 			gallery.setType(galleryVo.getType());
 			galleryService.addGallery(gallery);
 			responseModel.setGallery(setGalleryVo(gallery));
@@ -134,7 +137,6 @@ public class GalleryRestService {
 			List<Gallery> parentGalleries = galleryService.getRootGalleries();
 			List<GalleryVo> rootGalleryVoList = new ArrayList<GalleryVo>();
 			Map<String, GalleryVo> galleryVoParentMap = new HashMap<String, GalleryVo>();
-			GalleryVo galleryVo = new GalleryVo();
 			getHierarchicalGalleries(parentGalleries, rootGalleryVoList,
 					galleryVoParentMap);
 			galleryResponseVo.setGalleries(rootGalleryVoList);
