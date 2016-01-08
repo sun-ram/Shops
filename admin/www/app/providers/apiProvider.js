@@ -1388,6 +1388,20 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Gallery.deleteGallery= function (galleryId,callback) {
+			httpRequest("DELETE", "delete/"+galleryId, null,  function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
 
 
 		/*product category modules*/

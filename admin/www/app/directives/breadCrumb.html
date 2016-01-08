@@ -1,7 +1,7 @@
 
   <div class="breadcrumb">
    <ul>
-   	<li class="active">Gallery</li>
+   	<li class="active" ui-sref = "app.gallery">Gallery</li>
     <li ng-repeat="crumb in $root.breadCrumbGallery" ui-sref-active="active">
      <span  ng-show="$last">{{ crumb.name }}</span>
      <a ng-show="!$last" ng-click="changeState(crumb, $root.breadCrumbGallery);">{{crumb.name}}</a>

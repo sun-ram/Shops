@@ -58,8 +58,6 @@ public class GalleryRestService {
 			Gallery gallery = (Gallery) CommonUtil.setAuditColumnInfo(
 					Gallery.class.getName(), null);
 			gallery.setFileName(galleryVo.getFileName());
-			gallery.setFilePath(galleryVo.getFilePath());
-			gallery.setType(galleryVo.getType());
 			gallery.setIsactive('Y');
 			gallery.setIsSummary(galleryVo.getIsSummary());
 			String parentId = galleryVo.getParentGalleryId();
@@ -74,6 +72,8 @@ public class GalleryRestService {
 			if (!(galleryVo.getIsSummary() == 'Y')) {
 				imageUpload(galleryVo, parentGallery);
 			}
+			gallery.setFilePath(galleryVo.getFilePath());
+			gallery.setType(galleryVo.getType());
 			galleryService.addGallery(gallery);
 			responseModel.setGallery(setGalleryVo(gallery));
 			responseModel.setStatus(SBMessageStatus.SUCCESS.getValue());

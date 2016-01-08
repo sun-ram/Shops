@@ -56,5 +56,22 @@ angular.module('aviateAdmin.services')
 			return d.promise;
 		};
 		
+		this.deleteGallery = function(galleryId){
+			var d = $q.defer();
+			api.Gallery.deleteGallery(galleryId,function(err, result){
+				if(result){
+					if (result.status === CONSTANT.STATUS.SUCCESS) {
+						d.resolve(result);
+					}else{
+						toastr.error(result.errorString);	
+					}
+				}
+				else{
+					toastr.error(err.errorCode);
+				}
+			});
+			return d.promise;
+		};
+		
 		
 	}]);
