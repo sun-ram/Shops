@@ -10,7 +10,7 @@ public class ProductInventoryVo {
 	private String productInventoryId;
 	private StoragebinVo storagebinVo;
 	private MerchantVo merchantVo;
-	private Product product;
+	private ProductVo product;
 	private StoreVo storevo;
 	private int availableQty;
 	private char isactive;
@@ -29,10 +29,11 @@ public class ProductInventoryVo {
 	public void setProductInventoryId(String productInventoryId) {
 		this.productInventoryId = productInventoryId;
 	}
-	public Product getProduct() {
+	
+	public ProductVo getProduct() {
 		return product;
 	}
-	public void setProduct(Product product) {
+	public void setProduct(ProductVo product) {
 		this.product = product;
 	}
 	public int getAvailableQty() {

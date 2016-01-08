@@ -1390,7 +1390,7 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 		};
 		
 		apiClass.Gallery.deleteGallery= function (galleryId,callback) {
-			httpRequest("DELETE", "delete/"+galleryId, null,  function (err, data) {
+			httpRequest("DELETE", "gallery/delete/"+galleryId, null,  function (err, data) {
 				if (err) {
 
 					callback(err, null);

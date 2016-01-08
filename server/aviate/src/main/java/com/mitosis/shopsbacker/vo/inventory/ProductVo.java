@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.ProductImage;
+import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
@@ -45,6 +46,7 @@ public class ProductVo {
 	private List<ImageVo> images = new ArrayList<ImageVo>();
 	private List<ProductOfferVo> productOffers = new ArrayList<ProductOfferVo>();
 	private List<ProductOfferLineVo> productOfferLines = new ArrayList<ProductOfferLineVo>();
+	private List<ProductInventoryVo> productInventory=new ArrayList<ProductInventoryVo>();
 	private String userId;
 	
 	public List<ImageVo> getImages() {
@@ -212,6 +214,14 @@ public class ProductVo {
 	public void setIsCombo(boolean isCombo) {
 		this.isCombo = isCombo;
 	}
+	public List<ProductInventoryVo> getProductInventory() {
+		return productInventory;
+	}
+	public void setProductInventory(List<ProductInventoryVo> productInventory) {
+		this.productInventory = productInventory;
+	}
+	
+	
 
 
 }
