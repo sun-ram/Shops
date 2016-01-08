@@ -13,7 +13,7 @@ angular.module('aviateAdmin.directives').directive('breadCrumb', [
                 				crumbList.splice(i+1,crumbList.length);
                 			}
                 		}
-                		$state.go('app.gallery.folder',{'folderId':crumb.id});
+                		$state.go('app.folder',{'folderId':crumb.id});
                 	};
                 }
             };

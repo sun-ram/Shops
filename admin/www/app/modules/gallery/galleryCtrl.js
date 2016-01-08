@@ -26,8 +26,9 @@ angular.module('aviateAdmin.controllers')
 			$scope.isListview = false;
 		};
 				
-		$scope.setActive = function(folder){
+		$scope.setActive = function(folder, index){
 			$scope.selectedObj = folder;
+			$scope.selectedObj.index = index;
 		};
 		
 		$scope.checkActive = function(folder){
@@ -47,13 +48,14 @@ angular.module('aviateAdmin.controllers')
            });
           };
           
+          
 		$scope.openFolders = function(folder){
 			$rootScope.breadCrumbGallery.push({'name':folder.fileName,'id':folder.galleryId});
 			$localStorage.breadCrumbGallery = $rootScope.breadCrumbGallery;
 			$state.go('app.folder',{'folderId':folder.galleryId});
 		};     
 		
-		$scope.deleteGallery = function(folder, index){
+		$scope.deleteGallery = function(ev, folder, index){
         	$mdDialog.show({
 				templateUrl: 'app/modules/modals/deleteFileConfirmation.html',
 				parent: angular.element(document.body),
@@ -83,7 +85,7 @@ angular.module('aviateAdmin.controllers')
 				$scope.status = 'You said the information was "' + answer + '".';
 			}, function() {
 				$scope.status = 'You cancelled the dialog.';
-				console.log('updated gallery list ',$scope.galleries1);
+				console.log('updated gallery list ',$scope.galleries);
 			});
         }; 
           

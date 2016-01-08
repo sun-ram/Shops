@@ -61,7 +61,7 @@ public class GalleryRestService {
 			gallery.setIsSummary(galleryVo.getIsSummary());
 			String parentId = galleryVo.getParentGalleryId();
 			String filePath = "";
-			filePath = "/"+galleryVo.getFileName();
+			filePath = galleryVo.getFileName();
 			Gallery parentGallery = null;
 			if (parentId != null) {
 				parentGallery = galleryService.getGalleryById(parentId);
@@ -98,7 +98,7 @@ public class GalleryRestService {
 	private void imageUpload(GalleryVo galleryVo, Gallery parentGallery)
 			throws IOException, Exception {
 
-		String filePath = "";
+		String imageName = "";
 		String defaultAttachmentPath = "";
 		String parentPath = "";
 		if (parentGallery != null) {
@@ -108,10 +108,13 @@ public class GalleryRestService {
 		properties.load(getClass().getResourceAsStream(
 				"/properties/serverurl.properties"));
 		defaultAttachmentPath = properties.getProperty("galleryPath");
-		filePath = parentPath + "/" + galleryVo.getFileName() + "/";
+		String galleryImagePath = "";
+		galleryImagePath = (parentPath=="" || parentPath==null?"": parentPath+"/");
+		imageName = galleryVo.getFileName();
 		if (CommonUtil.uploadImage(galleryVo.getStrFile(), galleryVo.getType(),
-				defaultAttachmentPath + filePath, filePath)) {
-			galleryVo.setFilePath(filePath);
+				defaultAttachmentPath + galleryImagePath, imageName)) {
+			galleryVo.setFilePath(galleryImagePath + imageName+ "."
+					+ galleryVo.getType());
 		}
 	}
 	
@@ -233,7 +236,7 @@ public class GalleryRestService {
 			deleteChildGalleries(listOfGalleries);
 			deleteFile(gallery);
 		}
-		responseModel.setStatus(SBMessageStatus.FAILURE.getValue());
+		responseModel.setStatus(SBMessageStatus.SUCCESS.getValue());
 		}catch(Exception e){
 			String errorMsg = CommonUtil.getErrorMessage(e);
 			log.error(errorMsg);
