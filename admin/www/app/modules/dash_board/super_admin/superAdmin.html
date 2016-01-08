@@ -520,6 +520,10 @@
 <!--today sales report chart -->
 <div flex layout="row" layout-sm="column">
     <md-card flex="60" flex-sm="100" id="todaySalesRevenue">
+        <div layout="row">
+            <span flex style="margin: 20px 0 0 20px;">Today Sales Value Report</span>
+            <span flex style="margin: 20px 0 0 0;">Total Revenue : {{todayTotalRevenue | number : 0}}</span>
+        </div>
     </md-card>
     <md-card flex="40" flex-sm="100" layout-wrap ng-init="drawTodaySalesChart()">
         <div class="title" layout="column">
@@ -527,9 +531,9 @@
             <span>{{todaySalesByMerchant.merchantName}}</span>
             </span>
             <div layout="row" layout-align="space-between center" layout-padding>
-                <label flex>Total SalesOrder : <span>{{todaySalesByMerchant.salesOrders.length}}</span> </label>
-                <label flex>Total SalesValue : <span>{{todaySalesByMerchant.salesValue}}</span> </label>
-                <label flex>Total Revenue : <span>{{todaySalesByMerchant.revenue}}</span> </label>
+                <label flex>No.Of.SalesOrder : <span>{{todaySalesByMerchant.salesOrders.length}}</span> </label>
+                <label flex>SalesValue : <span>{{todaySalesByMerchant.salesValue | number : 0 }}</span> </label>
+                <label flex>Revenue : <span>{{todaySalesByMerchant.revenue | number : 0}}</span> </label>
             </div>
         </div>
         <div layout="row" layout-wrap>
@@ -550,8 +554,8 @@
                         <tr md-row md-select="ts" md-select-id="{{ts.storeName}}" md-auto-select ng-repeat="ts in todaySalesByMerchant.stores">
                             <td md-cell>{{ts.storeName}}</td>
                             <td md-cell>{{ts.salesOrders.length}}</td>
-                            <td md-cell>{{ts.salesValue}}</td>
-                            <td md-cell>{{ts.revenue}}</td>
+                            <td md-cell>{{ts.salesValue | number : 2 }}</td>
+                            <td md-cell>{{ts.revenue | number : 2}}</td>
                         </tr>
                     </tbody>
                 </table>
