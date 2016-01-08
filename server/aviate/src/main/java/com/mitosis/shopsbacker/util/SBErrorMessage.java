@@ -45,7 +45,8 @@ public enum SBErrorMessage {
 	OFFER_NAME_ALREADY_EXIST("E0001","Product Offer name already exist."),
 	No_DELIVERY_TIME_SLOTS("E0034","Delivery Time Slot is Not Configured, Kindly Inform to Store Admin to Configure"),
 	NO_ORDER_NUMBER("E0035","Order Number is Not Configured, Kindly Inform to Store Admin to Configure"),
-	NO_DELIVERY_ORDER_NUMBER("E0036","Delivery Time Slot and Order Number are Not Configured, Kindly Inform to Store Admin to Configure");
+	NO_DELIVERY_ORDER_NUMBER("E0036","Delivery Time Slot and Order Number are Not Configured, Kindly Inform to Store Admin to Configure"),
+	CANT_ASSIGN_SHOPPER("E0037","You Cant Assign Shopper Because This Order Is Not Deliverable Today");
 	
 
 

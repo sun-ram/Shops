@@ -30,10 +30,9 @@ public class OrderHistoryServiceImpl<T> implements OrderHistoryService<T> {
 	 * @return List of SalesOrder
 	 * @param String storeId, String customerId
 	 */
-	public List<SalesOrder> getOrderList(String storeId, String customerId) {
-		Store store = storeDao.getStoreById(storeId);
+	public List<SalesOrder> getOrderList(String customerId) {
 		Customer customer = customerDao.getCustomerInfoById(customerId);
-		return salesOrderDao.getOrderList(store, customer);
+		return salesOrderDao.getOrderList(null, customer);
 	}
-	
+
 }

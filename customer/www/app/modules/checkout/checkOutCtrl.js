@@ -6,8 +6,6 @@ angular.module('aviate.controllers')
 
 	$scope.rupeesSymbol = CONSTANT.RUPEESSYMBOL;
 
-	$scope.time = new Date();
-	$scope.time.setMinutes($scope.time.getMinutes()+60);
 	$scope.addresses = [];
 	$scope.delivery = {
 			date: new Date()
@@ -82,6 +80,8 @@ angular.module('aviate.controllers')
 
 
 	$scope.getTimeSlot = function(){
+		$scope.time = new Date();
+		$scope.time.setMinutes($scope.time.getMinutes()+60);
 		CheckOutServices.getTimeSlot({'merchant':{'merchantId':$rootScope.store.merchant.merchantId},'storeId':$rootScope.store.storeId}).then(function(data) {
 			$scope.deliveryTimeSlots = data;
 			$scope.deliveryTime = $scope.deliveryTimeSlots[0];
