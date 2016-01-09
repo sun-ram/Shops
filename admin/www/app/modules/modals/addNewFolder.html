@@ -12,8 +12,10 @@
     </div>
   </md-toolbar>
   <md-dialog-content style="max-width:800px;max-height:810px; ">
-   <md-input-container layout-padding flex> <label>Enter a Folder name<span
-			class="ft-red">*</span></label> <input ng-model="data.fileName" ng-change="checkFolderIsExit();" ng-required="true"> </md-input-container>
+   <md-input-container layout-padding flex> 
+   <label  ng-hide="data.isSummary === 'N'">Enter Folder name<span	class="ft-red">*</span></label>
+   <label  ng-show="data.isSummary === 'N'">Enter Image name<span	class="ft-red">*</span></label>
+    <input ng-model="data.fileName" ng-change="checkFolderIsExit();" ng-required="true"> </md-input-container>
   </md-dialog-content>
   
   
