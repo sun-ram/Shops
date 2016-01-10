@@ -238,6 +238,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 document.getElementById("bandrect").style.display = "block";
             });
 
+			//calculating and moving rect area position mouse move every time
             $("rect").mousemove(function (e) {
                 if (!dragstarted && !suspendMoveOperation) {
                     bandPos = [-1, -1];
@@ -310,7 +311,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     .attr("x", -1)
                     .attr("y", -1);
             });
-
+			
+			//Event helps to update growth table on drop
             drag.on("dragend", function () {
                 dragstarted = false;
 
@@ -370,6 +372,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
             });
 
+			//method invokes on mouse move on rect to update growth stats box
             function updategrowthTable(start, end) {
                 $scope.raisedTableTitle = "Weeks between " + Math.round(start) + " - " + Math.round(end);
                 $scope.merchantsRaised = 0;
@@ -1167,6 +1170,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         //			});
         //		};
 
+		//method to get values for quality chart
         function getQualityStats(times) {
             $scope.qualirtStatsRecords = [];
             var i = 0,
@@ -1217,6 +1221,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
         };
 
+		//common method helps to call http requests
         function sendHttpRequest(service) {
             var defer = $q.defer();
             $http({
@@ -1232,7 +1237,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 });
             return defer.promise;
         }
-
+		
+		//get merchant name by Id
         function getMerchantById(id) {
             for (var i = 0; i < $scope.merchants.Books.length; i++) {
                 if ($scope.merchants.Books[i].MERCHANT_ID == id) {
@@ -1242,6 +1248,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             console.info("Failed to get Merchant Name By Id of : ", id);
         };
 
+		//service method helps to get customer name by Id
         function getCustomerNameById(id) {
             for (var i = 0; i < $scope.customers.Books.length; i++) {
                 if ($scope.customers.Books[i].CUSTOMER_ID == id) {
@@ -1250,6 +1257,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
         };
 
+		//compare sales for calculate growth percentage
         $scope.compSalesToday = function (data) {
             $scope.yesterdayTotSale = $scope.todayTotSale = 0;
             $scope.totalSales = 0;
@@ -1283,7 +1291,9 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                 }
             }
         };
-        $scope.getLatLongByUserId = function (userId) {
+		
+		//Get lat lan for map
+        /*$scope.getLatLongByUserId = function (userId) {
             var addressId = $scope.getAddressIdByUserId(userId);
             var i = 0;
             l = $scope.addresses.Books.length;
@@ -1292,7 +1302,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     return $scope.addresses.Books[i];
                 }
             }
-        };
+        };*/
 
         /*$scope.locateMerchants = function () {
 			$scope.tempMarkers = [];
@@ -1315,7 +1325,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 			}
 			$scope.randomMarkers = $scope.tempMarkers;
 		};*/
-
+		
+		//Methods to calculate milestones
         function postSalesOrder(data) {
 
             var tempDateObj;
@@ -1433,7 +1444,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             /*$scope.locateMerchants();*/
             /*callback();*/
         };
-
+		
+		//Filers merchants by Created date
         function filteredMerchants(data) {
             $scope.totalMerchants = (data) ? data.Books.length : 0;
             var newMerchantsToday = 0,
@@ -1453,7 +1465,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             $scope.merchantGrowthToday = (Math.round($scope.merchantGrowthToday * 100)) / 100;
 
         };
-
+		
+		//method to manipulate and collect data for chart based on the given input
         function calcGrowthRatio(data) {
             var tempDateObj = angular.copy(todayDateObj);
             var tmpLen = data.Books.length;
@@ -1492,7 +1505,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
         }
 
-        function orgGrowthRation() {
+        //call methods to get data for line chart
+		function orgGrowthRation() {
             calcGrowthRatio($scope.merchants);
             calcGrowthRatio($scope.stores);
             calcGrowthRatio($scope.customers);
@@ -1630,7 +1644,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
         $scope.proceedUsers = function (callback) {
 
         };
-
+		
+		
         $scope.proceedCustomer = function (data) {
             var activeCustomers = angular.copy(data);
             activeCustomers.Books = _.reject(activeCustomers.Books, function (book) {
@@ -1638,7 +1653,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             });
             filteredCustomers(activeCustomers);
         };
-
+		
+		//Call all web services in single method
         var callAllwebservices = function () {
             $scope.receivedResponceCount = 0;
             sendHttpRequest('customer').then(function (data) {
@@ -1685,7 +1701,8 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             });
 
         }
-
+		
+		//Watch whether all services responded or not ? if yes Proceed By number of services
         $scope.$watch('receivedResponceCount', function (newValue, oldValue) {
             if (newValue >= 7) {
                 $scope.proceedCustomer($scope.customers);
@@ -1697,6 +1714,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
             }
         });
 
+		//clear existing dom and call webservices
         function initiateAllMethods() {
             document.getElementById('grouperBarChart').innerHTML = "";
             document.getElementById('graph').innerHTML = "";
@@ -1705,6 +1723,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
         };
 
+		//Initiate actions
         initiateAllMethods();
 
 
