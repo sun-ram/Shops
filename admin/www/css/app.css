@@ -671,7 +671,7 @@ border-radius: 50%;}
 .greenLabel{background-color:green;width:5px;height: 24px;float: left;margin-right: 5px;}
 .blueLabel{background-color:steelblue;width:5px;height: 24px;float: left;margin-right: 5px;}
 
-.labelDesc{font-family: Roboto;font-size: 15px;color:#2478AB;margin-bottom: 15px;}
+.labelDesc{font-family: Roboto;font-size: 15px; margin-bottom: 30px;}
 
 .growthIconUp {
 	width: 24px !important;
