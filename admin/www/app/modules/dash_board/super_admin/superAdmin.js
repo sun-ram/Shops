@@ -1737,6 +1737,17 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
 		//Initiate actions
         initiateAllMethods();
+        
+        		          	
+            	/*$scope.showgrowthdetail = function (){
+                  $scope.showgrowth = false;
+                  $scope.showgrowthdetail = true;	  
+            	}
+            	
+            	$scope.hidegrowthdetail = function (){
+            	  $scope.showgrowth = true;
+            	  $scope.showgrowthdetail = false;	  
+            	}*/
 
 
 
