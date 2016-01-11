@@ -12,6 +12,6 @@ public interface SalesOrderLineService<T> {
 	
 	public List<SalesOrderLine> getSalesOrderLineBysalesOrder(SalesOrder salesOrder);
 	
-	public List<SalesOrderLineVo> setSalesOrderLineVo (List<SalesOrderLine> list)throws Exception ;
+	public List<SalesOrderLineVo> setSalesOrderLineVo (List<SalesOrderLine> list, boolean excludeReturnQty)throws Exception ;
 	
 }

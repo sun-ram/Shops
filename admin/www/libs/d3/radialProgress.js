@@ -37,7 +37,8 @@ function radialProgress(parent) {
         __height = 150,
         _diameter = 100,
         _label = "",
-        _fontSize = 10;
+        _fontSize = 10,
+        _isPercentage = false;
 
 
     var _mouseClick;
@@ -128,7 +129,7 @@ function radialProgress(parent) {
                 .attr("width", _width)
                 // .attr("x",(3*_fontSize/2))
                 .text(function (d) {
-                    return Math.round((_value - _minValue) / (_maxValue - _minValue) * 100) + "%"
+                    return _isPercentage ? (Math.round((_value - _minValue) / (_maxValue - _minValue) * 100) + "%") : _value;
                 })
                 .style("font-size", _fontSize + "px")
                 .on("click", onMouseClick);
@@ -154,7 +155,7 @@ function radialProgress(parent) {
                         .attrTween("d", arcTween2);
                 }
 
-                label.datum(Math.round(ratio * 100));
+                label.datum(_isPercentage ? Math.round(ratio * 100) : Math.round(_value[0]));
                 label.transition().duration(_duration)
                     .tween("text", labelTween);
 
@@ -175,7 +176,7 @@ function radialProgress(parent) {
 
         return function (t) {
             _currentValue = i(t);
-            this.textContent = Math.round(i(t)) + "%";
+            this.textContent = _isPercentage ? Math.round(i(t)) + "%" : Math.round(i(t));
         }
     }
 
@@ -261,6 +262,11 @@ function radialProgress(parent) {
     component.onClick = function (_) {
         if (!arguments.length) return _mouseClick;
         _mouseClick = _;
+        return component;
+    }
+
+    component.showInPercentage = function (_) {
+        _isPercentage = _;
         return component;
     }
 

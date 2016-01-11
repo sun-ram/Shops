@@ -155,7 +155,7 @@ public class SalesOrderRestService<T> {
 						.getOrderList(store);
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
-							salesOrder);
+							salesOrder, false);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
 			} else if (salesOrderVo.getMerchant() != null) {
@@ -175,7 +175,7 @@ public class SalesOrderRestService<T> {
 										.getMerchantId()));
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
-							salesOrder);
+							salesOrder, false);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
 			}
@@ -295,7 +295,7 @@ public class SalesOrderRestService<T> {
 								salesOrderVo.getDeliveryDate(), store);
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
-							salesOrder);
+							salesOrder, false);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
 			} else if (salesOrderVo.getMerchant() != null) {
@@ -306,7 +306,7 @@ public class SalesOrderRestService<T> {
 										.getMerchant().getMerchantId()));
 				for (SalesOrder salesOrder : salesOrderList) {
 					salesOrderVo = getSalesOrderService().setSalesOrderVo(
-							salesOrder);
+							salesOrder, false);
 					salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 				}
 			}
@@ -474,7 +474,7 @@ public class SalesOrderRestService<T> {
 			response.setOrderNo(salesOrder.getOrderNo());
 			response.setSalesOrderId(salesOrder.getSalesOrderId());
 			salesOrderVo = getSalesOrderService().setSalesOrderVo(
-					salesOrder);
+					salesOrder, false);
 			message.setMessage("New");
 			message.setTag("SalesOrder");
 			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
@@ -522,7 +522,7 @@ public class SalesOrderRestService<T> {
 									|| OrderStatus.Picked.toString()
 									.equalsIgnoreCase(
 											salesOrder.getStatus())) {
-								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder);
+								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder, false);
 								salesOrderVoList.add(salesOrdervo);
 							}
 						}
@@ -555,8 +555,10 @@ public class SalesOrderRestService<T> {
 									|| OrderStatus.Backer_Started.toString()
 									.equalsIgnoreCase(
 											salesOrder.getStatus())) {
-								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder);
-								salesOrderVoList.add(salesOrdervo);
+								SalesOrderVo salesOrdervo = salesOrderService.setSalesOrderVo(salesOrder, true);
+								if(salesOrdervo!=null){
+									salesOrderVoList.add(salesOrdervo);
+								}
 							}
 							salesOrderResponse
 							.setSalesOrderList(salesOrderVoList);
@@ -670,7 +672,7 @@ public class SalesOrderRestService<T> {
 						salesOrderResponse.setStatus(SBMessageStatus.SUCCESS
 								.getValue());
 						salesOrderVo = getSalesOrderService().setSalesOrderVo(
-								salesOrder);
+								salesOrder, false);
 						message.setMessage("Update");
 						message.setTag("SalesOrder");
 						message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
