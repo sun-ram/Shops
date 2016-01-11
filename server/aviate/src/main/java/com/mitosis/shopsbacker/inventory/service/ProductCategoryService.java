@@ -3,9 +3,11 @@ package com.mitosis.shopsbacker.inventory.service;
 import java.util.List;
 
 import com.mitosis.shopsbacker.model.Merchant;
+import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 
 /**
  * @author RiyazKhan.M
@@ -40,5 +42,7 @@ public interface ProductCategoryService<T> {
 	public ProductCategoryVo setProductCategoryVo(ProductCategory productCategory);
 	
 	public List<ProductCategory> getParentCategory(ProductCategory parentCategory);
+
+	ProductVo setProductVo(Product product) throws Exception;
 
 }

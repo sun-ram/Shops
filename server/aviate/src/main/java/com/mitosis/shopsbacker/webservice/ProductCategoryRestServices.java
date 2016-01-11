@@ -432,10 +432,12 @@ public class ProductCategoryRestServices<T> {
 				if (!productList.isEmpty()) {
 					List<ProductVo> producVoList = new ArrayList<ProductVo>();
 					for (int i = 0; i < productList.size(); i++) {
-						ProductVo product = productService
+						ProductVo product = productCategoryService
 								.setProductVo(productList.get(i));
-						System.out.println(product.getProductId());
+					//	System.out.println(product.getProductId());
+						if(product != null){
 						producVoList.add(product);
+						}
 					}
 					productCategoryLeaf.setProducts(producVoList);
 				}

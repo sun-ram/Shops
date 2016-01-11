@@ -101,15 +101,7 @@ private static final long serialVersionUID = 1L;
 		productVo.setProductId(product.getProductId());
 		productVo.setUnit(product.getUnit());
 		UomVo uomVo = uomService.setUomVo(product.getUom());
-		productVo.setUom(uomVo);
-		
-		List<ProductImage> productImages = product.getProductImages();
-		List<ImageVo> productImageVos = new ArrayList<ImageVo>();
-		for (ProductImage productImage : productImages) {
-			ImageVo image = imageService.setImageVo(productImage.getImage());
-			productImageVos.add(image);
-		}
-		productVo.setImages(productImageVos);
+		productVo.setUom(uomVo);	
 		
 		if(product.getImage() != null){
 		ImageVo image = imageService.setImageVo(product.getImage());
@@ -128,6 +120,10 @@ private static final long serialVersionUID = 1L;
 		productvo.setProductId(prod.getProductId());
 		productvo.setName(prod.getName());
 		productvo.setPrice(prod.getPrice());
+		if(prod.getImage() != null){
+		ImageVo image = imageService.setImageVo(prod.getImage());
+		productvo.setImage(image);
+		}
 		productOfferVo.setProductVo(productvo);
 		List<ProductOfferLine> offerLines = productOffer.getProductOfferLines();
 		
