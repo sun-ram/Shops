@@ -210,8 +210,8 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 							toastr.error("To date must be greater than from date");
 						}else{
 							var salesOrderVo = {
-									"fromDate":$scope.fromDate.toLocaleDateString(),
-									"deliveryDate":$scope.toDate.toLocaleDateString()
+									"fromDate":$filter('date')($scope.fromDate, "dd/MM/yyyy"),
+									"deliveryDate":$filter('date')($scope.toDate, "dd/MM/yyyy")
 							};
 
 							if($rootScope.user.role == "MERCHANTADMIN"){

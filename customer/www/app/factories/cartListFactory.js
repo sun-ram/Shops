@@ -295,6 +295,7 @@ angular.module('aviate.factories')
 				$rootScope.name = $rootScope.taxList[i].name;
 				$rootScope.taxPercentage = $rootScope.taxList[i].taxPercentage;
 				$rootScope.rate = $rootScope.myCart.cartTotalAmount*($rootScope.taxPercentage/100);
+				$rootScope.rate = Math.ceil($rootScope.rate * 100)/100;
 				$rootScope.myCart.taxs.push({
 					"name":$rootScope.name,
 					"taxPercentage":$rootScope.taxPercentage,
