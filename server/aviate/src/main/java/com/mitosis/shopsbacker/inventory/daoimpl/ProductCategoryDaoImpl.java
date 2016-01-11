@@ -121,8 +121,6 @@ public class ProductCategoryDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			Criteria prdCrit = crit.createCriteria("productTypes");
 			prdCrit.add(Restrictions.eq("merchant", merchant));
 			prdCrit.add(Restrictions.eq("isactive", 'Y'));
-			prdCrit.add(Restrictions.eq("isKit", 'N'));
-			prdCrit.add(Restrictions.eq("isBundle", 'N'));
 			List results = crit.list();
 			return results;
 		} catch (HibernateException e) {
