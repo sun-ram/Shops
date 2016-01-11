@@ -29,6 +29,17 @@ angular.module('aviate.factories')
 		}
 	}*/
 	
+	factory.checkProductOffer = function(){
+		
+		for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
+			if($rootScope.myCart.cartItem[i].product.productOffers.length > 0 && $rootScope.myCart.cartItem.length > 1){
+				
+				
+			}
+		}
+		
+	}
+	
 	function checkInCart(product) {
 	    return _.find($rootScope.myCart.cartItem, function(goal) {
 	        return goal.product.productId == product.productId;
@@ -66,12 +77,14 @@ angular.module('aviate.factories')
 						for(var l=0; l<products.length;l++){
 							if(products[l].product,products[l].qty == 1){
 								factory.removeFromCart(products[l].product,products[l].index - l);
+								checkQuantity(products[l].product,products[l].index - l);
 							}else{
 								var offers = {};
 								offers.product = products[l].product;
 								offers.product.noOfQuantityInCart = offers.product.noOfQuantityInCart - 1;
 								
 								factory.addToCartForCombo(offers.product);
+								
 							}
 						}
 						var productList = [];
@@ -213,6 +226,7 @@ angular.module('aviate.factories')
 				}
 			}
 		}
+		checkComboQuantity(_product);
 		//ipCookie("myCart",$rootScope.myCart);
 		//callback(_productList);
 	}
@@ -351,6 +365,55 @@ angular.module('aviate.factories')
 		callback(_productList);
 	
 	}
+	
+	function checkQuantity(item, index) {
+			if($rootScope.updateProductQuantity)
+				$rootScope.updateProductQuantity(item);
+			if($rootScope.topcategories){
+				angular.forEach($rootScope.topcategories,function(p){
+					if(p.productId == item.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			}
+			
+			if($rootScope.isBundleProducts){
+				angular.forEach($rootScope.isBundleProducts,function(p){
+					if(p.productId == item.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			}
+			
+			if($rootScope.comboOffer){
+				angular.forEach($rootScope.comboOffer,function(p){
+					if(p.productId == item.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			}
+			
+			//$rootScope.getAllCategoryWithProduct();	
+			if($rootScope.categoriesWithProduct){
+				angular.forEach($rootScope.categoriesWithProduct,function(p){
+					angular.forEach(p.products,function(s){
+						if(s.productId == item.productId){
+							s.noOfQuantityInCart = 0;
+						}
+					});	
+				});
+				}
+	};
+	
+	function checkComboQuantity(product){
+		angular.forEach($rootScope.comboOffer,function(p){
+			if(p.productId == product.productId){
+				p.noOfQuantityInCart = product.noOfQuantityInCart;
+			}
+		});
+		
+	}
 
 	return factory;
 });
+
