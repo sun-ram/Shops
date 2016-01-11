@@ -74,6 +74,7 @@ angular.module('aviate.controllers')
 		var timeOut;
 		$scope.addToCart = function(product){
 		   if(product.noOfQuantityInCart >= 0){
+			  if(product.productInventory.availableQty >= product.noOfQuantityInCart){
 			  if(timeOut)
 					clearTimeout(timeOut);
 				timeOut = setTimeout(function() {
@@ -83,6 +84,11 @@ angular.module('aviate.controllers')
 						$scope.getCartList();
 					});
 				}, 500);
+			  }
+			  else{
+				  toastr.warning("Out Of Stock.");
+				  product.noOfQuantityInCart=product.noOfQuantityInCart-1;
+			  }
 			}
 		}
 
