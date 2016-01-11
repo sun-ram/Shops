@@ -66,12 +66,12 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					d.resolve(result);
-					toastr.success(CONSTANT.SUCCESS_CODE.REMOVEPRODUCT);
+				//	toastr.success(CONSTANT.SUCCESS_CODE.REMOVEPRODUCT);
 				} else {
-					toastr.error(result.errorString);
+				//	toastr.error(result.errorString);
 				}
 			}else{
-				toastr.error(err.errorCode);
+			//	toastr.error(err.errorCode);
 			}
 		})
 		return d.promise;

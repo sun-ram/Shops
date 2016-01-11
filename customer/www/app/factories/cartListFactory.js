@@ -76,16 +76,33 @@ angular.module('aviate.factories')
 					if(mappedProductCount == offerLines.length){
 						for(var l=0; l<products.length;l++){
 							if(products[l].product,products[l].qty == 1){
-								factory.removeFromCart(products[l].product,products[l].index - l);
+								
+								
+								if($rootScope.user && $rootScope.user.userId){
+									var cartDetails = {
+											customer : {customerId : $rootScope.user.userId}, 
+											store : {storeId : $rootScope.store.storeId}, 
+											product : {productId : products[l].product.productId}
+									};
+									MyCartServices.removeCartProduct(cartDetails).then(function(data){
+										console.log('get Mylist success in Main Nav');
+										$rootScope.myCart.cartItem.splice(products[l].index - l, 1);
+									});
+									
+								}else{
+									$rootScope.myCart.cartItem.splice(products[l].index - l, 1);
+									factory.myCartTotalPriceCalculation();
+								}
+								
+								
 								checkQuantity(products[l].product,products[l].index - l);
 							}else{
 								var offers = {};
 								offers.product = products[l].product;
 								offers.product.noOfQuantityInCart = offers.product.noOfQuantityInCart - 1;
-								
 								factory.addToCartForCombo(offers.product);
-								
 							}
+							
 						}
 						var productList = [];
 						var isCheck = checkInCart(offer.productVo);
@@ -96,6 +113,12 @@ angular.module('aviate.factories')
 						}
 						
 						factory.addToCartForCombo(offer.productVo);
+						if($rootScope.user && $rootScope.user.userId){
+						MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+							factory.myCartTotalPriceCalculation();
+						});
+						return;
+						}
 						
 					}
 				}
@@ -127,6 +150,7 @@ angular.module('aviate.factories')
 					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 						factory.myCartTotalPriceCalculation();
 						console.log('Get To My Cart in factory');
+						factory.checkComboOffer();
 					});
 				})
 			}else{
@@ -155,6 +179,7 @@ angular.module('aviate.factories')
 					});
 				}
 				factory.myCartTotalPriceCalculation();
+				factory.checkComboOffer();
 			}
 		}else if(_product.noOfQuantityInCart == 0){
 			for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
@@ -162,10 +187,11 @@ angular.module('aviate.factories')
 					factory.removeFromCart(_product.productId, i);
 				}
 			}
+			factory.checkComboOffer();
 		}
-		factory.checkComboOffer();
 		//ipCookie("myCart",$rootScope.myCart);
 		callback(_productList);
+		
 	}
 	
 	
