@@ -30,6 +30,7 @@ import com.mitosis.shopsbacker.responsevo.GalleryResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
+import com.mitosis.shopsbacker.vo.admin.GalleryResponse;
 import com.mitosis.shopsbacker.vo.common.GalleryVo;
 
 /**
@@ -52,7 +53,7 @@ public class GalleryRestService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String addGallery(GalleryVo galleryVo) {
 		String responseStr = "";
-		ResponseModel responseModel = new ResponseModel();
+		GalleryResponse responseModel = new GalleryResponse();
 		try {
 			Gallery gallery = (Gallery) CommonUtil.setAuditColumnInfo(
 					Gallery.class.getName(), null);
