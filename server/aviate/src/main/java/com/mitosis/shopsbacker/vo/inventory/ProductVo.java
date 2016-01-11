@@ -46,7 +46,9 @@ public class ProductVo {
 	private List<ImageVo> images = new ArrayList<ImageVo>();
 	private List<ProductOfferVo> productOffers = new ArrayList<ProductOfferVo>();
 	private List<ProductOfferLineVo> productOfferLines = new ArrayList<ProductOfferLineVo>();
-	private List<ProductInventoryVo> productInventory=new ArrayList<ProductInventoryVo>();
+	/*private List<ProductInventoryVo> productInventory=new ArrayList<ProductInventoryVo>();*/
+	ProductInventoryVo productInventory;
+	
 	private String userId;
 	
 	public List<ImageVo> getImages() {
@@ -214,10 +216,10 @@ public class ProductVo {
 	public void setIsCombo(boolean isCombo) {
 		this.isCombo = isCombo;
 	}
-	public List<ProductInventoryVo> getProductInventory() {
+	public ProductInventoryVo getProductInventory() {
 		return productInventory;
 	}
-	public void setProductInventory(List<ProductInventoryVo> productInventory) {
+	public void setProductInventory(ProductInventoryVo productInventory) {
 		this.productInventory = productInventory;
 	}
 	

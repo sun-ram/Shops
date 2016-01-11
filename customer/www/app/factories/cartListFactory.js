@@ -29,6 +29,17 @@ angular.module('aviate.factories')
 		}
 	}*/
 	
+	factory.checkProductOffer = function(){
+		
+		for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
+			if($rootScope.myCart.cartItem[i].product.productOffers.length > 0 && $rootScope.myCart.cartItem.length > 1){
+				
+				
+			}
+		}
+		
+	}
+	
 	function checkInCart(product) {
 	    return _.find($rootScope.myCart.cartItem, function(goal) {
 	        return goal.product.productId == product.productId;
@@ -65,14 +76,33 @@ angular.module('aviate.factories')
 					if(mappedProductCount == offerLines.length){
 						for(var l=0; l<products.length;l++){
 							if(products[l].product,products[l].qty == 1){
-								factory.removeFromCart(products[l].product,products[l].index - l);
+								
+								
+								if($rootScope.user && $rootScope.user.userId){
+									var cartDetails = {
+											customer : {customerId : $rootScope.user.userId}, 
+											store : {storeId : $rootScope.store.storeId}, 
+											product : {productId : products[l].product.productId}
+									};
+									MyCartServices.removeCartProduct(cartDetails).then(function(data){
+										console.log('get Mylist success in Main Nav');
+										$rootScope.myCart.cartItem.splice(products[l].index - l, 1);
+									});
+									
+								}else{
+									$rootScope.myCart.cartItem.splice(products[l].index - l, 1);
+									factory.myCartTotalPriceCalculation();
+								}
+								
+								
+								checkQuantity(products[l].product,products[l].index - l);
 							}else{
 								var offers = {};
 								offers.product = products[l].product;
 								offers.product.noOfQuantityInCart = offers.product.noOfQuantityInCart - 1;
-								
 								factory.addToCartForCombo(offers.product);
 							}
+							
 						}
 						var productList = [];
 						var isCheck = checkInCart(offer.productVo);
@@ -83,6 +113,12 @@ angular.module('aviate.factories')
 						}
 						
 						factory.addToCartForCombo(offer.productVo);
+						if($rootScope.user && $rootScope.user.userId){
+						MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
+							factory.myCartTotalPriceCalculation();
+						});
+						return;
+						}
 						
 					}
 				}
@@ -114,6 +150,7 @@ angular.module('aviate.factories')
 					MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 						factory.myCartTotalPriceCalculation();
 						console.log('Get To My Cart in factory');
+						factory.checkComboOffer();
 					});
 				})
 			}else{
@@ -142,6 +179,7 @@ angular.module('aviate.factories')
 					});
 				}
 				factory.myCartTotalPriceCalculation();
+				factory.checkComboOffer();
 			}
 		}else if(_product.noOfQuantityInCart == 0){
 			for(var i = 0; i<$rootScope.myCart.cartItem.length; i++){
@@ -149,10 +187,11 @@ angular.module('aviate.factories')
 					factory.removeFromCart(_product.productId, i);
 				}
 			}
+			factory.checkComboOffer();
 		}
-		factory.checkComboOffer();
 		//ipCookie("myCart",$rootScope.myCart);
 		callback(_productList);
+		
 	}
 	
 	
@@ -213,6 +252,7 @@ angular.module('aviate.factories')
 				}
 			}
 		}
+		checkComboQuantity(_product);
 		//ipCookie("myCart",$rootScope.myCart);
 		//callback(_productList);
 	}
@@ -281,6 +321,7 @@ angular.module('aviate.factories')
 				$rootScope.name = $rootScope.taxList[i].name;
 				$rootScope.taxPercentage = $rootScope.taxList[i].taxPercentage;
 				$rootScope.rate = $rootScope.myCart.cartTotalAmount*($rootScope.taxPercentage/100);
+				$rootScope.rate = Math.ceil($rootScope.rate * 100)/100;
 				$rootScope.myCart.taxs.push({
 					"name":$rootScope.name,
 					"taxPercentage":$rootScope.taxPercentage,
@@ -351,6 +392,55 @@ angular.module('aviate.factories')
 		callback(_productList);
 	
 	}
+	
+	function checkQuantity(item, index) {
+			if($rootScope.updateProductQuantity)
+				$rootScope.updateProductQuantity(item);
+			if($rootScope.topcategories){
+				angular.forEach($rootScope.topcategories,function(p){
+					if(p.productId == item.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			}
+			
+			if($rootScope.isBundleProducts){
+				angular.forEach($rootScope.isBundleProducts,function(p){
+					if(p.productId == item.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			}
+			
+			if($rootScope.comboOffer){
+				angular.forEach($rootScope.comboOffer,function(p){
+					if(p.productId == item.productId){
+						p.noOfQuantityInCart = 0;
+					}
+				});
+			}
+			
+			//$rootScope.getAllCategoryWithProduct();	
+			if($rootScope.categoriesWithProduct){
+				angular.forEach($rootScope.categoriesWithProduct,function(p){
+					angular.forEach(p.products,function(s){
+						if(s.productId == item.productId){
+							s.noOfQuantityInCart = 0;
+						}
+					});	
+				});
+				}
+	};
+	
+	function checkComboQuantity(product){
+		angular.forEach($rootScope.comboOffer,function(p){
+			if(p.productId == product.productId){
+				p.noOfQuantityInCart = product.noOfQuantityInCart;
+			}
+		});
+		
+	}
 
 	return factory;
 });
+

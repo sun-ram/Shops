@@ -67,7 +67,7 @@ public class SalesOrderReturnServiceImpl<T> implements
 			SalesOrderReturn salesOrderReturn) {
 		SalesOrderReturnVo salesOrderReturnVo=new SalesOrderReturnVo();
 		try {
-			salesOrderReturnVo.setSalesOrder(salesOrderService.setSalesOrderVo(salesOrderReturn.getSalesOrder()));
+			salesOrderReturnVo.setSalesOrder(salesOrderService.setSalesOrderVo(salesOrderReturn.getSalesOrder(), false));
 			salesOrderReturnVo.setReturnReason(salesOrderReturn.getReturnReason());
 			salesOrderReturnVo.setReturnTotalAmount(salesOrderReturn.getReturnTotalAmount());
 			salesOrderReturnVo.setReturnTaxAmount(salesOrderReturn.getReturnTaxAmount());

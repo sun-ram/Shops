@@ -130,7 +130,7 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.updateProduct = function(product,index) {
 		if(product.wasPrice && product.wasPrice<product.price){
-			toastr.error("WasPrice Should Be Greater Than To Price");
+			toastr.error("WasPrice Should Be Greater Than Product Price");
 		}else if(product.name && product.unit && product.price){
 			$scope.product = product;
 			$scope.product.discount=null;
@@ -143,7 +143,7 @@ angular.module('aviateAdmin.controllers')
 				toastr.success("Product details have been updated successfully!!!");
 				$localStorage.product={};
 				$scope.showInLineEdit=null;
-				$state.go("app.products");
+				$rootScope.getAllProductList();
 			})
 		}else{
 			toastr.error("Enter the required Fields");
@@ -297,12 +297,12 @@ angular.module('aviateAdmin.controllers')
 	}
 	
 	$scope.copyToProductEdit = function(product){
-		$scope.productEdit=angular.copy(product);
+		//$scope.productEdit=angular.copy(product);
 		$scope.showaddbtn=true;
 	};
 	
 	$scope.copyToProduct = function(index){
-		$rootScope.productList[index] = $scope.productEdit;
+		//$rootScope.productList[index] = $scope.productEdit;
 		$scope.showaddbtn=false;
 	};
 	

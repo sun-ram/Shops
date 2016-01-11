@@ -1,4 +1,4 @@
-<div ng-init="getAllProductList();">
+<div ng-init="getAllProductList();isKit=false;">
      
   <md-toolbar class=" md-default-theme" style="background-color:transparent;">
    		<div class="md-toolbar-tools ">	
@@ -10,7 +10,10 @@
   <md-card flex-gt-sm="90" flex-gt-md="80">
     <md-content md-theme="docs-dark" layout-padding layout="column" layout-sm="column">
       <form name="productOfferForm" novalidate>
-      
+      	<h4 layout="row"  class="md-layout-column">
+			<input layout-align="start center" type="checkBox" ng-model="isKit" />
+			<label layout-align="end center" style="padding-left: 20px;">Combo Offer</label>
+		</h4>
       <div layout="row" layout-sm="column">
       
       <div flex>
@@ -46,7 +49,7 @@
 		     <md-input-container layout-padding flex>
        			<label>Product<span style="color:red">*</span></label>
          		<md-select class="remove-padd" ng-model="productOffer.productVo" ng-required="true" ng-model-options="{trackBy: '$value.productId'}">
-		            <md-option ng-repeat="product in productList | orderBy:'name'" ng-value="product">
+		            <md-option  ng-repeat="product in productList | orderBy:'name'| isCombo : isKit" ng-value="product">
 		              {{product.name}}
 		            </md-option>
           		</md-select>

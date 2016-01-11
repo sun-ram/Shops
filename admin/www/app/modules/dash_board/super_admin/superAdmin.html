@@ -1,4 +1,7 @@
 <style>
+	/* th span{
+		color: #fff !important;
+	} */
     .d3-tip {
         line-height: 1;
         font-weight: bold;
@@ -319,36 +322,7 @@
         right: 10px;
         top: 10px;
     }
-    /*today sales order chart css*/
-    /*    #todaySalesRevenue .axis path,
-    #todaySalesRevenue .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-    }
-    
-    #todaySalesRevenue .bar {
-        fill: steelblue;
-    }
-    
-    #todaySalesRevenue .bar:hover {
-        fill: brown;
-    }
-    
-    #todaySalesRevenue .axis {
-        font: 10px sans-serif;
-    }
-    
-    #todaySalesRevenue .axis path,
-    #todaySalesRevenue .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-    }
-    
-    #todaySalesRevenue .x.axis path {
-        display: none;
-    }*/
+   
     
     #todaySalesRevenue text {
         font: 12px sans-serif;
@@ -362,7 +336,31 @@
         margin: 0px;
         padding: 0px;
     }
-    /* today sales order chart css end*/
+   /*  table.md-table th.md-column md-icon.md-sort-icon{
+    	color: #fff;
+    } */
+    /* /* when hiding the thing */
+	.ng-hide-add         { 
+	   display: block !important;
+	} */
+	
+	/* when showing the thing */
+	.ng-hide-remove      { 
+	   display: block !important;
+	}
+   	.cssFade {
+    transition: 0.5s linear all;
+    opacity: 1;
+	}
+	.cssFade.ng-hide {
+		transition: 0.5s linear all; 
+	    opacity: 0; 
+	}
+	
+	tbody> tr:nth-child(odd){
+		background-color:#f5f6f8;
+	}
+	table.md-table td.md-cell.md-numeric, table.md-table th.md-column.md-numeric{text-align: center;}
 </style>
 <div ng-cloak class="testBlock applyFlatUI commonBackground">
     <md-card class="nomarg marg-t10 applyFlatUI">
@@ -378,29 +376,29 @@
         </md-card-title>
     </md-card>
 
-    <div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+    <!-- <div layout="row" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
         <div class="card green" flex flex-sm="100">
             <div class="card-content  green white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Merchants</p>
                 <h4 class="card-stats-number">{{totalMerchants}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
         <div class="card pink" flex flex-sm="100">
             <div class="card-content white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
                 <h4 class="card-stats-number">{{totalStores}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
         <div class="card purple" flex flex-sm="100">
             <div class="card-content white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
                 <h4 class="card-stats-number">{{totalCustomers}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
+				</p>
             </div>
 
         </div>
@@ -408,31 +406,72 @@
             <div class="card-content  green white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Sales Orders</p>
                 <h4 class="card-stats-number">{{salesOrdersCount}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
         <div class="card skyblue" flex flex-sm="100">
             <div class="card-content white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
                 <h4 class="card-stats-number">{{totalSales}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
 
-    </div>
+    </div> -->
 
-    <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" style="position:relative;">
-        <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-            <div class="md-whiteframe-4dp applyFlatUI">
-                <div class="dashboardHeader">
-                    <h4 style="float:left;font-family:Roboto;font-weight: 300;">Half year Growth Ratio in week basis</h4>
-                </div>
+     <div layout-padding layout="row" layout-sm="column" layout-md="column" style="box-shadow:none;" ng-init="showgrowth=true;showgrowthdetail=false;">
+		        <md-card flex="70" flex-md="100" flex-sm="100" style="min-height : 520px;">
+               	<div class="cssFade" ng-show="showgrowth"> 
+                <h4 style="font-family:Roboto;font-weight: 300; float: left; padding-left: 10px;">Half year Growth Ratio in week basis</h4>              
+                <ng-md-icon icon="more_vert" style="fill: #333; float: right; margin:15px; cursor: pointer;" size="25"  ng-click='showgrowth=false;showgrowthdetail=true;'></ng-md-icon>
                 <div id="graph">
-
                 </div>
-                <div class="descriptionBox">
+                </div> 
+                <div class="cssFade" ng-show="showgrowthdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <ng-md-icon icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showgrowth=true;showgrowthdetail=false;'></ng-md-icon>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%;">
+                <table md-table ng-model="selectedStores" style="border: 1px solid #ddd;">
+                    <thead md-head md-order="storesSalveValueTable.order">
+                        <tr md-row>
+                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
+                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                    </tbody>
+                </table>
+            </md-table-container> 
+            </div>
+			</div>
+            
+         </md-card>
+         <md-card flex="30" flex-md="100" flex-sm="100">
+                <div style="padding: 20px 50px;">
                     <div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
                     <div class="blueLabel"></div>
                     <div class="labelDesc">Merchants Growth :
@@ -450,7 +489,7 @@
                     <div class="labelDesc">SalesOrder Growth :
                         <div style="float:right">{{salesOrdersRaised}}</div>
                     </div>
-                    <div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
+                    <div class="labelDesc" style="bottom:0px;width: 100%;">
                         <div class="labelDesc">Merchants Comparition</div>
                         <div>
                             <ng-md-icon ng-if="merchatsRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
@@ -487,22 +526,65 @@
 
 
                 </div>
+                </md-card>
             </div>
 
-    </div>
-    </md-card>
+    
+    
 
-</div>
+
 <!--today sales report chart -->
-<div flex layout="row" layout-sm="column">
-    <md-card flex="60" flex-sm="100" id="todaySalesRevenue">
-        <div layout="row">
-            <span flex style="margin: 20px 0 0 20px;">Today Sales Value Report</span>
-            <span flex style="margin: 20px 0 0 0;">Total Revenue : {{todayTotalRevenue | number : 0}}</span>
+<div flex layout="row" layout-sm="column" layout-padding ng-init="showsaleschart=true;showsaleschartdetail=false">
+    <md-card flex="60" flex-md="100" flex-sm="100" id="todaySalesRevenue" style="min-height : 520px;">
+        <div class="cssFade" ng-show="showsaleschart">
+        	<div layout="row" layout-padding>
+            <span flex>Today Sales Value Report</span>
+            <span flex>Total Revenue : {{todayTotalRevenue | number : 0}}</span>            
+            </div>
+            <svg></svg>
         </div>
-        <svg></svg>
+        
+        <div class="cssFade" ng-show="showsaleschartdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <ng-md-icon icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showsaleschart=true;showsaleschartdetail=false'></ng-md-icon>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%;">
+                <table md-table ng-model="selectedStores" style="border: 1px solid #ddd;">
+                    <thead md-head md-order="storesSalveValueTable.order">
+                        <tr md-row>
+                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
+                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                    </tbody>
+                </table>
+            </md-table-container> 
+            </div>
+			</div>
     </md-card>
-    <md-card flex="40" flex-sm="100" layout-wrap ng-init="drawTodaySalesChart()">
+    <md-card flex="40" flex-md="100" flex-sm="100" ng-init="drawTodaySalesChart()">
         <div class="title" layout="column">
             <span layout="row" layout-align="center center" layout-padding> 
             <span>{{todaySalesByMerchant.merchantName}}</span>
@@ -540,39 +622,60 @@
         </div>
     </md-card>
 </div>
-<!--today sales order report end-->
-<!--<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp marg-t10 applyFlatUI">
-    <md-card flex flex-md="100" flex-sm="100" class="md-whiteframe-4dp applyFlatUI">
-        <div layout="column" layout-sm="row" class="chart_header">
-            <div class="dashboardHeader">
-                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Revenue</h4>
 
-            </div>
-            <svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test0"></svg>
-        </div>
 
-    </md-card>
-    <md-card flex flex-md="100" class="md-whiteframe-4dp applyFlatUI" flex-sm="100">
-        <div layout="column" class="chart_header " layout-sm="row">
-            <div class="dashboardHeader">
-                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Revenue in Percentage</h4>
-
-            </div>
-            <svg style="left: 50%;position: relative;transform: translateX(-50%);" id="test2"></svg>
-        </div>
-    </md-card>
-</div>-->
-
-<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-        <div class="md-whiteframe-4dp applyFlatUI">
-            <div class="dashboardHeader">
+<div layout="row" layout-md="column" layout-sm="column" layout-padding ng-init="showmercantstorechart=true;showmercantstorechartdetails=false">
+    <md-card flex="100" style="min-height : 300px;" layout-padding>
+        <div class="cssFade" ng-show="showmercantstorechart">
+            <!-- <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Store</h4>
-            </div>
+            </div> -->
+            <h4 style="font-family:Roboto;font-weight: 300; float: left; padding-left: 10px;">Merchants and Store</h4>              
+                <ng-md-icon icon="more_vert" style="fill: #333; float: right; margin:15px; cursor: pointer;" size="25"  ng-click='showmercantstorechart=false;showmercantstorechartdetails=true'></ng-md-icon>
             <div id="chart1">
                 <svg class="svgss"></svg>
             </div>
         </div>
+        
+        <div class="cssFade" ng-show="showmercantstorechartdetails">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <ng-md-icon icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showmercantstorechart=true;showmercantstorechartdetails=false'></ng-md-icon>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%;">
+                <table md-table ng-model="selectedStores" style="border: 1px solid #ddd;">
+                    <thead md-head md-order="storesSalveValueTable.order">
+                        <tr md-row>
+                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
+                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
+                            <th md-column md-numeric md-order-by="revenue"><span>Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                       <tr md-row md-select="ts">
+                            <td md-cell>1</td>
+                            <td md-cell>2</td>
+                            <td md-cell>3</td>
+                            <td md-cell>4</td>
+                       </tr>
+                    </tbody>
+                </table>
+            </md-table-container> 
+            </div>
+			</div>
     </md-card>
 
 </div>
@@ -590,7 +693,7 @@
     </md-card>
 
 </div>
-<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
+<div id="qualityChart" layout="row" layout-md="column" layout-sm="column">
     <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
         <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">

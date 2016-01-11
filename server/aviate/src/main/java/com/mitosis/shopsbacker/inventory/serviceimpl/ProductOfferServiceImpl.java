@@ -1,23 +1,27 @@
 package com.mitosis.shopsbacker.inventory.serviceimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductOfferDao;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
+import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.admin.StoreVo;
+import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
 /**
@@ -34,6 +38,9 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 	
 	@Autowired
 	ProductService<T> productService;
+	
+	@Autowired
+	ImageService<T> imageService;
 	
 	@Autowired
 	ProductOfferLineService<T> productOfferLineService;
@@ -100,7 +107,15 @@ public class ProductOfferServiceImpl<T> implements ProductOfferService<T>, Seria
 		productVo.setPrice(product.getPrice());
 		productVo.setProductId(product.getProductId());
 		productOfferVo.setProductVo(productVo);
-		
+		List<ProductImage> productImages = product.getProductImages();
+		List<ImageVo> productImageVos = new ArrayList<ImageVo>();
+		for (ProductImage productImage : productImages) {
+
+			ImageVo image = imageService.setImageVo(productImage.getImage());
+
+			productImageVos.add(image);
+		}
+		productVo.setImages(productImageVos);
 		return productOfferVo;
 	}
 

@@ -55,6 +55,8 @@ ProductDao<T>, Serializable{
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("productCategory", productCategory));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("isKit", 'N'));
+			criteria.add(Restrictions.eq("isBundle", 'N'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,6 +121,8 @@ ProductDao<T>, Serializable{
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("merchant",merchant));
 			criteria.add(Restrictions.eq("isYourHot", 'Y'));
+			criteria.add(Restrictions.eq("isKit", 'N'));
+			criteria.add(Restrictions.eq("isBundle", 'N'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -207,6 +211,7 @@ ProductDao<T>, Serializable{
 			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 			criteria.add(Restrictions.eq("merchant",merchant));
 			criteria.add(Restrictions.eq("isBundle", 'Y'));
+			criteria.add(Restrictions.eq("isKit", 'N'));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
@@ -225,6 +230,7 @@ ProductDao<T>, Serializable{
 			criteria.add(Restrictions.eq("merchant",merchant));
 			criteria.add(Restrictions.eq("isKit", 'Y'));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.eq("isBundle", 'N'));
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();

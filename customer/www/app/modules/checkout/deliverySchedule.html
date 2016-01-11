@@ -29,7 +29,8 @@
  			 			<span flex layout="column" layput-padding class=" marg-15 border-right border-light">
  			 			<div layout="row" class="ft_gray">
  			 				<md-icon md-svg-icon="assets/img/icon/time36.svg" style="padding: 0px 5px 0px 10px;"></md-icon> 
- 			 				 <strong flex class="ft_size20 ft-grn"> {{filter12HrTime(deliveryTime.fromTime)}} to {{filter12HrTime(deliveryTime.toTime)}} </strong>			 				 
+ 			 				<strong ng-hide="deliveryTime.fromTime && deliveryTime.toTime" flex class="ft_size20 ft-grn"> Fetching Store's Available Time</strong>
+ 			 				 <strong ng-show="deliveryTime.fromTime && deliveryTime.toTime" flex class="ft_size20 ft-grn"> {{filter12HrTime(deliveryTime.fromTime)}} to {{filter12HrTime(deliveryTime.toTime)}} </strong>			 				 
  			 			</div>
  			 			 	<span flex class="padd-l10 text-small">Our store is available for delivery from </span>
  			 			</span> 			 			

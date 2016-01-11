@@ -554,3 +554,6 @@ CREATE TABLE `shopsbacker`.`transaction` (
   CONSTRAINT `FK_TRANS_STORE` FOREIGN KEY (`STORE_ID`) REFERENCES `store` (`STORE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --11-01-2016 -- Anbukkani Gajendran -- column spell mistake as corrected .
+ALTER TABLE `shopsbacker`.`transaction` 
+CHANGE COLUMN `CREADEDBY` `CREATEDBY` VARCHAR(32) NOT NULL ;

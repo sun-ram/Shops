@@ -129,6 +129,23 @@ angular.module('aviate.directives')
 							}
 						});
 					}
+					
+					if($rootScope.isBundleProducts){
+						angular.forEach($rootScope.isBundleProducts,function(p){
+							if(p.productId == item.product.productId){
+								p.noOfQuantityInCart = 0;
+							}
+						});
+					}
+					
+					if($rootScope.comboOffer){
+						angular.forEach($rootScope.comboOffer,function(p){
+							if(p.productId == item.product.productId){
+								p.noOfQuantityInCart = 0;
+							}
+						});
+					}
+					
 					//$rootScope.getAllCategoryWithProduct();	
 					if($rootScope.categoriesWithProduct){
 						angular.forEach($rootScope.categoriesWithProduct,function(p){

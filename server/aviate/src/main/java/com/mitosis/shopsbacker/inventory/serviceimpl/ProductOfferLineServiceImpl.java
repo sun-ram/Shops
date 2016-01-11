@@ -14,6 +14,7 @@ import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
 import com.mitosis.shopsbacker.model.Product;
+import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -101,6 +102,14 @@ private static final long serialVersionUID = 1L;
 		productVo.setUnit(product.getUnit());
 		UomVo uomVo = uomService.setUomVo(product.getUom());
 		productVo.setUom(uomVo);
+		
+		List<ProductImage> productImages = product.getProductImages();
+		List<ImageVo> productImageVos = new ArrayList<ImageVo>();
+		for (ProductImage productImage : productImages) {
+			ImageVo image = imageService.setImageVo(productImage.getImage());
+			productImageVos.add(image);
+		}
+		productVo.setImages(productImageVos);
 		
 		if(product.getImage() != null){
 		ImageVo image = imageService.setImageVo(product.getImage());

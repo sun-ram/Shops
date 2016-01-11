@@ -21,7 +21,8 @@ angular.module('aviate.constant').constant('CONSTANT', {
 				PRODUCTINCRCREASED:'Product Increased Successfully',
 				PRODUCTDECREASED:'Product Decreased Successfully',
 				PASSWORDCHANGED: 'Password changed successfully',
-				FAVOURITEDELETED: 'Favourite Removed Successfully'
+				FAVOURITEDELETED: 'Favourite Removed Successfully',
+				OUTOFSTOCK:'Out Of Stock.'
 		},
 
 		ERROR_CODE:{
