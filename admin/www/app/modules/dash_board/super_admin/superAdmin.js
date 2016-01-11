@@ -621,7 +621,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
 
             var widthOfBar = 40,
                 height = 500,
-                width = todayTotalSalesOrder * widthOfBar;
+                width = salesOrdersByMerchant.length * widthOfBar;
             nv.addGraph(function () {
                 var chart = nv.models.discreteBarChart()
                     .x(function (d) {
@@ -632,7 +632,7 @@ aviateAdmin.controller("superDashboardCtrl", ['$scope', '$localStorage', '$locat
                     })
                     .staggerLabels(true)
                     .showValues(true);
-                if (todayTotalSalesOrder > 20) {
+                if (salesOrdersByMerchant.length > 20) {
                     chart.width(width);
                     width = width + "px"
                 } else {
