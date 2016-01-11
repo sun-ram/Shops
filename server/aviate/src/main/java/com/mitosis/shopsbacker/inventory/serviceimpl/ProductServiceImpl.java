@@ -15,6 +15,7 @@ import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.dao.ProductDao;
 import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
+import com.mitosis.shopsbacker.inventory.service.ProductInventoryService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferLineService;
 import com.mitosis.shopsbacker.inventory.service.ProductOfferService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
@@ -26,6 +27,7 @@ import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductImage;
+import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.model.ProductType;
@@ -34,6 +36,7 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
 import com.mitosis.shopsbacker.vo.inventory.DiscountVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductCategoryVo;
+import com.mitosis.shopsbacker.vo.inventory.ProductInventoryVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferLineVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductOfferVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductTypeVo;
@@ -71,6 +74,9 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 
 	@Autowired
 	ProductOfferLineService<T> productOfferLineService;
+	
+	@Autowired
+	ProductInventoryService<T> productInventoryService;
 
 	@Override
 	public List<Product> getProductListByType(ProductType productType) {
@@ -333,7 +339,12 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			DiscountVo discountVo = discountService.setDiscountVo(discount);
 			productVo.setDiscount(discountVo);
 		}
-
+		List<ProductInventory> productInventoryList=product.getProductInventories();
+		ProductInventoryVo productInventoryVo=new ProductInventoryVo();
+		if(!productInventoryList.isEmpty()){
+			productInventoryVo=productInventoryService.setProductInventory(productInventoryList);
+		}
+		productVo.setProductInventory(productInventoryVo);
 		return productVo;
 	}
 

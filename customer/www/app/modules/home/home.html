@@ -1,14 +1,16 @@
 
 
-<div style="width:100%;height:100%;position: relative;" ng-init="getBannerList();getProducts();showHotProduct = 5;">
-        
-        <section layout="row">
-        	<div flex-gt-md="15" hide-sm hide-md class="slider-left">
-        		<img src="assets/images/sm-banner-1.png" style="width:100%;"/>
-        	</div>
-        	<div flex-gt-md="70" flex-sm="100" flex-md="100" higgidy-carousel='images' timeout="5000">
-                               
-				<!--<div class="wrapper">
+<div style="width: 100%; height: 100%; position: relative;"
+	ng-init="getBannerList();getProducts();showHotProduct = 5;">
+
+	<section layout="row">
+		<div flex-gt-md="15" hide-sm hide-md class="slider-left">
+			<img src="assets/images/sm-banner-1.png" style="width: 100%;" />
+		</div>
+		<div flex-gt-md="70" flex-sm="100" flex-md="100"
+			higgidy-carousel='images' timeout="5000">
+
+			<!--<div class="wrapper">
 					<div class=carousel>
 					  <ul class=panes>
 					    <li ng-repeat="image in images">
@@ -19,252 +21,428 @@
 					  </ul>
 					</div>
 				</div>-->
-               
-					<ul class="carousel">
-						 <li ng-repeat="image in images">
-						     <a href="{{image.link}}">
-						         <img ng-src="{{image.image.url}}" alt="{{img.alt}}" style="width: 100%; "/>
-						     </a>
-						 </li>
-					</ul>
-	         		
-         		
-        	</div>
-        	<div flex-gt-md="15" hide-sm hide-md class="slider-right">
-        		<img src="assets/images/sm-banner-2.png" style="width:100%;"/>
-        	</div>
-        </section>
-        
-  
-     <!---------IsBundle----------------->
-     <section ng-if="isBundleProducts.length > 0"  style=" padding:20px;" class="home-products">
- 			<div>
- 				<div class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Bundle Products </h2>
- 					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{isBundleProducts.length}}) <span ng-if="isBundleProducts.length > 1">Items</span> <span ng-if="isBundleProducts.length <= 1">Item</span> 
- 						 <a ng-if="isBundleProducts.length > $root.numLimit" href="" ng-click="getProductsView('bundleProducts');">View More</a>
- 					</span>
- 				</div>
- 				  <div layout="column" style="width:100%; margin:0px auto; ">
-   				 	<div flex layout="row" style="padding:10px 0px;">
-    					<div layout="row" layout-wrap flex ng-repeat="product in isBundleProducts | orderBy:groupCount | limitTo:$root.numLimit">
-                            <div class="views view-first">
-                            	<div layout="row">
-                            		<div flex layout-align="start start">
-                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountPercentage}}% Off
-                            			 </div>
-                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountAmount}}&#8377; Off
-                            			 </div>    
-                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
-                            			 	Sale
-                            			 </div>                        			 
-                            		</div>                          		
-                            		<div flex>
-                            			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
-									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
-									      </md-button>
-									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
-                            		</div>
-                            	</div>
-                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
-                    <div class="mask">
-                        <h2 style="height:20px; opacity: 0.8; background: #000; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
-                      <!--  <p>{{product.description}}</p>-->
-                          <p>{{product.description}}</p>
-                         <div layout="row" layout-align="center center">
-					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">more</md-button>
-	                    	</div>
-     		  			</div>
-                        <div layout="row" layout-align="center center" class="bg-gray">
-	                       <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-	     		  			<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-					        <div flex>
-					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</div>
-	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
-	                    	</div>
-	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
-					        </div>	
-     		  			</div>
-                    </div>
-                    			<div layout="row">
-                            		<div flex>
-                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
-                            		</div>
-                            		<div flex>
-                            			<div  layout-padding>
-                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
-                            			</div>
-                             			<!-- <div  layout-padding>
+
+			<ul class="carousel">
+				<li ng-repeat="image in images"><a href="{{image.link}}"> <img
+						ng-src="{{image.image.url}}" alt="{{img.alt}}"
+						style="width: 100%;" />
+				</a></li>
+			</ul>
+
+
+		</div>
+		<div flex-gt-md="15" hide-sm hide-md class="slider-right">
+			<img src="assets/images/sm-banner-2.png" style="width: 100%;" />
+		</div>
+	</section>
+
+
+	<!---------IsBundle----------------->
+	<section ng-if="isBundleProducts.length > 0" style="padding: 20px;"
+		class="home-products">
+		<div>
+			<div class="prod-headings"
+				style="width: 100%; float: left; margin: 0px 7px;">
+				<h2 style="margin: 10px 0px 0px 0px; float: left;"
+					class="md-headline">Bundle Products</h2>
+				<span class="md-subhead"
+					style="float: left; margin: 13px 0px 0px 10px;">({{isBundleProducts.length}})
+					<span ng-if="isBundleProducts.length > 1">Items</span> <span
+					ng-if="isBundleProducts.length <= 1">Item</span> <a
+					ng-if="isBundleProducts.length > $root.numLimit" href=""
+					ng-click="getProductsView('bundleProducts');">View More</a>
+				</span>
+			</div>
+			<div layout="column" style="width: 100%; margin: 0px auto;">
+				<div flex layout="row" style="padding: 10px 0px;">
+					<div layout="row" layout-wrap flex
+						ng-repeat="product in isBundleProducts | orderBy:groupCount | limitTo:$root.numLimit">
+						<div class="views view-first">
+							<div layout="row">
+								<div flex layout-align="start start">
+									<div ng-if="product.discount.discountPercentage"
+										class="pro-offer off-50-above">
+										{{product.discount.discountPercentage}}% Off</div>
+									<div ng-if="product.discount.discountAmount"
+										class="pro-offer off-50-above">
+										{{product.discount.discountAmount}}&#8377; Off</div>
+									<div
+										ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"
+										class="pro-offer off-50-above">Sale</div>
+								</div>
+								<div flex>
+									<md-button class="md-icon-button md-primary pull-right"
+										aria-label="Settings"> <md-icon
+										ng-show="product.noOfQuantityInCart > 0" class="icon-black"
+										fill="black">shopping_cart</md-icon> </md-button>
+									<span ng-show="product.noOfQuantityInCart > 0"
+										class="item-count">{{product.noOfQuantityInCart}}</span>
+								</div>
+							</div>
+							<div class="pro-img">
+								<img ng-src="{{product.image.url}}" height="120"
+									style="margin: 0px auto;" />
+							</div>
+							<div class="mask">
+								<h2
+									style="height: 20px; opacity: 0.8; background: #000; width: 100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
+								<!--  <p>{{product.description}}</p>-->
+								<p>{{product.description}}</p>
+
+								<div ng-if="product.productInventory.availableQty > 0"
+									layout="row" layout-align="center center">
+									<div flex ng-click="productDetails($event,product);">
+										<md-button class="more">more</md-button>
+									</div>
+								</div>
+								<div ng-if="!product.productInventory.availableQty > 0"
+									layout="row" layout-align="center center">
+									<div flex ng-click="#">
+										<md-button class="actual-prices">SOLD OUT</md-button>
+									</div>
+								</div>
+
+								<div ng-if="product.productInventory.availableQty > 0">
+
+									<div layout="row" layout-align="center center" class="bg-gray">
+										<div flex ng-show="product.noOfQuantityInCart > 0"
+											ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+											<div class="pro-btns cursor">
+												<md-icon class="icon-large-border">remove</md-icon>
+											</div>
+										</div>
+										<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+											<div class="pro-btns cursor">
+												<md-icon class="icon-large-border">remove</md-icon>
+											</div>
+										</div>
+										<div flex>
+											<div class="pro-btns border-l-r"
+												style="height: 100%; padding:">{{product.noOfQuantityInCart
+												> 0 ? product.noOfQuantityInCart:0 }}</div>
+											<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+										</div>
+										<div flex
+											ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+											<div class="pro-btns cursor">
+												<md-icon class="icon-large-border">add</md-icon>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div ng-if="!product.productInventory.availableQty > 0">
+
+									<div  layout="row" layout-align="center center" ng-hide="true" ng-class="bg-gray">
+										<div flex ng-show="product.noOfQuantityInCart > 0"
+											ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+											<div class="pro-btns cursor">
+												<md-icon class="icon-large-border">remove</md-icon>
+											</div>
+										</div>
+										<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+											<div class="pro-btns cursor">
+												<md-icon class="icon-large-border">remove</md-icon>
+											</div>
+										</div>
+										<div flex>
+											<div class="pro-btns border-l-r"
+												style="height: 100%; padding:">{{product.noOfQuantityInCart
+												> 0 ? product.noOfQuantityInCart:0 }}</div>
+											<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+										</div>
+										<div flex
+											ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+											<div class="pro-btns cursor">
+												<md-icon class="icon-large-border">add</md-icon>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div layout="row">
+								<div flex>
+									<div class="pull-left" layout-padding>
+										<span class="md-body-1">{{product.unit}}
+											{{product.uom.name}}</span>
+									</div>
+								</div>
+								<div flex>
+									<div layout-padding>
+										<div class="pull-right item-type">
+											<span class="item-type-{{product.edibleType}}"></span>
+										</div>
+									</div>
+									<!-- <div  layout-padding>
                             				<div class="pull-right item-type">{{product.groupCount}} pieces</div>
-                            			</div>   -->                         			
-                            		</div>
-                            	</div>
-                            	<!-- <div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div> -->
-                            	<div class="pro-offers" layout="row"  layout-align="center center">
-					                 <!-- <span   class="text-golden off-text-lg ">{{product.groupCount}}</span>  -->
-					                 <div  class=" md-body-1"> <span   class="text-golden off-text-lg ">{{product.groupCount}}</span> {{product.name}}
-					                 	  <span  class="actual-prices"> &#8377;{{product.price}}</span>
-					                 </div> 
-					            </div>  
-                            	<div layout="row" ng-if="product.discount">
-                            		<div flex>
-                            			<div  layout-padding >
-                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
-                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
-                            			</div>
-                            		</div>
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price md-body-1">MRP &#8377;{{product.price}} </strike></div> 
-                            		</div>
-                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
-                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
-                            	</div>
-                             	<div layout="row" ng-if="!product.discount">
-                            		<!-- <div flex>
+                            			</div>   -->
+								</div>
+							</div>
+							<!-- <div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div> -->
+							<div class="pro-offers" layout="row" layout-align="center center">
+								<!-- <span   class="text-golden off-text-lg ">{{product.groupCount}}</span>  -->
+								<div class=" md-body-1">
+									<span class="text-golden off-text-lg ">{{product.groupCount}}</span>
+									{{product.name}} <span class="actual-prices">
+										&#8377;{{product.price}}</span>
+								</div>
+							</div>
+							<div layout="row" ng-if="product.discount">
+								<div flex>
+									<div layout-padding>
+										<div ng-if="product.discount.discountPercentage"
+											class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												(product.price *product.discount.discountPercentage/100)}} </span>
+										</div>
+										<div ng-if="product.discount.discountAmount" class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												product.discount.discountAmount}} </span>
+										</div>
+									</div>
+								</div>
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price md-body-1">MRP
+											&#8377;{{product.price}} </strike>
+									</div>
+								</div>
+								<div ng-if="product.discount.discountPercentage">save
+									{{(product.price *product.discount.discountPercentage/100)}}</div>
+								<div ng-if="product.discount.discountAmount">Save
+									{{product.discount.discountAmount}}</div>
+							</div>
+							<div layout="row" ng-if="!product.discount">
+								<!-- <div flex>
                             			<div  layout-padding >
                             				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div> -->
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price md-body-1">MRP &#8377;{{product.wasPrice}} </strike></div> 
-                            		</div>
-                            	</div>                           	
-                			</div>  
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price md-body-1">MRP
+											&#8377;{{product.wasPrice}} </strike>
+									</div>
+								</div>
+							</div>
+						</div>
 
-  </div>	
-  <div layout="row" flex layout-wrap ng-repeat="test  in remainOb(isBundleProducts.length);  track by $index"></div>
+					</div>
+					<div layout="row" flex layout-wrap
+						ng-repeat="test  in remainOb(isBundleProducts.length);  track by $index"></div>
+				</div>
+			</div>
 		</div>
-    			</div>
- 			</div>
-        </section>             
-        
-        
-          <!---------IsCombo----------------->
+	</section>
 
-     <section ng-if="comboOffer.length > 0"  style=" padding:20px;" class="home-products">
- 			<div>
- 				<div class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Combo Offer </h2>
- 					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{comboOffer.length}}) <span ng-if="comboOffer.length > 1">Items</span> <span ng-if="comboOffer.length <= 1">Item</span> 
- 						 <a ng-if="comboOffer.length > $root.numLimit" href="" ng-click="getProductsView('comboProducts');">View More</a>
- 					</span>
- 				</div>
- 				  <div layout="column" style="width:100%; margin:0px auto; ">
-   				 	<div flex layout="row" style="padding:10px 0px;">
-    					<div layout="row" layout-wrap flex ng-repeat="product in comboOffer | orderBy:groupCount | limitTo:$root.numLimit">
-                            <div class="views view-first">
-                            	<div layout="row">
-                            		<div flex layout-align="start start">
-                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountPercentage}}% Off
-                            			 </div>
-                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountAmount}}&#8377; Off
-                            			 </div>    
-                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
-                            			 	Sale
-                            			 </div>                        			 
-                            		</div>                          		
-                            		<div flex>
-                            			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
-									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
-									      </md-button>
-									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
-                            		</div>
-                            	</div>
-                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
-                    <div class="mask">
-                        <h2 style="height:20px; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
-                      <!--  <p>{{product.description}}</p>-->
-                          <p>{{product.description}}</p>
-                         <div layout="row" layout-align="center center">
-					        <div flex ng-click="productDetailsCombo($event,product);">
-	                    		<md-button class="more">more</md-button>
-	                    	</div>
-     		  			</div>
-                        <div layout="row" layout-align="center center" class="bg-gray">
-	                       <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-	     		  			<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-					        <div flex>
-					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</div>
-	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
-	                    	</div>
-	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
-					        </div>	
-     		  			</div>
-                    </div>
-                    			<div layout="row">
-                            		<div flex>
-                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
-                            		</div>
-                            		<div flex>
-                            			<div  layout-padding>
-                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
-                            			</div>
-                             			<!-- <div  layout-padding>
+
+	<!---------IsCombo----------------->
+
+	<section ng-if="comboOffer.length > 0" style="padding: 20px;"
+		class="home-products">
+		<div>
+			<div class="prod-headings"
+				style="width: 100%; float: left; margin: 0px 7px;">
+				<h2 style="margin: 10px 0px 0px 0px; float: left;"
+					class="md-headline">Combo Offer</h2>
+				<span class="md-subhead"
+					style="float: left; margin: 13px 0px 0px 10px;">({{comboOffer.length}})
+					<span ng-if="comboOffer.length > 1">Items</span> <span
+					ng-if="comboOffer.length <= 1">Item</span> <a
+					ng-if="comboOffer.length > $root.numLimit" href=""
+					ng-click="getProductsView('comboProducts');">View More</a>
+				</span>
+			</div>
+			<div layout="column" style="width: 100%; margin: 0px auto;">
+				<div flex layout="row" style="padding: 10px 0px;">
+					<div layout="row" layout-wrap flex
+						ng-repeat="product in comboOffer | orderBy:groupCount | limitTo:$root.numLimit">
+						<div class="views view-first">
+							<div layout="row">
+								<div flex layout-align="start start">
+									<div ng-if="product.discount.discountPercentage"
+										class="pro-offer off-50-above">
+										{{product.discount.discountPercentage}}% Off</div>
+									<div ng-if="product.discount.discountAmount"
+										class="pro-offer off-50-above">
+										{{product.discount.discountAmount}}&#8377; Off</div>
+									<div
+										ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"
+										class="pro-offer off-50-above">Sale</div>
+								</div>
+								<div flex>
+									<md-button class="md-icon-button md-primary pull-right"
+										aria-label="Settings"> <md-icon
+										ng-show="product.noOfQuantityInCart > 0" class="icon-black"
+										fill="black">shopping_cart</md-icon> </md-button>
+									<span ng-show="product.noOfQuantityInCart > 0"
+										class="item-count">{{product.noOfQuantityInCart}}</span>
+								</div>
+							</div>
+							<div class="pro-img">
+								<img ng-src="{{product.image.url}}" height="120"
+									style="margin: 0px auto;" />
+							</div>
+							<div class="mask">
+								<h2
+									style="height: 20px; width: 100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
+								<!--  <p>{{product.description}}</p>-->
+								<p>{{product.description}}</p>
+								
+								<div  ng-if="product.productInventory.availableQty > 0" layout="row" layout-align="center center">
+									<div flex ng-click="productDetailsCombo($event,product);">
+										<md-button class="more">more</md-button>
+									</div>
+								</div>
+				
+								<div  ng-if="!product.productInventory.availableQty > 0" layout="row" layout-align="center center">
+									<div flex ng-click="#">
+										<md-button class="actual-prices">SOLD OUT</md-button>
+									</div>
+								</div>
+								
+								<div  ng-if="product.productInventory.availableQty > 0">
+								
+								<div layout="row" layout-align="center center" class="bg-gray">
+									<div flex ng-show="product.noOfQuantityInCart > 0"
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div flex>
+										<div class="pro-btns border-l-r"
+											style="height: 100%; padding:">{{product.noOfQuantityInCart
+											> 0 ? product.noOfQuantityInCart:0 }}</div>
+										<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+									</div>
+									<div flex
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">add</md-icon>
+										</div>
+									</div>
+								</div>
+								</div>
+								
+								<div  ng-if="!product.productInventory.availableQty > 0">
+								<div ng-hide="true" layout="row" layout-align="center center" class="bg-gray">
+									<div flex ng-show="product.noOfQuantityInCart > 0"
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div flex>
+										<div class="pro-btns border-l-r"
+											style="height: 100%; padding:">{{product.noOfQuantityInCart
+											> 0 ? product.noOfQuantityInCart:0 }}</div>
+										<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+									</div>
+									<div flex
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">add</md-icon>
+										</div>
+									</div>
+								</div>
+								</div>
+								
+							</div>
+							<div layout="row">
+								<div flex>
+									<div class="pull-left" layout-padding>
+										<span class="md-body-1">{{product.unit}}
+											{{product.uom.name}}</span>
+									</div>
+								</div>
+								<div flex>
+									<div layout-padding>
+										<div class="pull-right item-type">
+											<span class="item-type-{{product.edibleType}}"></span>
+										</div>
+									</div>
+									<!-- <div  layout-padding>
                             				<div class="pull-right item-type">{{product.groupCount}} pieces</div>
-                            			</div>   -->                         			
-                            		</div>
-                            	</div>
-                            	<!-- <div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div> -->
-                            	<div class="pro-offers" layout="row"  layout-align="center center">
-					                 <!-- <span   class="text-golden off-text-lg ">{{product.groupCount}}</span>  -->
-					                 <div  class=" md-body-1"> <span   class="text-golden off-text-lg ">{{product.groupCount}}</span> {{product.name}}
-					                 	  <span  class="actual-prices"> &#8377;{{product.price}}</span>
-					                 </div> 
-					            </div>  
-                            	<div layout="row" ng-if="product.discount">
-                            		<div flex>
-                            			<div  layout-padding >
-                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
-                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
-                            			</div>
-                            		</div>
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price md-body-1">MRP &#8377;{{product.price}} </strike></div> 
-                            		</div>
-                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
-                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
-                            	</div>
-                             	<div layout="row" ng-if="!product.discount">
-                            		<!-- <div flex>
+                            			</div>   -->
+								</div>
+							</div>
+							<!-- <div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div> -->
+							<div class="pro-offers" layout="row" layout-align="center center">
+								<!-- <span   class="text-golden off-text-lg ">{{product.groupCount}}</span>  -->
+								<div class=" md-body-1">
+									<span class="text-golden off-text-lg ">{{product.groupCount}}</span>
+									{{product.name}} <span class="actual-prices">
+										&#8377;{{product.price}}</span>
+								</div>
+							</div>
+							<div layout="row" ng-if="product.discount">
+								<div flex>
+									<div layout-padding>
+										<div ng-if="product.discount.discountPercentage"
+											class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												(product.price *product.discount.discountPercentage/100)}} </span>
+										</div>
+										<div ng-if="product.discount.discountAmount" class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												product.discount.discountAmount}} </span>
+										</div>
+									</div>
+								</div>
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price md-body-1">MRP
+											&#8377;{{product.price}} </strike>
+									</div>
+								</div>
+								<div ng-if="product.discount.discountPercentage">save
+									{{(product.price *product.discount.discountPercentage/100)}}</div>
+								<div ng-if="product.discount.discountAmount">Save
+									{{product.discount.discountAmount}}</div>
+							</div>
+							<div layout="row" ng-if="!product.discount">
+								<!-- <div flex>
                             			<div  layout-padding >
                             				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
                             			</div>
                             		</div> -->
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price md-body-1">MRP &#8377;{{product.wasPrice}} </strike></div> 
-                            		</div>
-                            	</div>                           	
-                			</div>  
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price md-body-1">MRP
+											&#8377;{{product.wasPrice}} </strike>
+									</div>
+								</div>
+							</div>
+						</div>
 
-  </div>	
-  <div layout="row" flex layout-wrap ng-repeat="test  in remainOb(isBundleProducts.length);  track by $index"></div>
+					</div>
+					<div layout="row" flex layout-wrap
+						ng-repeat="test  in remainOb(isBundleProducts.length);  track by $index"></div>
+				</div>
+			</div>
 		</div>
-    			</div>
- 			</div>
-        </section>      
-  
-        
-        
-        <!-- ------------------ -->       
-        
-        
-    <!---------Offers----------------->
-       <!--  <section style=" padding:20px;" class="home-products">
+	</section>
+
+
+
+	<!-- ------------------ -->
+
+
+	<!---------Offers----------------->
+	<!--  <section style=" padding:20px;" class="home-products">
            
  			<div ng-if="offerProducts.length" >
  				
@@ -357,293 +535,499 @@
     
  			</div>
         </section>  -->
-        
-        <!-- ------------------ -->
 
-        <section ng-if="topcategories.length > 0"  style=" padding:20px;" class="home-products">
- 			<div>
- 				<div class="prod-headings" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left;" class="md-headline">Hot Products </h2>
- 					<span class="md-subhead" style="float:left;     margin: 13px 0px 0px 10px;">({{topcategories.length}}) <span ng-if="topcategories.length > 1">Items</span> <span ng-if="topcategories.length <= 1">Item</span> 
- 						 <a ng-if="topcategories.length > $root.numLimit" href="" ng-click="getProductsView('topCategories');">View More</a>
- 					</span>
- 				</div>
- 				  <div layout="column" style="width:100%; margin:0px auto; ">
-   				 	<div flex layout="row" style="padding:10px 0px;">
-   				 	
-   				 	
-   				 	
-    					<div layout="row" flex ng-repeat="product in topcategories | orderBy:groupCount | limitTo:$root.numLimit">
-     							
-                            <div class="views view-first">
-                            	<div layout="row">
-                            		<div flex layout-align="start start">
-                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountPercentage}}% Off
-                            			 </div>
-                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountAmount}}&#8377; Off
-                            			 </div>    
-                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
-                            			 	Hot
-                            			 </div>                        			 
-                            		</div>                            		
-                            		<div flex>
-                            			<md-button class="md-icon-button md-primary pull-right" aria-label="Settings">
-									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
-									      </md-button>
-									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
-                            		</div>
-                            	</div>
-                             
-                                
-                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
-                    <div class="mask">
-                      
-                        <h2 style="height:20px; opacity: 0.8; background: #000; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
-                      <!--  <p>{{product.description}}</p>-->
-                          <p>{{product.description}}</p>
-                         
-                         <div layout="row" layout-align="center center">
-	                        	
-					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">more</md-button>
-	                    	</div>
-	                        
-     		  			</div>
-                        <div layout="row" layout-align="center center" class="bg-gray">
-	                       <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-	     		  			<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-	     		  		
-					        <div flex>
-					        	<div class="pro-btns border-l-r" style="height:100%; padding:" >{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</div>
-	                    		<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
-	                    	</div>
-	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
-					        </div>	
-     		  			</div>
-     		  			
-     		  			
-                    </div>
-                    			<div layout="row">
-                            		<div flex>
-                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
-                            		</div>
-                            		<div flex>
-                            			<div  layout-padding>
-                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
-                            			</div>
-                            		</div>
-                            	</div>
-                            	
-                            	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
-                            	
-                            	<div layout="row" ng-if="product.discount">
-                            		<div flex>
-                            			<div  layout-padding >
-                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
-                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
-                            			</div>
-                            		</div>
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.price}} </strike></div> 
-                            		</div>
-                            	<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
-                            	<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
-                            	</div>
-                             	<div layout="row" ng-if="!product.discount">
-                            		<div flex>
-                            			<div  layout-padding >
-                            				<div class="pro-price"><span class="actual-prices">&#8377; {{product.price}}</span></div>
-                            			</div>
-                            		</div>
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.wasPrice}} </strike></div> 
-                            		</div>
-                            	</div> 
-                			</div>  
+	<!-- ------------------ -->
 
-  </div>	
-						
-	<div layout="row" flex layout-wrap ng-repeat="test  in remainOb(topcategories.length);  track by $index"></div>					
-						
-						
-						
-						
-						
-									
-						
-					</div>
-    			</div>
- 			</div>
-        </section>
-        
-        
-        
-        
-        
-        
-        
-          <section style=" padding:20px;" ng-repeat="category in categoriesWithProduct" class="home-products">
-           
- 			<div ng-if="category.products.length" >
- 				<div class="prod-headings" l flex ng-hide="category.products.length ==0" style="width:100%; float:left;  margin:0px 7px;   ">
- 					<h2 style="margin:10px 0px 0px 0px; float:left; " class="md-headline">{{category.name}}</h2>
- 					<span style="float:left;     margin: 13px 0px 0px 10px;"  class="md-subhead">
- 				({{category.products.length}}) <span ng-if="category.products.length > 1">Items</span> <span ng-if="category.products.length <= 1">Item</span> 
- 				    <a ng-if="category.products.length > $root.numLimit" href="" ng-click="getProductsByCategoryId(category.productCategoryId)">View More</a>
- 				    </span>
- 				</div>
- 				
- 				  <div  layout="column" style="width:100%; margin:0px auto;">
-   				 	<div flex layout="row" style="padding:10px 0px;">
-   				 	
-   				 	
-    					<div layout="row" flex layout-wrap  ng-repeat="product in category.products | orderBy:groupCount | limitTo:$root.numLimit">
-     						
-                            <div class="views view-first">
-                            	<div layout="row" style="overflow:hidden;">
-                            		<div flex layout-align="start start">
-                            			 <div ng-if="product.discount.discountPercentage" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountPercentage}}% Off
-                            			 </div>
-                            			 <div ng-if="product.discount.discountAmount" class="pro-offer off-50-above">
-                            			 	{{product.discount.discountAmount}}&#8377; Off
-                            			 </div>    
-                            		 <div  ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"  class="pro-offer off-50-above">
-                            			 	Sale
-                            			 </div>                        			 
-                            		</div>                             		
-                            		<div flex>
-                            			<md-button  class="md-icon-button md-primary pull-right" aria-label="Settings">
-									        <md-icon ng-show="product.noOfQuantityInCart > 0" class="icon-black" fill="black">shopping_cart</md-icon>
-									      </md-button>
-									      <span ng-show="product.noOfQuantityInCart > 0" class="item-count">{{product.noOfQuantityInCart}}</span>
-                            		</div>
-                            	</div>
-                             
-                                
-                    <div class="pro-img"><img ng-src="{{product.image.url}}" height="120" style="margin:0px auto;"/></div>
-                    
-                    
-                    
-                    <div class="mask">
-                      
-                        <h2 style="height:20px; opacity: 0.8; background: #000; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
-                        <!--<p>{{product.description}}</p>-->
-                         <p>{{product.description}}</p>
-                         <div layout="row" layout-align="center center">
-	                        	
-					        <div flex ng-click="productDetails($event,product);">
-	                    		<md-button class="more">more</md-button>
-	                    	</div>
-	                        
-     		  			</div>
-                        <div layout="row" layout-align="center center" class="bg-gray">
-	                        <div flex ng-show="product.noOfQuantityInCart > 0" ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-	     		  			 <div ng-hide="product.noOfQuantityInCart > 0" flex ng-click="">
-	        					<div class="pro-btns cursor"><md-icon  class="icon-large-border">remove</md-icon></div>
-	     		  			</div>
-	     		  			
-					        <div flex>
-	                    		<div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div>
-	                    	</div>
-	                      <div flex ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
-					        	<div class="pro-btns cursor"><md-icon class="icon-large-border">add</md-icon></div>
-					        </div>	
-     		  			</div>
-     		  			
-     		  			
-                    </div>
-                    			<div layout="row">
-                            		<div flex>
-                            			<div class="pull-left" layout-padding><span class="md-body-1">{{product.unit}} {{product.uom.name}}</span></div> 
-                            		</div>
-                            		<div flex>
-                            			<div  layout-padding>
-                            				<div class="pull-right item-type"><span class="item-type-{{product.edibleType}}"></span></div>
-                            			</div>
-                            		</div>
-                            	</div>
-                            	
-                            	<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
-                            	
-                            	
-                            	<div layout="row" ng-if="product.discount">
-                            		<div flex>
-                            			<div  layout-padding >
-                            				<div ng-if="product.discount.discountPercentage" class="pro-price"><span class="actual-prices">&#8377; {{product.price - (product.price *product.discount.discountPercentage/100)}} </span></div>
-                            				<div ng-if="product.discount.discountAmount" class="pro-price"><span class="actual-prices">&#8377; {{product.price - product.discount.discountAmount}} </span></div>
-                            			</div>
-                            		</div>
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price">MRP &#8377;{{product.price}} </strike></div> 
-                            		</div>
-                            		<div ng-if="product.discount.discountPercentage">save {{(product.price *product.discount.discountPercentage/100)}}</div>
-                            		<div ng-if="product.discount.discountAmount">Save {{product.discount.discountAmount}} </div>
-                            	</div>
-                             	<div layout="row" ng-if="!product.discount">
-                            		<div flex>
-                            			<div  layout-padding >
-                            				<div class="pro-price"><span class="actual-prices md-body-1" >&#8377; {{product.price}}</span></div>
-                            			</div>
-                            		</div>
-                            		<div flex ng-if="product.wasPrice > product.price">
-                            			<div  class="" layout-padding><strike class="mrp-price md-body-1">MRP &#8377;{{product.wasPrice}} </strike></div> 
-                            		</div>
-                            	</div> 
-                			</div>                           
-                            
+	<section ng-if="topcategories.length > 0" style="padding: 20px;"
+		class="home-products">
+		<div>
+			<div class="prod-headings"
+				style="width: 100%; float: left; margin: 0px 7px;">
+				<h2 style="margin: 10px 0px 0px 0px; float: left;"
+					class="md-headline">Hot Products</h2>
+				<span class="md-subhead"
+					style="float: left; margin: 13px 0px 0px 10px;">({{topcategories.length}})
+					<span ng-if="topcategories.length > 1">Items</span> <span
+					ng-if="topcategories.length <= 1">Item</span> <a
+					ng-if="topcategories.length > $root.numLimit" href=""
+					ng-click="getProductsView('topCategories');">View More</a>
+				</span>
+			</div>
+			<div layout="column" style="width: 100%; margin: 0px auto;">
+				<div flex layout="row" style="padding: 10px 0px;">
+
+
+
+					<div layout="row" flex
+						ng-repeat="product in topcategories | orderBy:groupCount | limitTo:$root.numLimit">
+
+						<div class="views view-first">
+							<div layout="row">
+								<div flex layout-align="start start">
+									<div ng-if="product.discount.discountPercentage"
+										class="pro-offer off-50-above">
+										{{product.discount.discountPercentage}}% Off</div>
+									<div ng-if="product.discount.discountAmount"
+										class="pro-offer off-50-above">
+										{{product.discount.discountAmount}}&#8377; Off</div>
+									<div
+										ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"
+										class="pro-offer off-50-above">Hot</div>
+								</div>
+								<div flex>
+									<md-button class="md-icon-button md-primary pull-right"
+										aria-label="Settings"> <md-icon
+										ng-show="product.noOfQuantityInCart > 0" class="icon-black"
+										fill="black">shopping_cart</md-icon> </md-button>
+									<span ng-show="product.noOfQuantityInCart > 0"
+										class="item-count">{{product.noOfQuantityInCart}}</span>
+								</div>
+							</div>
+
+
+							<div class="pro-img">
+								<img ng-src="{{product.image.url}}" height="120"
+									style="margin: 0px auto;" />
+							</div>
+							<div class="mask">
+
+								<h2
+									style="height: 20px; opacity: 0.8; background: #000; width: 100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
+								<!--  <p>{{product.description}}</p>-->
+								<p>{{product.description}}</p>
+
+								<div  ng-if="product.productInventory.availableQty > 0" layout="row" layout-align="center center">
+
+									<div flex ng-click="productDetails($event,product);">
+										<md-button class="more">more</md-button>
+									</div>
+
+								</div>
+								
+								<div  ng-if="!product.productInventory.availableQty > 0" layout="row" layout-align="center center">
+
+									<div flex ng-click="#">
+										<md-button class="actual-prices">SOLD OUT</md-button>
+									</div>
+
+								</div>
+								<div  ng-if="product.productInventory.availableQty > 0">
+								<div layout="row" layout-align="center center" class="bg-gray">
+									<div flex ng-show="product.noOfQuantityInCart > 0"
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+
+									<div flex>
+										<div class="pro-btns border-l-r"
+											style="height: 100%; padding:">{{product.noOfQuantityInCart
+											> 0 ? product.noOfQuantityInCart:0 }}</div>
+										<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+									</div>
+									<div flex
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">add</md-icon>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div  ng-if="!product.productInventory.availableQty > 0">
+							<div ng-hide="true" layout="row" layout-align="center center" class="bg-gray">
+									<div flex ng-show="product.noOfQuantityInCart > 0"
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div flex ng-hide="product.noOfQuantityInCart > 0" ng-click="">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+
+									<div flex>
+										<div class="pro-btns border-l-r"
+											style="height: 100%; padding:">{{product.noOfQuantityInCart
+											> 0 ? product.noOfQuantityInCart:0 }}</div>
+										<!-- <div class="pro-btns border-l-r"><span class="icon-large-border">{{product.noOfQuantityInCart > 0 ? product.noOfQuantityInCart:0 }}</span></div> -->
+									</div>
+									<div flex
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">add</md-icon>
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+							<div layout="row">
+								<div flex>
+									<div class="pull-left" layout-padding>
+										<span class="md-body-1">{{product.unit}}
+											{{product.uom.name}}</span>
+									</div>
+								</div>
+								<div flex>
+									<div layout-padding>
+										<div class="pull-right item-type">
+											<span class="item-type-{{product.edibleType}}"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
+
+							<div layout="row" ng-if="product.discount">
+								<div flex>
+									<div layout-padding>
+										<div ng-if="product.discount.discountPercentage"
+											class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												(product.price *product.discount.discountPercentage/100)}} </span>
+										</div>
+										<div ng-if="product.discount.discountAmount" class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												product.discount.discountAmount}} </span>
+										</div>
+									</div>
+								</div>
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price">MRP
+											&#8377;{{product.price}} </strike>
+									</div>
+								</div>
+								<div ng-if="product.discount.discountPercentage">save
+									{{(product.price *product.discount.discountPercentage/100)}}</div>
+								<div ng-if="product.discount.discountAmount">Save
+									{{product.discount.discountAmount}}</div>
+							</div>
+							<div layout="row" ng-if="!product.discount">
+								<div flex>
+									<div layout-padding>
+										<div class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price}}</span>
+										</div>
+									</div>
+								</div>
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price">MRP
+											&#8377;{{product.wasPrice}} </strike>
+									</div>
+								</div>
+							</div>
 						</div>
-						
-						<div layout="row" flex layout-wrap ng-repeat="test  in remainOb(category.products.length);  track by $index"></div>
-						
-						
-						
-						
-						
-						
-					</div>
-    			</div>
-    
-    
-    
- 			</div>
-        </section>
-        
-        
-        
-        
-        
-        
-        
-        
-</div>
-        <style>
 
-        md-ink-bar{top:115px;}
-        .chs-img{width:100%; height: 90%;}
-        .item{border-radius: 2px; border: 1px solid lightgrey;}
-      
-	body,html{ width:100%; background-color:#f5f5f5 !important; height:100%; padding:0px; margin:0px;}
-	.pro-box{ background-color:#FFFFFF;  min-height:300px; }
-            
-	.text-primary{ color:#72a308}
-	.text-left{ text-align:left;}
-	.text-right{ text-align:right;}
-	.addtocart-btn{ border:2px solid #72a308; height:50px; cursor: pointer;}
-	.bg-primary{ background-color:#72a308; color:#FFFFFF;}
-	.bg-white{ background-color:#ffffff;}
-	.text-primary{color:#72a308;}
+					</div>
+
+					<div layout="row" flex layout-wrap
+						ng-repeat="test  in remainOb(topcategories.length);  track by $index"></div>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+
+
+
+	<section style="padding: 20px;"
+		ng-repeat="category in categoriesWithProduct" class="home-products">
+
+		<div ng-if="category.products.length">
+			<div class="prod-headings" l flex
+				ng-hide="category.products.length ==0"
+				style="width: 100%; float: left; margin: 0px 7px;">
+				<h2 style="margin: 10px 0px 0px 0px; float: left;"
+					class="md-headline">{{category.name}}</h2>
+				<span style="float: left; margin: 13px 0px 0px 10px;"
+					class="md-subhead"> ({{category.products.length}}) <span
+					ng-if="category.products.length > 1">Items</span> <span
+					ng-if="category.products.length <= 1">Item</span> <a
+					ng-if="category.products.length > $root.numLimit" href=""
+					ng-click="getProductsByCategoryId(category.productCategoryId)">View
+						More</a>
+				</span>
+			</div>
+
+			<div layout="column" style="width: 100%; margin: 0px auto;">
+				<div flex layout="row" style="padding: 10px 0px;">
+
+
+					<div layout="row" flex layout-wrap
+						ng-repeat="product in category.products | orderBy:groupCount | limitTo:$root.numLimit">
+
+						<div class="views view-first">
+							<div layout="row" style="overflow: hidden;">
+								<div flex layout-align="start start">
+									<div ng-if="product.discount.discountPercentage"
+										class="pro-offer off-50-above">
+										{{product.discount.discountPercentage}}% Off</div>
+									<div ng-if="product.discount.discountAmount"
+										class="pro-offer off-50-above">
+										{{product.discount.discountAmount}}&#8377; Off</div>
+									<div
+										ng-if="!product.discount.discountPercentage && !product.discount.discountAmount"
+										class="pro-offer off-50-above">Sale</div>
+								</div>
+								<div flex>
+									<md-button class="md-icon-button md-primary pull-right"
+										aria-label="Settings"> <md-icon
+										ng-show="product.noOfQuantityInCart > 0" class="icon-black"
+										fill="black">shopping_cart</md-icon> </md-button>
+									<span ng-show="product.noOfQuantityInCart > 0"
+										class="item-count">{{product.noOfQuantityInCart}}</span>
+								</div>
+							</div>
+
+
+							<div class="pro-img">
+								<img ng-src="{{product.image.url}}" height="120"
+									style="margin: 0px auto;" />
+							</div>
+
+
+
+							<div class="mask">
+
+								<h2
+									style="height: 20px; opacity: 0.8; background: #000; width: 100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{product.name}}</h2>
+								<!--<p>{{product.description}}</p>-->
+								<p>{{product.description}}</p>
+								<div ng-if="product.productInventory.availableQty > 0" layout="row" layout-align="center center">
+
+									<div flex ng-click="productDetails($event,product);">
+										<md-button class="more">more</md-button>
+									</div>
+
+								</div>
+								
+								<div ng-if="!product.productInventory.availableQty > 0" layout="row" layout-align="center center">
+
+									<div flex ng-click="#">
+										<md-button class="actual-prices">SOLD OUT</md-button>
+									</div>
+
+								</div>
+								<div ng-if="product.productInventory.availableQty > 0" >
+								<div layout="row" layout-align="center center" class="bg-gray">
+									<div flex ng-show="product.noOfQuantityInCart > 0"
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div ng-hide="product.noOfQuantityInCart > 0" flex ng-click="">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+
+									<div flex>
+										<div class="pro-btns border-l-r">
+											<span class="icon-large-border">{{product.noOfQuantityInCart
+												> 0 ? product.noOfQuantityInCart:0 }}</span>
+										</div>
+									</div>
+									<div flex
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">add</md-icon>
+										</div>
+									</div>
+								</div>
+								</div>
+								<div ng-if="!product.productInventory.availableQty > 0" >
+								<div ng-hide="true" layout="row" layout-align="center center" class="bg-gray">
+									<div flex ng-show="product.noOfQuantityInCart > 0"
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart - 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+									<div ng-hide="product.noOfQuantityInCart > 0" flex ng-click="">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">remove</md-icon>
+										</div>
+									</div>
+
+									<div flex>
+										<div class="pro-btns border-l-r">
+											<span class="icon-large-border">{{product.noOfQuantityInCart
+												> 0 ? product.noOfQuantityInCart:0 }}</span>
+										</div>
+									</div>
+									<div flex
+										ng-click="product.noOfQuantityInCart = product.noOfQuantityInCart + 1;addToCart(product)">
+										<div class="pro-btns cursor">
+											<md-icon class="icon-large-border">add</md-icon>
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+							<div layout="row">
+								<div flex>
+									<div class="pull-left" layout-padding>
+										<span class="md-body-1">{{product.unit}}
+											{{product.uom.name}}</span>
+									</div>
+								</div>
+								<div flex>
+									<div layout-padding>
+										<div class="pull-right item-type">
+											<span class="item-type-{{product.edibleType}}"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div layout-align="center center" layout="row" class="md-subhead">{{product.name}}</div>
+
+
+							<div layout="row" ng-if="product.discount">
+								<div flex>
+									<div layout-padding>
+										<div ng-if="product.discount.discountPercentage"
+											class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												(product.price *product.discount.discountPercentage/100)}} </span>
+										</div>
+										<div ng-if="product.discount.discountAmount" class="pro-price">
+											<span class="actual-prices">&#8377; {{product.price -
+												product.discount.discountAmount}} </span>
+										</div>
+									</div>
+								</div>
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price">MRP
+											&#8377;{{product.price}} </strike>
+									</div>
+								</div>
+								<div ng-if="product.discount.discountPercentage">save
+									{{(product.price *product.discount.discountPercentage/100)}}</div>
+								<div ng-if="product.discount.discountAmount">Save
+									{{product.discount.discountAmount}}</div>
+							</div>
+							<div layout="row" ng-if="!product.discount">
+								<div flex>
+									<div layout-padding>
+										<div class="pro-price">
+											<span class="actual-prices md-body-1">&#8377;
+												{{product.price}}</span>
+										</div>
+									</div>
+								</div>
+								<div flex ng-if="product.wasPrice > product.price">
+									<div class="" layout-padding>
+										<strike class="mrp-price md-body-1">MRP
+											&#8377;{{product.wasPrice}} </strike>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div layout="row" flex layout-wrap
+						ng-repeat="test  in remainOb(category.products.length);  track by $index"></div>
+
+
+
+
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+	</section>
+
+
+
+
+
+
+
+
+</div>
+<style>
+md-ink-bar {
+	top: 115px;
+}
+
+.chs-img {
+	width: 100%;
+	height: 90%;
+}
+
+.item {
+	border-radius: 2px;
+	border: 1px solid lightgrey;
+}
+
+body, html {
+	width: 100%;
+	background-color: #f5f5f5 !important;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.pro-box {
+	background-color: #FFFFFF;
+	min-height: 300px;
+}
+
+.text-primary {
+	color: #72a308
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.addtocart-btn {
+	border: 2px solid #72a308;
+	height: 50px;
+	cursor: pointer;
+}
+
+.bg-primary {
+	background-color: #72a308;
+	color: #FFFFFF;
+}
+
+.bg-white {
+	background-color: #ffffff;
+}
+
+.text-primary {
+	color: #72a308;
+}
 </style>
-        
+
 
 <script>
 $(document).ready(function(){
