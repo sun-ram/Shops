@@ -31,8 +31,6 @@ public interface SalesOrderService<T> {
 
 	public void saveSalesOrder(SalesOrder salesOrder);
 
-	public void conformPayment(String salesOrderId, String transactionNo,
-			String paymentMethod);
 
 	public List<SalesOrder> getOrderList(Merchant merchant);
 
@@ -41,8 +39,9 @@ public interface SalesOrderService<T> {
 
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception ;
 
-	public boolean paymentConfimation(String orderNo, String transactionNo,
-			String paymentMethod, String requestId);
+	public boolean paymentConfimation(String salesOrderNo, String paymentId,
+			String paymentMethod, String requestId, String transactionNo,
+			String responseCode, String responseMessage, String referenceNo);
 
 	public SalesOrder getSalesOrder(String orderNo);
 

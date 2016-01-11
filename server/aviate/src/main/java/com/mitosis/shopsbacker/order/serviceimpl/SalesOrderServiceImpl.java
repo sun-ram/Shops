@@ -33,12 +33,14 @@ import com.mitosis.shopsbacker.model.User;
 import com.mitosis.shopsbacker.order.dao.SalesOrderDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
+import com.mitosis.shopsbacker.order.service.TransactionService;
 import com.mitosis.shopsbacker.socket.SocketMessage;
 import com.mitosis.shopsbacker.socket.SocketServer;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.HashGeneratorUtils;
 import com.mitosis.shopsbacker.util.OrderStatus;
-import com.mitosis.shopsbacker.util.SBMessageStatus;
+import com.mitosis.shopsbacker.util.TransactionStatus;
+import com.mitosis.shopsbacker.util.TransactionType;
 import com.mitosis.shopsbacker.vo.admin.MerchantVo;
 import com.mitosis.shopsbacker.vo.admin.UserVo;
 import com.mitosis.shopsbacker.vo.inventory.ProductVo;
@@ -51,8 +53,9 @@ import com.mitosis.shopsbacker.vo.order.TransactionDetailVo;
  */
 @Service("salesOrderServiceImpl")
 public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
-Serializable {
-	final static Logger log = Logger.getLogger(SalesOrderServiceImpl.class.getName());
+		Serializable {
+	final static Logger log = Logger.getLogger(SalesOrderServiceImpl.class
+			.getName());
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -88,6 +91,8 @@ Serializable {
 	@Autowired
 	ProductInventoryDao<T> productInventoryDao;
 
+	@Autowired
+	TransactionService<T> transactionService;
 
 	public SalesOrderDao<T> getSalesOrderDao() {
 		return salesOrderDao;
@@ -97,7 +102,6 @@ Serializable {
 		this.salesOrderDao = salesOrderDao;
 	}
 
-
 	public StoreService<T> getStoreService() {
 		return storeService;
 	}
@@ -105,7 +109,6 @@ Serializable {
 	public void setStoreService(StoreService<T> storeService) {
 		this.storeService = storeService;
 	}
-
 
 	public SalesOrderLineService<T> getSalesOrderLine() {
 		return salesOrderLine;
@@ -148,20 +151,6 @@ Serializable {
 	}
 
 	@Override
-	public void conformPayment(String salesOrderId, String transactionNo,
-			String paymentMethod) {
-		SalesOrder salesOrder = salesOrderDao.salesOrderById(salesOrderId);
-		if (salesOrder != null) {
-			salesOrder.setIspaid('Y');
-			salesOrder.setStatus(OrderStatus.Placed.toString());
-			salesOrder.setPaymentMethod(paymentMethod);
-			salesOrder.setTransactionNo(transactionNo);
-			salesOrderDao.updateSalesOrder(salesOrder);
-		}
-
-	}
-
-	@Override
 	public void saveSalesOrder(SalesOrder salesOrder) {
 		salesOrderDao.saveSalesOrder(salesOrder);
 
@@ -189,26 +178,35 @@ Serializable {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public boolean paymentConfimation(String salesOrderNo, String transactionNo,
-			String paymentMethod, String requestId) {
+	public boolean paymentConfimation(String salesOrderNo, String paymentId,
+			String paymentMethod, String requestId, String transactionNo,
+			String responseCode, String responseMessage, String referenceNo) {
 		boolean flag = false;
 		SalesOrderVo salesOrderVo = new SalesOrderVo();
 		SocketMessage message = new SocketMessage();
 		SocketServer socket = new SocketServer();
-		try{
+		try {
 			SalesOrder salesOrder = salesOrderDao.salesOrderById(salesOrderNo);
 			salesOrder.setIspaid('Y');
 			salesOrder.setStatus(OrderStatus.Placed.toString());
-			salesOrder.setTransactionNo(transactionNo);
-			//salesOrder.setPaymentMethod(paymentMethod);
-			salesOrder.setRequestId(requestId);
+			//salesOrder.setTransactionNo(paymentId);
+			// salesOrder.setPaymentMethod(paymentMethod);
+			//salesOrder.setRequestId(requestId);
 			updateSalesOrder(salesOrder);
-			int numberOfEntityDeleted = mycartService.deleteCartProduct(salesOrder.getCustomer().getCustomerId(),salesOrder.getStore().getStoreId());
-			log.info("No Of Row Deleted deleted from cart in Payment success: "+numberOfEntityDeleted);
+			transactionService.save(salesOrder.getSalesOrderId(),
+					transactionNo, paymentMethod, requestId,
+					salesOrder.getNetAmount(), salesOrder.getMerchant(),
+					paymentId, TransactionStatus.SUCCESS,
+					salesOrder.getStore(), responseCode, responseMessage,
+					TransactionType.SALES_ORDER, referenceNo);
+			int numberOfEntityDeleted = mycartService.deleteCartProduct(
+					salesOrder.getCustomer().getCustomerId(), salesOrder
+							.getStore().getStoreId());
+			log.info("No Of Row Deleted deleted from cart in Payment success: "
+					+ numberOfEntityDeleted);
 			productStockReduce(salesOrder);
 			flag = true;
-			salesOrderVo = setSalesOrderVo(
-					salesOrder);
+			salesOrderVo = setSalesOrderVo(salesOrder);
 			message.setMessage("Update");
 			message.setTag("SalesOrder");
 			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
@@ -216,7 +214,7 @@ Serializable {
 			socket.message(message, null);
 			message.setToUser(salesOrder.getStore().getStoreId());
 			socket.message(message, null);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
@@ -226,52 +224,58 @@ Serializable {
 		SalesOrderVo salesOrderVo = new SalesOrderVo();
 		salesOrderVo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrderVo.setAmount(salesOrder.getAmount());
-		salesOrderVo.setCustomer(customerService.setCustomerVo(salesOrder.getCustomer()));
-		salesOrderVo.setDeliveryDate(CommonUtil.dateToStringForSalesOrder(salesOrder.getDeliveryDate()));
+		salesOrderVo.setCustomer(customerService.setCustomerVo(salesOrder
+				.getCustomer()));
+		salesOrderVo.setDeliveryDate(CommonUtil
+				.dateToStringForSalesOrder(salesOrder.getDeliveryDate()));
 		salesOrderVo.setDeliveryFlag(salesOrder.getDeliveryFlag());
-		salesOrderVo.setStore(getStoreService().setStoreVo((salesOrder.getStore())));
+		salesOrderVo.setStore(getStoreService().setStoreVo(
+				(salesOrder.getStore())));
 		salesOrderVo.setDiscountAmount(salesOrder.getDiscountAmount());
 		salesOrderVo.setTotalTaxAmount(salesOrder.getTotalTaxAmount());
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
 		salesOrderVo.setOrderPlacedTime(salesOrder.getCreated());
-		Date deliveryTime=salesOrder.getDeliveryTimeSlot();
-		String strDeliveryTime=CommonUtil.convertTimeToString(deliveryTime);
+		Date deliveryTime = salesOrder.getDeliveryTimeSlot();
+		String strDeliveryTime = CommonUtil.convertTimeToString(deliveryTime);
 		salesOrderVo.setDeliveryTimeSlot(strDeliveryTime);
 		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
-		MerchantVo merchantVo=new MerchantVo();
+		MerchantVo merchantVo = new MerchantVo();
 		Merchant merchant = salesOrder.getMerchant();
-		if(salesOrder.getDeliveredTime() != null){
+		if (salesOrder.getDeliveredTime() != null) {
 			salesOrderVo.setDeliveredTime(salesOrder.getDeliveredTime());
 		}
-		if(salesOrder.getPickupStartTime() != null){
+		if (salesOrder.getPickupStartTime() != null) {
 			salesOrderVo.setPickupStartTime(salesOrder.getPickupStartTime());
 		}
-		if(salesOrder.getPackedTime() != null){
+		if (salesOrder.getPackedTime() != null) {
 			salesOrderVo.setPackedTime(salesOrder.getPackedTime());
 		}
-		if(salesOrder.getDeliveryStartTime() != null){
-			salesOrderVo.setDeliveryStartTime(salesOrder.getDeliveryStartTime());
+		if (salesOrder.getDeliveryStartTime() != null) {
+			salesOrderVo
+					.setDeliveryStartTime(salesOrder.getDeliveryStartTime());
 		}
-		if(salesOrder.getShopperAssignedTime() != null){
-			salesOrderVo.setShopperAssignedTime(salesOrder.getShopperAssignedTime());
+		if (salesOrder.getShopperAssignedTime() != null) {
+			salesOrderVo.setShopperAssignedTime(salesOrder
+					.getShopperAssignedTime());
 		}
-		if(salesOrder.getBackerAssignedTime() != null){
-			salesOrderVo.setBackerAssignedTime(salesOrder.getBackerAssignedTime());
+		if (salesOrder.getBackerAssignedTime() != null) {
+			salesOrderVo.setBackerAssignedTime(salesOrder
+					.getBackerAssignedTime());
 		}
-		if(salesOrder.getShopper()!=null){
-			UserVo userVo=new UserVo();
+		if (salesOrder.getShopper() != null) {
+			UserVo userVo = new UserVo();
 			userVo.setName(salesOrder.getShopper().getName());
 			salesOrderVo.setShoper(userVo);
 		}
-		if(salesOrder.getBacker()!=null){
-			UserVo userVo=new UserVo();
+		if (salesOrder.getBacker() != null) {
+			UserVo userVo = new UserVo();
 			User backer = salesOrder.getBacker();
 			userVo.setName(backer.getName());
 			userVo.setPhoneNo(backer.getPhoneNo());
 			salesOrderVo.setBacker(userVo);
 		}
-		merchantVo.setMerchantId(merchant.getMerchantId()); 
+		merchantVo.setMerchantId(merchant.getMerchantId());
 		merchantVo.setName(merchant.getName());
 		salesOrderVo.setMerchant(merchantVo);
 		salesOrderVo.setNetAmount(salesOrder.getNetAmount());
@@ -279,13 +283,16 @@ Serializable {
 		salesOrderVo.setAddressVo(addressService.setAddressVo(salesOrder
 				.getAddress()));
 		salesOrderVo.setStatus(salesOrder.getStatus());
-		salesOrderVo.setFromDate(CommonUtil.dateToString(salesOrder.getCreated()));
-		salesOrderVo.setSalesOrderLineVo(salesOrderLine.setSalesOrderLineVo(salesOrder.getSalesOrderLines()));
+		salesOrderVo.setFromDate(CommonUtil.dateToString(salesOrder
+				.getCreated()));
+		salesOrderVo.setSalesOrderLineVo(salesOrderLine
+				.setSalesOrderLineVo(salesOrder.getSalesOrderLines()));
 		return salesOrderVo;
 	}
 
-	//deployed DEC-19 need to remove this method after mobile team okay
-	public SalesOrderVo setSalesOrderVoEmp(SalesOrder salesOrder) throws Exception {
+	// deployed DEC-19 need to remove this method after mobile team okay
+	public SalesOrderVo setSalesOrderVoEmp(SalesOrder salesOrder)
+			throws Exception {
 		SalesOrderVo salesOrdervo = new SalesOrderVo();
 		salesOrdervo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrdervo.setOrderNo(salesOrder.getOrderNo());
@@ -310,29 +317,28 @@ Serializable {
 		return salesOrdervo;
 	}
 
+	/*
+	 * public CustomerVo setCustomerDetails(Customer customer) { CustomerVo
+	 * customerVo = new CustomerVo();
+	 * customerVo.setCustomerId(customer.getCustomerId());
+	 * customerVo.setName(customer.getName());
+	 * customerVo.setEmail(customer.getEmail());
+	 * customerVo.setImageId(customer.getImageId());
+	 * customerVo.setDeviceid(customer.getDeviceid());
+	 * customerVo.setDeviceType(customer.getDeviceType()); return customerVo; }
+	 */
 
-	/*public CustomerVo setCustomerDetails(Customer customer) {
-		CustomerVo customerVo = new CustomerVo();
-		customerVo.setCustomerId(customer.getCustomerId());
-		customerVo.setName(customer.getName());
-		customerVo.setEmail(customer.getEmail());
-		customerVo.setImageId(customer.getImageId());
-		customerVo.setDeviceid(customer.getDeviceid());
-		customerVo.setDeviceType(customer.getDeviceType());
-		return customerVo;
-	}*/
-
-	/*public AddressVo setAddressVo(Address address) throws Exception {
-		AddressVo addressVo = new AddressVo();
-		addressVo.setAddress1(address.getAddress1());
-		addressVo.setAddress2(address.getAddress2());
-		addressVo.setCity(addessService.setCityVo(address.getCity()));
-		addressVo.setPhoneNo(address.getPhoneNo());
-		addressVo.setLandmark(address.getLandmark());
-		addressVo.setLatitude(address.getLatitude());
-		addressVo.setLongitude(address.getLongitude());
-		return addressVo;
-	}*/
+	/*
+	 * public AddressVo setAddressVo(Address address) throws Exception {
+	 * AddressVo addressVo = new AddressVo();
+	 * addressVo.setAddress1(address.getAddress1());
+	 * addressVo.setAddress2(address.getAddress2());
+	 * addressVo.setCity(addessService.setCityVo(address.getCity()));
+	 * addressVo.setPhoneNo(address.getPhoneNo());
+	 * addressVo.setLandmark(address.getLandmark());
+	 * addressVo.setLatitude(address.getLatitude());
+	 * addressVo.setLongitude(address.getLongitude()); return addressVo; }
+	 */
 
 	public void productStockReduce(SalesOrder salesOrder) throws Exception {
 		for (SalesOrderLine salesOrderLine : salesOrder.getSalesOrderLines()) {
@@ -340,90 +346,95 @@ Serializable {
 			Store store = salesOrder.getStore();
 			Product product = salesOrderLine.getProduct();
 
-			List<ProductInventory> productInventories = productInventoryDao.getProductInventory(store, product);
+			List<ProductInventory> productInventories = productInventoryDao
+					.getProductInventory(store, product);
 			int soldOutQuantity = salesOrderLine.getQty();
-			if(!productInventories.isEmpty()){
+			if (!productInventories.isEmpty()) {
 				int balanceQty = soldOutQuantity;
-				for(int i = 0; i < productInventories.size(); i++){
+				for (int i = 0; i < productInventories.size(); i++) {
 					ProductInventory pi = productInventories.get(i);
-					if(balanceQty>0){
-						if(balanceQty <= pi.getAvailableQty()){
-							if(i == productInventories.size()-1){
-								balanceQty = pi.getAvailableQty()-balanceQty;
+					if (balanceQty > 0) {
+						if (balanceQty <= pi.getAvailableQty()) {
+							if (i == productInventories.size() - 1) {
+								balanceQty = pi.getAvailableQty() - balanceQty;
 								pi.setAvailableQty(balanceQty);
-							} else{
-								balanceQty = pi.getAvailableQty()-balanceQty;
+							} else {
+								balanceQty = pi.getAvailableQty() - balanceQty;
 								pi.setAvailableQty(balanceQty);
 							}
-						} else if(balanceQty > pi.getAvailableQty()){
-							//	balanceQty = pi.getAvailableQty()-balanceQty;
+						} else if (balanceQty > pi.getAvailableQty()) {
+							// balanceQty = pi.getAvailableQty()-balanceQty;
 							pi.setAvailableQty(0);
 						}
-					}else{
+					} else {
 						break;
 					}
 					productInventoryService.updateInventory(pi);
 				}
-			}else{/*
-				ProductInventory productInventory = (ProductInventory) CommonUtil.setAuditColumnInfo(ProductInventory.class.getName());
-				Storagebin storagebinForSalesorder = new Storagebin();
-				if(!store.getWarehouses().isEmpty()){
-					Warehouse warehouse = store.getWarehouses().get(0);
-					if(!store.getWarehouses().get(0).getStoragebins().isEmpty()){
-						storagebinForSalesorder = store.getWarehouses().get(0).getStoragebins().get(0);
-					}else{
-						Storagebin storagebin = createNewBinForNegativeStock(warehouse);
-						storagebin.setStore(store);
-						warehouse.getStoragebins().add(storagebin);
-						warehouseDao.updateWarehouse(warehouse);
-						storagebinForSalesorder = storagebin;
-					}
-				}else{
-					Warehouse warehouse = (Warehouse) CommonUtil.setAuditColumnInfo(Warehouse.class.getName());
-					warehouse.setName("Sales Order");
-					warehouse.setIsactive('Y');
-					warehouse.setDescription("Sales Order Does not have Stock");
-					Storagebin storagebin = createNewBinForNegativeStock(warehouse);
-					storagebin.setStore(store);
-					storagebin.setMerchant(store.getMerchant());
-					warehouse.getStoragebins().add(storagebin);
-					warehouse.setMerchant(salesOrder.getMerchant());
-					warehouse.setStore(store);
-
-					//TODO: Need clarification
-					warehouse.setAddress(store.getUser().getAddress());
-					storagebin.setWarehouse(warehouse);
-					warehouseDao.addWarehouse(warehouse);
-					storagebinForSalesorder = storagebin;
-				}
-				productInventory.setIsactive('Y');
-				productInventory.setMerchant(salesOrder.getMerchant());
-				productInventory.setStore(salesOrder.getStore());
-			productInventory.setAvailableQty(-salesOrderLine.getQty());
-				productInventory.setStoragebin(storagebinForSalesorder);
-			productInventory.setProduct(salesOrderLine.getProduct());
-				productInventoryService.updateInventory(productInventory);
-			 */}
+			} else {/*
+					 * ProductInventory productInventory = (ProductInventory)
+					 * CommonUtil
+					 * .setAuditColumnInfo(ProductInventory.class.getName());
+					 * Storagebin storagebinForSalesorder = new Storagebin();
+					 * if(!store.getWarehouses().isEmpty()){ Warehouse warehouse
+					 * = store.getWarehouses().get(0);
+					 * if(!store.getWarehouses().
+					 * get(0).getStoragebins().isEmpty()){
+					 * storagebinForSalesorder =
+					 * store.getWarehouses().get(0).getStoragebins().get(0);
+					 * }else{ Storagebin storagebin =
+					 * createNewBinForNegativeStock(warehouse);
+					 * storagebin.setStore(store);
+					 * warehouse.getStoragebins().add(storagebin);
+					 * warehouseDao.updateWarehouse(warehouse);
+					 * storagebinForSalesorder = storagebin; } }else{ Warehouse
+					 * warehouse = (Warehouse)
+					 * CommonUtil.setAuditColumnInfo(Warehouse.class.getName());
+					 * warehouse.setName("Sales Order");
+					 * warehouse.setIsactive('Y');
+					 * warehouse.setDescription("Sales Order Does not have Stock"
+					 * ); Storagebin storagebin =
+					 * createNewBinForNegativeStock(warehouse);
+					 * storagebin.setStore(store);
+					 * storagebin.setMerchant(store.getMerchant());
+					 * warehouse.getStoragebins().add(storagebin);
+					 * warehouse.setMerchant(salesOrder.getMerchant());
+					 * warehouse.setStore(store);
+					 * 
+					 * //TODO: Need clarification
+					 * warehouse.setAddress(store.getUser().getAddress());
+					 * storagebin.setWarehouse(warehouse);
+					 * warehouseDao.addWarehouse(warehouse);
+					 * storagebinForSalesorder = storagebin; }
+					 * productInventory.setIsactive('Y');
+					 * productInventory.setMerchant(salesOrder.getMerchant());
+					 * productInventory.setStore(salesOrder.getStore());
+					 * productInventory
+					 * .setAvailableQty(-salesOrderLine.getQty());
+					 * productInventory.setStoragebin(storagebinForSalesorder);
+					 * productInventory.setProduct(salesOrderLine.getProduct());
+					 * productInventoryService
+					 * .updateInventory(productInventory);
+					 */
+			}
 		}
 	}
 
-	/*private Storagebin createNewBinForNegativeStock(Warehouse warehouse) throws Exception {
-			Storagebin storagebin = (Storagebin) CommonUtil.setAuditColumnInfo(Storagebin.class.getName());
-			storagebin.setIsactive('Y');
-			storagebin.setName("Sales Order");
-			storagebin.setDescription("Sales order has created this bin");
-			storagebin.setRow("0-row");
-			storagebin.setLevel("0-Level");
-			storagebin.setStack("0-Stack");
-			return storagebin;
-		}*/
+	/*
+	 * private Storagebin createNewBinForNegativeStock(Warehouse warehouse)
+	 * throws Exception { Storagebin storagebin = (Storagebin)
+	 * CommonUtil.setAuditColumnInfo(Storagebin.class.getName());
+	 * storagebin.setIsactive('Y'); storagebin.setName("Sales Order");
+	 * storagebin.setDescription("Sales order has created this bin");
+	 * storagebin.setRow("0-row"); storagebin.setLevel("0-Level");
+	 * storagebin.setStack("0-Stack"); return storagebin; }
+	 */
 
-
-	public TransactionDetailVo setTransactionDetails(SalesOrder salesOrder, 
+	public TransactionDetailVo setTransactionDetails(SalesOrder salesOrder,
 			Address deliveryAddress, Address shippingAddress, Customer customer) {
 
 		TransactionDetailVo transaction = new TransactionDetailVo();
-		//TODO: Need clarification this field move to db or property file    
+		// TODO: Need clarification this field move to db or property file
 		Properties properties = new Properties();
 		try {
 			properties.load(getClass().getResourceAsStream(
@@ -438,67 +449,68 @@ Serializable {
 		String mode = "LIVE";
 		int channel = 0; // 0-standerd mode 1-Direct mode
 
-		//HDFC Merchant account Id
+		// HDFC Merchant account Id
 		transaction.setAccountId(account_Id);
-		transaction.setAddress(deliveryAddress.getAddress1()+(deliveryAddress.getAddress2()!=null ? ", "+deliveryAddress.getAddress2() : ""));
-		//Secure transaction algorithm type 
+		transaction.setAddress(deliveryAddress.getAddress1()
+				+ (deliveryAddress.getAddress2() != null ? ", "
+						+ deliveryAddress.getAddress2() : ""));
+		// Secure transaction algorithm type
 		transaction.setAlgo(algorithm);
 		transaction.setAmount(salesOrder.getNetAmount());
 		transaction.setChannel(channel);
 		transaction.setCity(deliveryAddress.getCity().getName());
 		transaction.setCountry(deliveryAddress.getCountry().getCode());
 		transaction.setCurrency(deliveryAddress.getCountry().getCurrencyCode());
-		transaction.setCurrencyCode(deliveryAddress.getCountry().getCurrencyCode());
+		transaction.setCurrencyCode(deliveryAddress.getCountry()
+				.getCurrencyCode());
 		transaction.setDescription(salesOrder.getSalesOrderId());
-		//TODO: need to clarify with HDFC
-		transaction.setEmail((customer.getEmail()!=null ? customer.getEmail() : "prabakaran.a@mitosistech.com"));
+		// TODO: need to clarify with HDFC
+		transaction.setEmail((customer.getEmail() != null ? customer.getEmail()
+				: "prabakaran.a@mitosistech.com"));
 		transaction.setMode(mode);
 		transaction.setName(customer.getName());
 		transaction.setPhone(deliveryAddress.getPhoneNo());
 		transaction.setPostalCode(deliveryAddress.getPinCode());
 		transaction.setReferenceNo(salesOrder.getOrderNo());
-		transaction.setReturnUrl(properties.getProperty("paymentGatewayRedirectUrl"));
-		/*transaction.setShipAddress(shippingAddress.getAddress1()+(shippingAddress.getAddress2()!=null ? ", "+shippingAddress.getAddress2() : ""));
-		transaction.setShipCity(shippingAddress.getCity().getName());
-		transaction.setShipCountry(shippingAddress.getCountry().getCode());
-		transaction.setShipName(salesOrder.getStore().getName());
-		transaction.setShipPhone(shippingAddress.getPhoneNo());
-		transaction.setShipPostalCode(shippingAddress.getPinCode());
-		transaction.setShipState(shippingAddress.getState().getName());*/
+		transaction.setReturnUrl(properties
+				.getProperty("paymentGatewayRedirectUrl"));
+		/*
+		 * transaction.setShipAddress(shippingAddress.getAddress1()+(shippingAddress
+		 * .getAddress2()!=null ? ", "+shippingAddress.getAddress2() : ""));
+		 * transaction.setShipCity(shippingAddress.getCity().getName());
+		 * transaction.setShipCountry(shippingAddress.getCountry().getCode());
+		 * transaction.setShipName(salesOrder.getStore().getName());
+		 * transaction.setShipPhone(shippingAddress.getPhoneNo());
+		 * transaction.setShipPostalCode(shippingAddress.getPinCode());
+		 * transaction.setShipState(shippingAddress.getState().getName());
+		 */
 		transaction.setState(deliveryAddress.getState().getName());
-
 
 		return generateHashCode(transaction, secret_key);
 	}
 
-	private TransactionDetailVo generateHashCode(TransactionDetailVo transaction, String secret_key) {
+	private TransactionDetailVo generateHashCode(
+			TransactionDetailVo transaction, String secret_key) {
 		String hashMessage = "";
-		String message = secret_key
-				+"|"+transaction.getAccountId()
-				+"|"+transaction.getAddress()
-				+"|"+transaction.getAlgo()
-				+"|"+transaction.getAmount()
-				+"|"+transaction.getChannel()
-				+"|"+transaction.getCity()
-				+"|"+transaction.getCountry()
-				+"|"+transaction.getCurrency()
-				+"|"+transaction.getCurrencyCode()
-				+"|"+transaction.getDescription()
-				+"|"+transaction.getEmail()
-				+"|"+transaction.getMode()
-				+"|"+transaction.getName()
-				+"|"+transaction.getPhone()
-				+"|"+transaction.getPostalCode()
-				+"|"+transaction.getReferenceNo()
-				+"|"+transaction.getReturnUrl()
-				+"|"+transaction.getState();
-				/*+"|"+transaction.getShipAddress()
-				+"|"+transaction.getShipCity()
-				+"|"+transaction.getShipCountry()
-				+"|"+transaction.getShipName()
-				+"|"+((transaction.getShipPhone() != null) ? transaction.getShipPhone()+"|":"")
-				+transaction.getShipPostalCode()
-				+"|"+transaction.getShipState()*/
+		String message = secret_key + "|" + transaction.getAccountId() + "|"
+				+ transaction.getAddress() + "|" + transaction.getAlgo() + "|"
+				+ transaction.getAmount() + "|" + transaction.getChannel()
+				+ "|" + transaction.getCity() + "|" + transaction.getCountry()
+				+ "|" + transaction.getCurrency() + "|"
+				+ transaction.getCurrencyCode() + "|"
+				+ transaction.getDescription() + "|" + transaction.getEmail()
+				+ "|" + transaction.getMode() + "|" + transaction.getName()
+				+ "|" + transaction.getPhone() + "|"
+				+ transaction.getPostalCode() + "|"
+				+ transaction.getReferenceNo() + "|"
+				+ transaction.getReturnUrl() + "|" + transaction.getState();
+		/*
+		 * +"|"+transaction.getShipAddress() +"|"+transaction.getShipCity()
+		 * +"|"+transaction.getShipCountry() +"|"+transaction.getShipName()
+		 * +"|"+((transaction.getShipPhone() != null) ?
+		 * transaction.getShipPhone()+"|":"") +transaction.getShipPostalCode()
+		 * +"|"+transaction.getShipState()
+		 */
 		try {
 			hashMessage = HashGeneratorUtils.generateMD5(message);
 		} catch (Exception e) {
