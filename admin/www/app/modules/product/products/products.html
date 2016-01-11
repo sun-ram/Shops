@@ -221,12 +221,12 @@ table[md-data-table]:not([md-row-select]) > thead:not([md-table-progress]) > tr 
       		</md-input-container>
 			</td>
 			<td layout="row">		
-					<ng-md-icon ng-show="product.productId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="productEdit=product;showInLineEdit=product.productId;$event.stopPropagation();"></ng-md-icon>	
+					<ng-md-icon ng-show="product.productId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="productEdit=product;showInLineEdit=product.productId;copyToProductEdit();$event.stopPropagation();"></ng-md-icon>	
         			<ng-md-icon ng-show="product.productId != showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editproduct(product);$event.stopPropagation();"></ng-md-icon>
       	      		<ng-md-icon ng-show="product.productId != showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteProduct(product.productId);$event.stopPropagation();"></ng-md-icon>
       	      		
-      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t30 action-buttons wid-40" ng-click="updateProduct(productEdit,$index);$event.stopPropagation();"></ng-md-icon>	
-        			<ng-md-icon ng-show="product.productId == showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t30 action-buttons wid-40" ng-click="updateProduct(editProduct); $event.stopPropagation();"></ng-md-icon>
+      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t30 action-buttons wid-40" ng-click="updateProduct(productEdit,$index);showaddbtn=false;$event.stopPropagation();"></ng-md-icon>	
+        			<ng-md-icon ng-show="product.productId == showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t30 action-buttons wid-40" ng-click="updateProduct(editProduct);copyToProduct();$event.stopPropagation();"></ng-md-icon>
       	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t30 action-buttons wid-40" ng-click="showInLineEdit=null;productEdit=product;cancelEdit();$event.stopPropagation();"></ng-md-icon>
         	</td>
         	</form>
