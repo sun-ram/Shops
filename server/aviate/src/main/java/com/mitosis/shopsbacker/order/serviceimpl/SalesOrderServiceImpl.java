@@ -65,7 +65,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	StoreService<T> storeService;
 
 	@Autowired
-	SalesOrderLineService<T> salesOrderLine;
+	SalesOrderLineService<T> salesOrderLineService;
 
 	@Autowired
 	MyCartService<T> mycartService;
@@ -111,11 +111,11 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 	}
 
 	public SalesOrderLineService<T> getSalesOrderLine() {
-		return salesOrderLine;
+		return salesOrderLineService;
 	}
 
 	public void setSalesOrderLine(SalesOrderLineService<T> salesOrderLine) {
-		this.salesOrderLine = salesOrderLine;
+		this.salesOrderLineService = salesOrderLine;
 	}
 
 	@Override
@@ -206,7 +206,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 					+ numberOfEntityDeleted);
 			productStockReduce(salesOrder);
 			flag = true;
-			salesOrderVo = setSalesOrderVo(salesOrder);
+			salesOrderVo = setSalesOrderVo(salesOrder, false);
 			message.setMessage("Update");
 			message.setTag("SalesOrder");
 			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
@@ -220,7 +220,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		return flag;
 	}
 
-	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder) throws Exception {
+	public SalesOrderVo setSalesOrderVo(SalesOrder salesOrder, boolean excludeReturnQty) throws Exception {
 		SalesOrderVo salesOrderVo = new SalesOrderVo();
 		salesOrderVo.setSalesOrderId(salesOrder.getSalesOrderId());
 		salesOrderVo.setAmount(salesOrder.getAmount());
@@ -285,8 +285,13 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setStatus(salesOrder.getStatus());
 		salesOrderVo.setFromDate(CommonUtil.dateToString(salesOrder
 				.getCreated()));
-		salesOrderVo.setSalesOrderLineVo(salesOrderLine
-				.setSalesOrderLineVo(salesOrder.getSalesOrderLines()));
+		List<SalesOrderLineVo> salesOrderLineVos = salesOrderLineService.setSalesOrderLineVo(salesOrder.getSalesOrderLines(), excludeReturnQty);
+		int size = salesOrderLineVos.size();
+		if(size==0 && excludeReturnQty){
+			return null;
+		}else{
+			salesOrderVo.setSalesOrderLineVo(salesOrderLineVos);
+		}
 		return salesOrderVo;
 	}
 

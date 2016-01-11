@@ -49,7 +49,7 @@ public class OrderHistoryRestServices<T> {
 		try {
 			List<SalesOrder> orders = orderHistoryService.getOrderList(salesOrderVo.getCustomerId());
 			for (SalesOrder salesOrder : orders) {
-				salesOrderVo = salesOrderService.setSalesOrderVo(salesOrder);
+				salesOrderVo = salesOrderService.setSalesOrderVo(salesOrder, false);
 				salesOrderResponse.getSalesOrderList().add(salesOrderVo);
 			}
 		} catch (Exception e) {

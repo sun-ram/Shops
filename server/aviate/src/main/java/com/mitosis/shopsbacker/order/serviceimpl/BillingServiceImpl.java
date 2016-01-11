@@ -97,7 +97,7 @@ public class BillingServiceImpl implements BillingService<T>, Serializable  {
 			billingVo.setStore(storeVo);
 		}
 		if(salesOrder != null){
-			salesOrderVo = salesOrderService.setSalesOrderVo(salesOrder);
+			salesOrderVo = salesOrderService.setSalesOrderVo(salesOrder, false);
 			billingVo.setSalesOrder(salesOrderVo);
 		}
 		billingVo.setBillingId(billing.getBillingId());

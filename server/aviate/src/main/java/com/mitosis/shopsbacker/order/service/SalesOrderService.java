@@ -37,7 +37,7 @@ public interface SalesOrderService<T> {
 	public List<SalesOrder> salesOrderDetailList(String fromDate,
 			String toDate, Merchant merchant);
 
-	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder) throws Exception ;
+	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder, boolean excludeReturnQty) throws Exception ;
 
 	public boolean paymentConfimation(String salesOrderNo, String paymentId,
 			String paymentMethod, String requestId, String transactionNo,

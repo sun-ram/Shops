@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
+import com.mitosis.shopsbacker.model.SalesOrderReturnLine;
 import com.mitosis.shopsbacker.order.dao.SalesOrderLineDao;
 import com.mitosis.shopsbacker.order.service.SalesOrderLineService;
 import com.mitosis.shopsbacker.vo.order.SalesOrderLineVo;
@@ -50,12 +51,26 @@ public class SalesOrderLineServiceImpl<T> implements
 	}
 
 	@Override
-	public List<SalesOrderLineVo> setSalesOrderLineVo(List<SalesOrderLine> salesOrderLines) throws Exception {
+	public List<SalesOrderLineVo> setSalesOrderLineVo(List<SalesOrderLine> salesOrderLines, boolean excludeReturnQty) throws Exception {
 		List<SalesOrderLineVo> salesOrderLineList = new ArrayList<SalesOrderLineVo>();
 		for(SalesOrderLine salesOrderLine:salesOrderLines){
+			int qty = salesOrderLine.getQty();
+			int returnQuantity = 0;
+			
+			if(excludeReturnQty){
+			List<SalesOrderReturnLine> salesOrderReturnLines = salesOrderLine.getSalesOrderReturnLines();
+			for(SalesOrderReturnLine salesOrderReturnLine:salesOrderReturnLines){
+				  returnQuantity = returnQuantity+salesOrderReturnLine.getQuantity();
+			}
+			if(qty == returnQuantity){
+				continue;
+			}else{
+				qty=qty-returnQuantity;
+			}
+		    }
 			SalesOrderLineVo salesOrderLineVo = new SalesOrderLineVo();
 			salesOrderLineVo.setSalesOrderLineId(salesOrderLine.getSalesOrderLineId());
-			salesOrderLineVo.setQty(salesOrderLine.getQty());
+			salesOrderLineVo.setQty(qty-returnQuantity);
 			salesOrderLineVo.setGrossAmount(salesOrderLine.getGrossAmount());
 			salesOrderLineVo.setNetAmount(salesOrderLine.getNetAmount());
 			salesOrderLineVo.setPrice(salesOrderLine.getPrice());
