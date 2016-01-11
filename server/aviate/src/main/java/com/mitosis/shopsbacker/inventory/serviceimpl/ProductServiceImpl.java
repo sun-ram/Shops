@@ -204,10 +204,12 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product.setIsYourHot('N');
 		}
 
-		if (productVo.getIsKit() != null) {
+		if (productVo.getIsKit()) {
 			product.setIsKit('Y');
 			product.setGroupCount(1);
 			product.setIsBundle('N');
+			}else{
+				product.setIsKit('N');
 			}
 		if(productVo.getGroupCount() != null && productVo.getGroupCount() > 1 && productVo.getIsBundle()){
 		       product.setGroupCount(productVo.getGroupCount());
