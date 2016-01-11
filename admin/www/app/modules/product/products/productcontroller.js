@@ -128,23 +128,28 @@ angular.module('aviateAdmin.controllers')
 		})
 	}
 
-	$scope.updateProduct = function(product) {
-		$scope.product = product;
-		$scope.product.discount=null;
-		$scope.product.merchant = {};
-		$scope.product.merchant.merchantId = $rootScope.user.merchantId;
-		$scope.product.userId = $rootScope.user.userId;
-		ProductService.addProduct($scope.product).then(function(data) {
-			$scope.product = $localStorage.product;
-			toastr.success("Product details have been updated successfully!!!");
-			$localStorage.product={};
-			$state.go("app.products");
-			$scope.showInLineEdit = null;
-		})
+	$scope.updateProduct = function(product,index) {
+		if(product.wasPrice && product.wasPrice<product.price){
+			toastr.error("WasPrice Should Be Greater Than To Price");
+		}else if(product.name && product.unit && product.price){
+			$scope.product = product;
+			$scope.product.discount=null;
+			$scope.product.merchant = {};
+			$scope.product.merchant.merchantId = $rootScope.user.merchantId;
+			$scope.product.userId = $rootScope.user.userId;
+			ProductService.addProduct($scope.product).then(function(data) {
+				$scope.copyToProduct(index);
+				$scope.product = $localStorage.product;
+				toastr.success("Product details have been updated successfully!!!");
+				$localStorage.product={};
+				$scope.showInLineEdit=null;
+				$state.go("app.products");
+			})
+		}else{
+			toastr.error("Enter the required Fields");
+		}
 	}
-
-
-
+	
 	$scope.getMeasurementUnit = function (){
 		$scope.productUnit ={};
 		ProductService.getMeasurementUnit($scope.productUnit).then(function(data) {
@@ -288,9 +293,19 @@ angular.module('aviateAdmin.controllers')
 	}
 
 	$scope.cancelEdit = function(){
-		scope.productEdit = null;
+		$scope.showaddbtn=false;
 	}
-
+	
+	$scope.copyToProductEdit = function(product){
+		$scope.productEdit=angular.copy(product);
+		$scope.showaddbtn=true;
+	};
+	
+	$scope.copyToProduct = function(index){
+		$rootScope.productList[index] = $scope.productEdit;
+		$scope.showaddbtn=false;
+	};
+	
 	$scope.typeList = [{
 		Id:"Veg",Name:"Veg"
 	},{

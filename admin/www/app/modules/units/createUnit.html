@@ -27,7 +27,7 @@
     </div>
        
     
-    <section layout-padding layout="row" layout-align="center center">
+    <section layout-padding layout="row" layout-align="start center" style="padding: 10px 35px;">
     	<md-button class="md-raised md-success padd-40" ng-show="uom.uomId" ng-click="updateUnit(uom);">Update</md-button>
     		<md-button class="md-raised md-success padd-40" ng-hide="uom.uomId" ng-click="saveUnit(uom);" ng-disabled="uoms.$invalid">Create</md-button>
     	<md-button class="md-raised md-cancel padd-40" ng-show="uom.uomId" ng-click="cancelEdit();">Cancel</md-button>

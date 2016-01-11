@@ -41,6 +41,7 @@ angular.module('aviate.directives')
 				}
 			};
 			$scope.selectValue = function (value) {
+				$rootScope.timeSelected = true;
 				$scope.selectionMode ? $scope.hour = value : $scope.minute = value;
 				if (toggleOnSelection) {
 					$scope.selectionMode = !$scope.selectionMode;

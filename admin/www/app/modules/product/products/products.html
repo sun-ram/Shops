@@ -3,8 +3,8 @@ table[md-data-table]:not([md-row-select]) > thead:not([md-table-progress]) > tr 
 	padding: 0px 8px;
 }
 </style>
-<md-button ng-click="addProductRedirect()" class="md-fab"
-   aria-label="Eat cake"
+<md-button ng-init="showaddbtn=false" ng-click="addProductRedirect()" class="md-fab"
+   aria-label="Eat cake" ng-disabled="showaddbtn"
    style="position: fixed; right: 23px; bottom: 23px; line-height: inherit; margin-bottom: 0; z-index: 998;">
    <ng-md-icon icon="add" size="35" style="fill: white;"></ng-md-icon>
 </md-button>
@@ -180,14 +180,14 @@ table[md-data-table]:not([md-row-select]) > thead:not([md-table-progress]) > tr 
 			<td><img style="padding:2px; border-radius:50px; border:1px solid #999999;" ng-src={{product.image.url}} width="40" height="40"/></td>
 			<td><span ng-show="product.productId != showInLineEdit">{{product.name}}</span>
 				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
-	      		<label>Product</label>
-	      		<input type="text" ng-model="productEdit.name" ng-required="true"/> 
+	      		<label>Product<span style="color:red">*<span ng-hide="productEdit.name">Required</span></span></label>
+	      		<input type="text" ng-model="productEdit.name" ng-required="true" ng-blur="validateInLineEdit()"/> 
 	      		</md-input-container>
 			</td>
 			<td><span ng-show="product.productId != showInLineEdit">{{product.unit}}</span>
 				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
-	      		<label>Unit</label>
-	      		<input type="text" ng-model="productEdit.unit" valid-number ng-required="true"/> 
+	      		<label> Unit<span style="color:red">*<span ng-hide="productEdit.unit">Required</span></span></label>
+	      		<input type="text" ng-model="productEdit.unit" valid-number ng-required="true" ng-blur="validateInLineEdit()"/> 
 	      		</md-input-container>
 			</td>
 			<td><span ng-show="product.productId != showInLineEdit">{{product.uom.name}}</span>
@@ -198,13 +198,13 @@ table[md-data-table]:not([md-row-select]) > thead:not([md-table-progress]) > tr 
 			</td>
 			<td><span ng-show="product.productId != showInLineEdit">{{product.price}}</span>
 				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
-	      		<label>Price</label>
-	      		<input type="text" ng-model="productEdit.price" valid-number ng-required="true"/> 
+	      		<label>Price<span style="color:red">*<span ng-hide="productEdit.price">Required</span></span></label>
+	      		<input type="text" ng-model="productEdit.price" valid-number ng-required="true" ng-blur="validateInLineEdit()"/> 
 	      		</md-input-container>
 			</td>
 			<td><span ng-show="product.productId != showInLineEdit">{{product.wasPrice}}</span>
 				<md-input-container ng-show="product.productId == showInLineEdit" ng-click="$event.stopPropagation();">
-	      		<label>Was Price</label>
+	      		<label>WasPrice</label>
 	      		<input type="text" ng-model="productEdit.wasPrice" valid-number /> 
 	      		</md-input-container>
 			</td>
@@ -221,13 +221,13 @@ table[md-data-table]:not([md-row-select]) > thead:not([md-table-progress]) > tr 
       		</md-input-container>
 			</td>
 			<td layout="row">		
-					<ng-md-icon ng-show="product.productId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="showInLineEdit=product.productId;productEdit=product;$event.stopPropagation();"></ng-md-icon>	
+					<ng-md-icon ng-show="product.productId != showInLineEdit" icon="rate_review" size="20" class="icons hash_color padd-t10 action-buttons wid-40" ng-click="productEdit=product;showInLineEdit=product.productId;$event.stopPropagation();"></ng-md-icon>	
         			<ng-md-icon ng-show="product.productId != showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editproduct(product);$event.stopPropagation();"></ng-md-icon>
       	      		<ng-md-icon ng-show="product.productId != showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteProduct(product.productId);$event.stopPropagation();"></ng-md-icon>
       	      		
-      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t30 action-buttons wid-40" ng-disabled="discountForm.$invalid" ng-click="showInLineEdit=null;updateProduct(productEdit); $event.stopPropagation();"></ng-md-icon>	
+      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="done" size="20" class="icons hash_color padd-t30 action-buttons wid-40" ng-click="updateProduct(productEdit,$index);$event.stopPropagation();"></ng-md-icon>	
         			<ng-md-icon ng-show="product.productId == showInLineEdit" icon="mode_edit" size="20" class="icons hash_color btn-success padd-t30 action-buttons wid-40" ng-click="updateProduct(editProduct); $event.stopPropagation();"></ng-md-icon>
-      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t30 action-buttons wid-40" ng-click="showInLineEdit=null;productEdit=product; $event.stopPropagation();cancelEdit();"></ng-md-icon>
+      	      		<ng-md-icon ng-show="product.productId == showInLineEdit" icon="close" size="20" class="icons hash_color btn-danger padd-t30 action-buttons wid-40" ng-click="showInLineEdit=null;productEdit=product;cancelEdit();$event.stopPropagation();"></ng-md-icon>
         	</td>
         	</form>
         	</tr>

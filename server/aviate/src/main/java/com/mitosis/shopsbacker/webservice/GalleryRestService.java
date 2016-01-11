@@ -273,7 +273,8 @@ public class GalleryRestService {
 		galleryService.deleteGallery(gallery);
 		File file=new File(filePath);
 		if(file.exists()){
-			file.deleteOnExit();
+			boolean isDeleted = file.delete();
+			log.info("Gallery: "+ filePath + "File Has deleted "+ isDeleted );
 		}
 	}
 
