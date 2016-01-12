@@ -32,7 +32,7 @@ angular.module('aviateAdmin.controllers')
 		};
 		
 		$scope.checkActive = function(folder){
-			if($scope.selectedObj.galleryId === folder.galleryId)
+			if($scope.selectedObj && $scope.selectedObj.galleryId === folder.galleryId)
 				return 'active';
 		};
 		
