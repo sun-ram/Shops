@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="css/gallery.css" />
 <md-dialog aria-label="Category"  ng-cloak style="width: 100%;">
 	<md-button layout-align="end" style="float: right; position: absolute; color: #333 ! important; right: 0;" class="md-icon-button"  type="button" ng-click="cancel()">
         <ng-md-icon icon="close" style="fill: #333" size="30"></ng-md-icon> 
@@ -10,17 +10,89 @@
    <md-card class="tbl-body" flex-gt-sm="90" flex-gt-md="80" layout-align="center center">
       
    <md-card-content class="nopadd">
-     <md-radio-group ng-model="radio" layout="row">
+     <md-radio-group ng-model="radio" layout="row" ng-change="selectImageFromGallery(radio);">
        <md-radio-button value="gallery" class="md-primary">Upload From Gallery</md-radio-button>
        <md-radio-button value="local"> Upload From Local </md-radio-button>
      </md-radio-group>
    </md-card-content>
    </md-card>
- <md-card ng-show="radio == 'gallery'">
-	<div layout="row" layout-align="center center">
-	
+<md-card ng-show="radio == 'gallery'">
+	<div layout="row" layout-align="center center" >
+<md-card layout-fill class="tbl-body">
+ 	<md-toolbar class=" md-default-theme" style="background-color:transparent; box-shadow:0px 1px 1px rgba(0,0,0,0.07)">
+		<div class="md-toolbar-tools" layout-sm="column" layout-gt-sm="row">
+	  		<div flex="30">
+	  			<h3 style="border: none;" >Gallery</h3>
+	  		
+	  		</div>
+	  		
+	  		<div flex="70" layout="row" layout-align="end end">
+	  			<ul class="gal-mani-icon" flex layout layout-align="end end">
+	  				<input type="text" name="" class="img-search"/>
+	  				<li>&#xe906;</li>
+	  				<li></li>
+	  			</ul>
+	  				
+	  		</div>
+	  		
+	    </div>
+    </md-toolbar>
+    <md-card-content class="nopadd gallery-container">
+    	<div layout="row">
+    	
+  <div class="breadcrumb">
+   <ul>
+   	<li class="active" ng-click="selectImageFromGallery('gallery')">Gallery</li>
+    <li ng-repeat="crumb in breadCrumbGallerySelect" ui-sref-active="active">
+     <span  ng-show="$last">{{ crumb.name }}</span>
+     <a ng-show="!$last" ng-click="changeBreadCrumbState(crumb, breadCrumbGallerySelect)">{{crumb.name}}</a>
+    </li>
+   </ul>
   </div>
+    	</div>
+		<div layout="row" layout-padding>
+				<div flex="100" layout layout-wrap class="fold-container no-outline">
+				<!--  No product folder  -->
+				
+				<div ng-repeat="folder in galleries" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20" ng-click="setActive(folder, $index);" ng-dblClick="((folder.isSummary === 'Y')?openFolders(folder):setActive(folder, $index));$event.stopPropagation();">
+					<div ng-show="folder.isSummary === 'N'"><img ng-src="{{folder.url}}" style="width:180px;"></div>
+					<div ng-show="folder.isSummary === 'Y' && folder.galleries.length>0">  <div class="folder"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
+					<div ng-show="folder.isSummary === 'Y' && !folder.galleries.length>0 ">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
+					<div class="md-title text-center">{{folder.fileName}}</div>
+				</div>
+				
+				<canvas id="myCanvas" ng-show="true"/>
+                <img ng-show="true" id="preview" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" ng-src="{{imageScope}}" ng-required="true" />
+				
+		</div>
+		</div>
+    </md-card-content>
 </md-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+	    		    
+</md-card>
+
+
+
+
+
 <md-card ng-show="radio == 'local'">
 
 	<div layout="row" layout-align="center center">

@@ -463,21 +463,79 @@ angular.module('aviateAdmin.controllers')
 			templateUrl: 'app/modules/modals/ProductImageUpload.html',
 			parent: angular.element(document.body),
 			clickOutsideToClose:false,
-			controller: function($scope,$rootScope,$mdDialog,$state){
+			controller: function($scope,$rootScope,$mdDialog,$state, GalleryServices){
+				
+				$scope.changeBreadCrumbState = function(crumb){
+					var crumbList = $scope.breadCrumbGallerySelect;
+            		for(var i = 0; i < crumbList.length; i++){
+            			if(crumbList[i].id === crumb.id){
+            				crumbList.splice(i+1,crumbList.length);
+            			}
+            		}
+            		GalleryServices.getGalleryListById(crumb.id).then(function(data){
+		    			console.log("crumb Data BY ID--->",data);
+		    			$scope.galleries=data;
+		           });
+				};
+				
+				$scope.selectImageFromGallery = function(from){
+					if(from == "local"){
+						return;
+					}
+					GalleryServices.getGalleryList($scope.data).then(function(data){
+						$scope.breadCrumbGallerySelect = [];				
+		    			console.log("Data --->",data);
+		    			$scope.galleries=data;
+		           });
+				};
+				
+				$scope.openFolders = function(folder){
+					$scope.breadCrumbGallerySelect.push({'name':folder.fileName,'id':folder.galleryId});
+					GalleryServices.getGalleryListById(folder.galleryId).then(function(data){
+		    			console.log("Data BY ID--->",data);
+		    			$scope.galleries=data;
+		           });
+				}; 
+				
+				$scope.checkActive = function(folder){
+					if($scope.selectedObj && $scope.selectedObj.galleryId === folder.galleryId)
+						return 'active';
+				};
+				
+				$scope.setActive = function(folder, index){
+					$scope.selectedObj = folder;
+					$scope.selectedObj.index = index;
+					
+					if(folder === undefined || folder.isSummary === 'Y')
+						return;
+					
+					$scope.imageScope = folder.url;
+					 var c = document.getElementById("myCanvas");
+					  var ctx = c.getContext("2d");
+					  var img = document.getElementById("preview");
+					  ctx.drawImage(img, 10, 10);
+					  $scope.image = {"originalFrontImage" :c.toDataURL()};
+					  
+					  console.log(c.toDataURL());
+
+					
+				};
+				
+				
 				
 				$scope.uploadFile = function (val1,val2){
 					var id =$('#'+val2).val();
 					var srs=id.replace("C:\\fakepath\\" ,"" );	
 					$('#'+val1).html(srs);
-				}
+				};
 				
 				$scope.passImage = function(image){
-					if(imageId != undefined){
+					if(imageId !== undefined){
 						image.imageId = imageId;
 					}
-					$rootScope.setProductImage(image);
+					$rootScope.setProductImage(angular.copy(image));
 					$mdDialog.cancel();
-				}
+				};
 									
 				$scope.cancel = function() {
 					$mdDialog.cancel();
