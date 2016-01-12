@@ -370,7 +370,7 @@
     }
     /*today sales value css end*/
 </style>
-<div ng-cloak class="testBlock applyFlatUI commonBackground">
+<!-- <div ng-cloak class="testBlock applyFlatUI commonBackground">
     <md-card class="nomarg marg-t10 applyFlatUI">
         <md-card-title class="dashboardHeader" style="background-color: #E2E4E5 !important;">
             <md-card-title-text>
@@ -389,16 +389,16 @@
             <div class="card-content white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Stores</p>
                 <h4 class="card-stats-number">{{totalStores}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #c2185b; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{storeGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
         <div class="card purple" flex flex-sm="100">
             <div class="card-content white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Customers</p>
                 <h4 class="card-stats-number">{{totalCustomers}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #7b1fa2; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{customerGrowthToday}}% from yesterday
+				</p>
             </div>
 
         </div>
@@ -406,47 +406,93 @@
             <div class="card-content  green white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total no of Sales Orders</p>
                 <h4 class="card-stats-number">{{salesOrdersCount}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #388E3C; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{merchantGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
         <div class="card skyblue" flex flex-sm="100">
             <div class="card-content white-text applyFlatUI">
                 <p class="card-stats-title"><i class="mdi-social-group-add"></i> Total Sales Revenue</p>
                 <h4 class="card-stats-number">{{totalSales}}</h4>
-                <!--<p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
-				</p>-->
+                <p class="card-stats-compare" style="line-height: 3; background: #2B84BA; margin: 0px;"><i class="mdi-hardware-keyboard-arrow-up"></i> {{salesGrowthToday}}% from yesterday
+				</p>
             </div>
         </div>
 
-    </div>
+    </div> -->
 
-    <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI" style="position:relative;">
-        <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-            <div class="md-whiteframe-4dp applyFlatUI">
-                <div class="dashboardHeader">
-                    <h4 style="float:left;font-family:Roboto;font-weight: 300;">Half year Growth Ratio in week basis</h4>
-                </div>
+    <div layout-padding layout="row" layout-sm="column" layout-md="column" ng-init="showgrowth=true;showgrowthdetail=false;">
+        <md-card flex="70" flex-md="100" flex-sm="100" style="min-height : 520px;">
+           
+                <div class="cssFade" ng-show="showgrowth"> 
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Half year Growth Ratio in week basis</h4>              
+                <md-button class="btn-tableview" ng-click='showgrowth=false;showgrowthdetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
                 <div id="graph">
-
                 </div>
-                <div class="descriptionBox">
-                    <div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
+                </div>
+                <div class="cssFade" ng-show="showgrowthdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='showgrowth=true;showgrowthdetail=false;'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            
+            
+            </div>
+			</div>
+			</md-card> 
+            <md-card flex="30" flex-md="100" flex-sm="100">
+            <div style="padding: 10px 50px 10px  20px;">
+                    <div class="label-growth" style="text-align: center">{{raisedTableTitle}}</div>
                     <div class="greenLabel"></div>
-                    <div class="labelDesc">Store Growth :
+                    <div class="label-growth">Store Growth :
                         <div style="float:right">{{storesRaised}}</div>
                     </div>
                     <div class="redLabel"></div>
-                    <div class="labelDesc">Customer Growth :
+                    <div class="label-growth">Customer Growth :
                         <div style="float:right">{{customersRaised}}</div>
                     </div>
                     <div class="orangeLabel"></div>
-                    <div class="labelDesc">SalesOrder Growth :
+                    <div class="label-growth">SalesOrder Growth :
                         <div style="float:right">{{salesOrdersRaised}}</div>
                     </div>
-                    <div class="labelDesc" style="position:absolute;bottom:0px;width: 79%;">
+                    <div class="label-growth" style="bottom:0px;width: 100%;">
 
-                        <div class="labelDesc" style="margin-top: 25px;">Stores Comparition</div>
+                        <div>Stores Comparition</div>
                         <div>
                             <ng-md-icon ng-if="storesRaisedprevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
                             <ng-md-icon ng-if="storesRaisedprevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
@@ -454,7 +500,7 @@
                             <div ng-class='{greenText : (storesRaisedprevWeek>0), redText : (storesRaisedprevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{storesRaisedprevWeek >= 0 ? (storesRaisedprevWeek == 0 ? 'FLAT' :'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(storesRaisedprevWeek < 0) ? (storesRaisedprevWeek * -1) : storesRaisedprevWeek}}%</span></div>
                         </div>
 
-                        <div class="labelDesc" style="margin-top: 25px;">Customers Comparition</div>
+                        <div style="margin-top: 25px;">Customers Comparition</div>
                         <div>
                             <ng-md-icon ng-if="customersRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
                             <ng-md-icon ng-if="customersRaisedPrevWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
@@ -462,7 +508,7 @@
                             <div ng-class='{greenText : (customersRaisedPrevWeek>0), redText : (customersRaisedPrevWeek<0)}' class="labelDesc" style="padding-left: 66%;">{{customersRaisedPrevWeek >= 0 ? (customersRaisedPrevWeek == 0 ? 'FLAT':'UP') : 'DOWN'}}<span style="width:8px;float:right;">{{(customersRaisedPrevWeek < 0) ? (customersRaisedPrevWeek * -1) : customersRaisedPrevWeek}}%</span></div>
                         </div>
 
-                        <div class="labelDesc" style="margin-top: 25px;">SalesOrder Comparition</div>
+                        <div style="margin-top: 25px;">SalesOrder Comparition</div>
                         <div>
                             <ng-md-icon ng-if="salesOrderRaisedPreWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
                             <ng-md-icon ng-if="salesOrderRaisedPreWeek < 0" icon="arrow_drop_down" size="35" class="growthIconDown"></ng-md-icon>
@@ -471,22 +517,72 @@
                         </div>
 
                     </div>
-
-
-                </div>
-            </div>
-
+               </div>
+               </md-card>
     </div>
-    </md-card>
+    
 
 </div>
-<div flex layout="row" layout-sm="column">
-    <md-card flex="100" flex-sm="100" id="todaySalesRevenue" ng-init="drawTodaySalesChart()">
-        <div layout="row">
+<div flex layout="row" layout-sm="column" ng-init="showsaleschart=true;showsaleschartdetail=false" layout-padding>
+    <md-card flex="100" flex-sm="100" id="todaySalesRevenue" ng-init="drawTodaySalesChart()" layout-padding>
+        <!-- <div layout="row">
             <span flex style="margin: 20px 0 0 20px;">Today Sales Value Report</span>
             <span flex style="margin: 20px 0 0 0;">Total Revenue : {{todaySalesMerchant.salesValue | number : 0}}</span>
         </div>
-        <svg></svg>
+        <svg></svg> -->
+        
+        <div class="cssFade" ng-show="showsaleschart">
+        	<h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Today Sales Value Report</h4>
+            <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 100px; float: left; padding-left: 10px;">Total Revenue : {{todayTotalRevenue | number : 0}}</h4>       
+            <md-button class="btn-tableview" style="font-size: 25px;" ng-click='showsaleschart=false;showsaleschartdetail=true'>
+            	<i class="icon ion-android-more-vertical"></i>
+            </md-button>    
+            <svg></svg>
+        </div>
+        
+        
+        <div class="cssFade" ng-show="showsaleschartdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='showsaleschart=true;showsaleschartdetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            </div>
+			</div>
     </md-card>
     <!-- <md-card flex="40" flex-sm="100" layout="column">
         <div layout="row">
@@ -521,22 +617,72 @@
     </md-card>
 </div>-->
 
-<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-        <div class="md-whiteframe-4dp applyFlatUI">
+<div layout="row" layout-md="column" layout-sm="column" layout-padding>
+    <md-card flex flex-md="100" flex-sm="100" layout-padding>
+        <!-- <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">Stores and Salesorders</h4>
             </div>
             <div id="chart1">
                 <svg class="svgss"></svg>
             </div>
+        </div> -->
+        
+        <div class="cssFade"> 
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Stores and Salesorders</h4>              
+                <md-button class="btn-tableview" ng-click='showgrowth=false;showgrowthdetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+                <div id="graph">
+                </div>
         </div>
+        
+        <div class="cssFade" ng-show="showsaleschartdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='showsaleschart=true;showsaleschartdetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            </div>
+			</div>
     </md-card>
 
 </div>
-<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-        <div class="md-whiteframe-4dp applyFlatUI">
+<div layout="row" layout-md="column" layout-sm="column" layout-padding>
+    <md-card flex flex-md="100" flex-sm="100" layout-padding>
+        <!-- <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
 
@@ -544,13 +690,63 @@
             <div id="barChart2">
                 <svg class="svgss"></svg>
             </div>
+        </div> -->
+        
+        <div class="cssFade"> 
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">SalesOrder Count and Milestones (&#x20B9;)</h4>              
+                <md-button class="btn-tableview" ng-click='showgrowth=false;showgrowthdetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+                <div id="graph">
+                </div>
         </div>
+        
+        <div class="cssFade" ng-show="showsaleschartdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='showsaleschart=true;showsaleschartdetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            </div>
+			</div>
     </md-card>
 
 </div>
-<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-        <div class="md-whiteframe-4dp applyFlatUI">
+<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" layout-padding>
+    <md-card flex flex-md="100" flex-sm="100" layout-padding>
+        <!-- <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">Stores and Quality</h4>
             </div>
@@ -558,6 +754,14 @@
             <div ng-hide='qualirtStatsRecords.length <= 0' id="grouperBarChart">
                 <svg class="svgss"></svg>
             </div>
+        </div> -->
+        <div class="cssFade"> 
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Stores and Quality</h4>              
+                <md-button class="btn-tableview" ng-click='showgrowth=false;showgrowthdetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+                <div style="text-align: center; position: relative; margin-top: 50px; margin-bottom: 20px;" ng-if='qualirtStatsRecords.length <= 0'> No data To Display</div>
+	            <div ng-hide='qualirtStatsRecords.length <= 0' id="grouperBarChart">
+	                <svg class="svgss"></svg>
+	            </div>
         </div>
     </md-card>
 </div>
