@@ -20,4 +20,6 @@ public String createSalesOrderReturn(SalesOrderReturn orderReturn);
 	
 	public SalesOrderReturnVo setSalesOrderToVo(SalesOrderReturn salesOrderReturn);
 	
+	public String getSalesOrderReturnRefundRequest(SalesOrderReturnVo salesOrderReturnVo) throws Exception;
+	
 }

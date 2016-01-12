@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -113,8 +115,9 @@ public class SalesOrderReturnRestService<T> {
 									.getPrice());
 							salesOrderReturnLine.setProduct(salesOrderLine
 									.getProduct());
-							salesOrderReturnLine.setQuantity(salesOrderLineVo
-									.getReturnQty());
+							int returnQty = salesOrderLine.getQty() - salesOrderLineVo
+									.getReturnQty();
+							salesOrderReturnLine.setQuantity(returnQty);
 							salesOrderReturnLine
 									.setReturnGrossAmount(salesOrderLine
 											.getGrossAmount());
@@ -169,6 +172,27 @@ public class SalesOrderReturnRestService<T> {
 				.setSalesOrderReturnList(salesOrderReturnVoList);
 
 		return salesOrderReturnResponseVo;
+
+	}
+	
+	@Path("/refundrequest")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String getsalesorderreturnrefundrequest(
+			SalesOrderReturnVo salesOrderReturnVo) {
+			
+		JSONObject xmlJSONObj = new JSONObject();
+		try{
+
+		String xmlResponseStr = salesOrderReturnService.getSalesOrderReturnRefundRequest(salesOrderReturnVo);
+		
+		xmlJSONObj = XML.toJSONObject(xmlResponseStr);
+		}catch(Exception e){
+			
+		}
+		return xmlJSONObj.toString();
 
 	}
 }

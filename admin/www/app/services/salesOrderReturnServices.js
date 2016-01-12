@@ -14,4 +14,12 @@ angular.module('aviateAdmin.services')
 		return d.promise;
 	};
 	
+	this.processRefundRequest = function(req){
+		var d = $q.defer();
+		api.SalesOrderReturn.processRefundRequest(req, function(err, result){
+				d.resolve(result);
+		});
+		return d.promise;
+	};
+	
 }]);

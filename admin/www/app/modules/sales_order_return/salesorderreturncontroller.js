@@ -17,6 +17,25 @@ angular.module('aviateAdmin.controllers').controller("salesorderreturncontroller
 				});
 			};
 			
+			$scope.getSalesOrderReturnLineDetails = function (salesOrderReturn) {
+				$localStorage.salesOrderReturnLineList = salesOrderReturn.salesOrder.salesOrderLineVo;
+				$rootScope.salesOrderReturnLineList = $localStorage.salesOrderReturnLineList;
+				$state.go('app.salesOrderReturnLine');
+			};
+
+			   $scope.processRefundRequest = function(salesOrderreturn) {
+
+			        // get the form data
+			        // there are many ways to get this data using jQuery (you can use the class or id also)
+			        var formData = {
+			            "salesOrderReturnId": salesOrderreturn.salesOrderReturnId
+			        };
+			        
+			        SalesOrderReturnServices.processRefundRequest(formData).then(function(data) {
+			        	console.log(data);
+					});
+			   };
+			
 		}])
 		.config(function($mdDateLocaleProvider) {
 			$mdDateLocaleProvider.formatDate = function(date) {

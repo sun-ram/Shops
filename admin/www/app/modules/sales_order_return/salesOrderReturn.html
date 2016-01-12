@@ -24,6 +24,7 @@
               <th  name="Shipping Charge"></th>
               <th  name="Paid"></th>
               <th  name="Process"></th>
+              <th  name="View Details"></th>
             </tr>
 	</thead>
 	<tbody>
@@ -36,8 +37,9 @@
 			<td>{{salesOrderreturn.returnTaxAmount}}</td>
 			<td>{{salesOrderreturn.shippingCharge}}</td>
 			<td>{{salesOrderreturn.ispaid}}</td>
-			<td ng-if="salesOrderreturn.ispaid=='Y'" ><md-button ng-disabled="true" class="md-raised md-primary" ng-click="#">Process</md-button></td>
-			<td ng-if="salesOrderreturn.ispaid=='N'"><md-button class="md-raised md-primary" ng-click="#">Process</md-button></td>
+			<td ng-if="salesOrderreturn.ispaid=='Y'" ><md-button ng-disabled="true" class="md-raised md-primary">Process</md-button></td>
+			<td ng-if="salesOrderreturn.ispaid=='N' && salesOrderreturn.salesOrder.paymentMethod=='WT' "><md-button class="md-raised md-primary" ng-click="processRefundRequest(salesOrderreturn)">Process</md-button></td>
+			<td><md-button class="md-success" ng-click="getSalesOrderReturnLineDetails(salesOrderreturn)">VIEW DETAILS</md-button></td>
 		</tr>
 	</tbody>
 </table>
@@ -49,12 +51,13 @@
 </md-card>
 
 
-
-<form method="post" action="https://api.secure.ebs.in/api/1_0" name="frmTransaction">
+<!-- 
+<form method="post" id="return-form" name="frmTransaction">
 <input name="Action" type="hidden" value="refund">
 <input name="AccountID" type="hidden" value="18984">
 <input name="SecretKey" type="hidden" value="2abfa552700f8cf9b9cbdb22909dacfa">
 <input name="Amount" type="hidden" value="10.00"> 
 <input name="PaymentID" type="hidden" value="46686456">
-<input name="submitted" value="Submit" type="submit">
+<input name="submitted" value="Submit" type="submit" ng-click="submitOrderReturnForm">
 </form >
+ -->

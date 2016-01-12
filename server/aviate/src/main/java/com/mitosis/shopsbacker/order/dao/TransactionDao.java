@@ -19,4 +19,6 @@ public interface TransactionDao<T> {
 
 	public void update(Transaction transaction);
 	
+	public List<Transaction> getTransactionsByRecordId(String recordId);
+	
 }

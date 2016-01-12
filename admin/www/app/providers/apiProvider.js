@@ -1322,6 +1322,25 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 			});
 		};
 
+		
+		apiClass.SalesOrderReturn.processRefundRequest = function (req, callback) {
+			
+			
+			httpRequest("POST", "salesorderreturn/refundrequest", req, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+			
+		};
+
+		
 		/*Product Stock Module*/
 
 		apiClass.ProductStock = {

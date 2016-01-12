@@ -205,9 +205,15 @@ public class CommonRestServices<T> {
 						String body ="Web users, please <a href=\""+passwordResetRequestVo
 								.getPasswordResetUrl()
 								+ passwordResetRequest.getTokenId()+"\">click here</a> to reset your password.";
-						body += "<br><br>Android users, please <a href=\"http://intent:#Intent;action=com.shopsbacker.android.MY_CUSTOM_ACTION;S.some_variable="+passwordResetRequest.getTokenId()+";end\">click here</a> to load android app to reset password.";
+						String androidResetLink = "intent:#Intent;action=com.shopsbacker.android.MY_CUSTOM_ACTION;S.some_variable="+passwordResetRequest.getTokenId()+";end";
+						body += "<br><br>Android users, please <a href=\"intent:#Intent;action=com.shopsbacker.android.MY_CUSTOM_ACTION;S.some_variable="+passwordResetRequest.getTokenId()+";end\">click here</a> to load android app to reset password. If not able to click copy paste this url to your browser " + androidResetLink;
 						//body += "<br>intent:#Intent;action=com.shopsbacker.android.MY_CUSTOM_ACTION;S.some_variable="+passwordResetRequest.getTokenId()+";end";
-						body += "<br><br>Iphone users, please <a href=\"http://shopsbacker://tokenid="+passwordResetRequest.getTokenId()+"\">click here</a> to load IOS app to reset password.";
+						
+						String iosResetLink = "shopsbacker://tokenid="+passwordResetRequest.getTokenId();
+						body += "<br><br>Iphone users, please <a title=\"Verify\" href=\""+ iosResetLink + "\">click here</a> to load IOS app to reset password. If not able to click copy paste this url to your browser " + iosResetLink;
+						
+						//body += "<br><br>Test, <a href=\"testing.html\">Click Here</a>";
+						
 						//body += "<br>shopsbacker://tokenid=" + passwordResetRequest.getTokenId();
 						boolean flag = CommonUtil.sendMail(emailId, subject,
 								body);

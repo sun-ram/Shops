@@ -236,6 +236,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 		salesOrderVo.setTransactionNo(salesOrder.getTransactionNo());
 		salesOrderVo.setShippingCharge(salesOrder.getShippingCharge());
 		salesOrderVo.setOrderPlacedTime(salesOrder.getCreated());
+		salesOrderVo.setPaymentMethod(salesOrder.getPaymentMethod());
 		Date deliveryTime = salesOrder.getDeliveryTimeSlot();
 		String strDeliveryTime = CommonUtil.convertTimeToString(deliveryTime);
 		salesOrderVo.setDeliveryTimeSlot(strDeliveryTime);

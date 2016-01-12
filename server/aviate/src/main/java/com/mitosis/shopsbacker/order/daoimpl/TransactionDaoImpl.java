@@ -6,6 +6,8 @@ package com.mitosis.shopsbacker.order.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.mitosis.shopsbacker.common.daoimpl.CustomHibernateDaoSupport;
@@ -42,6 +44,17 @@ public class TransactionDaoImpl<T> extends CustomHibernateDaoSupport<T> implemen
 	public void update(Transaction transaction) {
 	update((T)transaction);
 
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.mitosis.shopsbacker.order.dao.TransactionDao#update(com.mitosis.shopsbacker.model.Transaction)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Transaction> getTransactionsByRecordId(String recordId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
+		criteria.add(Restrictions.eq("recordId", recordId));
+		return (List<Transaction>) findAll(criteria);
 	}
 
 }

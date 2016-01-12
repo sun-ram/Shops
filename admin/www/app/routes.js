@@ -368,6 +368,12 @@ angular.module('app')
 		templateUrl: 'app/modules/sales_order_return/salesOrderReturn.html',
 		controller : 'salesorderreturncontroller'
 	})
+	
+	.state('app.salesOrderReturnLine', {
+		url: '/salesOrderReturnLine',
+		templateUrl: 'app/modules/sales_order_return/salesOrderReturnLine.html',
+		controller : 'salesorderreturncontroller'
+	})
 
 	//shipping charges module
 	.state('app.shippingCharges',{
