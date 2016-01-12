@@ -540,7 +540,7 @@
 
 
 <!--today sales report chart -->
-<div flex layout="row" layout-sm="column" layout-padding ng-init="showsaleschart=true;showsaleschartdetail=false">
+<div flex layout="row" layout-md="column" layout-sm="column" layout-padding ng-init="showsaleschart=true;showsaleschartdetail=false">
     <md-card flex="60" flex-md="100" flex-sm="100" id="todaySalesRevenue" style="min-height : 520px;">
         <div class="cssFade" ng-show="showsaleschart">
         	<!-- <div layout="row" layout-padding> -->
@@ -599,35 +599,38 @@
     </md-card>
     <md-card flex="40" flex-md="100" flex-sm="100" ng-init="drawTodaySalesChart()">
         <div class="title" layout="column">
-            <span layout="row" layout-align="center center" layout-padding> 
-            <span>{{todaySalesByMerchant.merchantName}}</span>
-            </span>
-            <div layout="row" layout-align="space-between center" layout-padding>
+            <!-- <span layout="row" layout-align="center center" layout-padding>  -->
+            <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; text-align: center;">{{todaySalesByMerchant.merchantName}}</h4>
+            <!-- </span> -->
+            <h4 style="font-family:Roboto; font-size: 17px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">No.Of.SalesOrder : {{todaySalesByMerchant.salesOrders.length}}</h4>
+            <h4 style="font-family:Roboto; font-size: 17px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">SalesValue : {{todaySalesByMerchant.salesValue | number : 0 }}</h4>
+            <h4 style="font-family:Roboto; font-size: 17px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Revenue : {{todaySalesByMerchant.revenue | number : 0}}</h4>
+            <!-- <div layout="row" layout-align="space-between center" layout-padding>
                 <label flex>No.Of.SalesOrder : <span>{{todaySalesByMerchant.salesOrders.length}}</span> </label>
                 <label flex>SalesValue : <span>{{todaySalesByMerchant.salesValue | number : 0 }}</span> </label>
                 <label flex>Revenue : <span>{{todaySalesByMerchant.revenue | number : 0}}</span> </label>
-            </div>
+            </div> -->
         </div>
-        <div layout="row" layout-wrap>
+         <div style="padding: 20px 20px;">
             <!--  <div flex ng-repeat="ts in todaySalesByMerchant.stores" id="{{ts.storeId}}" ng-init="drawStoreTodaySalesChart(ts)">
                     <span ng-bind="ts.storeName"></span>
                 </div>-->
-            <md-table-container>
-                <table md-table ng-model="selectedStores">
-                    <thead md-head md-order="storesSalveValueTable.order">
-                        <tr md-row>
-                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
-                            <th md-column md-numeric md-order-by="salesOrders"><span>Total Sales</span></th>
-                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
+            <md-table-container style="float: left; width: 100%; margin: 20px auto; overflow: auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred" ng-model="selectedStores" style="border: 1px solid #ddd;">
+                    <thead md-order="storesSalveValueTable.order">
+                        <tr>
+                            <th ng-click="showIcon='stroeName';" md-order-by="stroeName" name="Store Name"></th>
+                            <th ng-click="showIcon='salesOrders';" md-numeric md-order-by="salesOrders" name="Total Sales"></th>
+                            <th ng-click="showIcon='salesValue';" md-numeric md-order-by="salesValue" name="Total Sales Value"></th>
+                            <th ng-click="showIcon='revenue';" md-numeric md-order-by="revenue" name="Revenue"></th>
                         </tr>
                     </thead>
-                    <tbody md-body>
-                        <tr md-row md-select="ts" md-select-id="{{ts.storeName}}" md-auto-select ng-repeat="ts in todaySalesByMerchant.stores">
-                            <td md-cell>{{ts.storeName}}</td>
-                            <td md-cell>{{ts.salesOrders.length}}</td>
-                            <td md-cell>{{ts.salesValue | number : 2 }}</td>
-                            <td md-cell>{{ts.revenue | number : 2}}</td>
+                    <tbody>
+                        <tr md-select="ts" md-select-id="{{ts.storeName}}" md-auto-select ng-repeat="ts in todaySalesByMerchant.stores">
+                            <td>{{ts.storeName}}</td>
+                            <td>{{ts.salesOrders.length}}</td>
+                            <td>{{ts.salesValue | number : 2 }}</td>
+                            <td>{{ts.revenue | number : 2}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -643,9 +646,9 @@
             <!-- <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Store</h4>
             </div> -->
-            <h4 style="font-family:Roboto;font-weight: 300; float: left; padding-left: 10px;">Merchants and Store</h4>              
+            <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Merchants and Store</h4>              
                 <md-button class="btn-tableview" ng-click='showmercantstorechart=false;showmercantstorechartdetails=true'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
-            <div id="chart1">
+            <div id="chart1" style="margin-top: 10%;">
                 <svg class="svgss"></svg>
             </div>
         </div>
@@ -699,7 +702,7 @@
     <md-card flex flex-md="100" flex-sm="100" layout-padding>
         <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
-                <h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">SalesOrder Count and Milestones (&#x20B9;)</h4>
 
             </div>
             <div id="barChart2">
@@ -713,7 +716,7 @@
     <md-card flex flex-md="100" flex-sm="100" layout-padding>
         <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
-                <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchant and Quality</h4>
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Merchant and Quality</h4>
             </div>
             <div id="grouperBarChart">
                 <svg class="svgss"></svg>
