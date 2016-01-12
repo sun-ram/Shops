@@ -9,9 +9,9 @@ angular.module('aviateAdmin.controllers').controller("salesordercontroller",
 			if($localStorage.state){
 				$scope.salesOrderList = $localStorage.salesorderfilter;
 				$localStorage.state=false;
-			}else{
+			}else if($scope.salesOrderList){
 				$scope.salesOrderList = $localStorage.salesorderlist;
-
+				$scope.noOfRecords = $scope.salesOrderList.length;
 			}
 
 			$scope.showTabShoper=function(salesOrder,ev) {

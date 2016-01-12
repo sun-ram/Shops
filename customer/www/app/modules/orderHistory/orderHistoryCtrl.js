@@ -40,5 +40,9 @@ angular.module('aviate.controllers')
 				
 			}			
 		};		
+		
+		$scope.stringToDate = function(dateTime){
+			return new Date(dateTime);
+		}
  
 }]);

@@ -33,8 +33,10 @@ public class SocketMessageDecoder implements Decoder.Text<SocketMessage> {
     public SocketMessage decode(String s) throws DecodeException {
         JsonObject jsonObject = Json.createReader(new StringReader(s)).readObject();
         SocketMessage chatMessage = new SocketMessage();
+        chatMessage.setLatitude(jsonObject.getString("latitude"));
+        chatMessage.setLongitude(jsonObject.getString("longitude"));
         chatMessage.setToUser(jsonObject.getString("touser"));
-        chatMessage.setMessage(jsonObject.getString("message"));
+        chatMessage.setFromUser(jsonObject.getString("fromuser"));
         chatMessage.setTag(jsonObject.getString("tag"));
         return chatMessage;
     }
