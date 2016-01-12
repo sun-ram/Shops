@@ -361,6 +361,8 @@
 		background-color:#f5f6f8;
 	}
 	table.md-table td.md-cell.md-numeric, table.md-table th.md-column.md-numeric{text-align: center;}
+	
+	ng-md-icon> svg{height: auto !important;}
 </style>
 <div ng-cloak class="testBlock applyFlatUI commonBackground">
     <md-card class="nomarg marg-t10 applyFlatUI">
@@ -424,72 +426,76 @@
      <div layout-padding layout="row" layout-sm="column" layout-md="column" style="box-shadow:none;" ng-init="showgrowth=true;showgrowthdetail=false;">
 		        <md-card flex="70" flex-md="100" flex-sm="100" style="min-height : 520px;">
                	<div class="cssFade" ng-show="showgrowth"> 
-                <h4 style="font-family:Roboto;font-weight: 300; float: left; padding-left: 10px;">Half year Growth Ratio in week basis</h4>              
-                <ng-md-icon icon="more_vert" style="fill: #333; float: right; margin:15px; cursor: pointer;" size="25"  ng-click='showgrowth=false;showgrowthdetail=true;'></ng-md-icon>
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Half year Growth Ratio in week basis</h4>              
+                <md-button class="btn-tableview" ng-click='showgrowth=false;showgrowthdetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
                 <div id="graph">
                 </div>
                 </div> 
                 <div class="cssFade" ng-show="showgrowthdetail">
                 <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
-                <ng-md-icon icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showgrowth=true;showgrowthdetail=false;'></ng-md-icon>
+                <md-button class="btn-tableview-close" ng-click='showgrowth=true;showgrowthdetail=false;'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
-                <md-table-container style="float: left; width: 100%;">
-                <table md-table ng-model="selectedStores" style="border: 1px solid #ddd;">
-                    <thead md-head md-order="storesSalveValueTable.order">
-                        <tr md-row>
-                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
-                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Action</span></th>
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
                         </tr>
                     </thead>
-                    <tbody md-body>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                        </tr>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                        </tr>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
-                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
                     </tbody>
                 </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
             </md-table-container> 
+            
             </div>
 			</div>
             
          </md-card>
          <md-card flex="30" flex-md="100" flex-sm="100">
                 <div style="padding: 10px 50px 10px  20px;">
-                    <div class="labelDesc" style="text-align: center">{{raisedTableTitle}}</div>
+                    <div class="label-growth" style="text-align: center">{{raisedTableTitle}}</div>
                     <div class="blueLabel"></div>
-                    <div class="labelDesc" >Merchants Growth :
+                    <div class="label-growth" >Merchants Growth :
                         <div style="float:right">{{merchantsRaised}}</div>
                     </div>
                     <div class="greenLabel"></div>
-                    <div class="labelDesc">Store Growth :
+                    <div class="label-growth">Store Growth :
                         <div style="float:right">{{storesRaised}}</div>
                     </div>
                     <div class="redLabel"></div>
-                    <div class="labelDesc">Customer Growth :
+                    <div class="label-growth">Customer Growth :
                         <div style="float:right">{{customersRaised}}</div>
                     </div>
                     <div class="orangeLabel"></div>
-                    <div class="labelDesc">SalesOrder Growth :
+                    <div class="label-growth">SalesOrder Growth :
                         <div style="float:right">{{salesOrdersRaised}}</div>
                     </div>
-                    <div class="labelDesc" style="bottom:0px;width: 100%;">
+                    <div class="label-growth" style="bottom:0px;width: 100%;">
                         <div>Merchants Comparition</div>
                         <div>
                             <ng-md-icon ng-if="merchatsRaisedPrevWeek > 0" icon="arrow_drop_up" size="35" class="growthIconUp"></ng-md-icon>
@@ -537,50 +543,56 @@
 <div flex layout="row" layout-sm="column" layout-padding ng-init="showsaleschart=true;showsaleschartdetail=false">
     <md-card flex="60" flex-md="100" flex-sm="100" id="todaySalesRevenue" style="min-height : 520px;">
         <div class="cssFade" ng-show="showsaleschart">
-        	<div layout="row" layout-padding style="height: 60px;">
-            <span flex="45">Today Sales Value Report</span>
-            <span flex="45">Total Revenue : {{todayTotalRevenue | number : 0}}</span>       
-            <ng-md-icon flex="10" icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showsaleschart=true;showsaleschartdetail=false'></ng-md-icon>     
-            </div>
+        	<!-- <div layout="row" layout-padding> -->
+        	<h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Today Sales Value Report</h4>
+           <!--  <span flex="45">Today Sales Value Report</span> -->
+            <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 50px; float: left; padding-left: 10px;">Total Revenue : {{todayTotalRevenue | number : 0}}</h4>       
+            <md-button class="btn-tableview" style="font-size: 25px;" ng-click='showsaleschart=false;showsaleschartdetail=true'>
+            	<i class="icon ion-android-more-vertical"></i>
+            </md-button>    
+            <!-- </div> -->
             <svg></svg>
         </div>
         
         <div class="cssFade" ng-show="showsaleschartdetail">
                 <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
-                <ng-md-icon icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showsaleschart=true;showsaleschartdetail=false'></ng-md-icon>
+                <md-button class="btn-tableview-close" ng-click='showsaleschart=true;showsaleschartdetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
-                <md-table-container style="float: left; width: 100%;">
-                <table md-table ng-model="selectedStores" style="border: 1px solid #ddd;">
-                    <thead md-head md-order="storesSalveValueTable.order">
-                        <tr md-row>
-                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
-                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Action</span></th>
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
                         </tr>
                     </thead>
-                    <tbody md-body>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                        </tr>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                        </tr>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
-                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
                     </tbody>
                 </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
             </md-table-container> 
             </div>
 			</div>
@@ -632,7 +644,7 @@
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchants and Store</h4>
             </div> -->
             <h4 style="font-family:Roboto;font-weight: 300; float: left; padding-left: 10px;">Merchants and Store</h4>              
-                <ng-md-icon icon="more_vert" style="fill: #333; float: right; margin:15px; cursor: pointer;" size="25"  ng-click='showmercantstorechart=false;showmercantstorechartdetails=true'></ng-md-icon>
+                <md-button class="btn-tableview" ng-click='showmercantstorechart=false;showmercantstorechartdetails=true'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
             <div id="chart1">
                 <svg class="svgss"></svg>
             </div>
@@ -640,48 +652,51 @@
         
         <div class="cssFade" ng-show="showmercantstorechartdetails">
                 <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
-                <ng-md-icon icon="close" style="fill: #333; float: right; margin:-5px 8px; cursor: pointer;" size="25"  ng-click='showmercantstorechart=true;showmercantstorechartdetails=false'></ng-md-icon>
+                <md-button class="btn-tableview-close" ng-click='showmercantstorechart=true;showmercantstorechartdetails=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
-                <md-table-container style="float: left; width: 100%;">
-                <table md-table ng-model="selectedStores" style="border: 1px solid #ddd;">
-                    <thead md-head md-order="storesSalveValueTable.order">
-                        <tr md-row>
-                            <th md-column md-order-by="stroeName"><span>Store Name</span></th>
-                            <th md-column md-numeric md-order-by="salesValue"><span>Total Sales Value</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Revenue</span></th>
-                            <th md-column md-numeric md-order-by="revenue"><span>Action</span></th>
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
                         </tr>
                     </thead>
-                    <tbody md-body>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                        </tr>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                        </tr>
-                       <tr md-row md-select="ts">
-                            <td md-cell>1</td>
-                            <td md-cell>2</td>
-                            <td md-cell>3</td>
-                            <td md-cell>4</td>
-                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
                     </tbody>
                 </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
             </md-table-container> 
             </div>
 			</div>
     </md-card>
 
 </div>
-<div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+<div layout="row" layout-md="column" layout-sm="column" layout-padding>
+    <md-card flex flex-md="100" flex-sm="100" layout-padding>
         <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">SalesOrder Count and Milestones (&#x20B9;)</h4>
@@ -694,8 +709,8 @@
     </md-card>
 
 </div>
-<div id="qualityChart" layout="row" layout-md="column" layout-sm="column">
-    <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
+<div id="qualityChart" layout="row" layout-md="column" layout-sm="column" layout-padding>
+    <md-card flex flex-md="100" flex-sm="100" layout-padding>
         <div class="md-whiteframe-4dp applyFlatUI">
             <div class="dashboardHeader">
                 <h4 style="float:left;font-family:Roboto;font-weight: 300;">Merchant and Quality</h4>
