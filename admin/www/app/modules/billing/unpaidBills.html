@@ -57,5 +57,42 @@
    	<md-data-table-pagination md-limit="billingPagination.limit" md-page="billingPagination.page" md-total="{{noOfRecords}}" md-trigger="onpagechange"></md-data-table-pagination>
    	</div>
 </md-card>
-<md-button class="md-raised md-accent " flex="25" layout-align="end end" style="height: 0; margin-top: 12px;" ng-click="paySelectedBills()">Make Payment</md-button>
+<md-button class="md-raised md-accent " flex="25" layout-align="end end" style="height: 0; margin-top: 12px;" ng-click="paySelectedBills()" ng-disabled="selected.length == 0;">Make Payment</md-button>
+
+<form method="post" action="https://secure.ebs.in/pg/ma/payment/request" 
+				name="frmTransaction" >  
+			<input name="account_id" type="hidden" ng-value="transactionDetails.accountId" />  
+			<input name="address" type="hidden" ng-value="transactionDetails.address" />  
+			<input name="algo" type="hidden" ng-value="transactionDetails.algo" />  
+			<input name="amount" type="hidden" ng-value="transactionDetails.amount" />  
+			<input name="channel" type="hidden" ng-value="transactionDetails.channel" />  
+			<input name="city" type="hidden" ng-value="transactionDetails.city" />  
+			<input name="country" type="hidden" ng-value="transactionDetails.country" />  
+			<input name="currency" type="hidden" ng-value="transactionDetails.currency" />
+			<input name="currency_code" type="hidden" ng-value="transactionDetails.currencyCode" />  
+			<input name="description" type="hidden" ng-value="transactionDetails.description" />  
+			<input name="email" type="hidden" ng-value="transactionDetails.email" />  
+			<input name="mode" type="hidden" ng-value="transactionDetails.mode" />  
+			<input name="name" type="hidden" ng-value="transactionDetails.name" />  
+			<input name="phone" type="hidden" ng-value="transactionDetails.phone" />  
+			<input name="postal_code" type="hidden" ng-value="transactionDetails.postalCode" />  
+			<input name="reference_no" type="hidden" ng-value="transactionDetails.referenceNo" />
+			<input name="return_url" type="hidden" ng-value="transactionDetails.returnUrl" />  
+			<input name="ship_address" type="hidden" ng-value="transactionDetails.shipAddress" /> 
+			<input name="ship_city" type="hidden" ng-value="transactionDetails.shipCity" />  
+			<input name="ship_country" type="hidden" ng-value="transactionDetails.shipCountry" />  
+			<input name="ship_name" type="hidden" ng-value="transactionDetails.shipName" />  
+			<input name="ship_phone" type="hidden" ng-value="transactionDetails.shipPhone" />  
+			<input name="ship_postal_code" type="hidden" ng-value="transactionDetails.shipPostalCode" />  
+			<input name="ship_state" type="hidden" ng-value="transactionDetails.shipState" />  
+			<input name="state" type="hidden" ng-value="transactionDetails.state" />  
+			<input name="secure_hash" type="hidden" ng-value="transactionDetails.secureHash" />  
+			<!-- <input name="name_on_card" type="text" value="Prabakaran" />
+			<input name="card_number" type="text" value="4012001037141112 "  />
+			<input name="card_expiry" type="text" value="12/2016 " />
+			<input name="card_cvv" type="password" value="123" /> -->
+			<!-- <input value="Submit" type="submit" style="display: none;" /> -->
+		</form>
+
 </div>
+

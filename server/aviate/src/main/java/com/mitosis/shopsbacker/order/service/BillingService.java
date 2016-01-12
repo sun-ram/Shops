@@ -6,6 +6,7 @@ import com.mitosis.shopsbacker.model.Billing;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.vo.order.BillingVo;
+import com.mitosis.shopsbacker.vo.order.TransactionDetailVo;
 
 public interface BillingService<T> {
 
@@ -14,4 +15,10 @@ public interface BillingService<T> {
 	public BillingVo setBillingVo(Billing bills) throws Exception;
 	
 	public void addNewBill(SalesOrder salesOrder);
+
+	public TransactionDetailVo setTransactionDetails(List<Billing> selected);
+
+	boolean updateBilling(String paymentId, String paymentMethod,
+			String requestId, String transactionNo, String responseCode,
+			String responseMessage, String referenceNo);
 }

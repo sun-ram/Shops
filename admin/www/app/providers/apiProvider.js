@@ -2092,6 +2092,21 @@ angular.module('aviateAdmin.providers').provider('api', function ApiProvider() {
 				}
 			});
 		};
+		
+		apiClass.Billing.makePayment = function (billingList, callback) {
+			httpRequest("POST", "billing/makePayment", billingList, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};
+
 
 		return apiClass;
 	}];

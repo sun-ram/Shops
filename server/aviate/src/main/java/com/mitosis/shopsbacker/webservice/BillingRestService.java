@@ -26,6 +26,7 @@ import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
 import com.mitosis.shopsbacker.vo.order.BillingVo;
+import com.mitosis.shopsbacker.vo.order.TransactionDetailVo;
 
 /**
  * @author kathir 
@@ -80,4 +81,23 @@ public class BillingRestService {
 		}
 		return billingResponse;
 	}
+	
+	@Path("/makePayment")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public TransactionDetailVo makePayment(List<Billing> selected){
+		TransactionDetailVo transactionDetail = new TransactionDetailVo();
+		try{
+			transactionDetail = billingService.setTransactionDetails(selected);
+		}catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			response.setErrorString(e.getMessage());
+			response.setStatus(SBMessageStatus.FAILURE.getValue());
+		}		
+		return transactionDetail;
+  }
+	
 }

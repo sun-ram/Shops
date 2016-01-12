@@ -27,5 +27,17 @@ angular.module('aviateAdmin.services')
 		});
 		return d.promise;
 	};
+	
+	this.makePayment = function(billingList){
+		var d = $q.defer();
+		api.Billing.makePayment(billingList,function(err, result){
+			if(result){
+				d.resolve(result);
+			}else{
+				toastr.error(err.errorCode);
+			}
+		});
+		return d.promise;
+	};
 
 }]);

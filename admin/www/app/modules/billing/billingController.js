@@ -76,10 +76,10 @@ angular.module('aviateAdmin.controllers')
 			$scope.selectAll = function($event) {
 				var checkbox = $event.target.checked;
 				var action = (checkbox ? 'add' : 'remove');
-				for ( var i = 0; i < $scope.unPaidBillsList.length; i++) {
-					var entity = $scope.unPaidBillsList[i];
+				$scope.unPaidBillsList.forEach(function(bill) {
+					var entity = bill;
 					$scope.updateSelected(action, entity.billingId);
-				}
+				});
 			};
 			
 			$scope.isSelected = function(id) {
@@ -93,9 +93,24 @@ angular.module('aviateAdmin.controllers')
 			};
 			
 			$scope.paySelectedBills = function(){
-				if($scope.selected.length != 0){
-					console.log("payment",$scope.selected);
-				}
-			}
+				
+				$scope.billingList = [];
+										  
+				$scope.selected.forEach(function(id){
+					$scope.bill = {};
+					$scope.bill.billingId = id;
+					$scope.billingList.push($scope.bill);					
+				})
+				
+				BillingServices.makePayment($scope.billingList).then(function(data){
+					$scope.transactionDetails = data;
+					$scope.transactionDetails.amount = data.amount.toFixed(2);
+					setTimeout(function() {
+						$scope.$apply(); 
+						document.forms["frmTransaction"].submit();
+					}, 25);
+				});
+				
+			};
 
 		}]);

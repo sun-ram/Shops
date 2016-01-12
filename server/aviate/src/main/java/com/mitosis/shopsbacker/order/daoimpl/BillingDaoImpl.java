@@ -37,4 +37,14 @@ implements BillingDao<T>, Serializable {
 		save((T)billing);
 	}
 
+	@Override
+	public Billing getBillingById(String billingId) {
+		try {
+			return (Billing) getSession().get(Billing.class, billingId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 }

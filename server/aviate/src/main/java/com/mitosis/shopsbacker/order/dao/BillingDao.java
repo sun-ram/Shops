@@ -11,4 +11,6 @@ public interface BillingDao<T> {
 
 	public void addNewBill(Billing billing);
 
+	public Billing getBillingById(String billingId);
+
 }
