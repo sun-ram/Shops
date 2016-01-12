@@ -18,9 +18,15 @@ angular.module('aviate.directives')
 
 			var timeMatches = /(\d{2}):(\d{2}):(\d{2})/.exec($scope.datetime.toString());
 			
+			var temp1 = timeMatches[0].split(':'),hours = temp1[0],
+			ampm = hours >= 12 ? 'pm' : 'am';
+			hours = hours % 12;
+			temp1.splice(2);
+			temp1[0] = hours ? hours : 12;
+			$scope.period=ampm;
+			
 			$scope.hour = timeMatches[1];
 			$scope.minute = timeMatches[2];
-			$scope.period = "am";
 
 			if ($scope.hour > 12) {
 				$scope.hour = parseInt($scope.hour - 12);
