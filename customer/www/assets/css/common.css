@@ -90,7 +90,8 @@
 
 
 .timeline-container .timeline-circle button {
-    margin-top: 4px;
+    margin-top: 2px;
+    color:#FFFFFF !important;
 }
 
 .timeline-container .timeline-line {
