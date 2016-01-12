@@ -1,45 +1,38 @@
+ <!-- <md-tooltip md-direction="top">Select address</md-tooltip> -->
+ <!-- <md-tooltip md-direction="top">Select delivery</md-tooltip> -->
+ <!-- <md-tooltip md-direction="top">Review and confirmed</md-tooltip> -->
+ <!--  <md-tooltip md-direction="top">Select payment</md-tooltip> -->
+
 <md-card layout="column">
         <md-card-content>
             <section class="timeline" layout="row" layout-align="center center">
                 <div layout="row" class="timeline-container" layout-align="center center">
-                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.addressEntry}">
+                    <div class="timeline-circle se-add-bg" ng-class="{completed:timeLineStatus.addressEntry}">
                         <md-button class="md-icon-button" aria-label="More" ng-click="goPrevious('address')">
-                            <div class="sa" style="height:50px; width:50px;"></div>
+                            <ng-md-icon fill="white" size="16" icon="done"></ng-md-icon>
                         </md-button>
-                        <md-tooltip md-direction="top">
-                            Select address
-                        </md-tooltip>
                     </div>
-                    <div flex class="timeline-line" ng-class="{completed:timeLineStatus.addressEntry}">
+                    <div flex class="timeline-line se-add-line" ng-class="{completed:timeLineStatus.addressEntry}">
                     </div>
-                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.deliveryDate}">
+                    <div class="timeline-circle se-del-bg" ng-class="{completed:timeLineStatus.deliveryDate}">
                         <md-button class="md-icon-button" aria-label="More" ng-click="goNext('address')">
-                            <div class="sd" style="height:50px; width:50px;"></div>
+                            <div class="" style="height:50px; width:50px;"></div>
                         </md-button>
-                        <md-tooltip md-direction="top">
-                            Select delivery
-                        </md-tooltip>
                     </div>
-                    <div flex class="timeline-line" ng-class="{completed:timeLineStatus.deliveryDate}">
+                    <div flex class="timeline-line se-del-line" ng-class="{completed:timeLineStatus.deliveryDate}">
                     </div>
-                    <div class="timeline-circle" ng-class="{completed:timeLineStatus.verification}">
+                    <div class="timeline-circle se-con-bg" ng-class="{completed:timeLineStatus.verification}">
                         <md-button class="md-icon-button" aria-label="More" ng-click="goNext('deliverySchedule')">
-                           <div class="sp" style="height:50px; width:50px;"></div>
+                           <div class="" style="height:50px; width:50px;"></div>
                         </md-button>
-                        <md-tooltip md-direction="top">
-                            Review and confirmed
-                        </md-tooltip>
                     </div>
-                    <div flex class="timeline-line" ng-class="{completed:timeLineStatus.verification}">
+                   <!--  <div flex class="timeline-line se-con-line" ng-class="{completed:timeLineStatus.verification}">
                     </div>
                     <div class="timeline-circle" ng-class="{completed:timeLineStatus.payment}">
                         <md-button class="md-icon-button" aria-label="More">
-                             <div class="src" style="height:50px; width:50px;"></div>
+                             <div class="" style="height:50px; width:50px;"></div>
                         </md-button>
-                        <md-tooltip md-direction="top">
-                            Select payment
-                        </md-tooltip>
-                    </div>
+                    </div> -->
                 </div>
             </section>
             <ng-include src="merchangetTemplate"></ng-include>

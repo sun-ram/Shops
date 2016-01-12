@@ -9,19 +9,85 @@
 
 .timeline-container {
     height: 150px;
-    width: 90%;
+    width: 600px;
 }
 
 .timeline-container .timeline-circle {
-    height: 60px;
-    width: 60px;
+    height: 40px;
+    width: 40px;
     border-radius: 60px;
-    background-color: #ebebeb;
+    border:2px solid #ebebeb;
 }
 
-.timeline-container .timeline-circle.completed {
-    background-color: #90CAF9;
+.timeline-container .se-add-bg  {}
+.timeline-container .se-add-line{ 
+	
+	}
+
+.timeline-container .se-add-bg:before{ 
+	content: "Delivery Address";
+    width: 140px;
+    float: left;
+    position: relative;
+    top: -32px;
+    left: -47px;
+    text-align: center;
 }
+.timeline-container .se-del-bg:before{ 
+	content: "Delivery Time";
+    width: 140px;
+    float: left;
+    position: relative;
+    top: -32px;
+    left: -47px;
+    text-align: center;
+}
+.timeline-container .se-con-bg:before{ 
+	content: "Review";
+    width: 140px;
+    float: left;
+    position: relative;
+    top: -32px;
+    left: -47px;
+    text-align: center;
+}
+
+.timeline-container button{
+    position: relative;
+    height: 30px !important;
+    width: 30px !important;
+    top: -24px;
+}
+
+/* .timeline-container .timeline-circle.completed {
+    background-color: #90CAF9;
+} */
+.timeline-container .se-add-bg.completed {
+    background-color: #f15c35;
+    border-color: #f15c35;
+} 
+.timeline-container .se-add-line.completed{
+  background: red; /* For browsers that do not support gradients */
+  background: linear-gradient(to right, #f15c35 , #ece824); /* Standard syntax */
+  border:none;
+}
+
+
+.timeline-container .se-del-bg.completed {
+    background-color: #ece824;
+    border-color: #ece824;
+} 
+.timeline-container .se-del-line.completed{
+  background: red; /* For browsers that do not support gradients */
+  background: linear-gradient(to right, #ece824 , #609a44); /* Standard syntax */
+  border:none;
+}
+.timeline-container .se-con-bg.completed {
+    background-color: #609a44;
+    border-color: #609a44;
+} 
+
+
 
 .timeline-container .timeline-circle button {
     margin-top: 4px;
@@ -29,13 +95,14 @@
 
 .timeline-container .timeline-line {
     height: 10px;
-    background-color: #ebebeb;
+    border-top:2px solid #ebebeb;
+    border-bottom:2px solid #ebebeb;
 }
 
-.timeline-container .timeline-line.completed {
+/* .timeline-container .timeline-line.completed {
     background-color: #90CAF9;
 }
-
+ */
 .address-section .address-title,
 .verification-section .verification-section-title {
     text-align: center;
