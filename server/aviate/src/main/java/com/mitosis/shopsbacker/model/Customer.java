@@ -116,22 +116,22 @@ public class Customer implements java.io.Serializable {
 		this.customerId = customerId;
 	}
 
-	public String getCreatedby() {
-		return this.createdby;
-	}
-
-	public void setCreatedby(String createdby) {
-		this.createdby = createdby;
-	}
-
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
-		return this.updatedby;
+		return updatedby;
 	}
-
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}
-
+	
+	@Column(name = "CREATEDBY", length = 32)
+	public String getCreatedby() {
+		return createdby;
+	}
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+	
 	@Column(name = "NAME", nullable = true, length = 45)
 	public String getName() {
 		return this.name;

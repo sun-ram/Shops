@@ -38,13 +38,14 @@ public class Billing implements java.io.Serializable {
 	private Store store;
 	private Merchant merchant;
 	private SalesOrder salesOrder;
+	private BillingPayment billingPayment;
 
 	public Billing() {
 	}
 
 	public Billing(String billingId, BigDecimal amount, BigDecimal fees,
 			char isPaid, char isactive, Date orderedDate, Date paidDate,
-			Store store, Merchant merchant, SalesOrder salesOrder) {
+			Store store, Merchant merchant, SalesOrder salesOrder,BillingPayment billingPayment) {
 		this.billingId = billingId;
 		this.amount = amount;
 		this.fees = fees;
@@ -55,6 +56,7 @@ public class Billing implements java.io.Serializable {
 		this.store = store;
 		this.merchant = merchant;
 		this.salesOrder = salesOrder;
+		this.billingPayment = billingPayment;
 	}
 
 	@Id
@@ -153,6 +155,16 @@ public class Billing implements java.io.Serializable {
 
 	public void setSalesOrder(SalesOrder salesOrder) {
 		this.salesOrder = salesOrder;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "BILLING_PAYMENT_ID")
+	public BillingPayment getBillingPayment() {
+		return billingPayment;
+	}
+
+	public void setBillingPayment(BillingPayment billingPayment) {
+		this.billingPayment = billingPayment;
 	}
 
 }

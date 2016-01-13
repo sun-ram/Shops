@@ -72,20 +72,20 @@ public class DeliveryTimeSlot implements java.io.Serializable {
 	}
 
  
-	public String getCreatedby() {
-		return this.createdby;
-	}
-
-	public void setCreatedby(String createdby) {
-		this.createdby = createdby;
-	}
-
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
-		return this.updatedby;
+		return updatedby;
 	}
-
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
+	}
+	
+	@Column(name = "CREATEDBY", length = 32)
+	public String getCreatedby() {
+		return createdby;
+	}
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -110,10 +110,18 @@ public class MyCart implements java.io.Serializable {
 		this.product = product;
 	}
 
-	public String getCreatedby() {
-		return this.createdby;
+	@Column(name = "UPDATEDBY", length = 32)
+	public String getUpdatedby() {
+		return updatedby;
 	}
-
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
+	}
+	
+	@Column(name = "CREATEDBY", length = 32)
+	public String getCreatedby() {
+		return createdby;
+	}
 	public void setCreatedby(String createdby) {
 		this.createdby = createdby;
 	}
@@ -147,15 +155,7 @@ public class MyCart implements java.io.Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
-	public String getUpdatedby() {
-		return this.updatedby;
-	}
-
-	public void setUpdatedby(String updatedby) {
-		this.updatedby = updatedby;
-	}
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STORE_ID", nullable = false)
 	public Store getStore() {

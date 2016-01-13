@@ -135,18 +135,18 @@ public class StoreHoliday {
 		this.updated = updated;
 	}
 
+	@Column(name = "UPDATEDBY", length = 32)
 	public String getUpdatedby() {
 		return updatedby;
 	}
-
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}
-
+	
+	@Column(name = "CREATEDBY", length = 32)
 	public String getCreatedby() {
 		return createdby;
 	}
-
 	public void setCreatedby(String createdby) {
 		this.createdby = createdby;
 	}
