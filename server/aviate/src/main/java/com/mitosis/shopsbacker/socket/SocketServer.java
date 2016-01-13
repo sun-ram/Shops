@@ -43,14 +43,12 @@ public class SocketServer {
 	public void onOpen(Session peer, @PathParam("username") String userName) {
 		peers.add(peer);
 		usersMap.put(peer.getId(), userName);
-		System.out.println("Connected"+""+peer.getId());
 	}
 
 	@OnClose
 	public void onClose(Session peer) {
 		peers.remove(peer);
 		usersMap.remove(peer.getId());
-		System.out.println("DisConnected"+""+peer.getId());
 	}	
 
 	@OnMessage

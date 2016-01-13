@@ -29,6 +29,8 @@ import com.mitosis.shopsbacker.order.service.SalesOrderReturnLineService;
 import com.mitosis.shopsbacker.order.service.SalesOrderReturnService;
 import com.mitosis.shopsbacker.order.service.SalesOrderService;
 import com.mitosis.shopsbacker.responsevo.SalesOrderReturnResponseVo;
+import com.mitosis.shopsbacker.socket.SocketMessage;
+import com.mitosis.shopsbacker.socket.SocketServer;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.util.SBMessageStatus;
 import com.mitosis.shopsbacker.vo.ResponseModel;
@@ -137,6 +139,14 @@ public class SalesOrderReturnRestService<T> {
 						.setSalesOrderReturnLines(salesOrderReturnLineList);
 				salesOrderReturnService
 						.createSalesOrderReturn(salesOrderReturn);
+				SalesOrderReturnVo salesOrderReturnvo = salesOrderReturnService
+						.setSalesOrderToVo(salesOrderReturn);
+				SocketMessage message = new SocketMessage();
+				SocketServer socketServer = new SocketServer();
+				message.setTag("SalesOrderReturn");
+				message.setToUser(salesOrderReturnvo.getSalesOrder().getCustomer().getCustomerId());
+				message.setSalesOrderReturn(CommonUtil.getObjectMapper(salesOrderReturnvo));
+				socketServer.message(message, null);
 			}
 		} catch (Exception e) {
 			response = CommonUtil.addStatusMessage(e, response);

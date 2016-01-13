@@ -1,5 +1,5 @@
 angular.module('app')
-.run(function($rootScope, $state, $http, ipCookie, MyCartServices, MyCartFactory, $localStorage) {
+.run(function($rootScope, $state, $http, ipCookie, MyCartServices, MyCartFactory, $localStorage, SocketServices) {
 
 	var store = ipCookie('store');
 	$rootScope.latLong ={}
@@ -21,6 +21,7 @@ angular.module('app')
 	if (user != undefined || user != null) {
 		$rootScope.user = null;
 		$rootScope.user = user;
+		SocketServices.getSocket($rootScope.user);
 	};
 
 	var myCart = JSON.parse(localStorage.getItem('myCart')); //ipCookie('myCart');
@@ -58,5 +59,9 @@ angular.module('app')
 			
 		});
 	}
+	
+	window.onbeforeunload = function (event) {
+		$rootScope.websocket.close();
+	};
 	
 });

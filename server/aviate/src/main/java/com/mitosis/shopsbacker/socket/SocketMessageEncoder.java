@@ -28,22 +28,30 @@ public class SocketMessageEncoder implements Encoder.Text<SocketMessage> {
      * @see javax.websocket.Encoder.Text#encode(java.lang.Object)
      */
     public String encode(SocketMessage chatMessage) throws EncodeException {
-    	if(chatMessage.getTag().equalsIgnoreCase("SalesOrder")){
-    		return Json.createObjectBuilder()
-                    .add("user", chatMessage.getToUser())
-                    .add("message", chatMessage.getMessage())
-                    .add("salesOrder", chatMessage.getSalesOrder())
-                    .add("tag", chatMessage.getTag())
-                    .build().toString();	
-    	}else{
-    		return Json.createObjectBuilder()
-                    .add("touser", chatMessage.getToUser())
-                    .add("fromuser", chatMessage.getFromUser())
-                    .add("tag", chatMessage.getTag())
-                    .add("latitude", chatMessage.getLatitude())
-                    .add("longitude", chatMessage.getLongitude())
-                    .build().toString();	
-    	}
+         switch (chatMessage.getTag().toUpperCase()) {
+             case "SALESORDER":
+            	 return Json.createObjectBuilder()
+                         .add("user", chatMessage.getToUser())
+                         .add("message", chatMessage.getMessage())
+                         .add("salesOrder", chatMessage.getSalesOrder())
+                         .add("tag", chatMessage.getTag())
+                         .build().toString();
+             case "GEOLOCATION": 
+            	 return Json.createObjectBuilder()
+                         .add("touser", chatMessage.getToUser())
+                         .add("fromuser", chatMessage.getFromUser())
+                         .add("tag", chatMessage.getTag())
+                         .add("latitude", chatMessage.getLatitude())
+                         .add("longitude", chatMessage.getLongitude())
+                         .build().toString();
+             case "SALESORDERRETURN":
+            	 return Json.createObjectBuilder()
+                         .add("touser", chatMessage.getToUser())
+                         .add("tag", chatMessage.getTag())
+                         .add("salesOrderReturn", chatMessage.getSalesOrderReturn())
+                         .build().toString();
+         }
+		return null;
         
     }
 

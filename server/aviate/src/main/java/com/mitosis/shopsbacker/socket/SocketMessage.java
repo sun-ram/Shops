@@ -14,6 +14,7 @@ public class SocketMessage {
 	private String tag;
 	private String latitude;
 	private String longitude;
+	private String SalesOrderReturn;
 	
 	public String getFromUser() {
 		return fromUser;
@@ -57,4 +58,11 @@ public class SocketMessage {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
+	public String getSalesOrderReturn() {
+		return SalesOrderReturn;
+	}
+	public void setSalesOrderReturn(String salesOrderReturn) {
+		SalesOrderReturn = salesOrderReturn;
+	}
+	
 	}

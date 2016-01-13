@@ -1,6 +1,6 @@
 angular.module('aviate.directives')
-.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices', 'FavouriteServices', '$window',
-                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices, FavouriteServices, $window) {
+.directive('mainNav', ['$rootScope', '$document', '$state', 'ipCookie', '$timeout','$mdUtil','$mdSidenav','$log','$mdDialog','MyCartFactory','toastr','MyCartServices', 'MyListServices','CheckOutServices', 'FavouriteServices', '$window','SocketServices',
+                       function($rootScope, $document, $state, ipCookie, $timeout, $mdUtil, $mdSidenav, $log ,$mdDialog, MyCartFactory,toastr, MyCartServices, MyListServices,CheckOutServices, FavouriteServices, $window, SocketServices) {
 
 	return {
 		// scope: false,
@@ -263,6 +263,7 @@ angular.module('aviate.directives')
 								$scope.saveauth();
 								$scope.cancel();
 								toastr.success(CONSTANT.SUCCESS_CODE.SIGNINSUCCESS);
+								SocketServices.getSocket($rootScope.user);
 								$scope.addProductsToCart(function(){
 									MyCartServices.getCartList({"customer" : {"customerId" : $rootScope.user.userId},"store" : {"storeId" : $rootScope.store.storeId}}).then(function(data){
 										MyCartFactory.myCartTotalPriceCalculation();
@@ -436,6 +437,9 @@ angular.module('aviate.directives')
 				$rootScope.myCart = {};
 				$rootScope.categoryList();
 				$rootScope.myCart.cartItem = [];
+				if($rootScope.websocket){
+	       			 $rootScope.websocket.close();
+	       		 	}
 				//ipCookie('myCart', $rootScope.myCart);
 				localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
 				$state.go('app.home');

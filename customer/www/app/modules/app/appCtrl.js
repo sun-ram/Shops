@@ -471,4 +471,46 @@ angular.module('aviate.controllers')
 					$rootScope.geoLocation();
 				}, 500);
 			}
+			
+			$rootScope.socketService = function(){
+				if($rootScope.websocket!=null && $rootScope.websocket!=undefined){
+					$rootScope.websocket.onopen = function(evt) { onOpen(evt); };
+					$rootScope.websocket.onmessage = function(evt) { onMessage(evt); };
+					$rootScope.websocket.onerror = function(evt) { onError(evt); };
+					$rootScope.websocket.onclose = function(evt) { onClose(evt); };
+				}
+			}
+						
+			function send_message() {
+				var msg = {
+						fromuser: "ff80818151a92d880151a955a5c80008",
+						touser: "ff80818151a92d880151a955a5c80008",
+						latitude:"123.00",
+						longitude:"123.00",
+						tag:"Geolocation"
+					  };
+
+				$rootScope.websocket.send(JSON.stringify(msg));
+			}
+			
+			function onOpen() {
+			 console.log("CONNECTED");
+			}
+			
+			function onClose() {
+				console.log("DISCONNECTED");
+			}
+			
+			function onMessage(evt) {
+			 $scope.socketData = JSON.parse(evt.data); 
+			 $scope.salesOrderReturn = JSON.parse($scope.socketData.salesOrderReturn);
+			}
+			
+			function onError(evt) {
+				console.log(evt.data);
+			}
+			
+			function disconnect() {
+				$rootScope.websocket.close();
+			}
 }]);
