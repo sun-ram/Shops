@@ -2,9 +2,11 @@
 <md-dialog aria-label="Category"  ng-cloak>
   <form ng-submit="addFolder();">
   <md-toolbar>
-    <div class="md-toolbar-tools">
+    <div class="md-toolbar-tools" style="background-color:#0f9d58;">
+    
       <h2 ng-show="data.isSummary === 'N'" class="ft-white">Upload New Image</h2>
       <h2 ng-hide="data.isSummary === 'N'" class="ft-white">Create New Folder</h2>
+      
       <span flex></span>
       <md-button class="md-icon-button"  type="button" ng-click="cancel()">
         <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -15,13 +17,21 @@
    <md-input-container layout-padding flex> 
    <label  ng-hide="data.isSummary === 'N'">Enter Folder name<span	class="ft-red">*</span></label>
    <label  ng-show="data.isSummary === 'N'">Enter Image name<span	class="ft-red">*</span></label>
-    <input ng-model="data.fileName" ng-change="checkFolderIsExit();" ng-required="true"> </md-input-container>
+    <input ng-model="data.fileName" ng-change="checkFolderIsExit();" ng-required="true"> 
+     
+        
+    </md-input-container>
+    <div style="padding-left:8px; color:red; font-size:12px;">
+          <div ng-show="flag" class="md-body">
+            {{errorMsg}}
+          </div>
+     </div>  
   </md-dialog-content>
   
   
   
    <div ng-show="data.isSummary === 'N'" flex layout="row" >
-  		<div layout="row" layout-sm="column" layout-align="start start">
+  		<div layout="row" layout-sm="column" layout-align="start start" style="margin:10px auto 0px auto;">
 		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
 	     		<label class="cursor" style="position:relative; z-index:1; color:#000000;" id="file-uploadtest"> 
 				Upload Image
@@ -36,7 +46,7 @@
   
   
   <br>
-  <span style="color:red;" ng-show="flag">{{errorMsg}}</span>
+ <!--  <span style="color:red;" ng-show="flag">{{errorMsg}}</span> -->
   <div class="md-actions" flex>
   <span flex> </span>  
     <md-button class="md-raised md-success" type="submit"  ng-disabled="!data.fileName && flag">Add</md-button>
