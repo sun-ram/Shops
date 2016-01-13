@@ -557,3 +557,8 @@ CREATE TABLE `shopsbacker`.`transaction` (
 -- --11-01-2016 -- Anbukkani Gajendran -- column spell mistake as corrected .
 ALTER TABLE `shopsbacker`.`transaction` 
 CHANGE COLUMN `CREADEDBY` `CREATEDBY` VARCHAR(32) NOT NULL ;
+
+
+-- --13-01-2016 -- Prabakaran A	-- Account Id has added to tracsaction table --------------- --
+ALTER TABLE `shopsbacker`.`transaction` 
+ADD COLUMN `ACCOUNT_ID` VARCHAR(32) NOT NULL AFTER `AMOUNT`;
