@@ -98,7 +98,7 @@ public class paymentOfBillingRedirect<T> extends HttpServlet {
 
 			properties.load(getClass().getResourceAsStream(
 					"/properties/serverurl.properties"));
-			boolean flag = billingService.updateBilling(
+			boolean flag = billingService.updateBilling(billingNo,
 					paymentId, paymentMethod, requestId, transactionNo,
 					responseCode, responseMessage, referenceNo);
 

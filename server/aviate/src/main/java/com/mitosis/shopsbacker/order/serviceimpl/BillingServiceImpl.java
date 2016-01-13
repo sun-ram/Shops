@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -11,10 +12,13 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.model.Billing;
+import com.mitosis.shopsbacker.model.BillingPayment;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.Store;
@@ -123,7 +127,7 @@ public class BillingServiceImpl implements BillingService<T>, Serializable  {
 	}
 
 	@Override
-	public TransactionDetailVo setTransactionDetails(List<Billing> billingList) {
+	public TransactionDetailVo setTransactionDetails(List<Billing> billingList) throws Exception {
 		
 		TransactionDetailVo transaction = new TransactionDetailVo();
 		// TODO: Need clarification this field move to db or property file
@@ -135,13 +139,27 @@ public class BillingServiceImpl implements BillingService<T>, Serializable  {
 			log.error(e);
 			e.printStackTrace();
 		}
-		BigDecimal amount = new BigDecimal(0);			
+		BigDecimal amount = new BigDecimal(0);	
+		Merchant merchant = null;
+		List<String> billingIds= new ArrayList<String>();
 		for (Billing bills : billingList){
 			String id = bills.getBillingId();
+			billingIds.add(id);
 			Billing bill = billingDao.getBillingById(id);
+			merchant = bill.getMerchant();
 			BigDecimal fees = bill.getFees();
 			amount = amount.add(fees);
 		}
+		
+		BillingPayment billingPayment=(BillingPayment)CommonUtil.setAuditColumnInfo(BillingPayment.class.getName(), null);
+		billingPayment.setAmount(amount);
+		billingPayment.setIsactive('Y');
+		billingPayment.setMerchant(merchant);
+		billingDao.saveBillingPayment(billingPayment);
+		
+		//add billing payment in billing
+		billingDao.update(billingIds,billingPayment);
+		
 		
 		String secret_key = "2abfa552700f8cf9b9cbdb22909dacfa";
 		int account_Id = 18984;
@@ -160,7 +178,7 @@ public class BillingServiceImpl implements BillingService<T>, Serializable  {
 		transaction.setCountry("IND");
 		transaction.setCurrency("INR");
 		transaction.setCurrencyCode("INR");
-		transaction.setDescription("Test Transaction");
+		transaction.setDescription(billingPayment.getBillingPaymentId());
 		// TODO: need to clarify with HDFC
 		transaction.setEmail("info@mitosistech.com");
 		transaction.setMode(mode);
@@ -218,19 +236,22 @@ public class BillingServiceImpl implements BillingService<T>, Serializable  {
 	}
 
 	@Override
-	public boolean updateBilling(String paymentId,
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean updateBilling(String billingNo,String paymentId,
 			String paymentMethod, String requestId, String transactionNo,
 			String responseCode, String responseMessage, String referenceNo) {
 	boolean flag = false;
 	try{
 		// TODO: need to update in billing table
-		Billing billing = new Billing();
-		transactionService.save(billing.getBillingId(),
+		BillingPayment billingPayment = billingDao.getBillingPaymentById(billingNo);
+		transactionService.save(billingPayment.getBillingPaymentId(),
 				transactionNo, paymentMethod, requestId,
-				billing.getFees(), billing.getMerchant(),
+				billingPayment.getAmount(), billingPayment.getMerchant(),
 				paymentId, TransactionStatus.SUCCESS,
-				billing.getStore(), responseCode, responseMessage,
+				null, responseCode, responseMessage,
 				TransactionType.BILLING_FOR_COD, referenceNo);
+		
+		billingDao.update(billingPayment);
 	
 	} catch (Exception e) {
 		e.printStackTrace();

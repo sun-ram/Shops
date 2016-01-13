@@ -16,9 +16,11 @@ public interface BillingService<T> {
 	
 	public void addNewBill(SalesOrder salesOrder);
 
-	public TransactionDetailVo setTransactionDetails(List<Billing> selected);
+	public TransactionDetailVo setTransactionDetails(List<Billing> selected) throws Exception;
 
-	boolean updateBilling(String paymentId, String paymentMethod,
-			String requestId, String transactionNo, String responseCode,
-			String responseMessage, String referenceNo);
+	public boolean updateBilling(String billingNo, String paymentId,
+			String paymentMethod, String requestId, String transactionNo,
+			String responseCode, String responseMessage, String referenceNo);
+
+
 }
