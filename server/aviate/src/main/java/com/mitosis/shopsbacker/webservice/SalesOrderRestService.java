@@ -39,6 +39,7 @@ import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.MyCart;
 import com.mitosis.shopsbacker.model.OrderTax;
+import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.Role;
 import com.mitosis.shopsbacker.model.SalesOrder;
 import com.mitosis.shopsbacker.model.SalesOrderLine;
@@ -396,7 +397,17 @@ public class SalesOrderRestService<T> {
 
 			List<SalesOrderLine> salesOrderLines = new ArrayList<SalesOrderLine>();
 			for (MyCart myCart : cartProduct) {
-				
+				List<ProductInventory> productInventoryList=myCart.getProduct().getProductInventories();
+				int totalavailableQty=0;
+				for(ProductInventory productInventory:productInventoryList){
+					totalavailableQty=totalavailableQty+productInventory.getAvailableQty();
+				}
+				if(myCart.getQty()>totalavailableQty){
+					response.setErrorString("Out Of Stock");
+					response.setStatus(SBMessageStatus.FAILURE.getValue());
+					res = CommonUtil.getObjectMapper(response);
+					return res;
+				}
 				Double discountPrice = 0.0;
 				if(myCart.getDiscount() != null){
 					if(myCart.getDiscount().getDiscountPercentage() != null){
