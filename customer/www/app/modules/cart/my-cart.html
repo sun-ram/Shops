@@ -23,7 +23,7 @@
 				
 			</div>
 			
-			<md-list-item ng-repeat="product in myCart.cartItem" style="border-bottom:2px solid #eeeeee; margin: 10px 0px; padding-bottom: 10px;">
+			<md-list-item layout-wrap ng-repeat="product in myCart.cartItem" style="border-bottom:2px solid #eeeeee; margin: 10px 0px; padding-bottom: 10px;">
 		      <div class="md-list-item-text padd-l20 padd-lr0" flex="15" flex-md="10" flex-sm="15" >
 		      	<div ng-if="product.product.price > product.discountPrice"  class="save-offer ng-scope md-success">
 					      					<img class="save" src="assets/images/save.png" />
@@ -68,6 +68,21 @@
                           <ng-md-icon icon="highlight_remove" style="fill: #F96D57" size="30"></ng-md-icon>
                          <md-tooltip md-direction="bottom">Remove from cart</md-tooltip>
                      </md-button> 
+                     </div>
+                     
+                     
+                     
+                     <div layout="row" flex="100" layout-wrap>
+                     	<div flex="100"  class="padd-l80">
+                     		<h1 class="md-title">Combo Products</h1>
+                     	</div>
+                     	<div class="padd-l80" flex="15" flex-md="10" flex-sm="15" >
+                     		<img  src="{{product.product.image.url}}" height="30"/>
+                     	</div>
+                     	<div layout="row" class="padd-l20" flex="35" flex-md="30" flex-sm="25" >
+                     		<span class="md-body">Product Name - Rs 230</span>
+                     	</div>
+                     	
                      </div>
 		      </md-list-item>
 		     		
