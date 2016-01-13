@@ -493,17 +493,19 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 	.cart-count span{font-weight: bold; font-size: 22px; padding: 9px 11px; margin: 0px;}	
 	.font-16{font-size: 16px ! important;}
 	.font-14{font-size: 14px ! important;}
-	.responsive-container{ width:100%;}
+	.responsive-container{ width:96%;}
 }
 @media screen and (max-width: 450px){
 	.cart-count .md-icon-button{border-radius: 50% ! important; height: 25px ! important; width: 25px ! important; min-height: 0 ! important; margin-left: 3px;}
 	.cart-btm-btns{width: 100%;}
 	.responsive-container{ width:100%;}
 	.pro-detail-popup{width:400px; height:80%; }
+	.succ-container,.fav-inner-container{ width:96%;}
 }
 
 @media screen and (min-width: 450px) and (max-width: 600px) {
 	.pro-detail-popup{width:400px; height:80%; }
+	.succ-container,.fav-inner-container{ width:96%;}
 }
 
 @media screen and (max-width: 600px) {
@@ -516,6 +518,7 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
 	
 	.succ-popup{ width:80%; height:80%;  position:absolute;  left:10%; }
 	.fav-container{width:100%;}
+	.succ-container,.fav-inner-container{ width:96%;}
 }
 
 @media screen and (max-width: 960px) {
@@ -537,12 +540,14 @@ md-select .md-select-value,md-input-container .md-input{ border-color:rgba(0,0,0
      .fav-container{width:100%;}
      
      .pro-detail-popup{width:550px; height:80%; }
+     .succ-container,.fav-inner-container{ width:70%;}
 }
 @media screen and (min-width: 961px) {
     .product-detail-dialog{width:100%; height:auto;}
     .responsive-container{ width:80%;}
     .pro-header{ height:190px;}
      .del-prod-price{text-align:right;}
+     .succ-container,.fav-inner-container{ width:600px;}
      
 }
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -1275,8 +1280,11 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
 
 
 ul.carousel li{float:left;} 
+.succ-container{  border:2px solid #0f9d58; margin:0px auto;}
+.succ-container .succ-icon{ padding:28px 2px 0px 10px; width:70px; float:left; height:60px;}
+.succ-container .succ-content{ padding:0px 10px 0px 0px; width:calc(100% - 101px); float:left; }
 
-
-
-
+.fav-btn-container button,.fav-btn-container a{ width:100%;}
+.fav-btn-container button{ margin:20px 10px 0px 0px; }
+.fav-btn-container a{ margin:20px 10px 0px 0px; }
 
