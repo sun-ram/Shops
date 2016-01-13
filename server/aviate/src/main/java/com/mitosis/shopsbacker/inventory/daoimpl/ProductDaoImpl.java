@@ -3,8 +3,11 @@ package com.mitosis.shopsbacker.inventory.daoimpl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +16,9 @@ import com.mitosis.shopsbacker.inventory.dao.ProductDao;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
+import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
 /**
  * @author RiyazKhan.M
@@ -222,15 +227,18 @@ ProductDao<T>, Serializable{
 	}
 
 	@Override
-	public List<Product> getComboOffer(Merchant merchant) {
-
-
+	public List<Product> getComboOffer(Store store) {
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
-			criteria.add(Restrictions.eq("merchant",merchant));
-			criteria.add(Restrictions.eq("isKit", 'Y'));
-			criteria.add(Restrictions.eq("isactive", 'Y'));
-			criteria.add(Restrictions.eq("isBundle", 'N'));
+			DetachedCriteria criteria = DetachedCriteria.forClass(ProductOffer.class,"productOffer");
+			criteria.add(Restrictions.eq("store",store));
+			criteria.createAlias("productOffer.product","product");
+			criteria.add(Restrictions.eq("product.isKit", 'Y'));
+			criteria.add(Restrictions.eq("product.isactive", 'Y'));
+			criteria.add(Restrictions.eq("product.isBundle", 'N'));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			ProjectionList proList = Projections.projectionList();
+			proList.add(Projections.property("product"));
+			criteria.setProjection(proList);
 			return ((List<Product>) findAll(criteria));
 		} catch (Exception e) {
 			e.printStackTrace();

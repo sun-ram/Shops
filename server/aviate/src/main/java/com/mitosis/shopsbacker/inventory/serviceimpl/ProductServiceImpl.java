@@ -31,6 +31,7 @@ import com.mitosis.shopsbacker.model.ProductInventory;
 import com.mitosis.shopsbacker.model.ProductOffer;
 import com.mitosis.shopsbacker.model.ProductOfferLine;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.util.CommonUtil;
 import com.mitosis.shopsbacker.vo.common.ImageVo;
@@ -405,8 +406,8 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	}
 
 	@Override
-	public List<Product> getComboOffer(Merchant merchant) {
-		return productDao.getComboOffer(merchant);
+	public List<Product> getComboOffer(Store store) {
+		return productDao.getComboOffer(store);
 	}
 
 }

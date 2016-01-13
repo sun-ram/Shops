@@ -22,7 +22,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.apache.axis2.databinding.types.soapencoding.Decimal;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -36,9 +35,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
+import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.common.service.ImageService;
 import com.mitosis.shopsbacker.inventory.service.DiscountService;
 import com.mitosis.shopsbacker.inventory.service.ProductCategoryService;
@@ -46,13 +44,13 @@ import com.mitosis.shopsbacker.inventory.service.ProductImageService;
 import com.mitosis.shopsbacker.inventory.service.ProductService;
 import com.mitosis.shopsbacker.inventory.service.ProductTypeService;
 import com.mitosis.shopsbacker.inventory.service.UomService;
-import com.mitosis.shopsbacker.model.Discount;
 import com.mitosis.shopsbacker.model.Image;
 import com.mitosis.shopsbacker.model.Merchant;
 import com.mitosis.shopsbacker.model.Product;
 import com.mitosis.shopsbacker.model.ProductCategory;
 import com.mitosis.shopsbacker.model.ProductImage;
 import com.mitosis.shopsbacker.model.ProductType;
+import com.mitosis.shopsbacker.model.Store;
 import com.mitosis.shopsbacker.model.Uom;
 import com.mitosis.shopsbacker.responsevo.ProductResponseVo;
 import com.mitosis.shopsbacker.util.CommonUtil;
@@ -103,6 +101,9 @@ public class ProductRestService {
 
 	@Autowired
 	DiscountService<T> discountService;
+	
+	@Autowired
+	StoreService<T> storeService;
 
 	public ProductService<T> getProductService() {
 		return productService;
@@ -1516,12 +1517,13 @@ public class ProductRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public ResponseModel GetComboOffer(ProductVo productVo) {
+	public String GetComboOffer(ProductVo productVo) {
+		String responseStr="";
 		ProductResponseVo productResponse = new ProductResponseVo();
 		try {
-			Merchant merchant = merchantService.getMerchantById(productVo
-					.getMerchant().getMerchantId());
-			List<Product> productList = getProductService().getComboOffer(merchant);
+			Store store = storeService.getStoreById(productVo
+					.getStore().getStoreId());
+			List<Product> productList = getProductService().getComboOffer(store);
 			List<ProductVo> productVoList = new ArrayList<ProductVo>();
 			for (Product product : productList) {
 				ProductVo productVos = productService.setProductVo(product);
@@ -1536,8 +1538,13 @@ public class ProductRestService {
 			productResponse.setStatus(SBMessageStatus.FAILURE.getValue());
 			productResponse.setErrorString(e.getMessage());
 		}
-
-		return productResponse;
+		try {
+			responseStr=CommonUtil.getObjectMapper(productResponse);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		return responseStr;
 
 	}
 }

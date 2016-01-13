@@ -13,7 +13,6 @@ public class ProductInventoryVo {
 	private ProductVo product;
 	private StoreVo storevo;
 	private int availableQty;
-	private char isactive;
 	private WarehouseVo warehouse;
 	private String userId;
 	
@@ -41,12 +40,6 @@ public class ProductInventoryVo {
 	}
 	public void setAvailableQty(int availableQty) {
 		this.availableQty = availableQty;
-	}
-	public char getIsactive() {
-		return isactive;
-	}
-	public void setIsactive(char isactive) {
-		this.isactive = isactive;
 	}
 	public MerchantVo getMerchantVo() {
 		return merchantVo;
