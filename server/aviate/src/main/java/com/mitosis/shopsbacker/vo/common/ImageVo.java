@@ -14,8 +14,16 @@ public class ImageVo {
 	private String imageId;
 	private String name;
 	private String type;
+	private String imageFrom;
 	private String url;
 	private String image;
+	
+	public String getImageFrom() {
+		return imageFrom;
+	}
+	public void setImageFrom(String imageFrom) {
+		this.imageFrom = imageFrom;
+	}
 	public String getImageId() {
 		return imageId;
 	}

@@ -1,4 +1,4 @@
- <div ng-init="getMeasurementUnit();getproductCategory();getProductType(product.productCategory.productCategoryId);getDiscount()">
+ <div ng-init="getMeasurementUnit();getproductCategory();getDiscount()">
 
 	<md-toolbar	class=" md-default-theme" style="background-color:transparent; z-index:1;">
 		<div class="md-toolbar-tools">
@@ -57,7 +57,7 @@
 
 			<md-input-container> <label>Product
 				Measurement<span style="color:red">*</span></label> <input type="text" ng-model="product.unit"
-				ng-required="true" pattern="\d+(\.\d{1,2})?" / name="measurement">
+				ng-required="true" pattern="\d+(\.\d{1,2})?" name="measurement"/>
 				<span
 				ng-message="required"
 				ng-show="addProductForm.measurement.$error.measurement || (!addProductForm.measurement.$error.required && !addProductForm.measurement.$valid)"
@@ -164,7 +164,7 @@
              	</md-button>
 		  </div>
 	  	</div>
-	  <div ng-show="image.originalFrontImage || (uploadedImages.length >=  0)" flex layout="row">
+	  <div ng-show="image.originalFrontImage || (uploadedImages.length >=  0) || product.image.imageFrom ==='gallery'" flex layout="row">
   		<div layout="row" layout-sm="column" layout-align="start start" ng-click="addNewImageToList();">
 		    <div class="md-layout-row layout-align-start-center pt_relat" style="height:120px; width:120px;cursor:pointer; text-align:center;  border-radius:5px; padding:10px; border:5px solid rgba(0,0,0,0.1)">	 
 	     		<label class="cursor" style="position:relative; z-index:1	; color:#000000;" id="file-uploadtest"> 

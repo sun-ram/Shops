@@ -16,17 +16,30 @@ angular.module('aviateAdmin.controllers')
 	$scope.srch = true;
 
     $rootScope.setProductImage = function(image){
-    	if($scope.imageType == 'original' && $scope.imageType != undefined){
-    		$scope.image = image;
-    	}else if($scope.imageType == 'uploaded' && $scope.imageType != undefined){
+    	if($scope.imageType === "original" && $scope.imageType !== undefined){
+    		if(image.imageFrom === "gallery"){
+        		$scope.product.image = image;
+    		}
+        	else{
+        		$scope.image = image;
+        	}
+    	}else if($scope.imageType === "uploaded" && $scope.imageType !== undefined){
     		$scope.newImage = {};
-    		$scope.newImage.image = image.originalFrontImage;
-    		if(image.imageId != undefined){
+    		if(image.imageFrom === "gallery"){
+    			$scope.newImage = image;
+    		}else{
+    			$scope.newImage.image = image.originalFrontImage;
+    		}
+    		
+    		if(image.imageId !== undefined){
     		  $scope.newImage.imageId = image.imageId;
+    		}
+    		if($scope.uploadedImages[$scope.imageIndex].imageFrom){
+    			$scope.uploadedImages[$scope.imageIndex] = {};
     		}
     		$scope.uploadedImages[$scope.imageIndex] = $scope.newImage;
     	}
-    }
+    };
 	
 	$scope.image={};
 	$scope.image.originalFrontImage;
@@ -172,15 +185,15 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.addproduct = function() {
 
-		if ($scope.product.price == 0) {
+		if ($scope.product.price === 0) {
 			toastr.warning("Product Price should be greater than Zero");
 			return;
 		} 
-		if ($scope.product.wasPrice == 0) {
+		if ($scope.product.wasPrice === 0) {
 			toastr.warning("Product WasPrice should be greater than Zero");
 			return;
 		} 
-		if(($scope.product.price != undefined || $scope.product.price !="") && ($scope.product.wasPrice != undefined || $scope.product.wasPrice != "")){
+		if(($scope.product.price !== undefined || $scope.product.price !=="") && ($scope.product.wasPrice !== undefined || $scope.product.wasPrice !== "")){
 			if(parseInt($scope.product.wasPrice) <= parseInt($scope.product.price)){
 				toastr.warning("WasPrice Should Be Greater Than To Price");
 				return;
@@ -188,13 +201,15 @@ angular.module('aviateAdmin.controllers')
 			}
 		}
 		if($scope.product.isBundle){
-			if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ==""){
+			if(parseInt($scope.product.groupCount)<2 || $scope.product.groupCount ===""){
 				toastr.warning("BundleQty Should Be Greater Than One");
 				return;
 			}
 		}
-		if($scope.image.originalFrontImage != undefined ){
+		if($scope.image.originalFrontImage !== undefined ){
 			$scope.product.image = $scope.splitProductType($scope.image.originalFrontImage);
+		}else if($scope.product.image && $scope.product.image.imageFrom ==="gallery"){
+			
 		}else{
 			toastr.warning("Please select originalFrontImage");
 			return;
@@ -205,6 +220,8 @@ angular.module('aviateAdmin.controllers')
 			for(var i=0; i<$scope.uploadedImages.length; i++){
 				if($scope.uploadedImages[i].image != undefined ){
 					$scope.product.images.push($scope.splitProductType($scope.uploadedImages[i].image));
+				}else if($scope.uploadedImages[i].imageFrom && $scope.uploadedImages[i].imageFrom === "gallery"){
+					$scope.product.images.push($scope.uploadedImages[i]);
 				}
 			}
 		}
@@ -414,7 +431,7 @@ angular.module('aviateAdmin.controllers')
 
 	$scope.addNewImageToList = function(){
 		if($scope.uploadedImages != undefined && $scope.uploadedImages.length > 0){
-			if(!($scope.uploadedImages[$scope.uploadedImages.length-1].image || $scope.uploadedImages[$scope.uploadedImages.length-1].imageId)){
+			if(!($scope.uploadedImages[$scope.uploadedImages.length-1].image || $scope.uploadedImages[$scope.uploadedImages.length-1].imageId || $scope.uploadedImages[$scope.uploadedImages.length-1].imageFrom === "gallery")){
 				return;
 			}
 		}else{
@@ -463,7 +480,7 @@ angular.module('aviateAdmin.controllers')
 			templateUrl: 'app/modules/modals/ProductImageUpload.html',
 			parent: angular.element(document.body),
 			clickOutsideToClose:false,
-			controller: function($scope,$rootScope,$mdDialog,$state, GalleryServices){
+			controller: function($scope,$rootScope,$mdDialog,$state, GalleryServices,$http){
 				
 				$scope.changeBreadCrumbState = function(crumb){
 					var crumbList = $scope.breadCrumbGallerySelect;
@@ -505,23 +522,13 @@ angular.module('aviateAdmin.controllers')
 				$scope.setActive = function(folder, index){
 					$scope.selectedObj = folder;
 					$scope.selectedObj.index = index;
-					
 					if(folder === undefined || folder.isSummary === 'Y')
 						return;
-					
-					$scope.imageScope = folder.url;
-					 var c = document.getElementById("myCanvas");
-					  var ctx = c.getContext("2d");
-					  var img = document.getElementById("preview");
-					  ctx.drawImage(img, 10, 10);
-					  $scope.image = {"originalFrontImage" :c.toDataURL()};
-					  
-					  console.log(c.toDataURL());
-
-					
+					$scope.image = {
+							"url": folder.url,
+							"imageFrom":'gallery'
+							}
 				};
-				
-				
 				
 				$scope.uploadFile = function (val1,val2){
 					var id =$('#'+val2).val();
@@ -533,7 +540,7 @@ angular.module('aviateAdmin.controllers')
 					if(imageId !== undefined){
 						image.imageId = imageId;
 					}
-					$rootScope.setProductImage(angular.copy(image));
+					$rootScope.setProductImage(image);
 					$mdDialog.cancel();
 				};
 									
