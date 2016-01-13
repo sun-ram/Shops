@@ -905,7 +905,7 @@ font-size: 12px !important;
 .item-type span{ width:12px; height:12px; border-radius:50px; float:left;}
 .item-type-Veg{ background-color:#008000;}
 .item-type-Non-Veg{ background-color:#DA251E;}
-.item-type-Non-Eatable{ border:2px solid #DA251E; position:relative;}
+/* .item-type-Non-Eatable{ border:2px solid #DA251E; position:relative;}
 .item-type-Non-Eatable:after{
 	height: 12px;
     width: 2px;
@@ -915,7 +915,7 @@ font-size: 12px !important;
     transform:rotate(45deg);
     left:5px;
     top:1px;
- }
+ } */
  .border-r-only{ border-right:1px solid rgba(0,0,0,0.7);}
 .actual-prices{ color:#DA251E;}
 /*.actual-prices:after{
