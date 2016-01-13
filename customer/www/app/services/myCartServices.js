@@ -46,8 +46,16 @@ angular.module('aviate.services')
 			if(result){
 				if (result.status === CONSTANT.STATUS.SUCCESS) {
 					$rootScope.myCart.cartItem = result.myCart;
+					$rootScope.myCart.flag=false;
 					//ipCookie("myCart", $rootScope.myCart);
 					localStorage.setItem('myCart',JSON.stringify($rootScope.myCart));
+					for(var i=0;i<$rootScope.myCart.cartItem.length;i++){
+						if($rootScope.myCart.cartItem[i].qty > $rootScope.myCart.cartItem[i].product.productInventory.availableQty){
+							$rootScope.myCart.flag=true;
+							$rootScope.myCart.message="Out Of Stock for "+$rootScope.myCart.cartItem[i].product.name;
+							break;
+						}
+					}
 					d.resolve($rootScope.myCart );
 				} else {
 					/*toastr.error(result.errorString);*/

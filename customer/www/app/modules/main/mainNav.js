@@ -477,7 +477,15 @@ angular.module('aviate.directives')
 				$scope.favourite.favouriteId = favouriteId
 				FavouriteServices.viewProductInFavourite($scope.favourite).then(function(data){
 					$scope.productInFavourite = {};
+					$scope.productInFavourite.flag=false;
 					$scope.productInFavourite.productList = data.myCart;
+					for(var i=0;i<$scope.productInFavourite.productList.length;i++){
+						if($scope.productInFavourite.productList[i].qty > $scope.productInFavourite.productList[i].product.productInventory.availableQty){
+							$scope.productInFavourite.flag=true;
+							$scope.productInFavourite.message="Out Of Stock for "+$scope.productInFavourite.productList[i].product.name;
+							break;
+						}
+					}
 					$scope.productInFavourite.favouriteId = favouriteId;
 					$state.go('app.favouriteList');
 

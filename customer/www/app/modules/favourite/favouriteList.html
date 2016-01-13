@@ -101,6 +101,9 @@
      	<span class="md-title font-16">{{product.product.name}}</span>
      	<span class="md-subhead font-14">{{product.product.measurement}}{{product.productUnitOfMeasure.abbreviation}}</span>
      	<span class="md-subhead font-14">Rs.{{product.product.price }}</span>
+     	<div ng-if="product.qty > product.product.productInventory.availableQty" class="md-list-item-text padd-l10 marg-l10">
+		        	<span  class="md-title font-13" style="color:red">Out Of Stock</span>
+		         </div>
     </div>
    	<div class="md-list-item-text padd-l30 padd-l10 marg-l10" flex="20" flex-md="30" flex-sm="25">
    		<div class="cart-count">
@@ -126,7 +129,10 @@
 				<div  layout="row" layout-align="start start">
 					<md-button class="md-raised md-primary" style="background-color:#55A707 ; color:#FFFFFF;" ng-click="addFavouriteToCart(productInFavourite.favouriteId);">Add to  Cart</md-button>
 				</div>
-								<div layout="row" layout-align="start start">
+								<div ng-if="productInFavourite.flag" layout="row" layout-align="start start">
+					<md-button ng-disabled="true" class="md-raised md-primary" style="background-color:#448CCB; color:#FFFFFF;" ng-click="conformFavourite(productInFavourite.favouriteId);">Proceed to checkout</md-button>
+				</div>
+				<div ng-if="!productInFavourite.flag" layout="row" layout-align="start start">
 					<md-button class="md-raised md-primary" style="background-color:#448CCB; color:#FFFFFF;" ng-click="conformFavourite(productInFavourite.favouriteId);">Proceed to checkout</md-button>
 				</div>
 			</div>

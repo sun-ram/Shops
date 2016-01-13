@@ -13,11 +13,13 @@
 				</div>
             <div flex layout="column" ng-show="myCart.cartItem.length > 0">
             	<div>
-					<md-toolbar layout="row" class="bg-white ht45">
-					<div  class="md-toolbar-tools ht55" layout-align="start">
-						<h3>Your Cart</h3>		   
-						</div>             
+					<md-toolbar class="bg-white ht65">
+					<div  class="md-toolbar-tools ht55">
+						<h3>Your Cart </h3>						
+						</div>
+						<span ng-if="myCart.flag" style="color:red; float: left; font-size: 15px; margin-top: -14px; margin-left: 18px;"> {{myCart.message}}</span>             
 		            </md-toolbar>
+		            
 				</div>
             	<div flex layout="column">
 			         <div flex class="scroll-cart">
@@ -76,9 +78,12 @@
                             <p flex class="tright" ng-bind-html="myCart.shippingCharges | currency : rupeesSymbol"></p> </div>
                             
                          <div layout="row" style="line-height: 0; padding:0px 15px;"><h3 flex>Total </h3>					                        
-                            <h3 flex class="tright" ng-bind-html="myCart.grossAmount | currency : rupeesSymbol"></h3></div>                        
+                            <h3 flex class="tright" ng-bind-html="myCart.grossAmount | currency : rupeesSymbol"></h3>	 </div>                        
                     	
-                    	<div layout="row" style="line-height: 0;">
+                    	<div ng-if="myCart.flag" layout="row" style="line-height: 0;">
+                    	<md-button ng-disabled="true" class="md-raised ft_size18" style="width:100%; background-color:#0F9D58 ;color:white;" ng-click="checkOut();toggleRight('right')">CHECKOUT</md-button>
+                	</div>
+                	<div ng-if="!myCart.flag" layout="row" style="line-height: 0;">
                     	<md-button class="md-raised ft_size18" style="width:100%; background-color:#0F9D58 ;color:white;" ng-click="checkOut();toggleRight('right')">CHECKOUT</md-button>
                 	</div>
                 	
