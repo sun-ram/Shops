@@ -14,7 +14,7 @@ import com.mitosis.shopsbacker.model.Account;
  * @author Anbukkani Gajendiran
  *
  */
-@Service("addressServiceImpl")
+@Service("accountServiceImpl")
 public class AccountServiceImpl<T> implements AccountService<T>  {
 	@Autowired
 	AccountDao<T> accountDao;
