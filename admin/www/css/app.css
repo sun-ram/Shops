@@ -763,4 +763,7 @@ md-input-container>md-select{
 		transition: 0.5s linear all; 
 	    opacity: 0; 
 	}
+	.md-subheader .md-subheader-inner{
+		padding: 10px 0 5px 16px;
+	}
 
