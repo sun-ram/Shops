@@ -379,8 +379,10 @@ angular.module('aviate.controllers')
 
 			$rootScope.comboOffers = function(){
 				$scope.product = {};
+				$scope.product.store = {};
 				$scope.product.merchant = {};
 				$scope.product.merchant.merchantId = $rootScope.store.merchant.merchantId;
+				$scope.product.store.storeId = $rootScope.store.storeId;
 				         homePageServices.comboOffer($scope.product).then(function(data){
 				             $rootScope.comboOffer = data;	
 				        })

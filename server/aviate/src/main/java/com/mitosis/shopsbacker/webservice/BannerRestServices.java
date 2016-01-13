@@ -38,8 +38,7 @@ import com.mitosis.shopsbacker.vo.admin.BannerVo;
 @Path("banner")
 @Controller("bannerRestServices")
 public class BannerRestServices {
-	final static Logger log = Logger.getLogger(BannerRestServices.class
-			.getName());
+	final static Logger log = Logger.getLogger(BannerRestServices.class);
 
 	@Autowired
 	BannerService<T> bannerService;

@@ -601,3 +601,13 @@ ADD CONSTRAINT `FK_TRANS_STORE`
   REFERENCES `shopsbacker`.`store` (`STORE_ID`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+  -- --13-01-2016 -- Anbukkani Gajendran -- Account table created --------------- --
+  CREATE TABLE `shopsbacker`.`account` (
+  `ACCOUNT_ID` varchar(32) NOT NULL,
+  `ACCOUNT_NO` varchar(45) NOT NULL,
+  `SEC_KEY` varchar(64) NOT NULL,
+  `ISACTIVE` char(1) NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (`ACCOUNT_ID`),
+  UNIQUE KEY `ACCOUNT_ID_UNIQUE` (`ACCOUNT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

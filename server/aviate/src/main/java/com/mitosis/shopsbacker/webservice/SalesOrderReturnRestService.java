@@ -118,7 +118,7 @@ public class SalesOrderReturnRestService<T> {
 							salesOrderReturnLine.setProduct(salesOrderLine
 									.getProduct());
 							int returnQty = salesOrderLine.getQty() - salesOrderLineVo
-									.getReturnQty();
+									.getQty();
 							salesOrderReturnLine.setQuantity(returnQty);
 							salesOrderReturnLine
 									.setReturnGrossAmount(salesOrderLine
