@@ -36,6 +36,7 @@ public class Transaction implements Serializable {
 	private String transactionType;
 	private String transactionNo;
 	private String status;
+	private String accountId;
 	private Merchant merchant;
 	private char isactive;
 	private String createdby;
@@ -51,7 +52,7 @@ public class Transaction implements Serializable {
 			BigDecimal amount, String transactionType, String transactionNo,
 			String status, Merchant merchant, char isactive, String createdby,
 			Date created, Date updated, String updatedby, String responseCode,
-			String responseMessage, String recordId, String paymentId) {
+			String responseMessage, String recordId, String paymentId, String accountId) {
 		this.transactionId = transactionId;
 		this.store = store;
 		this.referenceNo = referenceNo;
@@ -68,6 +69,7 @@ public class Transaction implements Serializable {
 		this.responseCode = responseCode;
 		this.responseMessage = responseMessage;
 		this.recordId = recordId;
+		this.accountId = accountId;
 		this.paymentId = paymentId;
 	}
 
@@ -234,5 +236,16 @@ public class Transaction implements Serializable {
 	public void setPaymentId(String paymentId) {
 		this.paymentId = paymentId;
 	}
+	
+	@Column(name = "ACCOUNT_ID", nullable = false, length = 32)
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+	
+	
 
 }

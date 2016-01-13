@@ -17,11 +17,13 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.JsonObject;
 import com.mitosis.shopsbacker.admin.service.MerchantService;
 import com.mitosis.shopsbacker.admin.service.StoreService;
 import com.mitosis.shopsbacker.admin.service.TaxService;
@@ -493,8 +495,45 @@ public class SalesOrderRestService<T> {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 		return res;
+	}
+	
+	@Path("/confirmorderpayment")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public JSONObject confirmOrderPayment(JSONObject  transactiondatas) {
+		JSONObject response = new JSONObject();
+		try{ 
+			if ("0".equalsIgnoreCase(transactiondatas.getString("ResponseCode"))
+					&& "Transaction Successful".equalsIgnoreCase(transactiondatas.getString("ResponseMessage"))) {
+				boolean flag = salesOrderService.paymentConfimation(
+												transactiondatas.getString("Description"),
+												transactiondatas.getString("PaymentId"), 
+												transactiondatas.getString("PaymentMode"),
+												transactiondatas.getString("AccountId"), 
+												transactiondatas.getString("TransactionId"), 
+												transactiondatas.getString("ResponseCode"),
+												transactiondatas.getString("ResponseMessage"),
+												transactiondatas.getString("MerchantRefNo"));
+				if(flag){
+					response.put("status", SBMessageStatus.SUCCESS.getValue());
+					response.put("salesOrderId", transactiondatas.getString("Description"));
+				}else{
+					response.put("status", SBMessageStatus.FAILURE.getValue());
+					response.put("errorString", SBErrorMessage.PARMENT_CONFIRMATION.getMessage());
+					response.put("errorCode", SBErrorMessage.PARMENT_CONFIRMATION.getCode());
+				}
+			}else{
+				response.put("status", SBMessageStatus.FAILURE.getValue());
+				response.put("errorString", SBErrorMessage.PARMENT_CONFIRMATION.getMessage());
+				response.put("errorCode", SBErrorMessage.PARMENT_CONFIRMATION.getCode());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 	@Path("/getsalesorders")

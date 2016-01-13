@@ -40,7 +40,7 @@ public interface SalesOrderService<T> {
 	public SalesOrderVo setSalesOrderVo (SalesOrder salesOrder, boolean excludeReturnQty) throws Exception ;
 
 	public boolean paymentConfimation(String salesOrderNo, String paymentId,
-			String paymentMethod, String requestId, String transactionNo,
+			String paymentMethod, String accountId, String transactionNo,
 			String responseCode, String responseMessage, String referenceNo);
 
 	public SalesOrder getSalesOrder(String orderNo);

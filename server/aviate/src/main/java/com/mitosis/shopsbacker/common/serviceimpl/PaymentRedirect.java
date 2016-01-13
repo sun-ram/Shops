@@ -69,7 +69,7 @@ public class PaymentRedirect<T> extends HttpServlet {
 		String salesOrderNo = "";
 		String transactionNo = "";
 		String paymentMethod = "";
-		String requestId = "";
+		String accountId = "";
 
 		if ("0".equalsIgnoreCase(request.getParameter("ResponseCode"))
 				&& "Transaction Successful".equalsIgnoreCase(request
@@ -77,12 +77,12 @@ public class PaymentRedirect<T> extends HttpServlet {
 			salesOrderNo = request.getParameter("Description").trim();
 			transactionNo = request.getParameter("TransactionID").trim();
 			paymentMethod = request.getParameter("PaymentMethod").trim();
-			requestId = request.getParameter("RequestID").trim();
+			accountId = request.getParameter("AccountId").trim();
 			String paymentId = request.getParameter("PaymentID").trim();
 			String responseCode = request.getParameter("ResponseCode");
 			String responseMessage =request
 					.getParameter("ResponseMessage");
-			String referenceNo = request.getParameter("MerchantRefNo").trim();;
+			String referenceNo = request.getParameter("MerchantRefNo").trim();
 
 			/*
 			 * System.out.println("ResponseMessage   :"+
@@ -102,7 +102,7 @@ public class PaymentRedirect<T> extends HttpServlet {
 			properties.load(getClass().getResourceAsStream(
 					"/properties/serverurl.properties"));
 			boolean flag = salesOrderService.paymentConfimation(salesOrderNo,
-					paymentId, paymentMethod, requestId, transactionNo,
+					paymentId, paymentMethod, accountId, transactionNo,
 					responseCode, responseMessage, referenceNo);
 
 			// paymentConfimation(salesOrderNo, transactionNo, paymentMethod,

@@ -179,7 +179,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean paymentConfimation(String salesOrderNo, String paymentId,
-			String paymentMethod, String requestId, String transactionNo,
+			String paymentMethod, String accountId, String transactionNo,
 			String responseCode, String responseMessage, String referenceNo) {
 		boolean flag = false;
 		SalesOrderVo salesOrderVo = new SalesOrderVo();
@@ -194,7 +194,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 			//salesOrder.setRequestId(requestId);
 			updateSalesOrder(salesOrder);
 			transactionService.save(salesOrder.getSalesOrderId(),
-					transactionNo, paymentMethod, requestId,
+					transactionNo, paymentMethod, accountId,
 					salesOrder.getNetAmount(), salesOrder.getMerchant(),
 					paymentId, TransactionStatus.SUCCESS,
 					salesOrder.getStore(), responseCode, responseMessage,

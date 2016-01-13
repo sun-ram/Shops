@@ -77,7 +77,7 @@ public class TransactionServiceImpl<T> implements TransactionService<T>,
 	 */
 	@Override
 	public void save(String recordId, String transactionNo,
-			String paymentMethod, String requestId, BigDecimal amount,
+			String paymentMethod, String accountId, BigDecimal amount,
 			Merchant merchant, String paymentId, TransactionStatus status, Store store,
 			String responseCode, String responseMessage, TransactionType transactionType, String referenceNo)
 			throws Exception {
@@ -95,6 +95,7 @@ public class TransactionServiceImpl<T> implements TransactionService<T>,
 		transaction.setReferenceNo(referenceNo);
 		transaction.setTransactionNo(transactionNo);
 		transaction.setTransactionType(transactionType.getValue());
+		transaction.setAccountId(accountId);
 		transactionDao.save(transaction);
 
 	}
