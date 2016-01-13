@@ -2,9 +2,13 @@ package com.mitosis.shopsbacker.util;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -331,6 +335,67 @@ public final class CommonUtil {
 		}
 		return success;
 	}
+	
+	/**
+	 * Read image from url path
+	 * 
+	 * @author prabakaran
+     * @param image url
+     * @return BufferedImage
+     */
+	public static BufferedImage readImageFromUrl(String imgUrl)
+			throws MalformedURLException, IOException {
+		URL url = new URL(imgUrl);
+		BufferedImage image = ImageIO.read(url);
+		return image;
+	}
+	
+	/**
+	 * Encode image to string
+	 * 
+	 * @author prabakaran
+     * @param image The image to encode
+     * @param type jpeg, bmp, ...
+     * @return encoded string
+     */
+    public static String encodeToString(BufferedImage image, String type) {
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(image, type, bos);
+            byte[] imageBytes = bos.toByteArray();
+
+            imageString = Base64.encodeBase64String(imageBytes);
+
+            bos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imageString;
+    }
+    
+    /**
+     * Decode string to image
+     * 
+     * @author prabakaran
+     * @param imageString The string to decode
+     * @return decoded image
+     */
+    public static BufferedImage decodeToImage(String imageString) {
+
+        BufferedImage image = null;
+        byte[] imageByte;
+        try {
+            imageByte = Base64.decodeBase64(imageString);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            bis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 
 	/**
 	 * 

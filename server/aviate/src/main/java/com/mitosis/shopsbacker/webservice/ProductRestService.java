@@ -167,7 +167,7 @@ public class ProductRestService {
 			// discountService.getDiscountById(productVo.getDiscount().getDiscountId());
 
 			Uom uom = uomService.getUOMById(productVo.getUom().getUomId());
-			if (productVo.getImage().getImage() != null) {
+			if (productVo.getImage().getImage() != null || "gallery".equalsIgnoreCase(productVo.getImage().getImageFrom())) {
 				productService.productImageUpload(productVo.getImage(),
 						merchant);
 			}
@@ -181,7 +181,6 @@ public class ProductRestService {
 			product.setProductType(productType);
 			// product.setDiscount(discount);
 			product.setUom(uom);
-			ProductImage productImage = new ProductImage();
 
 			if (!isUpdateProcess) {
 				productService.addProduct(product);
@@ -219,7 +218,7 @@ public class ProductRestService {
 		List<ImageVo> imageVos = productVo.getImages();
 
 		for (ImageVo imageVo : imageVos) {
-			if (imageVo.getImage() == null) {
+			if (imageVo.getImage() == null && !("gallery".equalsIgnoreCase(imageVo.getImageFrom()))) {
 				continue;
 			}
 			String imageId = imageVo.getImageId();

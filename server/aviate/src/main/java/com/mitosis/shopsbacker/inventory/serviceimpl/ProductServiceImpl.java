@@ -1,12 +1,18 @@
 package com.mitosis.shopsbacker.inventory.serviceimpl;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,7 +81,7 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 
 	@Autowired
 	ProductOfferLineService<T> productOfferLineService;
-	
+
 	@Autowired
 	ProductInventoryService<T> productInventoryService;
 
@@ -147,8 +153,17 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 	public void productImageUpload(ImageVo imageVo, Merchant merchant)
 			throws Exception {
 
-		if (imageVo.getImage() == null) {
+		if (imageVo.getImage() == null && !("gallery".equalsIgnoreCase(imageVo.getImageFrom()))) {
 			return;
+		}
+
+		if("gallery".equalsIgnoreCase(imageVo.getImageFrom())){
+			BufferedImage image = CommonUtil.readImageFromUrl(imageVo.getUrl()); 
+			String type = imageVo.getUrl().substring(imageVo.getUrl().lastIndexOf(".")+1, imageVo.getUrl().length());
+			type = type.substring(0, type.indexOf('?'));
+			String imageStr = CommonUtil.encodeToString(image, type);
+			imageVo.setImage(imageStr);
+			imageVo.setType(type);
 		}
 
 		String productImagePath = "";
@@ -209,12 +224,12 @@ public class ProductServiceImpl<T> implements ProductService<T>, Serializable {
 			product.setIsKit('Y');
 			product.setGroupCount(1);
 			product.setIsBundle('N');
-			}else{
-				product.setIsKit('N');
-			}
+		}else{
+			product.setIsKit('N');
+		}
 		if(productVo.getGroupCount() != null && productVo.getGroupCount() > 1 && productVo.getIsBundle()){
-		       product.setGroupCount(productVo.getGroupCount());
-		       product.setIsBundle('Y');
+			product.setGroupCount(productVo.getGroupCount());
+			product.setIsBundle('Y');
 			product.setGroupCount(productVo.getGroupCount());
 			product.setIsBundle('Y');
 		} else {
