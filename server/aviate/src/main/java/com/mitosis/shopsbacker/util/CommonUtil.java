@@ -47,7 +47,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 public final class CommonUtil {
 
-	static String delivery_time_format = "HH:mm a";
+	static String delivery_time_format = "hh:mm a";
 	
 	/**
 	 * changing date format
@@ -298,7 +298,7 @@ public final class CommonUtil {
 	}
 	
 	public static String convertTimeToString(Date time) {
-		SimpleDateFormat formatter = new  SimpleDateFormat(delivery_time_format);
+		SimpleDateFormat formatter = new  SimpleDateFormat("hh:mm a");
 		String  strTime = formatter.format(time);
 		return strTime;
 	}
