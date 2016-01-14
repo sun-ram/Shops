@@ -77,7 +77,7 @@ public class PaymentRedirect<T> extends HttpServlet {
 			salesOrderNo = request.getParameter("Description").trim();
 			transactionNo = request.getParameter("TransactionID").trim();
 			paymentMethod = request.getParameter("PaymentMethod").trim();
-			accountId = request.getParameter("AccountId").trim();
+			accountId = "18984";
 			String paymentId = request.getParameter("PaymentID").trim();
 			String responseCode = request.getParameter("ResponseCode");
 			String responseMessage =request
