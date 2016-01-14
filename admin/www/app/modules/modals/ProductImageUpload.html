@@ -16,9 +16,12 @@
      </md-radio-group>
    </md-card-content>
    </md-card>
+
+
+
 <md-card ng-show="radio == 'gallery'">
 	<div layout="row" layout-align="center center" >
-<md-card layout-fill class="tbl-body">
+	<md-card layout-fill class="tbl-body">
  	<md-toolbar class=" md-default-theme" style="background-color:transparent; box-shadow:0px 1px 1px rgba(0,0,0,0.07)">
 		<div class="md-toolbar-tools" layout-sm="column" layout-gt-sm="row">
 	  		<div flex="30">
@@ -51,40 +54,26 @@
   </div>
     	</div>
 		<div layout="row" layout-padding>
-				<div flex="100" layout layout-wrap class="fold-container no-outline">
-				<!--  No product folder  -->
-				
-				<div ng-repeat="folder in galleries" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20" ng-click="setActive(folder, $index);" ng-dblClick="((folder.isSummary === 'Y')?openFolders(folder):setActive(folder, $index));$event.stopPropagation();">
-					<div ng-show="folder.isSummary === 'N'"><img ng-src="{{folder.url}}" style="width:180px;"></div>
-					<div ng-show="folder.isSummary === 'Y' && folder.galleries.length>0">  <div class="folder"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
-					<div ng-show="folder.isSummary === 'Y' && !folder.galleries.length>0 ">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
-					<div class="md-title text-center">{{folder.fileName}}</div>
+				<div flex="70" layout="row" layout-wrap class="fold-container no-outline">
+					<div ng-repeat="folder in galleries" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="setActive(folder, $index);" ng-dblClick="((folder.isSummary === 'Y')?openFolders(folder):setActive(folder, $index));$event.stopPropagation();">
+						<div ng-show="folder.isSummary === 'N'"><img ng-src="{{folder.url}}" height="100"></div>
+						<div ng-show="folder.isSummary === 'Y' && folder.galleries.length>0">  <div class="folder"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
+						<div ng-show="folder.isSummary === 'Y' && !folder.galleries.length>0 ">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
+						<div class="md-title text-center">{{folder.fileName}}</div>
+					</div>
 				</div>
-				
-				
-                <img ng-src = "{{image.url}}" style="position:absolute; width:100px; margin-left: -96px; margin-top: -4px; height: 100px;  border-radius: 5px;" />
-				
-		</div>
+				<div flex="30">
+					<div style=" margin:20px auto; width:110px; height:110px; padding:10px;    border: 2px solid rgba(0,0,0,0.1); overflow: hidden;">
+						<img ng-src = "{{image.url}}"  width="80" style=" width:80px; margin:0 auto;  border-radius: 5px;" />
+					</div>
+					<div layout="row">
+						<md-button flex style="width:100%; background-color:#0f9d58 !important" class="md-raised md-cancel marg-r13" type="button" ng-click="passImage(image)">Save</md-button>
+						<md-button flex style="width:100%" class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
+					</div>
+				</div>
 		</div>
     </md-card-content>
 </md-card>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</div>
 	    		    
 </md-card>
@@ -110,8 +99,7 @@
 </md-card>
 <md-card>
 	<div layout="row" layout-align="end end">
-	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="passImage(image)">Save</md-button>
-	<md-button class="md-raised md-cancel marg-r13" type="button" ng-click="cancel()">Cancel</md-button>
+
   </div>
 </md-card>
 
