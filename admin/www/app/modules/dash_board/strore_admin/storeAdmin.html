@@ -374,43 +374,173 @@
 </md-card>-->
     </div>
 
-    <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-        <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-            <div class="md-whiteframe-4dp applyFlatUI">
-                <div>
-                    <h4 style="float:left;font-family:Roboto;font-weight: 300;">Revenue By Day</h4>
-                </div>
-                <div id="chart1">
+    <div layout="row" layout-md="column" layout-sm="column" ng-init="revenue=true;revenuedetail=false">
+        <md-card flex flex-md="100" flex-sm="100" style="min-height: 500px;">
+            <div class="cssFade" ng-show="revenue">
+                   <!-- <h4 style="float:left;font-family:Roboto;font-weight: 300;">Revenue By Day</h4> -->
+                  <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Revenue By Day</h4>
+                <md-button class="btn-tableview" ng-click='revenue=false;revenuedetail=true'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+                <div id="chart1" style="margin-top: 10%;">
                     <svg class="svgss"></svg>
                 </div>
             </div>
+            <div class="cssFade" ng-show="revenuedetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='revenue=true;revenuedetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            
+            </div>
+			</div>
         </md-card>
 
     </div>
-    <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-        <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-            <div class="md-whiteframe-4dp applyFlatUI">
-                <div class="dashboardHeader">
-                    <h4 style="float:left;font-family:Roboto;font-weight: 300;">Salesorder count</h4>
-
-                </div>
-                <div id="barChart2">
+    <div layout="row" layout-md="column" layout-sm="column" ng-init="salescount=true;salescountdetail=false">
+        <md-card flex flex-md="100" flex-sm="100" style="min-height: 500px;">
+            <div ng-show="salescount">
+                   <!-- <h4 style="float:left;font-family:Roboto;font-weight: 300;">Salesorder count</h4> -->
+                   <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Salesorder Count</h4>
+                <md-button class="btn-tableview" ng-click='salescount=false;salescountdetail=true'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+              <div id="barChart2" style="margin-top: 10%;">
                     <svg class="svgss"></svg>
                 </div>
             </div>
+            
+            <div class="cssFade" ng-show="salescountdetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='salescount=true;salescountdetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            
+            </div>
+			</div>
         </md-card>
 
     </div>
-    <div layout="row" layout-md="column" layout-sm="column" class="md-whiteframe-1dp applyFlatUI">
-        <md-card flex flex-md="100" flex-sm="100" class="dashbord_liststyle applyFlatUI" style="box-shadow:none;">
-            <div class="md-whiteframe-4dp applyFlatUI">
-                <div class="dashboardHeader">
-                    <h4 style="float:left;font-family:Roboto;font-weight: 300;">Quality By Day</h4>
-                </div>
-                <div id="grouperBarChart">
+    <div layout="row" layout-md="column" layout-sm="column" ng-init="quality=true;qualitydetail=false">
+        <md-card flex flex-md="100" flex-sm="100" style="min-height: 500px;">
+            <div ng-show="quality">
+                   <!-- <h4 style="float:left;font-family:Roboto;font-weight: 300;">Quality By Day</h4> -->
+                <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Merchants and Store</h4>              
+                <md-button class="btn-tableview" ng-click='quality=false;qualitydetail=true'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+                <div id="grouperBarChart" style="margin-top: 10%;">
                     <svg class="svgss"></svg>
                 </div>
             </div>
+            
+            <div class="cssFade" ng-show="qualitydetail">
+                <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
+                <md-button class="btn-tableview-close" ng-click='quality=true;qualitydetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                </h4>
+                <div style="padding: 20px 20px;">
+                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
+                    <thead md-order="salesOrderPagination.order">
+                        <tr class="tbl-header">
+                            <th ng-click="showIcon='Storename';" order-by="Storename" name="Storename" md-order-by="stroeName"></th>
+                            <th ng-click="showIcon='Salesvalue';" order-by="Salesvalue" name="Salesvalue"></th>
+                            <th ng-click="showIcon='Revenue';" order-by="Revenue" name="Revenue"></th>
+                            <th ng-click="showIcon='Amount';" order-by="Amount" name="Amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>
+                       <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                       </tr>                       
+                    </tbody>
+                </table>
+                <div layout layout="row" class="table-pagination-bg" layout-align="end end">
+			   	<md-data-table-pagination md-limit="" md-page="" md-total="" md-trigger=""></md-data-table-pagination>
+			</div>
+            </md-table-container> 
+            
+            </div>
+			</div>
         </md-card>
     </div>
 

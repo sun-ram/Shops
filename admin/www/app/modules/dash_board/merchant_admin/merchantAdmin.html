@@ -521,8 +521,6 @@
                </md-card>
     </div>
     
-
-</div>
 <div flex layout="row" layout-sm="column" ng-init="showsaleschart=true;showsaleschartdetail=false" layout-padding>
     <md-card flex="100" flex-sm="100" id="todaySalesRevenue" ng-init="drawTodaySalesChart()" layout-padding>
         <!-- <div layout="row">
@@ -585,7 +583,7 @@
 			</div>
     </md-card>
     
-
+</div>
 <div layout="row" layout-md="column" layout-sm="column" layout-padding ng-init="storesalesorder=true;storesalesorderdetail=false">
     <md-card flex flex-md="100" flex-sm="100" layout-padding>
         <!-- <div class="md-whiteframe-4dp applyFlatUI">
@@ -726,7 +724,7 @@
         </div> -->
         <div class="cssFade" ng-show="store_quality"> 
                 <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Stores and Quality</h4>              
-                <md-button class="btn-tableview" ng-click='showgrowth=false;showgrowthdetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
+                <md-button class="btn-tableview" ng-click='store_quality=false;store_qualitydetail=true;'><ng-md-icon icon="more_vert" size="25"></ng-md-icon></md-button>
                 <div style="text-align: center; position: relative; margin-top: 50px; margin-bottom: 20px;" ng-if='qualirtStatsRecords.length <= 0'> No data To Display</div>
 	            <div ng-hide='qualirtStatsRecords.length <= 0' id="grouperBarChart">
 	                <svg class="svgss"></svg>
@@ -735,7 +733,7 @@
         
         <div class="cssFade" ng-show="store_qualitydetail">
                 <h4 style="font-family:Roboto;font-weight: 700; margin: 12px 0px;  font-size: 20px; color: #333; float: left; padding-left: 20px; width: 100%;">Detail View
-                <md-button class="btn-tableview-close" ng-click='sales_milestone=true; sales_milestonedetail=false;'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
+                <md-button class="btn-tableview-close" ng-click='store_quality=true;store_qualitydetail=false;'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
                 <md-table-container style="float: left; width: 100%; margin: 20px auto;">
@@ -778,4 +776,3 @@
     </md-card>
 </div>
 
-</div>
