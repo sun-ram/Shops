@@ -9,16 +9,16 @@
 	  		
 	  		<div flex="70" layout="row" layout-align="end end">
 	  			<ul class="gal-mani-icon" flex layout layout-align="end end">
-	  				<input type="text" name="" class="img-search"/>
+	  				<input type="text" name="search" placeholder = "search" ng-model = "searchGallery" class="img-search"/>
 	  				<li>&#xe906;</li>
 	  				<!-- <li ng-click="changeListView();" ng-class="{{isListview?'active':''}}" class="no-outline"><ng-md-icon icon="view_list" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
 	  				<li ng-click="changeGridView();" ng-class="{{isListview?'':'active'}}" class="no-outline"><ng-md-icon icon="view_module" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> -->
 	  				<li></li>
-	  				<li ng-show="selectedObj.galleryId" ng-click = "deleteGallery($event, selectedObj, selectedObj.index);"><ng-md-icon icon="delete" style="fill: rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> 
+	  				<li ng-show="selectedObj.galleryId" ng-click = "deleteGallery($event, selectedObj, selectedObj.index);"><ng-md-icon icon="delete" style="fill: rgba(0,0,0,0.4)" size="20"><md-tooltip md-direction="top">Delete</md-tooltip></ng-md-icon></li> 
 	  				<!-- <li ng-show="selectedObj.galleryId"><ng-md-icon icon="mode_edit" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li> -->
-	  				<li ng-show="selectedObj.galleryId && selectedObj.isSummary === 'N'"><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
-	  				<li ng-click="addGallery($event, 'N');" class="no-outline"><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
-	  				<li ng-click="addGallery($event, 'Y');" class="no-outline"><ng-md-icon icon="note_add" style="fill:  rgba(0,0,0,0.4)" size="20"></ng-md-icon></li>
+	  				<li ng-show="selectedObj.galleryId && selectedObj.isSummary === 'N'"><ng-md-icon icon="visibility" style="fill:  rgba(0,0,0,0.4)" size="20"><md-tooltip md-direction="top">View</md-tooltip></ng-md-icon></li>
+	  				<li ng-click="addGallery($event, 'N');" class="no-outline"><ng-md-icon icon="image" style="fill:  rgba(0,0,0,0.4)" size="20"><md-tooltip md-direction="top">Add new image  </md-tooltip></ng-md-icon></li>
+	  				<li ng-click="addGallery($event, 'Y');" class="no-outline"><ng-md-icon icon="folder" style="fill:  rgba(0,0,0,0.4)" size="20"><md-tooltip md-direction="top">Add new Folder  </md-tooltip></ng-md-icon></li>
 	  			</ul>
 	  				
 	  		</div>
@@ -41,7 +41,7 @@
 				<div flex="100" ng-click="setActive({});" layout layout-wrap class="fold-container no-outline">
 				<!--  No product folder  -->
 				
-				<div ng-hide="isListview" ng-repeat="folder in galleries" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20" ng-click="setActive(folder, $index);$event.stopPropagation();" ng-dblClick="((folder.isSummary === 'Y')?openFolders(folder):setActive(folder));$event.stopPropagation();">
+				<div ng-hide="isListview" ng-repeat="folder in galleries | filter :searchGallery" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="50" flex-md="25" flex-gt-md="20" ng-click="setActive(folder, $index);$event.stopPropagation();" ng-dblClick="((folder.isSummary === 'Y')?openFolders(folder):setActive(folder));$event.stopPropagation();">
 					<div ng-show="folder.isSummary === 'N'" style="text-align:center"><img ng-src="{{folder.url}}" height="80"></div>
 					<div ng-show="folder.isSummary === 'Y' && folder.galleries.length>0">  <div class="folder"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
 					<div ng-show="folder.isSummary === 'Y' && !folder.galleries.length>0 ">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
@@ -51,7 +51,7 @@
 				<div flex="100" ng-click="setActive({});" layout layout-wrap class="fold-container no-outline">
 				<!--  No product folder  -->
 				
-				<div ng-show="isListview" ng-repeat="folder in galleries" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="100" flex-md="100" flex-gt-md="100" ng-click="setActive(folder);$event.stopPropagation();" ng-dblClick="openFolders(folder);$event.stopPropagation();">
+				<div ng-show="isListview" ng-repeat="folder in galleries | filter :searchGallery" class="folder no-outline" ng-class="checkActive(folder)" layout-margin layout-padding flex-sm="100" flex-md="100" flex-gt-md="100" ng-click="setActive(folder);$event.stopPropagation();" ng-dblClick="openFolders(folder);$event.stopPropagation();">
 					<div ng-show="folder.isSummary === 'N'"> <img ng-src="{{folder.url}}"  style="width:180px;"></div>
 					<div ng-show="folder.isSummary === 'Y' && folder.galleries.length>0">  <div class="gallery-folder-icons"><ng-md-icon  icon="folder" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon></div> </div>
 					<div ng-show="folder.isSummary === 'Y' && !folder.galleries.length>0 ">  <div class="gallery-folder-icons"><ng-md-icon icon="folder_open" style="fill: rgba(15,157,88,0.6)" size="100"></ng-md-icon> </div></div>
