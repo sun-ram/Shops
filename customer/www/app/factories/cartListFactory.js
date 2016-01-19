@@ -308,7 +308,7 @@ angular.module('aviate.factories')
 		}else{
 			$rootScope.myCart.shippingCharges =0;
 		}
-		if($rootScope.shippingCharges && $rootScope.shippingCharges.length == 1){
+		if(_totalAmount != 0 && $rootScope.shippingCharges && $rootScope.shippingCharges.length == 1){
 			$rootScope.myCart.shippingCharges = $rootScope.shippingCharges[0].chargingAmount;
 		}
 		//Tax Charge

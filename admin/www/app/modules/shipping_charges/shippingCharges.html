@@ -54,7 +54,7 @@
        </md-item>
        
        
-       <md-item md-data-table ng-repeat="shippingCharge in shippingChargeList | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
+       <md-item md-data-table ng-repeat="shippingCharge in shippingChargeList | filter:searchTxt | orderBy: shippingPagination.order | limitTo: shippingPagination.limit: (shippingPagination.page - 1) * shippingPagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
          <md-item-content layout="row" layout-padding>
           <div layout="row" layout-wrap class="full_wid tbl-body">
          	
@@ -91,7 +91,7 @@
         </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="shippingCharge in shippingChargeList | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
+		<tr ng-repeat="shippingCharge in shippingChargeList | filter:searchTxt | orderBy: shippingPagination.order | limitTo: shippingPagination.limit: (shippingPagination.page - 1) * shippingPagination.limit" class="md-table-content-row"" ng-click="redirectToStoreDetails(store);">
 			<!-- <td>{{shippingCharge.chargingAmount}}</td>
 			<td>{{shippingCharge.amountRange}}</td> -->
 			<td><span ng-show="shippingCharge.shippingChargesId != showInLineEdit">{{shippingCharge.chargingAmount}}</span>
@@ -122,7 +122,7 @@
 	</md-data-table-container>
    </md-card-content>
   <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="storePagination.limit" md-page="storePagination.page" md-total="{{shippingChargeList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	<md-data-table-pagination md-limit="shippingPagination.limit" md-page="shippingPagination.page" md-total="{{shippingChargeList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </md-card>
  
