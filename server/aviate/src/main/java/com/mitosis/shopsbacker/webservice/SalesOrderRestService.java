@@ -488,13 +488,16 @@ public class SalesOrderRestService<T> {
 			response.setSalesOrderId(salesOrder.getSalesOrderId());
 			salesOrderVo = getSalesOrderService().setSalesOrderVo(
 					salesOrder, false);
-			message.setMessage("New");
-			message.setTag("SalesOrder");
-			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
-			message.setToUser(salesOrderVo.getMerchant().getMerchantId());
-			socket.message(message, null);
-			message.setToUser(salesOrderVo.getStore().getStoreId());
-			socket.message(message, null);
+			if(salesOrderVo.getPaymentMethod() != null
+					&& salesOrderVo.getPaymentMethod().equals("COD")){
+				message.setMessage("New");
+				message.setTag("SalesOrder");
+				message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
+				message.setToUser(salesOrderVo.getMerchant().getMerchantId());
+				socket.message(message, null);
+				message.setToUser(salesOrderVo.getStore().getStoreId());
+				socket.message(message, null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

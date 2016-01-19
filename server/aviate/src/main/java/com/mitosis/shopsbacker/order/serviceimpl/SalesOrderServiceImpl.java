@@ -207,7 +207,7 @@ public class SalesOrderServiceImpl<T> implements SalesOrderService<T>,
 			productStockReduce(salesOrder);
 			flag = true;
 			salesOrderVo = setSalesOrderVo(salesOrder, false);
-			message.setMessage("Update");
+			message.setMessage("New");
 			message.setTag("SalesOrder");
 			message.setSalesOrder(CommonUtil.getObjectMapper(salesOrderVo));
 			message.setToUser(salesOrder.getMerchant().getMerchantId());

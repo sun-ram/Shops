@@ -34,6 +34,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("ispaid", isPaid ? 'Y' : "N"));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNotNull("status"));
 			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
@@ -49,6 +50,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("store", store));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNotNull("status"));
 			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
@@ -85,6 +87,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.le("deliveryDate",
 					CommonUtil.stringToDate(toDate)));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNotNull("status"));
 			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
@@ -105,6 +108,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			criteria.add(Restrictions.le("deliveryDate",
 					CommonUtil.stringToDate(toDate)));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNotNull("status"));
 			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {
@@ -152,6 +156,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 					.forClass(SalesOrder.class);
 			criteria.add(Restrictions.eq("merchant", merchant));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNotNull("status"));
 			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 			
@@ -190,6 +195,7 @@ public class SalesOrderDaoImpl<T> extends CustomHibernateDaoSupport<T>
 			}
 			criteria.add(Restrictions.eq("customer", customer));
 			criteria.add(Restrictions.eq("isactive", 'Y'));
+			criteria.add(Restrictions.isNotNull("status"));
 			criteria.addOrder(Order.desc("created"));
 			return (List<SalesOrder>) findAll(criteria);
 		} catch (Exception e) {

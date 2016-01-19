@@ -51,7 +51,7 @@
 		<tr
 			ng-repeat="product in salesOrderDetails.salesOrderLineVo | orderBy: salesOrderLinePagination.order | limitTo: salesOrderLinePagination.limit: (salesOrderLinePagination.page - 1) * salesOrderLinePagination.limit | filter:search">
 			<td>{{product.productVo.name}}</td>
-			<td>{{product.discount}}</td>
+			<td>{{product.discountAmount}}</td>
 			<td>{{product.price}}</td>
 			<td>{{product.qty}}</td>
 			<td>{{product.netAmount}}</td>
