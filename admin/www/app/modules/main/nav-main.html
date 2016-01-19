@@ -1,9 +1,9 @@
-<md-toolbar class="md-whiteframe-4dp"
-	style="background-color:#0f9d58 !important; position: fixed; top: 0; min-height: 64px; z-index: 1000;">
+<md-toolbar class="cust-md-tool">
 	 <header>
   		<div aria-busy="{{progressbar}}" aria-label="Loading, please wait." role="progressbar"></div>
 	</header>
-    <div class="md-toolbar-tools md-toolbar-tools-fixed-position">
+    <div layout="row" layout-wrap class="md-toolbar-tools md-toolbar-tools-fixed-position">
+        <div layout="row" layout-align="start" flex-sm="100" flex>
         <md-button
 		aria-label="Open demo menu" class="md-icon-button" layout="column"
 		layout-align="center" ng-click="toggleLeft('left');">
@@ -11,7 +11,8 @@
             <md-icon md-svg-icon="assets/img/icons/menu.svg" style="color: #fff ! important;"></md-icon>
         </md-button>
         <h1 class="tool-h1">ShopsBacker</h1>
-        <div layout="row" layout-align="end" flex>
+        </div>
+        <div layout="row" layout-align="end" flex flex-sm="100">
             <div layout="row"  style="color: #fff; margin-top:22px; ">
             	<!-- <div flex style="width:100px; float:left;" layout layout-align="center center"><span flex style="color:#FFFFFF;" class="md-display-1">Hello</span></div>  -->
    			

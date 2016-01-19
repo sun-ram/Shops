@@ -421,7 +421,7 @@
                 <md-button class="btn-tableview-close" ng-click='showgrowth=true;showgrowthdetail=false;'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
-                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <md-table-container class="db-table-container">
                 <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
                     <thead md-order="salesOrderPagination.order">
                         <tr class="tbl-header">
@@ -544,7 +544,7 @@
                 <md-button class="btn-tableview-close" ng-click='showsaleschart=true;showsaleschartdetail=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
-                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <md-table-container class="db-table-container">
                 <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
                     <thead md-order="salesOrderPagination.order">
                         <tr class="tbl-header">
@@ -600,7 +600,7 @@
             <!--  <div flex ng-repeat="ts in todaySalesByMerchant.stores" id="{{ts.storeId}}" ng-init="drawStoreTodaySalesChart(ts)">
                     <span ng-bind="ts.storeName"></span>
                 </div>-->
-            <md-table-container style="float: left; width: 100%; margin: 20px auto; overflow: auto;">
+            <md-table-container class="db-table-container">
                 <table md-data-table class="md-primary"	md-progress="deferred" ng-model="selectedStores" style="border: 1px solid #ddd;">
                     <thead md-order="storesSalveValueTable.order">
                         <tr>
@@ -643,7 +643,7 @@
                 <md-button class="btn-tableview-close" ng-click='showmercantstorechart=true;showmercantstorechartdetails=false'><ng-md-icon icon="close" size="25"></ng-md-icon></md-button>
                 </h4>
                 <div style="padding: 20px 20px;">
-                <md-table-container style="float: left; width: 100%; margin: 20px auto;">
+                <md-table-container class="db-table-container">
                 <table md-data-table class="md-primary"	md-progress="deferred"style="border: 1px solid #ddd;">
                     <thead md-order="salesOrderPagination.order">
                         <tr class="tbl-header">
@@ -685,7 +685,7 @@
 </div>
 <div layout="row" layout-md="column" layout-sm="column" layout-padding>
     <md-card flex flex-md="100" flex-sm="100" layout-padding>
-        <div class="md-whiteframe-4dp applyFlatUI">
+        <div class="">
             <div class="dashboardHeader">
                 <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">SalesOrder Count and Milestones (&#x20B9;)</h4>
 
@@ -699,7 +699,7 @@
 </div>
 <div id="qualityChart" layout="row" layout-md="column" layout-sm="column" layout-padding>
     <md-card flex flex-md="100" flex-sm="100" layout-padding>
-        <div class="md-whiteframe-4dp applyFlatUI">
+        <div class="">
             <div class="dashboardHeader">
                 <h4 style="font-family:Roboto; font-size: 20px; font-weight: 700; margin: 12px 0px; float: left; padding-left: 10px;">Merchant and Quality</h4>
             </div>
