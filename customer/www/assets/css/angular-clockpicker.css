@@ -64,8 +64,8 @@
 
 .ui-clockpicker-time li:nth-child(1) {
   top: 0;
-  left: 70px;
-  padding: 7px;
+  left: 75px;
+  padding: 7px 17px 7px 5px !important;
 }
 .ui-clockpicker-time li:nth-child(2) {
   top: 9px;
@@ -126,11 +126,13 @@
 }
 .ui-clockpicker-time li:nth-child(11) {
   top: 32px;
-  left: 13px;padding: 7px;
+  left: 13px;
+  padding: 6px 17px 7px 4px !important; 
 }
 .ui-clockpicker-time li:nth-child(12) {
   top: 9px;
-  left: 39px;padding: 7px;
+  left: 39px;
+  padding: 7px 16px 7px 5px !important;
 }
 
 .ui-clockpicker-period {
