@@ -94,7 +94,7 @@
 			<div flex-gt-lg="100" flex-lg="100" flex-md="100" flex-sm="100" layout="row"  class="address-box">
 				<div flex-gt-lg="80" flex-lg="60"  flex-md="60" flex-sm="70" ng-click="selectAddress(address.addressId)">
 					<div flex layout="column">
-						<div flex><span class="address-icon"><i class="icon ion-ios-location "></i></span><span class="md-subhead address-pull-left">  {{address.address1}}, {{address.address2}}, {{address.city.name}},  {{address.state.name}}, {{address.country.name}}, {{address.pinCode}}.</span></div>
+						<div flex><span class="address-icon"><i class="icon ion-ios-location "></i></span><span class="md-subhead address-pull-left">  {{address.address1}}{{address.address2 ? ", "+address.address2 : "" }}, {{address.city.name}},  {{address.state.name}}, {{address.country.name}}, {{address.pinCode}}.</span></div>
 						<div flex><span class="address-icon"><i class="icon ion-ios-telephone"></i></span><span class="md-subhead address-pull-left"> {{address.phoneNo}}</span></div>
 					</div>
 				</div>
