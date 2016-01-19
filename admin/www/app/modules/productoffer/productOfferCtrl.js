@@ -136,13 +136,23 @@ angular.module('aviateAdmin.controllers')
 		})
    };
    
+     
    $scope.deleteProductOffer = function(productOfferId){
-       $scope.productOffer ={};
-       $scope.productOffer.productOfferId=productOfferId;
-	   ProductOfferServices.deleteProductOffer($scope.productOffer).then(function(data) {
-			$scope.results = data;
-			$scope.getProductOfferList();
-		})
+		var confirm = $mdDialog.confirm()
+	       .title('Would you like to delete this Offer?')
+	       .ok('Delete')
+	       .cancel('Cancel');
+	 $mdDialog.show(confirm).then(function() {
+		   $scope.productOffer ={};
+	       $scope.productOffer.productOfferId=productOfferId;
+		   ProductOfferServices.deleteProductOffer($scope.productOffer).then(function(data) {
+				$scope.results = data;
+				$scope.getProductOfferList();
+			})
+			
+		  }, function() {
+		  
+		  });
    };
    
    $scope.editProductOffer = function(productOffer){
