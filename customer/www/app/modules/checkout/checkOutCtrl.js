@@ -82,11 +82,6 @@ angular.module('aviate.controllers')
 
 	};
 	
-/*	$scope.getTime = function(){
-		$scope.time = new Date();
-		$scope.time.setMinutes($scope.time.getMinutes()+60);
-	}*/
-
 	$scope.getTimeSlot = function(){
 		
 		if($rootScope.timeSelected != true){
