@@ -576,6 +576,20 @@ angular.module('app')
 		url: '/billing/paidHistory',
 		templateUrl: 'app/modules/billing/paidHistory.html',
 		controller : 'billingCtrl'
+	})
+	
+	//Merchant Engagement
+	.state('app.merchantengagement', {
+		url: '/merchantengagement',
+		templateUrl: 'app/modules/engagements/merchantEngagement.html',
+		controller : 'merchantEngagementCtrl'
+	})
+	
+	//Customer Engagement
+	.state('app.customerengagement', {
+		url: '/customerengagement',
+		templateUrl: 'app/modules/engagements/customerEngagement.html',
+		controller : 'customerEngagementCtrl'
 	});
 
 
