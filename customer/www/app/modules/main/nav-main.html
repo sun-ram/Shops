@@ -3,6 +3,7 @@
 	<span class="md-body-1" flex ng-show="isTodayHoliday && holidayReasons && holidayReasons != ' ' ">Today is holiday Due to {{holidayReasons}} next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
 	<span class="md-body-1" flex ng-show="isTodayHoliday && !holidayReasons || holidayReasons == ' ' ">Today is holiday next available delivery at {{nextWorkingDate}}<!-- {{nextAvailableDeliveryDate()}} --></span>
 	 <div layout="row" flex layout-align="end end">
+	 		<span  layout="column"   style="font-size: 15px; cursor: pointer; margin-right: 25px;" ng-show="user" ng-click="showprofile();"> Profile Info</span>
 			<span  layout="column"   style="font-size: 15px; cursor: pointer; margin-right: 25px;" ng-show="user" ng-click="orderHistory();"> order history </span>
 			<span layout="column"  style="font-size: 15px; cursor: pointer;" ng-hide="user" ng-click="signInPopup($event)">Register/Login</span>
 			<span layout="column" style="font-size: 15px;  cursor: pointer; margin-right: 5px;" ng-show="user">{{user.userName}} | </span>

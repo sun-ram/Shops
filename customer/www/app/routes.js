@@ -142,6 +142,11 @@ angular.module('app')
 		templateUrl: 'app/modules/orderHistory/orderHistory.html',
 		controller : 'orderHistoryCtrl'
 	})
+	.state('app.profile', { 
+		url: '/profile',
+		templateUrl: 'app/modules/profile/profile.html'
+		/*controller : 'profileCtrl'*/
+	})
 	
 	.state('auth', {
 		abstract: true,

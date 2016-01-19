@@ -1,0 +1,122 @@
+<style>
+	md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
+		color: #0f9d58;
+	}
+	md-tabs-canvas{
+		height: 70px !important;
+	}
+	md-tabs .md-tab .md-ripple-container{
+		color: #9ADDBD;
+	}
+	md-tabs md-ink-bar{
+		color: #00B9F5;
+		background: #00B9F5;
+	}
+	.col-1{
+		width: 120px;
+		text-align: right;
+		padding: 5px;
+		font-weight: 100;
+	}
+	.col-2{
+		text-align: left;
+		padding: 5px;
+	}
+	.tab-1-content{
+		margin: 15px 0px;
+	}
+	.tab-2-content{
+		margin: 30px 15px;
+		border: 1px solid lightgrey;
+		width: 300px;
+		padding: 10px;
+	}
+	.tab-2-content span{
+		line-height: 2;
+	}
+	.tab-2-content:hover{
+		border: 1px solid #0f9d58 !important;
+	}
+	.tab-2-content:hover .del-add-icon{
+		display: block;
+	}
+	.chg-pwd{
+		border: 1px solid lightgrey !important;
+		height: 35px;
+	}
+	md-input-container label{
+		height: 18px;
+	}
+	.del-add-icon{
+		display: none;
+		fill: #0f9d58;
+		position: absolute;
+		margin-left: 270px;
+		margin-top: -18px;
+		background: #fff;
+		height: 29px;	
+		cursor: pointer;	
+	}
+	
+</style>
+<md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Personal Info">
+        <md-content class="md-padding">
+	        <div layout="column" class="tab-1-content">
+	        <span layout="row"><span class="col-1">Name:</span><span class="col-2">Syed</span></span>
+	        <span layout="row"><span class="col-1">Email ID:</span><span class="col-2">xyz@gmail.com</span></span>
+	        <span layout="row"><span class="col-1">Mobile Number:</span><span class="col-2">9787877654</span></span>
+	        </div>  
+        </md-content>
+      </md-tab>
+      <md-tab label="Address">
+        <md-content class="md-padding">
+        	<div layout="row">        
+            <div layout="column" class="tab-2-content">
+            <ng-md-icon icon="highlight_remove" class="del-add-icon" size="30"></ng-md-icon>             
+            <span><strong>Name</strong></span>
+            <span>Address</span>
+            <span>City State</span>
+            <span>600076</span>
+            <span>+91 9089887766</span>
+            </div>
+            <div layout="column" class="tab-2-content">
+            <div style="margin: 40px auto;">
+            <ng-md-icon icon="add_circle_outline" class="add-add-icon" style="fill: #0f9d58; cursor: pointer; margin-left: 25px;" size="40"></ng-md-icon> </br>           
+            <span>Add Address</span>
+            </div>
+            </div>
+            </div>      
+        </md-content>
+      </md-tab>
+      <md-tab label="Change Password">
+        <md-content layout class="md-padding">
+        	
+        	<div flex="30" flex-md="50" flex-sm="100" layout="column" layout-padding>
+        	<h3 layout="row" style="margin: 0px;">Change Password</h3>
+        	<md-input-container class="padd_btm10">
+		        <label>Old Password</label>
+		        <input type="password" class="chg-pwd">
+		     </md-input-container>
+		     <md-input-container class="padd_btm10">
+		        <label>New Password</label>
+		        <input  type="password" class="chg-pwd">
+		     </md-input-container>
+		     <md-input-container class="padd_btm10">
+		        <label>Confirm Password</label>
+		        <input  type="password" class="chg-pwd">
+		     </md-input-container>
+		     <md-button class="green_btn_clr marglt-0 margrt-0">Save</md-button>
+        	</div>          
+        </md-content>
+      </md-tab>
+      <md-tab label="Favourites">
+        <md-content class="md-padding">
+	        <div layout="column" class="tab-4-content">
+	        
+	        </div>  
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>

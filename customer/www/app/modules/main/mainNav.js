@@ -118,6 +118,11 @@ angular.module('aviate.directives')
                 $state.go("app.orderHistory");
             }
             
+             $scope.showprofile = function(){
+                 
+                 $state.go("app.profile");
+             }
+             
          	$scope.removeFromMyCart = function(item, index) {
 				MyCartFactory.removeFromCart(item.product.productId, index,function(data){
 					if($rootScope.updateProductQuantity)

@@ -115,6 +115,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 .nomarg_btm{margin-bottom: 0px;}
 .marg-t70{margin-top: 70px;}
 .margrt-0 {	margin-right: 0px ! important;}
+.marglt-0 {	margin-left: 0px ! important;}
 .menu-drop {margin-top: 42px ! important;}
 .layout-fill-cust {margin-top: -58px ! important;}
 .mtopn8{margin-top:-8px;}
