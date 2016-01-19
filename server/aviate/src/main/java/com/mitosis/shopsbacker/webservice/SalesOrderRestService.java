@@ -457,7 +457,7 @@ public class SalesOrderRestService<T> {
 			orderGrossAmount+=totalTaxAmount;
 			salesOrder.setOrderTaxes(orderTaxes);
 			
-			salesOrder.setTotalTaxAmount(new BigDecimal(totalTaxAmount));
+			salesOrder.setTotalTaxAmount(new BigDecimal(totalTaxAmount).setScale(2, BigDecimal.ROUND_HALF_UP));
 			BigDecimal ShippingCharge = shippingChargesService.getShippingCharge(new BigDecimal(orderGrossAmount), store.getMerchant());
 			BigDecimal totalOrderGrossAmount = new BigDecimal(orderGrossAmount).add(ShippingCharge);
 			salesOrder.setShippingCharge(ShippingCharge);
