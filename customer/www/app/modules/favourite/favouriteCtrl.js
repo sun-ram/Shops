@@ -1,7 +1,7 @@
 angular.module('aviate.controllers')
-.controller("favouriteCtrl", ['$scope','$http','$stateParams','$rootScope','$state', 'FavouriteServices','MyCartServices','MyCartFactory','$mdDialog',
-                              function($scope,$http,$stateParams, $rootScope,$state, FavouriteServices,MyCartServices,MyCartFactory,$mdDialog) {
-
+.controller("favouriteCtrl", ['$scope','$http','$stateParams','$rootScope','$state', 'FavouriteServices','MyCartServices','MyCartFactory','$mdDialog','CheckOutServices',
+                              function($scope,$http,$stateParams, $rootScope,$state, FavouriteServices,MyCartServices,MyCartFactory,$mdDialog,CheckOutServices) {
+	
 	$scope.addFavourite = function(){
 		$scope.favourite = {};
 		$scope.favourite.name = $scope.favouriteName;
@@ -58,6 +58,14 @@ angular.module('aviate.controllers')
 
 		});	
 		
+	}
+	
+	$scope.getSalesOrderById = function(){
+		$scope.salesOrder = {};
+		$scope.salesOrder.salesOrderId = $stateParams.salesOrderId;
+		FavouriteServices.getSalesOrder($scope.salesOrder).then(function(data){
+			$scope.salesOrder = data[0];
+		});
 	}
 	
 	$rootScope.conformFavourite = function(ev){

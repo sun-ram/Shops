@@ -268,6 +268,20 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 			});
 		};		
 		
+		apiClass.Product.getProductSearch = function (product, callback) {
+			httpRequest("POST", "product/search", product, function (err, data) {
+				if (err) {
+
+					callback(err, null);
+
+				} else {
+
+					callback(null, data);
+
+				}
+			});
+		};		
+		
 		
 
 		/*Location Api*/
@@ -622,6 +636,19 @@ angular.module('aviate.providers').provider('api', function ApiProvider() {
 
 					callback(null, data);
 
+				}
+			});
+		};
+		
+		apiClass.CheckOut.getSalesOrder = function (salesorder, callback) {
+			httpRequest("POST", "sales/getsalesorderbyid", salesorder, function (err, data) {
+				if (err) {
+		
+					callback(err, null);
+		
+				} else {
+		
+					callback(null, data);
 				}
 			});
 		};

@@ -768,5 +768,32 @@ public class SalesOrderRestService<T> {
 		}
 		return responseStr;
 	}
-
+	
+	@Path("/getsalesorderbyid")
+	@POST   
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public String getSalesOrderById(SalesOrderVo salesOrderVo) {
+		salesOrderResponse = new SalesOrderResponseVo();
+		SalesOrderVo salesOrderVos =  new SalesOrderVo();
+		String responseStr = "";
+		try {
+			SalesOrder salesOrder = salesOrderService
+					.getSalesOrderById(salesOrderVo.getSalesOrderId());
+			if (salesOrder != null) {
+				salesOrderVos.setSalesOrderId(salesOrder.getSalesOrderId());
+				salesOrderVos.setDeliveryDate(CommonUtil.dateToStringForSalesOrder(salesOrder.getDeliveryDate()));
+				System.out.print(salesOrder.getDeliveryTimeSlot());
+				salesOrderVos.setDeliveryTimeSlot(CommonUtil.convertTimeToString(salesOrder.getDeliveryTimeSlot()));
+				salesOrderResponse.getSalesOrderList().add(salesOrderVos);
+			}
+			responseStr = CommonUtil.getObjectMapper(salesOrderResponse);
+		}catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return responseStr;
+		}
+	
 }

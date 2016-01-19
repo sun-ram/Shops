@@ -1,6 +1,6 @@
 <!-- <link rel="stylesheet" href="assets/css/favourites.css"> -->
 
-<div class="fav-container">
+<div class="fav-container" ng-init="getSalesOrderById()">
 <div layout-gt-sm="column" layout-sm="column">
 	<div layout  flex="60" style="padding:10px 0px">
 		<div class="succ-container">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="succ-content">
 	      	 	<h1 class="md-title">Your order for groceries has been successfully placed. 
-	      	 	It will be delivered by 28-Jan at 11am.
+	      	 	It will be delivered by {{salesOrder.deliveryDate}} at {{salesOrder.deliveryTimeSlot}}.
 	      	 	Thank you for shopping at ShopsBacker.</h1>
 	        </div>
         </div>

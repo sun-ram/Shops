@@ -109,5 +109,18 @@ angular.module('aviate.services')
 		})
 		return d.promise;
 	};
+	
+	this.getSalesOrder = function(salesOrderVo){
+		var d = $q.defer();
+		api.CheckOut.getSalesOrder(salesOrderVo, function(err, result){
+			if(result.status === CONSTANT.STATUS.SUCCESS){
+				d.resolve(result.salesOrderList);
+			}
+			else{
+				toastr.error(result.errorString);
+			}
+		});
+		return d.promise;
+	};
 
 }]);
