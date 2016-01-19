@@ -2,12 +2,6 @@ angular.module('aviateAdmin.controllers')
 .controller("shippingChargesController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','ShippingChargeServices','toastr',
 			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,ShippingChargeServices, toastr) {
 	
-
-			 /* $scope.query = {
-					    limit: 5,
-					    page: 1
-					  };*/
-				
 				$scope.count = 3;
 				$scope.srch = true;
 				$scope.merchantVo = {

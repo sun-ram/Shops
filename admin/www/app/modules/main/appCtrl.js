@@ -12,14 +12,24 @@ angular.module('aviateAdmin.controllers')
 					limit: 5,
 					page: 1
 			};
-
+			
+			$scope.taxPagination = {
+					limit: 15,
+					page: 1
+			};
+			
+			$scope.shippingPagination = {
+					limit: 15,
+					page: 1
+			};
+			
 			$scope.storePagination = {
 					limit: 5,
 					page: 1
 			};
 			
 			$scope.unitsPagination = {
-					limit: 5,
+					limit: 15,
 					page: 1
 			};
 			

@@ -2,11 +2,6 @@ angular.module('aviateAdmin.controllers')
 .controller("taxController",['$scope', '$rootScope','$state','$filter','$mdDialog','ngTableParams','TaxServices','toastr',
 			 function($scope, $rootScope ,$state, $filter,$mdDialog,ngTableParams,TaxServices, toastr) {
 	
-
-			 /* $scope.query = {
-					    limit: 5,
-					    page: 1
-					  };*/
 				
 				$scope.count = 3;
 				$scope.srch = true;

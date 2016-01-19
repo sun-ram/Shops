@@ -90,7 +90,7 @@
         </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="tax in taxList | filter:searchTxt | orderBy: storePagination.order | limitTo: storePagination.limit: (storePagination.page - 1) * storePagination.limit" ng-click="redirectToStoreDetails(store);">
+		<tr ng-repeat="tax in taxList | filter:searchTxt | orderBy: taxPagination.order | limitTo: taxPagination.limit: (taxPagination.page - 1) * taxPagination.limit" ng-click="redirectToStoreDetails(store);">
 			<td><span ng-show="tax.taxId != showInLineEdit">{{tax.name}}</span>
 				<md-input-container ng-show="tax.taxId == showInLineEdit" ng-click="$event.stopPropagation();">
 	      		<input type="text" ng-model="taxEdit.name" maxlength="30" /> 
@@ -122,7 +122,7 @@
 	</md-data-table-container>
    </md-card-content>
    <div layout layout="row" class="table-pagination-bg" layout-align="center center">
-	<md-data-table-pagination md-limit="storePagination.limit" md-page="storePagination.page" md-total="{{taxList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
+	<md-data-table-pagination md-limit="taxPagination.limit" md-page="taxPagination.page" md-total="{{taxList.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </md-card>
 

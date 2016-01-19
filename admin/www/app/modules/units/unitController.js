@@ -1,11 +1,7 @@
 aviateAdmin.controller("unitController", ['$scope','$http','$localStorage','$location','$state','$rootScope','toastr','CONSTANT','UnitService','$mdDialog',
                                           function($scope,$http,$localStorage, $location,$state,$rootScope,toastr,CONSTANT,UnitService, $mdDialog) {
 
-	/* $scope.query = {
-			    limit: 5,
-			    page: 1
-			  };*/
-
+	
 	$scope.srch = true;
 	$scope.uom = $localStorage.uom;
   
