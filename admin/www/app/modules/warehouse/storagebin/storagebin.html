@@ -120,8 +120,8 @@
               <th name="Warehouse"></th>
               <th name="Description"></th>
               <th name="Row"></th>
-              <th name="Level"></th>
               <th name="Stack"></th>
+              <th name="Level"></th>
               <th name="Actions"></th>
         </tr>
 	</thead>
@@ -131,8 +131,8 @@
 			<td>{{storagebin.warehouse.name}}</td>
 			<td>{{storagebin.description}}</td>
 			<td>{{storagebin.row}}</td>
-	        <td>{{storagebin.level}}</td>		
 			<td>{{storagebin.stack}}</td>
+			<td>{{storagebin.level}}</td>
 			<td layout="row">			
         			<ng-md-icon icon="mode_edit" size="20" class="icons hash_color btn-success padd-t10 action-buttons wid-40" ng-click="editStoragebin(storagebin,whouse);$event.stopPropagation();"></ng-md-icon>
       	      		<ng-md-icon icon="close" size="20" class="icons hash_color btn-danger padd-t10 action-buttons wid-40" ng-click="deleteStorageBin(storagebin);$event.stopPropagation();"></ng-md-icon>
