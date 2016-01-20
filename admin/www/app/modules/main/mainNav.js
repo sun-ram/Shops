@@ -55,6 +55,10 @@ angular.module('aviateAdmin.directives').directive('mainNav', [
                      $state.go('login');
                    };
                    
+                   $scope.showprofile = function(){                       
+                       $state.go("app.profile");
+                   }
+                   
                    $scope.salesRedirect = function(){
                      $scope.salesOrderCountReceived =null;
     				 $localStorage.salesOrderCountReceived = null;

@@ -590,8 +590,14 @@ angular.module('app')
 		url: '/customerengagement',
 		templateUrl: 'app/modules/engagements/customerEngagement.html',
 		controller : 'customerEngagementCtrl'
+	})
+	
+	//Profile
+	.state('app.profile', { 
+		url: '/profile',
+		templateUrl: 'app/modules/profile/profile.html'
+		/*controller : 'profileCtrl'*/
 	});
-
 
 
 
