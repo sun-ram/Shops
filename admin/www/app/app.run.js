@@ -14,7 +14,7 @@ angular.module('app')
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 		var requireLogin = toState.data.requireLogin;
 		var authenticated = ($rootScope.user !== null);
-		console.log(toState.name + ' ' + toState.data.requireLogin);
+	//	console.log(toState.name + ' ' + toState.data.requireLogin);
 		if (requireLogin && !authenticated) {
 			event.preventDefault();
 			$state.go('login');

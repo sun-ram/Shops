@@ -1,4 +1,4 @@
-angular.module('aviate.directives')
+/*angular.module('aviate.directives')
 .directive('resize', function ($window) {
     return function (scope, element) {
         var w = angular.element($window);
@@ -52,4 +52,4 @@ angular.module('aviate.directives')
             scope.$apply();
         });
     }
-})
+})*/
